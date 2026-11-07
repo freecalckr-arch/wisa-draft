@@ -25,6 +25,20 @@
   .tag.on { background: var(--accent); color: #fff; }
   h2 { margin: 8px 0 0; font-size: 15px; color: var(--muted); font-weight: 600; }
 </style>
+<script>
+  /* patch-168 새 버전 자동 반영: GitHub Pages 는 브라우저가 페이지를 10분간 저장해 두고 씀 (탭 전환 · 링크 이동 시 이전 버전이 보일 수 있음)
+     → 서버 파일이 지금 보는 것보다 새로우면 새로 받아 한 번만 다시 엶 */
+  (() => {
+    if (!/^https?:$/.test(location.protocol)) return;
+    const k = "fresh:" + location.pathname;
+    fetch(location.href, { method: "HEAD", cache: "no-store" }).then(r => {
+      const lm = r.headers.get("last-modified"); if (!lm) return;
+      if (new Date(lm) - new Date(document.lastModified) < 2000) return;
+      try { if (sessionStorage.getItem(k) === lm) return; sessionStorage.setItem(k, lm); } catch (e) { return; }
+      fetch(location.href, { cache: "reload" }).then(() => location.reload(), () => location.reload());
+    }).catch(() => {});
+  })();
+</script>
 </head>
 <body>
 <div class="wrap">

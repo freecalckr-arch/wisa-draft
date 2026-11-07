@@ -7,6 +7,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-07 patch-168: 새 버전 자동 반영 — 브라우저 저장본(10분)이 서버보다 오래되면 한 번 새로 받아 다시 엶
      · 2026-11-07 patch-167: 시안 히스토리 정리 — 표기 규칙(페이지명 · 버전 · 타입(2개 이상일 때) · 해상도), 고객에게 공유한 시안만 (GEO 반응형은 최종 1개)
      · 2026-11-07 patch-164: 사이즈 규칙 적용 — 히어로 파란 박스 태블릿 · 모바일 444 · 문제 551×300 · 단계 카드 화면 352×254 · 해결 460×380 을 1439 이하에서 비율 축소 (스크립트 geo-scale) · 그래프 태블릿 220 (chart-tb 640×220) · 모바일 210 (chart-mo 298×210)
      · 2026-11-07 patch-166: 해결 영역 창(460×380) 빈 공간 채움 — 해결 구조화 데이터 코드 3줄 추가 (reviewCount · brand · description), 점검 질문 1개 추가 (세라마이드 크림 후기 2위)
@@ -3148,6 +3149,20 @@
 <script>
   /* patch-163 탭 전환으로 들어오면 히어로 등장 애니메이션 생략 */
   addEventListener("pagereveal", e => { if (e.viewTransition) document.documentElement.classList.add("sw"); });
+</script>
+<script>
+  /* patch-168 새 버전 자동 반영: GitHub Pages 는 브라우저가 페이지를 10분간 저장해 두고 씀 (탭 전환 · 링크 이동 시 이전 버전이 보일 수 있음)
+     → 서버 파일이 지금 보는 것보다 새로우면 새로 받아 한 번만 다시 엶 */
+  (() => {
+    if (!/^https?:$/.test(location.protocol)) return;
+    const k = "fresh:" + location.pathname;
+    fetch(location.href, { method: "HEAD", cache: "no-store" }).then(r => {
+      const lm = r.headers.get("last-modified"); if (!lm) return;
+      if (new Date(lm) - new Date(document.lastModified) < 2000) return;
+      try { if (sessionStorage.getItem(k) === lm) return; sessionStorage.setItem(k, lm); } catch (e) { return; }
+      fetch(location.href, { cache: "reload" }).then(() => location.reload(), () => location.reload());
+    }).catch(() => {});
+  })();
 </script>
 </head>
 <body>

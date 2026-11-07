@@ -6,6 +6,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-07 patch-168: 새 버전 자동 반영 — 브라우저 저장본(10분)이 서버보다 오래되면 한 번 새로 받아 다시 엶
      · 2026-11-07 patch-167: 시안 히스토리 정리 — 표기 규칙(페이지명 · 버전 · 타입(2개 이상일 때) · 해상도), 고객에게 공유한 시안만 (GEO 반응형은 최종 1개)
      · 2026-11-07 patch-165: 크기 · 큰 여백 0 단위 — 문제 카드 여백 40 · 간격 60 (이미지 550×300) · 사례 카드 간격 20 (사진 400×210) · 히어로 박스 태블릿 · 모바일 440 · 단계 탭 패널 여백 40 · 50 · 간격 60 (화면 560×480)
      · 2026-11-07 patch-163: 시안 히스토리 GEO 반응형 최종 · 온사이트 1차를 웹 주소(geo.html · onsite.html)로 연결, 히어로 탭 GEO ↔ 온사이트 전환형 (미리 불러오기 + 화면 전환 효과, 개발 시 일반 링크로 둬도 됨)
@@ -4866,6 +4867,20 @@
 <script>
   /* patch-163 탭 전환으로 들어오면 히어로 등장 애니메이션 생략 */
   addEventListener("pagereveal", e => { if (e.viewTransition) document.documentElement.classList.add("sw"); });
+</script>
+<script>
+  /* patch-168 새 버전 자동 반영: GitHub Pages 는 브라우저가 페이지를 10분간 저장해 두고 씀 (탭 전환 · 링크 이동 시 이전 버전이 보일 수 있음)
+     → 서버 파일이 지금 보는 것보다 새로우면 새로 받아 한 번만 다시 엶 */
+  (() => {
+    if (!/^https?:$/.test(location.protocol)) return;
+    const k = "fresh:" + location.pathname;
+    fetch(location.href, { method: "HEAD", cache: "no-store" }).then(r => {
+      const lm = r.headers.get("last-modified"); if (!lm) return;
+      if (new Date(lm) - new Date(document.lastModified) < 2000) return;
+      try { if (sessionStorage.getItem(k) === lm) return; sessionStorage.setItem(k, lm); } catch (e) { return; }
+      fetch(location.href, { cache: "reload" }).then(() => location.reload(), () => location.reload());
+    }).catch(() => {});
+  })();
 </script>
 </head>
 <body>
