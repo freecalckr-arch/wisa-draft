@@ -8,6 +8,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-07 patch-180: CRM 2차 디벨롭 — 예시 업종 장보기(가상 쇼핑몰 그린바스켓 · 이미지 assets/geo/grocery 임시) · 히어로 새 구성(장바구니 → 쿠폰 메시지 → 결제, 휴대폰 화면이 제목 채널과 함께 바뀜) · 단계 메시지를 카카오톡 · 문자 · 앱 푸시 · 이메일 실제 화면처럼 · 광고 메시지 (광고) 표기 · 분석 그래프 라인 · CSS @region crm-v2
      · 2026-11-07 patch-178: 고객 프로필 일러스트 → 실사 인물 사진 10장(assets/geo/profile/pt-01~10.jpg) 중 페이지 열 때마다 무작위 — 단계 말풍선 · 고객 카드 · 히어로 피드가 같은 고객이면 같은 사진 (이름 성별에 맞춤 · wisa.js profile-shuffle · wisaPf)
      · 2026-11-07 patch-177: CRM마케팅 1차 시안 — onsite.html 을 복사해 만든 페이지 (헤더 · 푸터 · 영역 틀 · 반응형 규칙은 온사이트와 같음)
          내용: 기획문서 CRM 섹션 (https://claude.ai/artifact/1Ha9stzfkA4fdiCrGmFzgx#crm) 문장 · 흐름을 온사이트 영역 규격에 맞춰 재구성
@@ -2089,6 +2090,131 @@
   .cr-ab li.b i::after { background: var(--primary-600); } .cr-ab li b { text-align: right; font-variant-numeric: tabular-nums; } .cr-ab li.b b { color: var(--primary-600); }
   .cr-ab li em { padding: 1px 6px; border-radius: 6px; background: var(--primary-50); color: var(--primary-700); font-style: normal; font-size: 10.5px; font-weight: 700; } .cr-ab li:not(.b)::after { content: ""; }
   /* @endregion */
+
+  /* =====================================================================
+     @region crm-v2 (patch-180 · 2026-11-07): 업종 장보기(예시 쇼핑몰 '그린바스켓') · 히어로 새 구성 · 채널별 실제 메시지 화면 · 분석 라인 그래프
+     · 메시지 화면 클래스 접두사 mu- (카카오톡 mu-kt · 문자 mu-sms · 앱 푸시 mu-push · 이메일 mu-ml) — 실제 앱 화면을 본뜬 예시
+     · 광고성 메시지(쿠폰 · 할인)는 (광고) 표기 · 수신거부 안내 포함 / 알림톡은 정보성(배송 · 등급 안내)만
+     ===================================================================== */
+  .cr-no { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; margin-right: 6px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 11px; font-weight: 800; line-height: 1; }
+  /* 히어로: ① 장바구니 → ② 휴대폰(메시지) → ③ 결제 완료 */
+  .sh-visual.cr-hv2 { --cw: 320px; --sw: 236px; --sg: 56px; }
+  .cr-hv2 .hv-card > b { justify-content: flex-start; gap: 0; } .cr-hv2 .hv-card > b small { margin-left: auto; }
+  .cr-cart { top: 56px; }
+  .cr-cart ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .cr-cart li { display: flex; align-items: center; gap: 10px; }
+  .cr-cart li i { flex: none; width: 40px; height: 40px; border-radius: 10px; overflow: hidden; background: var(--gray-100); } .cr-cart li img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .cr-cart li p { margin: 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+  .cr-cart li em { font-style: normal; font-weight: 700; color: var(--black); }
+  .cr-cart .tot { display: flex; justify-content: space-between; align-items: center; margin: 12px 0 0; padding-top: 12px; border-top: 1px dashed var(--gray-200); font-size: 12px; color: var(--gray-500); } .cr-cart .tot b { font-size: 15px; font-weight: 800; color: var(--black); }
+  .cr-cart .trg { display: flex; align-items: center; gap: 6px; margin: 12px 0 0; padding: 8px 10px; border-radius: 10px; background: #fffaeb; font-size: 11.5px; font-weight: 700; color: #b54708; } .cr-cart .trg svg { flex: none; width: 14px; height: 14px; color: #f79009; }
+  .cr-paid { top: 48px; }
+  .cr-paid .who { display: flex; align-items: center; gap: 10px; } .cr-paid .pf { flex: none; width: 36px; height: 36px; border-radius: 50%; overflow: hidden; } .cr-paid .pf img { display: block; width: 100%; height: 100%; }
+  .cr-paid .who p { margin: 0; display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--black); } .cr-paid .who small { font-size: 11.5px; color: var(--gray-500); }
+  .cr-paid .ok { margin-left: auto; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #12b76a; color: var(--white); } .cr-paid .ok svg { width: 14px; height: 14px; }
+  .cr-paid dl { margin: 12px 0 0; display: flex; flex-direction: column; gap: 6px; } .cr-paid dl div { display: flex; justify-content: space-between; font-size: 12px; }
+  .cr-paid dt { color: var(--gray-500); } .cr-paid dd { margin: 0; font-weight: 600; color: var(--gray-900); } .cr-paid dd.dc { color: #d92d20; }
+  .cr-paid dl .t { margin-top: 2px; padding-top: 8px; border-top: 1px solid var(--gray-100); } .cr-paid dl .t dt { font-weight: 700; color: var(--gray-900); } .cr-paid dl .t dd { font-size: 15px; font-weight: 800; color: var(--primary-700); }
+  .cr-hv2 .cr-sum { bottom: 40px; }
+  .cr-pn { position: relative; z-index: 1; align-self: flex-end; width: 300px; height: 404px; padding: 10px 10px 0; border-radius: 42px 42px 0 0; background: var(--gray-900); box-shadow: 0 24px 60px rgba(21,112,239,.22); }
+  .cr-pn-lb { position: absolute; left: 50%; top: -42px; z-index: 2; transform: translateX(-50%); display: inline-flex; align-items: center; padding: 5px 12px 5px 5px; border-radius: 99px; background: var(--white); box-shadow: 0 6px 16px rgba(21,112,239,.14); font-size: 12.5px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }
+  .cr-pn-scr { position: relative; height: 100%; border-radius: 32px 32px 0 0; overflow: hidden; background: var(--white); }
+  .cr-pn-scr .mu { position: absolute; inset: 0; border-radius: 0; opacity: 0; transform: translateY(12px); transition: opacity .45s ease, transform .45s var(--ease-out); }
+  .cr-pn-scr .mu.on { opacity: 1; transform: none; }
+  .cr-pn-scr .mu-sb { height: 32px; padding-top: 4px; }
+  @media (prefers-reduced-motion: reduce) { .cr-pn-scr .mu { transition: none; } }
+  @media (min-width: 1024px) and (max-width: 1279px) { .sh-visual.cr-hv2 { --cw: 300px; --sw: 212px; --sg: 22px; } }
+  @media (max-width: 1023px) { .cr-pn { height: 380px; } }
+  @media (max-width: 767px) { .cr-pn { width: min(300px, calc(100vw - 64px)); } }
+
+  /* 메시지 화면 공통 */
+  .mu { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; border-radius: 16px; background: var(--white); text-align: left; letter-spacing: -.01em; }
+  .mu-sb { flex: none; display: flex; align-items: center; gap: 4px; height: 26px; padding: 0 14px 0 18px; font-size: 11px; font-weight: 700; color: var(--gray-900); }
+  .mu-sb span { margin-right: auto; font-variant-numeric: tabular-nums; } .mu-sb.lt { color: var(--white); }
+  .mu-sig { display: flex; align-items: flex-end; gap: 1.5px; height: 9px; } .mu-sig b { width: 2.5px; border-radius: 1px; background: currentColor; }
+  .mu-sig b:nth-child(1) { height: 3px; } .mu-sig b:nth-child(2) { height: 5px; } .mu-sig b:nth-child(3) { height: 7px; } .mu-sig b:nth-child(4) { height: 9px; }
+  .mu-bat { position: relative; width: 19px; height: 9px; margin-left: 3px; border: 1.5px solid currentColor; border-radius: 3px; opacity: .9; } .mu-bat::after { content: ""; position: absolute; inset: 1px 4px 1px 1px; border-radius: 1px; background: currentColor; }
+  .mu .bk { flex: none; width: 18px; height: 18px; }
+  .mu-day { margin: 8px auto; text-align: center; font-size: 10px; line-height: 14px; }
+  .mu-logo { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 12px; background: #12b76a; color: var(--white); font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: .02em; }
+  .mu .os8-p { top: -8px; right: -8px; }
+  .mu-kt-bb .cp, .mu-ml .cp { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 7px 10px; border-radius: 8px; border: 1px dashed #84caff; background: var(--primary-50); font-size: 11px; font-weight: 700; color: var(--primary-700); }
+  .mu .cp em { font-style: normal; } .mu .cp small { font-size: 10px; font-weight: 600; color: #53b1fd; white-space: nowrap; }
+  .mu .info { position: relative; display: flex; flex-direction: column; gap: 3px; padding: 8px 10px; border-radius: 8px; background: var(--gray-50); font-size: 11px; line-height: 16px; color: var(--gray-600); } .mu .info b { position: relative; align-self: flex-start; font-size: 11.5px; color: var(--gray-900); }
+  /* 카카오톡 채팅방 */
+  .mu-kt { background: color-mix(in srgb, var(--primary-100) 55%, var(--gray-300)); }
+  .mu-kt-hd { flex: none; display: flex; align-items: center; gap: 4px; height: 36px; padding: 0 12px 0 8px; color: var(--gray-900); } .mu-kt-hd b { font-size: 13.5px; font-weight: 700; }
+  .mu-kt-hd .ck { position: relative; width: 13px; height: 13px; border-radius: 50%; background: var(--primary-600); } .mu-kt-hd .ck::after { content: ""; position: absolute; left: 4.5px; top: 2.5px; width: 3px; height: 6px; border: solid var(--white); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+  .mu .ic { margin-left: auto; display: flex; flex-direction: column; gap: 3px; } .mu .ic i { width: 15px; height: 1.8px; border-radius: 1px; background: currentColor; }
+  .mu-kt-bd { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 0 10px 10px 8px; overflow: hidden; }
+  .mu-kt-bd .mu-day { margin: 2px auto 10px; padding: 3px 10px; border-radius: 99px; background: color-mix(in srgb, var(--gray-900) 14%, transparent); color: var(--white); }
+  .mu-kt-row { display: flex; align-items: flex-end; gap: 5px; } .mu-kt-row > .mu-logo { align-self: flex-start; }
+  .mu-kt-row > time { flex: none; font-size: 9.5px; color: var(--gray-600); white-space: nowrap; }
+  .mu-kt-col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; } .mu-kt-col .nm { font-size: 11px; color: var(--gray-700); }
+  .mu-kt-bb { border-radius: 4px 14px 14px 14px; background: var(--white); overflow: hidden; }
+  .mu-kt-bb .at { margin: 0; padding: 8px 12px; background: #fec84b; font-size: 12px; font-weight: 700; color: var(--gray-900); }
+  .mu-kt-bb .im { display: block; height: 104px; } .mu-kt-bb .im img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .mu-kt-bb .tx { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; }
+  .mu-kt-bb .t, .mu-push .t, .mu-ml-sj b { position: relative; display: block; }
+  .mu-kt-bb .t { font-size: 12.5px; line-height: 18px; font-weight: 700; color: var(--black); } .mu-kt-bb .tx > p { margin: 0; font-size: 11.5px; line-height: 17px; color: var(--gray-700); }
+  .mu-kt-bb .bt { display: flex; flex-direction: column; gap: 5px; padding: 0 12px 12px; }
+  .mu-kt-bb .bt span { position: relative; padding: 8px; border-radius: 6px; background: var(--gray-100); text-align: center; font-size: 11.5px; font-weight: 600; color: var(--gray-900); }
+  .mu-kt-bb .ft { margin: -4px 0 0; padding: 0 12px 10px; font-size: 9.5px; color: var(--gray-400); }
+  /* 문자 (메시지 앱) */
+  .mu-sms-hd { position: relative; flex: none; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 2px 0 8px; border-bottom: 1px solid var(--gray-100); background: var(--gray-50); }
+  .mu-sms-hd .bk { position: absolute; left: 8px; top: 8px; color: var(--primary-600); }
+  .mu-sms-hd .av { display: grid; place-items: end center; width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(var(--gray-300), var(--gray-400)); color: var(--white); overflow: hidden; } .mu-sms-hd .av svg { width: 26px; height: 26px; }
+  .mu-sms-hd b { font-size: 11px; font-weight: 600; color: var(--gray-900); }
+  .mu-sms-bd { flex: 1; min-height: 0; padding: 0 12px; overflow: hidden; } .mu-sms-bd .mu-day { margin: 10px auto; color: var(--gray-400); }
+  .mu-sms-bb { position: relative; max-width: 90%; padding: 9px 12px; border-radius: 18px 18px 18px 6px; background: var(--gray-200); font-size: 12px; line-height: 17px; color: var(--gray-900); }
+  .mu-sms-bb p { position: relative; margin: 0; } .mu-sms-bb p + p { margin-top: 4px; } .mu-sms-bb .t, .mu-sms-bb .cp { font-weight: 700; } .mu-sms-bb a { color: var(--primary-600); text-decoration: underline; }
+  .mu-sms-bb p > .os8-p { position: static; display: inline-grid; margin-left: 4px; vertical-align: -3px; }
+  .mu-sms-in { flex: none; display: flex; align-items: center; gap: 8px; padding: 8px 10px 12px; }
+  .mu-sms-in i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--gray-100); color: var(--gray-500); font-style: normal; font-size: 16px; }
+  .mu-sms-in span { flex: 1; padding: 6px 12px; border-radius: 99px; border: 1px solid var(--gray-200); font-size: 11.5px; color: var(--gray-400); }
+  /* 앱 푸시 (잠금 화면) */
+  .mu-push { background: radial-gradient(120% 70% at 15% 0%, #a4bcfd 0%, transparent 60%), radial-gradient(100% 60% at 100% 100%, #84caff 0%, transparent 60%), linear-gradient(170deg, #444ce7, #1570ef); color: var(--white); }
+  .mu-lk-d { margin: 10px 0 0; text-align: center; font-size: 12px; font-weight: 600; opacity: .9; }
+  .mu-lk-t { margin: 0; text-align: center; font-size: 58px; line-height: 1.05; font-weight: 700; letter-spacing: -.02em; }
+  .mu-nts { margin-top: auto; display: flex; flex-direction: column; gap: 6px; padding: 10px; }
+  .mu-nt { position: relative; padding: 10px 12px; border-radius: 16px; background: rgba(255,255,255,.8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: var(--gray-900); }
+  .mu-nt .hd { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 10.5px; font-weight: 600; color: var(--gray-600); } .mu-nt .hd time { margin-left: auto; font-weight: 500; }
+  .mu-app { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 5px; background: #12b76a; color: var(--white); font-style: normal; font-size: 7px; font-weight: 800; }
+  .mu-nt .bd { display: flex; gap: 8px; } .mu-nt .bd > div { flex: 1; min-width: 0; }
+  .mu-push .t { font-size: 12px; line-height: 16px; font-weight: 700; } .mu-nt .bd p { position: relative; margin: 2px 0 0; font-size: 11.5px; line-height: 16px; color: var(--gray-700); }
+  .mu-nt .th { flex: none; width: 40px; height: 40px; border-radius: 8px; overflow: hidden; } .mu-nt .th img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .mu-nt .ac { display: flex; gap: 6px; margin-top: 8px; } .mu-nt .ac span { position: relative; flex: 1; padding: 7px; border-radius: 10px; background: rgba(255,255,255,.75); text-align: center; font-size: 11px; font-weight: 700; color: var(--gray-700); } .mu-nt .ac span:first-child { color: var(--primary-700); }
+  .mu-nt.pv { padding: 8px 12px; opacity: .78; transform: scale(.95); transform-origin: 50% 100%; } .mu-nt.pv b { display: block; font-size: 11px; font-weight: 600; }
+  /* 이메일 (메일 앱) */
+  .mu-ml-hd { flex: none; display: flex; align-items: center; gap: 2px; height: 32px; padding: 0 12px 0 8px; font-size: 12px; color: var(--primary-600); } .mu-ml-hd .ic i { width: 4px; height: 4px; border-radius: 50%; background: var(--gray-400); } .mu-ml-hd .ic { flex-direction: row; }
+  .mu-ml-sj { padding: 2px 14px 8px; } .mu-ml-sj b { font-size: 13.5px; line-height: 19px; font-weight: 700; color: var(--black); }
+  .mu-ml-fr { display: flex; align-items: center; gap: 8px; padding: 0 14px 10px; border-bottom: 1px solid var(--gray-100); } .mu-ml-fr .mu-logo { width: 28px; height: 28px; border-radius: 50%; font-size: 9px; }
+  .mu-ml-fr p { margin: 0; display: flex; flex-direction: column; gap: 1px; } .mu-ml-fr b { font-size: 11.5px; color: var(--gray-900); } .mu-ml-fr small { font-size: 10.5px; color: var(--gray-500); }
+  .mu-ml-bd { flex: 1; min-height: 0; padding: 10px; overflow: hidden; background: var(--gray-50); }
+  .mu-ml-bd .im { display: block; height: 80px; border-radius: 10px 10px 0 0; overflow: hidden; } .mu-ml-bd .im img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .mu-ml-bd .ct { display: flex; flex-direction: column; gap: 7px; padding: 12px; border-radius: 0 0 10px 10px; background: var(--white); } .mu-ml-bd .ct > b { font-size: 13px; font-weight: 800; color: var(--black); } .mu-ml-bd .ct > p { margin: 0; font-size: 11.5px; line-height: 16px; color: var(--gray-600); }
+  .mu-ml .chips { position: relative; display: flex; flex-wrap: wrap; gap: 6px; } .mu-ml .chips em { padding: 4px 8px; border-radius: 6px; background: var(--primary-50); color: var(--primary-700); font-style: normal; font-size: 11px; font-weight: 700; }
+  .mu-ml .cart { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; } .mu-ml .cart li { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--gray-700); }
+  .mu-ml .cart i { flex: none; width: 28px; height: 28px; border-radius: 6px; overflow: hidden; } .mu-ml .cart img { display: block; width: 100%; height: 100%; object-fit: cover; } .mu-ml .cart em { margin-left: auto; font-style: normal; font-weight: 700; color: var(--gray-900); }
+  .mu-ml .cta { position: relative; padding: 9px; border-radius: 8px; background: var(--gray-900); color: var(--white); text-align: center; font-size: 12px; font-weight: 700; }
+  /* 단계 탭 화면 안 메시지 */
+  .cr-st-row > .mu { height: 100%; box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .cr-st-row > .mu { height: 335px; }
+  .cr-st-row > .mu .mu-kt-bb .im { height: 64px; } .cr-st-row > .mu-kt .mu-day, .cr-st-row > .mu-kt .bt span:nth-child(2), .cr-st-row > .mu-kt .ft { display: none; }
+  .cr-st-row > .mu-push .mu-lk-t { font-size: 48px; }
+
+  /* 해결 1단계 분석: 다시 주문하기까지 걸린 날 (라인 그래프) */
+  .cr-lc { display: block; width: 100%; height: auto; overflow: visible; }
+  .cr-lc .g { stroke: var(--gray-100); stroke-width: 1; }
+  .cr-lc .wz { fill: #fffaeb; } .cr-lc .wl { font-size: 10.5px; font-weight: 700; fill: #dc6803; }
+  .cr-lc .ar { fill: url(#crLcG); } .cr-lc .ln { fill: none; stroke: var(--primary-600); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 1.6s var(--ease-out); }
+  .cr-lc .pt, .cr-lc .pw { fill: var(--white); stroke-width: 2; } .cr-lc .pt { stroke: var(--primary-600); } .cr-lc .pw { stroke: #f79009; } .cr-lc .pk { fill: var(--primary-600); stroke: var(--white); stroke-width: 2; }
+  .cr-lc .ar, .cr-lc circle, .cr-lc .tip { opacity: 0; transition: opacity .5s ease 1s; }
+  .os2-anim.go .cr-lc .ln { stroke-dashoffset: 0; } .os2-anim.go .cr-lc .ar, .os2-anim.go .cr-lc circle, .os2-anim.go .cr-lc .tip { opacity: 1; }
+  .cr-lc .tip rect { fill: var(--gray-900); } .cr-lc .tip text { fill: var(--white); font-size: 11px; font-weight: 700; }
+  .cr-lc .xl { font-size: 10.5px; fill: var(--gray-500); }
+  @media (prefers-reduced-motion: reduce) { .cr-lc .ln { stroke-dashoffset: 0; transition: none; } .cr-lc .ar, .cr-lc circle, .cr-lc .tip { opacity: 1; transition: none; } }
+  /* @endregion crm-v2 */
 </style>
 </head>
 <body>
@@ -2131,28 +2257,48 @@
       <a href="report.html" data-vh="리포트">리포트</a>
     </nav>
     <div class="sh-text">
-      <!-- [CRM] 제목 롤링: 바뀌는 자리는 발송 채널 하나 (알림톡 · 문자 · 이메일 · 앱 푸시) · 앞뒤 문장은 그대로 -->
-      <h1 class="rv" style="--d:80ms">한 번 산 고객을<br><span class="ai-roll" aria-label="알림톡 · 문자 · 이메일 · 앱 푸시로"><span class="ai-roll-in"><span><i class="cr-ch kt"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>알림톡으로</span><span><i class="cr-ch sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자로</span><span><i class="cr-ch mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></i>이메일로</span><span><i class="cr-ch push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></i>앱 푸시로</span></span></span><br class="mo-br tb-br"> <em class="gt">다시 찾아오게</em> 만듭니다</h1>
+      <!-- [CRM] 제목 롤링: 바뀌는 자리는 발송 채널 하나 (카카오톡 · 문자 · 이메일 · 앱 푸시) · 오른쪽 휴대폰 화면도 같은 채널로 바뀜 (patch-180) · 앞뒤 문장은 그대로 -->
+      <h1 class="rv" style="--d:80ms">한 번 산 고객을<br><span class="ai-roll" aria-label="카카오톡 · 문자 · 이메일 · 앱 푸시로"><span class="ai-roll-in"><span><i class="cr-ch kt"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>카카오톡으로</span><span><i class="cr-ch sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자로</span><span><i class="cr-ch mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></i>이메일로</span><span><i class="cr-ch push"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></i>앱 푸시로</span></span></span><br class="mo-br tb-br"> <em class="gt">다시 찾아오게</em> 만듭니다</h1>
       <p class="rv" style="--d:160ms">구매 이후의 관계를 데이터로 관리합니다.<br class="pc-only"> 고객을 나누고, 다시 살 시점에 맞는 메시지와 혜택을 보냅니다.</p>
       <ul class="chips rv" style="--d:220ms"><li>고객 데이터 기반</li><li>자동 발송</li><li>이커머스 전문</li></ul>
     </div>
   </div>
   <div class="container">
-    <div class="sh-visual hv cr-hv os2-anim rv" style="--d:260ms" aria-hidden="true">   <!-- [CRM] 히어로 비주얼: 같은 쇼핑몰 · 다른 고객 단계 → 다른 시점 · 다른 메시지 (첫 구매 고객 / 휴면 징후 고객) · 왼쪽 고객 단계 분포 · 오른쪽 자동 발송 피드 (스크립트 crm-hero) -->
-      <div class="hv-card l cr-life"><b>고객 생애주기 <small>이번 달</small></b>
-        <ul><li style="--v:1"><span>첫 구매</span><i></i><em>1,240</em></li><li style="--v:.69"><span>재구매 유도</span><i></i><em>860</em></li><li style="--v:.95"><span>단골 성장</span><i></i><em>1,180</em></li><li class="w" style="--v:.2"><span>휴면 징후</span><i></i><em>248</em></li><li style="--v:.08"><span>이탈 복귀</span><i></i><em>96</em></li><li style="--v:.05"><span>VIP · 추천</span><i></i><em>64</em></li></ul></div>
-      <div class="cr-duo">
-        <div class="cr-ph a"><div class="cr-ph-hd"><span class="cr-tag">첫 구매 고객</span><span class="cr-meta">구매 3일째 자동 발송</span></div>
-          <div class="cr-scr"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><span class="cr-chn">알림톡</span></div>
-            <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/rw-model-grey.webp" alt=""></i><div class="cr-mb"><b>김*연님, 첫 주문 고마워요</b><p>맨투맨을 오래 입는 세탁 방법도 함께 알려드려요.</p><span class="cr-cp"><em>두 번째 구매 10% 쿠폰</em><small>11.30까지</small></span><span class="cr-btn">쿠폰 받고 둘러보기</span></div></div>
-          </div></div>
-        <div class="cr-ph b"><div class="cr-ph-hd"><span class="cr-tag">휴면 징후 고객</span><span class="cr-meta">마지막 구매 62일째 발송</span></div>
-          <div class="cr-scr"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><span class="cr-chn">알림톡</span></div>
-            <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/rw-sit-wine.webp" alt=""></i><div class="cr-mb"><b>최*아님, 새 컬러가 나왔어요</b><p>좋아하신 바시티 스웨트, 와인 컬러로 만나보세요.</p><span class="cr-cp"><em>다시 만나는 쿠폰 3,000원</em><small>7일간</small></span><span class="cr-btn">새 컬러 보기</span></div></div>
-          </div></div>
-      </div>
-      <div class="hv-card r cr-feed"><b>자동 발송 <small>실시간</small></b><ul></ul></div>
-      <div class="hv-card r cr-sum"><svg class="cr-spark" viewBox="0 0 72 36" aria-hidden="true"><defs><linearGradient id="crSpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e90fa" stop-opacity=".35"/><stop offset="1" stop-color="#2e90fa" stop-opacity="0"/></linearGradient></defs><path d="M2 30 L12 28 L22 25 L32 24 L42 17 L52 14 L62 10 L70 6 V36 H2 Z" fill="url(#crSpG)"/><path d="M2 30 L12 28 L22 25 L32 24 L42 17 L52 14 L62 10 L70 6" fill="none" stroke="#1570ef" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p><span>90일 재구매율</span><b>31% <em>▲ 2%p</em></b></p></div>
+    <div class="sh-visual hv cr-hv cr-hv2 rv" style="--d:260ms" aria-hidden="true">   <!-- [CRM] 히어로 비주얼 (patch-180): 장바구니에 담고 떠난 고객 → 24시간 뒤 쿠폰 메시지 → 쿠폰으로 결제 · 가운데 휴대폰 화면은 제목 롤링 채널(카카오톡 · 문자 · 이메일 · 앱 푸시)과 함께 바뀜 (스크립트 crm-hero) · 실제 앱 화면을 본뜬 예시 -->
+      <div class="hv-card l cr-cart"><b><span class="cr-no">1</span>장바구니 <small>담은 지 1일 · 결제 전</small></b>
+        <ul><li><i><img src="assets/geo/grocery/gr-beef.jpg" alt=""></i><p><span>1++ 한우 등심 300g</span><em>39,000원</em></p></li><li><i><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></i><p><span>설향 딸기 500g</span><em>12,900원</em></p></li><li><i><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></i><p><span>무가당 그릭요거트</span><em>6,900원</em></p></li></ul>
+        <p class="tot"><span>상품 3개</span><b>58,800원</b></p>
+        <p class="trg"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>24시간 결제가 없으면 자동 발송</p></div>
+      <div class="cr-pn"><span class="cr-pn-lb"><span class="cr-no">2</span>장바구니 쿠폰 메시지</span><div class="cr-pn-scr">
+<div data-ch="0" class="mu on mu-kt"><div class="mu-sb"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="mu-kt-bd"><p class="mu-day">2026년 11월 6일 목요일</p>
+    <div class="mu-kt-row"><i class="mu-logo">GB</i><div class="mu-kt-col"><span class="nm">그린바스켓</span>
+      <div class="mu-kt-bb ad"><i class="im"><img src="assets/geo/grocery/gr-beef.jpg" alt=""></i>
+        <div class="tx"><b class="t">(광고) 정*우님, 장바구니에 담아두신 한우 등심</b><p>오늘부터 48시간 동안 장바구니 상품을 15% 할인해 드려요.</p><span class="cp"><em>장바구니 상품 15% 할인</em><small>11.08 10:00까지</small></span></div>
+        <div class="bt"><span>장바구니 바로가기</span><span>쿠폰 받기</span></div><p class="ft">수신거부 | 홈 &gt; 채널차단</p></div>
+    </div><time>오전 10:02</time></div>
+  </div></div>
+<div data-ch="1" class="mu mu-sms"><div class="mu-sb"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-sms-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="currentColor"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="currentColor"/></svg></span><b>1588-0000</b></div>
+  <div class="mu-sms-bd"><p class="mu-day">문자 메시지<br>오늘 오전 10:02</p><div class="mu-sms-bb"><p>(광고)[그린바스켓]</p><p>정*우님, 장바구니에 담아두신 한우 등심 · 딸기를 48시간 동안 15% 할인해 드려요.</p><p><a>grnb.kr/cart/8xk2</a></p><p>무료거부 0800000000</p></div></div>
+  <div class="mu-sms-in"><i aria-hidden="true">+</i><span>문자 메시지</span></div></div>
+<div data-ch="2" class="mu mu-ml"><div class="mu-sb"><span>07:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-ml-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span>받은편지함</span><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="mu-ml-sj"><b>(광고) 장바구니 상품 15% 할인 쿠폰이 도착했어요</b></div>
+  <div class="mu-ml-fr"><i class="mu-logo">GB</i><p><b>그린바스켓</b><small>나에게 · 오전 7:00</small></p></div>
+  <div class="mu-ml-bd"><i class="im"><img src="assets/geo/grocery/gr-banner.jpg" alt=""></i><div class="ct"><b>정*우님, 아직 고민 중이신가요?</b><p>담아두신 상품 3개를 48시간 동안 15% 할인해 드려요.</p><ul class="cart"><li><i><img src="assets/geo/grocery/gr-beef.jpg" alt=""></i><span>1++ 한우 등심</span><em>39,000원</em></li><li><i><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></i><span>설향 딸기 500g</span><em>12,900원</em></li></ul><span class="cta">장바구니에서 결제하기</span></div></div></div>
+<div data-ch="3" class="mu mu-push"><div class="mu-sb lt"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <p class="mu-lk-d">11월 6일 목요일</p><p class="mu-lk-t">10:02</p>
+  <div class="mu-nts"><div class="mu-nt pv"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>어제</time></div><b>새벽배송 마감까지 2시간 남았어요</b></div>
+    <div class="mu-nt"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>지금</time></div>
+      <div class="bd"><div><b class="t">(광고) 담아두신 한우 등심, 15% 할인 중</b><p>장바구니 쿠폰은 48시간 동안 쓸 수 있어요.</p></div><i class="th"><img src="assets/geo/grocery/gr-beef.jpg" alt=""></i></div>
+      </div></div></div>
+      </div></div>
+      <div class="hv-card r cr-paid"><b><span class="cr-no">3</span>결제 완료 <small>방금</small></b>
+        <div class="who"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>정*우님</b><small>장바구니 쿠폰 사용</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div>
+        <dl><div><dt>상품 금액</dt><dd>58,800원</dd></div><div><dt>쿠폰 15%</dt><dd class="dc">-8,820원</dd></div><div class="t"><dt>결제 금액</dt><dd>49,980원</dd></div></dl></div>
+      <div class="hv-card r cr-sum"><svg class="cr-spark" viewBox="0 0 72 36" aria-hidden="true"><defs><linearGradient id="crSpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e90fa" stop-opacity=".35"/><stop offset="1" stop-color="#2e90fa" stop-opacity="0"/></linearGradient></defs><path d="M2 30 L12 28 L22 25 L32 24 L42 17 L52 14 L62 10 L70 6 V36 H2 Z" fill="url(#crSpG)"/><path d="M2 30 L12 28 L22 25 L32 24 L42 17 L52 14 L62 10 L70 6" fill="none" stroke="#1570ef" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p><span>장바구니 복귀 결제율</span><b>21% <em>▲ 6%p</em></b></p></div>
     </div>
   </div>
 </section>
@@ -2168,33 +2314,8 @@
         <div class="bt-hd"><span class="bt-eb">기존 · 첫 구매에서 끝나는 관계</span><h3>모두에게 같은 메시지</h3><p>구매 후에는 특별한 연락이 없고, 전체 고객에게 같은 문자 · 쿠폰을 한 번에 보냅니다. 고객이 떠난 것도 한참 뒤에야 알게 됩니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
           <div class="pn ows cr-ms">   <!-- [CRM] 기존: 문자 대량 발송 화면 · 전체 고객에게 같은 내용 · 클릭은 낮고 수신거부만 늘어남 -->
-            <div class="win-hd"><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자 대량 발송</div>
-            <div class="cr-ms-bd">
-              <div class="cr-ms-to"><span class="k">받는 사람</span><b>전체 고객 12,480명</b><span class="cr-ms-now">즉시 발송</span></div>
-              <div class="cr-ms-tx"><p>[라운드위크] 전 상품 10% 할인! 지금 바로 만나보세요 ▶ roundweek.kr</p><small>(광고) 무료수신거부 080-000-0000</small></div>
-              <table class="cr-tb"><thead><tr><th>발송일</th><th>내용</th><th>대상</th><th>클릭률</th><th>수신거부</th></tr></thead><tbody>
-                <tr><td>11.01</td><td>전 상품 10% 할인</td><td>전체 12,480</td><td class="lo">1.1%</td><td class="ng">+86</td></tr>
-                <tr><td>10.18</td><td>신상품 입고 안내</td><td>전체 12,410</td><td class="lo">0.9%</td><td class="ng">+72</td></tr>
-                <tr><td>10.03</td><td>연휴 배송 안내</td><td>전체 12,380</td><td class="lo">0.6%</td><td class="ng">+41</td></tr>
-              </tbody></table>
-            </div>
-            <div class="ows-ft"><i class="me-tag">모두에게 같은 메시지</i></div>
-          </div>
-        </div>
-        <p class="bt-goal"><span>목표</span>전체 고객에게 한 번에 알리기</p>
-      </div>
-      <div class="bt is-new rv" style="--d:100ms">
-        <div class="bt-hd"><span class="bt-eb">CRM마케팅 · 고객별 맞춤 관계</span><h3>고객마다 다른 시점, 다른 메시지</h3><p>구매 이력과 행동으로 고객을 나누고, 다시 살 시점과 떠날 징후를 미리 파악해 그룹별 메시지 · 혜택을 자동으로 보냅니다.</p></div>
-        <div class="bt-vis" aria-hidden="true">
-          <div class="pn ows cr-sg">   <!-- [CRM] CRM: 고객 그룹별 자동 발송 시나리오 · 그룹마다 시점 · 내용 · 채널이 다르고 반응률이 높음 -->
-            <div class="win-hd"><span class="sm-logo">RW</span>고객 그룹별 자동 발송<span class="sm-live"><i></i>시나리오 4개 진행 중</span></div>
-            <div class="cr-sg-bd">
-              <p class="cr-sg-th"><span>고객 그룹 · 보내는 시점</span><span>메시지</span><span>반응률</span></p>
-              <ul>
-                <li style="--v:.58"><span class="g"><b>첫 구매</b><small>구매 3일째</small></span><span class="m"><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>첫 주문 감사 · 10% 쿠폰</span><span class="r"><i></i><b>14.2%</b></span></li>
-                <li style="--v:.48"><span class="g"><b>재구매 주기</b><small>구매 40일째</small></span><span class="m"><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>맞춤 추천 · 재구매 쿠폰</span><span class="r"><i></i><b>11.8%</b></span></li>
-                <li style="--v:.35"><span class="g w"><b>휴면 징후</b><small>구매 60일째</small></span><span class="m"><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>새 컬러 소식 · 복귀 쿠폰</span><span class="r"><i></i><b>8.6%</b></span></li>
-                <li style="--v:.75"><span class="g v"><b>VIP</b><small>누적 100만원</small></span><span class="m"><i class="cr-ch push sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></i>신상품 먼저 보기</span><span class="r"><i></i><b>18.4%</b></span></li>
+            <div class="win-hd"><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>장바구니 상품 15% 쿠폰</span><span class="r"><i></i><b>8.6%</b></span></li>
+                <li style="--v:.75"><span class="g v"><b>VIP</b><small>월 4회 이상 주문</small></span><span class="m"><i class="cr-ch push sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></i>제철 과일 하루 먼저</span><span class="r"><i></i><b>18.4%</b></span></li>
               </ul>
             </div>
             <div class="ows-ft"><i class="hit-tag">고객마다 다른 시점 · 다른 메시지</i></div>
@@ -2232,78 +2353,108 @@
   <div class="container">
     <div class="sub-title rv"><h2>고객은 구매 후에도<br class="mo-br"> 여섯 단계로 바뀝니다</h2><p>지금 이 고객이 어느 단계에 있는지 알아야 맞는 말을 건넬 수 있습니다.<br class="pc-only"> 단계마다 필요한 메시지와 혜택을 보내는 시점까지 설계합니다.</p></div>
     <div class="jt rv" style="--d:100ms">
-      <div class="jt-nav" role="tablist" aria-label="고객 생애주기 6단계"><button type="button" class="tabline on" role="tab" data-jt="0" aria-selected="true"><span>01</span>첫 구매</button><button type="button" class="tabline" role="tab" data-jt="1" aria-selected="false"><span>02</span>재구매 유도</button><button type="button" class="tabline" role="tab" data-jt="2" aria-selected="false"><span>03</span>단골 성장</button><button type="button" class="tabline" role="tab" data-jt="3" aria-selected="false"><span>04</span>휴면 징후</button><button type="button" class="tabline" role="tab" data-jt="4" aria-selected="false"><span>05</span>이탈 복귀</button><button type="button" class="tabline" role="tab" data-jt="5" aria-selected="false"><span>06</span>VIP · 추천</button></div>
+      <div class="jt-nav" role="tablist" aria-label="고객 생애주기 6단계"><button type="button" class="tabline on" role="tab" data-jt="0" aria-selected="true"><span>01</span>첫 구매</button><button type="button" class="tabline" role="tab" data-jt="1" aria-selected="false"><span>02</span>재구매 유도</button><button type="button" class="tabline" role="tab" data-jt="2" aria-selected="false"><span>03</span>단골 성장</button><button type="button" class="tabline" role="tab" data-jt="3" aria-selected="false"><span>04</span>휴면 징후</button><button type="button" class="tabline" role="tab" data-jt="4" aria-selected="false"><span>05</span>장바구니 · 이탈</button><button type="button" class="tabline" role="tab" data-jt="5" aria-selected="false"><span>06</span>VIP · 추천</button></div>
       <div class="dx-panel jt-panel on" data-jt="0" role="tabpanel">
-        <div class="jt-txt"><span class="bt-eb">STEP 1 · 첫 구매</span><h3>첫 구매 고객에게<br>두 번째 구매의 이유를 만듭니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="jt-q">“처음 사봤는데, 또 살까?”</p></div><p class="jt-d">감사 인사와 사용 안내로 좋은 첫 경험을 남기고, 다음 구매로 이어질 혜택을 함께 전합니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>첫 구매 감사 메시지</li><li>두 번째 구매 쿠폰</li><li>사용 · 관리 가이드</li></ul></div></div>
-        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3-5-1s3 1 5 1zm0 0c1.5-3 5-3 5-1s-3 1-5 1z"/></svg></span><b>첫 구매 고객</b><span class="vw-m">구매 3일째 · 자동 발송</span><em class="vw-chip">첫 구매</em></div><div class="vw-bd cr-st">
+        <div class="jt-txt"><span class="bt-eb">STEP 1 · 첫 구매</span><h3>첫 구매 고객에게<br>다음 장보기의 이유를 만듭니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="jt-q">“처음 시켜봤는데, 신선하네?”</p></div><p class="jt-d">배송 완료와 보관법을 먼저 챙겨 좋은 첫 경험을 남기고, 후기와 다음 장보기로 이어갑니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>배송 완료 안내</li><li>신선 보관 가이드</li><li>첫 구매 후기 요청</li></ul></div></div>
+        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3-5-1s3 1 5 1zm0 0c1.5-3 5-3 5-1s-3 1-5 1z"/></svg></span><b>첫 구매 고객</b><span class="vw-m">배송 완료 직후 · 자동 발송</span><em class="vw-chip">첫 구매</em></div><div class="vw-bd cr-st">
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p><b>김*연</b><span class="sg">첫 구매</span></p></div>
-      <dl><div><dt>구매 횟수</dt><dd>1회</dd></div><div><dt>최근 구매</dt><dd>3일 전</dd></div><div><dt>구매 금액</dt><dd>49,000원</dd></div><div><dt>구매 상품</dt><dd>바시티 스웨트셔츠</dd></div></dl>
-      <ol class="cr-tl"><li><time>11.01</time><span>첫 구매</span></li><li><time>11.02</time><span>배송 완료</span></li><li class="on"><time>11.04</time><span>메시지 발송</span></li></ol></div>
-    <div class="cr-sm"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><span class="cr-chn">알림톡</span><time>오전 10:00</time></div>
-      <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/rw-model-grey.webp" alt=""></i><div class="cr-mb"><b class="t">김*연님, 첫 주문 고마워요<i class="os8-p">1</i></b><p>맨투맨을 오래 입는 세탁 · 보관 방법을 알려드려요.</p><span class="cr-cp"><em>두 번째 구매 10% 쿠폰</em><small>11.30까지</small><i class="os8-p">2</i></span><span class="cr-btn">가이드 보기<i class="os8-p">3</i></span></div></div></div>
+      <dl><div><dt>구매 횟수</dt><dd>1회</dd></div><div><dt>주문 금액</dt><dd>38,900원</dd></div><div><dt>주문 상품</dt><dd>설향 딸기 외 4개</dd></div><div><dt>배송</dt><dd>새벽배송</dd></div></dl>
+      <ol class="cr-tl"><li><time>11.05</time><span>첫 주문</span></li><li><time>11.06</time><span>새벽 배송 완료</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
+    <div class="mu mu-kt"><div class="mu-sb"><span>07:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="mu-kt-bd"><p class="mu-day">2026년 11월 6일 목요일</p>
+    <div class="mu-kt-row"><i class="mu-logo">GB</i><div class="mu-kt-col"><span class="nm">그린바스켓</span>
+      <div class="mu-kt-bb"><p class="at">알림톡 도착</p>
+        <div class="tx"><b class="t">김*연님, 주문하신 상품이 도착했어요<i class="os8-p">1</i></b><p>주문번호 2026110531<br>배송 장소 : 문 앞 · 오전 6:40 도착</p><span class="info"><b>신선 보관 가이드<i class="os8-p">2</i></b>딸기는 씻지 않고 키친타월을 깔아 냉장 보관하면 3일 더 신선해요.</span></div>
+        <div class="bt"><span>후기 쓰기<i class="os8-p">3</i></span><span>배송 조회</span></div></div>
+    </div><time>오전 7:00</time></div>
+  </div></div>
   </div>
-<p class="sc-stat"><span>두 번째 구매로 이어진 비율</span><b>18%</b></p></div></div></div>
+<p class="sc-stat"><span>두 번째 주문으로 이어진 비율</span><b>46%</b></p></div></div></div>
       </div>
       <div class="dx-panel jt-panel" data-jt="1" role="tabpanel">
-        <div class="jt-txt"><span class="bt-eb">STEP 2 · 재구매 유도</span><h3>구매 상품과 주기에 맞춰<br>다시 살 시점에 제안합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="2" data-g="m" alt=""></i><p class="jt-q">“날씨 추워졌는데, 아우터 볼까?”</p></div><p class="jt-d">무엇을 언제 샀는지 보고, 다시 살 때가 된 고객에게 필요한 상품과 혜택을 먼저 보여줍니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>재구매 주기 알림</li><li>재구매 쿠폰</li><li>구매 후 맞춤 추천</li></ul></div></div>
-        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20v-4.5h4.5"/></svg></span><b>재구매 시점 고객</b><span class="vw-m">평균 구매 주기 45일 · 자동 발송</span><em class="vw-chip">재구매 유도</em></div><div class="vw-bd cr-st">
+        <div class="jt-txt"><span class="bt-eb">STEP 2 · 재구매 유도</span><h3>자주 사는 상품의 주기에 맞춰<br>다시 살 때를 먼저 알려드립니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="jt-q">“우유 떨어질 때가 됐는데…”</p></div><p class="jt-d">우유 · 계란처럼 자주 사는 상품은 다시 사는 주기가 일정합니다. 떨어질 즈음 한 번에 다시 담을 수 있게 알립니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>재구매 주기 알림</li><li>재구매 할인</li><li>한 번에 다시 담기</li></ul></div></div>
+        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.6L4 15.5M4 20v-4.5h4.5"/></svg></span><b>재구매 시점 고객</b><span class="vw-m">구매 6일째 · 자동 발송</span><em class="vw-chip">재구매 유도</em></div><div class="vw-bd cr-st">
   <div class="cr-st-row">
-    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호</b><span class="sg">재구매 시점</span></p></div>
-      <dl><div><dt>구매 횟수</dt><dd>2회</dd></div><div><dt>최근 구매</dt><dd>41일 전</dd></div><div><dt>구매 주기</dt><dd>평균 45일</dd></div><div><dt>관심 상품</dt><dd>아우터 · 볼캡</dd></div></dl>
-      <ol class="cr-tl"><li><time>09.18</time><span>맨투맨 구매</span></li><li><time>10.27</time><span>아우터 3회 조회</span></li><li class="on"><time>10.29</time><span>메시지 발송</span></li></ol></div>
-    <div class="cr-sm"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><span class="cr-chn">알림톡</span><time>오전 10:00</time></div>
-      <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/rw-model-green.webp" alt=""></i><div class="cr-mb"><b class="t">박*호님, 맨투맨과 어울리는 아우터<i class="os8-p">1</i></b><p>구매하신 상품과 어울리는 아우터를 골라봤어요.</p><span class="cr-cp"><em>재구매 쿠폰 15%</em><small>3일간</small><i class="os8-p">2</i></span><span class="cr-btn">추천 상품 보기<i class="os8-p">3</i></span></div></div></div>
+    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호</b><span class="sg">재구매 시점</span></p></div>
+      <dl><div><dt>구매 횟수</dt><dd>3회</dd></div><div><dt>재구매 주기</dt><dd>7일</dd></div><div><dt>자주 산 상품</dt><dd>우유 · 계란</dd></div><div><dt>최근 구매</dt><dd>6일 전</dd></div></dl>
+      <ol class="cr-tl"><li><time>10.24</time><span>우유 · 계란</span></li><li><time>10.31</time><span>우유 · 계란</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
+    <div class="mu mu-push"><div class="mu-sb lt"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <p class="mu-lk-d">11월 6일 목요일</p><p class="mu-lk-t">10:02</p>
+  <div class="mu-nts"><div class="mu-nt pv"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>어제</time></div><b>오늘 밤 11시까지 주문하면 내일 아침 도착</b></div>
+    <div class="mu-nt"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>지금</time></div>
+      <div class="bd"><div><b class="t">(광고) 우유 다 드셔갈 때쯤이죠?<i class="os8-p">1</i></b><p>지난번 담은 우유 · 계란, 오늘 주문하면 1,000원 할인해 드려요.<i class="os8-p">2</i></p></div><i class="th"><img src="assets/geo/grocery/gr-milk.jpg" alt=""></i></div>
+      <div class="ac"><span>한 번에 다시 담기<i class="os8-p">3</i></span><span>나중에</span></div></div></div></div>
   </div>
-<p class="sc-stat"><span>재구매 알림 받은 고객의 구매율</span><b>2.3배</b></p></div></div></div>
+<p class="sc-stat"><span>알림 후 7일 안에 다시 산 비율</span><b>32%</b></p></div></div></div>
       </div>
       <div class="dx-panel jt-panel" data-jt="2" role="tabpanel">
-        <div class="jt-txt"><span class="bt-eb">STEP 3 · 단골 성장</span><h3>구매가 쌓이는 고객이<br>더 머물도록 혜택을 설계합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-06.jpg" data-pf="3" data-g="f" alt=""></i><p class="jt-q">“적립금 쌓였네, 뭐 살까?”</p></div><p class="jt-d">구매 횟수와 금액에 맞는 등급 · 적립금을 설계하고, 다음 등급까지 남은 혜택을 알려줍니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>등급 안내</li><li>적립금 사용 안내</li><li>등급 혜택</li></ul></div></div>
-        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span><b>단골 고객</b><span class="vw-m">등급 변경 시 · 자동 발송</span><em class="vw-chip">단골 성장</em></div><div class="vw-bd cr-st">
+        <div class="jt-txt"><span class="bt-eb">STEP 3 · 단골 성장</span><h3>주문이 쌓이는 고객이<br>더 머물도록 혜택을 설계합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p class="jt-q">“여기서 장 보는 게 편하네”</p></div><p class="jt-d">등급과 혜택으로 단골이 된 이유를 분명하게 만들고, 자주 사는 카테고리에 맞춘 추천을 함께 보냅니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>등급 혜택 안내</li><li>무료배송 쿠폰</li><li>맞춤 추천</li></ul></div></div>
+        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span><b>단골 고객</b><span class="vw-m">등급 변경 · 자동 발송</span><em class="vw-chip">단골 성장</em></div><div class="vw-bd cr-st">
   <div class="cr-st-row">
-    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-06.jpg" data-pf="3" data-g="f" alt=""></i><p><b>이*은</b><span class="sg">단골</span></p></div>
-      <dl><div><dt>구매 횟수</dt><dd>5회</dd></div><div><dt>최근 구매</dt><dd>12일 전</dd></div><div><dt>누적 금액</dt><dd>312,000원</dd></div><div><dt>보유 적립금</dt><dd>4,800원</dd></div></dl>
-      <ol class="cr-tl"><li><time>06.02</time><span>첫 구매</span></li><li><time>10.26</time><span>5번째 구매</span></li><li class="on"><time>10.27</time><span>GOLD 안내</span></li></ol></div>
-    <div class="cr-sm"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><span class="cr-chn">알림톡</span><time>오전 10:00</time></div>
-      <div class="cr-msg"><div class="cr-gd"><span class="gb">GOLD</span><p><b>VIP까지 88,000원</b><i style="--v:.78"></i><small>5회 구매 · 312,000원</small></p></div><div class="cr-mb"><b class="t">이*은님, GOLD 등급이 되셨어요<i class="os8-p">1</i></b><p>등급 혜택으로 매달 5% 쿠폰과 무료배송을 드려요.</p><span class="cr-cp"><em>적립금 4,800원 사용 가능</em><i class="os8-p">2</i></span><span class="cr-btn">등급 혜택 보기<i class="os8-p">3</i></span></div></div></div>
+    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p><b>이*은</b><span class="sg">단골</span></p></div>
+      <dl><div><dt>구매 횟수</dt><dd>9회</dd></div><div><dt>등급</dt><dd>GOLD</dd></div><div><dt>누적 금액</dt><dd>68만원</dd></div><div><dt>자주 산 상품</dt><dd>과일 · 유제품</dd></div></dl>
+      <ol class="cr-tl"><li><time>09.02</time><span>첫 구매</span></li><li><time>10.28</time><span>9번째 구매</span></li><li class="on"><time>11.01</time><span>메시지 발송</span></li></ol></div>
+    <div class="mu mu-ml"><div class="mu-sb"><span>07:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-ml-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span>받은편지함</span><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="mu-ml-sj"><b>(광고) 이*은님, GOLD 등급 혜택이 도착했어요<i class="os8-p">1</i></b></div>
+  <div class="mu-ml-fr"><i class="mu-logo">GB</i><p><b>그린바스켓</b><small>나에게 · 오전 7:00</small></p></div>
+  <div class="mu-ml-bd"><i class="im"><img src="assets/geo/grocery/gr-banner.jpg" alt=""></i><div class="ct"><b>11월 GOLD 혜택</b><p>자주 담으신 과일 · 유제품 신상품을 먼저 모았어요.</p><span class="chips"><em>무료배송 쿠폰 3장</em><em>적립 3%</em><i class="os8-p">2</i></span><span class="cta">이번 달 혜택 보기<i class="os8-p">3</i></span></div></div></div>
   </div>
-<p class="sc-stat"><span>등급 안내 후 다시 방문한 비율</span><b>34%</b></p></div></div></div>
+<p class="sc-stat"><span>단골 고객 한 달 평균 주문</span><b>3.2회</b></p></div></div></div>
       </div>
       <div class="dx-panel jt-panel" data-jt="3" role="tabpanel">
-        <div class="jt-txt"><span class="bt-eb">STEP 4 · 휴면 징후</span><h3>구매 간격이 길어지는 고객에게<br>떠나기 전에 먼저 말을 겁니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-08.jpg" data-pf="4" data-g="f" alt=""></i><p class="jt-q">“요즘 뭐 새로 나왔을까?”</p></div><p class="jt-d">평소 구매 주기보다 길어진 고객을 미리 찾아, 좋아했던 상품의 새 소식과 혜택으로 다시 부릅니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>휴면 징후 알림</li><li>복귀 쿠폰</li><li>관심 상품 새 소식</li></ul></div></div>
-        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span><b>휴면 징후 고객</b><span class="vw-m">평소 주기보다 22일 늦음</span><em class="vw-chip">휴면 징후</em></div><div class="vw-bd cr-st">
+        <div class="jt-txt"><span class="bt-eb">STEP 4 · 휴면 징후</span><h3>주문 간격이 길어지는 고객에게<br>떠나기 전에 먼저 말을 겁니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="f" alt=""></i><p class="jt-q">“요즘은 다른 데서 사고 있어”</p></div><p class="jt-d">평소 주기보다 주문이 늦어지면 떠날 징후입니다. 즐겨 사던 상품 소식과 복귀 혜택으로 먼저 연락합니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>관심 상품 입고 소식</li><li>복귀 쿠폰</li><li>바로가기 링크</li></ul></div></div>
+        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span><b>휴면 징후 고객</b><span class="vw-m">주기보다 24일 늦음 · 자동 발송</span><em class="vw-chip">휴면 징후</em></div><div class="vw-bd cr-st">
   <div class="cr-st-row">
-    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-08.jpg" data-pf="4" data-g="f" alt=""></i><p><b>최*아</b><span class="sg w">휴면 징후</span></p></div>
-      <dl><div><dt>구매 횟수</dt><dd>3회</dd></div><div><dt>최근 구매</dt><dd>62일 전</dd></div><div><dt>평소 주기</dt><dd>40일</dd></div><div><dt>최근 방문</dt><dd>34일 전</dd></div></dl>
-      <ol class="cr-tl"><li><time>09.06</time><span>3번째 구매</span></li><li><time>10.16</time><span>구매 주기 지남</span></li><li class="on"><time>11.07</time><span>메시지 발송</span></li></ol></div>
-    <div class="cr-sm"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i><span class="cr-chn">문자</span><time>오전 10:00</time></div>
-      <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/rw-sit-wine.webp" alt=""></i><div class="cr-mb"><b class="t">최*아님, 새 컬러가 나왔어요<i class="os8-p">1</i></b><p>좋아하신 바시티 스웨트, 와인 컬러로 만나보세요.</p><span class="cr-cp"><em>다시 만나는 쿠폰 3,000원</em><small>7일간</small><i class="os8-p">2</i></span><span class="cr-btn">새 컬러 보기<i class="os8-p">3</i></span></div></div></div>
+    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="f" alt=""></i><p><b>최*아</b><span class="sg w">휴면 징후</span></p></div>
+      <dl><div><dt>구매 횟수</dt><dd>5회</dd></div><div><dt>평소 주기</dt><dd>14일</dd></div><div><dt>최근 구매</dt><dd>38일 전</dd></div><div><dt>자주 산 상품</dt><dd>그릭요거트</dd></div></dl>
+      <ol class="cr-tl"><li><time>09.29</time><span>마지막 구매</span></li><li><time>10.13</time><span>주기 지남</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
+    <div class="mu mu-sms"><div class="mu-sb"><span>19:30</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-sms-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="currentColor"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="currentColor"/></svg></span><b>1588-0000</b></div>
+  <div class="mu-sms-bd"><p class="mu-day">문자 메시지<br>오늘 오후 7:30</p><div class="mu-sms-bb"><p>(광고)[그린바스켓]</p><p class="t">최*아님, 요즘 장보기 어떠세요?<i class="os8-p">1</i></p><p>즐겨 드시던 그릭요거트가 새로 들어왔어요.</p><p class="cp">▶ 복귀 쿠폰 5,000원 (3만원 이상 · 7일간)<i class="os8-p">2</i></p><p><a>grnb.kr/c/8xk2</a><i class="os8-p">3</i></p><p>무료거부 0800000000</p></div></div>
+  <div class="mu-sms-in"><i aria-hidden="true">+</i><span>문자 메시지</span></div></div>
   </div>
-<p class="sc-stat"><span>먼저 연락한 고객의 재구매율</span><b>21%</b></p></div></div></div>
+<p class="sc-stat"><span>메시지 후 다시 주문한 비율</span><b>12%</b></p></div></div></div>
       </div>
       <div class="dx-panel jt-panel" data-jt="4" role="tabpanel">
-        <div class="jt-txt"><span class="bt-eb">STEP 5 · 이탈 복귀</span><h3>이미 멀어진 고객에게<br>돌아올 이유를 보냅니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-10.jpg" data-pf="5" data-g="m" alt=""></i><p class="jt-q">“담아둔 볼캡, 아직 있을까?”</p></div><p class="jt-d">오래 찾지 않은 고객에게 담아둔 상품 · 재입고 소식과 복귀 혜택을 함께 보내 다시 들어올 이유를 만듭니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>재입고 알림</li><li>휴면 복귀 쿠폰</li><li>장바구니 리마인드</li></ul></div></div>
-        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></span><b>이탈 고객</b><span class="vw-m">마지막 구매 184일 · 자동 발송</span><em class="vw-chip">이탈 복귀</em></div><div class="vw-bd cr-st">
+        <div class="jt-txt"><span class="bt-eb">STEP 5 · 장바구니 · 이탈 복귀</span><h3>담아두고 떠난 고객에게<br>결제할 이유를 보냅니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p class="jt-q">“담아만 두고 잊고 있었네”</p></div><p class="jt-d">장바구니에 담고 결제하지 않은 고객은 다시 살 가능성이 가장 높습니다. 담아둔 상품에만 쓰는 쿠폰을 기한과 함께 보냅니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>장바구니 상품 알림</li><li>장바구니 전용 쿠폰</li><li>바로 결제 링크</li></ul></div></div>
+        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></span><b>장바구니 이탈 고객</b><span class="vw-m">담고 24시간 · 자동 발송</span><em class="vw-chip">이탈 복귀</em></div><div class="vw-bd cr-st">
   <div class="cr-st-row">
-    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-10.jpg" data-pf="5" data-g="m" alt=""></i><p><b>정*우</b><span class="sg w">이탈</span></p></div>
-      <dl><div><dt>구매 횟수</dt><dd>2회</dd></div><div><dt>최근 구매</dt><dd>184일 전</dd></div><div><dt>장바구니</dt><dd>워시드 볼캡 1개</dd></div><div><dt>혜택 반응</dt><dd>쿠폰 사용 2회</dd></div></dl>
-      <ol class="cr-tl"><li><time>05.07</time><span>2번째 구매</span></li><li><time>08.12</time><span>볼캡 담기</span></li><li class="on"><time>11.07</time><span>메시지 발송</span></li></ol></div>
-    <div class="cr-sm"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><span class="cr-chn">알림톡</span><time>오전 10:00</time></div>
-      <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/p-cap-green.webp" alt=""></i><div class="cr-mb"><b class="t">정*우님, 담아둔 볼캡이 다시 들어왔어요<i class="os8-p">1</i></b><p>오랜만에 오시는 분께 무료배송도 함께 드려요.</p><span class="cr-cp"><em>복귀 쿠폰 20% · 무료배송</em><small>5일간</small><i class="os8-p">2</i></span><span class="cr-btn">장바구니 보기<i class="os8-p">3</i></span></div></div></div>
+    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>정*우</b><span class="sg w">장바구니 이탈</span></p></div>
+      <dl><div><dt>최근 구매</dt><dd>124일 전</dd></div><div><dt>최근 방문</dt><dd>어제</dd></div><div><dt>장바구니</dt><dd>한우 등심 외 2개</dd></div><div><dt>담은 금액</dt><dd>58,800원</dd></div></dl>
+      <ol class="cr-tl"><li><time>07.05</time><span>마지막 구매</span></li><li><time>11.05</time><span>장바구니 담기</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
+    <div class="mu mu-kt"><div class="mu-sb"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="mu-kt-bd"><p class="mu-day">2026년 11월 6일 목요일</p>
+    <div class="mu-kt-row"><i class="mu-logo">GB</i><div class="mu-kt-col"><span class="nm">그린바스켓</span>
+      <div class="mu-kt-bb ad"><i class="im"><img src="assets/geo/grocery/gr-beef.jpg" alt=""></i>
+        <div class="tx"><b class="t">(광고) 정*우님, 장바구니에 담아두신 한우 등심<i class="os8-p">1</i></b><p>48시간 동안 장바구니 상품을 15% 할인해 드려요.</p><span class="cp"><em>장바구니 상품 15% 할인</em><small>11.08 10:00까지</small><i class="os8-p">2</i></span></div>
+        <div class="bt"><span>장바구니 바로가기<i class="os8-p">3</i></span><span>쿠폰 받기</span></div><p class="ft">수신거부 | 홈 &gt; 채널차단</p></div>
+    </div><time>오전 10:02</time></div>
+  </div></div>
   </div>
-<p class="sc-stat"><span>복귀 쿠폰을 사용한 비율</span><b>12%</b></p></div></div></div>
+<p class="sc-stat"><span>쿠폰 메시지 후 결제한 비율</span><b>21%</b></p></div></div></div>
       </div>
       <div class="dx-panel jt-panel" data-jt="5" role="tabpanel">
-        <div class="jt-txt"><span class="bt-eb">STEP 6 · VIP · 추천</span><h3>가치 높은 고객을 따로 관리하고<br>후기와 추천으로 이어지게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="6" data-g="m" alt=""></i><p class="jt-q">“친구한테도 알려줄까?”</p></div><p class="jt-d">가장 많이 사는 고객에게 먼저 보는 혜택을 주고, 후기와 친구 추천으로 새 고객까지 이어지게 합니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>VIP 신상품 선공개</li><li>친구 추천 혜택</li><li>후기 작성 유도</li></ul></div></div>
-        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8 4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg></span><b>VIP 고객</b><span class="vw-m">누적 100만원 이상 · 64명</span><em class="vw-chip">VIP · 추천</em></div><div class="vw-bd cr-st">
+        <div class="jt-txt"><span class="bt-eb">STEP 6 · VIP · 추천</span><h3>가치 높은 고객을 따로 관리하고<br>추천으로 새 고객을 데려옵니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-06.jpg" data-pf="6" data-g="m" alt=""></i><p class="jt-q">“친구한테도 알려줘야겠다”</p></div><p class="jt-d">VIP는 혜택을 먼저 챙기고, 만족한 경험이 친구 초대 · 추천으로 이어지게 합니다.</p><div class="jt-tags"><b>보내는 메시지</b><ul class="sr-tags"><li>VIP 등급 안내</li><li>VIP 전용 혜택</li><li>친구 초대</li></ul></div></div>
+        <div class="sc" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8 4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg></span><b>VIP 고객</b><span class="vw-m">매월 1일 · 자동 발송</span><em class="vw-chip">VIP</em></div><div class="vw-bd cr-st">
   <div class="cr-st-row">
-    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="6" data-g="m" alt=""></i><p><b>한*수</b><span class="sg v">VIP</span></p></div>
-      <dl><div><dt>구매 횟수</dt><dd>14회</dd></div><div><dt>누적 금액</dt><dd>1,280,000원</dd></div><div><dt>작성 후기</dt><dd>9건</dd></div><div><dt>추천 가입</dt><dd>3명</dd></div></dl>
-      <ol class="cr-tl"><li><time>2025.03</time><span>첫 구매</span></li><li><time>10.30</time><span>VIP 유지</span></li><li class="on"><time>11.06</time><span>선공개 안내</span></li></ol></div>
-    <div class="cr-sm"><div class="cr-chat"><i class="cr-av">RW</i><b>라운드위크</b><i class="cr-ch push sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></i><span class="cr-chn">앱 푸시</span><time>오전 10:00</time></div>
-      <div class="cr-msg"><i class="cr-im"><img src="assets/geo/fashion/rw-front-green.webp" alt=""></i><div class="cr-mb"><b class="t">한*수님, FW 신상품 먼저 보세요<i class="os8-p">1</i></b><p>VIP 고객님께만 하루 먼저 공개해요.</p><span class="cr-cp"><em>친구 초대 시 둘 다 1만원</em><i class="os8-p">2</i></span><span class="cr-btn">후기 쓰고 3,000원 받기<i class="os8-p">3</i></span></div></div></div>
+    <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-06.jpg" data-pf="6" data-g="m" alt=""></i><p><b>한*수</b><span class="sg v">VIP</span></p></div>
+      <dl><div><dt>구매 횟수</dt><dd>28회</dd></div><div><dt>누적 금액</dt><dd>132만원</dd></div><div><dt>주문 주기</dt><dd>주 1회</dd></div><div><dt>추천 친구</dt><dd>3명</dd></div></dl>
+      <ol class="cr-tl"><li><time>2025.03</time><span>첫 구매</span></li><li><time>10.01</time><span>VIP 유지</span></li><li class="on"><time>11.01</time><span>메시지 발송</span></li></ol></div>
+    <div class="mu mu-kt"><div class="mu-sb"><span>09:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
+  <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  <div class="mu-kt-bd"><p class="mu-day">2026년 11월 1일 토요일</p>
+    <div class="mu-kt-row"><i class="mu-logo">GB</i><div class="mu-kt-col"><span class="nm">그린바스켓</span>
+      <div class="mu-kt-bb"><p class="at">알림톡 도착</p>
+        <div class="tx"><b class="t">한*수님, 11월에도 VIP 등급이 유지됐어요<i class="os8-p">1</i></b><p>이번 달 VIP 혜택을 확인해 주세요.</p><span class="info"><b>VIP 혜택<i class="os8-p">2</i></b>매주 무료배송 · 제철 과일 하루 먼저 주문 · 적립 5%</span></div>
+        <div class="bt"><span>VIP 혜택 보기</span><span>친구 초대하기<i class="os8-p">3</i></span></div></div>
+    </div><time>오전 9:00</time></div>
+  </div></div>
   </div>
-<p class="sc-stat"><span>추천으로 가입한 고객 (이번 달)</span><b>86명</b></p></div></div></div>
+<p class="sc-stat"><span>VIP 추천으로 들어온 새 회원</span><b>18%</b></p></div></div></div>
       </div>
     </div>
     <p class="os2-note rv">단계별 수치는 이해를 돕기 위한 예시입니다.</p>
@@ -2328,10 +2479,17 @@
       <li class="steprow rv">
         <span class="sr-no">1</span>
         <div class="sr-body"><h3><em class="key">분석</em> 고객 데이터에서 재구매 · 이탈 패턴을 찾습니다</h3><p>주문 · 회원 데이터에서 다시 사는 주기와 떠나는 징후, 가치 높은 고객을 찾습니다.</p><p class="sr-out">우리 쇼핑몰의 재구매 주기와 이탈 징후가 담긴 분석 결과를 받습니다</p><ul class="sr-tags"><li>재구매 주기 분석</li><li>이탈 징후 분석</li><li>고객 가치 분석</li></ul></div>
-        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>재구매 패턴 분석</b><span class="vw-m">최근 12개월 · 회원 8,420명</span><em class="vw-chip">평균 주기 42일</em></div><div class="vw-bd cr-d1">
-  <div class="cr-hi"><p class="lb"><b>첫 구매 후 재구매까지 걸린 날</b><span>단위 : 명</span></p>
-    <ul class="bars"><li class="" style="--h:0.2;--k:0"><b>120</b><i></i><span>~15일</span></li><li class="" style="--h:0.52;--k:1"><b>310</b><i></i><span>15~30일</span></li><li class="hot" style="--h:1;--k:2"><b>590</b><i></i><span>30~45일</span></li><li class="" style="--h:0.71;--k:3"><b>420</b><i></i><span>45~60일</span></li><li class="w" style="--h:0.42;--k:4"><b>248</b><i></i><span>60~90일</span></li><li class="" style="--h:0.27;--k:5"><b>160</b><i></i><span>90일~</span></li></ul></div>
-  <ul class="kpi"><li><span>평균 재구매 주기</span><b>42일</b></li><li class="w"><span>주기가 지난 고객</span><b>248명</b></li><li><span>상위 10% 고객 매출</span><b>46%</b></li></ul>
+        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>재구매 패턴 분석</b><span class="vw-m">최근 12개월 · 회원 8,420명</span><em class="vw-chip">평균 주기 9일</em></div><div class="vw-bd cr-d1">
+  <div class="cr-hi"><p class="lb"><b>첫 구매 후 다시 주문하기까지 걸린 날</b><span>단위 : 명</span></p>
+  <svg class="cr-lc" viewBox="0 0 456 172" aria-hidden="true"><defs><linearGradient id="crLcG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1570ef" stop-opacity=".18"/><stop offset="1" stop-color="#1570ef" stop-opacity="0"/></linearGradient></defs>
+    <rect class="wz" x="259.7142857142857" y="10" width="194.28571428571428" height="118" rx="8"/><text class="wl" x="444" y="24" text-anchor="end">주기가 지난 고객 248명</text>
+    <line class="g" x1="30" x2="446" y1="128.0" y2="128.0"/><line class="g" x1="30" x2="446" y1="73.0" y2="73.0"/><line class="g" x1="30" x2="446" y1="18.0" y2="18.0"/>
+    <path class="ar" d="M30,109.1 C55.0,109.1 64.5,32.1 89.4,32.1 C114.4,32.1 123.9,54.1 148.9,54.1 C173.8,54.1 183.3,76.1 208.3,76.1 C233.2,76.1 242.8,95.0 267.7,95.0 C292.7,95.0 302.2,104.4 327.1,104.4 C352.1,104.4 361.6,110.7 386.6,110.7 C411.5,110.7 421.0,115.4 446.0,115.4 L446,128 L30,128 Z"/><path class="ln" d="M30,109.1 C55.0,109.1 64.5,32.1 89.4,32.1 C114.4,32.1 123.9,54.1 148.9,54.1 C173.8,54.1 183.3,76.1 208.3,76.1 C233.2,76.1 242.8,95.0 267.7,95.0 C292.7,95.0 302.2,104.4 327.1,104.4 C352.1,104.4 361.6,110.7 386.6,110.7 C411.5,110.7 421.0,115.4 446.0,115.4"/>
+    <circle class="pt" cx="30.0" cy="109.1" r="3.5"/><circle class="pk" cx="89.4" cy="32.1" r="5"/><circle class="pt" cx="148.9" cy="54.1" r="3.5"/><circle class="pt" cx="208.3" cy="76.1" r="3.5"/><circle class="pw" cx="267.7" cy="95.0" r="3.5"/><circle class="pw" cx="327.1" cy="104.4" r="3.5"/><circle class="pw" cx="386.6" cy="110.7" r="3.5"/><circle class="pw" cx="446.0" cy="115.4" r="3.5"/>
+    <g class="tip"><rect x="43.4" y="-1.9" width="92" height="24" rx="12"/><text x="89.4" y="14.1" text-anchor="middle">7일째 610명</text></g>
+    <text class="xl" x="30.0" y="164" text-anchor="middle">3일</text><text class="xl" x="89.4" y="164" text-anchor="middle">7일</text><text class="xl" x="148.9" y="164" text-anchor="middle">10일</text><text class="xl" x="208.3" y="164" text-anchor="middle">14일</text><text class="xl" x="267.7" y="164" text-anchor="middle">21일</text><text class="xl" x="327.1" y="164" text-anchor="middle">30일</text><text class="xl" x="386.6" y="164" text-anchor="middle">45일</text><text class="xl" x="446.0" y="164" text-anchor="middle">60일</text>
+  </svg></div>
+  <ul class="kpi"><li><span>평균 재구매 주기</span><b>9일</b></li><li class="w"><span>주기가 지난 고객</span><b>248명</b></li><li><span>상위 10% 고객 매출</span><b>46%</b></li></ul>
 </div></div></div>
       </li>
       <li class="steprow rv">
@@ -2340,7 +2498,7 @@
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>고객 그룹</b><span class="vw-m">기준 8개로 나눔</span><em class="vw-chip">6개 그룹</em></div><div class="vw-bd cr-d2">
   <p class="cr-cr"><span>구매 횟수</span><span>최근 구매일</span><span>구매 금액</span><span>구매 상품</span><em>+4</em></p>
   <div class="cr-gt"><p class="th"><span>그룹</span><span>기준</span><span>고객 수</span></p>
-    <ul><li style="--v:0.55"><span class="g">첫 구매</span><span class="c">구매 1회 · 30일 이내</span><span class="n"><i></i><b>1,240</b></span></li><li style="--v:0.38"><span class="g">재구매 시점</span><span class="c">구매 주기 도래</span><span class="n"><i></i><b>860</b></span></li><li style="--v:0.52"><span class="g">단골</span><span class="c">구매 4회 이상</span><span class="n"><i></i><b>1,180</b></span></li><li style="--v:0.11"><span class="g w">휴면 징후</span><span class="c">주기보다 20일 늦음</span><span class="n"><i></i><b>248</b></span></li><li style="--v:1"><span class="g n">이탈</span><span class="c">180일 구매 없음</span><span class="n"><i></i><b>2,960</b></span></li><li style="--v:0.03"><span class="g v">VIP</span><span class="c">누적 100만원 이상</span><span class="n"><i></i><b>64</b></span></li></ul></div>
+    <ul><li style="--v:0.55"><span class="g">첫 구매</span><span class="c">구매 1회 · 30일 이내</span><span class="n"><i></i><b>1,240</b></span></li><li style="--v:0.38"><span class="g">재구매 시점</span><span class="c">구매 주기 도래</span><span class="n"><i></i><b>860</b></span></li><li style="--v:0.52"><span class="g">단골</span><span class="c">구매 4회 이상</span><span class="n"><i></i><b>1,180</b></span></li><li style="--v:0.11"><span class="g w">휴면 징후</span><span class="c">주기보다 14일 늦음</span><span class="n"><i></i><b>248</b></span></li><li style="--v:1"><span class="g n">이탈</span><span class="c">180일 구매 없음</span><span class="n"><i></i><b>2,960</b></span></li><li style="--v:0.03"><span class="g v">VIP</span><span class="c">월 4회 이상 주문</span><span class="n"><i></i><b>64</b></span></li></ul></div>
 </div></div></div>
       </li>
       <li class="steprow rv">
@@ -2348,7 +2506,7 @@
         <div class="sr-body"><h3><em class="key">설계</em> 그룹별로 언제, 어떤 메시지와 혜택을 보낼지 정합니다</h3><p>알림톡 · 문자 · 이메일 · 앱 푸시 중 고객에게 닿는 채널을 골라, 그룹마다 보낼 시점과 내용을 정합니다.</p><p class="sr-out">그룹별 발송 시점 · 메시지 · 혜택이 정리된 시나리오를 받습니다</p><ul class="sr-tags"><li>재구매 유도</li><li>이탈 방지 · 복귀</li><li>단골 관리</li><li>참여 · 후기</li></ul></div>
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>시나리오 · 휴면 징후 고객</b><span class="vw-m">자동 발송</span><em class="vw-chip">4단계</em></div><div class="vw-bd cr-d3">
   <ol class="cr-fl">
-    <li class="tr"><i class="n">1</i><p><small>시작 조건</small><b>마지막 구매 후 60일</b></p><span class="tg">최근 30일 방문 없음</span></li>
+    <li class="tr"><i class="n">1</i><p><small>시작 조건</small><b>평소 주기보다 14일 늦음</b></p><span class="tg">최근 30일 방문 없음</span></li>
     <li><i class="n">2</i><p><small>보내기</small><b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>관심 상품 새 소식</b></p><span class="tg">오전 10시</span></li>
     <li><i class="n">3</i><p><small>기다리기</small><b>3일 동안 반응 확인</b></p><span class="tg">열람 · 클릭</span></li>
     <li class="br"><i class="n">4</i><div class="two"><p class="y"><small>열어봤다면</small><b>복귀 쿠폰 3,000원</b></p><p><small>안 열어봤다면</small><b><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자로 한 번 더</b></p></div></li>
@@ -2361,8 +2519,8 @@
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>발송 결과 · 개선</b><span class="vw-m">2026.10</span><span class="os21-chips"><em class="c-done">적용 2</em><em class="c-ing">테스트 1</em></span></div><div class="vw-bd os20 cr-d4">
   <div class="kp"><div><span>메시지 반응률</span><strong>9.8<small>%</small></strong><em>▲ 1.1%p</em></div><p>그룹별 발송 12건 · 전월 대비</p></div>
   <div class="cr-ab"><p class="lb"><b>휴면 복귀 메시지 A/B</b><span>반응률</span></p>
-    <ul><li style="--v:.66"><span>A · 할인 강조</span><i></i><b>6.2%</b></li><li class="b" style="--v:1"><span>B · 새 컬러 소식</span><i></i><b>9.4%</b><em>적용</em></li></ul></div>
-  <ul class="lg"><li class="done"><i class="n">1</i><b>복귀 메시지 B안 적용</b><span class="d">10/14</span><span class="ef">반응 +3.2%p</span><em class="st">적용</em></li><li class="done"><i class="n">2</i><b>첫 구매 쿠폰 7일째로</b><span class="d">10/21</span><span class="ef">재구매 +4%p</span><em class="st">적용</em></li><li class="ing"><i class="n">3</i><b>VIP 선공개 오전으로</b><span class="d">10/28</span><span class="ef">테스트 중</span><em class="st">진행</em></li></ul>
+    <ul><li style="--v:.66"><span>A · 할인 강조</span><i></i><b>6.2%</b></li><li class="b" style="--v:1"><span>B · 관심 상품 입고 소식</span><i></i><b>9.4%</b><em>적용</em></li></ul></div>
+  <ul class="lg"><li class="done"><i class="n">1</i><b>복귀 메시지 B안 적용</b><span class="d">10/14</span><span class="ef">반응 +3.2%p</span><em class="st">적용</em></li><li class="done"><i class="n">2</i><b>첫 구매 쿠폰 7일째로</b><span class="d">10/21</span><span class="ef">재구매 +4%p</span><em class="st">적용</em></li><li class="ing"><i class="n">3</i><b>제철 과일 선주문 오전으로</b><span class="d">10/28</span><span class="ef">테스트 중</span><em class="st">진행</em></li></ul>
 </div></div></div>
       </li>
     </ol>
@@ -2419,7 +2577,7 @@
             <div class="db-lg"><span><i class="c1"></i>재구매</span><span><i class="c3"></i>메시지 클릭</span><span><i class="avg"></i>지난 7일 평균</span></div>
           </div>
           <div class="np-block db-card db-rank"><div class="db-hd"><b>반응이 좋은 메시지</b><span class="seg"><b>7일</b><span>30일</span></span></div>
-            <ol class="db-top"><li><i class="th"><img src="assets/geo/fashion/rw-flat-grey.webp" alt=""></i><div><span class="nm">첫 구매 감사 · 쿠폰</span><small>첫 구매 고객 · 알림톡</small></div><strong>14.2<small>%</small></strong><em class="up">▲ 2.1%p</em></li><li><i class="th"><img src="assets/geo/fashion/rw-cap-green.webp" alt=""></i><div><span class="nm">재구매 주기 알림</span><small>재구매 시점 · 알림톡</small></div><strong>11.8<small>%</small></strong><em class="up">▲ 0.9%p</em></li><li><i class="th"><img src="assets/geo/fashion/rw-tote2.webp" alt=""></i><div><span class="nm">휴면 복귀 쿠폰</span><small>휴면 징후 · 문자</small></div><strong>8.6<small>%</small></strong><em class="down">▼ 0.3%p</em></li></ol>
+            <ol class="db-top"><li><i class="th"><img src="assets/geo/grocery/gr-beef.jpg" alt=""></i><div><span class="nm">장바구니 15% 쿠폰</span><small>장바구니 이탈 · 카카오톡</small></div><strong>14.2<small>%</small></strong><em class="up">▲ 2.1%p</em></li><li><i class="th"><img src="assets/geo/grocery/gr-milk.jpg" alt=""></i><div><span class="nm">재구매 주기 알림</span><small>재구매 시점 · 앱 푸시</small></div><strong>11.8<small>%</small></strong><em class="up">▲ 0.9%p</em></li><li><i class="th"><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></i><div><span class="nm">휴면 복귀 쿠폰</span><small>휴면 징후 · 문자</small></div><strong>8.6<small>%</small></strong><em class="down">▼ 0.3%p</em></li></ol>
           </div>
           <div class="np-block db-card db-donut"><div class="db-hd"><b>고객 단계 분포</b><span class="dd">이번 달<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
             <div class="dn-body"><svg class="dn" viewBox="0 0 180 180" aria-hidden="true"><circle style="--i:0" cx="90" cy="90" r="64" fill="none" stroke="#759edf" stroke-width="22" stroke-dasharray="122.7 279.5" stroke-dashoffset="0.0"><title>첫 구매 31%</title></circle><circle style="--i:1" cx="90" cy="90" r="64" fill="none" stroke="#8c75df" stroke-width="22" stroke-dasharray="94.5 307.6" stroke-dashoffset="-124.7"><title>재구매 · 단골 24%</title></circle><circle style="--i:2" cx="90" cy="90" r="64" fill="none" stroke="#75bedf" stroke-width="22" stroke-dasharray="70.4 331.7" stroke-dashoffset="-221.2"><title>휴면 징후 18%</title></circle><circle style="--i:3" cx="90" cy="90" r="64" fill="none" stroke="#a3d8e8" stroke-width="22" stroke-dasharray="58.3 343.8" stroke-dashoffset="-293.6"><title>이탈 15%</title></circle><circle style="--i:4" cx="90" cy="90" r="64" fill="none" stroke="#c4b8f0" stroke-width="22" stroke-dasharray="46.3 355.9" stroke-dashoffset="-353.9"><title>VIP · 추천 12%</title></circle><text x="90" y="86" class="dn-v">8,420<tspan>명</tspan></text><text x="90" y="108" class="dn-l">전체 회원</text></svg><ul class="dn-lg"><li><i style="background:#759edf"></i>첫 구매<b>31%</b></li><li><i style="background:#8c75df"></i>재구매 · 단골<b>24%</b></li><li><i style="background:#75bedf"></i>휴면 징후<b>18%</b></li><li><i style="background:#a3d8e8"></i>이탈<b>15%</b></li><li><i style="background:#c4b8f0"></i>VIP · 추천<b>12%</b></li></ul></div>
@@ -3067,19 +3225,12 @@
 
 <script src="assets/common/wisa.js?v=178"></script>
 <script>
-/* @region crm-hero [CRM] 히어로 오른쪽 '자동 발송' 피드: 보이는 동안 2.2초마다 한 줄씩 위로 추가 (최대 4줄) */
+/* @region crm-hero [CRM] 히어로 휴대폰 화면: 제목 롤링 채널(카카오톡 · 문자 · 이메일 · 앱 푸시)이 바뀔 때 같은 채널 화면으로 교체 (patch-180) */
 (() => {
-  const v = document.querySelector('.cr-hv'), ul = v && v.querySelector('.cr-feed ul'); if (!ul) return;
-  const D = [['첫 구매 감사 메시지', '김*연 · 구매 3일째', '발송', 1], ['재구매 쿠폰 15%', '박*호 · 구매 41일째', '사용', 2, 1], ['새 컬러 소식', '최*아 · 구매 62일째', '열람', 4], ['신상품 먼저 보기', '한*수 · VIP', '구매', 6, 1], ['장바구니 리마인드', '정*우 · 담은 지 2일', '발송', 5], ['GOLD 등급 안내', '이*은 · 5번째 구매', '열람', 3]];
-  const G = { 1: 'f', 2: 'm', 3: 'f', 4: 'f', 5: 'm', 6: 'm' };   // 단계 고객과 같은 사람 (patch-178)
-  let k = 0, on = false;
-  const add = () => { const [t, w, e, p, b] = D[k++ % D.length]; const li = document.createElement('li');
-    li.innerHTML = '<i class="pf"><img src="' + wisaPf(p, G[p]) + '" alt=""></i><p><b>' + t + '</b><small>' + w + '</small></p><em' + (b ? ' class="b"' : '') + '>' + e + '</em>';
-    ul.prepend(li); while (ul.children.length > 4) ul.lastChild.remove(); };
-  for (let i = 0; i < 3; i++) add();
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  new IntersectionObserver(es => { on = es[0].isIntersecting; }).observe(v);
-  setInterval(() => { if (on && !document.hidden) add(); }, 2200);
+  const roll = document.querySelector('#geo-hero .ai-roll-in'), scr = [...document.querySelectorAll('.cr-pn-scr .mu')];
+  if (!roll || !scr.length) return;
+  const sync = () => { const m = /translateY\((-?[\d.]+)em\)/.exec(roll.style.transform || ''); const i = m ? Math.round(-parseFloat(m[1]) / 1.3) % scr.length : 0; scr.forEach((s, j) => s.classList.toggle('on', j === i)); };
+  new MutationObserver(sync).observe(roll, { attributes: true, attributeFilter: ['style'] }); sync();
 })();
 /* @endregion */
 </script>
