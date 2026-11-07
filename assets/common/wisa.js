@@ -125,3 +125,28 @@
   fit(); addEventListener("resize", fit);
 })();
 /* @endregion */
+
+/* @region tab-ind (patch-173): 히어로 탭 선택 표시(알약)를 옆 탭으로 미끄러뜨린 뒤 이동 (CSS wisa.css tab-ind) */
+(() => {
+  const nav = document.querySelector('.tab-page'); if (!nav) return;
+  const place = a => { nav.style.setProperty('--ix', a.offsetLeft + 'px'); nav.style.setProperty('--iy', a.offsetTop + 'px'); nav.style.setProperty('--iw', a.offsetWidth + 'px'); nav.style.setProperty('--ih', a.offsetHeight + 'px'); };
+  const cur = () => nav.querySelector('a.on');
+  if (!cur()) return;
+  place(cur()); nav.classList.add('ind');
+  setTimeout(() => nav.classList.add('ready'), 60);   // 첫 위치는 움직임 없이
+  addEventListener('resize', () => cur() && place(cur()));
+  if (document.fonts) document.fonts.ready.then(() => cur() && place(cur()));
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  nav.addEventListener('click', e => {
+    const a = e.target.closest('a'); const on = cur();
+    if (!a || a === on || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.origin !== location.origin) return;
+    e.preventDefault();
+    const dot = on.querySelector('i');
+    on.classList.remove('on'); on.removeAttribute('aria-current');
+    a.classList.add('on'); a.setAttribute('aria-current', 'page'); if (dot) a.prepend(dot);
+    place(a);
+    setTimeout(() => { location.href = a.href; }, reduced ? 0 : 300);
+  });
+})();
+/* @endregion */

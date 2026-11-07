@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GEO / AI 검색 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=172">
+<link rel="stylesheet" href="assets/common/wisa.css?v=173">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-07 patch-173: 히어로 탭 전환 — 선택 탭(글자 포함)이 늘었다 줄던 전환 효과 삭제 → 흰 알약만 옆 탭으로 미끄러진 뒤 이동 (wisa.css · wisa.js tab-ind)
      · 2026-11-07 patch-172: 공통 파일 분리 — GEO · 온사이트에 똑같이 있던 앞쪽 CSS 2,994줄 → assets/common/wisa.css · 독립 스크립트 5개(vw-enter · st2-code · geo-chat-typing · version-history · report-zoom) → assets/common/wisa.js (화면 변화 없음 · 공통 파일 수정 시 ?v= 숫자 올림)
      · 2026-11-07 patch-171: 컬러 팔레트 정리 — 팔레트 밖 색을 팔레트 단계로 (--card · #f8f9fc → --gray-50 · --band → --primary-100 · --green · --cta-bg 삭제), 기준: 규칙 사이트 컬러 페이지
      · 2026-11-07 patch-168: 새 버전 자동 반영 — 브라우저 저장본(10분)이 서버보다 오래되면 한 번 새로 받아 다시 엶
@@ -148,9 +149,9 @@
      - 탭 전환으로 들어온 경우 히어로 등장 애니메이션은 생략 (비교가 바로 되게) */
   @view-transition { navigation: auto; }
   .tab-page { view-transition-name: tab-page; }
-  .tab-page a.on { view-transition-name: tab-on; }
+  /* patch-173 선택 탭 통째 전환(tab-on) 삭제 → 알약만 미끄러짐 (wisa.css · wisa.js tab-ind) */
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
-  ::view-transition-group(tab-on) { animation-duration: .3s; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+
   html.sw #geo-hero .rv { opacity: 1; transform: none; transition: none; }
   @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
 </style>
@@ -1024,7 +1025,7 @@
 <script>
 /* report-zoom → assets/common/wisa.js (patch-172) */
 </script>
-<script src="assets/common/wisa.js?v=172"></script>
+<script src="assets/common/wisa.js?v=173"></script>
 </body>
 </html>
 

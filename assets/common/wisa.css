@@ -2999,3 +2999,14 @@ img, video { max-width: 100%; display: block; }
 }
 /* @endregion */
 
+
+/* @region tab-ind (patch-173) 히어로 탭 선택 표시: 흰 알약을 글자와 분리해 옆 탭으로 미끄러지게
+   - 이전: 페이지 전환 효과가 선택된 탭(글자 포함)을 통째로 늘였다 줄여 부자연스러움
+   - 지금: 알약(.tab-page::before)만 위치 · 폭이 바뀌고 글자는 제자리, 다 움직인 뒤 다음 페이지로 이동 (스크립트 wisa.js tab-ind)
+   - 스크립트가 없으면 기존처럼 a.on 에 흰 배경 */
+.tab-page { position: relative; isolation: isolate; }
+.tab-page.ind::before { content: ""; position: absolute; z-index: -1; left: 0; top: var(--iy, 6px); width: var(--iw, 0); height: var(--ih, 32px); border-radius: 99px; background: var(--white); box-shadow: 0 0 2px rgba(0,0,0,.1); transform: translateX(var(--ix, 0)); }
+.tab-page.ind.ready::before { transition: transform .28s cubic-bezier(.22, 1, .36, 1), width .28s cubic-bezier(.22, 1, .36, 1); }
+.tab-page.ind a.on { background: none; filter: none; }
+@media (prefers-reduced-motion: reduce) { .tab-page.ind.ready::before { transition: none; } }
+/* @endregion */
