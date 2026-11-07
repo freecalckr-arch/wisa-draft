@@ -21,7 +21,7 @@
   bar.innerHTML =
     '<button class="menu" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="side">' +
     '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>' +
-    '<a class="brand" href="index.html"><img src="../assets/common/logo.svg" alt="WISA"><span><b>디자인 규칙</b></span></a>' +
+    '<a class="brand" href="index.html"><img src="../assets/common/logo.svg" alt="WISA 디자인 규칙"></a>' +
     '<span class="sp"></span>' +
     '<a class="lnk hide-mo" href="https://github.com/freecalckr-arch/wisa-draft">GitHub</a>' +
     '<a class="lnk" href="../index.html">시안 목록</a>';
