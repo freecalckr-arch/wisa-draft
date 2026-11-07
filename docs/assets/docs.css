@@ -52,6 +52,7 @@ img, svg { max-width: 100%; }
 .side a[aria-current="page"] { background: var(--gray-200); color: var(--gray-900); font-weight: 600; border-left-color: var(--gray-900); }
 .side .off { color: var(--gray-400); cursor: default; }
 .side .off small, .side a small { font-size: 11px; color: var(--gray-400); font-weight: 500; }
+.side a .badge { flex: none; padding: 2px 7px; border-radius: 99px; background: #fbeee8; color: #c15f3c; font-style: normal; font-size: 11px; font-weight: 600; line-height: 16px; }   /* Claude 작업 규칙 페이지 표시 */
 .side a .ext { width: 12px; height: 12px; flex: none; color: var(--gray-400); }
 .dim { display: none; }
 

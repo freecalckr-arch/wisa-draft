@@ -7,6 +7,14 @@
 - 시안 원본은 이 저장소의 HTML 파일입니다. 아티팩트는 확인용 사본일 뿐, 수정은 여기서 합니다.
 - 시안 보기(고객 공유용): https://freecalckr-arch.github.io/wisa-draft/
 - 작업 전 `git pull`, 작업 후 `git add` · `git commit` · `git push`. 푸시하면 1~2분 뒤 위 주소에 반영됩니다.
+- 기획문서: https://claude.ai/artifact/1Ha9stzfkA4fdiCrGmFzgx#geo (문장 · 흐름 · 레이아웃의 기준)
+- 작업 범위: 자사몰 마케팅 4P (GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트) + 채널마케팅 3P (공식채널운영 · 상품DB 연동 · 버티컬커머스)
+
+## 자사몰 마케팅 디자인 순서 · 지침 (상세: docs/workflow.html)
+- 순서: 기획문서 확인 → 기획문서 문장 · 흐름 · 레이아웃을 디자인 완료 페이지(GEO · 온사이트) 규격에 맞게 내용 · 사이즈 재구성 → 비주얼 디자인. 재구성 전에 비주얼부터 그리지 않음.
+- 히어로 카피: 특정 키워드만 바뀌는 교체 애니메이션을 적용할 수 있게 문구를 다듬음 (키워드는 한 자리, 앞뒤 문장은 어떤 키워드든 자연스럽게).
+- 비주얼 이미지: 레이아웃 · 타이포 배치에 신경 씀 (정렬선 · 크기 위계 · 일정한 여백 · 글자 겹침/잘림 없음).
+- 색은 규칙 사이트 컬러 팔레트(Base · Primary · Gray · Indigo · Error · Warning · Success)만 사용.
 
 ## 파일
 - `onsite.html` 온사이트마케팅 · `geo.html` GEO · `index.html` 시안 목록

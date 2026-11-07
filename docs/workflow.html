@@ -20,6 +20,7 @@
     <div class="tbl"><table><thead><tr><th>무엇</th><th>주소</th></tr></thead><tbody>
 <tr><td>저장소</td><td><a href="https://github.com/freecalckr-arch/wisa-draft">github.com/freecalckr-arch/wisa-draft</a> (공개)</td></tr>
 <tr><td>시안 보기 (고객 공유용)</td><td><a href="../index.html">freecalckr-arch.github.io/wisa-draft</a></td></tr>
+<tr><td>기획문서</td><td><a href="https://claude.ai/artifact/1Ha9stzfkA4fdiCrGmFzgx#geo">자사몰 마케팅 기획문서</a> (GEO · 온사이트 · CRM · 리포트 · 문장 · 흐름 · 레이아웃의 기준)</td></tr>
 <tr><td>이 규칙 사이트</td><td><a href="index.html">freecalckr-arch.github.io/wisa-draft/docs/</a></td></tr>
 <tr><td>PC 폴더</td><td><code>E:\00.작업\01.업무\03.위사\wisa-draft</code> · 이 PC 에서 작업할 때는 이 폴더를 열고 시작합니다 (이미 저장소와 연결되어 있어 <code>git pull</code> 만 하면 됩니다)</td></tr>
 <tr><td>로그인 계정</td><td>두 Claude 계정 모두 같은 GitHub 계정 <code>freecalckr-arch</code> 로 로그인</td></tr>
@@ -33,6 +34,32 @@
       <li><div><b>기록</b><span>HTML 맨 위 <code>[개발 전달]</code> 주석과 바뀐 CSS 의 <code>patch-NNN</code> 주석에 수정 내용을 남깁니다.</span></div></li>
       <li><div><b>확인</b><span>1440 · 1100 · 820 · 390 에서 보고, 모바일에서 페이지가 옆으로 밀리지 않는지 봅니다.</span></div></li>
       <li><div><b>올리기</b><span><code>git add</code> → <code>git commit</code> → <code>git push</code>. 1~2분 뒤 시안 보기 주소에 반영됩니다.</span></div></li>
+    </ol>
+
+    <h2 id="scope">작업 범위</h2>
+    <p>마케팅 페이지 작업 범위는 자사몰 마케팅 4페이지 + 채널마케팅 3페이지, 모두 7페이지입니다.</p>
+    <div class="tbl"><table><thead><tr><th>묶음</th><th>페이지</th><th>시안</th></tr></thead><tbody>
+<tr><td rowspan="4">자사몰 마케팅 (4P)</td><td>GEO / AI 검색</td><td><a href="../geo.html">geo.html</a></td></tr>
+<tr><td>온사이트마케팅</td><td><a href="../onsite.html">onsite.html</a></td></tr>
+<tr><td>CRM마케팅</td><td>준비 중</td></tr>
+<tr><td>리포트</td><td>준비 중</td></tr>
+<tr><td rowspan="3">채널마케팅 (3P)</td><td>공식채널운영</td><td>준비 중</td></tr>
+<tr><td>상품DB 연동</td><td>준비 중</td></tr>
+<tr><td>버티컬커머스</td><td>준비 중</td></tr>
+</tbody></table></div>
+
+    <h2 id="mkt-steps">자사몰 마케팅 디자인 작업 순서</h2>
+    <p>새 페이지(CRM · 리포트 등)나 큰 수정은 아래 순서대로 진행합니다. 재구성이 끝나기 전에 비주얼부터 그리지 않습니다.</p>
+    <ol class="rules">
+      <li><div><b>기획문서 확인</b><span><a href="https://claude.ai/artifact/1Ha9stzfkA4fdiCrGmFzgx#geo">기획문서</a>에서 해당 페이지의 문장 · 흐름 · 레이아웃을 확인합니다.</span></div></li>
+      <li><div><b>내용 · 사이즈 재구성</b><span>기획문서의 문장 · 흐름 · 레이아웃을 디자인 완료 페이지(GEO · 온사이트) 규격에 맞게 다시 짭니다. 영역 이름 · 순서는 <a href="sections.html">영역 이름</a>, 이미지 · 그래프 크기는 <a href="image.html">이미지</a> · <a href="graph.html">그래프</a>, 히어로는 <a href="hero.html">히어로</a> 규격을 따릅니다.</span></div></li>
+      <li><div><b>비주얼 디자인</b><span>재구성한 틀 위에 화면 이미지 · 애니메이션을 그립니다. 색은 <a href="color.html">컬러</a>, 글자는 <a href="type.html">타이포</a> 규격 안에서만 씁니다.</span></div></li>
+    </ol>
+
+    <h2 id="mkt-guide">자사몰 마케팅 디자인 지침</h2>
+    <ol class="rules">
+      <li><div><b>히어로 카피</b><span>특정 키워드만 바뀌는 교체 애니메이션을 적용할 수 있게 문구를 다듬습니다. 바뀌는 키워드는 한 자리에 두고, 앞뒤 문장은 어떤 키워드가 들어가도 자연스럽게 읽히게 씁니다 (예: GEO "[ChatGPT]가 / 우리 브랜드와 상품을 / 추천하도록 만듭니다" → [ ] 자리만 ChatGPT · Gemini · Claude 로 교체).</span></div></li>
+      <li><div><b>비주얼 이미지</b><span>화면 이미지를 만들 때 레이아웃과 타이포 배치에 신경 씁니다. 정렬선을 맞추고, 제목 · 수치 · 설명의 크기 위계를 분명히 하고, 요소 사이 여백을 일정하게 둡니다. 글자가 이미지 · 다른 요소와 겹치거나 잘리지 않게 확인합니다.</span></div></li>
     </ol>
 
     <h2 id="files">파일 구조</h2>

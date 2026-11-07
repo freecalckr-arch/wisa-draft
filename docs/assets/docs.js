@@ -5,7 +5,7 @@
    - [data-copy] 버튼은 지정한 요소의 글을 복사합니다. */
 (function () {
   var NAV = [
-    { g: "시작하기", items: [["개요", "index.html"], ["작업 방법", "workflow.html"]] },
+    { g: "시작하기", items: [["개요", "index.html"], ["작업 방법", "workflow.html", "Claude용"]] },
     { g: "기초", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
     { g: "영역 규격", items: [["히어로", "hero.html"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["시안 히스토리", null]] },
@@ -36,7 +36,8 @@
       if (!it[1]) return '<li><span class="off">' + it[0] + "<small>준비 중</small></span></li>";
       var out = it[1].indexOf("../") === 0;
       var cur = !out && it[1] === here ? ' aria-current="page"' : "";
-      return '<li><a href="' + it[1] + '"' + cur + ">" + it[0] + (out ? ext : "") + "</a></li>";
+      var badge = it[2] ? '<em class="badge">' + it[2] + "</em>" : "";
+      return '<li><a href="' + it[1] + '"' + cur + ">" + it[0] + (out ? ext : badge) + "</a></li>";
     }).join("") + "</ul>";
   }).join("");
 
