@@ -44,8 +44,17 @@
 </tbody></table></div>
 
     <h2 id="history">시안 히스토리</h2>
-    <p>각 시안 왼쪽 아래 "시안 히스토리"(<code>#vh</code> 의 <code>data-items</code>)에 지난 차수 링크를 남깁니다. 지난 링크는 지우지 않고, 새 차수를 만들면 한 줄 추가합니다.</p>
-    <div class="code"><button type="button" data-copy="c-vh">복사</button><pre id="c-vh">{"date":"2026.11.07","name":"GEO · 반응형 시안 · 해결 영역 규격","current":true}</pre></div>
+    <p>각 시안 왼쪽 아래 "시안 히스토리"(<code>#vh</code> 의 <code>data-items</code>)에는 <b>고객에게 공유한 시안만</b> 남깁니다. 혼자 작업한 중간 과정은 넣지 않고, 같은 차수가 여러 번 고쳐졌으면 최종 1개만 둡니다. 지금 보고 있는 시안은 "지금 보는 시안"으로 표시합니다 (<code>"current": true</code>).</p>
+    <h3>이름 표기</h3>
+    <div class="formula">페이지명 · 버전 · 타입 (같은 버전이 2개 이상일 때만) · 해상도</div>
+    <div class="tbl"><table><thead><tr><th>예시</th><th>설명</th></tr></thead><tbody>
+<tr><td>GEO · 1차 시안 · A타입 · PC</td><td>같은 차수에 A · B 두 안이 있어 타입 표기</td></tr>
+<tr><td>GEO · 수정시안 · PC</td><td>한 안이라 타입 없음</td></tr>
+<tr><td>GEO · 반응형 시안(PC/TB/MO)</td><td>해상도가 여럿이면 괄호에 PC/TB/MO</td></tr>
+</tbody></table></div>
+    <div class="call warn"><p>이 네 가지 외의 내용(수정한 영역 이름, 작업 내용 등)은 이름에 넣지 않습니다.</p></div>
+    <div class="code"><button type="button" data-copy="c-vh">복사</button><pre id="c-vh">{"date":"2026.11.06","name":"GEO · 반응형 시안(PC/TB/MO)","url":"geo.html"},
+{"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안(PC/TB/MO)","current":true}</pre></div>
     <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
