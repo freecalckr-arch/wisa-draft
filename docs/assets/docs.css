@@ -31,16 +31,16 @@ a { color: var(--primary-700); }
 img, svg { max-width: 100%; }
 
 /* 상단 바 */
-.bar { position: fixed; inset: 0 0 auto 0; z-index: 30; height: var(--bar-h); display: flex; align-items: center; gap: 12px; padding: 0 16px; background: var(--gray-900); color: var(--white); }
+.bar { position: fixed; inset: 0 0 auto 0; z-index: 30; height: var(--bar-h); display: flex; align-items: center; gap: 12px; padding: 0 16px; background: var(--white); color: var(--gray-900); border-bottom: 1px solid var(--gray-200); }
 .bar a { color: inherit; text-decoration: none; }
 .bar .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 400; letter-spacing: .01em; }
-.bar .brand img { width: 60px; height: 16px; filter: invert(1); }
+.bar .brand img { width: 60px; height: 16px; }
 .bar .brand b { font-weight: 600; }
 .bar .sp { flex: 1; }
-.bar .lnk { font-size: 14px; padding: 0 12px; height: var(--bar-h); display: flex; align-items: center; color: var(--gray-300); }
-.bar .lnk:hover, .bar .lnk:focus-visible { background: var(--gray-800); color: var(--white); outline: none; }
-.bar .menu { display: none; width: var(--bar-h); height: var(--bar-h); margin-left: -16px; border: 0; background: transparent; color: var(--white); cursor: pointer; align-items: center; justify-content: center; }
-.bar .menu:hover, .bar .menu:focus-visible { background: var(--gray-800); outline: none; }
+.bar .lnk { font-size: 14px; padding: 0 12px; height: var(--bar-h); display: flex; align-items: center; color: var(--gray-600); }
+.bar .lnk:hover, .bar .lnk:focus-visible { background: var(--gray-100); color: var(--gray-900); outline: none; }
+.bar .menu { display: none; width: var(--bar-h); height: var(--bar-h); margin-left: -16px; border: 0; background: transparent; color: var(--gray-900); cursor: pointer; align-items: center; justify-content: center; }
+.bar .menu:hover, .bar .menu:focus-visible { background: var(--gray-100); outline: none; }
 
 /* 왼쪽 메뉴 */
 .side { position: fixed; z-index: 20; top: var(--bar-h); bottom: 0; left: 0; width: var(--nav-w); overflow-y: auto; background: var(--gray-50); border-right: 1px solid var(--gray-200); padding: 16px 0 40px; scrollbar-width: thin; scrollbar-color: var(--gray-300) transparent; }

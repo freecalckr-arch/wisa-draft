@@ -3,6 +3,7 @@
 여러 Claude 계정이 이 저장소 하나로 작업합니다. 이 파일이 작업 기준입니다.
 
 ## 원본 위치
+- PC 폴더: `E:\00.작업\01.업무\03.위사\wisa-draft` (이 PC 에서는 이 폴더에서 작업 · 다른 PC 는 git clone)
 - 시안 원본은 이 저장소의 HTML 파일입니다. 아티팩트는 확인용 사본일 뿐, 수정은 여기서 합니다.
 - 시안 보기(고객 공유용): https://freecalckr-arch.github.io/wisa-draft/
 - 작업 전 `git pull`, 작업 후 `git add` · `git commit` · `git push`. 푸시하면 1~2분 뒤 위 주소에 반영됩니다.
