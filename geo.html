@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-07 patch-177: CRM마케팅 1차 시안(crm.html) 추가 — 시안 히스토리에 CRM 연결 (히어로 CRM 탭이 crm.html 로 이동) · CRM 미리 불러오기
      · 2026-11-07 patch-176: 시안 히스토리 뱃지 "지금 보는 시안" → "현재 시안" · 줄바꿈 없이 크기 유지 (wisa.css · wisa.js)
      · 2026-11-07 patch-173: 히어로 탭 전환 — 선택 탭(글자 포함)이 늘었다 줄던 전환 효과 삭제 → 흰 알약만 옆 탭으로 미끄러진 뒤 이동 (wisa.css · wisa.js tab-ind)
      · 2026-11-07 patch-172: 공통 파일 분리 — GEO · 온사이트에 똑같이 있던 앞쪽 CSS 2,994줄 → assets/common/wisa.css · 독립 스크립트 5개(vw-enter · st2-code · geo-chat-typing · version-history · report-zoom) → assets/common/wisa.js (화면 변화 없음 · 공통 파일 수정 시 ?v= 숫자 올림)
@@ -157,8 +158,9 @@
   @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
 </style>
 <!-- patch-163 다른 시안을 미리 불러 둠 (Chrome 은 화면까지 미리 그림, 그 외 브라우저는 파일만 받아 둠) -->
-<script type="speculationrules">{"prerender":[{"source":"list","urls":["onsite.html"],"eagerness":"eager"}]}</script>
+<script type="speculationrules">{"prerender":[{"source":"list","urls":["onsite.html","crm.html"],"eagerness":"eager"}]}</script>
 <link rel="prefetch" href="onsite.html">
+<link rel="prefetch" href="crm.html">
 <script>
   /* patch-163 탭 전환으로 들어오면 히어로 등장 애니메이션 생략 */
   addEventListener("pagereveal", e => { if (e.viewTransition) document.documentElement.classList.add("sw"); });
@@ -617,9 +619,10 @@
   {"date":"2026.11.05","name":"GEO · 1차 시안 · B타입 · PC","url":"https://claude.ai/artifact/3sfjKYuEzi7qtqyaKGBFQr"},
   {"date":"2026.11.05","name":"GEO · 수정시안 · PC","url":"https://claude.ai/artifact/6TNu6nhnpLqjw4D3UHjFCb"},
   {"date":"2026.11.06","name":"GEO · 반응형 시안(PC/TB/MO)","current":true},
-  {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안(PC/TB/MO)","url":"onsite.html"}
+  {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안(PC/TB/MO)","url":"onsite.html"},
+  {"date":"2026.11.07","name":"CRM마케팅 · 1차 시안(PC/TB/MO)","url":"crm.html"}
 ]'>
-  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>GEO · 온사이트 최신 시안은 이 창에서 바로 전환되고, 지난 시안(아티팩트)은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
+  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>GEO · 온사이트 · CRM 최신 시안은 이 창에서 바로 전환되고, 지난 시안(아티팩트)은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
 </div>
 <script>
