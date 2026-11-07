@@ -150,3 +150,17 @@
   });
 })();
 /* @endregion */
+
+/* @region profile-shuffle (patch-178): 고객 프로필 실사 10장(assets/geo/profile/pt-01~10.jpg)을 페이지 열 때마다 섞어 배정
+   · <img data-pf="번호" data-g="f|m"> → 같은 번호는 같은 사진, 다른 번호는 겹치지 않음 (성별별 5장씩)
+   · 스크립트에서 쓸 때: wisaPf(번호, 'f'|'m') → 사진 경로 */
+(() => {
+  const P = { f: [1, 3, 6, 8, 9], m: [2, 4, 5, 7, 10] }, used = {}, n = { f: 0, m: 0 };
+  for (const g in P) { const a = P[g]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } }
+  window.wisaPf = (k, g = 'f') => {
+    if (!(k in used)) used[k] = P[g][n[g]++ % P[g].length];
+    return 'assets/geo/profile/pt-' + String(used[k]).padStart(2, '0') + '.jpg';
+  };
+  document.querySelectorAll('img[data-pf]').forEach(im => { im.src = wisaPf(im.dataset.pf, im.dataset.g); });
+})();
+/* @endregion */
