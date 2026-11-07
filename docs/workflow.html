@@ -66,10 +66,26 @@
     <div class="tbl"><table><thead><tr><th>경로</th><th>내용</th></tr></thead><tbody>
 <tr><td><code>index.html</code></td><td>시안 목록 (고객이 처음 보는 페이지)</td></tr>
 <tr><td><code>geo.html</code> · <code>onsite.html</code></td><td>페이지별 최신 시안</td></tr>
+<tr><td><code>assets/common/wisa.css</code> · <code>wisa.js</code></td><td>마케팅 시안 공통 스타일 · 스크립트 (아래 공통 파일 참고)</td></tr>
 <tr><td><code>assets/</code></td><td>폰트 · 로고 · 상품 · 프로필 이미지 (모든 페이지 공용, 새 이미지는 <code>assets/geo/…</code> 아래)</td></tr>
 <tr><td><code>docs/</code></td><td>이 규칙 사이트 · 메뉴는 <code>docs/assets/docs.js</code> 의 <code>NAV</code></td></tr>
 <tr><td><code>CLAUDE.md</code></td><td>Claude 가 작업 시작 때 읽는 요약 규칙</td></tr>
 </tbody></table></div>
+
+    <h2 id="common">공통 파일</h2>
+    <p>여러 페이지에 똑같이 쓰는 코드는 공통 파일 하나에 두고 불러 씁니다 (patch-172). 한 곳만 고치면 모든 페이지에 반영됩니다.</p>
+    <div class="tbl"><table><thead><tr><th>파일</th><th>담는 것</th><th>불러오는 위치</th></tr></thead><tbody>
+<tr><td><code>assets/common/wisa.css</code></td><td>토큰(<code>:root</code>) · 공통 · 헤더 · GNB · 모바일 메뉴 · 푸터 · CTA · FAQ · 영역 공통 · 타이포 규격 · 반응형</td><td><code>&lt;head&gt;</code> 의 첫 <code>&lt;style&gt;</code> 바로 위</td></tr>
+<tr><td><code>assets/common/wisa.js</code></td><td>비주얼 등장 · STEP 2 코드 · 채팅 타이핑 · 시안 히스토리 · 리포트 축소</td><td><code>&lt;/body&gt;</code> 바로 위 (페이지 스크립트 다음)</td></tr>
+</tbody></table></div>
+    <ol class="rules">
+      <li><div><b>새 페이지</b><span>GEO 또는 온사이트를 복사해 시작하고, <code>wisa.css</code> · <code>wisa.js</code> 연결은 그대로 둡니다. 페이지 전용 CSS · 스크립트만 HTML 안에 씁니다.</span></div></li>
+      <li><div><b>페이지 전용 수정</b><span>HTML 의 <code>&lt;style&gt;</code> 에 씁니다. 공통 파일보다 뒤에 오므로 공통 규칙을 덮어씁니다.</span></div></li>
+      <li><div><b>공통 수정</b><span>모든 페이지에 똑같이 들어가야 하는 수정은 <code>wisa.css</code> · <code>wisa.js</code> 에서 합니다. 고친 뒤에는 이 파일을 쓰는 모든 페이지의 <code>?v=</code> 숫자를 새 patch 번호로 올립니다 (브라우저가 이전 파일을 저장해 두고 쓰지 않게).</span></div></li>
+      <li><div><b>공통으로 옮기기</b><span>페이지 전용 코드가 2개 이상 페이지에 똑같이 생기면 공통 파일로 옮깁니다. 옮기기 전후로 화면이 같은지 확인합니다.</span></div></li>
+      <li><div><b>경로</b><span><code>wisa.css</code> 안의 이미지 · 폰트 경로는 CSS 파일 위치 기준입니다 (예: <code>url("fonts/…")</code> = <code>assets/common/fonts/…</code>).</span></div></li>
+    </ol>
+    <div class="call warn"><p>헤더 · GNB · 푸터 등의 스크립트는 아직 각 페이지의 큰 스크립트 안에 페이지 전용 코드와 섞여 있어 분리하지 않았습니다. 마크업(HTML)도 페이지마다 그대로 둡니다.</p></div>
 
     <h2 id="history">시안 히스토리</h2>
     <p>각 시안 왼쪽 아래 "시안 히스토리"(<code>#vh</code> 의 <code>data-items</code>)에는 <b>고객에게 공유한 시안만</b> 남깁니다. 혼자 작업한 중간 과정은 넣지 않고, 같은 차수가 여러 번 고쳐졌으면 최종 1개만 둡니다. 지금 보고 있는 시안은 "지금 보는 시안"으로 표시합니다 (<code>"current": true</code>).</p>

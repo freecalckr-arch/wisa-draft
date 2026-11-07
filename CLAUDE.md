@@ -18,6 +18,7 @@
 
 ## 파일
 - `onsite.html` 온사이트마케팅 · `geo.html` GEO · `index.html` 시안 목록
+- `assets/common/wisa.css` · `wisa.js` 마케팅 시안 공통 스타일 · 스크립트 (patch-172). 모든 페이지에 똑같이 들어갈 수정은 여기서 하고, 고친 뒤 이 파일을 쓰는 모든 페이지의 `?v=` 숫자를 새 patch 번호로 올림. 페이지 전용은 각 HTML `<style>` · `<script>` 에. 새 페이지는 GEO · 온사이트를 복사해 공통 파일 연결을 그대로 둠. `wisa.css` 안 경로는 CSS 파일 위치 기준.
 - `assets/` 공용 이미지 · 폰트 (새 이미지는 `assets/geo/...` 아래에 추가하고 상대 경로로 참조)
 - `docs/` 디자인 규칙 사이트 (왼쪽 메뉴 = `docs/assets/docs.js` 의 NAV · 새 규격 페이지는 기존 페이지를 복사해 만들고 NAV 에 한 줄 추가)
 
