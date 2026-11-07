@@ -4,7 +4,7 @@
 앞으로 수정은 이 저장소의 파일을 기준으로 합니다.
 
 - 시안 보기: https://freecalckr-arch.github.io/wisa-draft/
-- 공통 규칙: [docs/size-rules.html](docs/size-rules.html) (영역 이름 · 이미지 · 그래프 사이즈)
+- 공통 규칙: [docs/](docs/) (영역 이름 · 이미지 · 그래프 사이즈)
 
 ## 파일
 
@@ -19,7 +19,7 @@
 ## 작업 방법
 
 1. 작업 전 최신 상태 받기: `git pull`
-2. 해당 페이지 HTML 수정 (공통 규칙: `docs/size-rules.html`)
+2. 해당 페이지 HTML 수정 (공통 규칙: `docs/`)
 3. 페이지 HTML 맨 위 `[개발 전달]` 주석에 수정 내용 기록
 4. 올리기: `git add` → `git commit` → `git push` (1~2분 뒤 시안 보기 주소에 반영)
 

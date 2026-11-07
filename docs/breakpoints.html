@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>해상도 구간 · WISA 디자인 규칙</title>
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">기초</p>
+    <h1>해상도 구간</h1>
+    <p class="lede">네 구간으로 나눠 작업하고, 구간마다 정해진 폭에서 확인합니다. PC 1440 시안이 모든 크기의 기준입니다.</p>
+  </header>
+  <div class="body">
+<h2 id="ranges">구간</h2>
+    <div class="bp" aria-hidden="true">
+      <div class="mo"><b>모바일</b><span class="num">~767</span></div>
+      <div class="tb"><b>태블릿</b><span class="num">768~1023</span></div>
+      <div class="pm"><b>PC 최소</b><span class="num">1024~1439</span></div>
+      <div class="pc"><b>PC</b><span class="num">1440~</span></div>
+    </div>
+    <div class="tbl"><table><thead><tr><th>구간</th><th>화면 폭</th><th>확인 폭</th><th>배치</th></tr></thead><tbody>
+<tr><td>PC</td><td><span class="num">1440 이상</span></td><td><b class="num">1440</b></td><td>승인 시안 · 모든 크기의 기준</td></tr>
+<tr><td>PC 최소</td><td><span class="num">1024 ~ 1439</span></td><td><b class="num">1100</b></td><td>PC 배치 유지 · 이미지는 비율 축소</td></tr>
+<tr><td>태블릿</td><td><span class="num">768 ~ 1023</span></td><td><b class="num">820</b></td><td>한 열 배치 · 이미지는 PC 크기 그대로 (확대 없음)</td></tr>
+<tr><td>모바일</td><td><span class="num">767 이하</span></td><td><b class="num">390</b></td><td>한 열 배치 · 이미지는 비율 축소 · 360 에서도 옆으로 밀리지 않기</td></tr>
+</tbody></table></div>
+
+    <h2 id="code">미디어 쿼리</h2>
+    <div class="code"><button type="button" data-copy="c-mq">복사</button><pre id="c-mq">/* PC 최소 */  @media (min-width: 1024px) and (max-width: 1439px) { }
+/* 태블릿 */   @media (min-width: 768px) and (max-width: 1023px) { }
+/* 모바일 */   @media (max-width: 767px) { }
+/* 1439 이하 전체 (이미지 축소) */ @media (max-width: 1439px) { }</pre></div>
+    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

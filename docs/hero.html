@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>히어로 · WISA 디자인 규칙</title>
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">영역 규격</p>
+    <h1>히어로</h1>
+    <p class="lede">히어로 안의 구성(폰 · 카드 · 채팅 등)은 페이지마다 다르게 만듭니다. 규격은 파란 박스(<code>.sh-visual</code>) 하나만 고정하고, 안의 구성은 이 박스에 맞춥니다.</p>
+  </header>
+  <div class="body">
+<h2 id="box">파란 박스 크기</h2>
+    <div class="tbl"><table><thead><tr><th>구간</th><th>박스 가로</th><th>박스 세로</th><th>좌우 바깥 여백</th><th>모서리</th><th>안쪽 위 여백</th></tr></thead><tbody>
+<tr><td>PC</td><td>화면 폭 − 100 (1440 → 1340)</td><td><b class="num">460</b></td><td><span class="num">50</span></td><td><span class="num">24</span></td><td><span class="num">40</span></td></tr>
+<tr><td>PC 최소</td><td>화면 폭 − 100 (1100 → 1000)</td><td><b class="num">460</b></td><td><span class="num">50</span></td><td><span class="num">24</span></td><td><span class="num">40</span></td></tr>
+<tr><td>태블릿</td><td>화면 폭 − 100 (820 → 720)</td><td><b class="num">444</b></td><td><span class="num">50</span></td><td><span class="num">24</span></td><td><span class="num">40</span></td></tr>
+<tr><td>모바일</td><td>화면 폭 전체 (390)</td><td><b class="num">444</b></td><td><span class="num">0</span></td><td><span class="num">0</span></td><td>40 (좌우 40)</td></tr>
+</tbody></table></div>
+
+    <h2 id="rules">배치 규칙</h2>
+    <ol class="rules">
+      <li><div><b>안의 구성은 박스 바닥에 붙인다</b><span>넘치는 부분은 박스가 잘라냅니다 (<code>overflow: hidden</code>).</span></div></li>
+      <li><div><b>태블릿 · 모바일은 박스 양옆 떠 있는 카드를 숨긴다</b><span>공간이 부족해 겹치기 때문입니다. 필요한 정보는 박스 안 구성으로 옮깁니다.</span></div></li>
+      <li><div><b>히어로에는 그래프를 넣지 않는다</b><span>그래프는 그래프 영역(<code>#geo-market</code>)에서만 씁니다.</span></div></li>
+      <li><div><b>떠 있는 카드 움직임은 GEO 와 같게</b><span>위아래로 천천히 (<code>shFloat 6s ease-in-out infinite alternate</code>), 좌우 카드는 반 박자 어긋나게 (<code>-3s</code>).</span></div></li>
+    </ol>
+
+    <h2 id="code">코드</h2>
+    <div class="code"><button type="button" data-copy="c-hero">복사</button><pre id="c-hero">.sh-visual { height: 460px; margin-inline: 50px; border-radius: 24px; padding-top: 40px; overflow: hidden; }
+@media (max-width: 1023px) { .sh-visual { height: 444px; } }
+@media (max-width: 767px)  { .sh-visual { margin-inline: 0; border-radius: 0; padding: 40px 40px 0; } }</pre></div>
+    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

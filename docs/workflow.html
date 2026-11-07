@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>작업 방법 · WISA 디자인 규칙</title>
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">시작하기</p>
+    <h1>작업 방법</h1>
+    <p class="lede">시안 원본은 GitHub 저장소 하나입니다. 어느 Claude 계정에서 작업해도 같은 저장소를 받아서 고치고 올립니다.</p>
+  </header>
+  <div class="body">
+<h2 id="where">원본 위치</h2>
+    <div class="tbl"><table><thead><tr><th>무엇</th><th>주소</th></tr></thead><tbody>
+<tr><td>저장소</td><td><a href="https://github.com/freecalckr-arch/wisa-draft">github.com/freecalckr-arch/wisa-draft</a> (공개)</td></tr>
+<tr><td>시안 보기 (고객 공유용)</td><td><a href="../index.html">freecalckr-arch.github.io/wisa-draft</a></td></tr>
+<tr><td>이 규칙 사이트</td><td><a href="index.html">freecalckr-arch.github.io/wisa-draft/docs/</a></td></tr>
+<tr><td>로그인 계정</td><td>두 Claude 계정 모두 같은 GitHub 계정 <code>freecalckr-arch</code> 로 로그인</td></tr>
+</tbody></table></div>
+    <div class="call"><p>아티팩트는 확인용 사본입니다. 아티팩트에서 고친 내용은 사이트에 반영되지 않으니, 수정은 저장소 파일에서 합니다.</p></div>
+
+    <h2 id="steps">작업 순서</h2>
+    <ol class="rules">
+      <li><div><b>받기</b><span>처음 한 번 <code>git clone https://github.com/freecalckr-arch/wisa-draft.git</code>, 이후에는 작업 전마다 <code>git pull</code></span></div></li>
+      <li><div><b>고치기</b><span>해당 페이지 HTML 을 고치고, 이 사이트의 규칙을 따릅니다.</span></div></li>
+      <li><div><b>기록</b><span>HTML 맨 위 <code>[개발 전달]</code> 주석과 바뀐 CSS 의 <code>patch-NNN</code> 주석에 수정 내용을 남깁니다.</span></div></li>
+      <li><div><b>확인</b><span>1440 · 1100 · 820 · 390 에서 보고, 모바일에서 페이지가 옆으로 밀리지 않는지 봅니다.</span></div></li>
+      <li><div><b>올리기</b><span><code>git add</code> → <code>git commit</code> → <code>git push</code>. 1~2분 뒤 시안 보기 주소에 반영됩니다.</span></div></li>
+    </ol>
+
+    <h2 id="files">파일 구조</h2>
+    <div class="tbl"><table><thead><tr><th>경로</th><th>내용</th></tr></thead><tbody>
+<tr><td><code>index.html</code></td><td>시안 목록 (고객이 처음 보는 페이지)</td></tr>
+<tr><td><code>geo.html</code> · <code>onsite.html</code></td><td>페이지별 최신 시안</td></tr>
+<tr><td><code>assets/</code></td><td>폰트 · 로고 · 상품 · 프로필 이미지 (모든 페이지 공용, 새 이미지는 <code>assets/geo/…</code> 아래)</td></tr>
+<tr><td><code>docs/</code></td><td>이 규칙 사이트 · 메뉴는 <code>docs/assets/docs.js</code> 의 <code>NAV</code></td></tr>
+<tr><td><code>CLAUDE.md</code></td><td>Claude 가 작업 시작 때 읽는 요약 규칙</td></tr>
+</tbody></table></div>
+
+    <h2 id="history">시안 히스토리</h2>
+    <p>각 시안 왼쪽 아래 "시안 히스토리"(<code>#vh</code> 의 <code>data-items</code>)에 지난 차수 링크를 남깁니다. 지난 링크는 지우지 않고, 새 차수를 만들면 한 줄 추가합니다.</p>
+    <div class="code"><button type="button" data-copy="c-vh">복사</button><pre id="c-vh">{"date":"2026.11.07","name":"GEO · 반응형 시안 · 해결 영역 규격","current":true}</pre></div>
+    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

@@ -10,7 +10,7 @@
 ## 파일
 - `onsite.html` 온사이트마케팅 · `geo.html` GEO · `index.html` 시안 목록
 - `assets/` 공용 이미지 · 폰트 (새 이미지는 `assets/geo/...` 아래에 추가하고 상대 경로로 참조)
-- `docs/size-rules.html` 영역 이름 · 이미지 · 그래프 사이즈 규칙 (공통 규칙 원문은 사용자 노션 페이지)
+- `docs/` 디자인 규칙 사이트 (왼쪽 메뉴 = `docs/assets/docs.js` 의 NAV · 새 규격 페이지는 기존 페이지를 복사해 만들고 NAV 에 한 줄 추가)
 
 ## 반드시 지킬 것
 - 영역 이름(흐름 순서): 히어로 `#geo-hero` · 문제 `#geo-why` · 그래프 `#geo-market` · 단계 `#geo-how` · 해결 `#geo-diagnosis` · 리포트 `#geo-report` · 사례 `#geo-ref` · CTA `#cta`

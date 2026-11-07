@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>개요 · WISA 디자인 규칙</title>
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">시작하기</p>
+    <h1>개요</h1>
+    <p class="lede">GEO · 온사이트마케팅 · CRM마케팅 · 리포트 등 WISA 자사몰 마케팅 페이지 시안이 함께 쓰는 규칙입니다. 화면 이미지는 PC 크기로 한 번 그리고, 화면이 좁아지면 비율 그대로 줄입니다.</p>
+  </header>
+  <div class="body">
+<h2 id="start">빠르게 찾기</h2>
+    <div class="cards">
+      <a href="breakpoints.html"><small>기초</small><b>해상도 구간</b><span>PC · PC 최소 · 태블릿 · 모바일 네 구간과 확인 폭</span><i>→</i></a>
+      <a href="sections.html"><small>기초</small><b>영역 이름</b><span>히어로부터 CTA까지 8개 영역의 이름과 코드 id</span><i>→</i></a>
+      <a href="grid.html"><small>기초</small><b>그리드 · 여백</b><span>본문 폭 1240, 좌우 여백, 영역 사이 간격</span><i>→</i></a>
+      <a href="hero.html"><small>영역 규격</small><b>히어로</b><span>파란 박스 크기 (PC 460 · 태블릿 · 모바일 444)</span><i>→</i></a>
+      <a href="image.html"><small>영역 규격</small><b>이미지</b><span>PC 크기로 그리고 비율대로 축소 · 영역별 기준 크기</span><i>→</i></a>
+      <a href="graph.html"><small>영역 규격</small><b>그래프</b><span>그래프 세로 길이 (태블릿 220 · 모바일 210)</span><i>→</i></a>
+    </div>
+
+    <h2 id="status">페이지별 적용 현황</h2>
+    <div class="tbl"><table><thead><tr><th>페이지</th><th>상태</th><th>메모</th></tr></thead><tbody>
+<tr><td><a href="../onsite.html">온사이트마케팅</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 문제 · 단계 · 해결 이미지 비율 축소, 그래프 태블릿 220 · 모바일 210</td></tr>
+<tr><td><a href="../geo.html">GEO</a></td><td><span class="tag wip">적용 전</span></td><td>실측 2026-11-07: 히어로 박스 태블릿 · 모바일 457 (규격 444), 문제 이미지 태블릿 631×300 · 모바일 289×307 (가로만 바뀜), 해결 이미지 태블릿 601×370 · 모바일 283×385</td></tr>
+<tr><td>CRM마케팅</td><td><span class="tag">예정</span></td><td>시안 작업 시 처음부터 이 규칙으로</td></tr>
+<tr><td>리포트</td><td><span class="tag">예정</span></td><td>시안 작업 시 처음부터 이 규칙으로</td></tr>
+</tbody></table></div>
+
+    <h2 id="check">시안 완료 전 체크리스트</h2>
+    <ul class="check">
+      <li>영역 id 가 <a href="sections.html">영역 이름</a> 표의 이름 · 순서와 맞는다</li>
+      <li>히어로 파란 박스가 PC · PC 최소 460, 태블릿 · 모바일 444 이고 가로 규격을 지킨다</li>
+      <li>화면 이미지가 PC 크기로 그려지고, 1439 이하에서 비율 그대로 줄어든다 (가로만 바뀌지 않는다)</li>
+      <li>태블릿에서 이미지가 PC 크기보다 커지지 않는다</li>
+      <li>그래프 영역 그래프 세로가 태블릿 220 · 모바일 210 이다</li>
+      <li>1440 · 1100 · 820 · 390 에서 확인했고, 모바일 390 · 360 에서 페이지가 옆으로 밀리지 않는다</li>
+    </ul>
+
+    <h2 id="add">규격 페이지 추가하기</h2>
+    <ol class="list">
+      <li><code>docs/</code> 에 있는 페이지 하나를 복사해 새 이름으로 저장합니다 (예: <code>docs/tab.html</code>).</li>
+      <li>제목 · 설명 · 본문을 고칩니다. 탭이 필요하면 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 으로 나눕니다.</li>
+      <li><code>docs/assets/docs.js</code> 맨 위 <code>NAV</code> 에서 해당 메뉴의 <code>null</code> 을 파일 이름으로 바꾸거나 새 줄을 추가합니다.</li>
+    </ol>
+    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

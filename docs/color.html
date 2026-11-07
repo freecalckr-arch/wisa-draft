@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>컬러 · WISA 디자인 규칙</title>
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">기초</p>
+    <h1>컬러</h1>
+    <p class="lede">시안 CSS 맨 위 <code>:root</code> 에 있는 색만 씁니다. 새 색이 필요하면 이 페이지와 <code>:root</code> 에 먼저 추가합니다.</p>
+  </header>
+  <div class="body">
+<h2 id="primary">주요 색</h2>
+    <div class="swatches">
+      <div><i style="background:#1570ef"></i><p><b>--primary-600</b><span class="num">#1570ef</span><br>포인트 · 링크 · 프라이머리 호버</p></div>
+      <div><i style="background:#175cd3"></i><p><b>--primary-700</b><span class="num">#175cd3</span><br>텍스트 버튼 호버</p></div>
+      <div><i style="background:#d1e9ff;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--primary-100</b><span class="num">#d1e9ff</span><br>포커스 링</p></div>
+      <div><i style="background:#eff8ff;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--primary-50</b><span class="num">#eff8ff</span><br>옅은 배경</p></div>
+      <div><i style="background:#eef4ff;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--indigo-50</b><span class="num">#eef4ff</span><br>옅은 배경 (보조)</p></div>
+      <div><i style="background:#101323"></i><p><b>--cta-bg</b><span class="num">#101323</span><br>CTA 영역 배경</p></div>
+      <div><i style="background:#000000"></i><p><b>--black</b><span class="num">#000000</span><br>제목 · 프라이머리 버튼</p></div>
+      <div><i style="background:#ffffff;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--white</b><span class="num">#ffffff</span><br>페이지 배경</p></div>
+    </div>
+
+    <h2 id="gray">회색</h2>
+    <div class="swatches">
+      <div><i style="background:#101828"></i><p><b>--gray-900</b><span class="num">#101828</span><br>본문 진한 글씨</p></div>
+      <div><i style="background:#1d2939"></i><p><b>--gray-800</b><span class="num">#1d2939</span><br></p></div>
+      <div><i style="background:#344054"></i><p><b>--gray-700</b><span class="num">#344054</span><br>보조 제목</p></div>
+      <div><i style="background:#475467"></i><p><b>--gray-600</b><span class="num">#475467</span><br>설명 글 (리드 · 본문)</p></div>
+      <div><i style="background:#667085"></i><p><b>--gray-500</b><span class="num">#667085</span><br>비활성 탭 · 캡션</p></div>
+      <div><i style="background:#98a2b3"></i><p><b>--gray-400</b><span class="num">#98a2b3</span><br>출처 · 주석</p></div>
+      <div><i style="background:#d0d5dd;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--gray-300</b><span class="num">#d0d5dd</span><br>버튼 테두리</p></div>
+      <div><i style="background:#eaecf0;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--gray-200</b><span class="num">#eaecf0</span><br>구분선</p></div>
+      <div><i style="background:#f2f4f7;box-shadow:inset 0 -1px 0 #eaecf0"></i><p><b>--gray-100</b><span class="num">#f2f4f7</span><br>탭 바탕 · 카드 배경</p></div>
+    </div>
+
+    <h2 id="state">버튼 상태</h2>
+    <div class="tbl"><table><thead><tr><th>버튼</th><th>기본</th><th>호버</th><th>포커스</th></tr></thead><tbody>
+<tr><td>프라이머리</td><td>검정 배경 · 흰 글씨</td><td><code>--primary-600</code> 배경</td><td><code>--primary-600</code> + 링 4px <code>--primary-100</code></td></tr>
+<tr><td>세컨더리</td><td>흰 배경 · <code>--gray-300</code> 테두리</td><td>테두리 검정</td><td>테두리 검정 + 링 4px <code>--gray-100</code></td></tr>
+<tr><td>텍스트 링크</td><td><code>--gray-900</code> 밑줄</td><td><code>--primary-700</code> + 화살표</td><td>외곽선 2px <code>--primary-600</code></td></tr>
+</tbody></table></div>
+    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

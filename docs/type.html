@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>타이포 · WISA 디자인 규칙</title>
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">기초</p>
+    <h1>타이포</h1>
+    <p class="lede">폰트는 Pretendard 하나만 씁니다. 제목은 700, 본문은 400. 수치는 온사이트마케팅 시안 실측값 (PC 1440 기준 예시)입니다.</p>
+  </header>
+  <div class="body">
+<section class="panel" data-tab="크기">
+    <h2 id="scale">크기 (구간별)</h2>
+    <div class="tbl"><table><thead><tr><th>용도</th><th>PC 1440</th><th>PC 최소 1100</th><th>태블릿 820</th><th>모바일 390</th><th>줄 간격 · 굵기</th></tr></thead><tbody>
+<tr><td>히어로 제목 <code>h1</code></td><td><b class="num">50</b></td><td><span class="num">50</span></td><td><span class="num">46</span></td><td><span class="num">30</span></td><td>1.3 · 700</td></tr>
+<tr><td>CTA 제목</td><td><b class="num">40</b></td><td><span class="num">40</span></td><td><span class="num">36</span></td><td><span class="num">28</span></td><td>1.3 · 700</td></tr>
+<tr><td>영역 제목 <code>h2</code></td><td><b class="num">34</b></td><td><span class="num">34</span></td><td><span class="num">36</span></td><td><span class="num">28</span></td><td>1.3 · 700</td></tr>
+<tr><td>단계 탭 제목</td><td><b class="num">28</b></td><td><span class="num">24</span></td><td><span class="num">22</span></td><td><span class="num">19</span></td><td>1.4 · 700</td></tr>
+<tr><td>해결 줄 제목</td><td><b class="num">24</b></td><td><span class="num">24</span></td><td><span class="num">24</span></td><td><span class="num">18</span></td><td>1.35 · 700</td></tr>
+<tr><td>문제 카드 제목</td><td><b class="num">22</b></td><td><span class="num">22</span></td><td><span class="num">22</span></td><td><span class="num">18</span></td><td>1.4 · 700</td></tr>
+<tr><td>영역 설명 (리드)</td><td><b class="num">18</b></td><td><span class="num">18</span></td><td><span class="num">18</span></td><td><span class="num">15</span></td><td>1.6 (모바일 1.5) · 400 · <code>--gray-600</code></td></tr>
+<tr><td>본문</td><td><b class="num">16</b></td><td><span class="num">16</span></td><td><span class="num">16</span></td><td><span class="num">14</span></td><td>1.6 · 400 · <code>--gray-600</code></td></tr>
+<tr><td>출처 · 주석</td><td><b class="num">12</b></td><td><span class="num">12</span></td><td><span class="num">12</span></td><td><span class="num">12</span></td><td>400 · <code>--gray-400</code></td></tr>
+</tbody></table></div>
+    <p class="note">화면 이미지 안의 글씨는 이 표를 따르지 않고 <a href="image.html">이미지 배율</a>대로 함께 작아집니다. 그래프 글씨는 모바일에서도 12 이상입니다 (<a href="graph.html">그래프</a>).</p>
+    </section>
+
+    <section class="panel" data-tab="예시">
+    <h2 id="sample">PC 크기 예시</h2>
+    <div class="type-row"><div class="meta"><b>히어로 제목</b>50 / 1.3 / 700</div><div class="sample" style="font-size:50px;line-height:1.3">AI 검색으로 들어온 고객</div></div>
+    <div class="type-row"><div class="meta"><b>CTA 제목</b>40 / 1.3 / 700</div><div class="sample" style="font-size:40px;line-height:1.3">우리 쇼핑몰 고객은 어디서 떠날까요</div></div>
+    <div class="type-row"><div class="meta"><b>영역 제목</b>34 / 1.3 / 700</div><div class="sample" style="font-size:34px;line-height:1.3">방문자를 늘려도 구매는 그대로</div></div>
+    <div class="type-row"><div class="meta"><b>단계 탭 제목</b>28 / 1.4 / 700</div><div class="sample" style="font-size:28px;line-height:1.4">메인 이미지와 카피를 보고</div></div>
+    <div class="type-row"><div class="meta"><b>카드 제목</b>22 / 1.4 / 700</div><div class="sample" style="font-size:22px;line-height:1.4">방문 고객이 구매하게 만드는 데 집중</div></div>
+    <div class="type-row"><div class="meta"><b>영역 설명</b>18 / 1.6 / 400</div><div style="font-size:18px;line-height:1.6;color:#475467">방문한 100명 중 2.5명만 구매합니다. 나머지 97.5명이 어디서 떠나는지 찾습니다.</div></div>
+    <div class="type-row"><div class="meta"><b>본문</b>16 / 1.6 / 400</div><div style="font-size:16px;line-height:1.6;color:#475467">상세 설명 · 콘텐츠 · 후기를 보고 살지 말지 정합니다.</div></div>
+    </section>
+
+    <section class="panel" data-tab="코드">
+    <h2 id="font">폰트 선언</h2>
+    <div class="code"><button type="button" data-copy="c-ft">복사</button><pre id="c-ft">@font-face { font-family: "Pretendard"; src: url("assets/common/fonts/PretendardVariable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+body { font-family: "Pretendard Variable", Pretendard, system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; word-break: keep-all; }</pre></div>
+    <p>한글 줄바꿈은 <code>word-break: keep-all</code> 로 단어 단위로 끊습니다. 제목 줄바꿈은 <code>&lt;br&gt;</code> 로 직접 정합니다.</p>
+    </section>
+    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>
