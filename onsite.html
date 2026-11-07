@@ -6,6 +6,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-07 patch-169: 히어로 B안 파란 테두리 — PC(≥1024)에서 처음부터 고정 (2초 뒤 나타나던 효과 제거 · 태블릿 · 모바일은 그대로)
      · 2026-11-07 patch-168: 새 버전 자동 반영 — 브라우저 저장본(10분)이 서버보다 오래되면 한 번 새로 받아 다시 엶
      · 2026-11-07 patch-167: 시안 히스토리 정리 — 표기 규칙(페이지명 · 버전 · 타입(2개 이상일 때) · 해상도), 고객에게 공유한 시안만 (GEO 반응형은 최종 1개)
      · 2026-11-07 patch-165: 크기 · 큰 여백 0 단위 — 문제 카드 여백 40 · 간격 60 (이미지 550×300) · 사례 카드 간격 20 (사진 400×210) · 히어로 박스 태블릿 · 모바일 440 · 단계 탭 패널 여백 40 · 50 · 간격 60 (화면 560×480)
@@ -4828,6 +4829,8 @@
   .os19 .nx i, .os20 .nx i { animation: os148dot 1.6s ease-in-out infinite; } @keyframes os148dot { 50% { box-shadow: 0 0 0 4px rgba(21,112,239,.18); } }
   @media (prefers-reduced-motion: reduce) { .os19 .nx i, .os20 .nx i { animation: none; } }
   .hp-body { gap: 4px; padding-top: 4px; overflow: hidden; } .hp-sec { padding: 6px 12px; } .hp-sec b { margin-bottom: 3px; } .hp-sec p { line-height: 1.4; } .hp-sum { gap: 2px; padding: 6px 12px; } .hp-pm span { padding: 5px 0; } .hp-btn { margin: 6px 10px 10px; }
+  /* patch-169 히어로 B안 파란 테두리: PC(≥1024)에서는 2초 뒤(.win) 나타나지 않고 처음부터 고정 */
+  @media (min-width: 1024px) { .hv-b .hb-ph.b { box-shadow: 0 0 0 2px var(--primary-600), 0 20px 56px rgba(21,112,239,.24); transition: none; } }
   /* @endregion */
 </style>
 
