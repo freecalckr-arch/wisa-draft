@@ -6,6 +6,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-07 patch-163: 시안 히스토리 GEO 반응형 최종 · 온사이트 1차를 웹 주소(geo.html · onsite.html)로 연결, 히어로 탭 GEO ↔ 온사이트 전환형 (미리 불러오기 + 화면 전환 효과, 개발 시 일반 링크로 둬도 됨)
      ---------------------------------------------------------------------
      · 기기 기준: PC ≥1440(승인 시안) · PC 최소 1024~1439 · 태블릿 768~1023 · 모바일 ≤767
      · 아래 수정 CSS는 모두 <style> 맨 끝 5개 영역에 모여 있음 (앞쪽 기존 코드보다 우선 적용 · 순서 변경 금지)
@@ -4826,6 +4827,26 @@
   .hp-body { gap: 4px; padding-top: 4px; overflow: hidden; } .hp-sec { padding: 6px 12px; } .hp-sec b { margin-bottom: 3px; } .hp-sec p { line-height: 1.4; } .hp-sum { gap: 2px; padding: 6px 12px; } .hp-pm span { padding: 5px 0; } .hp-btn { margin: 6px 10px 10px; }
   /* @endregion */
 </style>
+
+<style>
+  /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
+     - 화면 전체는 겹쳐 사라지듯 바뀌고(.22s), 히어로 탭 줄은 제자리에 고정, 선택 표시는 옆 탭으로 미끄러짐
+     - 탭 전환으로 들어온 경우 히어로 등장 애니메이션은 생략 (비교가 바로 되게) */
+  @view-transition { navigation: auto; }
+  .tab-page { view-transition-name: tab-page; }
+  .tab-page a.on { view-transition-name: tab-on; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
+  ::view-transition-group(tab-on) { animation-duration: .3s; animation-timing-function: cubic-bezier(.22, 1, .36, 1); }
+  html.sw #geo-hero .rv { opacity: 1; transform: none; transition: none; }
+  @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
+</style>
+<!-- patch-163 다른 시안을 미리 불러 둠 (Chrome 은 화면까지 미리 그림, 그 외 브라우저는 파일만 받아 둠) -->
+<script type="speculationrules">{"prerender":[{"source":"list","urls":["geo.html"],"eagerness":"eager"}]}</script>
+<link rel="prefetch" href="geo.html">
+<script>
+  /* patch-163 탭 전환으로 들어오면 히어로 등장 애니메이션 생략 */
+  addEventListener("pagereveal", e => { if (e.viewTransition) document.documentElement.classList.add("sw"); });
+</script>
 </head>
 <body>
 
@@ -5323,10 +5344,11 @@
   {"date":"2026.11.05","name":"GEO · 1차 시안 · A타입 · PC","url":"https://claude.ai/artifact/4LZUmy9ApoWSMSFLUcUsDy"},
   {"date":"2026.11.05","name":"GEO · 1차 시안 · B타입 · PC","url":"https://claude.ai/artifact/3sfjKYuEzi7qtqyaKGBFQr"},
   {"date":"2026.11.05","name":"GEO · 수정 시안 · PC","url":"https://claude.ai/artifact/6TNu6nhnpLqjw4D3UHjFCb"},
-  {"date":"2026.11.07","name":"GEO · 반응형 시안","url":"https://claude.ai/artifact/MQsV1SnKTtdbfBJrhjMjth"},
-  {"date":"2026.11.06","name":"온사이트마케팅 · 1차 시안 · PC","current":true}
+  {"date":"2026.11.06","name":"GEO · 반응형 시안 · PC · 태블릿 · 모바일","url":"https://claude.ai/artifact/2YP7J2vxYj7iKzaVP5dToR"},
+  {"date":"2026.11.06","name":"GEO · 반응형 시안 · 최종","url":"geo.html"},
+  {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안 · PC · 태블릿 · 모바일","current":true}
 ]'>
-  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>지난 시안은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
+  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>GEO · 온사이트 최신 시안은 이 창에서 바로 전환되고, 지난 시안(아티팩트)은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
 </div>
 <script>
@@ -5931,7 +5953,7 @@
   items.forEach(it => { const li = document.createElement('li'); if (it.current) li.className = 'cur';
     const t = document.createElement('time'); t.textContent = it.date; li.appendChild(t);
     if (it.current) { const sp = document.createElement('span'); sp.className = 'vh-now'; sp.textContent = it.name; const i = document.createElement('i'); i.textContent = '지금 보는 시안'; sp.appendChild(i); li.appendChild(sp); }
-    else { const a = document.createElement('a'); a.href = it.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = it.name; li.appendChild(a); }
+    else { const a = document.createElement('a'); a.href = it.url; if (/^https?:/.test(it.url)) { a.target = '_blank'; a.rel = 'noopener'; } a.textContent = it.name; li.appendChild(a); } /* patch-163 저장소 안 시안(웹 주소)은 같은 창에서 전환, 아티팩트는 새 탭 */
     list.appendChild(li); });
   btn.querySelector('em').textContent = items.length;
   const set = o => { root.classList.toggle('open', o); btn.setAttribute('aria-expanded', o); };
