@@ -106,7 +106,7 @@
   const list = root.querySelector('.vh-list'), btn = root.querySelector('.vh-btn');
   items.forEach(it => { const li = document.createElement('li'); if (it.current) li.className = 'cur';
     const t = document.createElement('time'); t.textContent = it.date; li.appendChild(t);
-    if (it.current) { const sp = document.createElement('span'); sp.className = 'vh-now'; sp.textContent = it.name; const i = document.createElement('i'); i.textContent = '지금 보는 시안'; sp.appendChild(i); li.appendChild(sp); }
+    if (it.current) { const sp = document.createElement('span'); sp.className = 'vh-now'; sp.textContent = it.name; const i = document.createElement('i'); i.textContent = '현재 시안'; sp.appendChild(i); li.appendChild(sp); }
     else { const a = document.createElement('a'); a.href = it.url; if (/^https?:/.test(it.url)) { a.target = '_blank'; a.rel = 'noopener'; } a.textContent = it.name; li.appendChild(a); } /* patch-163 저장소 안 시안(웹 주소)은 같은 창에서 전환, 아티팩트는 새 탭 */
     list.appendChild(li); });
   btn.querySelector('em').textContent = items.length;

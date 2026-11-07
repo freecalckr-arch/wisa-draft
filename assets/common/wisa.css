@@ -2789,7 +2789,7 @@ img, video { max-width: 100%; display: block; }
 .vh-list a:hover { background: var(--gray-100); }
 .vh-list a::after { content: "↗"; color: var(--gray-400); font-weight: 500; }
 .vh-list span.vh-now { background: var(--primary-50); color: var(--primary-700); }
-.vh-list span.vh-now i { padding: 1px 8px; border-radius: 99px; background: var(--primary-600); color: #fff; font-style: normal; font-size: 11px; }
+.vh-list span.vh-now i { flex: none; white-space: nowrap; padding: 1px 8px; border-radius: 99px; background: var(--primary-600); color: #fff; font-style: normal; font-size: 11px; }
 @media (prefers-reduced-motion: reduce) { .vh-pn { transition: none; } }
 /* patch-96 (A 수정): 시장 그래프 — 실제 데이터 J커브 (Adobe AI 경유 쇼핑몰 방문, 2023=1) */
 #geo-market .mk-chart .ya { font-size: 11px; fill: var(--gray-400); }
