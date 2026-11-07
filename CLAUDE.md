@@ -8,7 +8,7 @@
 - 작업 전 `git pull`, 작업 후 `git add` · `git commit` · `git push`. 푸시하면 1~2분 뒤 위 주소에 반영됩니다.
 
 ## 파일
-- `onsite.html` 온사이트마케팅 · `geo.html` GEO (업로드 예정) · `index.html` 시안 목록
+- `onsite.html` 온사이트마케팅 · `geo.html` GEO · `index.html` 시안 목록
 - `assets/` 공용 이미지 · 폰트 (새 이미지는 `assets/geo/...` 아래에 추가하고 상대 경로로 참조)
 - `docs/size-rules.html` 영역 이름 · 이미지 · 그래프 사이즈 규칙 (공통 규칙 원문은 사용자 노션 페이지)
 
