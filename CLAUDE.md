@@ -14,7 +14,7 @@
 - `docs/` 디자인 규칙 사이트 (왼쪽 메뉴 = `docs/assets/docs.js` 의 NAV · 새 규격 페이지는 기존 페이지를 복사해 만들고 NAV 에 한 줄 추가)
 
 ## 반드시 지킬 것
-- 영역 이름(흐름 순서): 히어로 `#geo-hero` · 문제 `#geo-why` · 그래프 `#geo-market` · 단계 `#geo-how` · 해결 `#geo-diagnosis` · 리포트 `#geo-report` · 사례 `#geo-ref` · CTA `#cta`
+- 영역 이름(흐름 순서): 히어로 `#geo-hero` · 문제 `#geo-why` · 그래프 `#geo-market` · 단계(탭 타입 · 카드 타입) `#geo-how` · 해결 `#geo-diagnosis` · 리포트 `#geo-report` · 사례 `#geo-ref` · FAQ `#geo-faq` · CTA `#cta` / 부속: URL `#geo-scope` (GEO) · 다짐 띠 `#geo-vow`
 - 화면 이미지는 PC 크기로 그리고, 1439 이하에서는 `s = min(1, 칸 폭 ÷ PC 가로)` 비율로 축소 (레이아웃 재배치 · 가로만 변경 · 확대 금지). 문제 551×300 · 단계 560×483 · 해결 460×380.
 - 히어로는 파란 박스(`.sh-visual`)만 규격: 세로 PC · PC 최소 460 / 태블릿 · 모바일 444.
 - 그래프 영역 그래프 세로: 태블릿 220 · 모바일 210 (전용 그림 chart-tb · chart-mo).
