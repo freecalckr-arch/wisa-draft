@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WISA 마케팅 페이지 시안</title>
+<style>
+  @font-face { font-family: "Pretendard"; src: url("assets/common/fonts/PretendardVariable.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+  :root { --bg: #f6f8fb; --paper: #fff; --ink: #101828; --muted: #5b6475; --line: #e1e6ee; --accent: #1570ef; --chip: #eef1f6; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0d1220; --paper: #141b2d; --ink: #e8edf6; --muted: #9aa4b8; --line: #263049; --accent: #5aa0ff; --chip: #1c2539; color-scheme: dark; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px max(16px, env(safe-area-inset-left, 0px)) 80px; display: flex; flex-direction: column; gap: 28px; }
+  header { display: flex; flex-direction: column; gap: 10px; }
+  header img { width: 75px; height: 20px; }
+  @media (prefers-color-scheme: dark) { header img { filter: invert(1); } }
+  h1 { margin: 0; font-size: 28px; line-height: 1.3; }
+  p { margin: 0; color: var(--muted); }
+  ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  li a, li .off { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; color: inherit; text-decoration: none; }
+  li a:hover, li a:focus-visible { border-color: var(--accent); outline: none; }
+  li b { font-size: 17px; }
+  li small { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .tag { flex: none; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; background: var(--chip); color: var(--muted); }
+  .tag.on { background: var(--accent); color: #fff; }
+  h2 { margin: 8px 0 0; font-size: 15px; color: var(--muted); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/common/logo.svg" alt="WISA">
+    <h1>자사몰 마케팅 페이지 시안</h1>
+    <p>페이지마다 가장 최신 시안입니다. 지난 시안은 각 페이지 왼쪽 아래 "시안 히스토리"에서 볼 수 있습니다.</p>
+  </header>
+
+  <ul>
+    <li><span class="off"><span><b>GEO / AI 검색</b><small>반응형 시안 · 업로드 준비 중</small></span><span class="tag">준비 중</span></span></li>
+    <li><a href="onsite.html"><span><b>온사이트마케팅</b><small>1차 시안 · PC · 태블릿 · 모바일</small></span><span class="tag on">보기</span></a></li>
+    <li><span class="off"><span><b>CRM마케팅</b><small>시안 작업 전</small></span><span class="tag">예정</span></span></li>
+    <li><span class="off"><span><b>리포트</b><small>시안 작업 전</small></span><span class="tag">예정</span></span></li>
+  </ul>
+
+  <h2>작업 규칙</h2>
+  <ul>
+    <li><a href="docs/size-rules.html"><span><b>영역 이름 · 이미지 · 그래프 사이즈 규칙</b><small>모든 마케팅 페이지 공통</small></span><span class="tag on">보기</span></a></li>
+  </ul>
+</div>
+</body>
+</html>
