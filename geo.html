@@ -8,6 +8,7 @@
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
      · 2026-11-07 patch-164: 사이즈 규칙 적용 — 히어로 파란 박스 태블릿 · 모바일 444 · 문제 551×300 · 단계 카드 화면 352×254 · 해결 460×380 을 1439 이하에서 비율 축소 (스크립트 geo-scale) · 그래프 태블릿 220 (chart-tb 640×220) · 모바일 210 (chart-mo 298×210)
+     · 2026-11-07 patch-165: 크기 · 큰 여백 0 단위 — 문제 카드 여백 40 · 간격 60 (이미지 550×300) · 사례 카드 간격 20 (사진 400×210) · 히어로 박스 태블릿 · 모바일 440 · 단계 카드 화면 360×250 (좌우 · 아래 20)
      · 2026-11-07 patch-163: 시안 히스토리 GEO 반응형 최종 · 온사이트 1차를 웹 주소(geo.html · onsite.html)로 연결, 히어로 탭 GEO ↔ 온사이트 전환형 (미리 불러오기 + 화면 전환 효과, 개발 시 일반 링크로 둬도 됨)
      ---------------------------------------------------------------------
      · 기기 기준: PC ≥1440(승인 시안) · PC 최소 1024~1439 · 태블릿 768~1023 · 모바일 ≤767
@@ -2253,7 +2254,7 @@
   @media (min-width: 1024px) {
     #geo-why, #geo-market, #geo-how, #geo-scope, #geo-diagnosis, #geo-report, #geo-ref, #geo-faq { padding-top: 160px; padding-bottom: 0; }   /* 콘텐츠 간격 160 */
     #geo-diagnosis { padding-top: 200px; }   /* URL 영역 뒤 간격은 유지 */
-    .faq-cta .cta { padding-top: 160px; padding-bottom: 211px; }   /* 버튼 아래 → 하단 띠까지 정확히 200 */
+    .faq-cta .cta { padding-top: 160px; padding-bottom: 200px; }   /* patch-165 CTA 위 · 아래 160 · 200 (211 → 200) */
     #geo-scope { overflow: visible; overflow-x: clip; }   /* 좌우 AI 아이콘 장식이 섹션 위아래 여백까지 걸쳐 보이게 */
     #geo-scope .sc-net { top: 116px; }
     #geo-scope { padding-top: 236px; padding-bottom: 72px; }   /* 위·아래 아이콘까지 영역에 포함 → 앞뒤 섹션과 아이콘 사이 200 */   /* 아래 아이콘(Claude·Meta)까지 영역에 포함 → 다음 섹션까지 200 */   /* 점선이 검색바 가운데로 모이도록 (위 여백 +40만큼) */
@@ -3081,19 +3082,19 @@
   /* =====================================================================
      patch-164 사이즈 규칙 적용 (규칙 사이트 docs/ · 2026-11-07)
      ===================================================================== */
-  /* 히어로: 파란 박스 세로 태블릿 · 모바일 444 고정 (PC · PC 최소 460 은 그대로) */
-  @media (max-width: 1023px) { .sh-visual { height: 444px; min-height: 0; } }
+  /* 히어로: 파란 박스 세로 태블릿 · 모바일 440 고정 (patch-165) (PC · PC 최소 460 은 그대로) */
+  @media (max-width: 1023px) { .sh-visual { height: 440px; min-height: 0; } }   /* patch-165 444 → 440 */
 
-  /* 문제(#geo-why): 비교 화면 2개를 PC 크기 551×300 으로 그리고 칸 폭에 맞춰 비율 축소 (칸이 넓으면 PC 크기로 가운데) */
+  /* 문제(#geo-why): 비교 화면 2개를 PC 크기 550×300 (patch-165) 으로 그리고 칸 폭에 맞춰 비율 축소 (칸이 넓으면 PC 크기로 가운데) */
   @media (max-width: 1439px) {
     #geo-why .bt-vis { flex: none; position: relative; overflow: visible; height: calc(300px * var(--s, 1)); min-height: 0; }
-    #geo-why .bt-vis > .pn { position: absolute; top: 0; left: 0; right: auto; bottom: auto; width: 551px; height: 300px; max-width: none; transform-origin: 0 0; transform: translateX(var(--cx, 0px)) scale(var(--s, 1)); }
+    #geo-why .bt-vis > .pn { position: absolute; top: 0; left: 0; right: auto; bottom: auto; width: 550px; height: 300px; max-width: none; transform-origin: 0 0; transform: translateX(var(--cx, 0px)) scale(var(--s, 1)); }
   }
 
   /* 단계(#geo-how) 3단계 카드: 카드 화면 PC 352×254 (카드 아래로 24 걸침 · 화면 칸 230) 을 비율 축소 · 넓으면 PC 크기로 가운데 */
   @media (max-width: 1439px) {
     #geo-how .bento.b3 .bt-vis { display: block; flex: none; position: relative; min-height: 0; height: calc(230px * var(--s, 1)); }
-    #geo-how .bento.b3 .bt-vis > .pn { position: absolute; inset: auto; top: 0; left: 50%; width: 352px; height: 254px; max-width: none; flex: none; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
+    #geo-how .bento.b3 .bt-vis > .pn { position: absolute; inset: auto; top: 0; left: 50%; width: 360px; height: 250px; max-width: none; flex: none; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
   }
 
   /* 해결(#geo-diagnosis): 줄마다 화면 PC 460×380 비율 축소 */
@@ -3108,6 +3109,24 @@
   /* 문제 카드 맨 아래 "목표" 줄 밑 여백 (모바일 · 태블릿은 0 이라 카드 테두리에 붙어 보였음 · 온사이트 patch-152 와 같음) */
   @media (max-width: 767px) { #geo-why .bento.ba { padding-bottom: 24px; margin-bottom: 0; } }
   @media (min-width: 768px) and (max-width: 1023px) { #geo-why .bento.ba { padding-bottom: 32px; margin-bottom: 0; } }
+</style>
+<style>
+  /* =====================================================================
+     patch-165 크기 · 큰 여백 0 단위 정리 (규칙 사이트 docs/ · 2026-11-07)
+     ===================================================================== */
+  /* ① 문제(#geo-why) 카드: 안쪽 여백 36 → 40 · 두 칸 간격 64 → 60 → 화면 이미지 PC 551×300 → 550×300 */
+  @media (min-width: 1024px) { #geo-why .bento.ba { padding: 39px; gap: 60px; } }   /* 테두리 1 포함 40 */
+  /* 사례(#geo-ref) 카드 간격 30 → 20 → 사진 PC 393×210 → 400×210 */
+  @media (min-width: 1024px) { .ref-grid { gap: 20px; } }
+  /* 리포트(#geo-report) 대시보드: 본문 위 · 아래 여백 22 · 26 → 20 · 24, AI 요약 줄 높이 44 고정 → 대시보드 PC 1240×624 → 1240×620 */
+  @media (min-width: 1024px) { #geo-report .rp-body { padding-top: 20px; padding-bottom: 24px; } #geo-report .np-callout { height: 44px; } }
+  /* 히어로 파란 박스 태블릿 · 모바일 444 → 440 */
+  @media (max-width: 1023px) { .sh-visual { height: 440px; min-height: 0; } }
+  /* ③ 단계 · 카드 타입: 카드 화면 좌우 · 아래 걸침 24 → 20 → 화면 PC 352×254 → 360×250 */
+  @media (min-width: 1440px) {
+    #geo-how .bento.b3 .bt-vis { padding: 0 20px; }
+    #geo-how .bento.b3 .pn { left: 20px; right: 20px; bottom: -20px; }
+  }
 </style>
 <style>
   /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
@@ -4041,8 +4060,8 @@
 
 /* @region geo-scale (patch-164) 문제 · 단계 · 해결 화면 이미지: 칸 안쪽 폭 ÷ PC 가로 = 배율 --s (최대 1 · 확대 없음) */
 (() => {
-  const vs = [...document.querySelectorAll('#geo-why .bt-vis')].map(v => [v, 551])
-    .concat([...document.querySelectorAll('#geo-how .bento.b3 .bt-vis')].map(v => [v, 352]))
+  const vs = [...document.querySelectorAll('#geo-why .bt-vis')].map(v => [v, 550])
+    .concat([...document.querySelectorAll('#geo-how .bento.b3 .bt-vis')].map(v => [v, 360]))
     .concat([...document.querySelectorAll('#geo-diagnosis .sr-vis')].map(v => [v, 460]));
   if (!vs.length) return;
   const W = new Map(vs);
