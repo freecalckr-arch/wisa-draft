@@ -5,9 +5,11 @@
 <title>CRM마케팅 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=185">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-193: 그래프 영역 이익 수치 95% → 25%(출처 범위 25~95% 중 최소 · 과장 방지) · 해결>분석 노란 구간을 기준선(위 18 · 아래 128)과 21일 점부터 끝 점까지에 딱 맞춤 · 해결>나누기 경고 아이콘을 토스 이모지 ⚠️(Tossface CDN)로 · 해결>개선 A/B 이름 한 줄(이름 칸 104 → 140 · 바 길이 줄임)
      · 2026-11-08 patch-192: 히어로 주문 완료 상품 사진 20% 축소(44 → 35px · 겹침 -12 → -10) · "주문 완료" 글자와 간격 14 → 22px
      · 2026-11-08 patch-191: 그래프 영역 수치 3개를 범위 대신 한 값으로(25배 · 95% · 70% · 설명에 '최대' · 카운트 업) · 해결>설계 화면 내용 위아래 여백 동일 · 가이드 밖 색 6개를 팔레트 색으로 교체(그래프 점 · 반응률 상승 · 실시간 점 · 로고 바탕)
      · 2026-11-08 patch-190: 히어로 재구매율 카드 오른쪽 20px 더 이동 · 위아래로 천천히 떠 있는 효과(6초 · 10px)
@@ -2420,6 +2422,11 @@
   /* @region crm-v10 (patch-191): 해결>설계 화면 — 내용 위 · 아래 여백을 같게 (목록을 화면 세로 가운데에) */
   #geo-diagnosis .os2-sr .vw-bd.cr-d3 { justify-content: center; padding-bottom: 22px; }   /* 위 안쪽 여백(22)과 같게 */
   /* @endregion crm-v10 */
+
+  /* @region crm-v11 (patch-193): 해결>나누기 경고 = 토스 이모지 · 해결>개선 A/B 이름 한 줄 (바 길이 줄임) */
+  .cr-alert > i.tf { width: auto; height: auto; border-radius: 0; background: none; font-family: Tossface, sans-serif; font-size: 22px; font-weight: 400; line-height: 1; }
+  .cr-ab li { grid-template-columns: 140px 1fr 40px 32px; } .cr-ab li > span { white-space: nowrap; }
+  /* @endregion crm-v11 */
 </style>
 </head>
 <body>
@@ -2563,7 +2570,7 @@
     </div>
     <ul class="mk-stats rv" style="--d:160ms">   <!-- 수치 · 출처는 공개 자료 · patch-191: 범위 대신 출처 범위의 최댓값 한 개 + 설명에 "최대" (예: 5~25배 → 25배) · 보이면 0부터 카운트 업 -->
       <li><strong data-to="25">25<small>배</small></strong><span>새 고객을 데려오는 비용 (기존 고객을 지키는 비용 대비 최대)</span><em>Harvard Business Review (2014)</em></li>
-      <li><strong data-to="95">95<small>%</small></strong><span>고객 유지율을 5%p 높였을 때 늘어나는 이익 (최대)</span><em>Bain &amp; Company · Frederick Reichheld</em></li>
+      <li><strong data-to="25">25<small>%</small></strong><span>고객 유지율을 5% 높였을 때 늘어나는 이익 (최소 · 출처 범위 25~95% 중 가장 보수적인 값)</span><em>Bain &amp; Company · Frederick Reichheld</em></li>
       <li><strong data-to="70">70<small>%</small></strong><span>기존 고객에게 다시 판매할 확률 (최대 · 새 고객은 최대 20%)</span><em>Marketing Metrics (Farris 외)</em></li>
     </ul>
   </div>
@@ -2710,7 +2717,7 @@
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>재구매 패턴 분석</b><span class="vw-m">최근 12개월 · 회원 8,420명</span><em class="vw-chip">평균 주기 9일</em></div><div class="vw-bd cr-d1">
   <div class="cr-hi"><p class="lb"><b>첫 구매 후 다시 주문하기까지 걸린 날</b><span>단위 : 명</span></p>
   <svg class="cr-lc" viewBox="0 0 456 172" aria-hidden="true"><defs><linearGradient id="crLcG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1570ef" stop-opacity=".18"/><stop offset="1" stop-color="#1570ef" stop-opacity="0"/></linearGradient></defs>
-    <rect class="wz" x="259.7142857142857" y="10" width="194.28571428571428" height="118" rx="8"/><text class="wl" x="444" y="36" text-anchor="end">재구매 주기가 지난 구간</text>
+    <rect class="wz" x="267.7" y="18" width="178.3" height="110" rx="0"/><text class="wl" x="440" y="36" text-anchor="end">재구매 주기가 지난 구간</text>
     <line class="g" x1="30" x2="446" y1="128.0" y2="128.0"/><line class="g" x1="30" x2="446" y1="73.0" y2="73.0"/><line class="g" x1="30" x2="446" y1="18.0" y2="18.0"/>
     <path class="ar" d="M30,109.1 C55.0,109.1 64.5,32.1 89.4,32.1 C114.4,32.1 123.9,54.1 148.9,54.1 C173.8,54.1 183.3,76.1 208.3,76.1 C233.2,76.1 242.8,95.0 267.7,95.0 C292.7,95.0 302.2,104.4 327.1,104.4 C352.1,104.4 361.6,110.7 386.6,110.7 C411.5,110.7 421.0,115.4 446.0,115.4 L446,128 L30,128 Z"/><path class="ln" d="M30,109.1 C55.0,109.1 64.5,32.1 89.4,32.1 C114.4,32.1 123.9,54.1 148.9,54.1 C173.8,54.1 183.3,76.1 208.3,76.1 C233.2,76.1 242.8,95.0 267.7,95.0 C292.7,95.0 302.2,104.4 327.1,104.4 C352.1,104.4 361.6,110.7 386.6,110.7 C411.5,110.7 421.0,115.4 446.0,115.4"/>
     <circle class="pt" cx="30.0" cy="109.1" r="3.5"/><circle class="pk" cx="89.4" cy="32.1" r="5"/><circle class="pt" cx="148.9" cy="54.1" r="3.5"/><circle class="pt" cx="208.3" cy="76.1" r="3.5"/><circle class="pw" cx="267.7" cy="95.0" r="3.5"/><circle class="pw" cx="327.1" cy="104.4" r="3.5"/><circle class="pw" cx="386.6" cy="110.7" r="3.5"/><circle class="pw" cx="446.0" cy="115.4" r="3.5"/>
@@ -2727,7 +2734,7 @@
   <p class="cr-cr"><span>구매 횟수</span><span>최근 구매일</span><span>구매 금액</span><span>구매 상품</span><em>+4</em></p>
   <div class="cr-gt"><p class="th"><span>그룹</span><span>기준</span><span>고객 수</span></p>
     <ul><li style="--v:0.55"><span class="g">첫 구매</span><span class="c">구매 1회 · 30일 이내</span><span class="n"><i></i><b>1,240</b></span></li><li class="k" style="--v:0.38"><span class="g">재구매 시점</span><span class="c">구매 주기 도래</span><span class="n"><i></i><b>860</b></span></li><li style="--v:0.52"><span class="g">단골</span><span class="c">구매 4회 이상</span><span class="n"><i></i><b>1,180</b></span></li><li class="w2" style="--v:0.11"><span class="g w">휴면 징후</span><span class="c">주기보다 14일 늦음</span><span class="n"><i></i><b>248</b></span></li><li class="x2" style="--v:1"><span class="g x">이탈</span><span class="c">180일 구매 없음</span><span class="n"><i></i><b>2,960</b></span></li><li style="--v:0.03"><span class="g v">VIP</span><span class="c">월 4회 이상 주문</span><span class="n"><i></i><b>64</b></span></li></ul></div>
-  <div class="cr-alert"><i aria-hidden="true">!</i><p><b>발송이 필요한 그룹 2개</b><span>휴면 징후 248명 · 이탈 2,960명</span></p><em>시나리오 보내기</em></div>
+  <div class="cr-alert"><i class="tf" aria-hidden="true">&#x26A0;&#xFE0F;</i><p><b>발송이 필요한 그룹 2개</b><span>휴면 징후 248명 · 이탈 2,960명</span></p><em>시나리오 보내기</em></div>
 </div></div></div>
       </li>
       <li class="steprow rv">
