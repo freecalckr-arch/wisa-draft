@@ -105,7 +105,7 @@
   let items = []; try { items = JSON.parse(root.dataset.items); } catch (e) { return; }
   const list = root.querySelector('.vh-list'), btn = root.querySelector('.vh-btn');
   items.forEach(it => { const li = document.createElement('li'); if (it.current) li.className = 'cur';
-    const t = document.createElement('time'); t.textContent = it.date; li.appendChild(t);
+    const t = document.createElement('time'); const dm = /^(\d{4})\.(\d{1,2})\.(\d{1,2})$/.exec(it.date || ''); t.textContent = dm ? it.date + ' (' + '일월화수목금토'[new Date(+dm[1], dm[2] - 1, +dm[3]).getDay()] + ')' : it.date; if (dm) t.dateTime = dm[1] + '-' + dm[2].padStart(2, '0') + '-' + dm[3].padStart(2, '0'); li.appendChild(t);   /* patch-212: 날짜 옆에 항상 요일 (data-items 에는 날짜만 · 요일은 자동 계산) */
     if (it.current) { const sp = document.createElement('span'); sp.className = 'vh-now'; sp.textContent = it.name; const i = document.createElement('i'); i.textContent = '현재 시안'; sp.appendChild(i); li.appendChild(sp); }
     else { const a = document.createElement('a'); a.href = it.url; if (/^https?:/.test(it.url)) { a.target = '_blank'; a.rel = 'noopener'; } a.textContent = it.name; li.appendChild(a); } /* patch-163 저장소 안 시안(웹 주소)은 같은 창에서 전환, 아티팩트는 새 탭 */
     list.appendChild(li); });

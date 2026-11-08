@@ -4,11 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CRM마케팅 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=211">
+<link rel="stylesheet" href="assets/common/wisa.css?v=212">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-212: 시안 히스토리 CRM마케팅 1차 시안 날짜 11.07 → 11.08 · 공통 wisa.js 날짜 옆에 요일 자동 표기 (예: 2026.11.08 (일))
      · 2026-11-08 patch-211: 히어로 비주얼 PC 최소(1024~1439) = PC 1440 구성(파란 박스 1340×460 · 창 3개 · 양옆 카드) 그대로 같은 비율 축소 · s = min(1, 칸 폭 ÷ 1340) · 박스 세로 460 × s · 해상도별 카드 숨김 · 크기 변경 없앰 (공통 wisa.css · wisa.js hero-fit · GEO · 온사이트도 같이 · CSS @region crm-v14 는 카드 숨김 · 글자 축소 되돌림만)
      · 2026-11-08 patch-210: 그래프 영역 곡선을 GEO · 온사이트처럼 매끄럽게(단조 3차 곡선 · 점마다 평평해지던 계단 모양 제거) · 관리하지 않을 때 선 아래 회색 그라데이션 채움 (CSS @region crm-v13)
      · 2026-11-08 patch-209: 그래프 영역 그래프 다시 그림(관리하지 않을 때 수치를 점 위로 · 아래 축 글자와 겹침 해소 · 말풍선을 끝 점 쪽으로 붙여 칸 안에) · 공통 wisa.css 구축사례 태블릿: 세로 카드 3열 → 가로형 카드(왼쪽 사진 280 · 오른쪽 수치 · 후기) 3장 세로 배열
@@ -3013,7 +3014,7 @@
   {"date":"2026.11.05","name":"GEO · 수정시안 · PC","url":"https://claude.ai/artifact/6TNu6nhnpLqjw4D3UHjFCb"},
   {"date":"2026.11.06","name":"GEO · 반응형 시안(PC/TB/MO)","url":"geo.html"},
   {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안(PC/TB/MO)","url":"onsite.html"},
-  {"date":"2026.11.07","name":"CRM마케팅 · 1차 시안(PC/TB/MO)","current":true}
+  {"date":"2026.11.08","name":"CRM마케팅 · 1차 시안(PC/TB/MO)","current":true}
 ]'>
   <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>GEO · 온사이트 · CRM 최신 시안은 이 창에서 바로 전환되고, 지난 시안(아티팩트)은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
@@ -3513,7 +3514,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=211"></script>
+<script src="assets/common/wisa.js?v=212"></script>
 <script>
 /* @region crm-hero [CRM] 히어로: 제목 롤링 채널이 바뀔 때 ① 고객 상황 · ② 휴대폰 메시지 · ③ 반응 결과를 같은 순서로 교체 (patch-181) */
 (() => {
