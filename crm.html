@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-194: 그래프 영역 수치 카드 모바일 규격을 GEO · 온사이트와 같게(CRM 전용 112px · 28px 제거 → 공통 92px · 32px) · 이익 설명 문구 줄임
      · 2026-11-08 patch-193: 그래프 영역 이익 수치 95% → 25%(출처 범위 25~95% 중 최소 · 과장 방지) · 해결>분석 노란 구간을 기준선(위 18 · 아래 128)과 21일 점부터 끝 점까지에 딱 맞춤 · 해결>나누기 경고 아이콘을 토스 이모지 ⚠️(Tossface CDN)로 · 해결>개선 A/B 이름 한 줄(이름 칸 104 → 140 · 바 길이 줄임)
      · 2026-11-08 patch-192: 히어로 주문 완료 상품 사진 20% 축소(44 → 35px · 겹침 -12 → -10) · "주문 완료" 글자와 간격 14 → 22px
      · 2026-11-08 patch-191: 그래프 영역 수치 3개를 범위 대신 한 값으로(25배 · 95% · 70% · 설명에 '최대' · 카운트 업) · 해결>설계 화면 내용 위아래 여백 동일 · 가이드 밖 색 6개를 팔레트 색으로 교체(그래프 점 · 반응률 상승 · 실시간 점 · 로고 바탕)
@@ -2035,8 +2036,7 @@
   #geo-market .mk-chart .cr-pt0 { fill: var(--white); stroke: var(--gray-400); stroke-width: 2; }
   #geo-market .mk-chart .cr-pv0 { font-size: 12px; font-weight: 600; fill: var(--gray-400); }
   @media (max-width: 767px) { .cr-lg { margin-left: 0; gap: 12px; font-size: 12px; } }
-  /* 수치 3칸: 범위 수치(5~25배 등)가 길어 모바일 숫자 칸 92 → 112 · 28px */
-  @media (max-width: 767px) { #geo-market .mk-stats li { grid-template-columns: 112px minmax(0, 1fr); } #geo-market .mk-stats li strong { font-size: 28px; white-space: nowrap; } }
+  /* 수치 3칸: patch-194 — 한 값 수치라 CRM 전용 모바일 규격(112 · 28px) 제거 · 공통 규격(92 · 32px)으로 GEO · 온사이트와 같게 */
 
   /* ── ③ 6단계 화면 (창 560 × 480 안): 고객 카드 + 보내는 메시지 ── */
   #geo-how .vw-bd.cr-st { gap: 16px; }
@@ -2570,7 +2570,7 @@
     </div>
     <ul class="mk-stats rv" style="--d:160ms">   <!-- 수치 · 출처는 공개 자료 · patch-191: 범위 대신 출처 범위의 최댓값 한 개 + 설명에 "최대" (예: 5~25배 → 25배) · 보이면 0부터 카운트 업 -->
       <li><strong data-to="25">25<small>배</small></strong><span>새 고객을 데려오는 비용 (기존 고객을 지키는 비용 대비 최대)</span><em>Harvard Business Review (2014)</em></li>
-      <li><strong data-to="25">25<small>%</small></strong><span>고객 유지율을 5% 높였을 때 늘어나는 이익 (최소 · 출처 범위 25~95% 중 가장 보수적인 값)</span><em>Bain &amp; Company · Frederick Reichheld</em></li>
+      <li><strong data-to="25">25<small>%</small></strong><span>고객 유지율을 5% 높였을 때 늘어나는 이익 (최소 · 출처 범위 25~95%)</span><em>Bain &amp; Company · Frederick Reichheld</em></li>
       <li><strong data-to="70">70<small>%</small></strong><span>기존 고객에게 다시 판매할 확률 (최대 · 새 고객은 최대 20%)</span><em>Marketing Metrics (Farris 외)</em></li>
     </ul>
   </div>
