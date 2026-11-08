@@ -8,7 +8,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
-     · 2026-11-08 patch-182: 문제 영역 — 화면 하단 태그는 항상 박스 아래 끝에서 10px 위 (공통 wisa.css why-tag · 모든 .pn.ows) · 채널 아이콘 가운데 정렬 · 왼쪽(기존) 그레이 배경 + '전체 고객 12,480명' 강조 · 오른쪽 고객 그룹 / 보내는 시점 칸 분리 · 오른쪽 화면은 보이는 동안 줄마다 차례로 발송 강조 반복 (CSS @region crm-v4)
+     · 2026-11-08 patch-183: 문제 영역 왼쪽 '전체 고객 12,480명' — 흰 박스 · 검정 글씨 · 13px 로 살짝만 강조 (기존 11.5px): 문제 영역 — 화면 하단 태그는 항상 박스 아래 끝에서 10px 위 (공통 wisa.css why-tag · 모든 .pn.ows) · 채널 아이콘 가운데 정렬 · 왼쪽(기존) 그레이 배경 + '전체 고객 12,480명' 강조 · 오른쪽 고객 그룹 / 보내는 시점 칸 분리 · 오른쪽 화면은 보이는 동안 줄마다 차례로 발송 강조 반복 (CSS @region crm-v4)
      · 2026-11-08 patch-181: CRM 3차 — 문제 영역 오른쪽 화면 복구 · 히어로 = ① 고객 상황 감지(장바구니 이탈 · 휴면 · 단골 · 재구매) → ② 맞춤 메시지(흰 휴대폰 틀) → ③ 반응 · 결과, 제목 롤링과 함께 교체 · 단계 고객 카드에 자주 산 상품 썸네일 3개 · 메시지 번호 잘림 수정 · 해결 영역 블루는 핵심 1곳만 (CSS @region crm-v3)
      · 2026-11-07 patch-180: CRM 2차 디벨롭 — 예시 업종 장보기(가상 쇼핑몰 그린바스켓 · 이미지 assets/geo/grocery 임시) · 히어로 새 구성(장바구니 → 쿠폰 메시지 → 결제, 휴대폰 화면이 제목 채널과 함께 바뀜) · 단계 메시지를 카카오톡 · 문자 · 앱 푸시 · 이메일 실제 화면처럼 · 광고 메시지 (광고) 표기 · 분석 그래프 라인 · CSS @region crm-v2
      · 2026-11-07 patch-178: 고객 프로필 일러스트 → 실사 인물 사진 10장(assets/geo/profile/pt-01~10.jpg) 중 페이지 열 때마다 무작위 — 단계 말풍선 · 고객 카드 · 히어로 피드가 같은 고객이면 같은 사진 (이름 성별에 맞춤 · wisa.js profile-shuffle · wisaPf)
@@ -2281,7 +2281,7 @@
   #geo-why .pn.cr-ms { background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); }
   .cr-ms .cr-ms-tx { background: var(--white); }
   .cr-ms .cr-tb th { background: var(--gray-100); }
-  .cr-ms-to { align-items: center; } .cr-ms-to b { padding: 5px 12px; border-radius: 8px; background: var(--gray-900); font-size: 15px; font-weight: 800; color: var(--white); letter-spacing: -.01em; }
+  .cr-ms-to { align-items: center; } .cr-ms-to b { padding: 3px 10px; border-radius: 6px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 13px; font-weight: 700; color: var(--gray-900); }
   /* 오른쪽: 고객 그룹 | 보내는 시점 | 메시지 | 반응률 */
   .cr-sg-th, .cr-sg-bd li { grid-template-columns: 80px 92px minmax(0, 1fr) 112px; }
   .cr-sg-bd li { min-height: 38px; padding: 0 10px; background: var(--white); }
