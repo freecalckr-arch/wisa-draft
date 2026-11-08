@@ -3088,3 +3088,14 @@ img, video { max-width: 100%; display: block; }
 .consult { bottom: calc(var(--consult-b) + env(safe-area-inset-bottom, 0px)); height: var(--consult-h); }
 .vh { bottom: calc(var(--consult-b) + (var(--consult-h) - 44px) / 2 + env(safe-area-inset-bottom, 0px)); }
 /* @endregion */
+
+/* @region ref-tb (patch-209): 구축사례 태블릿(768~1023) — 세로 카드 3열(카드 폭 약 220)이 좁아 가로형 카드 3장을 세로로 쌓음
+   · 왼쪽 사진 280(카드 높이만큼) · 오른쪽 수치 2칸 + 후기 + 담당자 · 카드 간격 16 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  #geo-ref .ref-grid { grid-template-columns: 1fr; gap: 16px; }
+  #geo-ref .ref-grid li.rvw { flex-direction: row; }
+  #geo-ref .ref-grid .rvw-img { flex: none; width: 280px; height: auto; min-height: 220px; }
+  #geo-ref .ref-grid .rvw-body { flex: 1; min-width: 0; padding: 20px 24px; gap: 14px; }
+  #geo-ref .ref-grid .rvw-q { font-size: 14px; }
+}
+/* @endregion */
