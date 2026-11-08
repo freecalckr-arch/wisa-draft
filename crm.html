@@ -9,7 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
-     · 2026-11-08 patch-218: 상품 이미지 7종(우유 · 소고기 · 식빵 · 딸기 · 요거트 · 연어 · 샐러드)을 연출컷 → 통일된 상품컷(연한 그레이 배경 · 소품 없음 · 정면/탑뷰 중앙 배치)으로 교체 · 같은 경로 덮어씀(?v=218)
+     · 2026-11-08 patch-218: 상품 이미지 7종 + 메일 배너(gr-dairy.webp → gr-dairy.jpg · 우유 · 요거트 · 딸기 · 치즈 · 청포도 한 줄 상품컷)(우유 · 소고기 · 식빵 · 딸기 · 요거트 · 연어 · 샐러드)을 연출컷 → 통일된 상품컷(연한 그레이 배경 · 소품 없음 · 정면/탑뷰 중앙 배치)으로 교체 · 같은 경로 덮어씀(?v=218)
      · 2026-11-08 patch-217: 프로필 사진 어깨까지 보이게 다시 자름(120px) · CRM 페이지 고객 프로필(히어로 · 6단계 · 해결)을 모두 새 20장으로 (<html data-pf-set="crm"> · 공통 wisa.js profile-shuffle 성별 맞춤 · 같은 고객 = 같은 사진 유지)
      · 2026-11-08 patch-216: 해결 > 설계 배경 점 제거 · 나누기 프로필 = 실사 사진 20장 풀(assets/geo/crm-pf/cp-01~20 · 20~30대 · 캐주얼)에서 무작위 · 칸에 떨어지는 얼굴은 매번 다른 사람 · 크기 10% 축소 (스크립트 crm-sort-pf)
      · 2026-11-08 patch-215: 해결 > 설계 이미지 = 자동화 흐름 캔버스 (시작 조건 248명 → 알림톡 관심 상품 입고 소식 248명 → 3일 대기 → 열어봤다면 복귀 쿠폰 5,000원 92명 / 안 열어봤다면 문자 156명) · 점 격자 배경 · 선을 따라 점이 흐르며 단계가 켜지는 5초 반복 (CSS @region crm-v17)
@@ -2668,7 +2668,7 @@
     <div class="mu-sms-in"><i aria-hidden="true">+</i><span>문자 메시지</span></div></div>
 <div class="mu mu-ml" data-ch="2"><div class="mu-ml-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span>받은편지함</span><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
     <div class="mu-ml-sj"><b>(광고) 이*은님, GOLD 등급 혜택이 도착했어요</b></div><div class="mu-ml-fr"><i class="mu-logo">GB</i><p><b>그린바스켓</b><small>나에게 · 오전 7:00</small></p></div>
-    <div class="mu-ml-bd"><i class="im"><img src="assets/geo/grocery/gr-dairy.webp" alt=""></i><div class="ct"><b>11월 GOLD 혜택</b><p>자주 담으신 과일 · 유제품 신상품을 먼저 모았어요.</p><span class="chips"><em>무료배송 쿠폰 3장</em><em>적립 3%</em></span><span class="cta">이번 달 혜택 보기</span></div></div></div>
+    <div class="mu-ml-bd"><i class="im"><img src="assets/geo/grocery/gr-dairy.jpg?v=218" alt=""></i><div class="ct"><b>11월 GOLD 혜택</b><p>자주 담으신 과일 · 유제품 신상품을 먼저 모았어요.</p><span class="chips"><em>무료배송 쿠폰 3장</em><em>적립 3%</em></span><span class="cta">이번 달 혜택 보기</span></div></div></div>
 <div class="mu mu-push" data-ch="3"><p class="mu-lk-d">11월 6일 목요일</p><p class="mu-lk-t">10:02</p>
     <div class="mu-nts"><div class="mu-nt pv"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>어제</time></div><b>오늘 밤 11시까지 주문하면 내일 아침 도착</b></div>
       <div class="mu-nt"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>지금</time></div><div class="bd"><div><b class="t">(광고) 우유 다 드셔갈 때쯤이죠?</b><p>지난번 담은 우유 · 계란, 오늘 주문하면 1,000원 할인해 드려요.</p></div><i class="th"><img src="assets/geo/grocery/gr-milk.jpg?v=218" alt=""></i></div><div class="ac"><span>한 번에 다시 담기</span><span>나중에</span></div></div></div></div>
@@ -2809,7 +2809,7 @@
   <div class="mu-ml-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span>받은편지함</span><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
   <div class="mu-ml-sj"><b>(광고) 이*은님, GOLD 등급 혜택이 도착했어요<i class="os8-p">1</i></b></div>
   <div class="mu-ml-fr"><i class="mu-logo">GB</i><p><b>그린바스켓</b><small>나에게 · 오전 7:00</small></p></div>
-  <div class="mu-ml-bd"><i class="im"><img src="assets/geo/grocery/gr-dairy.webp" alt=""></i><div class="ct"><b>11월 GOLD 혜택</b><p>자주 담으신 과일 · 유제품 신상품을 먼저 모았어요.</p><span class="chips"><em>무료배송 쿠폰 3장</em><em>적립 3%</em><i class="os8-p">2</i></span><span class="cta">이번 달 혜택 보기<i class="os8-p">3</i></span></div></div></div>
+  <div class="mu-ml-bd"><i class="im"><img src="assets/geo/grocery/gr-dairy.jpg?v=218" alt=""></i><div class="ct"><b>11월 GOLD 혜택</b><p>자주 담으신 과일 · 유제품 신상품을 먼저 모았어요.</p><span class="chips"><em>무료배송 쿠폰 3장</em><em>적립 3%</em><i class="os8-p">2</i></span><span class="cta">이번 달 혜택 보기<i class="os8-p">3</i></span></div></div></div>
   </div>
 <p class="sc-stat"><span>단골 고객 한 달 평균 주문</span><b>3.2회</b></p></div></div></div>
       </div>
