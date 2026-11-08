@@ -21,7 +21,7 @@
     <h2 id="box">파란 박스 크기</h2>
     <div class="tbl"><table><thead><tr><th>구간</th><th>박스 가로</th><th>박스 세로</th><th>좌우 바깥 여백</th><th>모서리</th><th>안쪽 위 여백</th></tr></thead><tbody>
 <tr><td>PC</td><td>화면 폭 − 100 (1440 → 1340)</td><td><b class="num">460</b></td><td><span class="num">50</span></td><td><span class="num">24</span></td><td><span class="num">40</span></td></tr>
-<tr><td>PC 최소</td><td>화면 폭 − 100 (1100 → 1000)</td><td><b class="num">460</b></td><td><span class="num">50</span></td><td><span class="num">24</span></td><td><span class="num">40</span></td></tr>
+<tr><td>PC 최소</td><td>화면 폭 − 100 (1100 → 1000)</td><td><b class="num">460 × s</b> (1100 → 340)</td><td><span class="num">50</span></td><td>24 × s</td><td>40 × s</td></tr>
 <tr><td>태블릿</td><td>화면 폭 − 100 (820 → 720)</td><td><b class="num">440</b></td><td><span class="num">50</span></td><td><span class="num">24</span></td><td><span class="num">40</span></td></tr>
 <tr><td>모바일</td><td>화면 폭 전체 (390)</td><td><b class="num">440</b></td><td><span class="num">0</span></td><td><span class="num">0</span></td><td>40 (좌우 40)</td></tr>
 </tbody></table></div>
@@ -29,6 +29,7 @@
     <h2 id="rules">배치 규칙</h2>
     <ol class="rules">
       <li><div><b>안의 구성은 박스 바닥에 붙인다</b><span>넘치는 부분은 박스가 잘라냅니다 (<code>overflow: hidden</code>).</span></div></li>
+      <li><div><b>PC 최소(1024~1439)는 PC 1440 구성을 그대로 줄인다</b><span>1440 화면의 박스(1340×460)와 안의 창 · 카드 · 이미지 전체를 한 장으로 보고 <code>s = min(1, 칸 폭 ÷ 1340)</code> 배로 같이 줄입니다. 해상도마다 카드를 숨기거나 위치 · 크기를 바꾸지 않습니다 (공통 <code>wisa.css</code> · <code>wisa.js</code> hero-fit).</span></div></li>
       <li><div><b>태블릿 · 모바일은 박스 양옆 떠 있는 카드를 숨긴다</b><span>공간이 부족해 겹치기 때문입니다. 필요한 정보는 박스 안 구성으로 옮깁니다.</span></div></li>
       <li><div><b>히어로에는 그래프를 넣지 않는다</b><span>그래프는 그래프 영역(<code>#geo-market</code>)에서만 씁니다.</span></div></li>
       <li><div><b>떠 있는 카드 움직임은 GEO 와 같게</b><span>위아래로 천천히 (<code>shFloat 6s ease-in-out infinite alternate</code>), 좌우 카드는 반 박자 어긋나게 (<code>-3s</code>).</span></div></li>
@@ -36,6 +37,7 @@
 
     <h2 id="code">코드</h2>
     <div class="code"><button type="button" data-copy="c-hero">복사</button><pre id="c-hero">.sh-visual { height: 460px; margin-inline: 50px; border-radius: 24px; padding-top: 40px; overflow: hidden; }
+@media (min-width: 1024px) and (max-width: 1439px) { #geo-hero .sh-visual { width: 1340px; height: 460px; zoom: var(--hz); } }   /* --hz = min(1, 칸 폭 ÷ 1340) · wisa.js hero-fit */
 @media (max-width: 1023px) { .sh-visual { height: 440px; } }
 @media (max-width: 767px)  { .sh-visual { margin-inline: 0; border-radius: 0; padding: 40px 40px 0; } }</pre></div>
     </section>

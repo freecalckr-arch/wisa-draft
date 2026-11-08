@@ -204,3 +204,14 @@
   document.querySelectorAll('img[data-pf]').forEach(im => { im.src = wisaPf(im.dataset.pf, im.dataset.g); });
 })();
 /* @endregion */
+
+/* @region hero-fit (patch-211): 히어로 비주얼 PC 최소(1024~1439) 축소 비율 --hz = min(1, 칸 폭 ÷ 1340) */
+(() => {
+  const q = matchMedia('(min-width: 1024px) and (max-width: 1439px)');
+  document.querySelectorAll('#geo-hero .sh-visual').forEach(v => {
+    const box = v.parentElement;
+    const fit = () => { if (!q.matches) { v.style.removeProperty('--hz'); return; } const cs = getComputedStyle(box); const w = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); v.style.setProperty('--hz', Math.min(1, w / 1340).toFixed(4)); };
+    new ResizeObserver(fit).observe(box); q.addEventListener('change', fit); fit();
+  });
+})();
+/* @endregion */

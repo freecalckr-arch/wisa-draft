@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CRM마케팅 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=209">
+<link rel="stylesheet" href="assets/common/wisa.css?v=211">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
-     · 2026-11-08 patch-211: 히어로 비주얼 PC 최소(1024~1439) = PC 1440 구성(파란 박스 1340×460 · 창 3개 · 양옆 카드) 그대로 같은 비율 축소 · s = min(1, 칸 폭 ÷ 1340) · 박스 세로 460 × s · 해상도별 카드 숨김 · 크기 변경 없앰 (CSS @region crm-v14 · 스크립트 crm-hero-fit)
+     · 2026-11-08 patch-211: 히어로 비주얼 PC 최소(1024~1439) = PC 1440 구성(파란 박스 1340×460 · 창 3개 · 양옆 카드) 그대로 같은 비율 축소 · s = min(1, 칸 폭 ÷ 1340) · 박스 세로 460 × s · 해상도별 카드 숨김 · 크기 변경 없앰 (공통 wisa.css · wisa.js hero-fit · GEO · 온사이트도 같이 · CSS @region crm-v14 는 카드 숨김 · 글자 축소 되돌림만)
      · 2026-11-08 patch-210: 그래프 영역 곡선을 GEO · 온사이트처럼 매끄럽게(단조 3차 곡선 · 점마다 평평해지던 계단 모양 제거) · 관리하지 않을 때 선 아래 회색 그라데이션 채움 (CSS @region crm-v13)
      · 2026-11-08 patch-209: 그래프 영역 그래프 다시 그림(관리하지 않을 때 수치를 점 위로 · 아래 축 글자와 겹침 해소 · 말풍선을 끝 점 쪽으로 붙여 칸 안에) · 공통 wisa.css 구축사례 태블릿: 세로 카드 3열 → 가로형 카드(왼쪽 사진 280 · 오른쪽 수치 · 후기) 3장 세로 배열
      · 2026-11-08 patch-208: 히어로 모바일 ① ② ③ 화면 전환 시 위치 이동(옆으로 14px) 없이 페이드만
@@ -2467,11 +2467,10 @@
 
   /* =====================================================================
      @region crm-v14 (patch-211): 히어로 비주얼 PC 최소(1024~1439) = PC(1440) 구성 그대로 같은 비율로 축소
-     · 기준: PC 1440 의 파란 박스 1340×460(화면 1440 − 100) + 창 3개 + 양옆 카드 전체를 한 장으로 보고 s = min(1, 칸 폭 ÷ 1340) 배로 줄임 (스크립트 crm-hero-fit → --hz)
+     · 기준: PC 1440 의 파란 박스 1340×460(화면 1440 − 100) + 창 3개 + 양옆 카드 전체를 한 장으로 보고 s = min(1, 칸 폭 ÷ 1340) 배로 줄임 (축소는 공통 wisa.css · wisa.js hero-fit · 여기는 1439 이하 카드 숨김 · 글자 축소만 PC 값으로 되돌림)
      · 박스 세로도 460 × s (1100 → 약 343 · 1024 → 약 317) · 해상도별로 카드를 숨기거나 크기를 바꾸지 않음
      ===================================================================== */
   @media (min-width: 1024px) and (max-width: 1439px) {
-    .sh-visual.cr-hv4 { width: 1340px; height: 460px; zoom: var(--hz, 1); margin-top: calc(80px / var(--hz, 1)); }
     .cr-hv4 .sh-float, .cr-hv4 .sh-img, .cr-hv4 .sh-toast, .cr-hv4 .sh-float.cr-rr { display: flex; }
     .cr-hv4 .cr-meta { font-size: 11.5px; } .cr-hv4 .cr-tag { padding: 4px 10px; font-size: 12px; }   /* 1024~1279 전용 글자 축소(2005줄) 대신 PC 값 */
   }
@@ -3514,7 +3513,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=209"></script>
+<script src="assets/common/wisa.js?v=211"></script>
 <script>
 /* @region crm-hero [CRM] 히어로: 제목 롤링 채널이 바뀔 때 ① 고객 상황 · ② 휴대폰 메시지 · ③ 반응 결과를 같은 순서로 교체 (patch-181) */
 (() => {
@@ -3531,14 +3530,6 @@
   const run = () => { tm.forEach(clearTimeout); tm = []; if (rm) { show(1); return; } show(0); tm.push(setTimeout(() => show(1), 2200), setTimeout(() => show(2), 4400)); };
   new MutationObserver(() => { const cur = els.findIndex(e => e.classList.contains('on')) >= 0 ? +els.find(e => e.classList.contains('on')).dataset.ch : 0; if (cur !== last) { last = cur; if (moQ.matches) run(); } }).observe(document.querySelector('.cr-hv4 .cr-tri'), { subtree: true, attributes: true, attributeFilter: ['class'] });
   moQ.addEventListener('change', () => { last = -1; run(); }); run();
-})();
-/* @endregion */
-/* @region crm-hero-fit (patch-211): PC 최소(1024~1439) 히어로 비주얼 축소 비율 --hz = min(1, 칸 폭 ÷ 1340) */
-(() => {
-  const v = document.querySelector('.sh-visual.cr-hv4'); if (!v) return;
-  const box = v.parentElement, q = matchMedia('(min-width: 1024px) and (max-width: 1439px)');
-  const fit = () => { if (!q.matches) { v.style.removeProperty('--hz'); return; } const cs = getComputedStyle(box); const w = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); v.style.setProperty('--hz', Math.min(1, w / 1340).toFixed(4)); };
-  new ResizeObserver(fit).observe(box); q.addEventListener('change', fit); fit();
 })();
 /* @endregion */
 </script>

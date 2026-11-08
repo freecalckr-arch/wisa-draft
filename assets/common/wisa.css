@@ -2971,24 +2971,11 @@ img, video { max-width: 100%; display: block; }
    카드가 이미지 위에 겹치는 연출은 1440 시안과 같게 유지 · 크롤러 알림은 답변 창 오른쪽 위 모서리(헤더 빈 자리)에  → [P1]
    --cw 답변 창 폭 · --gap 창과 카드 간격 · --o1/--o2 카드 기준 이미지 위치(겹침 정도) */
 @media (min-width: 1024px) and (max-width: 1439px) {
-  .sh-visual { --cw: 680px; --gap: 16px; --o1: 44px; --o2: 96px; }
-  .sh-visual > .ai-chat { width: var(--cw); }
-  .sh-toast { left: auto; right: calc(50% - var(--cw) / 2 - 126px); top: 22px; }   /* 답변 창 헤더 오른쪽 빈 자리 위 · 창 밖으로 126 */
-  /* 왼쪽: 언급 카드가 답변 창 왼쪽 끝에 붙고 · 수분크림 이미지는 카드 왼쪽 아래로 (카드가 이미지 위에 겹침) */
-  .sh-float.f1 { left: auto; right: calc(50% + var(--cw) / 2 + var(--gap)); }
-  .sh-img:not(.sh-img2) { left: auto; right: calc(50% + var(--cw) / 2 + var(--gap) + var(--o1)); }
-  /* 오른쪽: 구조화 데이터 카드가 답변 창 오른쪽 끝에 붙고 · 클렌저 이미지는 카드 오른쪽 아래로 */
-  .sh-float.f2 { right: auto; left: calc(50% + var(--cw) / 2 + var(--gap)); }
-  .sh-img.sh-img2 { right: auto; left: calc(50% + var(--cw) / 2 + var(--gap) + var(--o2)); }
+  /* patch-211: 히어로 비주얼은 아래 @region hero-fit 에서 PC 1440 구성 그대로 같은 비율로 축소 ([P1] 창 · 카드 위치 조정 없앰) */
   /* [P3] 리포트 대시보드: 1440 화면 배치(폭 1240)를 그대로 두고 화면 폭에 맞춰 전체 비율 축소 (--rpz 는 스크립트에서 계산) */
   #geo-report .rp-duo > .rp { width: 1240px; max-width: none; zoom: var(--rpz, 1); }
 }
 @media (min-width: 1024px) and (max-width: 1279px) {
-  .sh-visual { --cw: 540px; --o1: 36px; --o2: 56px; }   /* [P1] 좌우 공간 확보: 답변 창 680 → 540 · 카드 · 이미지 축소 */
-  .sh-float { padding: 14px 16px; }
-  .sh-float strong { font-size: 24px; }
-  .sh-img:not(.sh-img2) { width: 120px; height: 138px; }
-  .sh-img.sh-img2 { width: 104px; height: 104px; }
   /* [P2] 3단계 카드: 제목 20px · 좌우 여백 28 → 세 제목 모두 2줄 · 비주얼 시작 위치와 높이 동일 */
   #geo-how .bento.b3 .bt-hd { padding: 36px 28px 0; }
   #geo-how .bento.b3 .bt-hd h3 { font-size: 20px; }
@@ -3097,5 +3084,13 @@ img, video { max-width: 100%; display: block; }
   #geo-ref .ref-grid .rvw-img { flex: none; width: 280px; height: auto; min-height: 220px; }
   #geo-ref .ref-grid .rvw-body { flex: 1; min-width: 0; padding: 20px 24px; gap: 14px; }
   #geo-ref .ref-grid .rvw-q { font-size: 14px; }
+}
+/* @endregion */
+
+/* @region hero-fit (patch-211): 히어로 비주얼 PC 최소(1024~1439) = PC 1440 구성 그대로 같은 비율 축소
+   · 기준: 1440 화면의 파란 박스 1340×460(화면 − 100) 안의 창 · 카드 · 이미지 전체를 한 장으로 보고 s = min(1, 칸 폭 ÷ 1340) 배 (스크립트 wisa.js hero-fit → --hz)
+   · 박스 세로도 460 × s (1100 → 약 340 · 1024 → 약 320) · 해상도별로 카드를 숨기거나 위치 · 크기를 바꾸지 않음 */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  #geo-hero .sh-visual { width: 1340px; height: 460px; min-height: 0; zoom: var(--hz, 1); margin-top: calc(80px / var(--hz, 1)); }
 }
 /* @endregion */
