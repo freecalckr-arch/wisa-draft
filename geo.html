@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-08 patch-202: URL 영역 버튼 모바일 문구 "GEO 진단 신청" → "진단 신청"
      · 2026-11-08 patch-201: 공통 wisa.css · wisa.js 리포트 대시보드 모바일 = 태블릿 배치 · 비율(폭 700) 그대로 화면 폭에 맞춰 축소 (patch-200 GEO 시험 적용을 공통으로 · 모바일 간격 patch-195 대체)
      · 2026-11-08 patch-200: 리포트 대시보드 모바일을 태블릿 배치 · 비율(폭 700) 그대로 화면 폭에 맞춰 축소 (GEO 시험 적용 · 요약 카드 4개 · 그래프 · 순위 · 아이콘 메뉴)
      · 2026-11-08 patch-199: 공통 wisa.css 리포트 3단계 숫자 뱃지 모바일 20% 축소 (40 → 32px · 글자 15 → 12px)
@@ -387,7 +388,7 @@
     <form class="url-form rv" style="--d:100ms" id="geoUrlForm" novalidate>
       <label class="sr-only" for="geoUrl">사이트 URL</label>
       <input id="geoUrl" name="url" type="url" inputmode="url" placeholder="https://내쇼핑몰.co.kr" autocomplete="url">
-      <button class="btn btn-dark" type="submit">GEO 진단 신청</button>
+      <button class="btn btn-dark" type="submit"><span class="pc-only">GEO 진단 신청</span><span class="mo-only">진단 신청</span></button>   <!-- patch-202: 모바일은 "진단 신청" (GEO 숨김 · .pc-only) -->
       <p class="url-msg" id="geoUrlMsg" role="status"></p>
     </form>
     <p class="url-note rv" style="--d:140ms">세부 진단 항목과 실행 범위는 쇼핑몰 상황에 맞게 상담 후 확정합니다.</p>
