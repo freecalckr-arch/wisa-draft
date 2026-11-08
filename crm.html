@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-214: 해결 영역 — 나누기 프로필 사진을 러프한 기본 프로필 아이콘으로 · 개선: 상단 '적용 2 · 테스트 1' 제거 · A/B 막대가 차는 동안 목록 1 '진행'(주황) → 결과가 나오면 체크 + '적용'(블루) · 목록 2 · 3 은 '대기' · 반복 (스크립트 crm-ab-cycle)
      · 2026-11-08 patch-213: 해결 영역 이미지 개선 · 애니메이션 — 분석: 곡선 → 2일 단위 막대 + 24일 이후 묶음 막대(주황 248명) · 평균 10일 기준선 / 나누기: 표 → 고객 줄이 6개 그룹 칸으로 나뉘는 분류 화면(휴면 징후만 주황 · VIP 기준 구매 금액 상위 1%) · 경고는 휴면 징후 하나로 / 설계: 2단계 관심 상품 입고 소식 · 혜택 복귀 쿠폰 5,000원(히어로와 같게) · 단계가 차례로 켜지는 반복 / 개선: A/B 막대 · 적용 표시 · 반응률 숫자 등장 · 진행 깜빡임 (CSS @region crm-v16 · 스크립트 crm-count · 모션 줄이기 시 정지)
      · 2026-11-08 patch-212: 시안 히스토리 CRM마케팅 1차 시안 날짜 11.07 → 11.08 · 공통 wisa.js 날짜 옆에 요일 자동 표기 (예: 2026.11.08 (일))
      · 2026-11-08 patch-211: 히어로 비주얼 PC 최소(1024~1439) = PC 1440 구성(파란 박스 1340×460 · 창 3개 · 양옆 카드) 그대로 같은 비율 축소 · s = min(1, 칸 폭 ÷ 1340) · 박스 세로 460 × s · 해상도별 카드 숨김 · 크기 변경 없앰 (공통 wisa.css · wisa.js hero-fit · GEO · 온사이트도 같이 · CSS @region crm-v14 는 카드 숨김 · 글자 축소 되돌림만)
@@ -2544,14 +2545,26 @@
   /* 개선 */
   .cr-ab li i::after { transition: width .9s var(--ease-out) .3s; } .cr-ab li.b i::after { transition-delay: .5s; }
   .os2-anim:not(.go) .cr-ab li i::after { width: 0; }
-  .cr-ab li em, .os20.cr-d4 .lg .st { transition: opacity .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1); }
-  .cr-ab li em { transition-delay: 1.4s; } .os20.cr-d4 .lg li:nth-child(1) .st { transition-delay: 1.7s; } .os20.cr-d4 .lg li:nth-child(2) .st { transition-delay: 1.9s; } .os20.cr-d4 .lg li:nth-child(3) .st { transition-delay: 2.1s; }
-  .os2-anim:not(.go) .cr-ab li em, .os2-anim:not(.go) .os20.cr-d4 .lg .st { opacity: 0; transform: scale(.6); }
-  .os2-anim.go .os20.cr-d4 .lg li.ing .st { animation: crIng 1.6s ease-in-out 2.6s infinite; }
+  /* patch-214 개선: 테스트 중(진행 · 주황) → 결과(체크 + 적용 · 블루) 반복 · 목록 2 · 3 은 대기 유지 · 스크립트 crm-ab-cycle 이 .cr-d4 에 .res(결과) · .rst(막대 초기화) 를 붙임 */
+  .cr-d4.rst .cr-ab li i::after { width: 0; transition: none; }
+  .cr-ab li em { opacity: 0; transform: scale(.6); transition: opacity .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1); } .cr-d4.res .cr-ab li em { opacity: 1; transform: none; }
+  .os20.cr-d4 .cr-lg .st { display: inline-flex; align-items: center; gap: 3px; box-shadow: none; }
+  .os20.cr-d4 .cr-lg li.wt .st { background: var(--gray-100); color: var(--gray-500); } .os20.cr-d4 .cr-lg li.wt .ef { color: var(--gray-400); font-weight: 500; } .os20.cr-d4 .cr-lg li.wt .n { background: var(--gray-300); }
+  .cr-lg .s-ok, .cr-lg .e-ok, .cr-d4.res .cr-lg .s-ing, .cr-d4.res .cr-lg .e-ing { display: none; }
+  .cr-d4.res .cr-lg .s-ok { display: inline-flex; align-items: center; gap: 3px; } .cr-d4.res .cr-lg .e-ok { display: inline; }
+  .os20.cr-d4 .cr-lg li.t1 .st { background: #fffaeb; color: #b54708; transition: background .3s ease, color .3s ease; }
+  .os20.cr-d4.res .cr-lg li.t1 .st { background: var(--primary-600); color: var(--white); animation: crOk .45s cubic-bezier(.34,1.56,.64,1); }
+  .os20.cr-d4.res .cr-lg li.t1 .ef { color: var(--primary-700); }
+  .cr-lg .s-ok svg { width: 10px; height: 10px; }
+  .os2-anim.go .cr-d4:not(.res) .cr-lg li.t1 .st { animation: crIng 1.4s ease-in-out infinite; }
+  @keyframes crOk { from { transform: scale(.7); } to { transform: none; } }
   @keyframes crIng { 50% { box-shadow: 0 0 0 4px rgba(247,144,9,.18); } }
+  /* patch-214 나누기: 실사 프로필 대신 러프한 기본 프로필 아이콘 (머리 원 + 어깨 반원 · 색 4가지) */
+  .cr-sort i.pa { --b: var(--gray-200); --f: var(--white); background: radial-gradient(circle at 50% 40%, var(--f) 0 21%, transparent 22.5%), radial-gradient(ellipse 40% 30% at 50% 100%, var(--f) 0 97%, transparent 100%), var(--b); }
+  .cr-sort i.pa.p0 { --b: var(--gray-300); } .cr-sort i.pa.p1 { --b: #84caff; } .cr-sort i.pa.p2 { --b: var(--gray-100); --f: var(--gray-400); } .cr-sort i.pa.p3 { --b: #a4bcfd; }
   @media (prefers-reduced-motion: reduce) {
     .cr-hb .b, .cr-hb .tl rect { transform: none !important; transition: none; } .cr-hb .wz, .cr-hb .tl text, .cr-hb .av { opacity: 1 !important; }
-    .cr-in .rail, .cr-grp .fc i, .cr-grp li, .cr-sort .cr-alert em, .cr-fl > li, .cr-fl > li > .n, .cr-fl .two p, .cr-hb .tl rect, .os20.cr-d4 .lg .st { animation: none !important; }
+    .cr-in .rail, .cr-grp .fc i, .cr-grp li, .cr-sort .cr-alert em, .cr-fl > li, .cr-fl > li > .n, .cr-fl .two p, .cr-hb .tl rect, .os20.cr-d4 .cr-lg .st { animation: none !important; }
   }
   /* @endregion crm-v16 */
 </style>
@@ -2858,14 +2871,14 @@
         <span class="sr-no">2</span>
         <div class="sr-body"><h3><em class="key">나누기</em> 구매 이력과 행동 기준으로 고객을 나눕니다</h3><p>쇼핑몰마다 중요한 기준이 다릅니다. 구매 데이터를 보며 우리 쇼핑몰에 맞는 기준을 찾아냅니다.</p><p class="sr-out">기준별로 나뉜 고객 그룹과 그룹별 고객 수를 받습니다</p><ul class="sr-tags"><li>구매 횟수</li><li>최근 구매일</li><li>구매 금액</li><li>구매 상품 · 카테고리</li><li>유입 채널</li><li>관심 행동</li><li>후기 · 문의 이력</li><li>혜택 반응</li></ul></div>
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>고객 그룹</b><span class="vw-m">기준 8개로 나눔</span><em class="vw-chip">6개 그룹</em></div><div class="vw-bd cr-d2 cr-sort">
-  <div class="cr-in"><span class="lb"><b>고객 8,420명</b>기준 8개로 분류 중</span><div class="trk"><div class="rail"><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i><i><img src="assets/geo/profile/pt-05.jpg" alt=""></i><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i><i><img src="assets/geo/profile/pt-08.jpg" alt=""></i><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i><i><img src="assets/geo/profile/pt-05.jpg" alt=""></i><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i><i><img src="assets/geo/profile/pt-08.jpg" alt=""></i><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i></div></div></div>   <!-- patch-213: 표 → 고객이 6개 그룹 칸으로 나뉘어 들어가는 분류 화면 · 휴면 징후만 주황 강조 -->
+  <div class="cr-in"><span class="lb"><b>고객 8,420명</b>기준 8개로 분류 중</span><div class="trk"><div class="rail"><i class="pa p1"></i><i class="pa p2"></i><i class="pa p3"></i><i class="pa p0"></i><i class="pa p1"></i><i class="pa p2"></i><i class="pa p3"></i><i class="pa p0"></i><i class="pa p1"></i><i class="pa p2"></i><i class="pa p1"></i><i class="pa p2"></i><i class="pa p3"></i><i class="pa p0"></i><i class="pa p1"></i><i class="pa p2"></i><i class="pa p3"></i><i class="pa p0"></i><i class="pa p1"></i><i class="pa p2"></i></div></div></div>   <!-- patch-213: 표 → 고객이 6개 그룹 칸으로 나뉘어 들어가는 분류 화면 · 휴면 징후만 주황 강조 -->
   <ul class="cr-grp">
-    <li class="c1"><div class="hd"><span class="tg">첫 구매</span><span class="fc"><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i></span></div><b>1,240<small>명</small></b><p>구매 1회 · 30일 이내</p></li>
-    <li class="c2"><div class="hd"><span class="tg">재구매 시점</span><span class="fc"><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i></span></div><b>860<small>명</small></b><p>구매 주기 도래</p></li>
-    <li class="c3"><div class="hd"><span class="tg">단골</span><span class="fc"><i><img src="assets/geo/profile/pt-08.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i></span></div><b>1,180<small>명</small></b><p>구매 4회 이상</p></li>
-    <li class="c4 w"><div class="hd"><span class="tg">휴면 징후</span><span class="fc"><i><img src="assets/geo/profile/pt-05.jpg" alt=""></i><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i></span></div><b>248<small>명</small></b><p>주기보다 14일 늦음</p></li>
-    <li class="c5 x"><div class="hd"><span class="tg">이탈</span><span class="fc"><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i></span></div><b>2,960<small>명</small></b><p>180일 구매 없음</p></li>
-    <li class="c6 v"><div class="hd"><span class="tg">VIP</span><span class="fc"><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i></span></div><b>84<small>명</small></b><p>구매 금액 상위 1%</p></li>
+    <li class="c1"><div class="hd"><span class="tg">첫 구매</span><span class="fc"><i class="pa p3"></i><i class="pa p3"></i><i class="pa p1"></i></span></div><b>1,240<small>명</small></b><p>구매 1회 · 30일 이내</p></li>
+    <li class="c2"><div class="hd"><span class="tg">재구매 시점</span><span class="fc"><i class="pa p2"></i><i class="pa p1"></i><i class="pa p2"></i></span></div><b>860<small>명</small></b><p>구매 주기 도래</p></li>
+    <li class="c3"><div class="hd"><span class="tg">단골</span><span class="fc"><i class="pa p0"></i><i class="pa p0"></i><i class="pa p2"></i></span></div><b>1,180<small>명</small></b><p>구매 4회 이상</p></li>
+    <li class="c4 w"><div class="hd"><span class="tg">휴면 징후</span><span class="fc"><i class="pa p1"></i><i class="pa p1"></i><i class="pa p0"></i></span></div><b>248<small>명</small></b><p>주기보다 14일 늦음</p></li>
+    <li class="c5 x"><div class="hd"><span class="tg">이탈</span><span class="fc"><i class="pa p2"></i><i class="pa p2"></i><i class="pa p3"></i></span></div><b>2,960<small>명</small></b><p>180일 구매 없음</p></li>
+    <li class="c6 v"><div class="hd"><span class="tg">VIP</span><span class="fc"><i class="pa p1"></i><i class="pa p2"></i><i class="pa p3"></i></span></div><b>84<small>명</small></b><p>구매 금액 상위 1%</p></li>
   </ul>
   <div class="cr-alert"><i class="tf" aria-hidden="true">&#x26A0;&#xFE0F;</i><p><b>휴면 징후 248명 · 발송 필요</b><span>평소 주기보다 14일 늦은 고객</span></p><em>시나리오 보내기</em></div>
 </div></div></div>
@@ -2885,11 +2898,11 @@
       <li class="steprow rv">
         <span class="sr-no">4</span>
         <div class="sr-body"><h3><em class="key">개선</em> 자동으로 보내고, 반응을 보며 계속 다듬습니다</h3><p>그룹별 반응을 확인해 메시지 · 시점 · 혜택을 바꿔 보고, 더 좋은 쪽으로 계속 고칩니다.</p><p class="sr-out">반응이 확인된 메시지가 쌓여 재구매율이 꾸준히 오릅니다</p><ul class="sr-tags"><li>메시지 A/B 테스트</li><li>발송 시점 조정</li><li>혜택 조정</li></ul></div>
-        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>발송 결과 · 개선</b><span class="vw-m">2026.10</span><span class="os21-chips"><em class="c-done">적용 2</em><em class="c-ing">테스트 1</em></span></div><div class="vw-bd os20 cr-d4">
+        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>발송 결과 · 개선</b><span class="vw-m">2026.10</span></div><div class="vw-bd os20 cr-d4">
   <div class="kp"><div><span>메시지 반응률</span><strong><i class="cnt" data-cnt="9.8">9.8</i><small>%</small></strong><em>▲ 1.1%p</em></div><p>그룹별 발송 12건 · 전월 대비</p></div>
   <div class="cr-ab"><p class="lb"><b>휴면 복귀 메시지 A/B</b><span>반응률</span></p>
     <ul><li style="--v:.66"><span>A · 할인 강조</span><i></i><b>6.2%</b></li><li class="b" style="--v:1"><span>B · 관심 상품 입고 소식</span><i></i><b>9.4%</b><em>적용</em></li></ul></div>
-  <ul class="lg"><li class="done"><i class="n">1</i><b>복귀 메시지 B안 적용</b><span class="d">10/14</span><span class="ef">반응 +3.2%p</span><em class="st">적용</em></li><li class="done"><i class="n">2</i><b>첫 구매 쿠폰 7일째로</b><span class="d">10/21</span><span class="ef">재구매 +4%p</span><em class="st">적용</em></li><li class="ing"><i class="n">3</i><b>제철 과일 선주문 오전으로</b><span class="d">10/28</span><span class="ef">테스트 중</span><em class="st">진행</em></li></ul>
+  <ul class="lg cr-lg"><li class="t1"><i class="n">1</i><b>휴면 복귀 메시지 A/B</b><span class="d">10/14</span><span class="ef"><span class="e-ing">테스트 중</span><span class="e-ok">B안 반응 +3.2%p</span></span><em class="st"><span class="s-ing">진행</span><span class="s-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>적용</span></em></li><li class="wt"><i class="n">2</i><b>첫 구매 쿠폰 7일째로</b><span class="d">10/21</span><span class="ef">테스트 예정</span><em class="st">대기</em></li><li class="wt"><i class="n">3</i><b>제철 과일 선주문 오전으로</b><span class="d">10/28</span><span class="ef">테스트 예정</span><em class="st">대기</em></li></ul>
 </div></div></div>
       </li>
     </ol>
@@ -3610,6 +3623,18 @@
     ns.forEach(n => n.textContent = (0).toFixed(dp(n)));
     const mo = new MutationObserver(() => { if (w.classList.contains('go')) { mo.disconnect(); setTimeout(run, 300); } }); mo.observe(w, { attributes: true, attributeFilter: ['class'] });
   });
+})();
+/* @endregion */
+/* @region crm-ab-cycle (patch-214): 개선 화면 — A/B 막대가 차는 동안 목록 1 '진행' → 결과가 나오면 체크 + '적용'(블루) · 4.6초 보여준 뒤 처음부터 반복 (모션 줄이기 시 결과 상태로 고정) */
+(() => {
+  const d = document.querySelector('.os20.cr-d4'); if (!d) return; const w = d.closest('.os2-anim');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { d.classList.add('res'); return; }
+  let t = [];
+  const cyc = () => { t.forEach(clearTimeout); t = [];
+    d.classList.remove('res'); d.classList.add('rst'); void d.offsetWidth;
+    t.push(setTimeout(() => d.classList.remove('rst'), 60), setTimeout(() => d.classList.add('res'), 2200), setTimeout(cyc, 6800)); };
+  const start = () => { d.classList.add('rst'); setTimeout(cyc, 300); };
+  if (w && !w.classList.contains('go')) { const mo = new MutationObserver(() => { if (w.classList.contains('go')) { mo.disconnect(); start(); } }); mo.observe(w, { attributes: true, attributeFilter: ['class'] }); } else start();
 })();
 /* @endregion */
 /* @region crm-hero [CRM] 히어로: 제목 롤링 채널이 바뀔 때 ① 고객 상황 · ② 휴대폰 메시지 · ③ 반응 결과를 같은 순서로 교체 (patch-181) */
