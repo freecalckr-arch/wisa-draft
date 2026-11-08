@@ -4,11 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>리포트 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=248">
+<link rel="stylesheet" href="assets/common/wisa.css?v=250">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-08 patch-250: 모바일 화면(.rp-ph) 스타일 · 스크립트를 공통 wisa.css · wisa.js rp-phone 으로 옮김 (GEO · 온사이트 · CRM 에도 추가) · AI 요약 타이핑 반복 · ?v=250
      · 2026-11-08 patch-249: 리포트 대시보드 일별 매출(PC · 모바일) 지난 7일 평균선을 막대 안쪽으로 내리고 날짜마다 회색 점 추가 (막대가 평균보다 올라간 게 보이게)
      · 2026-11-08 patch-248: AI 아바타(블루 원 · 둥근 사각) 안 반짝 아이콘 크게 · 전 페이지 리포트 영역 AI 요약을 리포트 페이지 블루 스타일로 통일 (공통 wisa.css rp-ai-callout · ?v=248)
      · 2026-11-08 patch-247: 해결 ② 정리 할 일 체크 반복 시 체크 아이콘이 안 보이던 문제 수정 (빈 칸에 체크 아이콘 추가 · 체크 전엔 투명)
@@ -3115,30 +3116,6 @@
 
   /* 리포트 — 모바일 화면 (같은 리포트의 반응형 · PC 280×560) */
   #geo-report .rp-duo { position: relative; }
-  .rp-ph { position: absolute; right: -60px; bottom: -44px; z-index: 3; width: 280px; height: 560px; padding: 8px; border-radius: 40px; background: var(--gray-900); box-shadow: 0 30px 60px rgba(16,24,40,.22), inset 0 0 0 1.5px var(--gray-700); zoom: var(--phz, 1); }
-  .ph-scr { position: relative; height: 100%; display: flex; flex-direction: column; gap: 8px; padding: 0 12px; border-radius: 32px; background: var(--gray-50); overflow: hidden; text-align: left; }
-  .ph-st { flex: none; display: flex; align-items: center; justify-content: space-between; height: 38px; padding: 0 10px; font-size: 13px; color: var(--gray-900); } .ph-st b { font-weight: 700; } .ph-st span { display: flex; gap: 4px; } .ph-st svg { fill: currentColor; }
-  .ph-isl { position: absolute; left: 50%; top: 9px; width: 78px; height: 22px; border-radius: 99px; background: var(--gray-900); transform: translateX(-50%); }
-  .ph-hd { flex: none; display: flex; align-items: center; gap: 8px; } .ph-hd .rph-logo { width: 26px; height: 26px; font-size: 12px; }
-  .ph-hd p { margin: 0; display: flex; flex-direction: column; } .ph-hd b { font-size: 14px; font-weight: 700; color: var(--black); } .ph-hd p span { font-size: 10.5px; color: var(--gray-400); }
-  .ph-hd .rph-live { margin-left: auto; padding: 3px 8px; font-size: 10.5px; }
-  .ph-ai { flex: none; display: flex; gap: 8px; padding: 10px; border-radius: 14px; background: linear-gradient(135deg, var(--primary-50), var(--indigo-50)); }
-  .ph-ai .aim-av { width: 22px; height: 22px; border-radius: 7px; } .ph-ai p { margin: 0; font-size: 11px; line-height: 1.5; color: var(--gray-700); } .ph-ai p > b { display: block; font-size: 11px; color: var(--primary-700); } .ph-ai strong { font-weight: 700; color: var(--gray-900); }
-  .ph-kpi { flex: none; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .ph-kpi li { display: flex; flex-direction: column; padding: 8px 10px; border-radius: 12px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-100); }
-  .ph-kpi span { font-size: 10.5px; font-weight: 600; color: var(--gray-500); } .ph-kpi b { font-size: 17px; line-height: 1.3; font-weight: 800; color: var(--gray-900); font-variant-numeric: tabular-nums; } .ph-kpi b small { margin-left: 1px; font-size: 10.5px; font-weight: 600; color: var(--gray-500); } .ph-kpi em { font-size: 10.5px; }
-  .ph-card { flex: none; padding: 10px 10px 8px; border-radius: 14px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-100); }
-  .ph-ct { margin: 0 0 6px; display: flex; align-items: baseline; } .ph-ct b { font-size: 12px; font-weight: 700; color: var(--gray-900); } .ph-ct span { margin-left: auto; font-size: 10px; color: var(--gray-400); }
-  .ph-bars { display: block; width: 100%; height: auto; } .ph-bars line { stroke: var(--gray-200); } .ph-bars rect { fill: var(--primary-100); } .ph-bars rect.now { fill: var(--primary-600); } .ph-bars text { font-size: 8.5px; fill: var(--gray-400); } .ph-bars text.now { font-weight: 700; fill: var(--gray-800); }
-  .ph-todo { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .ph-todo li { display: flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: var(--gray-800); white-space: nowrap; }
-  .ph-todo li > i { flex: none; display: grid; place-items: center; width: 14px; height: 14px; border-radius: 4px; box-shadow: inset 0 0 0 1.5px var(--gray-300); color: var(--white); } .ph-todo li.done > i { background: var(--primary-600); box-shadow: none; } .ph-todo li.done { color: var(--gray-400); text-decoration: line-through; }
-  .ph-tab { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-around; height: 58px; padding: 8px 6px 0; border-top: 1px solid var(--gray-100); background: var(--white); }
-  .ph-tab span { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 9.5px; font-weight: 600; color: var(--gray-400); } .ph-tab span.on { color: var(--primary-600); }
-  .rp-ph .ph-bars rect { transform-box: fill-box; transform-origin: 50% 100%; } .rp-ph.go .ph-bars rect { animation: rxUp .7s var(--ease-out) both; } .rp-ph.go .ph-bars rect:nth-of-type(n) { animation-delay: .3s; }
-  @media (max-width: 1439px) { .rp-ph { right: 0; bottom: -40px; } }
-  @media (max-width: 1023px) { #geo-report .rp-wrap { gap: 70px; } }
-  @media (max-width: 767px) { .rp-ph { right: -4px; bottom: -28px; } #geo-report .rp-wrap { gap: 60px; } }
   @media (prefers-reduced-motion: reduce) { .rph-pn.on .rx-aib span, .rph-pn.on .rx-pt, .rpv-br .rx-done, .rpv-br .rx-mac > span.pri, .rp-ph.go .ph-bars rect { animation: none; } }
   /* @endregion rp-v4 */
   /* @region rp-v5 (patch-236): 단계 · 해결 화면 다듬기
@@ -3170,15 +3147,6 @@
   .rph-hd .rx-hb { padding: 0 6px; } .rph-hd .rx-hb + .rx-hb { margin-left: -8px; }
   .rx-ins-ft { color: var(--black); }
   /* 리포트 모바일 화면 = PC 대시보드와 같은 스타일 (검정 테두리 · 노치 없음 · 둥근 20 · 회색 바탕 #f2f3f7 은 PC .rp-body 와 같은 값 · 흰 카드 둥근 10 · 선 없음) */
-  .rp-ph { padding: 0; border-radius: 20px; background: none; box-shadow: 0 24px 48px rgba(16,24,40,.16); }
-  .ph-scr { border-radius: 20px; background: #f2f3f7; box-shadow: inset 0 0 0 1px var(--gray-200); padding: 0 14px; }
-  .ph-st { height: 34px; padding: 0 4px; }
-  .ph-hd { margin: 0 -14px; padding: 0 14px 10px; background: var(--white); margin-top: -42px; padding-top: 42px; border-bottom: 1px solid var(--gray-200); }
-  .ph-st { position: relative; z-index: 1; }
-  .ph-ai { border-radius: 10px; }
-  .ph-kpi li, .ph-card { border-radius: 10px; box-shadow: none; }
-  .ph-kpi li { align-items: center; text-align: center; padding: 10px 8px; }
-  .ph-tab { border-radius: 0 0 20px 20px; border-top-color: var(--gray-200); }
   /* PC AI 요약 = 모바일 AI 요약 스타일 (블루 → 인디고 연한 그라데이션 · 아바타 · 굵은 라벨 한 줄 위) */
   #geo-report .np-callout.rx-pcai { align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; background: linear-gradient(135deg, var(--primary-50), var(--indigo-50)); }
   .rx-pcai .aim-av { width: 30px; height: 30px; border-radius: 9px; } .rx-pcai p { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--gray-700); } .rx-pcai p > b { display: block; margin: 0; font-size: 12.5px; color: var(--primary-700); } .rx-pcai strong { color: var(--gray-900); }
@@ -3209,8 +3177,8 @@
   /* patch-242: 통합 리포트 넘침 정리 — 항목 4개(전환율 · 광고비 제거) · 가로 110 → 132 (왼쪽으로 10 늘리고 묶음 전체 6px 왼쪽 이동해 좌우 여백 같게) */
   .aim-av svg, .rx-fl-l .av svg, .rx-mav svg, .aim.sm .aim-av svg { width: 62% !important; height: 62% !important; } /* patch-248: AI 아바타 반짝 아이콘 크게 (칸의 62%) */
   /* patch-249: 일별 매출 지난 7일 평균선 = 막대 안쪽을 지나는 회색 선 + 날짜마다 회색 점 (평균 255→296만 · 막대가 평균 위로 올라간 게 보이게 · PC · 모바일 같은 그림) */
-  #geo-report .db-svg .avg, .ph-db .avg { stroke: var(--gray-400); stroke-width: 1.5; } #geo-report .db-svg .avp, .ph-db .avp { fill: var(--gray-400); stroke: var(--white); stroke-width: 1.5; } .ph-db .avp { stroke-width: 1; }
-  #geo-report .rp:not(.go) .db-svg .avp { opacity: 0; } #geo-report .rp.go .db-svg .avp { transition: opacity .4s ease-out 1.2s; } #geo-report .db-lg i.avg { background: var(--gray-400); } .ph-lg i.avg { border-top-color: var(--gray-400) !important; }
+  #geo-report .db-svg .avg { stroke: var(--gray-400); stroke-width: 1.5; } #geo-report .db-svg .avp { fill: var(--gray-400); stroke: var(--white); stroke-width: 1.5; }
+  #geo-report .rp:not(.go) .db-svg .avp { opacity: 0; } #geo-report .rp.go .db-svg .avp { transition: opacity .4s ease-out 1.2s; } #geo-report .db-lg i.avg { background: var(--gray-400); }
   .rx-out { left: 260px; width: 156px; padding: 10px 14px; } /* patch-246: 가운데 WISA 원 제거 · 통합 리포트 가로 = 왼쪽 채널 목록과 같은 156 · 선은 채널에서 리포트 왼쪽 가운데로 바로 연결 */
   /* patch-243: 단계 · 해결 비주얼 색 통일 (온사이트 · CRM 과 같은 방식) — 바탕 = 그레이 · 포인트 = 블루 한 곳(화면의 약 20%) · 그 외 색은 작은 글자 · 점에만
      - 차트 계열: 주인공 1개만 Primary 600 · 나머지는 Gray 200~400 · 연한 Primary(200~300) 로 구분
@@ -3242,11 +3210,6 @@
   @keyframes rxNew { 0% { opacity: 0; transform: translateY(-14px) scale(.97); } 8%, 100% { opacity: 1; transform: none; } }
   .rx-d4 .rx-al.hot .t time::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 4px; border-radius: 50%; background: #f79009; vertical-align: 1px; animation: rpLive 1.6s ease-in-out infinite; }
   /* patch-239: 리포트 모바일 그래프 = PC 일별 매출과 같은 그림 (막대 색 #759edf · 평균선 · 눈금은 PC 대시보드 기존 값 그대로) · 상태 표시줄 제거 */
-  .ph-scr { padding-top: 0; gap: 8px; } .ph-hd { margin-top: 0; padding-top: 14px; }
-  .ph-db .gl { stroke: #eef0f3; } .ph-db .yl { font-size: 8px; fill: #999; text-anchor: end; } .ph-db .xl { font-size: 8px; fill: #999; text-anchor: middle; }
-  .ph-db rect.c2 { fill: #759edf; } .ph-db .avg { fill: none; stroke: #d0d5dd; stroke-width: 1; }
-  .ph-lg { display: flex; justify-content: center; gap: 12px; margin-top: 4px; font-size: 9.5px; color: var(--gray-500); } .ph-lg span { display: inline-flex; align-items: center; gap: 4px; } .ph-lg i.c2 { width: 8px; height: 8px; border-radius: 2px; background: #759edf; } .ph-lg i.avg { width: 10px; height: 0; border-top: 1px solid #d0d5dd; }
-  .rp-ph.go .ph-db rect { animation: rxUp .7s var(--ease-out) .3s both; transform-box: fill-box; transform-origin: 50% 100%; }
   /* patch-239: 문제 오른쪽 '확인할 지표 1개' 앞 토스 경고 이모지 */
   .rx-mtx .tf { font-size: 13px; vertical-align: -1px; }
   @media (prefers-reduced-motion: reduce) { .vw-win:has(.rx-d4) .vw-hd .vw-ic, .vw-win:has(.rx-d4) .vw-hd .vw-chip, .rx-d4 .rx-al.hot, .rx-d4 .rx-al.hot .t time::before { animation: none; } }
@@ -4148,7 +4111,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=248"></script>
+<script src="assets/common/wisa.js?v=250"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
 (() => {
@@ -4202,16 +4165,6 @@
   moQ.addEventListener('change', () => { last = -1; run(); }); run();
 })();
 /* @endregion */
-/* @region rp-phone (patch-235): 리포트 모바일 화면 축소 배율 --phz = 대시보드와 같은 비율 (PC 1 · PC 최소 --rpz · 태블릿 0.72 · 모바일 --rpzm × 1.1) · 보이면 막대 등장 */
-(() => {
-  const ph = document.querySelector("#geo-report .rp-ph"), rp = document.querySelector("#geo-report .rp-duo > .rp"); if (!ph || !rp) return;
-  const fit = () => { const w = innerWidth, cs = getComputedStyle(rp); let z = 1;
-    if (w <= 767) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpzm")) || .5) * 1.1);
-    else if (w <= 1023) z = .72; else if (w <= 1439) z = parseFloat(cs.getPropertyValue("--rpz")) || 1;
-    ph.style.setProperty("--phz", z.toFixed(4)); };
-  addEventListener("load", fit); addEventListener("resize", () => requestAnimationFrame(fit)); fit();
-  new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting) { ph.classList.add("go"); io.disconnect(); } }), { threshold: .3 }).observe(ph);
-})();
-/* @endregion */
+/* rp-phone 스크립트 → 공통 wisa.js rp-phone (patch-250) */
 </script>
 </body></html>

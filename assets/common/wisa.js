@@ -218,3 +218,25 @@
   });
 })();
 /* @endregion */
+
+/* @region rp-phone (patch-250): 리포트 영역 모바일 화면(.rp-ph) 공통 — 축소 배율 --phz = 대시보드와 같은 비율 (PC 1 · PC 최소 --rpz · 태블릿 0.72 · 모바일 --rpzm × 1.1) · 보이면 막대 등장 · AI 요약 문장 타이핑 반복 */
+(() => {
+  const ph = document.querySelector("#geo-report .rp-ph"), rp = document.querySelector("#geo-report .rp-duo > .rp"); if (!ph || !rp) return;
+  const fit = () => { const w = innerWidth, cs = getComputedStyle(rp); let z = 1;
+    if (w <= 767) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpzm")) || .5) * 1.1);
+    else if (w <= 1023) z = .72; else if (w <= 1439) z = parseFloat(cs.getPropertyValue("--rpz")) || 1;
+    ph.style.setProperty("--phz", z.toFixed(4)); };
+  addEventListener("load", fit); addEventListener("resize", () => requestAnimationFrame(fit)); fit();
+  // AI 요약 타이핑: 라벨(b)은 그대로 · 나머지 글자(굵은 글씨 포함)를 한 글자씩 → 4.5초 유지 → 다시 (반복)
+  const p = ph.querySelector(".ph-ai p"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const nodes = []; let total = 0, timer;
+  if (p) { const tw = document.createTreeWalker(p, NodeFilter.SHOW_TEXT); let n;
+    while ((n = tw.nextNode())) { if (n.parentElement.closest("b") && n.parentElement.closest("b").parentElement === p) continue; nodes.push([n, n.nodeValue]); total += n.nodeValue.length; } }
+  const show = k => { let left = k; nodes.forEach(([n, t]) => { const c = Math.max(0, Math.min(t.length, left)); n.nodeValue = t.slice(0, c); left -= t.length; }); };
+  const run = () => { if (!p || reduce || !total) return; let k = 0; p.classList.add("typing"); show(0);
+    const step = () => { if (document.hidden) { timer = setTimeout(step, 400); return; } k += 1; show(k);
+      if (k < total) timer = setTimeout(step, 38); else { timer = setTimeout(() => { p.classList.remove("typing"); timer = setTimeout(run, 4500); }, 600); } };
+    timer = setTimeout(step, 500); };
+  new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting) { ph.classList.add("go"); io.disconnect(); run(); } }), { threshold: .3 }).observe(ph);
+})();
+/* @endregion */
