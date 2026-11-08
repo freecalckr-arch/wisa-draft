@@ -1,14 +1,15 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-pf-set="crm">
 <head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CRM마케팅 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=212">
+<link rel="stylesheet" href="assets/common/wisa.css?v=217">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-217: 프로필 사진 어깨까지 보이게 다시 자름(120px) · CRM 페이지 고객 프로필(히어로 · 6단계 · 해결)을 모두 새 20장으로 (<html data-pf-set="crm"> · 공통 wisa.js profile-shuffle 성별 맞춤 · 같은 고객 = 같은 사진 유지)
      · 2026-11-08 patch-216: 해결 > 설계 배경 점 제거 · 나누기 프로필 = 실사 사진 20장 풀(assets/geo/crm-pf/cp-01~20 · 20~30대 · 캐주얼)에서 무작위 · 칸에 떨어지는 얼굴은 매번 다른 사람 · 크기 10% 축소 (스크립트 crm-sort-pf)
      · 2026-11-08 patch-215: 해결 > 설계 이미지 = 자동화 흐름 캔버스 (시작 조건 248명 → 알림톡 관심 상품 입고 소식 248명 → 3일 대기 → 열어봤다면 복귀 쿠폰 5,000원 92명 / 안 열어봤다면 문자 156명) · 점 격자 배경 · 선을 따라 점이 흐르며 단계가 켜지는 5초 반복 (CSS @region crm-v17)
      · 2026-11-08 patch-214: 해결 영역 — 나누기 프로필 사진을 러프한 기본 프로필 아이콘으로 · 개선: 상단 '적용 2 · 테스트 1' 제거 · A/B 막대가 차는 동안 목록 1 '진행'(주황) → 결과가 나오면 체크 + '적용'(블루) · 목록 2 · 3 은 '대기' · 반복 (스크립트 crm-ab-cycle)
@@ -3648,7 +3649,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=212"></script>
+<script src="assets/common/wisa.js?v=217"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
 (() => {
