@@ -3025,3 +3025,9 @@ img, video { max-width: 100%; display: block; }
   #geo-report .rp-body > .np-kpi.db, #geo-report .rp-body > .np-row { margin-top: 0; }
 }
 /* @endregion */
+
+/* @region sr-tags-mo (patch-196): 해결 영역 설명 아래 태그(.sr-tags)는 모바일에서 숨김 (화면 이미지 상단 상태 칩 .vw-chip 은 유지) */
+@media (max-width: 767px) {
+  #geo-diagnosis .sr-tags { display: none; }
+}
+/* @endregion */
