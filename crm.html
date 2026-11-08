@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-215: 해결 > 설계 이미지 = 자동화 흐름 캔버스 (시작 조건 248명 → 알림톡 관심 상품 입고 소식 248명 → 3일 대기 → 열어봤다면 복귀 쿠폰 5,000원 92명 / 안 열어봤다면 문자 156명) · 점 격자 배경 · 선을 따라 점이 흐르며 단계가 켜지는 5초 반복 (CSS @region crm-v17)
      · 2026-11-08 patch-214: 해결 영역 — 나누기 프로필 사진을 러프한 기본 프로필 아이콘으로 · 개선: 상단 '적용 2 · 테스트 1' 제거 · A/B 막대가 차는 동안 목록 1 '진행'(주황) → 결과가 나오면 체크 + '적용'(블루) · 목록 2 · 3 은 '대기' · 반복 (스크립트 crm-ab-cycle)
      · 2026-11-08 patch-213: 해결 영역 이미지 개선 · 애니메이션 — 분석: 곡선 → 2일 단위 막대 + 24일 이후 묶음 막대(주황 248명) · 평균 10일 기준선 / 나누기: 표 → 고객 줄이 6개 그룹 칸으로 나뉘는 분류 화면(휴면 징후만 주황 · VIP 기준 구매 금액 상위 1%) · 경고는 휴면 징후 하나로 / 설계: 2단계 관심 상품 입고 소식 · 혜택 복귀 쿠폰 5,000원(히어로와 같게) · 단계가 차례로 켜지는 반복 / 개선: A/B 막대 · 적용 표시 · 반응률 숫자 등장 · 진행 깜빡임 (CSS @region crm-v16 · 스크립트 crm-count · 모션 줄이기 시 정지)
      · 2026-11-08 patch-212: 시안 히스토리 CRM마케팅 1차 시안 날짜 11.07 → 11.08 · 공통 wisa.js 날짜 옆에 요일 자동 표기 (예: 2026.11.08 (일))
@@ -2567,6 +2568,40 @@
     .cr-in .rail, .cr-grp .fc i, .cr-grp li, .cr-sort .cr-alert em, .cr-fl > li, .cr-fl > li > .n, .cr-fl .two p, .cr-hb .tl rect, .os20.cr-d4 .cr-lg .st { animation: none !important; }
   }
   /* @endregion crm-v16 */
+  /* @region crm-v17 (patch-215): 해결 > 설계 = 자동화 흐름 캔버스 (416×240 · 점 격자 배경) — 5초 반복: 점이 선을 따라 내려가며 시작 조건 → 발송 → 대기 → 두 갈래 순서로 켜짐 */
+  #geo-diagnosis .os2-sr .vw-bd.cr-fc { justify-content: center; padding-bottom: 22px; background: radial-gradient(circle, var(--gray-200) 1px, transparent 1.4px) 0 0 / 14px 14px; }
+  .cr-fc .cv { position: relative; width: 416px; height: 240px; margin: 0 auto; }
+  .cr-fc .wr { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cr-fc .wr .ln { fill: none; stroke: var(--gray-300); stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .cr-fc .wr .dt { fill: var(--primary-600); }
+  .cr-fc .nd { position: absolute; display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 10px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200), 0 2px 6px rgba(16,24,40,.05); }
+  .cr-fc .n1 { left: 88px; top: 0; width: 240px; } .cr-fc .n2 { left: 88px; top: 64px; width: 240px; }
+  .cr-fc .n3 { left: 0; top: 184px; width: 202px; height: 56px; } .cr-fc .n4 { left: 214px; top: 184px; width: 202px; height: 56px; }
+  .cr-fc .nd p { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 1px; } .cr-fc .nd small { font-size: 10.5px; color: var(--gray-500); white-space: nowrap; } .cr-fc .nd b { font-size: 12.5px; color: var(--gray-900); white-space: nowrap; }
+  .cr-fc .nd em { margin-left: auto; padding: 2px 7px; border-radius: 99px; background: var(--gray-100); font-style: normal; font-size: 10.5px; font-weight: 700; color: var(--gray-700); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .cr-fc .nd > .cr-ch, .cr-fc .nd > .ic { flex: none; width: 28px; height: 28px; border-radius: 8px; font-size: 28px; }
+  .cr-fc .nd > .cr-ch svg { width: 60%; height: 60%; }
+  .cr-fc .ic { display: grid; place-items: center; font-style: normal; } .cr-fc .ic svg { width: 15px; height: 15px; }
+  .cr-fc .ic.tr { background: #fffaeb; color: #f79009; box-shadow: inset 0 0 0 1px #fedf89; }
+  .cr-fc .ic.cp { background: var(--primary-600); color: var(--white); font-size: 13px; font-weight: 800; }
+  .cr-fc .n1 em { background: #fffaeb; color: #b54708; }
+  .cr-fc .n3 { background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-100); } .cr-fc .n3 b { color: var(--primary-700); } .cr-fc .n3 em { background: var(--white); color: var(--primary-700); }
+  .cr-fc .wt { position: absolute; left: 138px; top: 128px; width: 140px; height: 26px; display: flex; align-items: center; justify-content: center; gap: 5px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 11px; font-weight: 600; color: var(--gray-700); }
+  .cr-fc .wt svg { width: 13px; height: 13px; color: var(--gray-500); }
+  /* 등장: 위에서부터 차례로 */
+  .cr-fc .nd, .cr-fc .wt, .cr-fc .wr { transition: opacity .45s ease, transform .45s var(--ease-out); }
+  .cr-fc .n2 { transition-delay: .15s; } .cr-fc .wt { transition-delay: .3s; } .cr-fc .n3, .cr-fc .n4 { transition-delay: .45s; } .cr-fc .wr { transition-delay: .5s; }
+  .os2-anim:not(.go) .cr-fc .nd, .os2-anim:not(.go) .cr-fc .wt { opacity: 0; transform: translateY(8px); } .os2-anim:not(.go) .cr-fc .wr { opacity: 0; }
+  .os2-anim:not(.go) .cr-fc .dt { display: none; }
+  /* 반복: 점이 지나가는 단계가 블루 테두리로 켜짐 (점과 같은 5초 주기) */
+  .os2-anim.go .cr-fc .n1 { animation: crFcOn 5s ease-in-out infinite; } .os2-anim.go .cr-fc .n2 { animation: crFcOn2 5s ease-in-out infinite; }
+  .os2-anim.go .cr-fc .wt { animation: crFcOn3 5s ease-in-out infinite; } .os2-anim.go .cr-fc .n3, .os2-anim.go .cr-fc .n4 { animation: crFcOn4 5s ease-in-out infinite; }
+  @keyframes crFcOn { 0%, 10% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.14); } 16%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200), 0 2px 6px rgba(16,24,40,.05); } }
+  @keyframes crFcOn2 { 0%, 4%, 24%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200), 0 2px 6px rgba(16,24,40,.05); } 8%, 18% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.14); } }
+  @keyframes crFcOn3 { 0%, 18%, 36%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); } 22%, 30% { box-shadow: inset 0 0 0 1.5px var(--primary-600); color: var(--primary-700); } }
+  @keyframes crFcOn4 { 0%, 56%, 90%, 100% { transform: none; filter: none; } 62%, 84% { transform: translateY(-2px); filter: drop-shadow(0 6px 10px rgba(21,112,239,.16)); } }
+  @media (prefers-reduced-motion: reduce) { .cr-fc .nd, .cr-fc .wt { animation: none !important; } .cr-fc .dt { display: none; } }
+  /* @endregion crm-v17 */
 </style>
 </head>
 <body>
@@ -2886,13 +2921,15 @@
       <li class="steprow rv">
         <span class="sr-no">3</span>
         <div class="sr-body"><h3><em class="key">설계</em> 그룹별로 언제, 어떤 메시지와 혜택을 보낼지 정합니다</h3><p>알림톡 · 문자 · 이메일 · 앱 푸시 중 고객에게 닿는 채널을 골라, 그룹마다 보낼 시점과 내용을 정합니다.</p><p class="sr-out">그룹별 발송 시점 · 메시지 · 혜택이 정리된 시나리오를 받습니다</p><ul class="sr-tags"><li>재구매 유도</li><li>이탈 방지 · 복귀</li><li>단골 관리</li><li>참여 · 후기</li></ul></div>
-        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>시나리오 · 휴면 징후 고객</b><span class="vw-m">자동 발송</span><em class="vw-chip">4단계</em></div><div class="vw-bd cr-d3">
-  <ol class="cr-fl">
-    <li class="tr"><i class="n">1</i><p><small>시작 조건</small><b>평소 주기보다 14일 늦음</b></p><span class="tg">최근 30일 방문 없음</span></li>
-    <li><i class="n">2</i><p><small>보내기</small><b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>관심 상품 입고 소식</b></p><span class="tg">오전 10시</span></li>
-    <li><i class="n">3</i><p><small>기다리기</small><b>3일 동안 반응 확인</b></p><span class="tg">열람 · 클릭</span></li>
-    <li class="br"><i class="n">4</i><div class="two"><p class="y"><small>열어봤다면</small><b><i class="cr-pct" aria-hidden="true">%</i>복귀 쿠폰 5,000원</b></p><p><small>안 열어봤다면</small><b><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자로 한 번 더</b></p></div></li>
-  </ol>
+        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>시나리오 · 휴면 징후 고객</b><span class="vw-m">자동 발송</span><em class="vw-chip">4단계</em></div><div class="vw-bd cr-d3 cr-fc">   <!-- patch-215: 4단계 목록 → 자동화 흐름 캔버스 (시작 조건 → 알림톡 발송 → 3일 대기 → 열람 여부 갈림길) · 단계별 인원 · 선을 따라 점이 흐르며 단계가 켜짐 -->
+  <div class="cv">
+    <svg class="wr" viewBox="0 0 416 240" aria-hidden="true"><path class="ln" d="M208 46 V64 M208 110 V128 M208 154 V168 H104 V184 M208 168 H312 V184"/><circle class="dt" r="4"><animateMotion dur="5s" repeatCount="indefinite" path="M208 46 V168 H104 V184" keyPoints="0;1;1" keyTimes="0;.6;1" calcMode="linear"/></circle><circle class="dt" r="4"><animateMotion dur="5s" repeatCount="indefinite" path="M208 46 V168 H312 V184" keyPoints="0;1;1" keyTimes="0;.6;1" calcMode="linear"/></circle></svg>
+    <div class="nd n1"><i class="ic tr"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 14h7l-1.5 8L20 10h-7z"/></svg></i><p><small>시작 조건</small><b>평소 주기 + 14일 지남</b></p><em>248명</em></div>
+    <div class="nd n2"><i class="cr-ch kt"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i><p><small>알림톡 · 오전 10시</small><b>관심 상품 입고 소식</b></p><em>248명</em></div>
+    <div class="wt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>3일 대기 · 열람 확인</div>
+    <div class="nd n3 y"><i class="ic cp">%</i><p><small>열어봤다면</small><b>복귀 쿠폰 5,000원</b></p><em>92명</em></div>
+    <div class="nd n4"><i class="cr-ch sms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i><p><small>안 열어봤다면</small><b>문자로 한 번 더</b></p><em>156명</em></div>
+  </div>
 </div></div></div>
       </li>
       <li class="steprow rv">
