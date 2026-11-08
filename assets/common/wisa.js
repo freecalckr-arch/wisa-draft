@@ -135,11 +135,10 @@
 })();
 /* @endregion */
 
-/* @region mk-tb-fit (patch-205): 그래프 영역 태블릿 그림(chart-tb · 640×220)을 칸 가로에 맞게 늘림
-   · 세로 220 은 그대로 · 가로 좌표(x · x1 · x2 · cx · 선 경로)만 칸 폭 ÷ 640 배로 · 글자 · 점 · 말풍선 크기는 그대로 (말풍선은 위치만 이동) */
+/* @region mk-tb-fit (patch-205 · patch-206 PC · 태블릿 · 모바일 전체): 그래프 영역 그래프는 가로 유동 · 세로 고정
+   · 보이는 그림(chart-pc · chart-tb · chart-mo)의 viewBox 가로를 실제 칸 폭으로 · 세로(PC · 태블릿 220 · 모바일 210 등 viewBox 높이)는 그대로 · 가로 좌표(x · x1 · x2 · cx · 선 경로)만 칸 폭 ÷ 원래 가로 배 · 글자 · 점 · 말풍선 크기는 그대로 (말풍선은 위치만 이동) */
 (() => {
-  const svgs = [...document.querySelectorAll("#geo-market svg.chart-tb")]; if (!svgs.length) return;
-  const mq = matchMedia("(min-width: 768px) and (max-width: 1023px)");
+  const svgs = [...document.querySelectorAll("#geo-market svg.chart")]; if (!svgs.length) return;
   svgs.forEach(svg => {
     const vb = svg.getAttribute("viewBox").split(/\s+/).map(Number); svg._vb = vb;
     svg.querySelectorAll("*").forEach(el => { const o = {}; ["x", "x1", "x2", "cx", "width", "d"].forEach(a => { if (el.hasAttribute(a)) o[a] = el.getAttribute(a); }); el._o = o; });
@@ -147,7 +146,8 @@
   const px = (d, k) => d.replace(/(-?\d*\.?\d+),(-?\d*\.?\d+)/g, (m, x, y) => +(x * k).toFixed(1) + "," + y);
   const fit = () => svgs.forEach(svg => {
     const [, , BW, BH] = svg._vb, w = svg.getBoundingClientRect().width;
-    const k = mq.matches && w > 0 ? w / BW : 1;
+    if (!(w > 0)) return;   /* 지금 해상도에서 숨은 그림은 건너뜀 */
+    const k = w / BW;
     svg.setAttribute("viewBox", "0 0 " + +(BW * k).toFixed(1) + " " + BH);
     svg.querySelectorAll("*").forEach(el => {
       const o = el._o; if (!o) return;
