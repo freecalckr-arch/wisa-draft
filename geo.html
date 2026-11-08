@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-08 patch-198: 히어로 답변 창 모바일 가로 +20px (291 → 311)
      · 2026-11-08 patch-197: 공통 wisa.css 영역 타이틀 모바일 28 → 26px (히어로 제외)
      · 2026-11-08 patch-196: 공통 wisa.css 해결 영역 태그(.sr-tags) 모바일 숨김
      · 2026-11-08 patch-195: 공통 wisa.css 리포트 대시보드 모바일 간격(안쪽 여백 22 · 28 · 26 → 상하좌우 14 · 내용 사이 12 → 10)
@@ -150,6 +151,8 @@
     #geo-how .bento.b3 .bt-vis { padding: 0 20px; }
     #geo-how .bento.b3 .pn { left: 20px; right: 20px; bottom: -20px; }
   }
+  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */
+  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { width: calc(100% + 20px); margin-inline: -10px; } }
 </style>
 <style>
   /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
