@@ -196,8 +196,9 @@
    · 스크립트에서 쓸 때: wisaPf(번호, 'f'|'m') → 사진 경로 */
 (() => {
   /* patch-216: <html data-pf-set="crm"> 페이지는 새 프로필 20장(assets/geo/crm-pf/cp-01~20 · 20~30대 · 그레이 배경 · 어깨까지 · 홀수 여성 · 짝수 남성) */
-  const crm = document.documentElement.dataset.pfSet === "crm";
-  const P = crm ? { f: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19], m: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20] } : { f: [1, 3, 6, 8, 9], m: [2, 4, 5, 7, 10] }, used = {}, n = { f: 0, m: 0 };
+  /* patch-221: data-pf-set="young" (온사이트 · 영한 패션 브랜드) = 같은 20장 중 젊고 트렌디한 11장만 (여 1 · 3 · 7 · 11 · 17 · 19 / 남 4 · 8 · 14 · 16 · 20) */
+  const set = document.documentElement.dataset.pfSet, crm = set === "crm" || set === "young";
+  const P = set === "young" ? { f: [1, 3, 7, 11, 17, 19], m: [4, 8, 14, 16, 20] } : crm ? { f: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19], m: [2, 4, 6, 8, 10, 12, 14, 16, 18, 20] } : { f: [1, 3, 6, 8, 9], m: [2, 4, 5, 7, 10] }, used = {}, n = { f: 0, m: 0 };
   for (const g in P) { const a = P[g]; for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } }
   window.wisaPf = (k, g = 'f') => {
     if (!(k in used)) used[k] = P[g][n[g]++ % P[g].length];
