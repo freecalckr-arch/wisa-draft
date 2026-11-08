@@ -3037,3 +3037,12 @@ img, video { max-width: 100%; display: block; }
   .sec-title h2, .sub-title h2, .vow h2, .cta-copy h2 { font-size: 26px; }
 }
 /* @endregion */
+
+/* @region rp-steps-mo (patch-199): 리포트 대시보드 아래 3단계 숫자 뱃지 모바일 20% 축소 (40 → 32 · 글자 15 → 12) · 점선 · 제목 위치도 같이 맞춤 */
+@media (max-width: 767px) {
+  .rp-steps b { width: 32px; height: 32px; font-size: 12px; }
+  .rp-steps li.live b { box-shadow: 0 0 0 5px var(--primary-100); }
+  .rp-steps li:not(:last-child)::before { left: 15px; top: 38px; }   /* 원 가운데(16) 기준 점선 */
+  .rp-steps h3 { padding-top: 4px; }   /* 제목 첫 줄을 원 가운데 높이에 */
+}
+/* @endregion */
