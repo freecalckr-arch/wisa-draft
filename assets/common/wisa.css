@@ -3131,3 +3131,12 @@ img, video { max-width: 100%; display: block; }
 #geo-hero .sh-visual > :nth-child(even) { animation-delay: -3s; }
 @media (prefers-reduced-motion: reduce) { #geo-hero .sh-visual .sh-float, #geo-hero .sh-visual .sh-toast, #geo-hero .sh-visual .sh-img, #geo-hero .sh-visual .hv-card { animation: none; } }
 /* @endregion hero-bob */
+
+/* @region rp-ai-callout (patch-248) — 리포트 영역 대시보드 AI 요약 = 리포트 페이지 블루 스타일로 전 페이지 통일
+   연한 블루 → 인디고 그라데이션 바탕 · 블루 그라데이션 아바타(흰 반짝 아이콘) · 'AI 요약' 라벨 Primary 700 · 강조 글자 Gray 900 · 노란 노션 콜아웃 대체 */
+#geo-report .np-callout { align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; background: linear-gradient(135deg, var(--primary-50), var(--indigo-50)); font-size: 13.5px; line-height: 1.55; color: #344054; }
+#geo-report .np-callout > svg:first-child, #geo-report .np-callout > .aim-av { flex: none; box-sizing: border-box; display: grid; place-items: center; width: 30px; height: 30px; margin: 0; padding: 6px; border-radius: 9px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); }
+#geo-report .np-callout > svg:first-child path { fill: var(--white); }
+#geo-report .np-callout p { margin: 0; } #geo-report .np-callout p > b { margin-right: 8px; font-weight: 700; color: var(--primary-700); } #geo-report .np-callout strong { color: var(--gray-900); }
+@media (max-width: 767px) { #geo-report .np-callout { align-items: flex-start; padding: 11px 14px; font-size: 13px; } }
+/* @endregion rp-ai-callout */

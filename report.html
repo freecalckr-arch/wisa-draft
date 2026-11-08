@@ -4,11 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>리포트 · 자사몰 마케팅 | WISA</title>
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=228">
+<link rel="stylesheet" href="assets/common/wisa.css?v=248">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-08 patch-248: AI 아바타(블루 원 · 둥근 사각) 안 반짝 아이콘 크게 · 전 페이지 리포트 영역 AI 요약을 리포트 페이지 블루 스타일로 통일 (공통 wisa.css rp-ai-callout · ?v=248)
      · 2026-11-08 patch-247: 해결 ② 정리 할 일 체크 반복 시 체크 아이콘이 안 보이던 문제 수정 (빈 칸에 체크 아이콘 추가 · 체크 전엔 투명)
      · 2026-11-08 patch-246: 해결 ① 연결 가운데 WISA 원 제거 · 통합 리포트 가로를 왼쪽 채널 목록과 같은 156 으로 · 연결선은 리포트로 바로
      · 2026-11-08 patch-245: 히어로 오른쪽 AI 감지 알약 크기 오류 수정 (증감 class dn 이 공통 도넛 .dn 140×140 과 겹침 → vup · vdn 으로 변경) · 스파크라인 증감 색(상승 레드 · 하락 블루) 다시 유지
@@ -3205,6 +3206,7 @@
   /* patch-239: 해결 연결 — 통합 리포트 항목 6개(매출 · ROAS · AI 언급 · 주문 · 전환율 · 광고비)로 빈 곳 채움 */
   .rx-out li { padding: 6px 0; }
   /* patch-242: 통합 리포트 넘침 정리 — 항목 4개(전환율 · 광고비 제거) · 가로 110 → 132 (왼쪽으로 10 늘리고 묶음 전체 6px 왼쪽 이동해 좌우 여백 같게) */
+  .aim-av svg, .rx-fl-l .av svg, .rx-mav svg, .aim.sm .aim-av svg { width: 62% !important; height: 62% !important; } /* patch-248: AI 아바타 반짝 아이콘 크게 (칸의 62%) */
   .rx-out { left: 260px; width: 156px; padding: 10px 14px; } /* patch-246: 가운데 WISA 원 제거 · 통합 리포트 가로 = 왼쪽 채널 목록과 같은 156 · 선은 채널에서 리포트 왼쪽 가운데로 바로 연결 */
   /* patch-243: 단계 · 해결 비주얼 색 통일 (온사이트 · CRM 과 같은 방식) — 바탕 = 그레이 · 포인트 = 블루 한 곳(화면의 약 20%) · 그 외 색은 작은 글자 · 점에만
      - 차트 계열: 주인공 1개만 Primary 600 · 나머지는 Gray 200~400 · 연한 Primary(200~300) 로 구분
@@ -4142,7 +4144,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=228"></script>
+<script src="assets/common/wisa.js?v=248"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
 (() => {
