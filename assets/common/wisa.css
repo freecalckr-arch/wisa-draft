@@ -3031,3 +3031,9 @@ img, video { max-width: 100%; display: block; }
   #geo-diagnosis .sr-tags { display: none; }
 }
 /* @endregion */
+
+/* @region title-mo (patch-197): 영역 타이틀(h2) 모바일 28 → 26px (히어로 h1 30px 은 그대로 · 문제 ~ FAQ · 다짐 띠 · CTA 모두) */
+@media (max-width: 767px) {
+  .sec-title h2, .sub-title h2, .vow h2, .cta-copy h2 { font-size: 26px; }
+}
+/* @endregion */
