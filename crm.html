@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-213: 해결 영역 이미지 개선 · 애니메이션 — 분석: 곡선 → 2일 단위 막대 + 24일 이후 묶음 막대(주황 248명) · 평균 10일 기준선 / 나누기: 표 → 고객 줄이 6개 그룹 칸으로 나뉘는 분류 화면(휴면 징후만 주황 · VIP 기준 구매 금액 상위 1%) · 경고는 휴면 징후 하나로 / 설계: 2단계 관심 상품 입고 소식 · 혜택 복귀 쿠폰 5,000원(히어로와 같게) · 단계가 차례로 켜지는 반복 / 개선: A/B 막대 · 적용 표시 · 반응률 숫자 등장 · 진행 깜빡임 (CSS @region crm-v16 · 스크립트 crm-count · 모션 줄이기 시 정지)
      · 2026-11-08 patch-212: 시안 히스토리 CRM마케팅 1차 시안 날짜 11.07 → 11.08 · 공통 wisa.js 날짜 옆에 요일 자동 표기 (예: 2026.11.08 (일))
      · 2026-11-08 patch-211: 히어로 비주얼 PC 최소(1024~1439) = PC 1440 구성(파란 박스 1340×460 · 창 3개 · 양옆 카드) 그대로 같은 비율 축소 · s = min(1, 칸 폭 ÷ 1340) · 박스 세로 460 × s · 해상도별 카드 숨김 · 크기 변경 없앰 (공통 wisa.css · wisa.js hero-fit · GEO · 온사이트도 같이 · CSS @region crm-v14 는 카드 숨김 · 글자 축소 되돌림만)
      · 2026-11-08 patch-210: 그래프 영역 곡선을 GEO · 온사이트처럼 매끄럽게(단조 3차 곡선 · 점마다 평평해지던 계단 모양 제거) · 관리하지 않을 때 선 아래 회색 그라데이션 채움 (CSS @region crm-v13)
@@ -2476,6 +2477,83 @@
     .cr-hv4 .cr-meta { font-size: 11.5px; } .cr-hv4 .cr-tag { padding: 4px 10px; font-size: 12px; }   /* 1024~1279 전용 글자 축소(2005줄) 대신 PC 값 */
   }
   /* @endregion crm-v14 */
+
+  /* =====================================================================
+     @region crm-v16 (patch-213): 해결 영역 이미지 개선 · 애니메이션 (460×380 그대로)
+     · 분석: 2일 단위 막대 + 24일 이후 묶음 막대(주황) · 평균 10일 기준선(블루 = 핵심 1곳) — 막대 차례로 → 기준선 → 주황 구간 · 248명 / 반복: 주황 막대 숨쉬기
+     · 나누기: 고객 줄(왼쪽으로 흐름) → 6개 그룹 칸 · 휴면 징후만 주황 / 반복: 칸마다 새 고객 얼굴이 떨어져 들어옴 · 버튼 눌림
+     · 설계: 1 → 4 단계가 차례로 켜짐(8초 반복) · 4단계는 열어봤다면 / 안 열어봤다면 번갈아
+     · 개선: A/B 막대 차오름 → B 적용 표시 · 반응률 숫자 올라감 · 적용 표시 차례로 / 반복: 진행 표시 깜빡
+     · 등장은 .os2-anim.go (화면 진입) 기준 · prefers-reduced-motion 시 모두 정지
+     ===================================================================== */
+  /* 분석 */
+  i.cnt { font-style: normal; font: inherit; color: inherit; }
+  .cr-hb { display: block; width: 100%; height: auto; overflow: visible; }
+  .cr-hb .g { stroke: var(--gray-100); stroke-width: 1; }
+  .cr-hb .b { fill: var(--gray-300); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s var(--ease-out) calc(var(--i) * 45ms); }
+  .cr-hb .wz rect { fill: #fffaeb; } .cr-hb .wz text { font-size: 10.5px; font-weight: 700; fill: #dc6803; }
+  .cr-hb .tl rect { fill: #f79009; transform-box: fill-box; transform-origin: 50% 100%; } .cr-hb .tl text { font-size: 12px; font-weight: 800; fill: #b54708; }
+  .cr-hb .av line { stroke: var(--primary-600); stroke-width: 1.5; stroke-dasharray: 3 3; } .cr-hb .av rect { fill: var(--primary-600); } .cr-hb .av text { font-size: 10.5px; font-weight: 700; fill: var(--white); }
+  .cr-hb .xl { font-size: 10.5px; fill: var(--gray-500); } .cr-hb .xl.w { fill: #dc6803; font-weight: 700; }
+  .cr-hb .wz, .cr-hb .tl text, .cr-hb .av { transition: opacity .45s ease; } .cr-hb .av { transition-delay: .7s; } .cr-hb .wz { transition-delay: .95s; } .cr-hb .tl text { transition-delay: 1.4s; }
+  .cr-hb .tl rect { transition: transform .5s var(--ease-out) 1.1s; }
+  .os2-anim:not(.go) .cr-hb .b, .os2-anim:not(.go) .cr-hb .tl rect { transform: scaleY(0); }
+  .os2-anim:not(.go) .cr-hb .wz, .os2-anim:not(.go) .cr-hb .tl text, .os2-anim:not(.go) .cr-hb .av { opacity: 0; }
+  .os2-anim.go .cr-hb .tl rect { animation: crBreath 2.4s ease-in-out 2.2s infinite; }
+  @keyframes crBreath { 50% { opacity: .55; } }
+  .cr-d1 .kpi li { transition: opacity .45s ease, transform .45s var(--ease-out); } .cr-d1 .kpi li:nth-child(2) { transition-delay: .1s; } .cr-d1 .kpi li:nth-child(3) { transition-delay: .2s; }
+  .os2-anim:not(.go) .cr-d1 .kpi li { opacity: 0; transform: translateY(8px); }
+  /* 나누기 */
+  .cr-sort { gap: 12px; }
+  .cr-in { flex: none; display: flex; align-items: center; gap: 10px; }
+  .cr-in .lb { flex: none; display: flex; flex-direction: column; gap: 1px; font-size: 10.5px; color: var(--gray-500); } .cr-in .lb b { font-size: 12px; color: var(--gray-900); }
+  .cr-in .trk { flex: 1; min-width: 0; overflow: hidden; padding: 3px 0; -webkit-mask: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); mask: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent); }
+  .cr-in .rail { display: flex; gap: 6px; width: max-content; animation: crRail 16s linear infinite; }
+  .cr-in .rail i, .cr-grp .fc i { flex: none; width: 24px; height: 24px; border-radius: 50%; overflow: hidden; background: var(--gray-100); box-shadow: 0 0 0 2px var(--white); }
+  .cr-in .rail img, .cr-grp .fc img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  @keyframes crRail { to { transform: translateX(calc(-50% - 3px)); } }
+  .cr-grp { flex: 1; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 8px; }
+  .cr-grp li { display: flex; flex-direction: column; justify-content: space-between; gap: 2px; min-width: 0; padding: 10px 12px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); transition: opacity .45s ease, transform .45s var(--ease-out); transition-delay: calc(var(--k) * 70ms + .3s); }
+  .cr-grp li:nth-child(1) { --k: 0; } .cr-grp li:nth-child(2) { --k: 1; } .cr-grp li:nth-child(3) { --k: 2; } .cr-grp li:nth-child(4) { --k: 3; } .cr-grp li:nth-child(5) { --k: 4; } .cr-grp li:nth-child(6) { --k: 5; }
+  .cr-grp .hd { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+  .cr-grp .tg { padding: 2px 7px; border-radius: 99px; background: var(--gray-100); font-size: 10.5px; font-weight: 700; color: var(--gray-700); white-space: nowrap; }
+  .cr-grp .fc { display: flex; } .cr-grp .fc i { width: 20px; height: 20px; margin-left: -6px; box-shadow: 0 0 0 1.5px var(--white); } .cr-grp .fc i:first-child { margin-left: 0; }
+  .cr-grp b { margin-top: 4px; font-size: 18px; font-weight: 800; color: var(--gray-900); font-variant-numeric: tabular-nums; } .cr-grp b small { margin-left: 1px; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+  .cr-grp p { margin: 0; font-size: 10.5px; color: var(--gray-500); white-space: nowrap; }
+  .cr-grp li.w { background: #fffaeb; box-shadow: inset 0 0 0 1.5px #fdb022; } .cr-grp li.w .tg { background: #f79009; color: var(--white); } .cr-grp li.w b { color: #b54708; } .cr-grp li.w .fc i { box-shadow: 0 0 0 1.5px #fffaeb; }
+  .cr-grp li.x .tg { background: #fef3f2; color: #b42318; } .cr-grp li.v .tg { background: var(--indigo-50); color: #3538cd; }
+  .os2-anim:not(.go) .cr-grp li { opacity: 0; transform: translateY(8px); }
+  .os2-anim.go .cr-grp .fc i:first-child { animation: crDrop 6s var(--ease-out) infinite; animation-delay: calc(var(--k) * 1s + 1.2s); }
+  .os2-anim.go .cr-grp li.w .fc i:first-child { animation-duration: 3s; animation-delay: 1.6s; }
+  @keyframes crDrop { 0% { opacity: 0; transform: translateY(-14px) scale(.8); } 10%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+  .os2-anim.go .cr-grp li.w { animation: crWarn 3s ease-in-out 1.6s infinite; }
+  @keyframes crWarn { 0%, 100% { box-shadow: inset 0 0 0 1.5px #fdb022; } 12% { box-shadow: inset 0 0 0 1.5px #f79009, 0 0 0 4px rgba(247,144,9,.16); } }
+  .cr-sort .cr-alert { transition: opacity .45s ease .9s, transform .45s var(--ease-out) .9s; }
+  .os2-anim:not(.go) .cr-sort .cr-alert { opacity: 0; transform: translateY(8px); }
+  .os2-anim.go .cr-sort .cr-alert em { animation: crPress 3s ease-in-out 2s infinite; }
+  @keyframes crPress { 0%, 70%, 100% { transform: none; } 78% { transform: scale(.94); } 86% { transform: scale(1.03); } }
+  /* 설계: 단계가 차례로 켜짐 (8초 · 단계마다 2초) */
+  .cr-fl > li:nth-child(1) { --k: 0; } .cr-fl > li:nth-child(2) { --k: 1; } .cr-fl > li:nth-child(3) { --k: 2; } .cr-fl > li:nth-child(4) { --k: 3; }
+  .os2-anim.go .cr-fl > li { animation: crStep 8s ease-in-out infinite; animation-delay: calc(var(--k) * 2s + .6s); }
+  @keyframes crStep { 0%, 25%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200); } 4%, 20% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.12); } }
+  .os2-anim.go .cr-fl > li > .n { animation: crStepN 8s ease-in-out infinite; animation-delay: calc(var(--k) * 2s + .6s); }
+  @keyframes crStepN { 0%, 25%, 100% { background: var(--gray-100); color: var(--gray-700); } 4%, 20% { background: var(--primary-600); color: var(--white); } }
+  .os2-anim.go .cr-fl > li.tr > .n { animation-name: crStepN1; } @keyframes crStepN1 { 0%, 25%, 100% { background: var(--gray-900); color: var(--white); } 4%, 20% { background: var(--primary-600); color: var(--white); } }
+  .os2-anim.go .cr-fl .two p { animation: crOpt 8s ease-in-out 6.6s infinite; } .os2-anim.go .cr-fl .two p:not(.y) { animation-delay: 7.4s; }
+  @keyframes crOpt { 0%, 10%, 100% { box-shadow: none; } 3%, 8% { box-shadow: inset 0 0 0 1.5px var(--primary-600); } }
+  /* 개선 */
+  .cr-ab li i::after { transition: width .9s var(--ease-out) .3s; } .cr-ab li.b i::after { transition-delay: .5s; }
+  .os2-anim:not(.go) .cr-ab li i::after { width: 0; }
+  .cr-ab li em, .os20.cr-d4 .lg .st { transition: opacity .3s ease, transform .4s cubic-bezier(.34,1.56,.64,1); }
+  .cr-ab li em { transition-delay: 1.4s; } .os20.cr-d4 .lg li:nth-child(1) .st { transition-delay: 1.7s; } .os20.cr-d4 .lg li:nth-child(2) .st { transition-delay: 1.9s; } .os20.cr-d4 .lg li:nth-child(3) .st { transition-delay: 2.1s; }
+  .os2-anim:not(.go) .cr-ab li em, .os2-anim:not(.go) .os20.cr-d4 .lg .st { opacity: 0; transform: scale(.6); }
+  .os2-anim.go .os20.cr-d4 .lg li.ing .st { animation: crIng 1.6s ease-in-out 2.6s infinite; }
+  @keyframes crIng { 50% { box-shadow: 0 0 0 4px rgba(247,144,9,.18); } }
+  @media (prefers-reduced-motion: reduce) {
+    .cr-hb .b, .cr-hb .tl rect { transform: none !important; transition: none; } .cr-hb .wz, .cr-hb .tl text, .cr-hb .av { opacity: 1 !important; }
+    .cr-in .rail, .cr-grp .fc i, .cr-grp li, .cr-sort .cr-alert em, .cr-fl > li, .cr-fl > li > .n, .cr-fl .two p, .cr-hb .tl rect, .os20.cr-d4 .lg .st { animation: none !important; }
+  }
+  /* @endregion crm-v16 */
 </style>
 </head>
 <body>
@@ -2763,27 +2841,33 @@
       <li class="steprow rv">
         <span class="sr-no">1</span>
         <div class="sr-body"><h3><em class="key">분석</em> 고객 데이터에서 재구매 · 이탈 패턴을 찾습니다</h3><p>주문 · 회원 데이터에서 다시 사는 주기와 떠나는 징후, 가치 높은 고객을 찾습니다.</p><p class="sr-out">우리 쇼핑몰의 재구매 주기와 이탈 징후가 담긴 분석 결과를 받습니다</p><ul class="sr-tags"><li>재구매 주기 분석</li><li>이탈 징후 분석</li><li>고객 가치 분석</li></ul></div>
-        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>재구매 패턴 분석</b><span class="vw-m">최근 12개월 · 회원 8,420명</span><em class="vw-chip">평균 주기 9일</em></div><div class="vw-bd cr-d1">
-  <div class="cr-hi"><p class="lb"><b>첫 구매 후 다시 주문하기까지 걸린 날</b><span>단위 : 명</span></p>
-  <svg class="cr-lc" viewBox="0 0 456 172" aria-hidden="true"><defs><linearGradient id="crLcG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1570ef" stop-opacity=".18"/><stop offset="1" stop-color="#1570ef" stop-opacity="0"/></linearGradient></defs>
-    <rect class="wz" x="267.7" y="18" width="178.3" height="110" rx="0"/><text class="wl" x="440" y="36" text-anchor="end">재구매 주기가 지난 구간</text>
-    <line class="g" x1="30" x2="446" y1="128.0" y2="128.0"/><line class="g" x1="30" x2="446" y1="73.0" y2="73.0"/><line class="g" x1="30" x2="446" y1="18.0" y2="18.0"/>
-    <path class="ar" d="M30,109.1 C55.0,109.1 64.5,32.1 89.4,32.1 C114.4,32.1 123.9,54.1 148.9,54.1 C173.8,54.1 183.3,76.1 208.3,76.1 C233.2,76.1 242.8,95.0 267.7,95.0 C292.7,95.0 302.2,104.4 327.1,104.4 C352.1,104.4 361.6,110.7 386.6,110.7 C411.5,110.7 421.0,115.4 446.0,115.4 L446,128 L30,128 Z"/><path class="ln" d="M30,109.1 C55.0,109.1 64.5,32.1 89.4,32.1 C114.4,32.1 123.9,54.1 148.9,54.1 C173.8,54.1 183.3,76.1 208.3,76.1 C233.2,76.1 242.8,95.0 267.7,95.0 C292.7,95.0 302.2,104.4 327.1,104.4 C352.1,104.4 361.6,110.7 386.6,110.7 C411.5,110.7 421.0,115.4 446.0,115.4"/>
-    <circle class="pt" cx="30.0" cy="109.1" r="3.5"/><circle class="pk" cx="89.4" cy="32.1" r="5"/><circle class="pt" cx="148.9" cy="54.1" r="3.5"/><circle class="pt" cx="208.3" cy="76.1" r="3.5"/><circle class="pw" cx="267.7" cy="95.0" r="3.5"/><circle class="pw" cx="327.1" cy="104.4" r="3.5"/><circle class="pw" cx="386.6" cy="110.7" r="3.5"/><circle class="pw" cx="446.0" cy="115.4" r="3.5"/>
-    <g class="tip w"><rect x="273.1" y="62" width="108" height="24" rx="12"/><text x="327.1" y="78" text-anchor="middle">이탈 위험 248명</text></g>
-    <text class="xl" x="30.0" y="164" text-anchor="middle">3일</text><text class="xl" x="89.4" y="164" text-anchor="middle">7일</text><text class="xl" x="148.9" y="164" text-anchor="middle">10일</text><text class="xl" x="208.3" y="164" text-anchor="middle">14일</text><text class="xl" x="267.7" y="164" text-anchor="middle">21일</text><text class="xl" x="327.1" y="164" text-anchor="middle">30일</text><text class="xl" x="386.6" y="164" text-anchor="middle">45일</text><text class="xl" x="446.0" y="164" text-anchor="middle">60일</text>
+        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>재구매 패턴 분석</b><span class="vw-m">최근 12개월 · 회원 8,420명</span><em class="vw-chip">평균 주기 10일</em></div><div class="vw-bd cr-d1">
+  <div class="cr-hi"><p class="lb"><b>첫 구매 후 다시 주문하기까지 걸린 날</b><span>단위 : 명</span></p>   <!-- patch-213: 곡선 → 2일 단위 막대 (24일 이후는 한 막대로 묶음) · 평균 10일 기준선 · 주기 + 14일 지난 구간 주황 -->
+  <svg class="cr-hb" viewBox="0 0 456 172" aria-hidden="true">
+    <line class="g" x1="30" x2="446" y1="148" y2="148"/><line class="g" x1="30" x2="446" y1="88" y2="88"/><line class="g" x1="30" x2="446" y1="28" y2="28"/>
+    <g class="wz"><rect x="336" y="28" width="110" height="120"/><text x="391" y="46" text-anchor="middle">주기 + 14일 지남</text></g>
+    <rect class="b" style="--i:0" x="34" y="133.8" width="17" height="14.2" rx="3"/><rect class="b" style="--i:1" x="59" y="105.5" width="17" height="42.5" rx="3"/><rect class="b" style="--i:2" x="84" y="63.0" width="17" height="85" rx="3"/><rect class="b" style="--i:3" x="109" y="32.4" width="17" height="115.6" rx="3"/><rect class="b" style="--i:4" x="134" y="25.3" width="17" height="122.7" rx="3"/><rect class="b" style="--i:5" x="159" y="45.3" width="17" height="102.7" rx="3"/><rect class="b" style="--i:6" x="184" y="72.5" width="17" height="75.5" rx="3"/><rect class="b" style="--i:7" x="209" y="94.9" width="17" height="53.1" rx="3"/><rect class="b" style="--i:8" x="234" y="112.6" width="17" height="35.4" rx="3"/><rect class="b" style="--i:9" x="259" y="125.6" width="17" height="22.4" rx="3"/><rect class="b" style="--i:10" x="284" y="132.7" width="17" height="15.3" rx="3"/><rect class="b" style="--i:11" x="309" y="137.4" width="17" height="10.6" rx="3"/>
+    <g class="tl"><rect x="356" y="118.7" width="70" height="29.3" rx="4"/><text x="391" y="110.7" text-anchor="middle">248명</text></g>
+    <g class="av"><line x1="155" x2="155" y1="24" y2="148"/><rect x="127" y="4" width="56" height="20" rx="10"/><text x="155" y="18" text-anchor="middle">평균 10일</text></g>
+    <text class="xl" x="34" y="168">0일</text><text class="xl" x="155" y="168" text-anchor="middle">10일</text><text class="xl" x="280" y="168" text-anchor="middle">20일</text><text class="xl w" x="391" y="168" text-anchor="middle">24일 이후</text>
   </svg></div>
-  <ul class="kpi"><li><span>평균 재구매 주기</span><b>9일</b></li><li class="w"><span>주기가 지난 고객</span><b>248명</b></li><li><span>상위 10% 고객 매출</span><b>46%</b></li></ul>
+  <ul class="kpi"><li><span>평균 재구매 주기</span><b><i class="cnt" data-cnt="10">10</i>일</b></li><li class="w"><span>주기가 지난 고객</span><b><i class="cnt" data-cnt="248">248</i>명</b></li><li><span>상위 10% 고객 매출</span><b><i class="cnt" data-cnt="46">46</i>%</b></li></ul>
 </div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">2</span>
         <div class="sr-body"><h3><em class="key">나누기</em> 구매 이력과 행동 기준으로 고객을 나눕니다</h3><p>쇼핑몰마다 중요한 기준이 다릅니다. 구매 데이터를 보며 우리 쇼핑몰에 맞는 기준을 찾아냅니다.</p><p class="sr-out">기준별로 나뉜 고객 그룹과 그룹별 고객 수를 받습니다</p><ul class="sr-tags"><li>구매 횟수</li><li>최근 구매일</li><li>구매 금액</li><li>구매 상품 · 카테고리</li><li>유입 채널</li><li>관심 행동</li><li>후기 · 문의 이력</li><li>혜택 반응</li></ul></div>
-        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>고객 그룹</b><span class="vw-m">기준 8개로 나눔</span><em class="vw-chip">6개 그룹</em></div><div class="vw-bd cr-d2">
-  <p class="cr-cr"><span>구매 횟수</span><span>최근 구매일</span><span>구매 금액</span><span>구매 상품</span><em>+4</em></p>
-  <div class="cr-gt"><p class="th"><span>그룹</span><span>기준</span><span>고객 수</span></p>
-    <ul><li style="--v:0.55"><span class="g">첫 구매</span><span class="c">구매 1회 · 30일 이내</span><span class="n"><i></i><b>1,240</b></span></li><li class="k" style="--v:0.38"><span class="g">재구매 시점</span><span class="c">구매 주기 도래</span><span class="n"><i></i><b>860</b></span></li><li style="--v:0.52"><span class="g">단골</span><span class="c">구매 4회 이상</span><span class="n"><i></i><b>1,180</b></span></li><li class="w2" style="--v:0.11"><span class="g w">휴면 징후</span><span class="c">주기보다 14일 늦음</span><span class="n"><i></i><b>248</b></span></li><li class="x2" style="--v:1"><span class="g x">이탈</span><span class="c">180일 구매 없음</span><span class="n"><i></i><b>2,960</b></span></li><li style="--v:0.03"><span class="g v">VIP</span><span class="c">월 4회 이상 주문</span><span class="n"><i></i><b>64</b></span></li></ul></div>
-  <div class="cr-alert"><i class="tf" aria-hidden="true">&#x26A0;&#xFE0F;</i><p><b>발송이 필요한 그룹 2개</b><span>휴면 징후 248명 · 이탈 2,960명</span></p><em>시나리오 보내기</em></div>
+        <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>고객 그룹</b><span class="vw-m">기준 8개로 나눔</span><em class="vw-chip">6개 그룹</em></div><div class="vw-bd cr-d2 cr-sort">
+  <div class="cr-in"><span class="lb"><b>고객 8,420명</b>기준 8개로 분류 중</span><div class="trk"><div class="rail"><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i><i><img src="assets/geo/profile/pt-05.jpg" alt=""></i><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i><i><img src="assets/geo/profile/pt-08.jpg" alt=""></i><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i><i><img src="assets/geo/profile/pt-05.jpg" alt=""></i><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i><i><img src="assets/geo/profile/pt-08.jpg" alt=""></i><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i></div></div></div>   <!-- patch-213: 표 → 고객이 6개 그룹 칸으로 나뉘어 들어가는 분류 화면 · 휴면 징후만 주황 강조 -->
+  <ul class="cr-grp">
+    <li class="c1"><div class="hd"><span class="tg">첫 구매</span><span class="fc"><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i></span></div><b>1,240<small>명</small></b><p>구매 1회 · 30일 이내</p></li>
+    <li class="c2"><div class="hd"><span class="tg">재구매 시점</span><span class="fc"><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i></span></div><b>860<small>명</small></b><p>구매 주기 도래</p></li>
+    <li class="c3"><div class="hd"><span class="tg">단골</span><span class="fc"><i><img src="assets/geo/profile/pt-08.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i></span></div><b>1,180<small>명</small></b><p>구매 4회 이상</p></li>
+    <li class="c4 w"><div class="hd"><span class="tg">휴면 징후</span><span class="fc"><i><img src="assets/geo/profile/pt-05.jpg" alt=""></i><i><img src="assets/geo/profile/pt-01.jpg" alt=""></i><i><img src="assets/geo/profile/pt-04.jpg" alt=""></i></span></div><b>248<small>명</small></b><p>주기보다 14일 늦음</p></li>
+    <li class="c5 x"><div class="hd"><span class="tg">이탈</span><span class="fc"><i><img src="assets/geo/profile/pt-06.jpg" alt=""></i><i><img src="assets/geo/profile/pt-10.jpg" alt=""></i><i><img src="assets/geo/profile/pt-03.jpg" alt=""></i></span></div><b>2,960<small>명</small></b><p>180일 구매 없음</p></li>
+    <li class="c6 v"><div class="hd"><span class="tg">VIP</span><span class="fc"><i><img src="assets/geo/profile/pt-09.jpg" alt=""></i><i><img src="assets/geo/profile/pt-02.jpg" alt=""></i><i><img src="assets/geo/profile/pt-07.jpg" alt=""></i></span></div><b>84<small>명</small></b><p>구매 금액 상위 1%</p></li>
+  </ul>
+  <div class="cr-alert"><i class="tf" aria-hidden="true">&#x26A0;&#xFE0F;</i><p><b>휴면 징후 248명 · 발송 필요</b><span>평소 주기보다 14일 늦은 고객</span></p><em>시나리오 보내기</em></div>
 </div></div></div>
       </li>
       <li class="steprow rv">
@@ -2792,9 +2876,9 @@
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>시나리오 · 휴면 징후 고객</b><span class="vw-m">자동 발송</span><em class="vw-chip">4단계</em></div><div class="vw-bd cr-d3">
   <ol class="cr-fl">
     <li class="tr"><i class="n">1</i><p><small>시작 조건</small><b>평소 주기보다 14일 늦음</b></p><span class="tg">최근 30일 방문 없음</span></li>
-    <li><i class="n">2</i><p><small>보내기</small><b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>관심 상품 새 소식</b></p><span class="tg">오전 10시</span></li>
+    <li><i class="n">2</i><p><small>보내기</small><b><i class="cr-ch kt sm"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9-.2.7-.7 2.6-.8 3 0 .3.1.3.3.2.2-.1 2.9-2 3.4-2.3.6.1 1.3.2 1.9.2 5 0 9-3.1 9-7s-4-7-9-7z"/></svg></i>관심 상품 입고 소식</b></p><span class="tg">오전 10시</span></li>
     <li><i class="n">3</i><p><small>기다리기</small><b>3일 동안 반응 확인</b></p><span class="tg">열람 · 클릭</span></li>
-    <li class="br"><i class="n">4</i><div class="two"><p class="y"><small>열어봤다면</small><b><i class="cr-pct" aria-hidden="true">%</i>복귀 쿠폰 30% 할인</b></p><p><small>안 열어봤다면</small><b><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자로 한 번 더</b></p></div></li>
+    <li class="br"><i class="n">4</i><div class="two"><p class="y"><small>열어봤다면</small><b><i class="cr-pct" aria-hidden="true">%</i>복귀 쿠폰 5,000원</b></p><p><small>안 열어봤다면</small><b><i class="cr-ch sms sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></svg></i>문자로 한 번 더</b></p></div></li>
   </ol>
 </div></div></div>
       </li>
@@ -2802,7 +2886,7 @@
         <span class="sr-no">4</span>
         <div class="sr-body"><h3><em class="key">개선</em> 자동으로 보내고, 반응을 보며 계속 다듬습니다</h3><p>그룹별 반응을 확인해 메시지 · 시점 · 혜택을 바꿔 보고, 더 좋은 쪽으로 계속 고칩니다.</p><p class="sr-out">반응이 확인된 메시지가 쌓여 재구매율이 꾸준히 오릅니다</p><ul class="sr-tags"><li>메시지 A/B 테스트</li><li>발송 시점 조정</li><li>혜택 조정</li></ul></div>
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>발송 결과 · 개선</b><span class="vw-m">2026.10</span><span class="os21-chips"><em class="c-done">적용 2</em><em class="c-ing">테스트 1</em></span></div><div class="vw-bd os20 cr-d4">
-  <div class="kp"><div><span>메시지 반응률</span><strong>9.8<small>%</small></strong><em>▲ 1.1%p</em></div><p>그룹별 발송 12건 · 전월 대비</p></div>
+  <div class="kp"><div><span>메시지 반응률</span><strong><i class="cnt" data-cnt="9.8">9.8</i><small>%</small></strong><em>▲ 1.1%p</em></div><p>그룹별 발송 12건 · 전월 대비</p></div>
   <div class="cr-ab"><p class="lb"><b>휴면 복귀 메시지 A/B</b><span>반응률</span></p>
     <ul><li style="--v:.66"><span>A · 할인 강조</span><i></i><b>6.2%</b></li><li class="b" style="--v:1"><span>B · 관심 상품 입고 소식</span><i></i><b>9.4%</b><em>적용</em></li></ul></div>
   <ul class="lg"><li class="done"><i class="n">1</i><b>복귀 메시지 B안 적용</b><span class="d">10/14</span><span class="ef">반응 +3.2%p</span><em class="st">적용</em></li><li class="done"><i class="n">2</i><b>첫 구매 쿠폰 7일째로</b><span class="d">10/21</span><span class="ef">재구매 +4%p</span><em class="st">적용</em></li><li class="ing"><i class="n">3</i><b>제철 과일 선주문 오전으로</b><span class="d">10/28</span><span class="ef">테스트 중</span><em class="st">진행</em></li></ul>
@@ -3516,6 +3600,18 @@
 
 <script src="assets/common/wisa.js?v=212"></script>
 <script>
+/* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const dp = n => (n.dataset.cnt.split('.')[1] || '').length;
+  document.querySelectorAll('.os2-anim').forEach(w => { const ns = [...w.querySelectorAll('[data-cnt]')]; if (!ns.length || w.classList.contains('go')) return;
+    const run = () => ns.forEach(n => { const to = parseFloat(n.dataset.cnt), d = dp(n), t0 = performance.now();
+      const step = t => { const p = Math.min(1, (t - t0) / 900), e = 1 - Math.pow(1 - p, 3); n.textContent = (to * e).toFixed(d); if (p < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); });
+    ns.forEach(n => n.textContent = (0).toFixed(dp(n)));
+    const mo = new MutationObserver(() => { if (w.classList.contains('go')) { mo.disconnect(); setTimeout(run, 300); } }); mo.observe(w, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
+/* @endregion */
 /* @region crm-hero [CRM] 히어로: 제목 롤링 채널이 바뀔 때 ① 고객 상황 · ② 휴대폰 메시지 · ③ 반응 결과를 같은 순서로 교체 (patch-181) */
 (() => {
   const roll = document.querySelector('#geo-hero .ai-roll-in'), els = [...document.querySelectorAll('.cr-hv3 [data-ch]')];
