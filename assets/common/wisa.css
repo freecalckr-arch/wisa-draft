@@ -3122,3 +3122,12 @@ img, video { max-width: 100%; display: block; }
 /* @region fx-etc-hide (patch-224): 단계 영역 아래 "그 외에도" 텍스트 영역 숨김 (모든 페이지 · 마크업 · 애니메이션은 남겨 둠 — 다시 쓸 때 이 줄만 지우면 됨) */
 #geo-how .fx-etc { display: none; }
 /* @endregion fx-etc-hide */
+
+/* @region hero-bob (patch-228): 히어로 주변 비주얼 요소(박스 안 떠 있는 카드 · 토스트 · 이미지)는 모두 같은 둥둥 애니메이션 — 위아래 8px · 6초 · 짝수 번째는 3초 엇갈림
+   · transform 대신 translate 속성을 움직여서 요소마다 있는 위치 · 축소 transform(translateY(-50%) · scale(.84) 등)은 그대로 둠
+   · 새 요소도 아래 선택자(.sh-float · .sh-toast · .sh-img · .hv-card)를 쓰면 자동 적용 */
+@keyframes heroBob { from { translate: 0 -8px; } to { translate: 0 8px; } }
+#geo-hero .sh-visual .sh-float, #geo-hero .sh-visual .sh-toast, #geo-hero .sh-visual .sh-img, #geo-hero .sh-visual .hv-card { animation: heroBob 6s ease-in-out infinite alternate; }
+#geo-hero .sh-visual > :nth-child(even) { animation-delay: -3s; }
+@media (prefers-reduced-motion: reduce) { #geo-hero .sh-visual .sh-float, #geo-hero .sh-visual .sh-toast, #geo-hero .sh-visual .sh-img, #geo-hero .sh-visual .hv-card { animation: none; } }
+/* @endregion hero-bob */

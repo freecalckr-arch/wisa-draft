@@ -32,7 +32,7 @@
       <li><div><b>PC 최소(1024~1439)는 PC 1440 구성을 그대로 줄인다</b><span>1440 화면의 박스(1340×460)와 안의 창 · 카드 · 이미지 전체를 한 장으로 보고 <code>s = min(1, 칸 폭 ÷ 1340)</code> 배로 같이 줄입니다. 해상도마다 카드를 숨기거나 위치 · 크기를 바꾸지 않습니다 (공통 <code>wisa.css</code> · <code>wisa.js</code> hero-fit).</span></div></li>
       <li><div><b>태블릿 · 모바일은 박스 양옆 떠 있는 카드를 숨긴다</b><span>공간이 부족해 겹치기 때문입니다. 필요한 정보는 박스 안 구성으로 옮깁니다.</span></div></li>
       <li><div><b>히어로에는 그래프를 넣지 않는다</b><span>그래프는 그래프 영역(<code>#geo-market</code>)에서만 씁니다.</span></div></li>
-      <li><div><b>떠 있는 카드 움직임은 GEO 와 같게</b><span>위아래로 천천히 (<code>shFloat 6s ease-in-out infinite alternate</code>), 좌우 카드는 반 박자 어긋나게 (<code>-3s</code>).</span></div></li>
+      <li><div><b>히어로 주변 비주얼 요소는 모두 둥둥 뜬다</b><span>박스 안에 떠 있는 카드 · 토스트 · 이미지는 모든 페이지 공통으로 위아래 8px 를 6초에 천천히 오갑니다 (공통 <code>wisa.css</code> <code>hero-bob</code> · <code>.sh-float</code> · <code>.sh-toast</code> · <code>.sh-img</code> · <code>.hv-card</code> 를 쓰면 자동 적용). 짝수 번째 요소는 3초 어긋나게 움직이고, 모션 줄이기 설정에서는 멈춥니다. 페이지마다 따로 움직임을 만들지 않습니다.</span></div></li>
     </ol>
 
     <h2 id="code">코드</h2>
