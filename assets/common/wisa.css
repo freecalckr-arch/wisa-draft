@@ -1,3 +1,4 @@
+@import url("https://cdn.jsdelivr.net/gh/toss/tossface/dist/tossface.css");   /* patch-223: 토스 이모지 폰트 (그 외에도 칩) */
 /* =====================================================================
    WISA 마케팅 시안 공통 스타일 (patch-172 · 2026-11-07)
    · GEO · 온사이트에 똑같이 들어 있던 앞쪽 공통 CSS 를 그대로 옮긴 파일
@@ -3094,3 +3095,26 @@ img, video { max-width: 100%; display: block; }
   #geo-hero .sh-visual { width: 1340px; height: 460px; min-height: 0; zoom: var(--hz, 1); margin-top: calc(80px / var(--hz, 1)); }
 }
 /* @endregion */
+
+/* @region fx-etc-anim (patch-222): 단계 영역 아래 "그 외에도" — 화면에 들어오면 따옴표 속 항목이 차례로 올라오고 블루 형광펜 밑줄이 그어짐(1회) · 아래 칩 2줄이 서로 반대로 천천히 흐름(마우스 올리면 멈춤) · 모션 줄이기 시 정지 */
+.fx-etc-q .hl { display: inline-block; background: linear-gradient(transparent 64%, var(--primary-100) 64%, var(--primary-100) 92%, transparent 92%) no-repeat 0 0 / 0% 100%; transition: opacity .6s var(--ease-out), transform .6s var(--ease-out), background-size .7s var(--ease-out); transition-delay: calc(var(--k) * .15s + .2s), calc(var(--k) * .15s + .2s), calc(var(--k) * .3s + 1s); }
+.fx-etc:not(.in) .hl { opacity: 0; transform: translateY(14px); }
+.fx-etc.in .hl { background-size: 100% 100%; }
+.fx-chips { width: 100%; max-width: 1100px; margin-top: 18px; display: flex; flex-direction: column; gap: 12px; -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.fx-row { overflow: hidden; }
+.fx-rail { display: flex; gap: 10px; width: max-content; animation: fxRail 46s linear infinite; }
+.fx-row.r2 .fx-rail { animation-direction: reverse; animation-duration: 52s; }
+.fx-chips:hover .fx-rail { animation-play-state: paused; }
+@keyframes fxRail { to { transform: translateX(calc(-50% - 5px)); } }
+.fx-chip { flex: none; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 15px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+.fx-em { flex: none; font-family: "Tossface", "TossFaceSub", sans-serif; font-style: normal; font-size: 18px; line-height: 1; }   /* 토스 이모지 (Tossface · jsdelivr) */
+.fx-chips { transition: opacity .9s var(--ease-out) .6s; } .fx-etc:not(.in) .fx-chips { opacity: 0; }
+@media (max-width: 1023px) { .fx-chip { height: 40px; padding: 0 16px; font-size: 14px; } .fx-chips { gap: 10px; } }
+@media (max-width: 767px) { .fx-chip { height: 36px; padding: 0 14px; gap: 6px; font-size: 13px; } .fx-em { font-size: 16px; } .fx-chips { gap: 8px; margin-top: 10px; } .fx-rail { gap: 8px; } @keyframes fxRail { to { transform: translateX(calc(-50% - 4px)); } } }
+@media (prefers-reduced-motion: reduce) { .fx-rail { animation: none; } .fx-etc .hl { opacity: 1 !important; transform: none !important; background-size: 100% 100% !important; transition: none; } }
+/* @endregion fx-etc-anim */
+
+/* @region sr-tags-tone (patch-223): 해결 영역 칩 배경 한 단계 진하게 — 컬러 팔레트 Gray 단계 (PC gray-50 → gray-100 · 태블릿 · 모바일 gray-100 → gray-200) */
+#geo-diagnosis .sr-tags li { background: var(--gray-200); }
+@media (min-width: 1024px) { #geo-diagnosis .sr-tags li { background: var(--gray-100); } }
+/* @endregion sr-tags-tone */
