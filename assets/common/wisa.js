@@ -126,6 +126,15 @@
 })();
 /* @endregion */
 
+/* @region rp-mo-tb (patch-200 · 공통 patch-201): 리포트 대시보드 모바일 축소 배율 --rpzm = 들어갈 폭 ÷ 700 (태블릿 배치 폭) */
+(() => {
+  const rp = document.querySelector("#geo-report .rp-duo > .rp"); if (!rp) return;
+  const mq = matchMedia("(max-width: 767px)");
+  const fit = () => rp.style.setProperty("--rpzm", mq.matches ? (rp.parentElement.clientWidth / 700).toFixed(4) : 1);
+  fit(); addEventListener("resize", fit);
+})();
+/* @endregion */
+
 /* @region tab-ind (patch-173): 히어로 탭 선택 표시(알약)를 옆 탭으로 미끄러뜨린 뒤 이동 (CSS wisa.css tab-ind) */
 (() => {
   const nav = document.querySelector('.tab-page'); if (!nav) return;

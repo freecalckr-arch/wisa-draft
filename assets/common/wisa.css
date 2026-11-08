@@ -3046,3 +3046,37 @@ img, video { max-width: 100%; display: block; }
   .rp-steps h3 { padding-top: 4px; }   /* 제목 첫 줄을 원 가운데 높이에 */
 }
 /* @endregion */
+
+/* @region rp-mo-tb (patch-200 · 공통 patch-201): 리포트 대시보드 모바일 = 태블릿 화면 배치 · 비율(폭 700)을 그대로 두고 화면 폭에 맞춰 전체 축소 (--rpzm = 칸 폭 ÷ 700 · wisa.js rp-mo-tb)
+   patch-195 모바일 간격(14 · 10)은 이 방식으로 대체됨 · 모바일 전용 규칙(2열 카드 · 사이드 숨김 · 그래프 1개 등)을 태블릿 값으로 되돌림 · 보이는 항목도 태블릿과 같게(요약 카드 3~6 · 순위 카드 · 아이콘 사이드) */
+@media (max-width: 767px) {
+  #geo-report .rp-duo > .rp { width: 700px; max-width: none; zoom: var(--rpzm, 1); display: flex; align-items: stretch; border-radius: 20px; }
+  #geo-report .rp-duo .pc-only { display: inline; }
+  #geo-report .rp-duo .rp-bar { gap: normal; padding-inline: 24px; } #geo-report .rp-duo .rp-bar .crumb { white-space: normal; overflow: visible; } #geo-report .rp-duo .rp-live { flex: 0 1 auto; }
+  #geo-report .rp-duo .rp-body { padding: 22px 28px 26px; gap: 0; }
+  #geo-report .rp-duo .np-title { font-size: 21px; }
+  #geo-report .rp-duo .np-kpi, #geo-report .rp-duo .np-kpi.db, #geo-report .rp-duo .np-kpi.db6 { grid-template-columns: repeat(4, 1fr); }
+  #geo-report .rp-duo .np-kpi.db { gap: 10px; } #geo-report .rp-duo .rp-body > .np-kpi.db { margin-top: 12px; }
+  #geo-report .rp-duo .np-kpi li:nth-child(n+3) { border-top: 0; }
+  #geo-report .rp-duo .np-kpi.db li { padding: 12px 10px 11px; }
+  #geo-report .rp-duo .np-kpi strong, #geo-report .rp-duo .np-kpi.db strong, #geo-report .rp-duo .np-kpi.db6 strong { font-size: 20px; } #geo-report .rp-duo .np-kpi.db strong { margin: 10px 0 8px; }
+  #geo-report .rp-duo .np-row, #geo-report .rp-duo .np-row.db3 { grid-template-columns: 1fr 1fr; gap: 10px; } #geo-report .rp-duo .rp-body > .np-row { margin-top: 10px; }
+  #geo-report .rp-duo .np-todo li { flex-wrap: nowrap; row-gap: 8px; } #geo-report .rp-duo .np-todo li .tx { flex-basis: 0%; }
+  #geo-report .rp-duo .db-hd b { gap: 8px; font-size: 12.5px; white-space: nowrap; } #geo-report .rp-duo .db-hd .seg b { font-size: 10.5px; }
+  #geo-report .rp-duo .db-ft { gap: 8px; }
+  #geo-report .rp-duo .db-card { padding: 14px 16px; }
+  #geo-report .rp-duo .db-svg .yl, #geo-report .rp-duo .db-svg .xl { font-size: 11px; }
+  #geo-report .rp-duo .dn-body { gap: 22px; } #geo-report .rp-duo .dn { width: 112px; height: 112px; }
+  /* 보이는 항목: 태블릿과 같게 */
+  #geo-report .rp-duo .np-kpi li:nth-child(n+5) { display: flex; } #geo-report .rp-duo .np-kpi.db6 li:nth-child(-n+2) { display: none; }
+  #geo-report .rp-duo .np-row.db3 > :not(:first-child) { display: flex; } #geo-report .rp-duo .np-row.db3 > :first-child, #geo-report .rp-duo .np-row.db3 > .db-donut { display: none; } #geo-report .rp-duo .np-row.db3 > .db-rank { grid-column: auto; }
+  /* 왼쪽 메뉴: 태블릿처럼 아이콘만 (폭 60) */
+  #geo-report .rp-duo .rp-side { display: flex; width: 60px; contain: size; overflow: hidden; }
+  #geo-report .rp-duo .sd-top { flex: none; justify-content: center; padding: 0; }
+  #geo-report .rp-duo .sd-top b, #geo-report .rp-duo .sd-top svg, #geo-report .rp-duo .sd-sub, #geo-report .rp-duo .sd-main li > :not(.sd-em) { display: none; }
+  #geo-report .rp-duo .sd-main { width: 100%; padding: 10px 0 0; align-items: center; gap: 4px; }
+  #geo-report .rp-duo .sd-main li { justify-content: center; width: 40px; height: 40px; padding: 0; border-radius: 8px; }
+  #geo-report .rp-duo .sd-main li.on { background: #eff8ff; }
+  #geo-report .rp-duo .sd-em { width: auto; font-size: 16px; }
+}
+/* @endregion */
