@@ -135,6 +135,37 @@
 })();
 /* @endregion */
 
+/* @region mk-tb-fit (patch-205): 그래프 영역 태블릿 그림(chart-tb · 640×220)을 칸 가로에 맞게 늘림
+   · 세로 220 은 그대로 · 가로 좌표(x · x1 · x2 · cx · 선 경로)만 칸 폭 ÷ 640 배로 · 글자 · 점 · 말풍선 크기는 그대로 (말풍선은 위치만 이동) */
+(() => {
+  const svgs = [...document.querySelectorAll("#geo-market svg.chart-tb")]; if (!svgs.length) return;
+  const mq = matchMedia("(min-width: 768px) and (max-width: 1023px)");
+  svgs.forEach(svg => {
+    const vb = svg.getAttribute("viewBox").split(/\s+/).map(Number); svg._vb = vb;
+    svg.querySelectorAll("*").forEach(el => { const o = {}; ["x", "x1", "x2", "cx", "width", "d"].forEach(a => { if (el.hasAttribute(a)) o[a] = el.getAttribute(a); }); el._o = o; });
+  });
+  const px = (d, k) => d.replace(/(-?\d*\.?\d+),(-?\d*\.?\d+)/g, (m, x, y) => +(x * k).toFixed(1) + "," + y);
+  const fit = () => svgs.forEach(svg => {
+    const [, , BW, BH] = svg._vb, w = svg.getBoundingClientRect().width;
+    const k = mq.matches && w > 0 ? w / BW : 1;
+    svg.setAttribute("viewBox", "0 0 " + +(BW * k).toFixed(1) + " " + BH);
+    svg.querySelectorAll("*").forEach(el => {
+      const o = el._o; if (!o) return;
+      const tip = el.closest(".tip2");
+      if (tip) {   /* 말풍선: 크기 그대로 · 가운데만 비율 이동 */
+        const r = tip.querySelector("rect"), c = +r._o.x + +r._o.width / 2, dx = c * (k - 1);
+        if (o.x != null) el.setAttribute("x", +(+o.x + dx).toFixed(1));
+        return;
+      }
+      if (el.tagName === "linearGradient" && el.getAttribute("gradientUnits") !== "userSpaceOnUse") return;
+      ["x", "x1", "x2", "cx", "width"].forEach(a => { if (o[a] != null) el.setAttribute(a, +(o[a] * k).toFixed(1)); });
+      if (o.d != null) el.setAttribute("d", px(o.d, k));
+    });
+  });
+  fit(); addEventListener("resize", fit);
+})();
+/* @endregion */
+
 /* @region tab-ind (patch-173): 히어로 탭 선택 표시(알약)를 옆 탭으로 미끄러뜨린 뒤 이동 (CSS wisa.css tab-ind) */
 (() => {
   const nav = document.querySelector('.tab-page'); if (!nav) return;
