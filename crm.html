@@ -8,6 +8,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-186: 6단계 화면 — 번호 이름표가 휴대폰 · 말풍선 칸 밖으로 잘리던 것 수정(스크립트가 실제로 잘리는 칸 기준으로 오른쪽 → 왼쪽 → 아래 순서로 배치 · 버튼 위 번호 잘림 해제) · 고객 카드 자주 산 상품 제목 검정 볼드 · 상품 4개 · 10px 아래로 · 타임라인은 상품 아래 20px (CSS @region crm-v7)
      · 2026-11-08 patch-185: 문제 영역 하단 태그 박스 아래 끝에서 20px 위로 변경(공통 wisa.css) · 히어로 주변 요소는 90일 재구매율 그래프 카드만 (③ 창 오른쪽 끝에 절반 걸침 · "주문 완료" 줄 높이 · 1280 이상) · 주문 완료 위 아이콘 체크 → 쇼핑백 · 고객 정보 옆 체크 블루 · ② 앱 푸시 시간 20px 아래 · 배경 파스텔 그라데이션 · 이메일 이미지 gr-dairy.webp · 그린바스켓 앱 아이콘 gb-app.webp (CSS @region crm-v6)
      · 2026-11-08 patch-184: 히어로 — ① 고객 상황 감지 · ② 맞춤 메시지 발송 · ③ 반응 · 결과를 같은 크기 모바일 창 3개(280×404)로 나란히 · 창 간격 20px · 주변 요소는 GEO 히어로 스타일(왼쪽 90일 재구매율 카드 + 딸기 사진 · 오른쪽 결제 완료 알림 + 이번 달 CRM 매출 카드 + 우유 사진, 1440 이상) · 태블릿은 창 3개 같은 비율 축소 · 모바일은 ② 창만 (CSS @region crm-v5) · 애니메이션 스토리는 다음 차수
      · 2026-11-08 patch-183: 문제 영역 왼쪽 '전체 고객 12,480명' — 흰 박스 · 검정 글씨 · 13px 로 살짝만 강조 (기존 11.5px): 문제 영역 — 화면 하단 태그는 항상 박스 아래 끝에서 10px 위 (공통 wisa.css why-tag · 모든 .pn.ows) · 채널 아이콘 가운데 정렬 · 왼쪽(기존) 그레이 배경 + '전체 고객 12,480명' 강조 · 오른쪽 고객 그룹 / 보내는 시점 칸 분리 · 오른쪽 화면은 보이는 동안 줄마다 차례로 발송 강조 반복 (CSS @region crm-v4)
@@ -2365,6 +2366,19 @@
   .cr-ph3 .cr-pn-scr .mu-push { background: radial-gradient(120% 70% at 10% 0%, #c7d7fe 0%, transparent 62%), radial-gradient(110% 60% at 100% 100%, #fee4e2 0%, transparent 60%), linear-gradient(170deg, #eef4ff, #d1e9ff); color: var(--gray-900); }
   .cr-ph3 .cr-pn-scr .mu-push .mu-lk-d { margin-top: 30px; color: var(--gray-700); }
   /* @endregion crm-v6 */
+
+  /* =====================================================================
+     @region crm-v7 (patch-186 · 2026-11-08): 6단계 화면 — 번호 · 이름표 잘림 수정 · 고객 카드 '자주 산 상품' 4개
+     ===================================================================== */
+  #geo-how .cr-st .bt, #geo-how .cr-st .cta { overflow: visible; }   /* 버튼 위 번호가 잘리지 않게 */
+  .os8-p.dn::after { top: calc(100% + 6px); left: auto; right: -4px; transform: translateY(-4px); }   /* 좌우 모두 화면 밖이면 이름표를 번호 아래로 (스크립트가 .dn 지정) */
+  .os8-p.dn.lbl-on::after { transform: none; }
+  #geo-how .mu-nt .bd p > .os8-p { top: auto; bottom: -6px; }   /* STEP 2 앱 푸시: 1번(제목)과 2번(본문)이 겹치지 않게 본문 번호는 아래 끝 */
+  /* 고객 카드: 자주 산 상품 — 제목 검정 볼드 · 상품 4개 · 위로 10px 더 띄움 · 타임라인은 상품 아래 20px */
+  .cr-fav { margin-top: 10px; } .cr-fav > span { font-size: 11.5px; font-weight: 700; color: var(--black); }
+  .cr-fav ul { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .cr-cu .cr-fav + .cr-tl { margin-top: 20px; }
+  /* @endregion crm-v7 */
 </style>
 </head>
 <body>
@@ -2527,7 +2541,7 @@
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p><b>김*연</b><span class="sg">첫 구매</span></p></div>
       <dl><div><dt>구매 횟수</dt><dd>1회</dd></div><div><dt>주문 금액</dt><dd>38,900원</dd></div><div><dt>주문 상품</dt><dd>설향 딸기 외 4개</dd></div><div><dt>배송</dt><dd>새벽배송</dd></div></dl>
-      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-bread.jpg" alt=""></li></ul></div>
+      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-bread.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salad.jpg" alt=""></li></ul></div>
       <ol class="cr-tl"><li><time>11.05</time><span>첫 주문</span></li><li><time>11.06</time><span>새벽 배송 완료</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
     <div class="mu mu-kt"><div class="mu-sb"><span>07:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
   <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -2547,7 +2561,7 @@
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호</b><span class="sg">재구매 시점</span></p></div>
       <dl><div><dt>구매 횟수</dt><dd>3회</dd></div><div><dt>재구매 주기</dt><dd>7일</dd></div><div><dt>최근 방문</dt><dd>어제</dd></div><div><dt>최근 구매</dt><dd>6일 전</dd></div></dl>
-      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-milk.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-bread.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li></ul></div>
+      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-milk.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-bread.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salmon.jpg" alt=""></li></ul></div>
       <ol class="cr-tl"><li><time>10.24</time><span>우유 · 계란</span></li><li><time>10.31</time><span>우유 · 계란</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
     <div class="mu mu-push"><div class="mu-sb lt"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
   <p class="mu-lk-d">11월 6일 목요일</p><p class="mu-lk-t">10:02</p>
@@ -2564,7 +2578,7 @@
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p><b>이*은</b><span class="sg">단골</span></p></div>
       <dl><div><dt>구매 횟수</dt><dd>9회</dd></div><div><dt>등급</dt><dd>GOLD</dd></div><div><dt>누적 금액</dt><dd>68만원</dd></div><div><dt>최근 구매</dt><dd>4일 전</dd></div></dl>
-      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salad.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salmon.jpg" alt=""></li></ul></div>
+      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salad.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salmon.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-milk.jpg" alt=""></li></ul></div>
       <ol class="cr-tl"><li><time>09.02</time><span>첫 구매</span></li><li><time>10.28</time><span>9번째 구매</span></li><li class="on"><time>11.01</time><span>메시지 발송</span></li></ol></div>
     <div class="mu mu-ml"><div class="mu-sb"><span>07:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
   <div class="mu-ml-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span>받은편지함</span><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -2580,7 +2594,7 @@
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="f" alt=""></i><p><b>최*아</b><span class="sg w">휴면 징후</span></p></div>
       <dl><div><dt>구매 횟수</dt><dd>5회</dd></div><div><dt>평소 주기</dt><dd>14일</dd></div><div><dt>최근 구매</dt><dd>38일 전</dd></div><div><dt>최근 방문</dt><dd>12일 전</dd></div></dl>
-      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salad.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li></ul></div>
+      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salad.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-beef.jpg" alt=""></li></ul></div>
       <ol class="cr-tl"><li><time>09.29</time><span>마지막 구매</span></li><li><time>10.13</time><span>주기 지남</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
     <div class="mu mu-sms"><div class="mu-sb"><span>19:30</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
   <div class="mu-sms-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="currentColor"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="currentColor"/></svg></span><b>1588-0000</b></div>
@@ -2595,7 +2609,7 @@
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>정*우</b><span class="sg w">장바구니 이탈</span></p></div>
       <dl><div><dt>최근 구매</dt><dd>124일 전</dd></div><div><dt>최근 방문</dt><dd>어제</dd></div><div><dt>장바구니</dt><dd>한우 등심 외 2개</dd></div><div><dt>담은 금액</dt><dd>58,800원</dd></div></dl>
-      <div class="cr-fav"><span>장바구니 상품</span><ul><li><img src="assets/geo/grocery/gr-beef.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li></ul></div>
+      <div class="cr-fav"><span>장바구니 상품</span><ul><li><img src="assets/geo/grocery/gr-beef.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-yogurt.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-milk.jpg" alt=""></li></ul></div>
       <ol class="cr-tl"><li><time>07.05</time><span>마지막 구매</span></li><li><time>11.05</time><span>장바구니 담기</span></li><li class="on"><time>11.06</time><span>메시지 발송</span></li></ol></div>
     <div class="mu mu-kt"><div class="mu-sb"><span>10:02</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
   <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -2615,7 +2629,7 @@
   <div class="cr-st-row">
     <div class="cr-cu"><div class="hd"><i class="pf"><img src="assets/geo/profile/pt-06.jpg" data-pf="6" data-g="m" alt=""></i><p><b>한*수</b><span class="sg v">VIP</span></p></div>
       <dl><div><dt>구매 횟수</dt><dd>28회</dd></div><div><dt>누적 금액</dt><dd>132만원</dd></div><div><dt>주문 주기</dt><dd>주 1회</dd></div><div><dt>추천 친구</dt><dd>3명</dd></div></dl>
-      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-beef.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salmon.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li></ul></div>
+      <div class="cr-fav"><span>자주 산 상품</span><ul><li><img src="assets/geo/grocery/gr-beef.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-salmon.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></li><li><img src="assets/geo/grocery/gr-bread.jpg" alt=""></li></ul></div>
       <ol class="cr-tl"><li><time>2025.03</time><span>첫 구매</span></li><li><time>10.01</time><span>VIP 유지</span></li><li class="on"><time>11.01</time><span>메시지 발송</span></li></ol></div>
     <div class="mu mu-kt"><div class="mu-sb"><span>09:00</span><i class="mu-sig" aria-hidden="true"><b></b><b></b><b></b><b></b></i><i class="mu-bat" aria-hidden="true"></i></div>
   <div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -3300,9 +3314,11 @@
       if (getComputedStyle(o.m).position === 'static') o.m.style.position = 'relative';
       const sx = o.m.closest('.sx');   // STEP 3 상세처럼 스크롤되는 화면: 번호가 보이도록 그 위치로 이동 (자동 스크롤 patch-120 은 잠시 멈춤)
       if (sx) { sx.dataset.lock = '1'; const y = o.m.getBoundingClientRect().top - sx.getBoundingClientRect().top + sx.scrollTop - sx.clientHeight * .3; sx.scrollTo({ top: Math.max(0, Math.min(y, sx.scrollHeight - sx.clientHeight)), behavior: 'smooth' }); }
-      const win = o.m.closest('.vw-win') || pans[k], wr = win.getBoundingClientRect(), r = o.m.getBoundingClientRect();
+      const win = o.m.closest('.vw-win') || pans[k], r = o.m.getBoundingClientRect(); let wr = win.getBoundingClientRect(); wr = { left: wr.left, right: wr.right };
+      for (let e = o.m.parentElement; e && e !== win; e = e.parentElement) { const cs = getComputedStyle(e); if (cs.overflowX !== 'visible') { const er = e.getBoundingClientRect(); wr.left = Math.max(wr.left, er.left); wr.right = Math.min(wr.right, er.right); } }   // patch-186 말풍선이 잘리는 기준 = 번호를 감싼 화면(휴대폰 · 말풍선 등) 중 가장 좁은 칸
       const tw = (window.__os8cv || (window.__os8cv = document.createElement('canvas').getContext('2d'))); tw.font = '600 10.5px Pretendard, sans-serif';   // patch-147 말풍선은 오른쪽 우선 · 창 안에 안 들어갈 때만 왼쪽
-      o.m.classList.toggle('lf', r.right + 6 + tw.measureText(o.m.dataset.l).width + 16 > wr.right - 4);
+      const lw = (tw.measureText(o.m.dataset.l).width + 16) * (r.width / (o.m.offsetWidth || r.width)), fitR = r.right + 6 + lw <= wr.right - 4, fitL = r.left - 6 - lw >= wr.left + 4;
+      o.m.classList.toggle('lf', !fitR && fitL); o.m.classList.toggle('dn', !fitR && !fitL);   // 양쪽 다 안 들어가면 번호 아래로
       o.m.classList.add('lbl-on'); if (o.li) o.li.classList.add('hl');
     }, LEAD + i * STEP)));
   };
