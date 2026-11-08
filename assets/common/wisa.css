@@ -3080,3 +3080,11 @@ img, video { max-width: 100%; display: block; }
   #geo-report .rp-duo .sd-em { width: auto; font-size: 16px; }
 }
 /* @endregion */
+
+/* @region vh-align (patch-204): 시안 히스토리 버튼(.vh · 높이 44)은 모든 해상도에서 상담 버튼(.consult)과 세로 가운데를 같게
+   · 상담 버튼 아래 위치 · 높이를 변수 하나로 두고 둘 다 이 값을 씀 (PC · 태블릿 20 · 45 / 모바일 9 · 50) */
+:root { --consult-b: 20px; --consult-h: 45px; }
+@media (max-width: 767px) { :root { --consult-b: 9px; --consult-h: 50px; } }
+.consult { bottom: calc(var(--consult-b) + env(safe-area-inset-bottom, 0px)); height: var(--consult-h); }
+.vh { bottom: calc(var(--consult-b) + (var(--consult-h) - 44px) / 2 + env(safe-area-inset-bottom, 0px)); }
+/* @endregion */
