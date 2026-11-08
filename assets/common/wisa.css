@@ -3018,3 +3018,10 @@ img, video { max-width: 100%; display: block; }
 #geo-why .pn.ows > .ows-ft { display: flex; justify-content: center; margin: auto 0 0 !important; padding: 8px 0 20px; line-height: 1; }
 #geo-why .pn.ows > .ows-ft .me-tag, #geo-why .pn.ows > .ows-ft .hit-tag { position: static; transform: none; }
 /* @endregion */
+
+/* @region rp-mo (patch-195): 리포트 대시보드 모바일 간격 — 대시보드 안쪽 상하좌우 여백 14px · 내용 덩어리(AI 요약 · 요약 카드 · 그래프) 사이 10px */
+@media (max-width: 767px) {
+  #geo-report .rp-body { padding: 14px; gap: 10px; }
+  #geo-report .rp-body > .np-kpi.db, #geo-report .rp-body > .np-row { margin-top: 0; }
+}
+/* @endregion */
