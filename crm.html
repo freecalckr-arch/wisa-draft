@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-225: 히어로 ① 창 왼쪽 아래(창 왼쪽 여백에만 16px 걸침 · 창 내용 안 가림)에 '자동 발송 예약' 카드 추가 — 제목 롤링 채널에 맞춰 대상 · 인원 · 시간 · 채널 교체(장바구니 이탈 18명 지금 카카오톡 / 휴면 징후 248명 오전 10:00 문자 / 단골 등급 변경 36명 오전 9:00 이메일 / 재구매 시점 32명 오전 10:00 앱 푸시) · 아래 블루 막대가 3.2초마다 차오름 · 1280 이상 (오른쪽 재구매율 카드와 같은 규칙)
      · 2026-11-08 patch-224: 단계 영역 아래 '그 외에도' 텍스트 영역 숨김 (공통 wisa.css fx-etc-hide · 마크업은 남겨 둠)
      · 2026-11-08 patch-222~223: 단계 영역 아래 '그 외에도' — 따옴표 속 항목 차례로 등장 + 블루 형광펜 밑줄(1회) · 아래 토스 이모지 칩 2줄이 반대 방향으로 흐름(마우스 올리면 멈춤 · 공통 wisa.css fx-etc-anim) · 해결 영역 칩 배경 한 단계 진하게 (PC gray-50 → gray-100 · 태블릿 · 모바일 gray-100 → gray-200)
      · 2026-11-08 patch-221: 6단계 타이틀을 무엇을 파악해 개선하는지로 재작성 "다시 살 때와 멀어질 때를 파악해 맞는 메시지를 먼저 보냅니다"
@@ -2391,6 +2392,22 @@
   .cr-rr strong { display: flex; align-items: baseline; gap: 2px; } .cr-rr strong span { margin-left: 6px; font-size: 13px; font-weight: 700; color: var(--primary-600); }
   .cr-rr .cr-spark2 { display: block; width: 100%; height: 46px; margin-top: -4px; }   /* patch-187: 수치와 그래프 간격 10px 줄임 */
   @media (max-width: 1279px) { .cr-hv4 .sh-float.cr-rr { display: none; } }
+  /* patch-225: 히어로 ① 창 왼쪽 아래 '자동 발송 예약' 카드 — ① 창 왼쪽 여백(목록 왼쪽 18px)에만 16px 걸침 · 높이는 목록 아래쪽 (창 내용 안 가림) · 오른쪽 재구매율 카드와 같은 축소(.84) · 둥둥 떠 있음 */
+  .cr-hv4 .sh-float.cr-sd { left: auto; right: calc(50% + var(--cw) / 2 - 16px); top: 336px; bottom: auto; z-index: 2; width: 236px; flex-direction: row; align-items: center; gap: 10px; padding: 12px 14px 15px; overflow: hidden; transform: scale(.84); transform-origin: right top; animation: crSdFloat 6s ease-in-out infinite alternate; }
+  @keyframes crSdFloat { from { transform: scale(.84); } to { transform: translateY(-6px) scale(.84); } }
+  .cr-sd .ic { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; background: var(--gray-100); color: var(--gray-700); } .cr-sd .ic svg { width: 18px; height: 18px; }
+  .cr-sd .tx { flex: 1; min-width: 0; display: grid; }
+  .cr-sd .hd { margin: 0 0 2px; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--gray-500); }
+  .cr-sd .hd em { padding: 1px 6px; border-radius: 99px; background: #ecfdf3; font-style: normal; font-size: 10.5px; font-weight: 700; color: #027a48; }
+  .cr-sd .v { grid-area: 2 / 1; margin: 0; display: flex; flex-direction: column; gap: 1px; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s var(--ease-out); }
+  .cr-sd .v.on { opacity: 1; transform: none; }
+  .cr-sd .v b { font-size: 15px; font-weight: 700; color: var(--gray-900); white-space: nowrap; } .cr-sd .v small { font-size: 12px; font-weight: 500; color: var(--gray-500); white-space: nowrap; }
+  .cr-sd .br { position: absolute; left: 14px; right: 14px; bottom: 8px; height: 3px; border-radius: 2px; background: var(--gray-100); overflow: hidden; }
+  .cr-sd .br::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 100%; border-radius: 2px; background: var(--primary-600); transform-origin: left; animation: crSdBar 3.2s linear infinite; }
+  @keyframes crSdBar { from { transform: scaleX(0); } 85%, to { transform: scaleX(1); } }
+  @media (max-width: 1279px) { .cr-hv4 .sh-float.cr-sd { display: none; } }
+  @media (min-width: 1280px) and (max-width: 1439px) { .cr-hv4 .sh-float.cr-sd { display: flex; } }
+  @media (prefers-reduced-motion: reduce) { .cr-hv4 .sh-float.cr-sd, .cr-sd .br::after { animation: none; } }
   @media (min-width: 1280px) and (max-width: 1439px) { .cr-hv4 .sh-float.cr-rr { display: flex; } }
   /* 주문 완료: 위 아이콘은 쇼핑백(초록) · 고객 정보 옆 체크는 블루 */
   .cr-done .ic { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 6px; border-radius: 14px; background: #12b76a; color: var(--white); box-shadow: 0 0 0 6px #d1fadf; } .cr-done .ic svg { width: 22px; height: 22px; }
@@ -2682,6 +2699,8 @@
         <div class="rs" data-ch="2"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p><b>이*은님</b><small>혜택 확인 후 주문</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>과일 · 유제품 5개</dt><dd>41,200원</dd></div><div><dt>무료배송 쿠폰</dt><dd class="dc">-3,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>38,200원</dd></div></dl></div>
         <div class="rs" data-ch="3"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호님</b><small>알림에서 바로 다시 담기</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>우유 · 계란</dt><dd>13,800원</dd></div><div><dt>재구매 할인</dt><dd class="dc">-1,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>12,800원</dd></div></dl></div></div></div></div>
       </div>
+      <div class="sh-float cr-sd">   <!-- patch-225: ① 창 왼쪽 아래 (창 왼쪽 여백에만 걸침 · 내용 안 가림) 자동 발송 예약 카드 — 제목 롤링 채널(data-ch)에 맞춰 대상 · 시간 · 채널이 바뀌고 막대가 차오름 -->
+        <i class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></i><div class="tx"><p class="hd">자동 발송 예약<em>ON</em></p><p class="v" data-ch="0"><b>장바구니 이탈 18명</b><small>지금 · 카카오톡</small></p><p class="v" data-ch="1"><b>휴면 징후 248명</b><small>오전 10:00 · 문자</small></p><p class="v" data-ch="2"><b>단골 등급 변경 36명</b><small>오전 9:00 · 이메일</small></p><p class="v" data-ch="3"><b>재구매 시점 32명</b><small>오전 10:00 · 앱 푸시</small></p></div><i class="br"></i></div>
       <div class="sh-float f1 cr-rr"><b>90일 재구매율</b><strong>31<small>%</small><span>▲ 2%p</span></strong><svg class="cr-spark2" viewBox="0 0 150 46" aria-hidden="true"><defs><linearGradient id="crSpG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e90fa" stop-opacity=".22"/><stop offset="1" stop-color="#2e90fa" stop-opacity="0"/></linearGradient></defs><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6 V46 H2 Z" fill="url(#crSpG2)"/><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6" fill="none" stroke="#1570ef" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="146" cy="6" r="3.5" fill="#fff" stroke="#1570ef" stroke-width="2"/></svg></div>
     </div>
   </div>
