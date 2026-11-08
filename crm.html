@@ -8,6 +8,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-184: 히어로 — ① 고객 상황 감지 · ② 맞춤 메시지 발송 · ③ 반응 · 결과를 같은 크기 모바일 창 3개(280×404)로 나란히 · 창 간격 20px · 주변 요소는 GEO 히어로 스타일(왼쪽 90일 재구매율 카드 + 딸기 사진 · 오른쪽 결제 완료 알림 + 이번 달 CRM 매출 카드 + 우유 사진, 1440 이상) · 태블릿은 창 3개 같은 비율 축소 · 모바일은 ② 창만 (CSS @region crm-v5) · 애니메이션 스토리는 다음 차수
      · 2026-11-08 patch-183: 문제 영역 왼쪽 '전체 고객 12,480명' — 흰 박스 · 검정 글씨 · 13px 로 살짝만 강조 (기존 11.5px): 문제 영역 — 화면 하단 태그는 항상 박스 아래 끝에서 10px 위 (공통 wisa.css why-tag · 모든 .pn.ows) · 채널 아이콘 가운데 정렬 · 왼쪽(기존) 그레이 배경 + '전체 고객 12,480명' 강조 · 오른쪽 고객 그룹 / 보내는 시점 칸 분리 · 오른쪽 화면은 보이는 동안 줄마다 차례로 발송 강조 반복 (CSS @region crm-v4)
      · 2026-11-08 patch-181: CRM 3차 — 문제 영역 오른쪽 화면 복구 · 히어로 = ① 고객 상황 감지(장바구니 이탈 · 휴면 · 단골 · 재구매) → ② 맞춤 메시지(흰 휴대폰 틀) → ③ 반응 · 결과, 제목 롤링과 함께 교체 · 단계 고객 카드에 자주 산 상품 썸네일 3개 · 메시지 번호 잘림 수정 · 해결 영역 블루는 핵심 1곳만 (CSS @region crm-v3)
      · 2026-11-07 patch-180: CRM 2차 디벨롭 — 예시 업종 장보기(가상 쇼핑몰 그린바스켓 · 이미지 assets/geo/grocery 임시) · 히어로 새 구성(장바구니 → 쿠폰 메시지 → 결제, 휴대폰 화면이 제목 채널과 함께 바뀜) · 단계 메시지를 카카오톡 · 문자 · 앱 푸시 · 이메일 실제 화면처럼 · 광고 메시지 (광고) 표기 · 분석 그래프 라인 · CSS @region crm-v2
@@ -2300,6 +2301,50 @@
   @keyframes crSgPop { 0%, 100% { transform: none; } 3% { transform: scale(1.3); } 7% { transform: none; } }
   @media (prefers-reduced-motion: reduce) { .ows.go .cr-sg-bd li, .ows.go .cr-sg-bd li .tm, .ows.go .cr-sg-bd li .tm svg, .ows.go .cr-sg-bd li .m .cr-ch { animation: none; } .cr-sg-bd .r i::after, .cr-sg-bd .r b { transition: none; } }
   /* @endregion crm-v4 */
+
+  /* =====================================================================
+     @region crm-v5 (patch-184 · 2026-11-08): 히어로 — ① ② ③ 같은 크기 모바일 창 3개 나란히 · 창 간격 20px · 주변 요소 GEO 스타일
+     · 창: 280×404 (PC) · 흰 창 + 회색 화면 · 머리줄(번호 · 이름 · 상태) 높이 54 · 창 3개 묶음 폭 880
+     · 주변: GEO 와 같은 .sh-float(수치 카드) · .sh-img(상품 사진) · .sh-toast(알림) — PC(1440 이상)에서만 · 창 묶음 바깥 20px 에 붙임
+     ===================================================================== */
+  .sh-visual.cr-hv4 { --cw: 880px; --ww: 280px; }
+  .cr-tri { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: 20px; }
+  .cr-hv4 .cr-w { width: var(--ww); }
+  .cr-hv4 .cr-ph-hd .cr-meta.on { display: inline-flex; align-items: center; gap: 5px; }
+  .cr-live { width: 6px; height: 6px; border-radius: 50%; background: #17b26a; animation: rpLive 1.6s ease-in-out infinite; }
+  .cr-w .cr-pn-scr { display: flex; flex-direction: column; }
+  /* ① 고객 상황 감지 */
+  .cr-w-top { flex: none; display: flex; flex-direction: column; gap: 2px; padding: 16px 16px 12px; }
+  .cr-w-top small { font-size: 11.5px; font-weight: 500; color: var(--gray-500); } .cr-w-top b { font-size: 24px; line-height: 1.15; font-weight: 800; color: var(--black); } .cr-w-top em { margin-left: 2px; font-style: normal; font-size: 14px; font-weight: 600; color: var(--gray-400); }
+  .cr-w .cr-sit { flex: 1; margin: 0; padding: 0 8px 10px; }
+  .cr-w .cr-sit ul { gap: 6px; } .cr-w .cr-sit li { padding: 9px 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-100); }
+  .cr-w .cr-sit li.on { background: var(--white); box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 4px 12px rgba(21,112,239,.12); }
+  .cr-w .cr-sit .pf { width: 32px; height: 32px; }
+  /* ③ 반응 · 결과 */
+  .cr-done { flex: none; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 26px 16px 18px; text-align: center; }
+  .cr-done .ok { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 6px; border-radius: 50%; background: #12b76a; color: var(--white); box-shadow: 0 0 0 6px #d1fadf; } .cr-done .ok svg { width: 22px; height: 22px; }
+  .cr-done b { font-size: 16px; font-weight: 800; color: var(--black); } .cr-done small { font-size: 11.5px; color: var(--gray-500); }
+  .cr-res dd.dc, .cr-paid dd.dc { position: static; }   /* 공통 .dc(진단 카드 absolute)와 이름 겹침 방지 */
+  .cr-w .cr-res { position: static; margin: 0 10px; padding: 14px; border-radius: 14px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-100); }
+  /* 주변 요소 (GEO 스타일) · 창 묶음 바깥 20px 에 붙임 */
+  .cr-hv4 .sh-float.f1 { left: auto; right: calc(50% + var(--cw) / 2 + 20px); top: 22%; }
+  .cr-hv4 .sh-img:not(.sh-img2) { left: auto; right: calc(50% + var(--cw) / 2 + 20px + 40px); top: calc(22% + 82px); width: 150px; height: 170px; }
+  .cr-hv4 .sh-toast { right: auto; left: calc(50% + var(--cw) / 2 + 20px); top: 22%; }
+  .cr-hv4 .sh-toast > .cr-ch { flex: none; width: 32px; height: 32px; border-radius: 10px; } .cr-hv4 .sh-toast > .cr-ch svg { width: 60%; height: 60%; }
+  .cr-hv4 .sh-float.f2 { right: auto; left: calc(50% + var(--cw) / 2 + 20px); bottom: 20%; }
+  .cr-hv4 .sh-img.sh-img2 { right: auto; left: calc(50% + var(--cw) / 2 + 20px + 70px); bottom: calc(20% - 60px); top: auto; width: 120px; height: 120px; }
+  @media (max-width: 1439px) { .cr-hv4 .sh-float, .cr-hv4 .sh-img, .cr-hv4 .sh-toast { display: none; } }   /* 1439 이하: 창 3개만 (양옆 공간 부족) */
+  /* 태블릿: 창 3개를 칸 폭에 맞춰 같은 비율로 축소 (가로만 줄이지 않음 · 확대 금지) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .cr-tri { zoom: .7; }
+  }
+  @media (min-width: 900px) and (max-width: 1023px) {
+    .cr-tri { zoom: .8; }
+  }
+  /* 모바일: ② 메시지 창만 */
+  @media (max-width: 767px) { .cr-hv4 .cr-w.w1, .cr-hv4 .cr-w.w3 { display: none; } .cr-hv4 .cr-w.w2 { width: min(290px, calc(100vw - 64px)); } }
+  @media (prefers-reduced-motion: reduce) { .cr-live { animation: none; } }
+  /* @endregion crm-v5 */
 </style>
 </head>
 <body>
@@ -2349,10 +2394,11 @@
     </div>
   </div>
   <div class="container">
-    <div class="sh-visual hv cr-hv cr-hv3 rv" style="--d:260ms" aria-hidden="true">   <!-- [CRM] 히어로 비주얼 (patch-181): ① 고객 상황 감지(장바구니 이탈 · 휴면 징후 · 단골 · 재구매 시점) → ② 상황에 맞는 메시지 발송(휴대폰) → ③ 반응 · 결과 · 제목 롤링 채널(카카오톡 · 문자 · 이메일 · 앱 푸시)과 함께 네 상황이 차례로 바뀜 (스크립트 crm-hero) · 메시지 화면은 실제 앱 화면을 본뜬 예시 -->
-      <div class="hv-card l cr-sit"><b><span class="cr-no">1</span>고객 상황 감지 <small>실시간</small></b>
-        <ul><li data-ch="0" class="on"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>장바구니 이탈</b><small>정*우 · 담고 24시간</small></p><em>카카오톡</em></li><li data-ch="1"><i class="pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="f" alt=""></i><p><b>휴면 징후</b><small>최*아 · 주기보다 24일 늦음</small></p><em>문자</em></li><li data-ch="2"><i class="pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p><b>단골 등급 변경</b><small>이*은 · GOLD 승급</small></p><em>이메일</em></li><li data-ch="3"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>재구매 시점</b><small>박*호 · 구매 6일째</small></p><em>앱 푸시</em></li></ul></div>
-      <div class="cr-ph cr-ph3"><div class="cr-ph-hd"><span class="cr-no">2</span><span class="cr-tag">맞춤 메시지 자동 발송</span><span class="cr-meta" data-ch="0">장바구니 이탈</span><span class="cr-meta" data-ch="1">휴면 징후</span><span class="cr-meta" data-ch="2">단골 등급 변경</span><span class="cr-meta" data-ch="3">재구매 시점</span></div>
+    <div class="sh-visual hv cr-hv cr-hv3 cr-hv4 rv" style="--d:260ms" aria-hidden="true">   <!-- [CRM] 히어로 비주얼 (patch-184): ① 고객 상황 감지 · ② 맞춤 메시지 발송 · ③ 반응 · 결과 — 같은 크기 모바일 창 3개(280×404)를 20px 간격으로 나란히 · 주변 요소는 GEO 히어로와 같은 스타일(떠 있는 수치 카드 · 상품 사진 · 알림 토스트) · 제목 롤링 채널과 함께 네 상황이 차례로 바뀜 (스크립트 crm-hero · 세부 애니메이션 스토리는 다음 차수) -->
+      <div class="cr-tri">
+      <div class="cr-ph cr-ph3 cr-w w1"><div class="cr-ph-hd"><span class="cr-no">1</span><span class="cr-tag">고객 상황 감지</span><span class="cr-meta on"><i class="cr-live"></i>실시간</span></div>
+        <div class="cr-pn-scr"><div class="cr-w-top"><small>오늘 감지된 고객</small><b>1,284<em>명</em></b></div><div class="cr-sit"><ul><li data-ch="0" class="on"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>장바구니 이탈</b><small>정*우 · 담고 24시간</small></p><em>카카오톡</em></li><li data-ch="1"><i class="pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="f" alt=""></i><p><b>휴면 징후</b><small>최*아 · 주기보다 24일 늦음</small></p><em>문자</em></li><li data-ch="2"><i class="pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p><b>단골 등급 변경</b><small>이*은 · GOLD 승급</small></p><em>이메일</em></li><li data-ch="3"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>재구매 시점</b><small>박*호 · 구매 6일째</small></p><em>앱 푸시</em></li></ul></div></div></div>
+      <div class="cr-ph cr-ph3 cr-w w2"><div class="cr-ph-hd"><span class="cr-no">2</span><span class="cr-tag">맞춤 메시지 자동 발송</span><span class="cr-meta" data-ch="0">장바구니 이탈</span><span class="cr-meta" data-ch="1">휴면 징후</span><span class="cr-meta" data-ch="2">단골 등급 변경</span><span class="cr-meta" data-ch="3">재구매 시점</span></div>
         <div class="cr-pn-scr">
 <div class="mu mu-kt" data-ch="0"><div class="mu-kt-hd"><svg class="bk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg><b>그린바스켓</b><i class="ck" aria-hidden="true"></i><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span></div>
     <div class="mu-kt-bd"><p class="mu-day">2026년 11월 6일 목요일</p><div class="mu-kt-row"><i class="mu-logo">GB</i><div class="mu-kt-col"><span class="nm">그린바스켓</span>
@@ -2368,12 +2414,17 @@
     <div class="mu-nts"><div class="mu-nt pv"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>어제</time></div><b>오늘 밤 11시까지 주문하면 내일 아침 도착</b></div>
       <div class="mu-nt"><div class="hd"><i class="mu-app">GB</i><span>그린바스켓</span><time>지금</time></div><div class="bd"><div><b class="t">(광고) 우유 다 드셔갈 때쯤이죠?</b><p>지난번 담은 우유 · 계란, 오늘 주문하면 1,000원 할인해 드려요.</p></div><i class="th"><img src="assets/geo/grocery/gr-milk.jpg" alt=""></i></div><div class="ac"><span>한 번에 다시 담기</span><span>나중에</span></div></div></div></div>
         </div></div>
-      <div class="hv-card r cr-res"><b><span class="cr-no">3</span>반응 · 결과 <small>방금</small></b>
-        <div class="rs" data-ch="0"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>정*우님</b><small>장바구니 쿠폰으로 결제</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>상품 금액</dt><dd>58,800원</dd></div><div><dt>쿠폰 15%</dt><dd class="dc">-8,820원</dd></div><div class="t"><dt>결제 금액</dt><dd>49,980원</dd></div></dl></div>
+      <div class="cr-ph cr-ph3 cr-w w3"><div class="cr-ph-hd"><span class="cr-no">3</span><span class="cr-tag">반응 · 결과</span><span class="cr-meta on">방금</span></div>
+        <div class="cr-pn-scr"><div class="cr-done"><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span><b>주문 완료</b><small>메시지 받고 12분 뒤</small></div><div class="cr-res"><div class="rs" data-ch="0"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-05.jpg" data-pf="5" data-g="m" alt=""></i><p><b>정*우님</b><small>장바구니 쿠폰으로 결제</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>상품 금액</dt><dd>58,800원</dd></div><div><dt>쿠폰 15%</dt><dd class="dc">-8,820원</dd></div><div class="t"><dt>결제 금액</dt><dd>49,980원</dd></div></dl></div>
         <div class="rs" data-ch="1"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="f" alt=""></i><p><b>최*아님</b><small>38일 만에 다시 주문</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>그릭요거트 외 2개</dt><dd>37,400원</dd></div><div><dt>복귀 쿠폰</dt><dd class="dc">-5,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>32,400원</dd></div></dl></div>
         <div class="rs" data-ch="2"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p><b>이*은님</b><small>혜택 확인 후 주문</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>과일 · 유제품 5개</dt><dd>41,200원</dd></div><div><dt>무료배송 쿠폰</dt><dd class="dc">-3,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>38,200원</dd></div></dl></div>
-        <div class="rs" data-ch="3"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호님</b><small>알림에서 바로 다시 담기</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>우유 · 계란</dt><dd>13,800원</dd></div><div><dt>재구매 할인</dt><dd class="dc">-1,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>12,800원</dd></div></dl></div></div>
-      <div class="hv-card r cr-sum"><svg class="cr-spark" viewBox="0 0 72 36" aria-hidden="true"><defs><linearGradient id="crSpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#98a2b3" stop-opacity=".3"/><stop offset="1" stop-color="#98a2b3" stop-opacity="0"/></linearGradient></defs><path d="M2 30 L12 28 L22 25 L32 24 L42 17 L52 14 L62 10 L70 6 V36 H2 Z" fill="url(#crSpG)"/><path d="M2 30 L12 28 L22 25 L32 24 L42 17 L52 14 L62 10 L70 6" fill="none" stroke="#1570ef" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><p><span>90일 재구매율</span><b>31% <em>▲ 2%p</em></b></p></div>
+        <div class="rs" data-ch="3"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호님</b><small>알림에서 바로 다시 담기</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>우유 · 계란</dt><dd>13,800원</dd></div><div><dt>재구매 할인</dt><dd class="dc">-1,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>12,800원</dd></div></dl></div></div></div></div>
+      </div>
+      <div class="sh-img"><img src="assets/geo/grocery/gr-strawberry.jpg" alt=""></div>
+      <div class="sh-img sh-img2"><img src="assets/geo/grocery/gr-milk.jpg" alt=""></div>
+      <div class="sh-float f1"><b>90일 재구매율</b><strong>31<small>%</small></strong><span>▲ 지난 분기 2%p</span></div>
+      <div class="sh-toast" data-fixed><i class="cr-ch kt"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 6l-.9 3.2c-.1.3.3.6.6.4l3.8-2.5c.4 0 .9.1 1.3.1 5 0 9-3.1 9-7s-4-7.2-9-7.2Z"/></svg></i><div><p><b>정*우님</b> 결제 완료</p><small><i></i>장바구니 쿠폰 사용 · 방금</small></div></div>
+      <div class="sh-float f2"><b>이번 달 CRM 매출</b><strong>2,480<small>만원</small></strong><span>▲ 지난달 24%</span></div>
     </div>
   </div>
 </section>
