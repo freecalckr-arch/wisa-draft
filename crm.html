@@ -8,6 +8,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-190: 히어로 재구매율 카드 오른쪽 20px 더 이동 · 위아래로 천천히 떠 있는 효과(6초 · 10px)
      · 2026-11-08 patch-189: 히어로 ③ 주문 완료 — 쇼핑백 아이콘 대신 주문 상품 사진을 원으로 겹쳐 가로로 (상황마다 교체) · "주문 완료" 글자와 14px
      · 2026-11-08 patch-188: 히어로 재구매율 카드 15px 위로 · 그래프 영역 CRM 관리 유무 차이 크게(관리 52 → 28명 / 미관리 22 → 3명 · 두 선 사이 채움 · 단골 약 9배) · 해결>분석 노란 영역 글자를 기준선 아래로 · 뱃지는 이탈 쪽(30일 · 이탈 위험 248명) · 해결>나누기 이탈 뱃지 레드 · 폭 수정 · 발송 필요 알림 추가 · 해결>설계 1번 연한 레드 · 4번 복귀 쿠폰 30% 할인 + % 아이콘 · 해결>개선 A/B 그래프 회색 선 박스 · 1 2 3 목록 높이 늘림 (CSS @region crm-v8)
      · 2026-11-08 patch-187: 히어로 재구매율 카드 오른쪽 30 · 위 10 이동 · 16% 축소 · 수치와 그래프 간격 10px 줄임 · 6단계 앱 푸시 화면 배경도 히어로와 같은 파스텔 그라데이션
@@ -2357,7 +2358,9 @@
   /* 그린바스켓 앱 아이콘 (assets/geo/grocery/gb-app.webp · 이미지 바깥 흰 여백은 확대로 잘라냄) */
   .mu-logo, .mu-app, .sm-logo { overflow: hidden; background: #0b3d1f url(assets/geo/grocery/gb-app.webp) center / 124% no-repeat; color: transparent; font-size: 0; }
   /* 히어로 ③ 창 오른쪽 끝에 절반쯤 걸친 재구매율 그래프 카드 (높이: "주문 완료" 글자 줄 가운데) */
-  .cr-hv4 .sh-float.cr-rr { left: calc(50% + var(--cw) / 2 - 60px); right: auto; top: 175px; bottom: auto; width: 180px; padding: 16px 16px 12px; transform: translateY(-50%) scale(.84); transform-origin: left center; animation: none; }   /* patch-187: 오른쪽 30 · 위 10 이동 · 카드 16% 축소 */
+  .cr-hv4 .sh-float.cr-rr { left: calc(50% + var(--cw) / 2 - 40px); right: auto; top: 175px; bottom: auto; width: 180px; padding: 16px 16px 12px; transform: translateY(-50%) scale(.84); transform-origin: left center; animation: crRrFloat 6s ease-in-out infinite alternate; }   /* patch-190: 오른쪽 20 더 이동 · 둥둥 떠 있는 효과 */
+  @keyframes crRrFloat { from { transform: translateY(-50%) scale(.84); } to { transform: translateY(calc(-50% - 10px)) scale(.84); } }
+  @media (prefers-reduced-motion: reduce) { .cr-hv4 .sh-float.cr-rr { animation: none; } }   /* patch-187: 오른쪽 30 · 위 10 이동 · 카드 16% 축소 */
   .cr-rr strong { display: flex; align-items: baseline; gap: 2px; } .cr-rr strong span { margin-left: 6px; font-size: 13px; font-weight: 700; color: var(--primary-600); }
   .cr-rr .cr-spark2 { display: block; width: 100%; height: 46px; margin-top: -4px; }   /* patch-187: 수치와 그래프 간격 10px 줄임 */
   @media (max-width: 1279px) { .cr-hv4 .sh-float.cr-rr { display: none; } }
