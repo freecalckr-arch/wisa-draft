@@ -3118,3 +3118,7 @@ img, video { max-width: 100%; display: block; }
 #geo-diagnosis .sr-tags li { background: var(--gray-200); }
 @media (min-width: 1024px) { #geo-diagnosis .sr-tags li { background: var(--gray-100); } }
 /* @endregion sr-tags-tone */
+
+/* @region fx-etc-hide (patch-224): 단계 영역 아래 "그 외에도" 텍스트 영역 숨김 (모든 페이지 · 마크업 · 애니메이션은 남겨 둠 — 다시 쓸 때 이 줄만 지우면 됨) */
+#geo-how .fx-etc { display: none; }
+/* @endregion fx-etc-hide */
