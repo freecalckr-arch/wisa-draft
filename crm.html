@@ -8,6 +8,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-08 patch-192: 히어로 주문 완료 상품 사진 20% 축소(44 → 35px · 겹침 -12 → -10) · "주문 완료" 글자와 간격 14 → 22px
      · 2026-11-08 patch-191: 그래프 영역 수치 3개를 범위 대신 한 값으로(25배 · 95% · 70% · 설명에 '최대' · 카운트 업) · 해결>설계 화면 내용 위아래 여백 동일 · 가이드 밖 색 6개를 팔레트 색으로 교체(그래프 점 · 반응률 상승 · 실시간 점 · 로고 바탕)
      · 2026-11-08 patch-190: 히어로 재구매율 카드 오른쪽 20px 더 이동 · 위아래로 천천히 떠 있는 효과(6초 · 10px)
      · 2026-11-08 patch-189: 히어로 ③ 주문 완료 — 쇼핑백 아이콘 대신 주문 상품 사진을 원으로 겹쳐 가로로 (상황마다 교체) · "주문 완료" 글자와 14px
@@ -2410,8 +2411,8 @@
   /* @endregion crm-v8 */
 
   /* @region crm-v9 (patch-189): 히어로 ③ 주문 완료 — 아이콘 대신 주문 상품 사진을 원으로 겹쳐 가로로 (상황마다 교체 · data-ch) · "주문 완료" 글자와 간격 14px */
-  .cr-stk { display: none; margin-bottom: 10px; } .cr-stk.on { display: flex; animation: hbIn .45s var(--ease-out); }   /* 10 + .cr-done gap 4 = 14px */
-  .cr-stk i { display: grid; place-items: center; width: 44px; height: 44px; margin-left: -12px; border-radius: 50%; overflow: hidden; background: var(--gray-100); box-shadow: 0 0 0 3px var(--white), 0 4px 10px rgba(16,24,40,.12); font-style: normal; font-size: 12px; font-weight: 700; color: var(--gray-700); } .cr-stk i:first-child { margin-left: 0; }
+  .cr-stk { display: none; margin-bottom: 18px; } .cr-stk.on { display: flex; animation: hbIn .45s var(--ease-out); }   /* 18 + .cr-done gap 4 = 22px (patch-192: 14 → 22) */
+  .cr-stk i { display: grid; place-items: center; width: 35px; height: 35px; margin-left: -10px; border-radius: 50%; overflow: hidden; background: var(--gray-100); box-shadow: 0 0 0 2.5px var(--white), 0 4px 10px rgba(16,24,40,.12); font-style: normal; font-size: 10px; font-weight: 700; color: var(--gray-700); } /* patch-192: 44 → 35 (20% 축소) */ .cr-stk i:first-child { margin-left: 0; }
   .cr-stk img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .cr-done { padding-top: 24px; }
   /* @endregion crm-v9 */
