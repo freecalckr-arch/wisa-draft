@@ -9,6 +9,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-08 patch-243: 단계 · 해결 비주얼 색 통일 — 바탕 그레이 · 포인트 블루 1곳(약 20%) · 경고 오렌지 · 다색 계열 정리 (CLAUDE.md 비주얼 색 규칙 추가)
      · 2026-11-08 patch-242: 해결 ① 연결 통합 리포트 세로 넘침 정리 (전환율 · 광고비 항목 제거) · 가로 110 → 132
      · 2026-11-08 patch-241: 히어로 오른쪽 AI 감지 알약 · 창 안 AI 인사이트 아이콘을 증감 색으로 통일 (상승 레드 · 하락 블루 · 바탕색 포함 · 화살표 방향도 수치에 맞춤 · 경고만 오렌지)
      · 2026-11-08 patch-240: CTA 설명 "쓰고 있는 광고 매체와 판매 채널만 알려 주세요. 연결부터 첫 리포트까지 컨설턴트가 함께합니다." (시작 조건 + 함께하는 범위 · GEO · 온사이트와 같은 구성)
@@ -3201,6 +3202,27 @@
   .rx-out li { padding: 6px 0; }
   /* patch-242: 통합 리포트 넘침 정리 — 항목 4개(전환율 · 광고비 제거) · 가로 110 → 132 (왼쪽으로 10 늘리고 묶음 전체 6px 왼쪽 이동해 좌우 여백 같게) */
   .rx-out { left: 296px; width: 132px; padding: 10px 12px; } .rx-hub { transform: translateX(-6px); }
+  /* patch-243: 단계 · 해결 비주얼 색 통일 (온사이트 · CRM 과 같은 방식) — 바탕 = 그레이 · 포인트 = 블루 한 곳(화면의 약 20%) · 그 외 색은 작은 글자 · 점에만
+     - 차트 계열: 주인공 1개만 Primary 600 · 나머지는 Gray 200~400 · 연한 Primary(200~300) 로 구분
+     - 막대 · 깔때기: 기본 Gray 200 · 봐야 할 막대 1개만 Primary 600 (경고 오렌지 · 레드 막대 쓰지 않음)
+     - 스파크라인: Gray 300 선 + 끝점만 증감 색 · 증감 ▲▼ 글자는 기존 규칙 그대로 (상승 레드 · 하락 블루)
+     - 상태 태그: 우선순위 높음 1개만 Primary 50/700 · 나머지 Gray 100/600 · 오렌지는 '이상 감지' 알림 1곳만 */
+:root { --primary-25: #f5faff; --primary-200: #b2ddff; --primary-300: #84caff; --primary-400: #53b1fd; } /* 규칙 사이트 Primary 팔레트 값 */
+  :is(#geo-how, #geo-diagnosis) .rx-svg .rx-fb, :is(#geo-how, #geo-diagnosis) .rx-svg rect.rx-fb:nth-of-type(1) { fill: var(--gray-200); }
+  :is(#geo-how, #geo-diagnosis) .rx-svg .rx-fb.bad { fill: var(--primary-600); } :is(#geo-how, #geo-diagnosis) .rx-ar2.bad { stroke: var(--primary-600); }
+  :is(#geo-how, #geo-diagnosis) .rx-cvb.bad { fill: var(--primary-50); stroke: var(--primary-200); } :is(#geo-how, #geo-diagnosis) .rx-cvt.bad { fill: var(--primary-700); }
+  :is(#geo-how, #geo-diagnosis) .rx-svg .ai1, :is(#geo-how, #geo-diagnosis) .rx-lg .ai1 { --k: var(--primary-600); } :is(#geo-how, #geo-diagnosis) .rx-svg .ai2, :is(#geo-how, #geo-diagnosis) .rx-lg .ai2 { --k: var(--gray-400); } :is(#geo-how, #geo-diagnosis) .rx-svg .ai3, :is(#geo-how, #geo-diagnosis) .rx-lg .ai3 { --k: var(--primary-200); } :is(#geo-how, #geo-diagnosis) .rx-svg .ai4, :is(#geo-how, #geo-diagnosis) .rx-lg .ai4 { --k: var(--gray-300); }
+  :is(#geo-how, #geo-diagnosis) .rx-svg .ad1, :is(#geo-how, #geo-diagnosis) .rx-lg .ad1, :is(#geo-how, #geo-diagnosis) .rx-tb .ad1, :is(#geo-how, #geo-diagnosis) .rx-svg .ad2, :is(#geo-how, #geo-diagnosis) .rx-lg .ad2, :is(#geo-how, #geo-diagnosis) .rx-tb .ad2, :is(#geo-how, #geo-diagnosis) .rx-svg .ad3, :is(#geo-how, #geo-diagnosis) .rx-lg .ad3, :is(#geo-how, #geo-diagnosis) .rx-tb .ad3 { --k: var(--gray-300); }
+  :is(#geo-how, #geo-diagnosis) .rx-svg .ad4, :is(#geo-how, #geo-diagnosis) .rx-lg .ad4, :is(#geo-how, #geo-diagnosis) .rx-tb .ad4 { --k: var(--primary-600); }
+  :is(#geo-how, #geo-diagnosis) .rx-rb i { background: var(--gray-300); } :is(#geo-how, #geo-diagnosis) .rx-tb tr.x td { background: var(--primary-25); } :is(#geo-how, #geo-diagnosis) .rx-tb tr.x .rx-rb i { background: var(--primary-600); } :is(#geo-how, #geo-diagnosis) .rx-tb tr.x td:nth-child(4) b { color: var(--primary-700); } :is(#geo-how, #geo-diagnosis) .rx-tb .rx-bd { background: var(--primary-50); color: var(--primary-700); }
+  :is(#geo-how, #geo-diagnosis) .rx-svg .c1, :is(#geo-how, #geo-diagnosis) .rx-lg .c1 { --k: var(--gray-400); } :is(#geo-how, #geo-diagnosis) .rx-svg .c2, :is(#geo-how, #geo-diagnosis) .rx-lg .c2 { --k: var(--gray-300); } :is(#geo-how, #geo-diagnosis) .rx-svg .c3, :is(#geo-how, #geo-diagnosis) .rx-lg .c3 { --k: var(--gray-200); } :is(#geo-how, #geo-diagnosis) .rx-svg .c4, :is(#geo-how, #geo-diagnosis) .rx-lg .c4 { --k: var(--gray-100); }
+  :is(#geo-how, #geo-diagnosis) .rx-col:not(.now) rect { opacity: 1; }
+  :is(#geo-how, #geo-diagnosis) .rx-col.now .c1 { --k: var(--primary-600); } :is(#geo-how, #geo-diagnosis) .rx-col.now .c2 { --k: var(--primary-400); } :is(#geo-how, #geo-diagnosis) .rx-col.now .c3 { --k: var(--primary-300); } :is(#geo-how, #geo-diagnosis) .rx-col.now .c4 { --k: var(--primary-200); }
+  :is(#geo-how, #geo-diagnosis) .rx-spk path, :is(#geo-how, #geo-diagnosis) .rx-spk.inc path, :is(#geo-how, #geo-diagnosis) .rx-spk.dec path { stroke: var(--gray-300); } :is(#geo-how, #geo-diagnosis) .spk polyline, :is(#geo-how, #geo-diagnosis) .spk.inc polyline, :is(#geo-how, #geo-diagnosis) .spk.dec polyline { stroke: var(--gray-300); }
+  :is(#geo-how, #geo-diagnosis) .rx-todo em.hi { background: var(--primary-50); color: var(--primary-700); } :is(#geo-how, #geo-diagnosis) .rx-todo em.md { background: var(--gray-100); color: var(--gray-600); } :is(#geo-how, #geo-diagnosis) .rx-todo strong { color: var(--gray-900); }
+  :is(#geo-how, #geo-diagnosis) .rx-lg .ww { --k: var(--primary-300); } :is(#geo-how, #geo-diagnosis) .rx-lg .mm { --k: var(--gray-400); }
+  :is(#geo-how, #geo-diagnosis) .rx-cal li em.w { background: var(--primary-50); color: var(--primary-700); } :is(#geo-how, #geo-diagnosis) .rx-cal li em.m { background: var(--gray-100); color: var(--gray-600); }
+  :is(#geo-how, #geo-diagnosis) .rx-al.wn .t > i { background: var(--gray-100); color: var(--gray-500); } :is(#geo-how, #geo-diagnosis) .rx-al.wn .t em { background: var(--gray-100); color: var(--gray-600); }
   /* patch-239: 해결 알림 — 알림이 오는 느낌 반복(5초): 종 흔들림 · '새 알림' 칩 파동 · 긴급 알림이 위에서 새로 들어옴 */
   .vw-win:has(.rx-d4) .vw-hd .vw-ic { animation: rxBell 5s ease-in-out infinite; transform-origin: 50% 20%; }
   @keyframes rxBell { 0%, 14%, 100% { transform: none; } 2% { transform: rotate(16deg); } 5% { transform: rotate(-14deg); } 8% { transform: rotate(10deg); } 11% { transform: rotate(-6deg); } }
