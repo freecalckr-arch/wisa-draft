@@ -3263,3 +3263,10 @@ img, video { max-width: 100%; display: block; }
 }
 @media (prefers-reduced-motion: reduce) { .rp-steps li:not(:last-child)::after { transition: none; } .rp-steps b { transition: none; } }
 /* @endregion rp-steps-30 */
+
+/* @region sr-tags-pc-sm (patch-291): 해결 영역 태그 PC 한 단계 작게 (글자 14.5 → 13 · 여백 10/16 → 8/12 · 모서리 10 → 8 · 간격 10 → 8 · 태블릿과 같은 크기) */
+@media (min-width: 1024px) {
+  #geo-diagnosis .sr-tags { gap: 8px; margin-top: 28px; }
+  #geo-diagnosis .sr-tags li { padding: 8px 12px; border-radius: 8px; font-size: 13px; }
+}
+/* @endregion sr-tags-pc-sm */
