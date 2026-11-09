@@ -7,7 +7,7 @@
   var NAV = [
     { g: "시작하기", items: [["개요", "index.html"], ["작업 방법", "workflow.html", "Claude용"]] },
     { g: "기초", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
-    { g: "영역 규격", items: [["히어로", "hero.html"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
+    { g: "영역 규격", items: [["히어로", "hero.html"], ["비주얼 공통", "visual.html", "Claude용"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["시안 히스토리", null]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", null]] }
   ];

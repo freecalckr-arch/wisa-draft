@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비주얼 공통 · WISA 디자인 규칙</title>
+<link rel="icon" href="../assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">영역 규격</p>
+    <h1>비주얼 공통</h1>
+    <p class="lede">히어로 · 문제 · 단계 · 해결의 화면 이미지(비주얼)를 그릴 때 지킵니다. 레이아웃은 내용에 맞게 새로 짜도 되고, 색 · 공통 요소 · 크기 단계 · 배치 완성도는 모든 페이지가 같습니다.</p>
+  </header>
+  <div class="body">
+
+<section class="panel" data-tab="원칙">
+    <h2 id="principle">무엇은 자유고, 무엇은 고정인가</h2>
+    <div class="tbl"><table><thead><tr><th>자유 (내용마다 새로)</th><th>고정 (모든 페이지 같게)</th></tr></thead><tbody>
+      <tr><td>화면 종류 (관리자 · 앱 · 메신저 · 메일 · 표 · 달력 …)<br>안쪽 칸 나누기 · 요소 배치 · 그래프 종류</td><td>색 위계 (그레이 바탕 + 블루 포인트 1곳)<br>공통 요소 스타일 (창 · 머리줄 · 칩 · 버튼 · AI · 로고 · 알림 · 떠 있는 카드)<br>글자 크기 단계 · 여백 단계 · 모서리<br>배치 완성도 (여백 균형 · 정렬선 · 겹침/잘림 없음)</td></tr>
+    </tbody></table></div>
+
+    <h2 id="mockup">실제 목업처럼, 그러나 단순하게</h2>
+    <ol class="rules">
+      <li><div><b>한 화면 = 메시지 1개</b><span>처음 2초 안에 "무엇이 좋아졌는지 / 무엇이 문제인지" 하나가 읽혀야 합니다. 그 하나에만 블루 · 큰 숫자 · 애니메이션을 씁니다.</span></div></li>
+      <li><div><b>도식이 아니라 실제 화면 한 장면</b><span>박스를 화살표로 잇는 흐름도, 큰 아이콘 + 라벨 카드 나열은 PPT 처럼 보입니다. 실제 서비스 화면(관리자 · 앱 · 메신저)의 한 순간을 잘라 보여 줍니다. 실제 로고 · 상품 사진 · 날짜(요일 포함) · 단위가 붙은 수치를 씁니다.</span></div></li>
+      <li><div><b>디테일은 진짜처럼, 양은 적게</b><span>표 행 3~5개 · 수치 칸 3개 · 그래프 1개 · 버튼 1개 정도. 메시지와 상관없는 메뉴 · 필터 · 아이콘은 지웁니다. 남는 자리는 여백으로 두지 말고 핵심 요소(그래프 · 목록)를 키워 채웁니다.</span></div></li>
+      <li><div><b>애니메이션은 화면당 1개</b><span>메시지를 보여 주는 움직임 하나(막대가 자람 · 행이 강조됨 · 체크됨). 장면 전체가 바뀌는 교체 애니메이션은 히어로 가운데 창에만 씁니다. prefers-reduced-motion 이면 멈춥니다.</span></div></li>
+    </ol>
+    <div class="call"><p>그리기 전에 영역마다 <b>장면 한 줄</b>을 먼저 정합니다: <code>화면 종류 · 전할 메시지 1개 · 블루 포인트 1곳 · 애니메이션 1개</code>. 예) 해결 ② 정리 — 메신저로 온 데일리 브리핑 · "오늘 할 일 3개가 정리돼 온다" · 1순위 할 일 행 · 할 일이 하나씩 체크.</p></div>
+</section>
+
+<section class="panel" data-tab="색">
+    <h2 id="color-level">색 위계 3단계</h2>
+    <p>색이 많으면 무엇이 중요한지 안 보입니다. 화면 대부분은 그레이, 봐야 할 한 곳만 블루입니다. 팔레트(<a href="color.html">컬러</a>) 밖 헥스값은 만들지 않습니다.</p>
+    <div class="tbl"><table><thead><tr><th>단계</th><th>쓰는 곳</th><th>색</th><th>양</th></tr></thead><tbody>
+      <tr><td><b>1 바탕 · 기본</b></td><td>창 바탕 · 칸 · 선 · 기본 막대/선 · 글자</td><td>Gray 50~400 (면 · 선 · 차트), Gray 500~900 (글자), White</td><td>화면의 약 80%</td></tr>
+      <tr><td><b>2 포인트</b></td><td>봐야 할 막대 · 선 · 행 · 큰 숫자 1개</td><td>Primary 600 (진한 1곳) · 보조는 같은 계열 Primary 200~400 / 50~100 바탕</td><td>약 20% · 진한 블루 면은 1곳</td></tr>
+      <tr><td><b>3 상태</b></td><td>증감 · 이상 · 연결 상태</td><td>증가 ▲ Error 600 · 감소 ▼ Primary 600 · 이상 Warning(화면당 1곳) · 연결 점 Success</td><td>작은 글자 · 화살표 · 점 · 배지만</td></tr>
+    </tbody></table></div>
+    <ol class="rules">
+      <li><div><b>한 화면 색 계열은 그레이 + 블루 + 상태 1계열까지</b><span>점검 스크립트가 한 화면에 3계열 이상(예: 블루 · 레드 · 오렌지)이면 알려 줍니다. 증감 레드/블루 + 경고 오렌지가 꼭 같이 필요할 때만 3계열이고, 그 외는 줄입니다.</span></div></li>
+      <li><div><b>구분은 색이 아니라 그레이 명도로</b><span>여러 계열(채널 · 매체 · 등급)은 그린 · 옐로 · 인디고로 나누지 않고 Gray 300 / 400 / 500 단계로, 지금 볼 1개만 블루로 둡니다. 범례 점 색은 그래프 색과 똑같이.</span></div></li>
+      <li><div><b>상태색은 면이 아니라 점 · 글자</b><span>레드 · 오렌지 · 그린을 큰 막대 · 카드 바탕에 칠하지 않습니다. 긴급 카드만 바탕 · 배지를 Warning 25~50 / 200 으로.</span></div></li>
+      <li><div><b>쓰지 않는 것</b><span>장식용 그라데이션 · 점 배경 · 색 이모지 남발 · 진한 색 버튼 여러 개 · 알약 여러 개에 각기 다른 색. 실제 앱을 본뜬 브랜드 고유색은 감싼 요소에 <code>data-brand</code> 와 주석.</span></div></li>
+    </ol>
+</section>
+
+<section class="panel" data-tab="공통 요소">
+    <h2 id="parts">공통 요소 스타일 (리포트 페이지 기준)</h2>
+    <p>아래 요소는 새로 디자인하지 않고 같은 클래스 · 같은 값을 그대로 씁니다. 다른 모양이 필요하면 먼저 이 표를 고치고 모든 페이지에 맞춥니다.</p>
+    <div class="tbl"><table><thead><tr><th>요소</th><th>스타일</th><th>클래스</th></tr></thead><tbody>
+      <tr><td>화면 창</td><td>White · 모서리 16 · 선 Gray 200 1px + 그림자 0 12 32 rgba(16,24,40,.06)</td><td><code>.vw-win</code></td></tr>
+      <tr><td>창 머리줄</td><td>높이 52 · 좌우 18 · 아래 선 Gray 100 · 아이콘 → 제목 → 경로 → 오른쪽 칩 (간격 8)</td><td><code>.vw-hd</code></td></tr>
+      <tr><td>머리줄 아이콘</td><td>28 타일 · 모서리 8 · Primary 50 바탕 · Primary 600 선 아이콘(15 · 선 2) · 4개 단계 모두 같은 모양</td><td><code>.vw-ic</code></td></tr>
+      <tr><td>머리줄 제목 · 경로</td><td>제목 14.5 / 700 Black · 경로 12.5 / 400 Gray 400</td><td><code>.vw-hd b</code> · <code>.vw-m</code></td></tr>
+      <tr><td>칩 · 배지</td><td>Gray 100 바탕 · Gray 700 · 12 / 600 · 안쪽 3 × 10 · 알약</td><td><code>.vw-chip</code></td></tr>
+      <tr><td>버튼</td><td>White · 안쪽 선 Gray 200 · Gray 900 · 700 · 모서리 6 (진한 블루 버튼은 메시지인 경우 화면당 1개)</td><td><code>.rf-act</code> 등</td></tr>
+      <tr><td>AI 아이콘</td><td>Primary 600 → #6172f3 그라데이션 · 흰 반짝이 62% · 모서리 = 크기의 30%</td><td><code>.aim-av</code></td></tr>
+      <tr><td>AI 메시지</td><td>White · 안쪽 선 Primary 100 · 모서리 14 · 안쪽 10 × 12 · 글 12.5 Gray 700 · 강조는 Black 700</td><td><code>.aim</code></td></tr>
+      <tr><td>채널 · 매체 · AI 로고</td><td>실제 로고 파일 · 48 타일 모서리 11 · 글자 타일(N · M · G) 금지</td><td><code>assets/common/brand/</code></td></tr>
+      <tr><td>알림 카드</td><td>모서리 12 · 안쪽 10 × 12 · 오른 지표 레드 / 내린 지표 블루 · 긴급만 Warning 바탕 · 배지</td><td><code>.rx-al</code></td></tr>
+      <tr><td>히어로 떠 있는 카드</td><td>White · 모서리 16 · 안쪽 16 · 그림자 0 12 32 rgba(21,112,239,.16) · 폭 160 / 220 · 공통 둥둥</td><td><code>.sh-float</code> · <code>.sh-toast</code></td></tr>
+      <tr><td>증감 표기</td><td>▲ 수치 Error 600 · ▼ 수치 Primary 600 · 스파크라인도 같은 색</td><td><code>.inc</code> · <code>.dec</code></td></tr>
+      <tr><td>프로필 사진</td><td>실사 · 그레이 배경 · 어깨까지 · 원형</td><td><code>assets/geo/...</code></td></tr>
+    </tbody></table></div>
+</section>
+
+<section class="panel" data-tab="크기 · 여백">
+    <h2 id="scale">화면 이미지 안 크기 단계 (PC 기준)</h2>
+    <div class="tbl"><table><thead><tr><th>항목</th><th>쓰는 값</th><th>용도</th></tr></thead><tbody>
+      <tr><td>글자</td><td><b class="num">10 · 11 · 12 · 12.5 · 13 · 14.5 · 16 · 20 · 24 · 28</b></td><td>10 축 숫자 · 11 캡션 · 12 칩/보조 · 12.5 본문 · 13 행 제목 · 14.5 창 제목 · 16~20 수치 · 24~28 큰 수치</td></tr>
+      <tr><td>굵기</td><td><b class="num">400 · 600 · 700</b></td><td>본문 · 라벨 · 제목/수치</td></tr>
+      <tr><td>여백 · 간격</td><td><b class="num">4 · 6 · 8 · 10 · 12 · 16 · 20 · 24</b></td><td>창 안쪽 여백 20 · 칸 사이 12 · 행 사이 8~10 · 아이콘-글자 6</td></tr>
+      <tr><td>모서리</td><td><b class="num">6 · 8 · 10 · 12 · 14 · 16 · 99(알약) · 원</b></td><td>버튼 6 · 아이콘 8 · 안쪽 칸 10 · 알림 12 · AI 14 · 창/카드 16</td></tr>
+    </tbody></table></div>
+    <p>9.5 · 10.5 · 11.5 · 13.5 · 15 같은 사이 값은 쓰지 않습니다. 기존 4개 페이지에 남은 사이 값은 수정할 때 가까운 단계로 맞춥니다.</p>
+
+    <h2 id="balance">배치 완성도</h2>
+    <ol class="rules">
+      <li><div><b>창 안 위 · 아래 여백을 같게</b><span>머리줄 아래 ~ 첫 내용 = 마지막 내용 ~ 창 아래 끝. 내용이 모자라면 위로 쏠리게 두지 말고 세로 가운데 정렬하거나 목록 · 그래프 높이를 늘려 채웁니다.</span></div></li>
+      <li><div><b>한쪽만 비지 않게</b><span>왼쪽 · 오른쪽 여백도 같게. 한 칸만 텅 비면 칸 비율을 바꾸거나 요소를 키웁니다. 채팅 말풍선처럼 의도한 한쪽 정렬만 예외.</span></div></li>
+      <li><div><b>정렬선은 적게</b><span>창 안 요소의 왼쪽 시작선은 안쪽 여백 20 하나에 맞춥니다. 같은 종류 요소(행 · 칸 · 카드)는 같은 크기 · 같은 간격으로 반복합니다.</span></div></li>
+      <li><div><b>크기 위계는 3단계</b><span>큰 숫자/그래프(봐야 할 것) → 제목 · 라벨 → 보조 글자. 같은 크기가 너무 많으면 무엇이 중요한지 안 보입니다.</span></div></li>
+      <li><div><b>겹침 · 잘림 없음</b><span>글자 · 말풍선 · 라벨이 선이나 다른 글자와 겹치면 빈 공간으로 옮깁니다. 1100 · 390 축소 화면에서도 확인합니다.</span></div></li>
+    </ol>
+</section>
+
+<section class="panel" data-tab="점검">
+    <h2 id="flow">작업 순서</h2>
+    <ol class="rules">
+      <li><div><b>장면 한 줄</b><span>영역마다 화면 종류 · 메시지 1개 · 블루 포인트 1곳 · 애니메이션 1개를 정합니다 (기획안 단계 빈 박스 옆에 적어 보여 줌).</span></div></li>
+      <li><div><b>공통 요소로 조립</b><span>창 · 머리줄 · 칩 · 버튼 · AI · 로고 · 알림은 공통 요소 탭 그대로. 레이아웃만 새로 짭니다.</span></div></li>
+      <li><div><b>점검 스크립트 실행</b><span>PC 1440 에서 아래 스크립트를 돌리고 나온 항목을 고칩니다. 단계 탭은 탭을 하나씩 열고 다시 돌립니다.</span></div></li>
+      <li><div><b>눈으로 확인</b><span>1440 · 1100 · 820 · 390 캡처로 메시지가 2초 안에 읽히는지, 색이 그레이 + 블루로 보이는지 봅니다.</span></div></li>
+    </ol>
+    <h2 id="script">점검 스크립트</h2>
+    <p><code>docs/assets/visual-check.js</code> · 팔레트 밖 색 · 단계 밖 글자 크기 · 창 안 여백 쏠림(차이 12px 초과) · 잘린 글자 · 한 화면 색 계열 3개 이상을 찾아 표로 보여 줍니다.</p>
+    <div class="code"><button type="button" data-copy="c-run">복사</button><pre id="c-run">// 시안 페이지(PC 1440) 콘솔에서
+await new Promise(r => { const s = document.createElement('script'); s.src = 'docs/assets/visual-check.js?' + Date.now(); s.onload = r; document.head.appendChild(s); });
+await WISAcheck();</pre></div>
+</section>
+
+    <p class="foot">마지막 수정 2026-11-09 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>
