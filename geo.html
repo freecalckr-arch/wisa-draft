@@ -14,10 +14,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=250">
+<link rel="stylesheet" href="assets/common/wisa.css?v=269">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-09 patch-269: 문제 영역 하단 태그를 공통 규격으로 — 화면 박스 가운데 · 아래 끝에서 20px 위 (.pn.ows > .ows-ft). 내용과 겹치는 자리는 .ows-ft.ov 로 태그 뒤 흰 그라데이션(내용이 흐려지며 태그가 보임)
      · 2026-11-08 patch-250: 리포트 영역 대시보드에 모바일 화면 추가 (리포트 페이지와 같은 280×560 · 개선 제안은 PC 목록 순서 그대로 · 오른쪽 아래 겹침 · AI 요약 타이핑 · 공통 wisa.css · wisa.js rp-phone · ?v=250)
      · 2026-11-08 patch-248: 리포트 영역 AI 요약 콜아웃을 리포트 페이지 블루 스타일로 통일 (공통 wisa.css rp-ai-callout · ?v=248)
      · 2026-11-08 patch-228: 히어로 주변 비주얼 요소(떠 있는 카드 · 토스트 · 이미지) 모두 공통 둥둥 애니메이션 (공통 wisa.css hero-bob · 위아래 8px · 6초 · 짝수 번째 3초 엇갈림 · 페이지별 따로 쓰던 움직임은 이걸로 통일)
@@ -299,14 +300,15 @@
       <div class="bt rv">
         <div class="bt-hd"><span class="bt-eb">기존 · 검색 최적화(SEO)</span><h3>검색 결과 순위를 높이는 방식</h3><p>검색 키워드 중심으로 페이지를 정비하고, 결과 목록에서 순위를 경쟁해 클릭으로 방문자를 데려옵니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn serp">
+          <div class="pn serp ows">
             <div class="win-hd"><span class="g-logo sm"><b class="b">G</b></span>Google 검색</div>
             <div class="g-top"><span class="g-logo"><b class="b">G</b><b class="r">o</b><b class="y">o</b><b class="b">g</b><b class="g">l</b><b class="r">e</b></span><div class="g-bar">수분크림 추천<i></i></div></div>
             <ul class="g-res">
               <li><cite>beautyshop.com › ranking</cite><b>2026 수분크림 추천 순위 TOP 10</b><span>건성·지성 피부별 인기 수분크림을 한눈에 비교…</span></li>
               <li><cite>blog.example.kr › review</cite><b>건성 피부 수분크림 비교 후기</b><span>직접 써본 수분크림 5종의 보습력과 사용감…</span></li>
-              <li class="me"><cite>우리브랜드.co.kr</cite><b>세라마이드 수분크림</b><em>7위</em><i class="me-tag">상위 결과에 밀린 우리 브랜드</i></li>
+              <li class="me"><cite>우리브랜드.co.kr</cite><b>세라마이드 수분크림</b><em>7위</em></li>
             </ul>
+            <div class="ows-ft ov"><i class="me-tag">상위 결과에 밀린 우리 브랜드</i></div>
           </div>
         </div>
         <p class="bt-goal"><span>목표</span>검색 결과 상위 노출</p>
@@ -314,10 +316,11 @@
       <div class="bt is-new rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">GEO · AI 검색 최적화</span><h3>AI 답변에서 언급되도록 하는 방식</h3><p>상품·브랜드 정보를 AI가 읽기 쉽게 구조화하고, AI 검색·챗봇의 답변 속에서 브랜드와 상품이 발견되게 합니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn chat">
+          <div class="pn chat ows">
             <div class="win-hd"><span class="ai-apps"><i class="app gpt"></i><i class="app gemini"></i><i class="app claude"></i><i class="app perplexity"></i><i class="app naver"></i><i class="app genspark"></i></span>AI 답변</div>
             <div class="cq">30대 건성 피부 수분크림 추천해줘</div>
-            <div class="ans"><p>건성 피부라면 보습 지속력과 저자극 성분을 함께 보세요. 후기와 성분 정보를 보면 <mark>우리 브랜드 세라마이드 수분크림</mark><sup>1</sup>이 48시간 보습 · 저자극 테스트 완료로 가장 자주 언급됩니다. 가벼운 사용감을 원한다면 B 브랜드 히알루론 크림<sup>2</sup>도 함께 비교해 보세요.</p><div class="src"><span class="on"><i>1</i><img src="assets/geo/p-cream-th.jpg" alt="">우리브랜드.co.kr<i class="hit-tag">답변의 출처가 된 우리 자사몰</i></span><span><i>2</i>beautyshop.com</span><span class="more">+3</span></div></div>
+            <div class="ans"><p>건성 피부라면 보습 지속력과 저자극 성분을 함께 보세요. 후기와 성분 정보를 보면 <mark>우리 브랜드 세라마이드 수분크림</mark><sup>1</sup>이 48시간 보습 · 저자극 테스트 완료로 가장 자주 언급됩니다. 가벼운 사용감을 원한다면 B 브랜드 히알루론 크림<sup>2</sup>도 함께 비교해 보세요.</p><div class="src"><span class="on"><i>1</i><img src="assets/geo/p-cream-th.jpg" alt="">우리브랜드.co.kr</span><span><i>2</i>beautyshop.com</span><span class="more">+3</span></div></div>
+            <div class="ows-ft ov"><i class="hit-tag">답변의 출처가 된 우리 자사몰</i></div>
           </div>
         </div>
         <p class="bt-goal"><span>목표</span>AI 답변 속 추천 · 인용</p>

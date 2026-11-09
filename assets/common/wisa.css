@@ -3005,6 +3005,9 @@ img, video { max-width: 100%; display: block; }
 #geo-why .bt-vis > .pn.ows { padding-bottom: 0 !important; } /* 모든 해상도에서 박스 아래 안쪽 여백 0 · 20px 는 태그 줄이 가짐 */
 #geo-why .pn.ows > .ows-ft { display: flex; justify-content: center; margin: auto 0 0 !important; padding: 8px 0 20px; line-height: 1; }
 #geo-why .pn.ows > .ows-ft .me-tag, #geo-why .pn.ows > .ows-ft .hit-tag { position: static; transform: none; }
+/* patch-269: 태그 자리가 내용과 겹치면 .ows-ft.ov — 태그 줄을 박스 아래 끝에 겹쳐 띄우고(가운데 · 아래 20px) 뒤에 바탕색 그라데이션을 깔아 내용이 흐려지며 끝나게 함 (GEO 기준 · 바탕이 회색인 창은 --ft-bg 로 바꿈) */
+#geo-why .pn.ows > .ows-ft.ov { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; margin: 0 !important; padding: 36px 0 20px; border-radius: 0 0 14px 14px; background: linear-gradient(to bottom, rgba(255,255,255,0), var(--ft-bg, var(--white)) 90%); pointer-events: none; }
+#geo-why .pn.serp.ows { --ft-bg: var(--gray-50); }
 /* @endregion */
 
 /* @region rp-mo (patch-195): 리포트 대시보드 모바일 간격 — 대시보드 안쪽 상하좌우 여백 14px · 내용 덩어리(AI 요약 · 요약 카드 · 그래프) 사이 10px */

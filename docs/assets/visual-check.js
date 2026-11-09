@@ -185,12 +185,24 @@
         // ⑤ 색 계열 수 — 그레이 + 포인트 블루가 기본, 증감 레드 · 경고 오렌지까지 3계열 이상이면 줄일 곳 확인
         var fk = Object.keys(fams);
         if (fk.length >= 3) add(name, "색 계열 많음", fk.length + "계열", fk.map(function (k) { return k + " " + fams[k]; }).join(" · ") + " (그레이 + 블루 1곳 기준)");
+        // ⑦ 문제 영역 하단 태그: 박스 가로 가운데 · 아래 끝에서 20px 위 (PC 기준 · 축소 비율 반영)
+        if (a[0] === "문제") {
+          var Bx = box.getBoundingClientRect(), sc = Bx.width / (box.offsetWidth || Bx.width);
+          box.querySelectorAll(".me-tag, .hit-tag").forEach(function (t) {
+            if (!shown(t)) return;
+            var tr = t.getBoundingClientRect();
+            var gap = Math.round((Bx.bottom - tr.bottom) / sc), mid = Math.round(((tr.left + tr.right) / 2 - (Bx.left + Bx.right) / 2) / sc);
+            if (Math.abs(gap - 20) > 2 || Math.abs(mid) > 2) add(name, "하단 태그 위치", label(t), "아래 " + gap + " (20) · 가운데에서 " + mid + "px (0)");
+          });
+        }
         // ③ 여백 쏠림 (머리줄 아래 ~ 창 아래 끝)
         if (!a[2]) return;
         var hd = box.querySelector(":scope > [class*='hd']");
+        var ft = box.querySelector(":scope > .ows-ft");   // 문제 영역 하단 태그 줄은 규격 위치라 여백 계산에서 뺌
         var B = box.getBoundingClientRect();
         var top = hd ? hd.getBoundingClientRect().bottom : B.top;
-        var ls = leaves(box, hd);
+        var ls = leaves(box, hd).filter(function (e) { return !(ft && ft.contains(e)); });
+        var bot = ft ? ft.getBoundingClientRect().top : B.bottom;   // 태그 줄 위까지가 내용 칸
         if (!ls.length) return;
         var u = { t: 1e9, b: -1e9, l: 1e9, r: -1e9 };
         ls.forEach(function (e) {
@@ -198,8 +210,9 @@
           if (r.top < top - 1 || r.bottom > B.bottom + 1) return; // 창 밖으로 걸친 요소 제외
           u.t = Math.min(u.t, r.top); u.b = Math.max(u.b, r.bottom); u.l = Math.min(u.l, r.left); u.r = Math.max(u.r, r.right);
         });
-        var g = { 위: Math.round(u.t - top), 아래: Math.round(B.bottom - u.b), 왼쪽: Math.round(u.l - B.left), 오른쪽: Math.round(B.right - u.r) };
-        if (Math.abs(g.위 - g.아래) > TOL) add(name, "여백 쏠림 (세로)", "창 안 내용", "위 " + g.위 + " · 아래 " + g.아래 + " (같게)");
+        var g = { 위: Math.round(u.t - top), 아래: Math.round(bot - u.b), 왼쪽: Math.round(u.l - B.left), 오른쪽: Math.round(B.right - u.r) };
+        if (!(ft && ft.classList.contains("ov")) && Math.abs(g.위 - g.아래) > TOL)   // 태그가 내용에 겹치는 화면(.ov)은 그라데이션으로 끝나므로 세로 쏠림 제외
+          add(name, "여백 쏠림 (세로)", "창 안 내용", "위 " + g.위 + " · 아래 " + g.아래 + " (같게)");
         if (Math.abs(g.왼쪽 - g.오른쪽) > TOL) add(name, "여백 쏠림 (가로)", "창 안 내용", "왼쪽 " + g.왼쪽 + " · 오른쪽 " + g.오른쪽 + " (같게 · 채팅 말풍선처럼 의도한 한쪽 정렬이면 무시)");
     })();
   }
