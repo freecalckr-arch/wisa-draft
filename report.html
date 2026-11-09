@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-277: 히어로 제목 키워드 롤링 간격 모든 해상도 2.4초 (모바일 6.6초 → 2.4초 · GEO · 온사이트와 같게)
      · 2026-11-09 patch-276: 모바일 리포트 화면 가로 유동 — 화면 폭 − 좌우 30 (세로 400 고정 · 공통 wisa.css ?v=276)
      · 2026-11-09 patch-275: 모바일 리포트 화면 — 아래 탭 제거 · 아래 끝 바탕색 그라데이션(56)으로 흐려지며 잘림 · 머리줄도 내용과 같이 위로 스크롤 (공통 wisa.css · wisa.js ?v=275) · 단계 영역 설명글(.jt-d) 모바일 16 → 14
      · 2026-11-09 patch-274: 리포트 > 대시보드 해상도별 표현 규칙 (공통 wisa.css · wisa.js rp-res ?v=274) — PC: PC 대시보드 + 모바일 화면 같이 · 태블릿: 태블릿 대시보드만 (모바일 화면 숨김) · 모바일: 모바일 화면만 260×400 · 가운데 .ph-flow 세로 자동 스크롤로 그래프 2개까지 (두 번째 그래프 .ph-card.ph-mo 모바일 전용 · 할 일 카드 숨김 · 스크롤 거리 --phy)
@@ -3837,13 +3838,12 @@
     const items = [...inn.children]; let ri = 0;
     const fit = () => { roll.style.width = items[ri].scrollWidth + 'px'; inn.style.transform = 'translateY(' + (-ri * 1.3) + 'em)'; };
     fit(); if (document.fonts) document.fonts.ready.then(fit);
-    // [CRM patch-207] 모바일은 한 채널(케이스)마다 ① → ② → ③ 화면을 2.2초씩 보여 주므로 롤링 간격 6.6초 · PC · 태블릿은 2.4초 그대로
-    const moQ = matchMedia('(max-width: 767px)');
+    // patch-277: 롤링 간격 모든 해상도 2.4초 (GEO · 온사이트와 같게 · CRM 에서 복사된 모바일 6.6초 제거 — 리포트에는 모바일 ①②③ 화면 없음)
     const tick = () => setTimeout(() => {
       ri += 1; fit();
       if (ri === n) setTimeout(() => { inn.style.transition = 'none'; ri = 0; fit(); void inn.offsetHeight; inn.style.transition = ''; }, 650);
       tick();
-    }, moQ.matches ? 6600 : 2400);
+    }, 2400);
     if (!reduced) tick();
   }
   // 시장 변화 그래프: 화면에 들어오면 선이 왼쪽에서 오른쪽으로 그려지고 교차 시점이 나타남 (1회)
