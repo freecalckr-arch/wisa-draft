@@ -303,8 +303,8 @@ img, video { max-width: 100%; display: block; }
 .cta { position: relative; background: var(--white); padding-block: 200px 190px; overflow: hidden; isolation: isolate; }
 /* CTA 배경 빛: 솔루션 섹션 빛과 같은 톤 · 문구 뒤에서 천천히 흐름 */
 .cta::before, .cta::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; }
-.cta::before { right: 6%; top: 2%; width: min(620px, 46vw); height: min(380px, 28vw); filter: blur(60px); background: radial-gradient(closest-side, rgba(83,155,255,.32) 0%, rgba(120,180,255,.14) 55%, rgba(160,200,255,0) 100%); animation: ctaGlow1 10s ease-in-out infinite alternate; }
-.cta::after { right: 2%; top: 0; width: min(380px, 28vw); height: min(240px, 18vw); filter: blur(55px); background: radial-gradient(closest-side, rgba(140,130,255,.24) 0%, rgba(160,170,255,.1) 55%, rgba(180,190,255,0) 100%); animation: ctaGlow2 13s ease-in-out infinite alternate; }
+.cta::before { left: calc(50% - 10vw); top: 2%; width: min(620px, 46vw); height: min(380px, 28vw); filter: blur(60px); background: radial-gradient(closest-side, rgba(83,155,255,.32) 0%, rgba(120,180,255,.14) 55%, rgba(160,200,255,0) 100%); animation: ctaGlow1 10s ease-in-out infinite alternate; }
+.cta::after { left: calc(50% + 6vw); top: 0; width: min(380px, 28vw); height: min(240px, 18vw); filter: blur(55px); background: radial-gradient(closest-side, rgba(140,130,255,.24) 0%, rgba(160,170,255,.1) 55%, rgba(180,190,255,0) 100%); animation: ctaGlow2 13s ease-in-out infinite alternate; }
 @keyframes ctaGlow1 { 0% { transform: translate(-22%, 6%) scale(.92); } 50% { transform: translate(6%, 26%) scale(1.15); } 100% { transform: translate(-10%, -8%) scale(1); } }
 @keyframes ctaGlow2 { 0% { transform: translate(0, 10%) scale(1); } 50% { transform: translate(-60%, 50%) scale(1.25); } 100% { transform: translate(-20%, 30%) scale(.9); } }
 .cta-copy { display: flex; flex-direction: column; align-items: center; gap: 36px; padding-inline: 50px; }
@@ -807,9 +807,9 @@ img, video { max-width: 100%; display: block; }
   .cta { padding-block: 140px; }
   .cta-copy h2 { font-size: 36px; }
   /* 태블릿 CTA 타이틀 36 */
-  .cta::before { right: 2%; top: 2%; width: 56vw; height: 36vw; filter: blur(50px); }
+  .cta::before { left: calc(50% - 10vw); top: 2%; width: 56vw; height: 36vw; filter: blur(50px); }
   /* CTA 빛: 오른쪽 위 */
-  .cta::after { right: 0; top: 0; width: 34vw; height: 22vw; filter: blur(50px); }
+  .cta::after { left: calc(50% + 6vw); top: 0; width: 34vw; height: 22vw; filter: blur(50px); }
   /* @endregion */
   /* @region common | (min-width: 768px) and (max-width: 1023px) */
   /* 섹션 타이틀: 태블릿은 메인 · 서브 모두 36 */
