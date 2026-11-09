@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-284: 히어로 리포트 창 AI 요약 — 강조 수치 레드 · 블루 → 블랙 (전 해상도) · 모바일 말줄임 없이 줄바꿈 · 모바일 그래프 카드가 창 끝 16 전까지 채움 (그래프 세로만 늘림 · 스크립트 hero-chart-fill)
      · 2026-11-09 patch-283: 히어로 태블릿 리포트 창 — 머리줄 · 탭이 창 높이에 눌려 줄던 문제 수정 (머리줄 36 → PC 와 같은 55 · 탭 45 · 아래는 창 끝에서 잘림)
      · 2026-11-09 patch-282: 단계 영역 태그(보는 지표) 배경 = 해결 영역 칩과 같게 (PC gray-100 · 태블릿 · 모바일 gray-200 · 선택 칩 블루 그대로 · 공통 wisa.css ?v=282)
      · 2026-11-09 patch-281: 리포트 대시보드 모바일 화면 좌우 여백 30 → 46 (공통 wisa.css ?v=281) · 히어로 태블릿 리포트 창 661 → 520×417 · 위 23 (GEO 히어로 창과 같게 · 축소 없음 · 오른쪽 인사이트 칸 숨김 · 한 열)
@@ -3141,6 +3142,18 @@
   .rph-pn.on .rx-pt { animation: rxPt 2s ease-in-out 1.1s infinite; } @keyframes rxPt { 50% { stroke-width: 5; } }
   @media (max-width: 1023px) { .rph-win { height: calc(400px / var(--rz, 1)); } }
   @media (max-width: 767px) { .rph-win { height: 408px; } .rx-aib { height: 28px; font-size: 11px; } .rx-aib span { white-space: nowrap; } }
+  /* patch-284: AI 요약 강조 수치(.inc · .dec) 레드 · 블루 → 블랙 (전 해상도) */
+  .rx-aib i.inc, .rx-aib i.dec { font-style: normal; font-weight: 700; color: var(--gray-900) !important; }   /* 공통 .inc · .dec 증감 색(!important)보다 우선 */
+  /* patch-284 모바일: AI 요약 말줄임 없이 줄바꿈 · 그래프 카드가 아래 남는 공간(창 끝 16 전까지)을 채움 (그래프 세로는 스크립트 hero-chart-fill 이 늘림) */
+  @media (max-width: 767px) {
+    #geo-hero .rx-aib { height: auto; min-height: 28px; align-items: flex-start; padding: 6px 10px 6px 6px; line-height: 1.5; }
+    #geo-hero .rx-aib .aim-av { flex: none; margin-top: -1px; }
+    #geo-hero .rx-aib span { white-space: normal; overflow: visible; text-overflow: clip; }
+    #geo-hero .rph-pn.rx-hp { grid-template-rows: minmax(0, 1fr); align-content: stretch; padding-bottom: 24px; }   /* 본문이 창보다 8 길어 24 = 창 끝에서 16 */
+    #geo-hero .rph-pn.rx-hp .rx-hl { align-self: stretch; min-height: 0; }
+    #geo-hero .rph-pn.rx-hp .rx-card { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    #geo-hero .rph-pn.rx-hp .rx-card .rx-svg { flex: 1 1 0; min-height: 0; height: 0; }
+  }
   /* patch-281: 태블릿 히어로 리포트 창 = GEO 히어로 창과 같은 크기 (520 × 417 · 위 23 · 가운데 · 축소 없음 1배) · 오른쪽 인사이트 칸은 숨기고 한 열 (모바일과 같은 구성) */
   @media (min-width: 768px) and (max-width: 1023px) {
     #geo-hero .sh-visual.rp-hv2 { padding-top: 23px; }
@@ -4230,6 +4243,26 @@
 </body>
 </html>
 
+<script>
+/* @region hero-chart-fill (patch-284): 모바일 히어로 리포트 창 — 그래프 카드가 늘어난 높이만큼 그래프 세로를 늘림
+   · 가로 · 글자 · 점 크기는 그대로, 세로 좌표(y · y1 · y2 · cy · height · 경로 y)만 (칸 높이 ÷ 원래 높이) 배 · PC · 태블릿은 원래 그림 */
+(() => {
+  const svgs = [...document.querySelectorAll("#geo-hero .rph-pn .rx-card .rx-svg")]; if (!svgs.length) return;
+  const q = matchMedia("(max-width: 767px)"), Y = ["y", "y1", "y2", "cy", "height"];
+  const py = (s, k) => s.replace(/(-?\d*\.?\d+),(-?\d*\.?\d+)/g, (m, x, y) => x + "," + +(y * k).toFixed(1));
+  svgs.forEach(s => { s._vb = s.getAttribute("viewBox").split(/\s+/).map(Number); s.querySelectorAll("*").forEach(e => { const o = {}; [...Y, "points", "d"].forEach(a => { if (e.hasAttribute(a)) o[a] = e.getAttribute(a); }); e._oy = o; }); });
+  const fit = () => svgs.forEach(s => {
+    const [x0, y0, BW, BH] = s._vb; let k = 1;
+    if (q.matches) { const r = s.getBoundingClientRect(); if (r.width > 0 && r.height > 0) k = Math.max(1, r.height * BW / r.width / BH); }
+    s.setAttribute("viewBox", x0 + " " + y0 + " " + BW + " " + +(BH * k).toFixed(1));
+    s.querySelectorAll("*").forEach(e => { const o = e._oy; if (!o) return;
+      Y.forEach(a => { if (o[a] != null) e.setAttribute(a, +(o[a] * k).toFixed(1)); });
+      if (o.points) e.setAttribute("points", py(o.points, k)); if (o.d) e.setAttribute("d", py(o.d, k)); });
+  });
+  addEventListener("load", fit); addEventListener("resize", () => requestAnimationFrame(fit)); if (document.fonts) document.fonts.ready.then(fit); fit();
+})();
+/* @endregion */
+</script>
 <script src="assets/common/wisa.js?v=279"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
