@@ -3181,3 +3181,29 @@ img, video { max-width: 100%; display: block; }
 @media (max-width: 767px) { #geo-report .rp-ph { right: -4px; bottom: -28px; } #geo-report .rp-wrap { gap: 60px; } }
 @media (prefers-reduced-motion: reduce) { #geo-report .rp-ph.go .ph-db rect, #geo-report .ph-ai p.typing::after { animation: none; } }
 /* @endregion rp-phone */
+
+/* @region rp-res (patch-274) — 리포트 > 대시보드 해상도별 표현 규칙 (GEO · 온사이트 · CRM · 리포트 공통)
+   · PC (≥1024): PC 대시보드 + 모바일 화면(280×560) 같이 노출 (기존 그대로)
+   · 태블릿 (768~1023): 태블릿 대시보드만 · 모바일 화면 숨김
+   · 모바일 (≤767): 모바일 화면만 · 260×400 고정 · 머리줄 · 아래 탭은 고정, 가운데(.ph-flow)가 세로 자동 스크롤로 그래프 2개까지 보여 줌
+     (스크롤 거리 --phy = wisa.js rp-phone 계산 · 할 일 카드는 숨기고 두 번째 그래프 .ph-mo 표시 · prefers-reduced-motion 시 정지) */
+#geo-report .ph-flow { display: contents; }   /* PC: 감싸기 없는 것과 같은 배치 */
+#geo-report .ph-card.ph-mo { display: none; }
+#geo-report .ph-lg i.ln { width: 10px; height: 0; border-top: 2px solid #759edf; }
+#geo-report .ph-lg .ph-now { color: var(--gray-500); } #geo-report .ph-lg .ph-now b { margin-left: 4px; font-weight: 700; color: var(--gray-900); }
+@media (min-width: 768px) and (max-width: 1023px) {
+  #geo-report .rp-ph { display: none; }
+  #geo-report .rp-wrap { gap: 50px; }   /* 모바일 화면 겹침이 없어져 기본 간격 */
+}
+@media (max-width: 767px) {
+  #geo-report .rp-duo > .rp { display: none; }
+  #geo-report .rp-wrap { gap: 50px; }
+  #geo-report .rp-ph { position: relative; right: auto; bottom: auto; width: 260px; height: 400px; margin: 0 auto; zoom: 1; box-shadow: 0 16px 32px rgba(16,24,40,.12); }
+  #geo-report .ph-flow { flex: none; display: flex; flex-direction: column; gap: 8px; padding-bottom: 66px; will-change: transform; }   /* 아래 탭(58) + 8 만큼 끝 여백 */
+  #geo-report .ph-card.ph-mo { display: block; }
+  #geo-report .ph-flow > .ph-card:has(.ph-todo) { display: none; }   /* 그래프 2개까지만 */
+  #geo-report .rp-ph.go .ph-flow { animation: phScroll 9s cubic-bezier(.65, 0, .35, 1) 1.2s infinite; }
+  @keyframes phScroll { 0%, 22% { transform: translateY(0); } 48%, 78% { transform: translateY(var(--phy, 0px)); } 100% { transform: translateY(0); } }
+}
+@media (prefers-reduced-motion: reduce) { #geo-report .rp-ph.go .ph-flow { animation: none; } }
+/* @endregion rp-res */

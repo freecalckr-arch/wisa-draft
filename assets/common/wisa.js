@@ -225,7 +225,11 @@
   const fit = () => { const w = innerWidth, cs = getComputedStyle(rp); let z = 1;
     if (w <= 767) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpzm")) || .5) * 1.1);
     else if (w <= 1023) z = .72; else if (w <= 1439) z = parseFloat(cs.getPropertyValue("--rpz")) || 1;
-    ph.style.setProperty("--phz", z.toFixed(4)); };
+    if (w <= 767) z = 1;   /* patch-274: 모바일은 모바일 화면만 260×400 원래 크기 */
+    ph.style.setProperty("--phz", z.toFixed(4));
+    /* patch-274: 모바일 세로 자동 스크롤 거리 --phy = 스크롤 영역 높이 − 보이는 높이 (wisa.css rp-res) */
+    const fl = ph.querySelector(".ph-flow"), scr = ph.querySelector(".ph-scr");
+    if (fl && scr) ph.style.setProperty("--phy", (w <= 767 ? -Math.max(0, Math.round(fl.offsetHeight - (scr.clientHeight - fl.offsetTop))) : 0) + "px"); };
   addEventListener("load", fit); addEventListener("resize", () => requestAnimationFrame(fit)); fit();
   // AI 요약 타이핑: 라벨(b)은 그대로 · 나머지 글자(굵은 글씨 포함)를 한 글자씩 → 4.5초 유지 → 다시 (반복)
   const p = ph.querySelector(".ph-ai p"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
