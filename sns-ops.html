@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-295: 사례(#geo-ref) = GEO 사례 카드 양식 · 이미지 그대로 문구만 공식채널운영으로 교체 · 문제 · 단계 빈 박스 위치를 GEO 화면 자리와 같게 보정 (단계 .pn absolute 좌우 20 유지)
      · 2026-11-10 patch-294: 공식채널운영 기획안 단계 — GEO 페이지(geo.html)를 복사해 시작 · 기획문서(wisa_channel_page.html #sns-ops) 문장 · 흐름을
        GEO 영역 규격(히어로 · 문제 · 그래프 · 단계(카드 3개) · 해결 · 리포트 · 사례 · FAQ · CTA)으로 재구성 · 비주얼 영역은 규격 크기 빈 박스(.ph-box)로 표시 (비주얼 작업 전 확인용)
        - 히어로 제목 롤링 = 채널 이름 한 자리 (인스타그램 · 페이스북 · 공통 2.4초) · 로고 assets/common/brand/instagram.svg · facebook.svg (facebook 새로 추가)
@@ -139,8 +140,9 @@
   #geo-hero .sh-visual.ph-hv { position: relative; }
   #geo-hero .sh-visual.ph-hv .ph-box { position: absolute; inset: 24px; width: auto; background: rgba(255, 255, 255, .6); }
   #geo-hero .ai-roll .rl-ic { flex: none; width: .82em; height: .82em; border-radius: .24em; }
-  #geo-why .pn.ph-pn, #geo-how .pn.ph-pn { position: relative; padding: 0; background: none; box-shadow: none; }
-  #geo-why .pn.ph-pn .ph-box { position: absolute; inset: 0; padding-bottom: 60px; }
+  #geo-why .pn.ph-pn, #geo-how .pn.ph-pn { padding: 0; background: none; box-shadow: none; }
+  #geo-why .pn.ph-pn { position: relative; }   /* 단계(how) .pn 은 GEO 와 같이 absolute (좌우 20) 유지 */
+  #geo-why .pn.ph-pn .ph-box { position: absolute; inset: 0; margin: 0; padding-bottom: 60px; }
   #geo-why .pn.ph-pn .ows-ft { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; justify-content: center; }
   #geo-how .pn.ph-pn .ph-box { height: 100%; }
   @media (min-width: 1440px) { #geo-how .bento.b3 .bt-vis > .pn.ph-pn { height: 250px; } }
@@ -335,8 +337,10 @@
 <!-- @region reference : 사례 (기획문서 '사례 준비 중') -->
 <section class="sec" id="geo-ref">
   <div class="container">
-    <div class="sub-title row rv"><div><h2>공식채널운영 사례 · 레퍼런스</h2><p>실제로 진행한 고객사의 사례와 성과를 소개합니다.</p></div><a class="link-u ref-more" href="#portfolio">포트폴리오 전체 보기</a></div>
-    <div class="rp-refs rv" style="--d:100ms"><div class="ph-box"><span class="sz">400×210 이미지 + 본문</span>사례 카드 1<small>업종 · 고객사명 · 진행 내용 · 성과 지표 (사례 등록 예정)</small></div><div class="ph-box"><span class="sz">400×210 이미지 + 본문</span>사례 카드 2<small>업종 · 고객사명 · 진행 내용 · 성과 지표 (사례 등록 예정)</small></div><div class="ph-box"><span class="sz">400×210 이미지 + 본문</span>사례 카드 3<small>업종 · 고객사명 · 진행 내용 · 성과 지표 (사례 등록 예정)</small></div></div>
+    <div class="sub-title row rv"><div><h2>공식채널운영 사례 · 고객 인터뷰</h2><p>공식채널 운영을 함께한 브랜드 담당자들이 직접 전하는 변화와 성과입니다.</p></div><a class="link-u ref-more" href="#portfolio">전체 사례 보기</a></div>
+    <div class="ref-strip rv" style="--d:100ms">
+    <ul class="ref-grid rvw-track"><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-cleanformula.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>광고 ROAS</span><strong><em class="up">▲</em> 164%</strong></li><li><span>팔로워</span><strong><em class="up">▲</em> 2.1배</strong></li></ul><p class="rvw-q">"광고는 대행사, 피드는 내부에서 따로 하던 걸 한 팀에 맡겼더니 광고에서 본 톤이 피드와 상세페이지까지 이어져요. 같은 예산으로 구매가 늘었습니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-01.jpg" alt=""></i><div><b>김서연</b><span>마케팅 팀장 · 클린포뮬러</span></div></div></div></li><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-woodroom.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>월 콘텐츠 발행</span><strong>24건</strong></li><li><span>프로필 유입</span><strong><em class="up">▲</em> 86%</strong></li></ul><p class="rvw-q">"매주 올릴 콘텐츠 고민이 사라졌어요. 쇼핑몰에서 잘 팔리는 상품 기준으로 일정이 잡히고, 반응 좋은 게시물은 바로 광고 소재로 쓰입니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-03.jpg" alt=""></i><div><b>박지민</b><span>브랜드 매니저 · 우드앤룸</span></div></div></div></li><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-roundweek.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>SNS 경유 매출</span><strong><em class="up">▲</em> 2.3배</strong></li><li><span>소재 교체 주기</span><strong>7일</strong></li></ul><p class="rvw-q">"AI로 소재를 여러 개 만들어 보고 반응 좋은 것만 남기니 광고 피로도가 줄었어요. 인스타그램에서 들어온 고객이 바로 구매까지 이어집니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-02.jpg" alt=""></i><div><b>이준호</b><span>대표 · 라운드위크</span></div></div></div></li></ul>
+  </div>
   </div>
 </section>
 <!-- @endregion -->
