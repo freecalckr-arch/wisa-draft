@@ -3120,6 +3120,9 @@ img, video { max-width: 100%; display: block; }
 /* @region sr-tags-tone (patch-223): 해결 영역 칩 배경 한 단계 진하게 — 컬러 팔레트 Gray 단계 (PC gray-50 → gray-100 · 태블릿 · 모바일 gray-100 → gray-200) */
 #geo-diagnosis .sr-tags li { background: var(--gray-200); }
 @media (min-width: 1024px) { #geo-diagnosis .sr-tags li { background: var(--gray-100); } }
+/* patch-282: 단계 영역 태그(보는 지표 · 선택 안 된 칩)도 해결 영역 칩과 같은 배경 (PC gray-100 · 태블릿 · 모바일 gray-200) · 선택된 칩(.hl) 블루는 그대로 */
+#geo-how .jt-tags .sr-tags li:not(.hl) { background: var(--gray-200); }
+@media (min-width: 1024px) { #geo-how .jt-tags .sr-tags li:not(.hl) { background: var(--gray-100); } }
 /* @endregion sr-tags-tone */
 
 /* @region fx-etc-hide (patch-224): 단계 영역 아래 "그 외에도" 텍스트 영역 숨김 (모든 페이지 · 마크업 · 애니메이션은 남겨 둠 — 다시 쓸 때 이 줄만 지우면 됨) */
