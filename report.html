@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-263: 히어로 좌우 카드 버튼 흰 버튼으로 (흰 바탕 · Gray 200 테두리 · Gray 900 글자)
      · 2026-11-09 patch-262: 히어로 오른쪽 카드 점검 → 개선 구성(A안) — 메타 · 같은 소재 3일째 / 210% ▼ 38%p / 하락 그래프 / 소재 교체하기 버튼
      · 2026-11-09 patch-261: 히어로 왼쪽 재고 확인 카드 문구 '재고 3일치 남음' → '재고가 3일치 남았어요'
      · 2026-11-09 patch-260: 채널 아이콘 실제 로고로 교체 — 공통 에셋 assets/common/brand 신설(21종) · 해결 ① 연결 네이버 검색광고 · 카카오 모먼트 · 구글 Ads · 메타 광고 · 스마트스토어 · ④ 알림 받는 곳 카카오톡 · 슬랙 · 문제 엑셀 파일 아이콘 / AI 아이콘 히어로 규격으로 통일 (.aim-av · .rx-mav 그라데이션 · 반짝이 62% · 모서리 30%)
@@ -3195,6 +3196,8 @@
   /* patch-253: 해결 ② 정리 데일리 브리핑 강조 글자 블랙 · ③ 갱신 다음 갱신 진행 막대 52 → 120 · ④ 알림 센터 아이콘 · 수치도 증감 색 (상승 레드 · 하락 블루 · 긴급 카드 바탕 · 배지만 경고 오렌지 유지) */
   #geo-diagnosis .aim-tx b { color: var(--black) !important; }
   #geo-diagnosis .rx-pg { width: 120px; }
+  /* patch-263: 히어로 좌우 카드 버튼(발주 요청 · 소재 교체하기) 검정 → 흰 버튼 (흰 바탕 · Gray 200 테두리 · Gray 900 글자) */
+  #geo-hero .sh-visual .rx-stk .ft span.act, #geo-hero .sh-visual .rx-fl-r .rf-act { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-900); }
   /* patch-262: 오른쪽 카드 = 점검 → 개선 (A안 · 메타 소재 피로도): 위 '메타 · 같은 소재 3일째'(원인) · 210% ▼ 38%p · 하락 그래프 118×32 · 아래 '소재 교체하기' 버튼 (문제 · 알림 센터 · 대시보드 할 일과 같은 이야기) */
   #geo-hero .sh-visual .rx-fl-r .v { gap: 10px; } #geo-hero .sh-visual .rx-fl-r .rf-spk { order: 2; height: 32px; } #geo-hero .rx-fl-r .v p span { white-space: nowrap; font-size: 11.5px; }
   #geo-hero .rx-fl-r .rf-act { order: 3; display: block; padding: 6px 0; border-radius: 6px; background: var(--gray-900); font-style: normal; font-size: 11.5px; font-weight: 700; text-align: center; color: var(--white); }
