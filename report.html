@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-256: 히어로 왼쪽 재고 확인 카드 같은 비율로 30% 축소 (260 → 182 · 이미지 · 글자 · 여백 × 0.7 · 오른쪽 끝 창 여백 16px 걸침 유지)
      · 2026-11-09 patch-255: 히어로 오른쪽 카드 AI 감지 · 방금 글자 제거 (가로 내용에 맞춤 227 → 201) · 왼쪽 AI 말풍선 → 재고 확인 카드 (수분 크림 50ml 상품 이미지 · 판매 속도 기준 3일치 남음 · 재고 부족 배지 · 남은 재고 막대 18% 경고 오렌지 · 42개 / 240개 · 발주 요청) · 260 폭 · 창 바깥 여백에만 16px 걸침
      · 2026-11-09 patch-254: 히어로 좌우 요소 키워드 교체 애니메이션 제거 (공통 둥둥만) · 오른쪽 AI 감지 카드 = 메타 ROAS 210% ▼ 38%p 고정 · 왼쪽 AI 말풍선 = 메타 예산 20% 이동 제안 + 예산 옮기기 버튼 고정 (감지 → 제안 한 장면) · 배치: 오른쪽 카드는 창 머리줄 · 탭 아래(top 120), 왼쪽 말풍선은 아래(bottom 80) 대각선 균형 · 둘 다 창 바깥 여백에만 16px 걸침
      · 2026-11-09 patch-253: 해결 ② 정리 데일리 브리핑 강조 글자(382만원 · 메타 광고 ROAS) 블루 → 블랙 · ③ 갱신 다음 갱신 진행 막대 52 → 120px · ④ 알림 센터 증감 색 통일 (메타 ROAS 하락 = 아이콘 · 38%p 블루 / AI 답변 언급 상승 = 아이콘 레드 · 긴급 카드 바탕 · 배지만 오렌지 유지)
@@ -3188,15 +3189,16 @@
   /* patch-253: 해결 ② 정리 데일리 브리핑 강조 글자 블랙 · ③ 갱신 다음 갱신 진행 막대 52 → 120 · ④ 알림 센터 아이콘 · 수치도 증감 색 (상승 레드 · 하락 블루 · 긴급 카드 바탕 · 배지만 경고 오렌지 유지) */
   #geo-diagnosis .aim-tx b { color: var(--black) !important; }
   #geo-diagnosis .rx-pg { width: 120px; }
-  /* patch-255: 오른쪽 카드 'AI 감지' · '방금' 제거(가로는 내용에 맞춰 줄어듦) · 왼쪽 = 재고 확인 카드 (상품 이미지 44 · 상품명 · 남은 일수 / 재고 부족 배지 · 남은 재고 막대(경고 오렌지 = 화면 1곳) / 남은 수량 · 발주 요청) */
-  #geo-hero .sh-visual .sh-float.rx-fl-l.rx-stk { left: calc(50% - 604px); width: 260px; flex-direction: column; align-items: stretch; gap: 0; padding: 16px; border-radius: 16px; background: var(--white); box-shadow: 0 10px 28px rgba(21,112,239,.16); }
-  .rx-stk .hd { margin: 0; display: flex; align-items: center; gap: 10px; } .rx-stk .hd img { flex: none; width: 44px; height: 44px; border-radius: 10px; object-fit: cover; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-100); }
-  .rx-stk .hd span { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; } .rx-stk .hd b { font-size: 13.5px; font-weight: 700; color: var(--gray-900); white-space: nowrap; } .rx-stk .hd small { font-size: 11.5px; color: var(--gray-500); white-space: nowrap; }
-  .rx-stk .hd em { flex: none; align-self: flex-start; padding: 2px 7px; border-radius: 99px; background: #fef0c7; font-style: normal; font-size: 10.5px; font-weight: 700; color: var(--rp-wn, #b54708); }
-  .rx-stk .bar { height: 6px; margin-top: 14px; border-radius: 3px; background: var(--gray-100); overflow: hidden; } .rx-stk .bar i { display: block; width: 18%; height: 100%; border-radius: 3px; background: #f79009; }
-  .rx-stk .hd span, .rx-stk .ft span { color: var(--gray-500); } .rx-stk .ft span.act { color: var(--white); }   /* 공통 .sh-float span 레드 덮어씀 */
-  .rx-stk .ft { margin: 10px 0 0; display: flex; align-items: center; justify-content: space-between; font-size: 11.5px; color: var(--gray-500); } .rx-stk .ft b { font-weight: 700; color: var(--gray-900); }
-  .rx-stk .act { padding: 5px 10px; border-radius: 6px; background: var(--gray-900); font-size: 11.5px; font-weight: 700; color: var(--white); }
+  /* patch-255: 오른쪽 카드 'AI 감지' · '방금' 제거(가로는 내용에 맞춰 줄어듦) · 왼쪽 = 재고 확인 카드 (상품 이미지 · 상품명 · 남은 일수 / 재고 부족 배지 · 남은 재고 막대(경고 오렌지 = 화면 1곳) / 남은 수량 · 발주 요청) */
+  /* patch-256: 재고 확인 카드 같은 비율로 30% 축소 (260 → 182 · 모든 크기 × 0.7 · 오른쪽 끝은 창 왼쪽 여백 16px 걸침 유지) */
+  #geo-hero .sh-visual .sh-float.rx-fl-l.rx-stk { left: calc(50% - 526px); width: 182px; flex-direction: column; align-items: stretch; gap: 0; padding: 11px; border-radius: 11px; background: var(--white); box-shadow: 0 7px 20px rgba(21,112,239,.16); }
+  .rx-stk .hd { margin: 0; display: flex; align-items: center; gap: 7px; } .rx-stk .hd img { flex: none; width: 31px; height: 31px; border-radius: 7px; object-fit: cover; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-100); }
+  .rx-stk .hd span { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; } .rx-stk .hd b { font-size: 9.5px; font-weight: 700; color: var(--gray-900); white-space: nowrap; } .rx-stk .hd small { font-size: 8px; color: var(--gray-500); white-space: nowrap; }
+  .rx-stk .hd em { flex: none; align-self: flex-start; padding: 1px 5px; border-radius: 99px; background: #fef0c7; font-style: normal; font-size: 7.5px; font-weight: 700; color: var(--rp-wn, #b54708); }
+  .rx-stk .bar { height: 4px; margin-top: 10px; border-radius: 2px; background: var(--gray-100); overflow: hidden; } .rx-stk .bar i { display: block; width: 18%; height: 100%; border-radius: 2px; background: #f79009; }
+  .rx-stk .hd span, .rx-stk .ft span { color: var(--gray-500); } .rx-stk .ft span.act { color: var(--white); } .rx-stk .ft span { font-size: 8px; line-height: 1.4; white-space: nowrap; } .rx-stk .hd span { font-size: inherit; }   /* 공통 .sh-float span 레드 덮어씀 */
+  .rx-stk .ft { margin: 7px 0 0; display: flex; align-items: center; justify-content: space-between; font-size: 8px; color: var(--gray-500); } .rx-stk .ft b { font-size: inherit; font-weight: 700; color: var(--gray-900); }
+  .rx-stk .act { padding: 3.5px 7px; border-radius: 4px; background: var(--gray-900); font-size: 8px; font-weight: 700; color: var(--white); }
   /* patch-254: 히어로 좌우 요소 고정 (키워드 교체 애니메이션 제거 · 공통 둥둥만) + 배치 정리 — 오른쪽 위 'AI 감지' 카드(메타 ROAS 하락)는 창 머리줄 · 탭 아래, 왼쪽 아래 AI 제안 말풍선(예산 옮기기)과 대각선 균형 · 둘 다 창 바깥 여백에만 16px 걸침 (창 내용 안 가림) */
   #geo-hero .sh-toast.rx-fl-r { left: calc(50% + 344px); top: 120px; }
   #geo-hero .sh-visual .sh-float.rx-fl-l { left: calc(50% - 596px); bottom: 80px; }
