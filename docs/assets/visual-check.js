@@ -55,8 +55,12 @@
         if (c.classList.contains("os8-p")) return;   // 단계 번호는 여백 계산에서 뺌
         if (!shown(c)) return;
         var tag = c.tagName.toLowerCase();
-        if (tag === "svg" || tag === "img" || !c.children.length) out.push(c);
-        else walk(c);
+        if (tag === "svg" || tag === "img" || !c.children.length) { out.push(c); return; }
+        // 바탕 · 테두리 · 그림자가 있는 칸은 그 칸의 끝이 눈에 보이는 경계 (안쪽 글자 끝이 아니라)
+        var cs = getComputedStyle(c);
+        var full = c.getBoundingClientRect().width >= root.getBoundingClientRect().width * .95;   // 창 폭 전체를 덮는 바탕 칸은 배경으로 보고 뺌
+        if (!full && (hex(cs.backgroundColor) || cs.boxShadow !== "none" || parseFloat(cs.borderTopWidth) > 0 || parseFloat(cs.borderBottomWidth) > 0)) out.push(c);
+        walk(c);
       });
     })(root);
     return out;
@@ -210,10 +214,11 @@
           if (r.top < top - 1 || r.bottom > B.bottom + 1) return; // 창 밖으로 걸친 요소 제외
           u.t = Math.min(u.t, r.top); u.b = Math.max(u.b, r.bottom); u.l = Math.min(u.l, r.left); u.r = Math.max(u.r, r.right);
         });
+        // 내용이 창 밖으로 이어지는 목업(잘린 쇼핑몰 화면 · 코드 편집기 · 프로필 구름)은 그 방향 점검 제외 (여백이 음수 = 의도한 걸침)
         var g = { 위: Math.round(u.t - top), 아래: Math.round(bot - u.b), 왼쪽: Math.round(u.l - B.left), 오른쪽: Math.round(B.right - u.r) };
-        if (!(ft && ft.classList.contains("ov")) && Math.abs(g.위 - g.아래) > TOL)   // 태그가 내용에 겹치는 화면(.ov)은 그라데이션으로 끝나므로 세로 쏠림 제외
+        if (!(ft && ft.classList.contains("ov")) && g.위 >= 0 && g.아래 >= 0 && Math.abs(g.위 - g.아래) > TOL)   // 태그가 내용에 겹치는 화면(.ov)은 그라데이션으로 끝나므로 세로 쏠림 제외
           add(name, "여백 쏠림 (세로)", "창 안 내용", "위 " + g.위 + " · 아래 " + g.아래 + " (같게)");
-        if (Math.abs(g.왼쪽 - g.오른쪽) > TOL) add(name, "여백 쏠림 (가로)", "창 안 내용", "왼쪽 " + g.왼쪽 + " · 오른쪽 " + g.오른쪽 + " (같게 · 채팅 말풍선처럼 의도한 한쪽 정렬이면 무시)");
+        if (g.왼쪽 >= 0 && g.오른쪽 >= 0 && Math.abs(g.왼쪽 - g.오른쪽) > TOL) add(name, "여백 쏠림 (가로)", "창 안 내용", "왼쪽 " + g.왼쪽 + " · 오른쪽 " + g.오른쪽 + " (같게 · 채팅 말풍선처럼 의도한 한쪽 정렬이면 무시)");
     })();
   }
 })();
