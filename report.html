@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-253: 해결 ② 정리 데일리 브리핑 강조 글자(382만원 · 메타 광고 ROAS) 블루 → 블랙 · ③ 갱신 다음 갱신 진행 막대 52 → 120px · ④ 알림 센터 증감 색 통일 (메타 ROAS 하락 = 아이콘 · 38%p 블루 / AI 답변 언급 상승 = 아이콘 레드 · 긴급 카드 바탕 · 배지만 오렌지 유지)
      · 2026-11-09 patch-252: 히어로 오른쪽 AI 감지 알약 → 온사이트 B안 카드 스타일 (왼쪽 스파크라인 + AI 감지 · 지표 · 방금 / 큰 수치 + 증감 · 상승 레드 · 하락 블루) · 링크 공유 OG 이미지
      · 2026-11-08 patch-251: 검토 반영 — 대시보드(PC · 모바일) 할 일의 메타 예산 이동을 완료(11/6)로 · 완료 2 / 5 (문제 영역 김 대리 9:04 조정 완료와 맞춤) / 모바일 화면 날짜 11월 6일 (금) 으로 PC 대시보드와 맞춤 / 해결 ② 정리 설명을 화면(오늘 할 일 · 예상 효과 순)에 맞게 수정
      · 2026-11-08 patch-250: 모바일 화면(.rp-ph) 스타일 · 스크립트를 공통 wisa.css · wisa.js rp-phone 으로 옮김 (GEO · 온사이트 · CRM 에도 추가) · AI 요약 타이핑 반복 · ?v=250
@@ -3182,6 +3183,11 @@
   .rx-fl-r .v.vdn .ic, .rx-ins li.vdn > i { background: var(--rp-dec-bg); color: var(--rp-dec); }
   /* patch-239: 히어로 오른쪽 알림 아래 10 · 왼쪽 15 (창에 35px 걸침) · 왼쪽 말풍선 오른쪽 20 (창에 40px 걸침) */
   #geo-hero .sh-toast.rx-fl-r { left: calc(50% + 325px); top: 64px; }
+  /* patch-253: 해결 ② 정리 데일리 브리핑 강조 글자 블랙 · ③ 갱신 다음 갱신 진행 막대 52 → 120 · ④ 알림 센터 아이콘 · 수치도 증감 색 (상승 레드 · 하락 블루 · 긴급 카드 바탕 · 배지만 경고 오렌지 유지) */
+  #geo-diagnosis .aim-tx b { color: var(--black) !important; }
+  #geo-diagnosis .rx-pg { width: 120px; }
+  #geo-diagnosis .rx-al.vdn .t > i { background: var(--rp-dec-bg); color: var(--rp-dec); } #geo-diagnosis .rx-al.vup .t > i { background: var(--rp-inc-bg); color: var(--rp-inc); }
+  #geo-diagnosis .rx-al .b p b.dec { color: var(--rp-dec); }
   /* patch-252: 히어로 오른쪽 'AI 감지' 알약 → 온사이트 B안 카드 스타일 (왼쪽 스파크라인 + 위 라벨 · 아래 큰 수치 + 증감) · 스파크라인 · 증감 색은 상승 레드 · 하락 블루 그대로 */
   #geo-hero .sh-toast.rx-fl-r { padding: 16px 18px 16px 16px; border-radius: 16px; }
   .rx-fl-r .v { gap: 12px; }
@@ -3418,9 +3424,9 @@
         <span class="sr-no">4</span>
         <div class="sr-body"><h3><em class="key">알림</em> 이상 지표는 먼저 알려 드립니다</h3><p>ROAS 급락 · 전환율 하락 · 예산 소진 같은 변화가 생기면 담당자에게 바로 알림을 보냅니다.</p><p class="sr-out">문제가 커지기 전에 대응합니다</p><ul class="sr-tags"><li>ROAS 하락</li><li>전환율 변화</li><li>예산 소진</li></ul></div>
         <div class="sr-vis vw os2-sr os2-anim" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0"/></svg></span><b>알림 센터</b><span class="vw-m">실시간 감지</span><em class="vw-chip">새 알림 3</em></div><div class="vw-bd rx-d4"><div class="rx-via"><span>알림 받는 곳</span><em><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>카카오톡</em><em><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg>이메일</em><em><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 7 20M17 4l-2 16M4 9h16M3 15h16"/></svg>슬랙</em></div>
-          <div class="rx-al hot"><p class="t"><i><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l5 5 4-4 7 7M15 16h5v-5"/></svg></i><b>메타 광고 ROAS 210%</b><em>긴급</em><time>방금</time></p><div class="b"><p>어제보다 <b>38%p</b> 떨어졌어요. 같은 소재가 3일째 반복 노출되고 있어요.</p><svg class="rx-svg rx-drop" viewBox="0 0 150 46" aria-hidden="true"><line x1="0" x2="150" y1="40" y2="40" class="rx-gl base"/><path d="M4,10 C7.8,10.2 19.3,10.5 27,11 C34.7,11.5 42.3,11.8 50,13 C57.7,14.2 65.3,15.8 73,18 C80.7,20.2 88.3,23.7 96,26 C103.7,28.3 111.3,30.2 119,32 C126.7,33.8 138.2,36.2 142,37" class="rx-ln ad4" pathLength="1"/><circle cx="142" cy="37" r="3.5" class="rx-pt ad4"/></svg></div><div class="aim-act"><span>광고 관리로 이동</span><span class="pri">예산 20% 옮기기</span></div></div>
+          <div class="rx-al hot vdn"><p class="t"><i><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l5 5 4-4 7 7M15 16h5v-5"/></svg></i><b>메타 광고 ROAS 210%</b><em>긴급</em><time>방금</time></p><div class="b"><p>어제보다 <b class="dec">38%p</b> 떨어졌어요. 같은 소재가 3일째 반복 노출되고 있어요.</p><svg class="rx-svg rx-drop" viewBox="0 0 150 46" aria-hidden="true"><line x1="0" x2="150" y1="40" y2="40" class="rx-gl base"/><path d="M4,10 C7.8,10.2 19.3,10.5 27,11 C34.7,11.5 42.3,11.8 50,13 C57.7,14.2 65.3,15.8 73,18 C80.7,20.2 88.3,23.7 96,26 C103.7,28.3 111.3,30.2 119,32 C126.7,33.8 138.2,36.2 142,37" class="rx-ln ad4" pathLength="1"/><circle cx="142" cy="37" r="3.5" class="rx-pt ad4"/></svg></div><div class="aim-act"><span>광고 관리로 이동</span><span class="pri">예산 20% 옮기기</span></div></div>
           <div class="rx-al wn"><p class="t"><i><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8l8-4 8 4v8l-8 4-8-4zM4 8l8 4 8-4M12 12v8"/></svg></i><b>수분 크림 50ml 재고 3일치</b><em>주의</em><time>08:40</time></p></div>
-          <div class="rx-al ok"><p class="t"><i><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l5-5 4 4 7-7M15 8h5v5"/></svg></i><b>AI 답변 언급 <i class="inc">▲ 21회</i></b><em>좋음</em><time>08:30</time></p></div></div></div></div>
+          <div class="rx-al ok vup"><p class="t"><i><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16l5-5 4 4 7-7M15 8h5v5"/></svg></i><b>AI 답변 언급 <i class="inc">▲ 21회</i></b><em>좋음</em><time>08:30</time></p></div></div></div></div>
       </li>
     </ol>
   </div>
