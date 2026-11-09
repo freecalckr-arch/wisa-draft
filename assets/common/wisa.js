@@ -227,9 +227,7 @@
     else if (w <= 1023) z = .72; else if (w <= 1439) z = parseFloat(cs.getPropertyValue("--rpz")) || 1;
     if (w <= 767) z = 1;   /* patch-274: 모바일은 모바일 화면만 260×400 원래 크기 */
     ph.style.setProperty("--phz", z.toFixed(4));
-    /* patch-274 · 275: 모바일 세로 자동 스크롤 거리 --phy = 머리줄 + 스크롤 영역 끝 − 화면 높이 (머리줄 · 내용 같이 올라감 · wisa.css rp-res) */
-    const fl = ph.querySelector(".ph-flow"), scr = ph.querySelector(".ph-scr");
-    if (fl && scr) ph.style.setProperty("--phy", (w <= 767 ? -Math.max(0, Math.round(fl.offsetTop + fl.offsetHeight - scr.clientHeight)) : 0) + "px"); };
+  };   /* patch-279: 모바일 자동 스크롤 없앰 (--phy 계산 제거) */
   addEventListener("load", fit); addEventListener("resize", () => requestAnimationFrame(fit)); fit();
   // AI 요약 타이핑: 라벨(b)은 그대로 · 나머지 글자(굵은 글씨 포함)를 한 글자씩 → 4.5초 유지 → 다시 (반복)
   const p = ph.querySelector(".ph-ai p"), reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;

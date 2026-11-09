@@ -13,11 +13,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=276">
+<link rel="stylesheet" href="assets/common/wisa.css?v=279">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-09 patch-279: 모바일 리포트 화면 자동 스크롤 제거 — 그래프 1개까지 보여 주고 두 번째 그래프는 위쪽 44 만 아래 그라데이션(52)으로 살짝 보임 · 세로는 내용 높이 (공통 wisa.css · wisa.js ?v=279)
      · 2026-11-09 patch-278: 히어로 제목 카피 롤링 모든 해상도 2.4초 (전 페이지 같게 · 모바일 6.6초 → 2.4초) · 카피와 비주얼 분리 — PC · 태블릿 비주얼은 카피 채널에 맞춰 교체, 모바일 비주얼은 자체 주기(케이스마다 ① → ② → ③ 2.2초씩 = 6.6초 · crm-hero)
      · 2026-11-09 patch-276: 모바일 리포트 화면 가로 유동 — 화면 폭 − 좌우 30 (세로 400 고정 · 공통 wisa.css ?v=276)
      · 2026-11-09 patch-275: 모바일 리포트 화면 — 아래 탭 제거 · 아래 끝 바탕색 그라데이션(56)으로 흐려지며 잘림 · 머리줄도 내용과 같이 위로 스크롤 (공통 wisa.css · wisa.js ?v=275) · 단계 영역 설명글(.jt-d) 모바일 16 → 14
@@ -3717,7 +3718,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=276"></script>
+<script src="assets/common/wisa.js?v=279"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
 (() => {

@@ -3185,8 +3185,8 @@ img, video { max-width: 100%; display: block; }
 /* @region rp-res (patch-274) — 리포트 > 대시보드 해상도별 표현 규칙 (GEO · 온사이트 · CRM · 리포트 공통)
    · PC (≥1024): PC 대시보드 + 모바일 화면(280×560) 같이 노출 (기존 그대로)
    · 태블릿 (768~1023): 태블릿 대시보드만 · 모바일 화면 숨김
-   · 모바일 (≤767): 모바일 화면만 · 가로 = 화면 폭 − 좌우 30 (유동) × 세로 400 고정 · 아래 탭 없음 · 머리줄과 내용이 같이 세로 자동 스크롤로 그래프 2개까지 · 아래 끝 그라데이션 (patch-275 · 276)
-     (스크롤 거리 --phy = wisa.js rp-phone 계산 · 할 일 카드는 숨기고 두 번째 그래프 .ph-mo 표시 · prefers-reduced-motion 시 정지) */
+   · 모바일 (≤767): 모바일 화면만 · 가로 = 화면 폭 − 좌우 30 (유동 · patch-276) · 아래 탭 없음 (patch-275)
+     patch-279: 스크롤 없음 · 그래프 1개까지 보여 주고 두 번째 그래프(.ph-mo)는 위쪽 44 만 그라데이션 아래로 살짝 보여 아래 내용이 더 있음을 알림 · 세로는 내용 높이 (할 일 카드 숨김) */
 #geo-report .ph-flow { display: contents; }   /* PC: 감싸기 없는 것과 같은 배치 */
 #geo-report .ph-card.ph-mo { display: none; }
 #geo-report .ph-lg i.ln { width: 10px; height: 0; border-top: 2px solid #759edf; }
@@ -3198,16 +3198,11 @@ img, video { max-width: 100%; display: block; }
 @media (max-width: 767px) {
   #geo-report .rp-duo > .rp { display: none; }
   #geo-report .rp-wrap { gap: 50px; }
-  #geo-report .rp-ph { position: relative; right: auto; bottom: auto; width: calc(100vw - 60px); height: 400px; margin: 0 0 0 calc(50% - 50vw + 30px); zoom: 1; box-shadow: 0 16px 32px rgba(16,24,40,.12); }   /* patch-276: 가로 = 화면 폭 − 좌우 30 (해상도에 맞춰 늘어남 · 세로 400 고정) */
-  #geo-report .ph-flow { flex: none; display: flex; flex-direction: column; gap: 8px; padding-bottom: 40px; }   /* 끝 여백 = 아래 그라데이션 높이 (그래프 2 가 다 보이고 멈춤) */
-  #geo-report .ph-card.ph-mo { display: block; }
-  #geo-report .ph-flow > .ph-card:has(.ph-todo) { display: none; }   /* 그래프 2개까지만 */
-  /* patch-275: 아래 탭 없앰 · 아래 끝은 바탕색 그라데이션으로 흐려지며 잘림 · 머리줄도 내용과 같이 올라감 (고정 머리줄 뒤로 바탕 없이 지나가던 문제) */
-  #geo-report .ph-tab { display: none; }
-  #geo-report .ph-scr::after { content: ""; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 56px; border-radius: 0 0 20px 20px; background: linear-gradient(rgba(242,243,247,0), #f2f3f7 85%); pointer-events: none; }   /* #f2f3f7 = 모바일 화면 바탕 (.ph-scr) */
-  #geo-report .ph-hd, #geo-report .ph-flow { will-change: transform; }
-  #geo-report .rp-ph.go .ph-hd, #geo-report .rp-ph.go .ph-flow { animation: phScroll 9s cubic-bezier(.65, 0, .35, 1) 1.2s infinite; }
-  @keyframes phScroll { 0%, 22% { transform: translateY(0); } 48%, 78% { transform: translateY(var(--phy, 0px)); } 100% { transform: translateY(0); } }
+  #geo-report .rp-ph { position: relative; right: auto; bottom: auto; width: calc(100vw - 60px); height: auto; margin: 0 0 0 calc(50% - 50vw + 30px); zoom: 1; box-shadow: 0 16px 32px rgba(16,24,40,.12); }   /* 가로 = 화면 폭 − 좌우 30 · 세로 = 내용 높이 */
+  #geo-report .ph-scr { height: auto; }
+  #geo-report .ph-flow { display: flex; flex-direction: column; gap: 8px; }
+  #geo-report .ph-tab, #geo-report .ph-flow > .ph-card:has(.ph-todo) { display: none; }
+  #geo-report .ph-card.ph-mo { display: block; height: 44px; overflow: hidden; }   /* 두 번째 그래프: 제목 · 윗부분만 */
+  #geo-report .ph-scr::after { content: ""; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 52px; border-radius: 0 0 20px 20px; background: linear-gradient(rgba(242,243,247,0), #f2f3f7 90%); pointer-events: none; }   /* 높이 = 살짝 보이는 44 + 간격 8 → 그래프 1 은 다 보임 · #f2f3f7 = 모바일 화면 바탕 */
 }
-@media (prefers-reduced-motion: reduce) { #geo-report .rp-ph.go .ph-hd, #geo-report .rp-ph.go .ph-flow { animation: none; } }
 /* @endregion rp-res */
