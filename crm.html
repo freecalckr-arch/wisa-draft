@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-09 patch-252: 히어로 왼쪽 자동 발송 예약 카드 공통 둥둥만 남김 (문구 교체 · 막대 차오름 제거 · 단골 등급 변경 36명 고정) · 링크 공유 OG 이미지
      · 2026-11-08 patch-250: 리포트 영역 대시보드에 모바일 화면 추가 (리포트 페이지와 같은 280×560 · 개선 제안은 PC 목록 순서 그대로 · 오른쪽 아래 겹침 · AI 요약 타이핑 · 공통 wisa.css · wisa.js rp-phone · ?v=250)
      · 2026-11-08 patch-248: 리포트 영역 AI 요약 콜아웃을 리포트 페이지 블루 스타일로 통일 (공통 wisa.css rp-ai-callout · ?v=248)
      · 2026-11-08 patch-228: 히어로 주변 비주얼 요소(떠 있는 카드 · 토스트 · 이미지) 모두 공통 둥둥 애니메이션 (공통 wisa.css hero-bob · 위아래 8px · 6초 · 짝수 번째 3초 엇갈림 · 페이지별 따로 쓰던 움직임은 이걸로 통일)
@@ -2418,6 +2419,8 @@
   .cr-sd .v b { font-size: 18px; line-height: 1.3; font-weight: 700; color: var(--gray-900); white-space: nowrap; } .cr-sd .v small { font-size: 13px; font-weight: 500; color: var(--gray-500); white-space: nowrap; }
   .cr-sd .br { position: relative; display: block; height: 4px; margin-top: 14px; border-radius: 2px; background: var(--gray-100); overflow: hidden; }
   .cr-sd .br::after { content: ""; position: absolute; inset: 0; border-radius: 2px; background: var(--primary-600); transform-origin: left; animation: crSdBar 3.2s linear infinite; }
+  /* patch-252: 자동 발송 예약 카드는 공통 둥둥만 남김 — 가운데 창 전환 애니메이션에 집중되도록 문구 교체 · 막대 차오름 제거 (단골 등급 변경 36명 고정 · 막대 64% 고정) */
+  .cr-sd .br::after { animation: none; transform: scaleX(.64); }
   @keyframes crSdBar { from { transform: scaleX(0); } 85%, to { transform: scaleX(1); } }
   @media (max-width: 1279px) { .cr-hv4 .sh-float.cr-sd { display: none; } }
   @media (min-width: 1280px) and (max-width: 1439px) { .cr-hv4 .sh-float.cr-sd { display: flex; } }
@@ -2714,7 +2717,7 @@
         <div class="rs" data-ch="3"><div class="who"><i class="pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p><b>박*호님</b><small>알림에서 바로 다시 담기</small></p><span class="ok" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span></div><dl><div><dt>우유 · 계란</dt><dd>13,800원</dd></div><div><dt>재구매 할인</dt><dd class="dc">-1,000원</dd></div><div class="t"><dt>결제 금액</dt><dd>12,800원</dd></div></dl></div></div></div></div>
       </div>
       <div class="sh-float cr-sd">   <!-- patch-225: ① 창 왼쪽 아래 (창 왼쪽 여백에만 걸침 · 내용 안 가림) 자동 발송 예약 카드 — 제목 롤링 채널(data-ch)에 맞춰 대상 · 시간 · 채널이 바뀌고 막대가 차오름 -->
-        <p class="hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>자동 발송 예약<em>ON</em></p><div class="tx"><p class="v" data-ch="0"><b>장바구니 이탈 18명</b><small>지금 · 카카오톡</small></p><p class="v" data-ch="1"><b>휴면 징후 248명</b><small>오전 10:00 · 문자</small></p><p class="v" data-ch="2"><b>단골 등급 변경 36명</b><small>오전 9:00 · 이메일</small></p><p class="v" data-ch="3"><b>재구매 시점 32명</b><small>오전 10:00 · 앱 푸시</small></p></div><i class="br"></i></div>
+        <p class="hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>자동 발송 예약<em>ON</em></p><div class="tx"><p class="v on"><b>단골 등급 변경 36명</b><small>오전 9:00 · 이메일</small></p></div><i class="br"></i></div>   <!-- patch-252: 문구 교체 · 막대 애니메이션 제거, 공통 둥둥만 -->
       <div class="sh-float f1 cr-rr"><b>90일 재구매율</b><strong>31<small>%</small><span>▲ 2%p</span></strong><svg class="cr-spark2" viewBox="0 0 150 46" aria-hidden="true"><defs><linearGradient id="crSpG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e90fa" stop-opacity=".22"/><stop offset="1" stop-color="#2e90fa" stop-opacity="0"/></linearGradient></defs><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6 V46 H2 Z" fill="url(#crSpG2)"/><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6" fill="none" stroke="#1570ef" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="146" cy="6" r="3.5" fill="#fff" stroke="#1570ef" stroke-width="2"/></svg></div>
     </div>
   </div>
