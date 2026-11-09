@@ -3209,3 +3209,57 @@ img, video { max-width: 100%; display: block; }
   #geo-report .ph-scr::after { content: ""; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 52px; border-radius: 0 0 20px 20px; background: linear-gradient(rgba(242,243,247,0), #f2f3f7 90%); pointer-events: none; }   /* 높이 = 살짝 보이는 44 + 간격 8 → 그래프 1 은 다 보임 · #f2f3f7 = 모바일 화면 바탕 */
 }
 /* @endregion rp-res */
+
+/* @region sr-340 (patch-290): 해결(#geo-diagnosis) 화면 이미지 PC 460×340 (380 → 340) · 1439 이하 같은 비율 축소 · 카드 세로도 40 줄어듦 */
+#geo-diagnosis .sr-vis.vw .vw-win, #geo-diagnosis .sr-vis > .vw-win, #geo-diagnosis .sr-vis .vw-win { height: 340px !important; min-height: 0 !important; }
+#geo-diagnosis .sr-vis > .ph-sr, #geo-diagnosis .sr-vis.rp-sr .ph-box { height: 340px !important; }
+@media (max-width: 1439px) {
+  #geo-diagnosis .sr-vis { height: calc(340px * var(--s, 1)) !important; }
+  #geo-diagnosis .sr-vis.rp-sr .ph-box { height: calc(340px * var(--s, 1)) !important; }
+}
+#geo-diagnosis .sr-vis .vw-win > .vw-bd:not(.vw-code) { padding-top: 20px !important; padding-bottom: 20px !important; }   /* 창 안 위 · 아래 여백 같게 20 */
+/* @endregion sr-340 */
+
+/* @region sr-line (patch-290): 해결 카드 왼쪽 번호 원(30) + 세로 라인 · 스크롤하면 라인이 차오르고 닿은 번호가 켜짐 (스크립트 wisa.js sr-line)
+   번호 = 카드 위 여백(--srt)과 같은 높이 · 라인 = 번호 아래 8 ~ 다음 번호 위 8 (회색 점선 위로 블루 실선) */
+#geo-diagnosis .steprows { --srw: 30px; --srg: 20px; --srt: 44px; position: relative; padding-left: calc(var(--srw) + var(--srg)); }
+#geo-diagnosis .steprows > .steprow { position: relative; }
+#geo-diagnosis .steprows > .steprow > .sr-no { display: grid !important; place-items: center; position: absolute; left: calc(-1 * (var(--srw) + var(--srg))); top: var(--srt); width: var(--srw); height: var(--srw); margin: 0; border: 1.5px solid var(--gray-300); border-radius: 50%; background: var(--white); box-sizing: border-box; font-size: 13px; font-weight: 700; color: var(--gray-500); }
+#geo-diagnosis .steprows > .steprow > .sr-no.on { background: var(--primary-600); border-color: var(--primary-600); color: var(--white); }
+#geo-diagnosis .steprows > .steprow:not(:last-child)::before, #geo-diagnosis .steprows > .steprow:not(:last-child)::after { content: ""; display: block !important; position: absolute; left: calc(-1 * (var(--srw) + var(--srg)) + var(--srw) / 2 - 1px); top: calc(var(--srt) + var(--srw) + 8px); bottom: calc(-1 * var(--sr-gap, 20px) - var(--srt) + 8px); width: 2px; border: 0; border-radius: 1px; }
+#geo-diagnosis .steprows > .steprow:not(:last-child)::before { background: repeating-linear-gradient(var(--gray-300) 0 4px, transparent 4px 8px); }
+#geo-diagnosis .steprows > .steprow:not(:last-child)::after { background: var(--primary-600); transform-origin: 50% 0; transform: scaleY(var(--lp, 0)); }
+@media (min-width: 768px) and (max-width: 1023px) { #geo-diagnosis .steprows { --srt: 36px; --sr-gap: 16px; } }
+@media (max-width: 767px) { #geo-diagnosis .steprows { --srw: 26px; --srg: 12px; --srt: 28px; --sr-gap: 16px; } #geo-diagnosis .steprows > .steprow > .sr-no { font-size: 12px; } }
+@media (prefers-reduced-motion: reduce) { #geo-diagnosis .steprows > .steprow > .sr-no.on { animation: none; } }
+/* @endregion sr-line */
+
+/* @region rp-1100 (patch-290): 리포트 대시보드 PC 1100 (1240 화면을 1100 비율로 축소 · 1439 이하는 칸 폭이 1100 보다 좁을 때만 더 축소 · 모바일 화면은 대시보드 오른쪽 아래 그대로) */
+@media (min-width: 1024px) {
+  #geo-report .rp-duo { width: 100%; max-width: 1100px; margin-inline: auto; }
+}
+@media (min-width: 1440px) {
+  #geo-report .rp-duo > .rp { width: 1240px; max-width: none; zoom: .8871; }
+}
+/* @endregion rp-1100 */
+
+/* @region rp-steps-30 (patch-290): 리포트 아래 1 · 2 · 3 번호 원 30 · 보이면 1 → 2 → 3 순서로 켜지고 사이 점선 위로 블루 실선이 차오름 (스크립트 wisa.js rp-steps-seq · 1회) */
+.rp-steps b { width: 30px; height: 30px; font-size: 13px; transition: background .3s, border-color .3s, color .3s; }
+.rp-steps li.on b { background: var(--primary-600); border-color: var(--primary-600); color: var(--white); }
+.rp-steps li:not(:last-child)::after { content: ""; position: absolute; border-radius: 1px; background: var(--primary-600); clip-path: inset(0 0 100% 0); transition: clip-path .6s cubic-bezier(.45, 0, .25, 1); }
+.rp-steps li.fill:not(:last-child)::after { clip-path: inset(0); }
+.rp-steps li:not(:last-child)::before { left: 14px; top: 38px; }
+.rp-steps li:not(:last-child)::after { left: 14px; top: 38px; bottom: 6px; width: 2px; }
+.rp-steps h3 { padding-top: 4px; }
+@media (min-width: 768px) {
+  .rp-steps li:not(:last-child)::before { left: calc(50% + 29px); right: calc(-50% - 1px); top: 14px; }
+  .rp-steps li:not(:last-child)::after { left: calc(50% + 29px); right: calc(-50% - 1px); top: 14px; bottom: auto; width: auto; height: 2px; clip-path: inset(0 100% 0 0); }
+  .rp-steps li.fill:not(:last-child)::after { clip-path: inset(0); }
+  .rp-steps h3 { padding-top: 0; }
+}
+@media (max-width: 767px) {
+  .rp-steps b { width: 30px; height: 30px; font-size: 12px; }
+  .rp-steps li:not(:last-child)::before { left: 14px; top: 38px; }
+}
+@media (prefers-reduced-motion: reduce) { .rp-steps li:not(:last-child)::after { transition: none; } .rp-steps b { transition: none; } }
+/* @endregion rp-steps-30 */

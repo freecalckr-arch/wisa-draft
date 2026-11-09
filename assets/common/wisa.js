@@ -224,7 +224,7 @@
   const ph = document.querySelector("#geo-report .rp-ph"), rp = document.querySelector("#geo-report .rp-duo > .rp"); if (!ph || !rp) return;
   const fit = () => { const w = innerWidth, cs = getComputedStyle(rp); let z = 1;
     if (w <= 767) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpzm")) || .5) * 1.1);
-    else if (w <= 1023) z = .72; else if (w <= 1439) z = parseFloat(cs.getPropertyValue("--rpz")) || 1;
+    else if (w <= 1023) z = .72; else if (w <= 1439) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpz")) || 1) * 1240 / 1100);   /* patch-290: 대시보드 1100 기준 */
     if (w <= 767) z = 1;   /* patch-274: 모바일은 모바일 화면만 260×400 원래 크기 */
     ph.style.setProperty("--phz", z.toFixed(4));
   };   /* patch-279: 모바일 자동 스크롤 없앰 (--phy 계산 제거) */
@@ -240,5 +240,36 @@
       if (k < total) timer = setTimeout(step, 38); else { timer = setTimeout(() => { p.classList.remove("typing"); timer = setTimeout(run, 4500); }, 600); } };
     timer = setTimeout(step, 500); };
   new IntersectionObserver((es, io) => es.forEach(e => { if (e.isIntersecting) { ph.classList.add("go"); io.disconnect(); run(); } }), { threshold: .3 }).observe(ph);
+})();
+/* @endregion */
+
+/* @region sr-line (patch-290): 해결(#geo-diagnosis) 카드 왼쪽 번호 · 세로 라인 — 화면 55% 지점이 지나간 만큼 라인(--lp)이 차오르고, 번호 원 가운데를 지나면 켜짐 (위로 스크롤하면 되돌아감) */
+(() => {
+  const rows = [...document.querySelectorAll("#geo-diagnosis .steprows > .steprow")]; if (!rows.length) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const upd = () => {
+    const th = reduce ? Infinity : innerHeight * .55;
+    rows.forEach((row, i) => {
+      const no = row.querySelector(".sr-no"); if (!no) return;
+      const a = no.getBoundingClientRect();
+      no.classList.toggle("on", a.top + a.height / 2 < th);
+      const nx = rows[i + 1] && rows[i + 1].querySelector(".sr-no"); if (!nx) return;
+      const t = a.bottom + 8, b = nx.getBoundingClientRect().top - 8;
+      row.style.setProperty("--lp", Math.min(1, Math.max(0, (th - t) / Math.max(1, b - t))).toFixed(3));
+    });
+  };
+  addEventListener("scroll", upd, { passive: true }); addEventListener("resize", upd); addEventListener("load", upd); upd();
+})();
+/* @endregion */
+
+/* @region rp-steps-seq (patch-290): 리포트 아래 1 · 2 · 3 단계 — 화면에 들어오면 1 켜짐 → 라인 차오름 → 2 → 라인 → 3 (1회) */
+(() => {
+  const lis = [...document.querySelectorAll("#geo-report .rp-steps > li")]; if (!lis.length) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) { lis.forEach(li => li.classList.add("on", "fill")); return; }
+  const play = () => lis.forEach((li, i) => {
+    setTimeout(() => li.classList.add("on"), 200 + i * 900);
+    if (i < lis.length - 1) setTimeout(() => li.classList.add("fill"), 500 + i * 900);
+  });
+  new IntersectionObserver((es, io) => { if (es.some(e => e.isIntersecting)) { io.disconnect(); play(); } }, { threshold: .6 }).observe(lis[0].parentElement);
 })();
 /* @endregion */
