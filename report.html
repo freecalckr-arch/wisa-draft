@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-285: 모바일 히어로 AI 요약 위아래 여백 6 → 10 (왼쪽 6 → 8)
      · 2026-11-09 patch-284: 히어로 리포트 창 AI 요약 — 강조 수치 레드 · 블루 → 블랙 (전 해상도) · 모바일 말줄임 없이 줄바꿈 · 모바일 그래프 카드가 창 끝 16 전까지 채움 (그래프 세로만 늘림 · 스크립트 hero-chart-fill)
      · 2026-11-09 patch-283: 히어로 태블릿 리포트 창 — 머리줄 · 탭이 창 높이에 눌려 줄던 문제 수정 (머리줄 36 → PC 와 같은 55 · 탭 45 · 아래는 창 끝에서 잘림)
      · 2026-11-09 patch-282: 단계 영역 태그(보는 지표) 배경 = 해결 영역 칩과 같게 (PC gray-100 · 태블릿 · 모바일 gray-200 · 선택 칩 블루 그대로 · 공통 wisa.css ?v=282)
@@ -3146,7 +3147,7 @@
   .rx-aib i.inc, .rx-aib i.dec { font-style: normal; font-weight: 700; color: var(--gray-900) !important; }   /* 공통 .inc · .dec 증감 색(!important)보다 우선 */
   /* patch-284 모바일: AI 요약 말줄임 없이 줄바꿈 · 그래프 카드가 아래 남는 공간(창 끝 16 전까지)을 채움 (그래프 세로는 스크립트 hero-chart-fill 이 늘림) */
   @media (max-width: 767px) {
-    #geo-hero .rx-aib { height: auto; min-height: 28px; align-items: flex-start; padding: 6px 10px 6px 6px; line-height: 1.5; }
+    #geo-hero .rx-aib { height: auto; min-height: 28px; align-items: flex-start; padding: 10px 10px 10px 8px; line-height: 1.5; }   /* patch-285: 위아래 6 → 10 */
     #geo-hero .rx-aib .aim-av { flex: none; margin-top: -1px; }
     #geo-hero .rx-aib span { white-space: normal; overflow: visible; text-overflow: clip; }
     #geo-hero .rph-pn.rx-hp { grid-template-rows: minmax(0, 1fr); align-content: stretch; padding-bottom: 24px; }   /* 본문이 창보다 8 길어 24 = 창 끝에서 16 */
