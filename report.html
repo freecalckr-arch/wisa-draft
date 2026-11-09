@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-09 patch-259: 히어로 왼쪽 재고 확인 카드 185×114 → 220×132 (이미지 36 · 글자 13 / 11.5) · 안쪽 여백 16 (오른쪽 메타 ROAS 카드와 같음) · 오른쪽 끝 위치 유지 · 박스 아래 40
      · 2026-11-09 patch-258: 히어로 좌우 카드 시안 표시 크기 · 위치대로 — 오른쪽 메타 ROAS 150×135 (스파크라인 118×46) · 왼쪽 재고 확인 185×114 (창 왼쪽 43px 걸침 · 박스 아래 30px · 이미지 34 · 재고 부족 배지 → 3일치 오렌지 글자 · 남은 재고 42개 · 발주 요청)
      · 2026-11-09 patch-257: 히어로 왼쪽 재고 확인 카드 원래 크기로 복구 (260) · 오른쪽 메타 ROAS 카드 그래프를 아래로 (지표명 → 210% ▼ 38%p → 스파크라인 전체 폭 168×40 + 기준선 · 카드 200×129 세로형)
      · 2026-11-09 patch-256: 히어로 왼쪽 재고 확인 카드 같은 비율로 30% 축소 (260 → 182 · 이미지 · 글자 · 여백 × 0.7 · 오른쪽 끝 창 여백 16px 걸침 유지)
@@ -3191,6 +3192,11 @@
   /* patch-253: 해결 ② 정리 데일리 브리핑 강조 글자 블랙 · ③ 갱신 다음 갱신 진행 막대 52 → 120 · ④ 알림 센터 아이콘 · 수치도 증감 색 (상승 레드 · 하락 블루 · 긴급 카드 바탕 · 배지만 경고 오렌지 유지) */
   #geo-diagnosis .aim-tx b { color: var(--black) !important; }
   #geo-diagnosis .rx-pg { width: 120px; }
+  /* patch-259: 재고 확인 카드 220×132 로 키움 (이미지 36) · 안쪽 여백 16 (오른쪽 메타 ROAS 카드와 같음) · 오른쪽 끝(창 왼쪽 43px 걸침) 유지 · 박스 아래 40 */
+  #geo-hero .sh-visual .sh-float.rx-fl-l.rx-stk.rx-stk.rx-stk { left: calc(50% - 537px); bottom: 40px; width: 220px; padding: 16px; border-radius: 16px; }
+  #geo-hero .sh-visual .rx-stk .hd { gap: 10px; } #geo-hero .sh-visual .rx-stk .hd img { width: 36px; height: 36px; border-radius: 9px; }
+  #geo-hero .sh-visual .rx-stk .hd b { font-size: 13px; } #geo-hero .sh-visual .rx-stk .hd small { font-size: 11.5px; }
+  #geo-hero .sh-visual .rx-stk .bar { height: 6px; margin-top: 12px; } #geo-hero .sh-visual .rx-stk .ft { margin-top: 10px; } #geo-hero .sh-visual .rx-stk .ft span { font-size: 11.5px; } #geo-hero .sh-visual .rx-stk .act { padding: 5px 10px; }
   /* patch-258: 시안 표시 크기 · 위치대로 — 오른쪽 메타 ROAS 카드 150×135 (스파크라인 118×46) · 왼쪽 재고 확인 카드 185×114 (창 왼쪽 43px 걸침 · 박스 아래 30px) · 좁아진 폭에 맞춰 재고 배지 → '3일치' 오렌지 글자 · 수량 줄 정리 */
   #geo-hero .sh-visual .sh-toast.rx-fl-r { width: 150px; }
   #geo-hero .sh-visual .rx-fl-r .rf-spk { height: 46px; }
