@@ -79,6 +79,9 @@
       await new Promise(function (r) { setTimeout(r, 600); });
       // 화면이 가려져 있으면 등장 효과가 멈춰 있으므로 끝 상태로 넘김
       document.querySelectorAll(".rv, .rv-mo").forEach(function (e) { e.classList.add("in"); });
+      // 화면에 들어올 때 붙는 시작 클래스(vw-go · go)도 가려진 창에서는 늦게 붙으므로 직접 붙임
+      document.querySelectorAll(".vw-anim").forEach(function (e) { e.classList.add("vw-go"); });
+      document.querySelectorAll("[class*='-anim']").forEach(function (e) { e.classList.add("go"); });
       document.getAnimations().forEach(function (an) {   // 한 번만 도는 등장 효과(transition · 1회 animation)는 끝 상태로
         try { if (an.effect && an.effect.getTiming().iterations !== Infinity) an.finish(); } catch (e) {}
       });
@@ -167,7 +170,7 @@
           if (!shown(e) || e.closest(".os8-p")) return;   // 단계 번호는 공통 요소라 따로 점검(⑥)
           var cs = getComputedStyle(e);
           // ① 색
-          if (!e.closest("[data-brand]") && e.tagName !== "IMG") {
+          if (!e.closest("[data-brand], .app") && e.tagName !== "IMG") {
             ["color", "backgroundColor", "borderTopColor", "fill", "stroke"].forEach(function (p) {
               if (p === "borderTopColor" && parseFloat(cs.borderTopWidth) === 0) return;
               if (p === "color" && ![].some.call(e.childNodes, function (n) { return n.nodeType === 3 && n.textContent.trim(); })) return;
@@ -211,6 +214,11 @@
         var u = { t: 1e9, b: -1e9, l: 1e9, r: -1e9 };
         ls.forEach(function (e) {
           var r = e.getBoundingClientRect();
+          // 바탕 없는 글자 칸은 칸이 아니라 글자가 실제로 놓인 범위로 잼 (오른쪽 정렬 줄 번호 · 가운데 정렬 글자)
+          var ecs = getComputedStyle(e);
+          if (!e.children.length && e.textContent.trim() && !hex(ecs.backgroundColor) && ecs.boxShadow === "none" && !(parseFloat(ecs.borderTopWidth) > 0)) {
+            var rg = document.createRange(); rg.selectNodeContents(e); var rr = rg.getBoundingClientRect(); if (rr.width) r = rr;
+          }
           if (r.top < top - 1 || r.bottom > B.bottom + 1) return; // 창 밖으로 걸친 요소 제외
           u.t = Math.min(u.t, r.top); u.b = Math.max(u.b, r.bottom); u.l = Math.min(u.l, r.left); u.r = Math.max(u.r, r.right);
         });

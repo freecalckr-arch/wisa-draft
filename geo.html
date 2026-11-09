@@ -14,10 +14,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=269">
+<link rel="stylesheet" href="assets/common/wisa.css?v=272">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-09 patch-272: 비주얼 점검 반영 — 팔레트 밖 색을 팔레트로 (상승 레드 #e24d4d → Error 600 · 하락 블루 → Primary 600 · 회색 바탕 #f5f6f9 → Gray 100 · #e3e6ec → Gray 200 · 줄 번호 → Gray 300 · 연결 점 → Success 500), 글자 크기 규격 맞춤 (히어로 카드 수치 30 → 28 · 질문 말풍선 15 · 14 → 14.5 · 토스트 14 → 14.5 · 진단 점수 32 → 28 · 막대 · 질문 목록 13.5 · 14 → 13 · 구글 결과 제목 14 → 14.5), 구글 · 챗GPT 화면은 브랜드색(data-brand) · 공통 wisa.css ?v=272 (모든 페이지 공통 요소 같이 반영)
      · 2026-11-09 patch-269: 문제 영역 하단 태그를 공통 규격으로 — 화면 박스 가운데 · 아래 끝에서 20px 위 (.pn.ows > .ows-ft). 내용과 겹치는 자리는 .ows-ft.ov 로 태그 뒤 흰 그라데이션(내용이 흐려지며 태그가 보임)
      · 2026-11-08 patch-250: 리포트 영역 대시보드에 모바일 화면 추가 (리포트 페이지와 같은 280×560 · 개선 제안은 PC 목록 순서 그대로 · 오른쪽 아래 겹침 · AI 요약 타이핑 · 공통 wisa.css · wisa.js rp-phone · ?v=250)
      · 2026-11-08 patch-248: 리포트 영역 AI 요약 콜아웃을 리포트 페이지 블루 스타일로 통일 (공통 wisa.css rp-ai-callout · ?v=248)
@@ -267,7 +268,7 @@
       
       <div class="ai-chat">
         <div class="ai-who"><span class="ai-apps"><i class="app gpt" title="ChatGPT"></i><i class="app claude" title="Claude"></i><i class="app gemini" title="Gemini"></i><i class="app perplexity" title="Perplexity"></i><i class="app meta" title="Meta AI"></i><i class="app naver" title="네이버 AI"></i><i class="app genspark" title="Genspark"></i></span>AI 답변</div>
-        <div class="ai-q"><span>30대 건성 피부에 맞는 수분크림 추천해줘</span></div>
+        <div class="ai-q" data-brand><span>30대 건성 피부에 맞는 수분크림 추천해줘</span></div>
         <div class="ai-a">
           <p>건성 피부라면 보습 지속력과 저자극 성분을 함께 보세요. 많이 언급되는 제품은 다음과 같습니다.</p>
           <ol>
@@ -300,7 +301,7 @@
       <div class="bt rv">
         <div class="bt-hd"><span class="bt-eb">기존 · 검색 최적화(SEO)</span><h3>검색 결과 순위를 높이는 방식</h3><p>검색 키워드 중심으로 페이지를 정비하고, 결과 목록에서 순위를 경쟁해 클릭으로 방문자를 데려옵니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn serp ows">
+          <div class="pn serp ows" data-brand>
             <div class="win-hd"><span class="g-logo sm"><b class="b">G</b></span>Google 검색</div>
             <div class="g-top"><span class="g-logo"><b class="b">G</b><b class="r">o</b><b class="y">o</b><b class="b">g</b><b class="g">l</b><b class="r">e</b></span><div class="g-bar">수분크림 추천<i></i></div></div>
             <ul class="g-res">
@@ -318,7 +319,7 @@
         <div class="bt-vis" aria-hidden="true">
           <div class="pn chat ows">
             <div class="win-hd"><span class="ai-apps"><i class="app gpt"></i><i class="app gemini"></i><i class="app claude"></i><i class="app perplexity"></i><i class="app naver"></i><i class="app genspark"></i></span>AI 답변</div>
-            <div class="cq">30대 건성 피부 수분크림 추천해줘</div>
+            <div class="cq" data-brand>30대 건성 피부 수분크림 추천해줘</div>
             <div class="ans"><p>건성 피부라면 보습 지속력과 저자극 성분을 함께 보세요. 후기와 성분 정보를 보면 <mark>우리 브랜드 세라마이드 수분크림</mark><sup>1</sup>이 48시간 보습 · 저자극 테스트 완료로 가장 자주 언급됩니다. 가벼운 사용감을 원한다면 B 브랜드 히알루론 크림<sup>2</sup>도 함께 비교해 보세요.</p><div class="src"><span class="on"><i>1</i><img src="assets/geo/p-cream-th.jpg" alt="">우리브랜드.co.kr</span><span><i>2</i>beautyshop.com</span><span class="more">+3</span></div></div>
             <div class="ows-ft ov"><i class="hit-tag">답변의 출처가 된 우리 자사몰</i></div>
           </div>
