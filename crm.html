@@ -13,11 +13,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=279">
+<link rel="stylesheet" href="assets/common/wisa.css?v=281">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-09 patch-281: 리포트 대시보드 모바일 화면 좌우 여백 30 → 46 (공통 wisa.css ?v=281) · 히어로 태블릿 두 화면 280 → 290×404 (온사이트와 같게 · --ww)
      · 2026-11-09 patch-280: 단계 영역 모바일 설명글 → 보는 지표(.jt-tags) 위쪽 여백 30 → 20 (간격 44 → 34 · PC · 태블릿은 30 그대로)
      · 2026-11-09 patch-279: 모바일 리포트 화면 자동 스크롤 제거 — 그래프 1개까지 보여 주고 두 번째 그래프는 위쪽 44 만 아래 그라데이션(52)으로 살짝 보임 · 세로는 내용 높이 (공통 wisa.css · wisa.js ?v=279)
      · 2026-11-09 patch-278: 히어로 제목 카피 롤링 모든 해상도 2.4초 (전 페이지 같게 · 모바일 6.6초 → 2.4초) · 카피와 비주얼 분리 — PC · 태블릿 비주얼은 카피 채널에 맞춰 교체, 모바일 비주얼은 자체 주기(케이스마다 ① → ② → ③ 2.2초씩 = 6.6초 · crm-hero)
@@ -2502,7 +2503,7 @@
      · 모바일(767 이하): 창 하나 자리에서 케이스마다 ① → ② → ③ 이 2.2초씩 이어짐 (케이스 4개 반복 · 제목 롤링 6.6초와 맞춤 · 스크립트 crm-hero)
      ===================================================================== */
   @media (min-width: 768px) and (max-width: 1023px) {
-    .cr-hv4 .cr-tri { zoom: 1; }
+    .cr-hv4 .cr-tri { zoom: 1; } .sh-visual.cr-hv4 { --ww: 290px; }   /* patch-281: 태블릿 두 화면 290×404 · 간격 20 (온사이트와 같게) */
     .cr-hv4 .cr-w.w3 { display: none; }
   }
   @media (max-width: 767px) {

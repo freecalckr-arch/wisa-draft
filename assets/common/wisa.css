@@ -3185,7 +3185,7 @@ img, video { max-width: 100%; display: block; }
 /* @region rp-res (patch-274) — 리포트 > 대시보드 해상도별 표현 규칙 (GEO · 온사이트 · CRM · 리포트 공통)
    · PC (≥1024): PC 대시보드 + 모바일 화면(280×560) 같이 노출 (기존 그대로)
    · 태블릿 (768~1023): 태블릿 대시보드만 · 모바일 화면 숨김
-   · 모바일 (≤767): 모바일 화면만 · 가로 = 화면 폭 − 좌우 30 (유동 · patch-276) · 아래 탭 없음 (patch-275)
+   · 모바일 (≤767): 모바일 화면만 · 가로 = 화면 폭 − 좌우 46 (유동 · patch-276 · 281) · 아래 탭 없음 (patch-275)
      patch-279: 스크롤 없음 · 그래프 1개까지 보여 주고 두 번째 그래프(.ph-mo)는 위쪽 44 만 그라데이션 아래로 살짝 보여 아래 내용이 더 있음을 알림 · 세로는 내용 높이 (할 일 카드 숨김) */
 #geo-report .ph-flow { display: contents; }   /* PC: 감싸기 없는 것과 같은 배치 */
 #geo-report .ph-card.ph-mo { display: none; }
@@ -3198,7 +3198,7 @@ img, video { max-width: 100%; display: block; }
 @media (max-width: 767px) {
   #geo-report .rp-duo > .rp { display: none; }
   #geo-report .rp-wrap { gap: 50px; }
-  #geo-report .rp-ph { position: relative; right: auto; bottom: auto; width: calc(100vw - 60px); height: auto; margin: 0 0 0 calc(50% - 50vw + 30px); zoom: 1; box-shadow: 0 16px 32px rgba(16,24,40,.12); }   /* 가로 = 화면 폭 − 좌우 30 · 세로 = 내용 높이 */
+  #geo-report .rp-ph { position: relative; right: auto; bottom: auto; width: calc(100vw - 92px); height: auto; margin: 0 0 0 calc(50% - 50vw + 46px); zoom: 1; box-shadow: 0 16px 32px rgba(16,24,40,.12); }   /* 가로 = 화면 폭 − 좌우 46 (patch-281) · 세로 = 내용 높이 */
   #geo-report .ph-scr { height: auto; }
   #geo-report .ph-flow { display: flex; flex-direction: column; gap: 8px; }
   #geo-report .ph-tab, #geo-report .ph-flow > .ph-card:has(.ph-todo) { display: none; }
