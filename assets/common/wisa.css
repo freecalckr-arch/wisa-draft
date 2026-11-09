@@ -140,7 +140,7 @@ img, video { max-width: 100%; display: block; }
 .d2-tag { font-style: normal; font-size: 11px; line-height: 18px; font-weight: 500; padding: 0 8px; border-radius: 16px; }
 .d2-tag.blue { background: var(--primary-50); color: var(--primary-700); }
 .d2-tag.indigo { background: var(--indigo-50); color: #3538cd; }
-.d2-tag.warn { background: #fffaeb; color: #b54708; }
+.d2-tag.warn { background: #fef3f2; color: #b42318; }
 .d2-tag.err { background: #fef3f2; color: #b42318; }
 .mo-panel { display: none; }
 .mo-banner { display: none; }
@@ -666,7 +666,7 @@ img, video { max-width: 100%; display: block; }
   /* 문구↔링크 최소 16 */
   .mp-em { flex: none; display: grid; place-items: center; width: 18px; height: 18px; }
   .mp-em svg { display: block; }
-  .mp-promo.build { background: #fffaeb; }
+  .mp-promo.build { background: #fef3f2; }
   .mp-promo.marketing { background: #ecfdf3; padding-inline: 16px; }
   .mp-promo.support { background: #f9fafb; padding-inline: 16px; }
   .mp-promos { display: flex; flex-direction: column; gap: 6px; }
@@ -1100,7 +1100,7 @@ img, video { max-width: 100%; display: block; }
 /* REPORT: 기존 리포트 UI · 컬러와 아이콘은 부스터 대시보드 스타일 (포인트 #26ACE2 · 증가 #E24D4D · 그래프 #8C75DF/#759EDF/#75BEDF) */
 .rp { max-width: 1080px; margin-inline: auto; width: 100%; border-radius: 20px; background: var(--white); border: 1px solid var(--gray-200); overflow: hidden; text-align: left; }   /* 그림자 없이 선으로 경계 */
 .rp img { display: inline-block; }
-.rp-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid #eef0f5; font-size: 14px; }
+.rp-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-bottom: 1px solid var(--gray-200); font-size: 14px; }
 .rp-bar b { display: flex; align-items: center; gap: 8px; }
 .rp-bar b img { width: 20px; height: 20px; border-radius: 10px; }
 .rp-live { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--primary-600); }   /* 자동 갱신 표시: 블루 (리포트 · 점검 카드 공통) */
@@ -1127,7 +1127,7 @@ img, video { max-width: 100%; display: block; }
 .rp-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .rp-row > div { padding: 20px; border-radius: 8px; background: var(--white); }
 .rp-row h4 { margin: 0 0 16px; font-size: 14px; font-weight: 600; }
-.bars { display: flex; align-items: flex-end; justify-content: space-around; height: 120px; border-bottom: 1px solid #eef0f5; }
+.bars { display: flex; align-items: flex-end; justify-content: space-around; height: 120px; border-bottom: 1px solid var(--gray-200); }
 .bars div { position: relative; display: flex; justify-content: center; width: 40px; }
 .bars i { width: 16px; height: calc((var(--a) + var(--b) + var(--c)) * 140px); border-radius: 5px 5px 0 0; background: linear-gradient(to top, #1d2939 0 calc(var(--a) * 140px), #9b72cb 0 calc((var(--a) + var(--b)) * 140px), #d97757 0); }   /* ChatGPT 검정 · Gemini 보라 · Claude 오렌지 */
 .bars span { position: absolute; top: calc(100% + 8px); font-size: 12px; color: #999; }
@@ -1195,7 +1195,7 @@ img, video { max-width: 100%; display: block; }
 
 /* STEP 1: 상품 데이터 표 (노션 태그 컬러) */
 .tbl ul { margin: 0; padding: 0; list-style: none; }
-.tbl li { display: flex; align-items: center; gap: 6px; padding: 9px 0; border-top: 1px solid #eef0f5; font-size: 13px; }
+.tbl li { display: flex; align-items: center; gap: 6px; padding: 9px 0; border-top: 1px solid var(--gray-200); font-size: 13px; }
 .tbl li b { flex: 1; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .tg { flex: none; font-style: normal; padding: 1px 6px; border-radius: 4px; background: #f1f1ef; font-size: 11px; color: #5a5a57; }
 .tg.o { background: #fbecdd; color: #8a4b14; } .tg.p { background: #f2e9fa; color: #6b3f8f; } .tg.g { background: #e1f3e8; color: #2b6a43; } .tg.b { background: #e3eefa; color: #2a5a8a; }
@@ -2333,7 +2333,7 @@ img, video { max-width: 100%; display: block; }
 .mph-in { width: 375px; height: 845px; transform: scale(.544); transform-origin: 0 0; color: #37352f; text-align: left; }   /* 375 기준으로 그린 화면을 204px 폭에 맞춤 */
 .mp-sb { display: flex; justify-content: space-between; align-items: center; height: 50px; padding: 6px 30px 0; background: var(--white); font-size: 16px; }
 .mp-sb span { display: flex; gap: 5px; } .mp-sb i { width: 18px; height: 11px; border-radius: 3px; background: #111; } .mp-sb i:nth-child(-n+2) { width: 14px; opacity: .85; }
-.mp-bar { display: flex; justify-content: space-between; align-items: center; height: 48px; padding: 0 18px; background: var(--white); border-bottom: 1px solid #eef0f5; font-size: 14px; }
+.mp-bar { display: flex; justify-content: space-between; align-items: center; height: 48px; padding: 0 18px; background: var(--white); border-bottom: 1px solid var(--gray-200); font-size: 14px; }
 .mp-crumb { display: flex; align-items: center; gap: 8px; font-weight: 600; } .mp-crumb img { width: 22px; height: 22px; border-radius: 11px; }
 .mp-live { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-500); } .mp-live i { width: 7px; height: 7px; border-radius: 50%; background: var(--gray-400); }
 .mp-body { display: flex; flex-direction: column; gap: 12px; padding: 18px 16px; }
@@ -2359,7 +2359,7 @@ img, video { max-width: 100%; display: block; }
 .dv-tab .dv-in { width: 768px; height: 1024px; transform: scale(.4297); }
 .dv-mo { right: -110px; bottom: -56px; width: 210px; height: 455px; }   /* 375 × 812 화면을 210 폭으로 */
 .dv-mo .dv-in { width: 375px; height: 812px; transform: scale(.56); }
-.dv .mp-bar { display: flex; justify-content: space-between; align-items: center; height: 52px; padding: 0 20px; background: var(--white); border-bottom: 1px solid #eef0f5; font-size: 14px; }
+.dv .mp-bar { display: flex; justify-content: space-between; align-items: center; height: 52px; padding: 0 20px; background: var(--white); border-bottom: 1px solid var(--gray-200); font-size: 14px; }
 .dv-tab .mp-body { gap: 16px; padding: 28px 28px; }
 .dv-tab .mp-title { font-size: 26px; } .dv-tab .mp-call { font-size: 15px; }
 .dv-tab .mp-kpi { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -2387,8 +2387,8 @@ img, video { max-width: 100%; display: block; }
 /* patch-44: 리포트 = 관리자 메뉴(좌) + 대시보드 · 전체 1240 · 마케팅 > 마케팅 도구 > GEO 리포트 활성 */
 #geo-report .rp-duo, #geo-report .rp-duo > .rp { width: var(--container); max-width: 100%; }
 #geo-report .rp { max-width: var(--container); display: flex; align-items: stretch; }
-.rp-side { flex: none; width: 272px; display: flex; flex-direction: column; border-right: 1px solid #eef0f5; background: var(--white); font-size: 14px; color: #1d2939; }
-.sd-top { display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 14px 0 16px; border-bottom: 1px solid #eef0f5; }
+.rp-side { flex: none; width: 272px; display: flex; flex-direction: column; border-right: 1px solid var(--gray-200); background: var(--white); font-size: 14px; color: #1d2939; }
+.sd-top { display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 14px 0 16px; border-bottom: 1px solid var(--gray-200); }
 .sd-top img { width: 24px; height: 24px; border-radius: 12px; } .sd-top b { font-size: 15px; font-weight: 700; }
 .sd-caret { width: 14px; height: 14px; } .sd-fold { width: 18px; height: 18px; margin-left: auto; }
 .sd-cols { flex: 1; display: flex; }

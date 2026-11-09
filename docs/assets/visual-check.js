@@ -178,6 +178,7 @@
               var fm = h && fam(h);
               if (fm) fams[fm] = (fams[fm] || 0) + 1;
               if (h && PALETTE.indexOf(h) < 0 && !seenC[h]) { seenC[h] = 1; add(name, "팔레트 밖 색", label(e), "#" + h + " (" + p + ")"); }
+              else if (fm === "Warning(오렌지)" && !seenC[h]) { seenC[h] = 1; add(name, "오렌지 · 옐로 사용", label(e), "#" + h + " → 이슈는 Error 레드 · 그 외 그레이 (patch-273)"); }
             });
           }
           // ② 글자 크기
@@ -189,7 +190,7 @@
               add(name, "잘린 글자", label(e), "보이는 폭 " + e.clientWidth + " < 내용 " + e.scrollWidth);
           }
         });
-        // ⑤ 색 계열 수 — 그레이 + 포인트 블루가 기본, 증감 레드 · 경고 오렌지까지 3계열 이상이면 줄일 곳 확인
+        // ⑤ 색 계열 수 — 그레이 + 포인트 블루가 기본, 증감 · 이슈 레드까지 3계열 이상이면 줄일 곳 확인 (오렌지 · 옐로는 쓰지 않음)
         var fk = Object.keys(fams);
         if (fk.length >= 3) add(name, "색 계열 많음", fk.length + "계열", fk.map(function (k) { return k + " " + fams[k]; }).join(" · ") + " (그레이 + 블루 1곳 기준)");
         // ⑦ 문제 영역 하단 태그: 박스 가로 가운데 · 아래 끝에서 20px 위 (PC 기준 · 축소 비율 반영)
