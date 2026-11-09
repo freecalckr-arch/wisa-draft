@@ -226,6 +226,7 @@
     if (w <= 767) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpzm")) || .5) * 1.1);
     else if (w <= 1023) z = .72; else if (w <= 1439) z = Math.min(1, (parseFloat(cs.getPropertyValue("--rpz")) || 1) * 1240 / 1100);   /* patch-290: 대시보드 1100 기준 */
     if (w <= 767) z = 1;   /* patch-274: 모바일은 모바일 화면만 260×400 원래 크기 */
+    if (w >= 1024) z *= .85;   /* patch-293: PC 모바일 화면 15% 축소 (280×560 → 238×476 · PC 최소도 같은 비율) */
     ph.style.setProperty("--phz", z.toFixed(4));
   };   /* patch-279: 모바일 자동 스크롤 없앰 (--phy 계산 제거) */
   addEventListener("load", fit); addEventListener("resize", () => requestAnimationFrame(fit)); fit();

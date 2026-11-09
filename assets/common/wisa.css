@@ -3270,3 +3270,7 @@ img, video { max-width: 100%; display: block; }
   #geo-diagnosis .sr-tags li { padding: 8px 12px; border-radius: 8px; font-size: 13px; }
 }
 /* @endregion sr-tags-pc-sm */
+
+/* @region rp-ph-85 (patch-293): 리포트 대시보드 PC 모바일 화면 15% 축소 (280×560 → 238×476 · --phz × .85 · wisa.js rp-phone) · 오른쪽 끝은 그대로, 위아래는 가운데 쪽으로 (zoom 단위라 값 ÷ .85) */
+@media (min-width: 1440px) { #geo-report .rp-ph { right: -66px; bottom: -40px; } }
+/* @endregion rp-ph-85 */
