@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-09 patch-268: 단계 ② 재구매 유도 앱 푸시 화면 번호 3(한 번에 다시 담기)을 버튼 오른쪽 위 → 왼쪽 위로 이동 (2 · 3번 말풍선이 서로 번호를 덮던 것 수정)
      · 2026-11-09 patch-252: 히어로 왼쪽 자동 발송 예약 카드 공통 둥둥만 남김 (문구 교체 · 막대 차오름 제거 · 단골 등급 변경 36명 고정) · 링크 공유 OG 이미지
      · 2026-11-08 patch-250: 리포트 영역 대시보드에 모바일 화면 추가 (리포트 페이지와 같은 280×560 · 개선 제안은 PC 목록 순서 그대로 · 오른쪽 아래 겹침 · AI 요약 타이핑 · 공통 wisa.css · wisa.js rp-phone · ?v=250)
      · 2026-11-08 patch-248: 리포트 영역 AI 요약 콜아웃을 리포트 페이지 블루 스타일로 통일 (공통 wisa.css rp-ai-callout · ?v=248)
@@ -2443,6 +2444,7 @@
   .os8-p.dn::after { top: calc(100% + 6px); left: auto; right: -4px; transform: translateY(-4px); }   /* 좌우 모두 화면 밖이면 이름표를 번호 아래로 (스크립트가 .dn 지정) */
   .os8-p.dn.lbl-on::after { transform: none; }
   #geo-how .mu-nt .bd p > .os8-p { top: auto; bottom: -6px; }   /* STEP 2 앱 푸시: 1번(제목)과 2번(본문)이 겹치지 않게 본문 번호는 아래 끝 */
+  #geo-how .mu-nt .ac span > .os8-p { right: auto; left: -8px; }   /* patch-268: STEP 2 앱 푸시 3번(한 번에 다시 담기)을 버튼 왼쪽 위로 — 2번 말풍선(왼쪽)과 3번 말풍선(오른쪽)이 서로 번호를 덮지 않게 */
   /* 고객 카드: 자주 산 상품 — 제목 검정 볼드 · 상품 4개 · 위로 10px 더 띄움 · 타임라인은 상품 아래 20px */
   .cr-fav { margin-top: 10px; } .cr-fav > span { font-size: 11.5px; font-weight: 700; color: var(--black); }
   .cr-fav ul { grid-template-columns: repeat(4, 1fr); gap: 6px; }
