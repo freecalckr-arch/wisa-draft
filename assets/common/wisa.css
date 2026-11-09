@@ -3199,11 +3199,15 @@ img, video { max-width: 100%; display: block; }
   #geo-report .rp-duo > .rp { display: none; }
   #geo-report .rp-wrap { gap: 50px; }
   #geo-report .rp-ph { position: relative; right: auto; bottom: auto; width: 260px; height: 400px; margin: 0 auto; zoom: 1; box-shadow: 0 16px 32px rgba(16,24,40,.12); }
-  #geo-report .ph-flow { flex: none; display: flex; flex-direction: column; gap: 8px; padding-bottom: 66px; will-change: transform; }   /* 아래 탭(58) + 8 만큼 끝 여백 */
+  #geo-report .ph-flow { flex: none; display: flex; flex-direction: column; gap: 8px; padding-bottom: 40px; }   /* 끝 여백 = 아래 그라데이션 높이 (그래프 2 가 다 보이고 멈춤) */
   #geo-report .ph-card.ph-mo { display: block; }
   #geo-report .ph-flow > .ph-card:has(.ph-todo) { display: none; }   /* 그래프 2개까지만 */
-  #geo-report .rp-ph.go .ph-flow { animation: phScroll 9s cubic-bezier(.65, 0, .35, 1) 1.2s infinite; }
+  /* patch-275: 아래 탭 없앰 · 아래 끝은 바탕색 그라데이션으로 흐려지며 잘림 · 머리줄도 내용과 같이 올라감 (고정 머리줄 뒤로 바탕 없이 지나가던 문제) */
+  #geo-report .ph-tab { display: none; }
+  #geo-report .ph-scr::after { content: ""; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; height: 56px; border-radius: 0 0 20px 20px; background: linear-gradient(rgba(242,243,247,0), #f2f3f7 85%); pointer-events: none; }   /* #f2f3f7 = 모바일 화면 바탕 (.ph-scr) */
+  #geo-report .ph-hd, #geo-report .ph-flow { will-change: transform; }
+  #geo-report .rp-ph.go .ph-hd, #geo-report .rp-ph.go .ph-flow { animation: phScroll 9s cubic-bezier(.65, 0, .35, 1) 1.2s infinite; }
   @keyframes phScroll { 0%, 22% { transform: translateY(0); } 48%, 78% { transform: translateY(var(--phy, 0px)); } 100% { transform: translateY(0); } }
 }
-@media (prefers-reduced-motion: reduce) { #geo-report .rp-ph.go .ph-flow { animation: none; } }
+@media (prefers-reduced-motion: reduce) { #geo-report .rp-ph.go .ph-hd, #geo-report .rp-ph.go .ph-flow { animation: none; } }
 /* @endregion rp-res */

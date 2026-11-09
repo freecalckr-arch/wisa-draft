@@ -13,10 +13,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=274">
+<link rel="stylesheet" href="assets/common/wisa.css?v=275">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-09 patch-275: 모바일 리포트 화면 — 아래 탭 제거 · 아래 끝 바탕색 그라데이션(56)으로 흐려지며 잘림 · 머리줄도 내용과 같이 위로 스크롤 (공통 wisa.css · wisa.js ?v=275) · 단계 영역 설명글(.jt-d) 모바일 16 → 14
      · 2026-11-09 patch-274: 리포트 > 대시보드 해상도별 표현 규칙 (공통 wisa.css · wisa.js rp-res ?v=274) — PC: PC 대시보드 + 모바일 화면 같이 · 태블릿: 태블릿 대시보드만 (모바일 화면 숨김) · 모바일: 모바일 화면만 260×400 · 가운데 .ph-flow 세로 자동 스크롤로 그래프 2개까지 (두 번째 그래프 .ph-card.ph-mo 모바일 전용 · 할 일 카드 숨김 · 스크롤 거리 --phy)
      · 2026-11-09 patch-273: 이슈 색 레드로 통일 (오렌지 · 옐로 안 씀) · 해결 > 가설 아이콘 칸 그레이 바탕 → 화이트 + 그레이 테두리 · 경고 삼각형 그레이(P1 줄만 레드) · 리포트 대시보드 갱신 뱃지(09:00 · 오늘 09:00 자동 갱신) 제거 · 비주얼 점검 반영(쇼핑몰 화면 색을 팔레트로 · 할인 레드 Error 600 · 결제 · 네이버 광고 · 상품 색상 칩은 브랜드색 · 글자 크기 11.5 · 10.5 · 9.5 · 13.5 → 규격 · 가격 15 → 16 · KPI 22 · 26 → 24) · 공통 wisa.css ?v=273
      · 2026-11-08 patch-250: 리포트 영역 대시보드에 모바일 화면 추가 (리포트 페이지와 같은 280×560 · 개선 제안은 PC 목록 순서 그대로 · 오른쪽 아래 겹침 · AI 요약 타이핑 · 공통 wisa.css · wisa.js rp-phone · ?v=250)
@@ -226,7 +227,7 @@
   @media (max-width: 767px) {
     .ph-hero { height: 300px; border-radius: 16px 16px 0 0; }
     .jt-panel.on { padding: 24px 20px; gap: 20px; }
-    .jt-txt h3 { font-size: 19px; } .jt-q { font-size: 14px; } .jt-tags li { padding: 6px 10px; font-size: 13px; }
+    .jt-txt h3 { font-size: 19px; } .jt-q { font-size: 14px; } #geo-how .jt-d { font-size: 14px; }   /* patch-275: 단계 설명글 16 → 14 (모바일 다른 본문 · 카드 글과 같게) */ .jt-tags li { padding: 6px 10px; font-size: 13px; }
     .jt-panel .ph { height: 240px; }
     .fx-etc { margin-top: 48px; } .fx-etc-q { font-size: 20px; } .fx-etc-d { font-size: 14px; }
     .ph-chart { height: 220px; }
@@ -3059,5 +3060,5 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=274"></script>
+<script src="assets/common/wisa.js?v=275"></script>
 </body></html>
