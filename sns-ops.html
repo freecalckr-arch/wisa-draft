@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-311 문제 오른쪽(개선) 화면 = 머리줄 아래 자사몰 데이터 줄 추가(AI 아이콘 · 판매 1위 럭비 니트 폴로 · 재구매율 32% · 블루 포인트를 이 줄로 옮김 · 자사몰 기획전 줄 블루 바탕 제거) · 채널 줄 40 → 34 · 간격 6 → 4 · 데이터 줄 반짝 → 체크 차례로 · 하단 태그 쇼핑몰 데이터로 맞춘 같은 메시지
      · 2026-11-10 patch-310 해결 자사몰 유입 수치 칸 그래프 → 단계 전환율(태그 클릭률 8.2% · 페이지 유입 79% · 구매 전환 4.2% 블루) · 머리줄 칩 구매 전환 4.1% → 최근 7일 (같은 숫자 중복 · 41÷980=4.2%)
      · 2026-11-10 patch-309 히어로 왼쪽 AI 생성 글자 + 사진 = 카드 하나로 합침(184 폭 · 위 한 줄 · 아래 사진 · 생성 연출 그대로)
      · 2026-11-10 patch-308 해결 자사몰 유입 그래프 = 면 채움 라인(선 + 옅어지는 면 · 온사이트 히어로 그래프 모양) · 구매만 블루 + 끝점, 나머지 회색
@@ -288,9 +289,16 @@
   /* patch-302: 문제 영역 왼쪽(기존) 창 = 회색 바탕(Gray 50 + 테두리 Gray 200)으로 오른쪽(개선) 화면을 돋보이게 (GEO .pn.serp · CRM · 리포트 같음) */
   #geo-why .bento.ba .pn.sn-ch:not(.sn-ok) { --ft-bg: var(--gray-50); background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); }
   #geo-why .pn.sn-ch:not(.sn-ok) .sn-ow { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  .sn-ok .sn-rows li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
-  .sn-ok .sn-rows li.hl .sn-cp { color: var(--primary-700); }
-  .sn-ok .sn-ck { background: var(--primary-600); animation: snCk 4.8s infinite both; animation-delay: calc(var(--i, 0) * .35s); }
+  /* patch-311: 개선 화면 = 자사몰 데이터 줄(블루 포인트 1곳) → 채널 4줄 같은 메시지 · 데이터 줄이 켜진 뒤 체크가 위에서부터 차례로 */
+  #geo-why .pn.sn-ok > .sn-dt { display: flex; align-items: center; gap: 8px; height: 36px; margin: -4px 12px 8px; padding: 0 12px 0 8px; border-radius: 10px; background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-100); font-size: 12px; line-height: 16px; color: var(--primary-700); white-space: nowrap; animation: snDt 4.8s infinite both; }
+  .sn-dt .aim-av { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
+  .sn-dt .aim-av svg { width: 62%; height: 62%; }
+  .sn-dt span { font-weight: 600; }
+  .sn-dt b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .sn-dt em { flex: none; font-style: normal; font-weight: 700; color: var(--primary-600); }
+  #geo-why .pn.sn-ok > .sn-rows { gap: 4px; } .sn-ok .sn-rows li { height: 34px; }
+  @keyframes snDt { 0% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,.28); } 10% { box-shadow: inset 0 0 0 1px var(--primary-300), 0 0 0 4px rgba(21,112,239,.12); } 22%, 100% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,0); } }
+  .sn-ok .sn-ck { background: var(--primary-600); animation: snCk 4.8s infinite both; animation-delay: calc(.45s + var(--i, 0) * .35s); }
   .sn-ok .sn-rows li:nth-child(2) .sn-ck { --i: 1; } .sn-ok .sn-rows li:nth-child(3) .sn-ck { --i: 2; } .sn-ok .sn-rows li:nth-child(4) .sn-ck { --i: 3; }
   @keyframes snCk { 0%, 6% { transform: scale(0); opacity: 0; } 12% { transform: scale(1.15); opacity: 1; } 16%, 86% { transform: scale(1); opacity: 1; } 94%, 100% { transform: scale(0); opacity: 0; } }
 
@@ -420,7 +428,7 @@
   .sn-fn li em { margin-right: -84px; white-space: nowrap; }
 
   @media (prefers-reduced-motion: reduce) {
-    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
+    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b, #geo-why .pn.sn-ok > .sn-dt { animation: none !important; transition: none !important; }
     .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1, .sn-gi::after { opacity: 0; }
     .sn-ck { opacity: 1; transform: none; }
   }
@@ -519,8 +527,9 @@
         <div class="bt-vis" aria-hidden="true">
           <div class="pn ows sn-ch sn-ok">
             <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10z"/><path d="M17.5 9.5a3.5 3.5 0 0 1 0 5"/></svg></i>럭비 니트 폴로 캠페인<span class="sn-hm">한 팀 운영</span></div>
-            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/ch-meta.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/ch-insta.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/instagram.svg" alt="">인스타그램 피드</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/ch-fb.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/facebook.svg" alt="">페이스북 페이지</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/ch-store.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/roundweek.png" alt="">자사몰 기획전</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul>
-            <div class="ows-ft ov"><i class="hit-tag">광고에서 페이지까지 같은 메시지</i></div>
+            <div class="sn-dt"><i class="aim-av"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i><span>자사몰 데이터</span><b>이번 주 판매 1위 · 럭비 니트 폴로</b><em>재구매율 32%</em></div>
+            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/ch-meta.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/ch-insta.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/instagram.svg" alt="">인스타그램 피드</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/ch-fb.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/facebook.svg" alt="">페이스북 페이지</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/ch-store.jpg" alt=""></i><span class="sn-cn"><img src="assets/common/brand/roundweek.png" alt="">자사몰 기획전</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul>
+            <div class="ows-ft ov"><i class="hit-tag">쇼핑몰 데이터로 맞춘 같은 메시지</i></div>
           </div>
         </div>
         <p class="bt-goal"><span>목표</span>브랜드 메시지가 이어지는 공식채널 운영</p>
