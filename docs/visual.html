@@ -79,8 +79,9 @@
     </tbody></table></div>
     <p>9.5 · 10.5 · 11.5 · 13.5 · 15 같은 사이 값은 쓰지 않습니다. 기존 4개 페이지에 남은 사이 값은 수정할 때 가까운 단계로 맞춥니다.</p>
 
-    <h2 id="why-tag">문제 영역 하단 태그</h2>
+    <h2 id="why-tag">문제 영역 비교 화면</h2>
     <ol class="rules">
+      <li><div><b>왼쪽(기존) 창은 회색 바탕</b><span>문제 영역 왼쪽 기존 화면은 창 바탕을 Gray 50 · 테두리 Gray 200 으로 두어 흐리게 보이게 하고, 오른쪽 개선 화면(흰 바탕 · 블루 포인트)이 돋보이게 합니다. 왼쪽 창 안 칩 · 카드처럼 원래 Gray 50 · 100 바탕인 요소는 흰 바탕 + 테두리 Gray 200 으로 바꿔 구분합니다 (GEO <code>.pn.serp</code> · CRM · 리포트 <code>.cr-ms</code> · 공식채널운영 patch-302). 하단 태그 그라데이션은 <code>--ft-bg: var(--gray-50)</code>.</span></div></li>
       <li><div><b>가운데 · 아래 끝에서 20px 위</b><span>문제 영역 비교 화면의 표시 태그(<code>.me-tag</code> 회색 · <code>.hit-tag</code> 블루)는 화면 박스 가로 가운데, 박스 아래 끝에서 20px 위에 둡니다 (PC 기준 · 축소 시 같은 비율). 태그는 목록 줄 · 칩 안에 넣지 않고 <code>.pn.ows &gt; .ows-ft</code> 줄에 둡니다 (공통 wisa.css why-tag).</span></div></li>
       <li><div><b>내용과 겹치면 그라데이션</b><span>태그 자리에 내용이 이어지면 <code>.ows-ft.ov</code> 로 태그를 박스 아래에 겹쳐 띄우고, 태그 뒤에 창 바탕색 그라데이션(위 투명 → 아래 바탕색)을 깔아 내용이 흐려지며 끝나게 합니다 (GEO 문제 영역 기준). 회색 바탕 창은 <code>--ft-bg</code> 로 바탕색을 맞춥니다.</span></div></li>
     </ol>
