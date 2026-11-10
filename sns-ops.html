@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-314 히어로 인스타그램 모바일 썸네일 3개 → 6개 (3칸 × 2줄 · 2줄 = 럭비 니트 폴로 와인 · 그레이 모델 · 와인 앉은 컷 · li.mo6 는 모바일에서만 보임 · PC · 태블릿 4칸 1줄 그대로)
      · 2026-11-10 patch-313 그래프 영역 방향 변경 (페이지 흐름 = 광고와 운영 · 쇼핑몰을 이어야 함): 제목 광고를 눌러도 구매까지 이어지지 않습니다 · 그래프 광고 클릭 63.7% vs 광고 보고 구매 28.2% + 이어지지 않은 차이 점선 칸 · 말풍선 −35.5%p (같은 사람 퍼널이 아니라 경험 비율 비교라 전환율로 쓰지 않음) · 수치 3칸 26.1% · 44%(20대) · 79%(일관된 경험 기대 · Salesforce 2023)
      · 2026-11-10 patch-312 그래프 영역 예시 → 실제 자료: 연령별 SNS 상품 구매 막대(20대 44% 블루 · 30대 41.7% · 40대 34.7% · 전체 평균 26.1% 점선 · 50 · 60대는 공개 수치 없어 제외) · 수치 3칸 26.1% · 63.7% · 28.2% · 출처 한국언론진흥재단 2024 소셜미디어 이용자 조사 · 설명 문장 교체 · 카운트 업 소수점 유지
      · 2026-11-10 patch-311 문제 오른쪽(개선) 화면 = 머리줄 아래 자사몰 데이터 줄 추가(AI 아이콘 · 판매 1위 럭비 니트 폴로 · 재구매율 32% · 블루 포인트를 이 줄로 옮김 · 자사몰 기획전 줄 블루 바탕 제거) · 채널 줄 40 → 34 · 간격 6 → 4 · 데이터 줄 반짝 → 체크 차례로 · 하단 태그 쇼핑몰 데이터로 맞춘 같은 메시지
@@ -245,6 +246,7 @@
   .sn-hw .sn-tag { animation: snTag 2.4s ease-in-out infinite; }
   @keyframes snTag { 0%, 100% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 0 rgba(21,112,239,0); } 50% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 6px rgba(21,112,239,.16); } }
   .sn-rli { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(16,24,40,.4); color: var(--white); font-style: normal; }   /* 릴스(영상) 자리 · 영상 받으면 img → video 로 교체 */
+  .sn-grid li.mo6 { display: none; }   /* patch-314: 모바일 전용 5 · 6번째 썸네일 (3칸 × 2줄) */
   .sn-grid li.full { overflow: hidden; }
   .sn-grid li.full img { transform: scale(1.45); transform-origin: 50% 8%; }   /* 전신 컷 → 상반신 위주로 확대 */
   .sn-fpf { flex: none; position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 8px 20px 4px 120px; }
@@ -279,7 +281,7 @@
     .sn-fl { padding: 4px 12px; font-size: 12px; }
     .sn-pf { gap: 12px; padding: 12px 16px; } .sn-av { width: 56px; height: 56px; }
     .sn-pf > div { gap: 4px; font-size: 12px; } .sn-pf > div > b { font-size: 14.5px; } .sn-st { gap: 10px; }
-    .sn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sn-grid li:nth-child(4) { display: none; }
+    .sn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); } .sn-grid li.mo6 { display: block; }   /* patch-314: 모바일 = 실제 인스타 프로필처럼 3칸 × 2줄 6개 */
     .sn-tag { left: 8px; bottom: 16px; font-size: 11px; }
     .sn-cv { height: 90px; } .sn-fpf { gap: 12px; min-height: 48px; padding: 6px 16px 4px 92px; } .sn-fpf .sn-av { left: 16px; top: -34px; width: 64px; height: 64px; } .sn-fpf > div > b { font-size: 14.5px; } .sn-fpf > div { font-size: 11px; } .sn-fpf .sn-fl { display: none; }
     .sn-ftab { gap: 16px; padding: 0 16px; font-size: 12px; } .sn-shp { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px 16px 12px; } .sn-shp li:nth-child(4) { display: none; } .sn-shp b { font-size: 12px; } .sn-shp span { font-size: 11px; }
@@ -498,7 +500,7 @@
         <div class="sn-sc on" data-ch="0">   <!-- 인스타그램 프로필 -->
           <div class="sn-bar"><img src="assets/common/brand/instagram.svg" alt=""><b>roundweek_official</b><span class="sn-fl">팔로우</span></div>
           <div class="sn-pf"><i class="sn-av"><img src="assets/common/brand/roundweek.png" alt=""></i><div><b>라운드위크 ROUND WEEK</b><ul class="sn-st"><li><b>248</b>게시물</li><li><b>3.2만</b>팔로워</li><li><b>12</b>팔로잉</li></ul><p>데일리 스웨트셔츠 · 매주 금요일 신상 오픈 · <u>roundweek.co.kr</u></p></div></div>
-          <ul class="sn-grid"><li><img src="assets/geo/fashion/rw-land-green.webp" alt=""><span class="sn-tag"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>크루 스웨트 · 59,000원<em>자사몰 보기</em></span></li><li><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></li><li class="sn-rl"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""><i class="sn-rli" title="릴스 · 영상 자리"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></i></li><li class="full"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></li></ul>
+          <ul class="sn-grid"><li><img src="assets/geo/fashion/rw-land-green.webp" alt=""><span class="sn-tag"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>크루 스웨트 · 59,000원<em>자사몰 보기</em></span></li><li><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></li><li class="sn-rl"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""><i class="sn-rli" title="릴스 · 영상 자리"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></i></li><li class="full"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></li><li class="mo6"><img src="assets/geo/fashion/rw-model-grey.webp" alt=""></li><li class="mo6"><img src="assets/geo/fashion/rw-sit-wine.webp" alt=""></li></ul>
         </div>
         <div class="sn-sc sn-fb" data-ch="1">   <!-- 페이스북 페이지 · 커버 → 프로필(커버에 겹침) → 탭 → 샵 상품 -->
           <div class="sn-bar"><img src="assets/common/brand/facebook.svg" alt=""><b>라운드위크 ROUND WEEK</b><span class="sn-fl">좋아요</span></div>
