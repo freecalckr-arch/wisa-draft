@@ -3293,3 +3293,9 @@ img, video { max-width: 100%; display: block; }
   .sh-copy { gap: 26px; }   /* patch-320: 글자 기준 32 */
   .sh-visual { margin-top: 40px; }
 }
+
+/* @region tab-dot-pulse · patch-321 · 페이지 탭 선택 점 = 처음 들어왔을 때 연한 블루 링이 퍼지며 사라짐 3번 (계속 반복하지 않음 · 타이틀 키워드 교체와 시선 분산 방지) */
+.tab-page a.on i { position: relative; }
+.tab-page a.on i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--primary-600); opacity: 0; animation: tabDotPulse 1.6s ease-out .6s 3; }
+@keyframes tabDotPulse { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tab-page a.on i::after { animation: none; } }
