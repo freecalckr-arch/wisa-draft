@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-298 히어로 왼쪽 사진 ↔ 인스타 썸네일 4번 교체 · 페이스북 화면 = 실제 페이지 구성(커버 · 프로필 · 탭 · 샵 상품) · 프로필 = 라운드위크 로고 · 문제 왼쪽 채널별 다른 상품 · 자사몰 아이콘 = 브랜드 앱 아이콘 · 게시 캘린더 날마다 다른 소재(오늘 = 크루 스웨트)
      · 2026-11-10 patch-297: 사진 교체 — 히어로 인스타그램 썸네일 4개 서로 다른 착장(3번째 .sn-rl = 릴스 · 영상 받으면 img → video) · 히어로 왼쪽 polo-wine-full(상반신 확대) · 오른쪽 p-cap-green
        - 영역별 상품 1개: 문제 = 럭비 니트 폴로 와인(polo-wine-*) · 단계 = 피케 폴로 네이비(polo-navy-*) · 해결 = 크루 스웨트 그린(rw-*-green) · 리포트 순위 = 세 상품 (새 사진 assets/geo/fashion)
      · 2026-11-10 patch-296: 비주얼 1차 — 빈 박스를 실제 화면으로 교체 (브랜드 라운드위크 · assets/geo/fashion 사진 · 스타일 @region sns-vis · 스크립트 sns-hero)
@@ -204,9 +205,24 @@
   .sn-hw .sn-tag { animation: snTag 2.4s ease-in-out infinite; }
   @keyframes snTag { 0%, 100% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 0 rgba(21,112,239,0); } 50% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 6px rgba(21,112,239,.16); } }
   .sn-rli { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(16,24,40,.4); color: var(--white); font-style: normal; }   /* 릴스(영상) 자리 · 영상 받으면 img → video 로 교체 */
-  #geo-hero .sh-img:not(.sh-img2) img { transform: scale(1.7); transform-origin: 50% 12%; }   /* 전신 컷 → 상반신 위주로 확대 */
+  .sn-grid li.full { overflow: hidden; }
+  .sn-grid li.full img { transform: scale(1.45); transform-origin: 50% 8%; }   /* 전신 컷 → 상반신 위주로 확대 */
+  .sn-fpf { flex: none; position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 8px 20px 4px 120px; }
+  .sn-fpf .sn-av { position: absolute; left: 20px; top: -44px; width: 84px; height: 84px; box-shadow: 0 0 0 4px var(--white); }
+  .sn-fpf > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; line-height: 18px; color: var(--gray-500); }
+  .sn-fpf > div > b { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .sn-fpf .sn-fl { margin-left: 0; }
+  .sn-ftab { flex: none; display: flex; gap: 20px; height: 36px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-500); }
+  .sn-ftab span { display: flex; align-items: center; border-bottom: 2px solid transparent; }
+  .sn-ftab .on { border-color: var(--gray-900); color: var(--gray-900); }
+  .sn-shp { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: 12px; margin: 0; padding: 12px 20px 16px; list-style: none; }
+  .sn-shp li { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sn-shp i { position: relative; display: block; flex: 1; min-height: 0; margin-bottom: 6px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sn-shp img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  .sn-shp b { font-size: 12.5px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sn-go { position: absolute; left: 6px; bottom: 6px; padding: 4px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; line-height: 14px; font-weight: 700; animation: snTag 2.4s ease-in-out infinite; }
   .sn-cv { flex: none; height: 110px; overflow: hidden; background: var(--gray-100); }
-  .sn-cv img { object-position: 50% 16%; }
+  .sn-cv img { object-position: 50% 6%; }
   .sn-fb .sn-pf { padding: 12px 20px; gap: 16px; }
   .sn-fb .sn-av { width: 56px; height: 56px; }
   .sn-fb .sn-pf > div { gap: 4px; }
@@ -225,7 +241,8 @@
     .sn-pf > div { gap: 4px; font-size: 12px; } .sn-pf > div > b { font-size: 14.5px; } .sn-st { gap: 10px; }
     .sn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sn-grid li:nth-child(4) { display: none; }
     .sn-tag { left: 8px; bottom: 16px; font-size: 11px; }
-    .sn-cv { height: 80px; } .sn-fb .sn-pf { padding: 10px 16px; } .sn-fb .sn-av { width: 48px; height: 48px; }
+    .sn-cv { height: 90px; } .sn-fpf { gap: 12px; min-height: 48px; padding: 6px 16px 4px 92px; } .sn-fpf .sn-av { left: 16px; top: -34px; width: 64px; height: 64px; } .sn-fpf > div > b { font-size: 14.5px; } .sn-fpf > div { font-size: 11px; } .sn-fpf .sn-fl { display: none; }
+    .sn-ftab { gap: 16px; padding: 0 16px; font-size: 12px; } .sn-shp { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px 16px 12px; } .sn-shp li:nth-child(4) { display: none; } .sn-shp b { font-size: 12px; } .sn-shp span { font-size: 11px; }
     .sn-post { gap: 8px; padding: 12px 16px 16px; font-size: 12.5px; } .sn-lk { gap: 12px; } .sn-lk > img { width: 96px; }
   }
 
@@ -350,7 +367,7 @@
   .sn-fn em { font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-500); }
 
   @media (prefers-reduced-motion: reduce) {
-    #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
+    #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
     .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after { opacity: 0; }
     .sn-ck { opacity: 1; transform: none; }
   }
@@ -407,17 +424,18 @@
       <div class="ai-chat sn-hw">
         <div class="sn-sc on" data-ch="0">   <!-- 인스타그램 프로필 -->
           <div class="sn-bar"><img src="assets/common/brand/instagram.svg" alt=""><b>roundweek_official</b><span class="sn-fl">팔로우</span></div>
-          <div class="sn-pf"><i class="sn-av"><img src="assets/geo/fashion/rw-model-green.webp" alt=""></i><div><b>라운드위크 ROUND WEEK</b><ul class="sn-st"><li><b>248</b>게시물</li><li><b>3.2만</b>팔로워</li><li><b>12</b>팔로잉</li></ul><p>데일리 스웨트셔츠 · 매주 금요일 신상 오픈 · <u>roundweek.co.kr</u></p></div></div>
-          <ul class="sn-grid"><li><img src="assets/geo/fashion/rw-land-green.webp" alt=""><span class="sn-tag"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>크루 스웨트 · 59,000원<em>자사몰 보기</em></span></li><li><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></li><li class="sn-rl"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""><i class="sn-rli" title="릴스 · 영상 자리"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></i></li><li><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""></li></ul>
+          <div class="sn-pf"><i class="sn-av"><img src="assets/common/brand/roundweek.png" alt=""></i><div><b>라운드위크 ROUND WEEK</b><ul class="sn-st"><li><b>248</b>게시물</li><li><b>3.2만</b>팔로워</li><li><b>12</b>팔로잉</li></ul><p>데일리 스웨트셔츠 · 매주 금요일 신상 오픈 · <u>roundweek.co.kr</u></p></div></div>
+          <ul class="sn-grid"><li><img src="assets/geo/fashion/rw-land-green.webp" alt=""><span class="sn-tag"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>크루 스웨트 · 59,000원<em>자사몰 보기</em></span></li><li><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></li><li class="sn-rl"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""><i class="sn-rli" title="릴스 · 영상 자리"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg></i></li><li class="full"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></li></ul>
         </div>
-        <div class="sn-sc sn-fb" data-ch="1">   <!-- 페이스북 페이지 -->
+        <div class="sn-sc sn-fb" data-ch="1">   <!-- 페이스북 페이지 · 커버 → 프로필(커버에 겹침) → 탭 → 샵 상품 -->
           <div class="sn-bar"><img src="assets/common/brand/facebook.svg" alt=""><b>라운드위크 ROUND WEEK</b><span class="sn-fl">좋아요</span></div>
-          <div class="sn-cv"><img src="assets/geo/fashion/rw-hero-a-model.webp" alt=""></div>
-          <div class="sn-pf"><i class="sn-av"><img src="assets/geo/fashion/rw-model-green.webp" alt=""></i><div><b>라운드위크 ROUND WEEK</b><p>의류 브랜드 · 좋아요 1.8만 · 팔로워 2.1만</p></div></div>
-          <div class="sn-post"><p>이번 주 금요일, 겨울 크루 스웨트가 오픈합니다. 첫 구매 10% 할인</p><div class="sn-lk"><img src="assets/geo/fashion/rw-land-green.webp" alt=""><div><small>ROUNDWEEK.CO.KR</small><b>겨울 크루 스웨트</b><span>59,000원</span><em>자사몰 보기</em></div></div></div>
+          <div class="sn-cv"><img src="assets/geo/fashion/fb-cover.webp" alt=""></div>
+          <div class="sn-fpf"><i class="sn-av"><img src="assets/common/brand/roundweek.png" alt=""></i><div><b>라운드위크 ROUND WEEK</b><p>의류 브랜드 · 팔로워 2.1만 · 좋아요 1.8만</p></div><span class="sn-fl">메시지 보내기</span></div>
+          <nav class="sn-ftab"><span>게시물</span><span>정보</span><span class="on">샵</span><span>사진</span></nav>
+          <ul class="sn-shp"><li><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><em class="sn-go">자사몰 보기</em></i><b>겨울 크루 스웨트</b><span>59,000원</span></li><li><i><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><b>럭비 니트 폴로</b><span>69,000원</span></li><li><i><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><b>피케 폴로 네이비</b><span>49,000원</span></li><li><i><img src="assets/geo/fashion/p-cap-green.webp" alt=""></i><b>로고 볼캡 그린</b><span>32,000원</span></li></ul>
         </div>
       </div>
-      <div class="sh-img"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></div>
+      <div class="sh-img"><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""></div>
       <div class="sh-img sh-img2"><img src="assets/geo/fashion/p-cap-green.webp" alt=""></div>
       <div class="sh-float f1"><b>광고 도달</b><strong>12.6<small>만</small></strong><span>▲ 지난주 14%</span></div>
       <div class="sh-toast"><img class="sn-tl" src="assets/common/brand/instagram.svg" alt=""><div><p><b>자사몰 유입</b> +32명</p><small><i></i>게시물에서 상품 페이지로 · 방금</small></div></div>
@@ -438,7 +456,7 @@
         <div class="bt-vis" aria-hidden="true">
           <div class="pn ows sn-ch">
             <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10z"/><path d="M17.5 9.5a3.5 3.5 0 0 1 0 5"/></svg></i>채널별 운영 현황<span class="sn-hm">담당 3곳 · 따로 제작</span></div>
-            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="sn-cp">겨울 최대 50% 세일</span><em class="sn-ow">대행사 A</em></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/instagram.svg" alt="">인스타그램 피드</span><span class="sn-cp">오늘의 데일리룩 #ootd</span><em class="sn-ow">내부 팀</em></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-sl.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/facebook.svg" alt="">페이스북 페이지</span><span class="sn-cp">구매 시 양말 증정 이벤트</span><em class="sn-ow">외주</em></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-dt.webp" alt=""></i><span class="sn-cn"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>자사몰 메인</span><span class="sn-cp">가을 신상 니트 입고</span><em class="sn-ow">내부 팀</em></li></ul>
+            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="sn-cp">겨울 최대 50% 세일</span><em class="sn-ow">대행사 A</em></li><li><i class="sn-th"><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/instagram.svg" alt="">인스타그램 피드</span><span class="sn-cp">오늘의 데일리룩 #ootd</span><em class="sn-ow">내부 팀</em></li><li><i class="sn-th"><img src="assets/geo/fashion/p-cap-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/facebook.svg" alt="">페이스북 페이지</span><span class="sn-cp">볼캡 1+1 이벤트</span><em class="sn-ow">외주</em></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/roundweek.png" alt="">자사몰 메인</span><span class="sn-cp">가을 신상 폴로 입고</span><em class="sn-ow">내부 팀</em></li></ul>
             <div class="ows-ft ov"><i class="me-tag">이어지지 않는 브랜드 메시지</i></div>
           </div>
         </div>
@@ -449,7 +467,7 @@
         <div class="bt-vis" aria-hidden="true">
           <div class="pn ows sn-ch sn-ok">
             <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l7 4V6L7 10z"/><path d="M17.5 9.5a3.5 3.5 0 0 1 0 5"/></svg></i>럭비 니트 폴로 캠페인<span class="sn-hm">한 팀 운영</span></div>
-            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/instagram.svg" alt="">인스타그램 피드</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-sl.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/facebook.svg" alt="">페이스북 페이지</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/polo-wine-dt.webp" alt=""></i><span class="sn-cn"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>자사몰 기획전</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul>
+            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-full.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/instagram.svg" alt="">인스타그램 피드</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-sl.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/facebook.svg" alt="">페이스북 페이지</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/polo-wine-dt.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/roundweek.png" alt="">자사몰 기획전</span><span class="sn-cp">럭비 니트 폴로, 첫 구매 10%</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul>
             <div class="ows-ft ov"><i class="hit-tag">광고에서 페이지까지 같은 메시지</i></div>
           </div>
         </div>
@@ -522,8 +540,8 @@
         <span class="sr-no">2</span>
         <div class="sr-body"><h3><em class="key">운영</em> 브랜드 페이지가 꾸준히 살아 있게 합니다</h3><p>브랜드와 상품에 맞는 톤으로 게시물과 스토리를 기획 · 제작해 올리고, 고객 문의와 반응에 응대합니다.</p><p class="sr-out">프로모션과 시즌 일정에 맞춘 게시 일정으로 페이지가 운영됩니다</p><ul class="sr-tags"><li>채널 방향 · 톤 설정</li><li>콘텐츠 기획 · 제작 · 업로드</li><li>운영 일정 설계</li><li>댓글 · 메시지 응대 설계</li></ul></div>
         <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d2"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></i><b>게시 캘린더</b><span class="vw-m">11월 2주차 · 11/9 – 11/15</span><em class="vw-chip">예약 4</em></div><div class="vw-bd">
-          <ul class="sn-wk"><li class="done"><span>월</span><b>9</b><i><img src="assets/geo/fashion/rw-model-green.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li><li class="today"><span>화</span><b>10</b><i><img src="assets/geo/fashion/rw-sit-green.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li><li><span>수</span><b>11</b><i class="em"></i></li><li><span>목</span><b>12</b><i><img src="assets/geo/fashion/rw-front-green.webp" alt=""><img class="lg" src="assets/common/brand/facebook.svg" alt=""></i></li><li><span>금</span><b>13</b><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li><li><span>토</span><b>14</b><i class="em"></i></li><li><span>일</span><b>15</b><i><img src="assets/geo/fashion/rw-back-green.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li></ul>
-          <ul class="sn-up"><li class="hl"><time>오늘 19:00</time><span><img src="assets/common/brand/instagram.svg" alt="">겨울 크루 스웨트 착용컷</span><em class="sn-st2"><b>예약</b><b>게시 완료</b></em></li><li><time>11/13 (금) 12:00</time><span><img src="assets/common/brand/facebook.svg" alt="">신상 오픈 안내 · 첫 구매 10%</span><em>예약</em></li><li><time>어제</time><span><i class="sn-dot"></i>댓글 · 메시지 응대 24건</span><em>완료</em></li></ul></div></div></div>
+          <ul class="sn-wk"><li class="done"><span>월</span><b>9</b><i><img src="assets/geo/fashion/knit-navy-w.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li><li class="today"><span>화</span><b>10</b><i><img src="assets/geo/fashion/rw-sit-green.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li><li><span>수</span><b>11</b><i class="em"></i></li><li><span>목</span><b>12</b><i><img src="assets/geo/fashion/p-cap-green.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li><li><span>금</span><b>13</b><i><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""><img class="lg" src="assets/common/brand/facebook.svg" alt=""></i></li><li><span>토</span><b>14</b><i class="em"></i></li><li><span>일</span><b>15</b><i><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""><img class="lg" src="assets/common/brand/instagram.svg" alt=""></i></li></ul>
+          <ul class="sn-up"><li class="hl"><time>오늘 19:00</time><span><img src="assets/common/brand/instagram.svg" alt="">겨울 크루 스웨트 착용컷</span><em class="sn-st2"><b>예약</b><b>게시 완료</b></em></li><li><time>11/13 (금) 12:00</time><span><img src="assets/common/brand/facebook.svg" alt="">럭비 니트 폴로 신상 오픈 안내</span><em>예약</em></li><li><time>어제</time><span><i class="sn-dot"></i>댓글 · 메시지 응대 24건</span><em>완료</em></li></ul></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">3</span>
