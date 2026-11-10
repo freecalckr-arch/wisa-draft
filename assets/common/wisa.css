@@ -3279,7 +3279,7 @@ img, video { max-width: 100%; display: block; }
    ① 메뉴 글자 → 탭 박스 (전체 메뉴와 페이지 내용을 나눔 · 가장 큼) · ② 탭 박스 → 타이틀 글자 · ③ 태그 → 파란 박스
    PC 70 · 50 · 60 / 태블릿 56 · 40 · 48 / 모바일 48 · 32 · 40 (patch-317)
    (① 은 헤더 아래 끝이 아니라 메뉴 글자 아래 기준이라 padding-top 이 끝수 · ② 는 타이틀 줄 높이 위 여백 2px(모바일 1px) 를 뺀 값) */
-.tab-page a { font-size: 14px; padding-block: 8px; }   /* patch-318: 탭 높이 44 → 48 (바깥 여백 6 + 탭 8·20·8 + 6) */
+.tab-page a { font-size: 15px; padding-block: 8px; }   /* patch-319: 글자 14 → 15 */   /* patch-318: 탭 높이 44 → 48 (바깥 여백 6 + 탭 8·20·8 + 6) */
 .sh { padding-top: 49px; }
 .sh-copy { gap: 48px; }
 .sh-visual { margin-top: 60px; }
