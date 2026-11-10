@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-300 단계 STEP 1 타깃 · 톤 사진 새로 생성(기존 촬영컷 첨부 · 같은 스튜디오 톤) step-target.jpg · step-tone.jpg
      · 2026-11-10 patch-299 단계 STEP 1 타깃 · 톤 아이콘 → 실사 썸네일 · STEP 2 AI 생성 연출(머리줄 생성 중 → 카드 반짝 로딩 → A · B · C 차례로 흐림→선명 → 3개 생성 → B 선택 · 7.2초 반복 · 움직임 줄이기 시 완성 상태)
      · 2026-11-10 patch-298 히어로 왼쪽 사진 ↔ 인스타 썸네일 4번 교체 · 페이스북 화면 = 실제 페이지 구성(커버 · 프로필 · 탭 · 샵 상품) · 프로필 = 라운드위크 로고 · 문제 왼쪽 채널별 다른 상품 · 자사몰 아이콘 = 브랜드 앱 아이콘 · 게시 캘린더 날마다 다른 소재(오늘 = 크루 스웨트)
      · 2026-11-10 patch-297: 사진 교체 — 히어로 인스타그램 썸네일 4개 서로 다른 착장(3번째 .sn-rl = 릴스 · 영상 받으면 img → video) · 히어로 왼쪽 polo-wine-full(상반신 확대) · 오른쪽 p-cap-green
@@ -276,7 +277,6 @@
   .sn-dir em { font-size: 11px; font-style: normal; color: var(--gray-500); white-space: nowrap; }
   .sn-dir .sn-ck { animation: snCk 6s infinite both; animation-delay: calc(var(--i, 0) * .5s); }
   .sn-dir li.hl .sn-ck { background: var(--primary-600); }
-  .sn-dir .sn-th.tg img { object-position: 50% 30%; }
   .sn-dir li:nth-child(2) .sn-ck { --i: 1; } .sn-dir li:nth-child(3) .sn-ck { --i: 2; }
   .sn-aiv { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 6px; vertical-align: -4px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
   .sn-aiv svg { width: 11px; height: 11px; }
@@ -526,7 +526,7 @@
       <li class="bt rv">
         <div class="bt-hd"><span class="bt-eb">STEP 1 · 방향 설정</span><h3>브랜드와 쇼핑몰 특성에 맞는<br>운영 방향을 정합니다</h3></div>
         <div class="bt-vis" aria-hidden="true"><div class="pn sn-h1"><p class="pn-t">11월 운영 방향 <span>쇼핑몰 데이터 기준</span></p>
-          <ul class="sn-dir"><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><div><small>집중 상품</small><b>피케 폴로 네이비</b></div><em>판매 1위</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th tg"><img src="assets/geo/fashion/fb-cover.webp" alt=""></i><div><small>타깃</small><b>20~30대 · 캐주얼</b></div><em>구매 고객 68%</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/rw-sit-wine.webp" alt=""></i><div><small>톤</small><b>따뜻한 데일리 무드</b></div><em>반응 1위 게시물</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul></div></div>
+          <ul class="sn-dir"><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><div><small>집중 상품</small><b>피케 폴로 네이비</b></div><em>판매 1위</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/step-target.jpg" alt=""></i><div><small>타깃</small><b>20~30대 · 캐주얼</b></div><em>구매 고객 68%</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/step-tone.jpg" alt=""></i><div><small>톤</small><b>따뜻한 데일리 무드</b></div><em>반응 1위 게시물</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul></div></div>
       </li>
       <li class="bt rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">STEP 2 · 제작 · 운영</span><h3>AI를 활용해 콘텐츠와<br>광고 소재를 만들고 운영합니다</h3></div>
