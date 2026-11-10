@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-299 단계 STEP 1 타깃 · 톤 아이콘 → 실사 썸네일 · STEP 2 AI 생성 연출(머리줄 생성 중 → 카드 반짝 로딩 → A · B · C 차례로 흐림→선명 → 3개 생성 → B 선택 · 7.2초 반복 · 움직임 줄이기 시 완성 상태)
      · 2026-11-10 patch-298 히어로 왼쪽 사진 ↔ 인스타 썸네일 4번 교체 · 페이스북 화면 = 실제 페이지 구성(커버 · 프로필 · 탭 · 샵 상품) · 프로필 = 라운드위크 로고 · 문제 왼쪽 채널별 다른 상품 · 자사몰 아이콘 = 브랜드 앱 아이콘 · 게시 캘린더 날마다 다른 소재(오늘 = 크루 스웨트)
      · 2026-11-10 patch-297: 사진 교체 — 히어로 인스타그램 썸네일 4개 서로 다른 착장(3번째 .sn-rl = 릴스 · 영상 받으면 img → video) · 히어로 왼쪽 polo-wine-full(상반신 확대) · 오른쪽 p-cap-green
        - 영역별 상품 1개: 문제 = 럭비 니트 폴로 와인(polo-wine-*) · 단계 = 피케 폴로 네이비(polo-navy-*) · 해결 = 크루 스웨트 그린(rw-*-green) · 리포트 순위 = 세 상품 (새 사진 assets/geo/fashion)
@@ -275,6 +276,7 @@
   .sn-dir em { font-size: 11px; font-style: normal; color: var(--gray-500); white-space: nowrap; }
   .sn-dir .sn-ck { animation: snCk 6s infinite both; animation-delay: calc(var(--i, 0) * .5s); }
   .sn-dir li.hl .sn-ck { background: var(--primary-600); }
+  .sn-dir .sn-th.tg img { object-position: 50% 30%; }
   .sn-dir li:nth-child(2) .sn-ck { --i: 1; } .sn-dir li:nth-child(3) .sn-ck { --i: 2; }
   .sn-aiv { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 6px; vertical-align: -4px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
   .sn-aiv svg { width: 11px; height: 11px; }
@@ -284,10 +286,27 @@
   .sn-gen img { object-position: 50% 15%; }
   .sn-gen li.on i { box-shadow: 0 0 0 2px var(--primary-600); }
   .sn-gen li.on span { color: var(--primary-700); font-weight: 600; }
+  @keyframes snSelC { 0%, 40% { color: var(--gray-500); font-weight: 400; } 44%, 90% { color: var(--primary-700); font-weight: 600; } 94%, 100% { color: var(--gray-500); font-weight: 400; } }
   .sn-gen em { position: absolute; z-index: 1; left: 6px; top: 6px; padding: 2px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; }
-  .sn-gen i::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(110deg, var(--gray-100) 30%, var(--white) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; opacity: 0; animation: snGen 6s infinite; animation-delay: calc(var(--i, 0) * .5s); }
+  /* patch-299: AI 생성 연출 7.2초 반복 · 생성 중(반짝 로딩) → A · B · C 순서로 흐림 → 선명 → 머리줄 3개 생성 → B 선택 */
+  .sn-gen i::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGenO 7.2s infinite; animation-delay: 0s, calc(var(--i, 0) * .4s); }
+  .sn-gen img { animation: snRev 7.2s infinite; animation-delay: calc(var(--i, 0) * .4s); }
+  .sn-gen li:nth-child(2) img { --i: 1; } .sn-gen li:nth-child(3) img { --i: 2; }
+  .sn-gen li.on i { animation: snSel 7.2s infinite; } .sn-gen em { animation: snSelO 7.2s infinite; } .sn-gen li.on span { animation: snSelC 7.2s infinite; }
+  .sn-gs { display: inline-grid; justify-items: end; } .sn-gs b { grid-area: 1 / 1; display: flex; align-items: center; font-weight: 500; white-space: nowrap; }
+  .sn-gs .g1 { color: var(--primary-700); animation: snG1 7.2s infinite; } .sn-gs .g2 { animation: snG2 7.2s infinite; }
+  .sn-gs .g1 .sn-aiv svg { animation: snSpin 1.2s linear infinite; }
+  .sn-dots { display: inline-flex; gap: 2px; margin-left: 4px; font-style: normal; } .sn-dots i { width: 3px; height: 3px; border-radius: 99px; background: currentColor; animation: snDot 1.2s infinite; } .sn-dots i:nth-child(2) { animation-delay: .2s; } .sn-dots i:nth-child(3) { animation-delay: .4s; }
+  @keyframes snShim { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  @keyframes snGenO { 0%, 22% { opacity: 1; } 30%, 90% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  @keyframes snRev { 0%, 22% { filter: blur(10px); transform: scale(1.08); } 34%, 90% { filter: blur(0); transform: none; } 96%, 100% { filter: blur(10px); transform: scale(1.08); } }
+  @keyframes snSel { 0%, 40% { box-shadow: 0 0 0 0 var(--primary-600); } 44%, 90% { box-shadow: 0 0 0 2px var(--primary-600); } 94%, 100% { box-shadow: 0 0 0 0 var(--primary-600); } }
+  @keyframes snSelO { 0%, 40% { opacity: 0; } 44%, 90% { opacity: 1; } 94%, 100% { opacity: 0; } }
+  @keyframes snG1 { 0%, 34% { opacity: 1; } 38%, 92% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  @keyframes snG2 { 0%, 34% { opacity: 0; } 38%, 92% { opacity: 1; } 96%, 100% { opacity: 0; } }
+  @keyframes snSpin { to { transform: rotate(360deg); } }
+  @keyframes snDot { 0%, 60%, 100% { opacity: .3; } 30% { opacity: 1; } }
   .sn-gen li:nth-child(2) i::after { --i: 1; } .sn-gen li:nth-child(3) i::after { --i: 2; }
-  @keyframes snGen { 0% { opacity: 1; background-position: 100% 0; } 14% { opacity: 1; background-position: 0 0; } 20%, 90% { opacity: 0; } 96%, 100% { opacity: 1; background-position: 100% 0; } }
   .sn-bars li { display: flex; align-items: center; gap: 10px; height: 48px; }
   .sn-bars div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; color: var(--gray-600); }
   .sn-bars div > i { display: block; width: calc(var(--v) * 100%); height: 8px; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: snBar 6s var(--ease-out) infinite; }
@@ -367,8 +386,8 @@
   .sn-fn em { font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-500); }
 
   @media (prefers-reduced-motion: reduce) {
-    #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
-    .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after { opacity: 0; }
+    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
+    .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1 { opacity: 0; }
     .sn-ck { opacity: 1; transform: none; }
   }
   /* @endregion sns-vis */
@@ -507,11 +526,11 @@
       <li class="bt rv">
         <div class="bt-hd"><span class="bt-eb">STEP 1 · 방향 설정</span><h3>브랜드와 쇼핑몰 특성에 맞는<br>운영 방향을 정합니다</h3></div>
         <div class="bt-vis" aria-hidden="true"><div class="pn sn-h1"><p class="pn-t">11월 운영 방향 <span>쇼핑몰 데이터 기준</span></p>
-          <ul class="sn-dir"><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><div><small>집중 상품</small><b>피케 폴로 네이비</b></div><em>판매 1위</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-di"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0"/></svg></i><div><small>타깃</small><b>20~30대 · 캐주얼</b></div><em>구매 고객 68%</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-di"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.9 1.2-1.8-.5-1.2.3-2.2 1.5-2.2H17a4 4 0 0 0 4-4c0-5.5-4-10-9-10z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg></i><div><small>톤</small><b>따뜻한 데일리 무드</b></div><em>반응 1위 게시물</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul></div></div>
+          <ul class="sn-dir"><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><div><small>집중 상품</small><b>피케 폴로 네이비</b></div><em>판매 1위</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th tg"><img src="assets/geo/fashion/fb-cover.webp" alt=""></i><div><small>타깃</small><b>20~30대 · 캐주얼</b></div><em>구매 고객 68%</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/rw-sit-wine.webp" alt=""></i><div><small>톤</small><b>따뜻한 데일리 무드</b></div><em>반응 1위 게시물</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul></div></div>
       </li>
       <li class="bt rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">STEP 2 · 제작 · 운영</span><h3>AI를 활용해 콘텐츠와<br>광고 소재를 만들고 운영합니다</h3></div>
-        <div class="bt-vis" aria-hidden="true"><div class="pn sn-h2"><p class="pn-t">AI 소재 시안 <span><i class="sn-aiv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>피케 폴로 · 3개 생성</span></p>
+        <div class="bt-vis" aria-hidden="true"><div class="pn sn-h2"><p class="pn-t">AI 소재 시안 <span class="sn-gs"><b class="g1"><i class="sn-aiv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>피케 폴로 · 생성 중<i class="sn-dots"><i></i><i></i><i></i></i></b><b class="g2"><i class="sn-aiv"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>피케 폴로 · 3개 생성</b></span></p>
           <ul class="sn-gen"><li><i><img src="assets/geo/fashion/polo-navy-sit.webp" alt=""></i><span>A · 무드컷</span></li><li class="on"><i><img src="assets/geo/fashion/polo-navy-m.webp" alt=""><em>선택</em></i><span>B · 착용컷</span></li><li><i><img src="assets/geo/fashion/polo-navy-dt.webp" alt=""></i><span>C · 디테일</span></li></ul></div></div>
       </li>
       <li class="bt rv" style="--d:200ms">
