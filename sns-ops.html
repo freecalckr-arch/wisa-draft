@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-327: 해결 3단계 자사몰 유입 경로 점 · 세로선 · 차오름 애니메이션 제거 → 줄 사이 아래 화살표 칩(↓ 79% 상품 페이지로 · ↓ 4.2% 구매로) · 움직임은 휴대폰 1개만
      · 2026-11-10 patch-326: 시안 히스토리 · 시안 목록 공식채널운영 작업중 → 1차 시안 (고객 공유)
      · 2026-11-10 patch-325: 히어로 왼쪽 AI 소재 카드 오른쪽으로 40 이동 (가운데 창과 간격 63 → 23)
      · 2026-11-10 patch-324: 히어로 페이스북 샵 4번째 상품 로고 볼캡 그린 → 인스타그램 썸네일 2번째 모델 사진(knit-navy-w · 라운드 니트 네이비 65,000원)
@@ -441,28 +442,23 @@
   .sn-ph .b .nm { padding: 10px 12px 2px; font-size: 12px; line-height: 16px; color: var(--gray-700); }
   .sn-ph .b .pr { padding: 0 12px; font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
   .sn-ph .buy { display: grid; place-items: center; height: 32px; margin: auto 12px 0; border-radius: 6px; background: var(--primary-600); color: var(--white); font-size: 12px; font-weight: 700; }
-  /* patch-323: 자사몰 유입 = 경로 타임라인 · 점 + 세로선으로 태그 클릭 → 페이지 유입 → 구매를 잇고, 줄 사이 칩 = 다음 단계로 넘어간 비율
+  /* patch-327: 점 · 세로선 · 차오름 애니메이션 제거 (왼쪽 단계 번호 라인과 겹치고 휴대폰 애니메이션과 2개가 됨) → 줄 사이 아래 화살표 칩으로 흐름 표시 · 움직임은 휴대폰만
+     patch-323: 자사몰 유입 = 경로 타임라인 · 점 + 세로선으로 태그 클릭 → 페이지 유입 → 구매를 잇고, 줄 사이 칩 = 다음 단계로 넘어간 비율
      줄마다 큰 숫자 1개 · 구매 줄만 Primary 600 · 화면에 들어오면 선이 위 → 아래로 차오르고 닿은 점이 켜짐 (1회) */
   .sn-fn { flex: none; display: flex; flex-direction: column; justify-content: center; }
   #geo-diagnosis .vw-win.sn-d3 > .vw-bd { justify-content: center; }   /* 휴대폰 + 경로 묶음을 창 가운데 (좌우 여백 같게) */
   .sn-path { position: relative; }
-  .sn-path::before, .sn-path::after { content: ""; position: absolute; left: 7px; top: var(--lt, 8px); height: var(--lh, 0); width: 2px; border-radius: 1px; background: var(--gray-200); }
-  .sn-path::after { background: var(--gray-400); transform-origin: 50% 0; transform: scaleY(0); transition: transform 1.2s linear .3s; }
-  .steprow.in .sn-path::after { transform: scaleY(1); }
-  .sn-fn li { position: relative; display: flex; flex-direction: column; gap: 2px; padding-left: 28px; font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sn-fn li { position: relative; display: flex; flex-direction: column; gap: 2px; font-size: 12px; line-height: 16px; color: var(--gray-500); }
   .sn-fn strong { font-size: 20px; line-height: 24px; font-weight: 700; color: var(--gray-900); }
   .sn-fn small { margin-left: 2px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
   .sn-fn em { display: flex; align-items: center; gap: 4px; margin-top: 4px; font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-500); white-space: nowrap; }
-  .sn-path .dt { position: absolute; z-index: 1; left: 0; top: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--white); box-shadow: inset 0 0 0 2px var(--gray-300); transition: box-shadow .3s var(--d, 0s), background .3s var(--d, 0s); }
-  .steprow.in .sn-path .dt { box-shadow: inset 0 0 0 5px var(--gray-500); }
-  .steprow.in .sn-path .hl .dt { box-shadow: inset 0 0 0 5px var(--primary-600); }
   .sn-path .hl strong { color: var(--primary-600); }
   .sn-path .cv { flex-direction: row; align-items: center; gap: 4px; height: 36px; font-size: 11px; color: var(--gray-500); }
-  .sn-path .cv b { padding: 2px 8px; border-radius: 99px; background: var(--gray-100); font-size: 11px; line-height: 16px; font-weight: 700; color: var(--gray-700); }
+  .sn-path .cv b { display: flex; align-items: center; gap: 2px; padding: 2px 8px 2px 6px; border-radius: 99px; background: var(--gray-100); font-size: 11px; line-height: 16px; font-weight: 700; color: var(--gray-700); }
   .sn-path .cv.on b { background: var(--primary-50); color: var(--primary-700); }
 
   @media (prefers-reduced-motion: reduce) {
-    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b, #geo-why .pn.sn-ok > .sn-dt, .sn-path::after, .sn-path .dt { transition: none; } .sn-path::after { transform: scaleY(1); } .sn-path .dt { box-shadow: inset 0 0 0 5px var(--gray-500); } .sn-path .hl .dt { box-shadow: inset 0 0 0 5px var(--primary-600); } #geo-why .pn.sn-ok > .sn-dt { animation: none !important; transition: none !important; }
+    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b, #geo-why .pn.sn-ok > .sn-dt { animation: none !important; transition: none !important; }
     .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1, .sn-gi::after { opacity: 0; }
     .sn-ck { opacity: 1; transform: none; }
   }
@@ -643,7 +639,7 @@
         <div class="sr-body"><h3><em class="key">연결</em> SNS에서 만난 고객을 자사몰 구매로 잇습니다</h3><p>게시물과 광고에서 상품 · 이벤트 페이지로 이어지는 경로를 설계하고, 쇼핑몰 데이터로 소재에 쓸 상품과 프로모션을 고릅니다.</p><p class="sr-out">유입된 고객은 온사이트마케팅과 CRM마케팅으로 이어집니다</p><ul class="sr-tags"><li>유입 경로 설계</li><li>상품 · 프로모션 연계</li><li>온사이트 · CRM 연결</li></ul></div>
         <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d3"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></i><b>자사몰 유입</b><span class="vw-m">인스타그램 게시물 → 상품 페이지</span><em class="vw-chip">최근 7일</em></div><div class="vw-bd">
           <div class="sn-ph"><div class="sc a"><p class="sn-pb"><img src="assets/common/brand/instagram.svg" alt="">roundweek_official</p><i class="im"><img src="assets/geo/fashion/rw-land-green.webp" alt=""><span class="sn-tag"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>크루 스웨트<em>›</em></span><s class="tap"></s></i><p class="sn-pm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>1,284 · 댓글 86</p></div><div class="sc b"><i class="im"><img src="assets/geo/fashion/rw-model-green.webp" alt=""></i><p class="nm">겨울 크루 스웨트 그린</p><p class="pr">59,000원</p><span class="buy">구매하기</span></div></div>
-          <ul class="sn-fn sn-path"><li><i class="dt" style="--d:.3s"></i><span>상품 태그 클릭</span><strong>1,240<small>회</small></strong></li><li class="cv"><b>79%</b>상품 페이지로</li><li><i class="dt" style="--d:.9s"></i><span>상품 페이지 유입</span><strong>980<small>명</small></strong></li><li class="cv on"><b>4.2%</b>구매로</li><li class="hl"><i class="dt" style="--d:1.5s"></i><span>구매</span><strong>41<small>건</small></strong><em><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>온사이트 · CRM 으로 이어짐</em></li></ul></div></div></div>
+          <ul class="sn-fn sn-path"><li><span>상품 태그 클릭</span><strong>1,240<small>회</small></strong></li><li class="cv"><b><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>79%</b>상품 페이지로</li><li><span>상품 페이지 유입</span><strong>980<small>명</small></strong></li><li class="cv on"><b><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>4.2%</b>구매로</li><li class="hl"><span>구매</span><strong>41<small>건</small></strong><em><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>온사이트 · CRM 으로 이어짐</em></li></ul></div></div></div>
       </li>
     </ol>
   </div>
@@ -1221,9 +1217,6 @@
 /* report-zoom → assets/common/wisa.js (patch-172) */
 </script>
 <script src="assets/common/wisa.js?v=293"></script>
-<script>   /* patch-323: 자사몰 유입 타임라인 선 길이 = 첫 점 ~ 마지막 점 가운데 */
-(() => { const fit = () => document.querySelectorAll('.sn-path').forEach(ul => { const d = ul.querySelectorAll('.dt'); if (d.length < 2) return; const a = d[0].offsetTop + d[0].parentElement.offsetTop + 8, b = d[d.length - 1].offsetTop + d[d.length - 1].parentElement.offsetTop + 8; ul.style.setProperty('--lt', a + 'px'); ul.style.setProperty('--lh', (b - a) + 'px'); }); fit(); addEventListener('resize', fit); addEventListener('load', fit); })();
-</script>
 </body>
 </html>
 
