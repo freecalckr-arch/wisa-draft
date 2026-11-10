@@ -3095,7 +3095,7 @@ img, video { max-width: 100%; display: block; }
    · 기준: 1440 화면의 파란 박스 1340×460(화면 − 100) 안의 창 · 카드 · 이미지 전체를 한 장으로 보고 s = min(1, 칸 폭 ÷ 1340) 배 (스크립트 wisa.js hero-fit → --hz)
    · 박스 세로도 460 × s (1100 → 약 340 · 1024 → 약 320) · 해상도별로 카드를 숨기거나 위치 · 크기를 바꾸지 않음 */
 @media (min-width: 1024px) and (max-width: 1439px) {
-  #geo-hero .sh-visual { width: 1340px; height: 460px; min-height: 0; zoom: var(--hz, 1); margin-top: calc(70px / var(--hz, 1)); }   /* patch-316: 80 → 70 */
+  #geo-hero .sh-visual { width: 1340px; height: 460px; min-height: 0; zoom: var(--hz, 1); margin-top: calc(60px / var(--hz, 1)); }   /* patch-317: 80 → 60 */
 }
 /* @endregion */
 
@@ -3275,20 +3275,21 @@ img, video { max-width: 100%; display: block; }
 @media (min-width: 1440px) { #geo-report .rp-ph { right: -66px; bottom: -40px; } }
 /* @endregion rp-ph-85 */
 
-/* @region hero-gap · patch-315 · 히어로 위아래 간격 통일 + 페이지 탭 글자 13 → 14
-   ① 메뉴 글자 → 탭 박스 · ② 탭 박스 → 타이틀 글자 · ③ 태그 → 파란 박스, 세 간격을 PC 60 · 태블릿 48 · 모바일 40 으로 같게
-   (① 은 헤더 아래 끝이 아니라 메뉴 글자 아래 기준이라 padding-top 이 끝수 · ② 는 타이틀 줄 높이 위 여백 2px 를 뺀 값) */
+/* @region hero-gap · patch-315 → 317 · 히어로 위아래 간격 위계 + 페이지 탭 글자 13 → 14
+   ① 메뉴 글자 → 탭 박스 (전체 메뉴와 페이지 내용을 나눔 · 가장 큼) · ② 탭 박스 → 타이틀 글자 · ③ 태그 → 파란 박스
+   PC 70 · 50 · 60 / 태블릿 56 · 40 · 48 / 모바일 48 · 32 · 40 (patch-317)
+   (① 은 헤더 아래 끝이 아니라 메뉴 글자 아래 기준이라 padding-top 이 끝수 · ② 는 타이틀 줄 높이 위 여백 2px(모바일 1px) 를 뺀 값) */
 .tab-page a { font-size: 14px; }
-.sh { padding-top: 39px; }
-.sh-copy { gap: 58px; }
-.sh-visual { margin-top: 70px; }   /* patch-316: 태그 → 파란 박스는 보기에 좁아 PC 만 70 */
+.sh { padding-top: 49px; }
+.sh-copy { gap: 48px; }
+.sh-visual { margin-top: 60px; }
 @media (min-width: 768px) and (max-width: 1023px) {
-  .sh { padding-top: 27px; }
-  .sh-copy { gap: 46px; }
+  .sh { padding-top: 35px; }
+  .sh-copy { gap: 38px; }
   .sh-visual { margin-top: 48px; }
 }
 @media (max-width: 767px) {
-  .sh { padding-top: 28px; }
-  .sh-copy { gap: 39px; }
+  .sh { padding-top: 36px; }
+  .sh-copy { gap: 31px; }
   .sh-visual { margin-top: 40px; }
 }
