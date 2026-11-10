@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-304 문제 오른쪽 4줄 썸네일 = 받은 모델 컷으로 교체(ch-meta · ch-insta · ch-fb · ch-store) · 해결 자사몰 유입 수치 칸 오른쪽에 라인 그래프(7일 추이 · 구매만 블루)
      · 2026-11-10 patch-303 히어로 왼쪽 광고 도달 카드 → AI 소재 생성 카드(AI 아이콘 · 3개 · 착용컷 · 무드컷 · 클로즈업) + 왼쪽 사진 생성 연출(반짝 로딩 → 선명 · 6초) · 가운데 창 인스타 ↔ 페이스북 전환 시 앞 화면이 먼저 빠지게(겹침 없음)
      · 2026-11-10 patch-302 문제 영역 왼쪽(기존) 창 회색 바탕(Gray 50 · 테두리 Gray 200 · 담당 칩 흰 바탕) — 오른쪽 개선 화면 강조 (다른 페이지와 같은 규칙)
      · 2026-11-10 patch-301 문제 오른쪽 4줄 썸네일 = 채널별 실제 소재로 새로 생성(메타 광고 · 인스타 피드 · 페이스북 신상 안내 · 자사몰 기획전 배너 · 기존 와인 폴로 촬영컷 첨부 · 작은 칸이라 모델 위주로 자름) · 해결 광고 캠페인 C = 모델 클로즈업 새로 생성(C · 디테일 → C · 클로즈업)
@@ -400,6 +401,14 @@
   .sn-fn strong { font-size: 20px; line-height: 24px; font-weight: 700; color: var(--gray-900); }
   .sn-fn small { margin-left: 2px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
   .sn-fn em { font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  /* patch-304: 수치 칸 오른쪽 7일 추이 라인 그래프 · 기본 Gray 400 · 구매(봐야 할 곳)만 Primary 600 + 끝점 */
+  .sn-fn li { position: relative; padding-right: 116px; }
+  .sn-sp { position: absolute; right: 16px; top: 50%; width: 88px; height: 32px; margin-top: -16px; overflow: visible; }
+  .sn-sp polyline { fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .sn-sp.on polyline { stroke: var(--primary-600); }
+  .sn-fn li em { margin-right: -100px; white-space: nowrap; }   /* 설명 글자는 그래프 아래까지 한 줄로 */
+  .sn-sp.on { top: 16px; margin-top: 0; }   /* 구매 칸 = 수치 줄 높이에 맞춰 설명 글자와 겹치지 않게 */
+  .sn-sp circle { fill: var(--primary-600); stroke: var(--white); stroke-width: 1.5; }
 
   @media (prefers-reduced-motion: reduce) {
     .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
@@ -583,7 +592,7 @@
         <div class="sr-body"><h3><em class="key">연결</em> SNS에서 만난 고객을 자사몰 구매로 잇습니다</h3><p>게시물과 광고에서 상품 · 이벤트 페이지로 이어지는 경로를 설계하고, 쇼핑몰 데이터로 소재에 쓸 상품과 프로모션을 고릅니다.</p><p class="sr-out">유입된 고객은 온사이트마케팅과 CRM마케팅으로 이어집니다</p><ul class="sr-tags"><li>유입 경로 설계</li><li>상품 · 프로모션 연계</li><li>온사이트 · CRM 연결</li></ul></div>
         <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d3"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></i><b>자사몰 유입</b><span class="vw-m">인스타그램 게시물 → 상품 페이지</span><em class="vw-chip">구매 전환 4.1%</em></div><div class="vw-bd">
           <div class="sn-ph"><div class="sc a"><p class="sn-pb"><img src="assets/common/brand/instagram.svg" alt="">roundweek_official</p><i class="im"><img src="assets/geo/fashion/rw-land-green.webp" alt=""><span class="sn-tag"><i class="sn-shop"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></i>크루 스웨트<em>›</em></span><s class="tap"></s></i><p class="sn-pm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>1,284 · 댓글 86</p></div><div class="sc b"><i class="im"><img src="assets/geo/fashion/rw-model-green.webp" alt=""></i><p class="nm">겨울 크루 스웨트 그린</p><p class="pr">59,000원</p><span class="buy">구매하기</span></div></div>
-          <ul class="sn-fn"><li><span>상품 태그 클릭</span><strong>1,240<small>회</small></strong></li><li><span>상품 페이지 유입</span><strong>980<small>명</small></strong></li><li class="hl"><span>구매</span><strong>41<small>건</small></strong><em>온사이트 · CRM 으로 이어짐</em></li></ul></div></div></div>
+          <ul class="sn-fn"><li><span>상품 태그 클릭</span><strong>1,240<small>회</small></strong><svg class="sn-sp" viewBox="0 0 88 32" aria-hidden="true"><polyline points="0,26 15,22 29,24 44,17 58,19 73,11 88,8"/></svg></li><li><span>상품 페이지 유입</span><strong>980<small>명</small></strong><svg class="sn-sp" viewBox="0 0 88 32" aria-hidden="true"><polyline points="0,27 15,25 29,21 44,22 58,16 73,14 88,10"/></svg></li><li class="hl"><span>구매</span><strong>41<small>건</small></strong><em>온사이트 · CRM 으로 이어짐</em><svg class="sn-sp on" viewBox="0 0 88 32" aria-hidden="true"><polyline points="0,28 15,26 29,23 44,24 58,17 73,12 88,6"/><circle cx="88" cy="6" r="3"/></svg></li></ul></div></div></div>
       </li>
     </ol>
   </div>
