@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-303 히어로 왼쪽 광고 도달 카드 → AI 소재 생성 카드(AI 아이콘 · 3개 · 착용컷 · 무드컷 · 클로즈업) + 왼쪽 사진 생성 연출(반짝 로딩 → 선명 · 6초) · 가운데 창 인스타 ↔ 페이스북 전환 시 앞 화면이 먼저 빠지게(겹침 없음)
      · 2026-11-10 patch-302 문제 영역 왼쪽(기존) 창 회색 바탕(Gray 50 · 테두리 Gray 200 · 담당 칩 흰 바탕) — 오른쪽 개선 화면 강조 (다른 페이지와 같은 규칙)
      · 2026-11-10 patch-301 문제 오른쪽 4줄 썸네일 = 채널별 실제 소재로 새로 생성(메타 광고 · 인스타 피드 · 페이스북 신상 안내 · 자사몰 기획전 배너 · 기존 와인 폴로 촬영컷 첨부 · 작은 칸이라 모델 위주로 자름) · 해결 광고 캠페인 C = 모델 클로즈업 새로 생성(C · 디테일 → C · 클로즈업)
      · 2026-11-10 patch-300 단계 STEP 1 타깃 · 톤 사진 새로 생성(기존 촬영컷 첨부 · 같은 스튜디오 톤) step-target.jpg · step-tone.jpg
@@ -186,8 +187,18 @@
   #geo-hero .sh-visual > .ai-chat.sn-hw { position: relative; height: 418px; min-height: 0; padding: 0; gap: 0; overflow: hidden; }
   @media (max-width: 1023px) { #geo-hero .sh-visual > .ai-chat.sn-hw { height: 417px; } }
   @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat.sn-hw { height: 404px; padding: 0; } }
-  .sn-sc { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .6s, transform .6s var(--ease-out), visibility 0s .6s; }
-  .sn-sc.on { opacity: 1; visibility: visible; transform: none; transition: opacity .6s, transform .6s var(--ease-out), visibility 0s; }
+  /* patch-303: 화면 전환 = 앞 화면이 먼저 빠진 뒤(0.25초) 다음 화면이 들어옴 · 두 화면이 겹쳐 보이지 않게 (합계 0.6초 · 제목 키워드 전환과 같음) */
+  .sn-sc { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
+  .sn-sc.on { opacity: 1; visibility: visible; transform: none; transition: opacity .35s .25s, transform .35s .25s var(--ease-out), visibility 0s; }
+  /* patch-303: 히어로 왼쪽 = AI 소재 생성 카드 + 사진 생성 연출 (6초 반복) */
+  .sn-aic b { display: flex; align-items: center; gap: 6px; }
+  .sn-aic .aim-av { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
+  .sn-aic .aim-av svg { width: 62%; height: 62%; }
+  #geo-hero .sn-aic span { font-weight: 500; color: var(--gray-500); }
+  .sn-gi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGiO 6s infinite; }
+  .sn-gi img { animation: snGiR 6s infinite; }
+  @keyframes snGiO { 0%, 18% { opacity: 1; } 28%, 92% { opacity: 0; } 98%, 100% { opacity: 1; } }
+  @keyframes snGiR { 0%, 18% { filter: blur(10px); transform: scale(1.08); } 32%, 92% { filter: blur(0); transform: none; } 98%, 100% { filter: blur(10px); transform: scale(1.08); } }
   .sn-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 14.5px; }
   .sn-bar > img { width: 24px; height: 24px; }
   .sn-bar b { font-weight: 700; color: var(--gray-900); }
@@ -391,8 +402,8 @@
   .sn-fn em { font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-500); }
 
   @media (prefers-reduced-motion: reduce) {
-    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
-    .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1 { opacity: 0; }
+    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b { animation: none !important; transition: none !important; }
+    .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1, .sn-gi::after { opacity: 0; }
     .sn-ck { opacity: 1; transform: none; }
   }
   /* @endregion sns-vis */
@@ -459,9 +470,9 @@
           <ul class="sn-shp"><li><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><em class="sn-go">자사몰 보기</em></i><b>겨울 크루 스웨트</b><span>59,000원</span></li><li><i><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><b>럭비 니트 폴로</b><span>69,000원</span></li><li><i><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><b>피케 폴로 네이비</b><span>49,000원</span></li><li><i><img src="assets/geo/fashion/p-cap-green.webp" alt=""></i><b>로고 볼캡 그린</b><span>32,000원</span></li></ul>
         </div>
       </div>
-      <div class="sh-img"><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""></div>
+      <div class="sh-img sn-gi"><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""></div>   <!-- patch-303: AI로 만든 소재 · 반짝 로딩 → 선명 -->
       <div class="sh-img sh-img2"><img src="assets/geo/fashion/p-cap-green.webp" alt=""></div>
-      <div class="sh-float f1"><b>광고 도달</b><strong>12.6<small>만</small></strong><span>▲ 지난주 14%</span></div>
+      <div class="sh-float f1 sn-aic"><b><i class="aim-av"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>AI 소재 생성</b><strong>3<small>개</small></strong><span>착용컷 · 무드컷 · 클로즈업</span></div>   <!-- patch-303: 광고 도달 → AI 콘텐츠 제작 (히어로 흐름: 왼쪽 AI 제작 → 가운데 채널 운영 → 오른쪽 성과) -->
       <div class="sh-toast"><img class="sn-tl" src="assets/common/brand/instagram.svg" alt=""><div><p><b>자사몰 유입</b> +32명</p><small><i></i>게시물에서 상품 페이지로 · 방금</small></div></div>
       <div class="sh-float f2"><b>신규 팔로워</b><strong>320<small>명</small></strong><span>▲ 18%</span></div>
     </div>
