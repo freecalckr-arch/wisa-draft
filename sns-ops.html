@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-329: 문제 영역 메타 로고 테두리(Gray 200 · 16 안쪽)로 다른 로고와 같은 크기로 보이게 · 해결 3단계 휴대폰 ↔ 경로 간격 12 → 32
      · 2026-11-10 patch-328: 히어로 인스타 · 페이스북 화면 실제처럼 — 인스타 게시물 · 릴스 · 태그됨 탭 줄 추가 · 그리드 3칸 세로형(3:4) · 칸 사이 2px · 게시물 248 · 팔로워 3.2만 · 팔로우 12 표기 · 릴스 흰 아이콘 / 페이스북 머리줄 → 앱 상단 줄(로고 · 검색 · 메신저 · 알림) · 페이지 이름 20 · 좋아요 1.8만개 · 팔로워 2.1만명 · 좋아요 · 메시지 보내기 버튼(회색 · 블루는 자사몰 보기 1곳)
      · 2026-11-10 patch-327: 해결 3단계 자사몰 유입 경로 점 · 세로선 · 차오름 애니메이션 제거 → 줄 사이 아래 화살표 칩(↓ 79% 상품 페이지로 · ↓ 4.2% 구매로) · 움직임은 휴대폰 1개만
      · 2026-11-10 patch-326: 시안 히스토리 · 시안 목록 공식채널운영 작업중 → 1차 시안 (고객 공유)
@@ -328,6 +329,7 @@
   .sn-rows li { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 8px 0 4px; border-radius: 10px; }
   .sn-cn { flex: none; width: 116px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); white-space: nowrap; }
   .sn-cn > img { flex: none; width: 16px; height: 16px; }
+  .sn-cn > img[src$="meta.svg"] { border-radius: 4px; outline: 1px solid var(--gray-200); outline-offset: -1px; }   /* patch-329: 메타 = 흰 타일이라 바탕과 구분되게 테두리 (16 안쪽 · 다른 로고와 같은 크기) */
   .sn-cp { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sn-ow { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-size: 12px; font-weight: 600; font-style: normal; }
   /* patch-302: 문제 영역 왼쪽(기존) 창 = 회색 바탕(Gray 50 + 테두리 Gray 200)으로 오른쪽(개선) 화면을 돋보이게 (GEO .pn.serp · CRM · 리포트 같음) */
@@ -438,6 +440,7 @@
   @keyframes snStA { 0%, 44% { opacity: 1; } 50%, 94% { opacity: 0; } 100% { opacity: 1; } }
   @keyframes snStB { 0%, 44% { opacity: 0; } 50%, 94% { opacity: 1; } 100% { opacity: 0; } }
   #geo-diagnosis .vw-win.sn-d3 > .vw-bd { flex-direction: row; align-items: center; gap: 24px; }
+  #geo-diagnosis .steprow:nth-child(3) .vw-win.sn-d3 > .vw-bd { gap: 32px !important; }   /* patch-329: 휴대폰 ↔ 경로 12 → 32 (공통 3번째 단계 gap 12 !important 덮음) */
   .sn-ph { position: relative; flex: none; width: 156px; height: 236px; border-radius: 16px; overflow: hidden; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 8px 20px rgba(16,24,40,.08); }
   .sn-ph .sc { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--white); }
   .sn-ph .a { animation: snScA 6s infinite; }
