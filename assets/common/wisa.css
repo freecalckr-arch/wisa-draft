@@ -3299,3 +3299,8 @@ img, video { max-width: 100%; display: block; }
 .tab-page a.on i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--primary-600); opacity: 0; animation: tabDotPulse 1.6s ease-out .6s 3; }
 @keyframes tabDotPulse { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(2.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .tab-page a.on i::after { animation: none; } }
+
+/* @region arrow-unify · patch-322 · 문제 영역 화살표(.bt-arrow)를 단계 화살표(.fl-ar)와 같게: 검은 원 36 · 흰 화살표 16 (선 2.4) · 흰 테두리 4 */
+.bt-arrow { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 0; border-radius: 50%; background: var(--black); color: var(--white); box-shadow: 0 0 0 4px var(--white); }
+.bt-arrow svg { width: 16px; height: 16px; }
+.bt-arrow svg, .bt-arrow svg path { stroke-width: 2.4; }
