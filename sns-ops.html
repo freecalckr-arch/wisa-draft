@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-10 patch-306 히어로 AI 카드 글자 블랙(Gray 900)
      · 2026-11-10 patch-305 히어로 AI 카드 = 숫자 · 설명 글자 빼고 한 줄(AI 소재 생성 중 … → AI 소재 생성 완료 · 단계 STEP 2 연출) · 왼쪽 사진 나오는 연출도 STEP 2 키프레임(7.2초)으로 맞춤
      · 2026-11-10 patch-304 문제 오른쪽 4줄 썸네일 = 받은 모델 컷으로 교체(ch-meta · ch-insta · ch-fb · ch-store) · 해결 자사몰 유입 수치 칸 오른쪽에 라인 그래프(7일 추이 · 구매만 블루)
      · 2026-11-10 patch-303 히어로 왼쪽 광고 도달 카드 → AI 소재 생성 카드(AI 아이콘 · 3개 · 착용컷 · 무드컷 · 클로즈업) + 왼쪽 사진 생성 연출(반짝 로딩 → 선명 · 6초) · 가운데 창 인스타 ↔ 페이스북 전환 시 앞 화면이 먼저 빠지게(겹침 없음)
@@ -198,6 +199,7 @@
   .sn-aic .aim-av svg { width: 62%; height: 62%; }
   #geo-hero .sn-aic { padding: 14px 18px; } #geo-hero .sn-aic .sn-gs { justify-items: start; font-size: 13px; line-height: 20px; }
   #geo-hero .sh-float.f1.sn-aic { top: calc(22% + 44px); }   /* 한 줄 카드 = 사진 위 모서리에 걸치게 */
+  #geo-hero .sn-aic .sn-gs b { color: var(--gray-900); }   /* patch-306: 히어로 AI 카드 글자 = 블랙 (생성 중 · 완료 모두) */
   .sn-aic .g1 .aim-av svg { animation: snSpin 1.2s linear infinite; }
   /* patch-305: 사진 나오는 연출 = 단계 STEP 2 와 같은 키프레임 · 7.2초 (snGenO · snRev · 카드 글자 snG1 · snG2 와 같은 타이머) */
   .sn-gi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGenO 7.2s infinite; }
