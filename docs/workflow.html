@@ -11,9 +11,9 @@
 <!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
 <main class="doc">
   <header class="ph">
-    <p class="eyebrow">시작하기</p>
+    <p class="eyebrow">시안 작업</p>
     <h1>작업 방법</h1>
-    <p class="lede">시안 원본은 GitHub 저장소 하나입니다. 어느 Claude 계정에서 작업해도 같은 저장소를 받아서 고치고 올립니다.</p>
+    <p class="lede">시안을 만들고 고칠 때 쓰는 작업 규칙입니다 (구현 대상 아님). 시안 원본은 GitHub 저장소 하나이고, 어느 Claude 계정에서 작업해도 같은 저장소를 받아서 고치고 올립니다.</p>
   </header>
   <div class="body">
 <h2 id="where">원본 위치</h2>
@@ -48,6 +48,17 @@
 <tr><td>버티컬커머스</td><td>준비 중</td></tr>
 </tbody></table></div>
 
+    <h2 id="status">규칙 적용 현황</h2>
+    <div class="tbl"><table><thead><tr><th>페이지</th><th>상태</th><th>메모</th></tr></thead><tbody>
+<tr><td><a href="../geo.html">GEO</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 히어로 박스 태블릿 · 모바일 440, 문제 550×300 · 단계 카드 화면 360×250 · 해결 460×380 비율 축소, 그래프 태블릿 220 · 모바일 210</td></tr>
+<tr><td><a href="../onsite.html">온사이트마케팅</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 문제 550×300 · 단계 560×480 · 해결 460×380 비율 축소, 그래프 태블릿 220 · 모바일 210</td></tr>
+<tr><td><a href="../crm.html">CRM마케팅</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80</td></tr>
+<tr><td><a href="../report.html">리포트</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-08 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80, 리포트 대시보드 1240×620 (PC 1100 폭 표시)</td></tr>
+<tr><td><a href="../sns-ops.html">공식채널운영</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-09 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80</td></tr>
+<tr><td><a href="../shopping-feed.html">상품DB 연동</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-11 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80</td></tr>
+<tr><td>버티컬커머스</td><td><span class="tag">예정</span></td><td>시안 작업 시 처음부터 이 규칙으로</td></tr>
+</tbody></table></div>
+
     <h2 id="mkt-steps">자사몰 마케팅 디자인 작업 순서</h2>
     <p>새 페이지(CRM · 리포트 등)나 큰 수정은 아래 순서대로 진행합니다. 재구성이 끝나기 전에 비주얼부터 그리지 않습니다.</p>
     <ol class="rules">
@@ -65,22 +76,8 @@
       <li><div><b>비주얼 이미지</b><span>화면 이미지를 만들 때 레이아웃과 타이포 배치에 신경 씁니다. 정렬선을 맞추고, 제목 · 수치 · 설명의 크기 위계를 분명히 하고, 요소 사이 여백을 일정하게 둡니다. 글자가 이미지 · 다른 요소와 겹치거나 잘리지 않게 확인합니다.</span></div></li>
     </ol>
 
-    <h2 id="files">파일 구조</h2>
-    <div class="tbl"><table><thead><tr><th>경로</th><th>내용</th></tr></thead><tbody>
-<tr><td><code>index.html</code></td><td>시안 목록 (고객이 처음 보는 페이지)</td></tr>
-<tr><td><code>geo.html</code> · <code>onsite.html</code></td><td>페이지별 최신 시안</td></tr>
-<tr><td><code>assets/common/wisa.css</code> · <code>wisa.js</code></td><td>마케팅 시안 공통 스타일 · 스크립트 (아래 공통 파일 참고)</td></tr>
-<tr><td><code>assets/</code></td><td>폰트 · 로고 · 상품 · 프로필 이미지 (모든 페이지 공용, 새 이미지는 <code>assets/geo/…</code> 아래)</td></tr>
-<tr><td><code>docs/</code></td><td>이 규칙 사이트 · 메뉴는 <code>docs/assets/docs.js</code> 의 <code>NAV</code></td></tr>
-<tr><td><code>CLAUDE.md</code></td><td>Claude 가 작업 시작 때 읽는 요약 규칙</td></tr>
-</tbody></table></div>
-
-    <h2 id="common">공통 파일</h2>
-    <p>여러 페이지에 똑같이 쓰는 코드는 공통 파일 하나에 두고 불러 씁니다 (patch-172). 한 곳만 고치면 모든 페이지에 반영됩니다.</p>
-    <div class="tbl"><table><thead><tr><th>파일</th><th>담는 것</th><th>불러오는 위치</th></tr></thead><tbody>
-<tr><td><code>assets/common/wisa.css</code></td><td>토큰(<code>:root</code>) · 공통 · 헤더 · GNB · 모바일 메뉴 · 푸터 · CTA · FAQ · 영역 공통 · 타이포 규격 · 반응형</td><td><code>&lt;head&gt;</code> 의 첫 <code>&lt;style&gt;</code> 바로 위</td></tr>
-<tr><td><code>assets/common/wisa.js</code></td><td>비주얼 등장 · STEP 2 코드 · 채팅 타이핑 · 시안 히스토리 · 리포트 축소</td><td><code>&lt;/body&gt;</code> 바로 위 (페이지 스크립트 다음)</td></tr>
-</tbody></table></div>
+    <h2 id="common">공통 파일 고치는 법</h2>
+    <p>파일 구조와 공통 파일이 담는 내용은 <a href="index.html#files">개요 · 파일 구조</a>에 있습니다. 그 밖에 저장소에는 <code>CLAUDE.md</code>(Claude 가 작업 시작 때 읽는 요약 규칙)가 있고, 새 이미지는 <code>assets/geo/…</code> 아래에 넣습니다. 공통 파일은 <code>wisa.css</code> 를 <code>&lt;head&gt;</code> 의 첫 <code>&lt;style&gt;</code> 바로 위, <code>wisa.js</code> 를 <code>&lt;/body&gt;</code> 바로 위(페이지 스크립트 다음)에서 불러옵니다 (patch-172).</p>
     <ol class="rules">
       <li><div><b>새 페이지</b><span>GEO 또는 온사이트를 복사해 시작하고, <code>wisa.css</code> · <code>wisa.js</code> 연결은 그대로 둡니다. 페이지 전용 CSS · 스크립트만 HTML 안에 씁니다.</span></div></li>
       <li><div><b>페이지 전용 수정</b><span>HTML 의 <code>&lt;style&gt;</code> 에 씁니다. 공통 파일보다 뒤에 오므로 공통 규칙을 덮어씁니다.</span></div></li>
@@ -105,7 +102,26 @@
     <div class="call warn"><p>이 네 가지 외의 내용(수정한 영역 이름, 작업 내용 등)은 이름에 넣지 않습니다.</p></div>
     <div class="code"><button type="button" data-copy="c-vh">복사</button><pre id="c-vh">{"date":"2026.11.06","name":"GEO · 반응형 시안(PC/TB/MO)","url":"geo.html"},
 {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안(PC/TB/MO)","current":true}</pre></div>
-    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+
+    <h2 id="check">시안 완료 전 체크리스트</h2>
+    <ul class="check">
+      <li>영역 id 가 <a href="sections.html">영역 이름</a> 표의 이름 · 순서와 맞는다</li>
+      <li>히어로 파란 박스가 PC · PC 최소 460, 태블릿 · 모바일 440 이고 가로 규격을 지킨다</li>
+      <li>이미지 크기 · 큰 여백이 10 단위로 끝난다 (551 · 483 · 211 같은 숫자가 없다)</li>
+      <li>화면 이미지가 PC 크기로 그려지고, 1439 이하에서 비율 그대로 줄어든다 (가로만 바뀌지 않는다)</li>
+      <li>태블릿에서 이미지가 PC 크기보다 커지지 않는다</li>
+      <li>그래프 영역 그래프 세로가 태블릿 220 · 모바일 210 이다</li>
+      <li><a href="visual.html#tab=점검">점검 스크립트</a>를 PC 1440 에서 돌려 나온 항목을 고쳤다</li>
+      <li>1440 · 1100 · 820 · 390 에서 확인했고, 모바일 390 · 360 에서 페이지가 옆으로 밀리지 않는다</li>
+    </ul>
+
+    <h2 id="add">규격 페이지 추가하기</h2>
+    <ol class="list">
+      <li><code>docs/</code> 에 있는 페이지 하나를 복사해 새 이름으로 저장합니다 (예: <code>docs/tab.html</code>).</li>
+      <li>제목 · 설명 · 본문을 고칩니다. 탭이 필요하면 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 으로 나눕니다. 맨 위 분류 표시(<code>.eyebrow</code>)는 <b>개발 전달</b> 또는 <b>시안 작업</b> 중 어디에 속하는지 적습니다.</li>
+      <li><code>docs/assets/docs.js</code> 맨 위 <code>NAV</code> 에서 개발자가 구현할 규격이면 <code>{ part: "개발 전달" }</code> 아래, 시안을 그릴 때만 쓰는 규칙이면 <code>{ part: "시안 작업" }</code> 아래 분류에 한 줄 추가하거나 <code>null</code> 을 파일 이름으로 바꿉니다.</li>
+    </ol>
+    <p class="foot">마지막 수정 2026-11-11 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

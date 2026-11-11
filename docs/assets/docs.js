@@ -4,12 +4,20 @@
    - 탭(또는 본문) 안의 h2 로 "이 페이지" 목차를 만듭니다.
    - [data-copy] 버튼은 지정한 요소의 글을 복사합니다. */
 (function () {
+  /* 메뉴는 두 덩어리: { part } 줄 아래에 분류(g)가 이어집니다.
+     - 개발 전달: 개발자가 구현할 때 보는 규격 (드라이브 전달 폴더에 넣는 범위)
+     - 시안 작업: 시안을 그릴 때만 쓰는 작업 규칙 (구현 대상 아님) */
   var NAV = [
-    { g: "시작하기", items: [["개요", "index.html"], ["작업 방법", "workflow.html", "Claude용"]] },
+    { part: "개발 전달" },
+    { g: "시작하기", items: [["개요", "index.html"]] },
+    { g: "기존 소스 수정", items: [["기존 수정 목록", "changes.html"]] },
     { g: "기초", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
-    { g: "영역 규격", items: [["히어로", "hero.html"], ["비주얼 공통", "visual.html", "Claude용"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
-    { g: "컴포넌트", items: [["탭", null], ["카드", null], ["시안 히스토리", null]] },
-    { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"]] }
+    { g: "영역 규격", items: [["히어로", "hero.html"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
+    { g: "컴포넌트", items: [["탭", null], ["카드", null], ["CTA", null]] },
+    { g: "인터랙션", items: [["인터랙션 목록", null]] },
+    { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"]] },
+    { part: "시안 작업" },
+    { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
 
   var here = location.pathname.split("/").pop() || "index.html";
@@ -23,7 +31,6 @@
     '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>' +
     '<a class="brand" href="index.html"><img src="../assets/common/logo.svg" alt="WISA 디자인 규칙"></a>' +
     '<span class="sp"></span>' +
-    '<a class="lnk hide-mo" href="https://github.com/freecalckr-arch/wisa-draft">GitHub</a>' +
     '<a class="lnk" href="../index.html">시안 목록</a>';
 
   // 왼쪽 메뉴
@@ -36,6 +43,7 @@
   try { shut = JSON.parse(localStorage.getItem("wisa-docs-nav") || "{}") || {}; } catch (e) { shut = {}; }
   var chev = '<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
   side.innerHTML = NAV.map(function (grp, gi) {
+    if (grp.part) return '<p class="part' + (gi ? "" : " first") + '">' + grp.part + "</p>";
     var hasHere = grp.items.some(function (it) { return it[1] === here; });
     var open = hasHere || !shut[grp.g];
     return '<div class="grp' + (open ? "" : " shut") + '"><h4><button type="button" class="grp-t" aria-expanded="' + open + '" aria-controls="nav-g' + gi + '">' + grp.g + chev + "</button></h4><ul id=\"nav-g" + gi + "\">" + grp.items.map(function (it) {

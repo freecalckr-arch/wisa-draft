@@ -11,13 +11,23 @@
 <!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
 <main class="doc">
   <header class="ph">
-    <p class="eyebrow">시작하기</p>
+    <p class="eyebrow">개발 전달 · 시작하기</p>
     <h1>개요</h1>
-    <p class="lede">WISA 페이지 시안이 함께 쓰는 규칙입니다. 화면 이미지는 PC 크기로 한 번 그리고, 화면이 좁아지면 비율 그대로 줄입니다.</p>
+    <p class="lede">WISA 마케팅 페이지 리뉴얼 시안을 구현할 때 보는 규격입니다. 왼쪽 메뉴의 <b>개발 전달</b>이 구현 대상이고, <b>시안 작업</b>은 시안을 그릴 때만 쓰는 규칙이라 구현하지 않아도 됩니다.</p>
   </header>
   <div class="body">
-<h2 id="start">빠르게 찾기</h2>
+<h2 id="order">보는 순서</h2>
+    <ol class="rules">
+      <li><div><b>기존 수정 목록</b><span>신규 시안에 맞춰 기존 홈페이지 소스도 고쳐야 하는 항목입니다 (CTA 빛 위치 · 페이지 전환 탭 · 모바일 타이틀). <a href="changes.html">기존 수정 목록</a></span></div></li>
+      <li><div><b>기초</b><span>해상도 구간 · 영역 이름 · 그리드 · 컬러 · 타이포. 모든 페이지가 같이 씁니다.</span></div></li>
+      <li><div><b>영역 규격</b><span>히어로 · 이미지 · 그래프의 크기와 해상도별 축소 규칙입니다.</span></div></li>
+      <li><div><b>페이지 시안</b><span>위 규칙이 적용된 완성 시안입니다. 각 HTML 맨 위 <code>[개발 전달]</code> 주석에 수정 기록이 있습니다.</span></div></li>
+    </ol>
+    <p class="note">컴포넌트(탭 · 카드 · CTA)와 인터랙션 목록은 고객 피드백 반영 후 채웁니다.</p>
+
+    <h2 id="start">빠르게 찾기</h2>
     <div class="cards">
+      <a href="changes.html"><small>기존 소스 수정</small><b>기존 수정 목록</b><span>기존 홈페이지에서 고칠 3가지 · 기존 값과 신규 값 비교</span><i>→</i></a>
       <a href="breakpoints.html"><small>기초</small><b>해상도 구간</b><span>PC · PC 최소 · 태블릿 · 모바일 네 구간과 확인 폭</span><i>→</i></a>
       <a href="sections.html"><small>기초</small><b>영역 이름</b><span>히어로부터 CTA까지 영역 이름과 코드 id · 마케팅 · 호스팅 탭</span><i>→</i></a>
       <a href="grid.html"><small>기초</small><b>그리드 · 여백</b><span>본문 폭 1240, 좌우 여백, 영역 사이 간격</span><i>→</i></a>
@@ -26,35 +36,42 @@
       <a href="graph.html"><small>영역 규격</small><b>그래프</b><span>그래프 세로 길이 (태블릿 220 · 모바일 210)</span><i>→</i></a>
     </div>
 
-    <h2 id="status">페이지별 적용 현황</h2>
-    <div class="tbl"><table><thead><tr><th>페이지</th><th>상태</th><th>메모</th></tr></thead><tbody>
-<tr><td><a href="../geo.html">GEO</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 히어로 박스 태블릿 · 모바일 440, 문제 550×300 · 단계 카드 화면 360×250 · 해결 460×380 비율 축소, 그래프 태블릿 220 · 모바일 210</td></tr>
-<tr><td><a href="../onsite.html">온사이트마케팅</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 문제 550×300 · 단계 560×480 · 해결 460×380 비율 축소, 그래프 태블릿 220 · 모바일 210</td></tr>
-<tr><td><a href="../crm.html">CRM마케팅</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-07 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80</td></tr>
-<tr><td><a href="../report.html">리포트</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-08 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80, 리포트 대시보드 1240×620 (PC 1100 폭 표시)</td></tr>
-<tr><td><a href="../sns-ops.html">공식채널운영</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-09 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80</td></tr>
-<tr><td><a href="../shopping-feed.html">상품DB 연동</a></td><td><span class="tag ok">적용 완료</span></td><td>2026-11-11 · 처음부터 이 규칙으로 작업 · 해결 460×340 비율 축소, 그래프 태블릿 220 · 모바일 210, 영역 간격 PC 160 · 태블릿 120 · 모바일 80</td></tr>
-<tr><td>버티컬커머스</td><td><span class="tag">예정</span></td><td>시안 작업 시 처음부터 이 규칙으로</td></tr>
+    <h2 id="pages">페이지</h2>
+    <div class="tbl"><table><thead><tr><th>묶음</th><th>페이지</th><th>파일</th></tr></thead><tbody>
+<tr><td rowspan="4">자사몰 마케팅</td><td>GEO / AI 검색</td><td><a href="../geo.html">geo.html</a></td></tr>
+<tr><td>온사이트마케팅</td><td><a href="../onsite.html">onsite.html</a></td></tr>
+<tr><td>CRM마케팅</td><td><a href="../crm.html">crm.html</a></td></tr>
+<tr><td>리포트</td><td><a href="../report.html">report.html</a></td></tr>
+<tr><td rowspan="3">채널마케팅</td><td>공식채널운영</td><td><a href="../sns-ops.html">sns-ops.html</a></td></tr>
+<tr><td>상품DB 연동</td><td><a href="../shopping-feed.html">shopping-feed.html</a></td></tr>
+<tr><td>버티컬커머스</td><td>준비 중</td></tr>
 </tbody></table></div>
 
-    <h2 id="check">시안 완료 전 체크리스트</h2>
-    <ul class="check">
-      <li>영역 id 가 <a href="sections.html">영역 이름</a> 표의 이름 · 순서와 맞는다</li>
-      <li>히어로 파란 박스가 PC · PC 최소 460, 태블릿 · 모바일 440 이고 가로 규격을 지킨다</li>
-      <li>이미지 크기 · 큰 여백이 10 단위로 끝난다 (551 · 483 · 211 같은 숫자가 없다)</li>
-      <li>화면 이미지가 PC 크기로 그려지고, 1439 이하에서 비율 그대로 줄어든다 (가로만 바뀌지 않는다)</li>
-      <li>태블릿에서 이미지가 PC 크기보다 커지지 않는다</li>
-      <li>그래프 영역 그래프 세로가 태블릿 220 · 모바일 210 이다</li>
-      <li>1440 · 1100 · 820 · 390 에서 확인했고, 모바일 390 · 360 에서 페이지가 옆으로 밀리지 않는다</li>
-    </ul>
+    <h2 id="files">파일 구조</h2>
+    <div class="tbl"><table><thead><tr><th>경로</th><th>내용</th></tr></thead><tbody>
+<tr><td><code>index.html</code></td><td>시안 목록</td></tr>
+<tr><td><code>geo.html</code> 등 페이지 HTML</td><td>페이지별 최신 시안 · 페이지 전용 CSS(<code>&lt;style&gt;</code>) · 스크립트 포함</td></tr>
+<tr><td><code>assets/common/wisa.css</code></td><td>마케팅 페이지 공통 스타일: 토큰(<code>:root</code>) · 헤더 · GNB · 모바일 메뉴 · 푸터 · CTA · FAQ · 영역 공통 · 타이포 · 반응형</td></tr>
+<tr><td><code>assets/common/wisa.js</code></td><td>마케팅 페이지 공통 스크립트: 등장 효과 · 히어로 축소 · 페이지 전환 탭 · 해결 영역 세로 라인 · 리포트 축소 등</td></tr>
+<tr><td><code>assets/common/brand/</code></td><td>채널 · 매체 · AI 서비스 로고 (48×48 타일 · 목록 <a href="../assets/common/brand/index.html">brand/index.html</a>)</td></tr>
+<tr><td><code>assets/</code></td><td>폰트 · 로고 · 상품 · 프로필 이미지</td></tr>
+<tr><td><code>docs/</code></td><td>이 규칙 사이트</td></tr>
+</tbody></table></div>
+    <p>공통 파일은 페이지마다 <code>wisa.css?v=수정 번호</code> 처럼 같은 숫자를 붙여 불러옵니다. 페이지 HTML 의 <code>&lt;style&gt;</code> 이 공통 파일보다 뒤에 오므로 페이지 전용 규칙이 공통 규칙을 덮어씁니다.</p>
 
-    <h2 id="add">규격 페이지 추가하기</h2>
-    <ol class="list">
-      <li><code>docs/</code> 에 있는 페이지 하나를 복사해 새 이름으로 저장합니다 (예: <code>docs/tab.html</code>).</li>
-      <li>제목 · 설명 · 본문을 고칩니다. 탭이 필요하면 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 으로 나눕니다.</li>
-      <li><code>docs/assets/docs.js</code> 맨 위 <code>NAV</code> 에서 해당 메뉴의 <code>null</code> 을 파일 이름으로 바꾸거나 새 줄을 추가합니다.</li>
+    <h2 id="log">수정 기록 보는 법</h2>
+    <ol class="rules">
+      <li><div><b>[개발 전달] 주석</b><span>각 페이지 HTML 맨 위에 날짜 · 수정 번호(<code>patch-NNN</code>) · 수정 내용이 최신순으로 있습니다.</span></div></li>
+      <li><div><b>patch 주석</b><span>CSS · 스크립트 안의 <code>patch-NNN</code> 주석으로 해당 코드를 찾을 수 있습니다. 공통 파일은 <code>@region 이름</code> 단위로 나뉘어 있습니다.</span></div></li>
     </ol>
-    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+
+    <h2 id="draft-only">구현하지 않는 시안 전용 코드</h2>
+    <div class="tbl"><table><thead><tr><th>코드</th><th>설명</th></tr></thead><tbody>
+<tr><td>시안 히스토리 <code>#vh</code></td><td>각 시안 왼쪽 아래 버튼 · 고객 공유 이력 표시용</td></tr>
+<tr><td><code>docs/assets/visual-check.js</code></td><td>시안 점검 스크립트</td></tr>
+<tr><td><code>docs/</code> 시안 작업 메뉴</td><td>작업 방법 · 비주얼 공통 (시안을 그릴 때 쓰는 규칙)</td></tr>
+</tbody></table></div>
+    <p class="foot">마지막 수정 2026-11-11 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

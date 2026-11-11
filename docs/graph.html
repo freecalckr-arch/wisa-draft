@@ -24,12 +24,7 @@
 <tr><td>태블릿</td><td><b class="num">220</b> 고정</td><td>태블릿 전용 <code>chart-tb</code> · viewBox 640 × 220</td></tr>
 <tr><td>모바일</td><td><b class="num">210</b> 고정</td><td>모바일 전용 <code>chart-mo</code> · viewBox 298 × 210</td></tr>
 </tbody></table></div>
-    <h2 id="rules">그리기 규칙</h2>
-    <ol class="rules">
-      <li><div><b>전용 그림은 PC 그래프와 같게</b><span>데이터 · 색 · 애니메이션을 똑같이, 가로가 줄어든 만큼 세로를 확보해 다시 그립니다.</span></div></li>
-      <li><div><b>모바일 글씨 12px 이상</b><span>단계 이름 12 · 수치 12.5 · 말풍선 11.5.</span></div></li>
-      <li><div><b>말풍선 · 수치는 빈 공간에</b><span>선이나 다른 글씨와 겹치면 주로 오른쪽 위 빈 공간으로 옮깁니다.</span></div></li>
-    </ol>
+    <p class="note">태블릿 · 모바일 전용 그림은 PC 그래프와 데이터 · 색 · 애니메이션을 같게 그립니다. 그림을 그리는 세부 규칙은 시안 작업 &gt; <a href="visual.html#tab=그래프">비주얼 공통 · 그래프</a>에 있습니다.</p>
     <div class="code"><button type="button" data-copy="c-g">복사</button><pre id="c-g">.chart-tb, .chart-mo { display: none; }
 @media (min-width: 768px) and (max-width: 1023px) { .chart-pc { display: none; } .chart-tb { display: block; height: 220px; } }
 @media (max-width: 767px) { .chart-pc { display: none; } .chart-mo { display: block; height: 210px; } }</pre></div>
@@ -46,7 +41,7 @@
 </tbody></table></div>
     <p class="note">해결 · 적용 꺾은선처럼 화면 이미지 안에 있는 그래프는 따로 정하지 않고 <a href="image.html">이미지 배율</a>을 따릅니다.</p>
     </section>
-    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+    <p class="foot">마지막 수정 2026-11-11 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

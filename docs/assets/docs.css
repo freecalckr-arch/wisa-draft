@@ -46,6 +46,10 @@ img, svg { max-width: 100%; }
 .side { position: fixed; z-index: 20; top: var(--bar-h); bottom: 0; left: 0; width: var(--nav-w); overflow-y: auto; background: var(--gray-50); border-right: 1px solid var(--gray-200); padding: 16px 0 40px; scrollbar-width: thin; scrollbar-color: var(--gray-300) transparent; }
 .side h4 { margin: 20px 0 4px; padding: 0 16px; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--gray-500); }
 .side .grp:first-child h4 { margin-top: 4px; }
+/* 메뉴 덩어리 이름 (개발 전달 · 시안 작업) · 두 번째 덩어리는 위에 구분선 */
+.side .part { margin: 28px 16px 0; padding-top: 20px; border-top: 1px solid var(--gray-200); font-size: 13px; font-weight: 700; line-height: 20px; color: var(--gray-900); }
+.side .part.first { margin-top: 4px; padding-top: 0; border-top: 0; }
+.side .part + .grp h4 { margin-top: 8px; }
 /* 분류 접기 · 펴기 (docs.js · 분류 이름 오른쪽 화살표) */
 .side h4 { padding: 0 8px; }
 .side .grp-t { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 28px; padding: 0 8px; border: 0; border-radius: 6px; background: none; font: inherit; letter-spacing: inherit; color: inherit; text-align: left; cursor: pointer; }

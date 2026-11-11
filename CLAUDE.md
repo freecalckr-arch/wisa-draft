@@ -38,7 +38,7 @@
 - `assets/` 공용 이미지 · 폰트 (새 이미지는 `assets/geo/...` 아래에 추가하고 상대 경로로 참조)
 - `assets/common/brand/` 채널 · 매체 · AI 서비스 로고 에셋 (48×48 · 모서리 11 타일 SVG/PNG · 목록 `assets/common/brand/index.html`). 비주얼 안 채널 아이콘(네이버 · 메타 · 구글 · 카카오 · 스마트스토어 · 슬랙 · 엑셀 · 챗GPT · 클로드 · 제미나이 · 퍼플렉시티 · 젠스파크 · 페이코 · 토스페이 · 카카오페이 · 인스타그램 · 유튜브)은 글자 타일(N · M · G)로 만들지 않고 여기 파일을 `<img src="assets/common/brand/naver.svg">` 로 가져와 씀. 없는 로고는 같은 타일 규격으로 추가하고 목록에 한 줄 추가 (기존 공통 `.app` 클래스 아이콘도 같은 로고)
 - AI 아이콘은 히어로와 같은 규격 하나만 씀: 블루→인디고 그라데이션 사각형(Primary 600 → #6172f3) · 흰 반짝이(칸의 62%) · 모서리 = 크기의 30% (`.aim-av`)
-- `docs/` 디자인 규칙 사이트 (왼쪽 메뉴 = `docs/assets/docs.js` 의 NAV · 새 규격 페이지는 기존 페이지를 복사해 만들고 NAV 에 한 줄 추가)
+- `docs/` 디자인 규칙 사이트 (왼쪽 메뉴 = `docs/assets/docs.js` 의 NAV · 새 규격 페이지는 기존 페이지를 복사해 만들고 NAV 에 한 줄 추가 · 메뉴는 두 덩어리: "개발 전달"(개발자가 구현할 규격 · 드라이브 전달 범위 · 기존 홈페이지 수정은 docs/changes.html) / "시안 작업"(작업 방법 · 비주얼 공통 등 시안 그릴 때만 쓰는 규칙) · 새 페이지는 어느 쪽인지 정해 그 아래에 넣음)
 
 ## 반드시 지킬 것
 - 영역 이름(흐름 순서): 히어로 `#geo-hero` · 문제 `#geo-why` · 그래프 `#geo-market` · 단계(탭 타입 · 카드 타입) `#geo-how` · 해결 `#geo-diagnosis` · 리포트 `#geo-report` · 사례 `#geo-ref` · FAQ `#geo-faq` · CTA `#cta` / 부속: URL `#geo-scope` (GEO) · 다짐 띠 `#geo-vow`
