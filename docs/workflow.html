@@ -11,7 +11,7 @@
 <!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
 <main class="doc">
   <header class="ph">
-    <p class="eyebrow">시안 작업</p>
+    <p class="eyebrow">디자인</p>
     <h1>작업 방법</h1>
     <p class="lede">시안을 만들고 고칠 때 쓰는 작업 규칙입니다 (구현 대상 아님). 시안 원본은 GitHub 저장소 하나이고, 어느 Claude 계정에서 작업해도 같은 저장소를 받아서 고치고 올립니다.</p>
   </header>
@@ -118,8 +118,8 @@
     <h2 id="add">규격 페이지 추가하기</h2>
     <ol class="list">
       <li><code>docs/</code> 에 있는 페이지 하나를 복사해 새 이름으로 저장합니다 (예: <code>docs/tab.html</code>).</li>
-      <li>제목 · 설명 · 본문을 고칩니다. 탭이 필요하면 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 으로 나눕니다. 맨 위 분류 표시(<code>.eyebrow</code>)는 <b>개발 전달</b> 또는 <b>시안 작업</b> 중 어디에 속하는지 적습니다.</li>
-      <li><code>docs/assets/docs.js</code> 맨 위 <code>NAV</code> 에서 개발자가 구현할 규격이면 <code>{ part: "개발 전달" }</code> 아래, 시안을 그릴 때만 쓰는 규칙이면 <code>{ part: "시안 작업" }</code> 아래 분류에 한 줄 추가하거나 <code>null</code> 을 파일 이름으로 바꿉니다.</li>
+      <li>제목 · 설명 · 본문을 고칩니다. 탭이 필요하면 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 으로 나눕니다. 맨 위 분류 표시(<code>.eyebrow</code>)는 <b>개발 전달</b> 또는 <b>디자인</b> 중 어디에 속하는지 적습니다.</li>
+      <li><code>docs/assets/docs.js</code> 맨 위 <code>NAV</code> 에서 개발자가 구현할 규격이면 <code>{ part: "개발 전달" }</code> 아래, 시안을 그릴 때만 쓰는 규칙이면 <code>{ part: "디자인" }</code> 아래 분류에 한 줄 추가하거나 <code>null</code> 을 파일 이름으로 바꿉니다.</li>
     </ol>
     <p class="foot">마지막 수정 2026-11-11 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>

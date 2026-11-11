@@ -47,9 +47,16 @@ img, svg { max-width: 100%; }
 .side h4 { margin: 20px 0 4px; padding: 0 16px; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--gray-500); }
 .side .grp:first-child h4 { margin-top: 4px; }
 /* 메뉴 덩어리 이름 (개발 전달 · 시안 작업) · 두 번째 덩어리는 위에 구분선 */
-.side .part { margin: 28px 16px 0; padding-top: 20px; border-top: 1px solid var(--gray-200); font-size: 13px; font-weight: 700; line-height: 20px; color: var(--gray-900); }
-.side .part.first { margin-top: 4px; padding-top: 0; border-top: 0; }
-.side .part + .grp h4 { margin-top: 8px; }
+.side .part-w { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--gray-200); }
+.side .part-w.first { margin-top: 0; padding-top: 0; border-top: 0; }
+.side .part { display: flex; align-items: center; justify-content: space-between; width: calc(100% - 16px); min-height: 32px; margin: 0 8px; padding: 0 8px; border: 0; border-radius: 6px; background: none; font: inherit; font-size: 13px; font-weight: 700; line-height: 20px; color: var(--gray-900); text-align: left; cursor: pointer; }
+.side .part > span { display: inline-flex; align-items: center; gap: 6px; }
+.side .part:hover, .side .part:focus-visible { background: var(--gray-100); outline: none; }
+.side .part .chev { width: 14px; height: 14px; flex: none; color: var(--gray-400); transition: transform .2s ease; }
+.side .part-w.shut .part .chev { transform: rotate(-90deg); }
+.side .part-w.shut .part-b { display: none; }
+.side .part-b > .grp:first-child h4 { margin-top: 4px; }
+.side .part .badge { flex: none; padding: 2px 7px; border-radius: 99px; background: #fbeee8; color: #c15f3c; font-style: normal; font-size: 11px; font-weight: 600; line-height: 16px; }   /* Claude 작업 규칙 표시 (Claude 브랜드색 예외) */
 /* 분류 접기 · 펴기 (docs.js · 분류 이름 오른쪽 화살표) */
 .side h4 { padding: 0 8px; }
 .side .grp-t { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 28px; padding: 0 8px; border: 0; border-radius: 6px; background: none; font: inherit; letter-spacing: inherit; color: inherit; text-align: left; cursor: pointer; }
@@ -215,4 +222,4 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
   .bp div:nth-child(-n+2) { border-bottom: 1px solid var(--gray-200); }
   .type-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { .side, .side .grp-t .chev { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .side, .side .grp-t .chev, .side .part .chev { transition: none; } }

@@ -4,9 +4,9 @@
    - 탭(또는 본문) 안의 h2 로 "이 페이지" 목차를 만듭니다.
    - [data-copy] 버튼은 지정한 요소의 글을 복사합니다. */
 (function () {
-  /* 메뉴는 두 덩어리: { part } 줄 아래에 분류(g)가 이어집니다.
+  /* 메뉴는 두 덩어리: { part } 줄 아래에 분류(g)가 이어집니다 (덩어리 · 분류 모두 접기 · 펴기).
      - 개발 전달: 개발자가 구현할 때 보는 규격 (드라이브 전달 폴더에 넣는 범위)
-     - 시안 작업: 시안을 그릴 때만 쓰는 작업 규칙 (구현 대상 아님) */
+     - 디자인: 시안을 그릴 때만 쓰는 작업 규칙 (구현 대상 아님 · badge = 이름 옆 표시) */
   var NAV = [
     { part: "개발 전달" },
     { g: "시작하기", items: [["개요", "index.html"]] },
@@ -16,7 +16,7 @@
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["CTA", null]] },
     { g: "인터랙션", items: [["인터랙션 목록", null]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"]] },
-    { part: "시안 작업" },
+    { part: "디자인", badge: "클로드용" },
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
 
@@ -42,8 +42,21 @@
   var shut = {};
   try { shut = JSON.parse(localStorage.getItem("wisa-docs-nav") || "{}") || {}; } catch (e) { shut = {}; }
   var chev = '<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
-  side.innerHTML = NAV.map(function (grp, gi) {
-    if (grp.part) return '<p class="part' + (gi ? "" : " first") + '">' + grp.part + "</p>";
+  // 덩어리(part)마다 묶어서 그림: 덩어리 이름 버튼 + 그 아래 분류들
+  var parts = [];
+  NAV.forEach(function (grp, gi) {
+    if (grp.part) parts.push({ p: grp, gs: [] });
+    else parts[parts.length - 1].gs.push([grp, gi]);
+  });
+  side.innerHTML = parts.map(function (pt, pi) {
+    var key = "part:" + pt.p.part;
+    var hasHere = pt.gs.some(function (x) { return x[0].items.some(function (it) { return it[1] === here; }); });
+    var open = hasHere || !shut[key];
+    var badge = pt.p.badge ? '<em class="badge">' + pt.p.badge + "</em>" : "";
+    return '<div class="part-w' + (pi ? "" : " first") + (open ? "" : " shut") + '"><button type="button" class="part" data-k="' + key + '" aria-expanded="' + open + '" aria-controls="nav-p' + pi + '"><span>' + pt.p.part + badge + "</span>" + chev + '</button><div class="part-b" id="nav-p' + pi + '">' +
+      pt.gs.map(function (x) { return grpHtml(x[0], x[1]); }).join("") + "</div></div>";
+  }).join("");
+  function grpHtml(grp, gi) {
     var hasHere = grp.items.some(function (it) { return it[1] === here; });
     var open = hasHere || !shut[grp.g];
     return '<div class="grp' + (open ? "" : " shut") + '"><h4><button type="button" class="grp-t" aria-expanded="' + open + '" aria-controls="nav-g' + gi + '">' + grp.g + chev + "</button></h4><ul id=\"nav-g" + gi + "\">" + grp.items.map(function (it) {
@@ -53,13 +66,13 @@
       var badge = it[2] ? '<em class="badge">' + it[2] + "</em>" : "";
       return '<li><a href="' + it[1] + '"' + cur + ">" + it[0] + (out ? ext : badge) + "</a></li>";
     }).join("") + "</ul></div>";
-  }).join("");
+  }
   side.addEventListener("click", function (e) {
-    var t = e.target.closest(".grp-t");
+    var t = e.target.closest(".grp-t, .part");
     if (!t) return;
-    var g = t.closest(".grp"), isShut = g.classList.toggle("shut");
+    var g = t.closest(t.classList.contains("part") ? ".part-w" : ".grp"), isShut = g.classList.toggle("shut");
     t.setAttribute("aria-expanded", isShut ? "false" : "true");
-    shut[t.textContent] = isShut;
+    shut[t.dataset.k || t.textContent] = isShut;
     try { localStorage.setItem("wisa-docs-nav", JSON.stringify(shut)); } catch (e2) {}
   });
 
