@@ -51,6 +51,7 @@ img, svg { max-width: 100%; }
 .side .part-w.first { margin-top: 0; padding-top: 0; border-top: 0; }
 .side .part { display: flex; align-items: center; justify-content: space-between; width: calc(100% - 16px); min-height: 32px; margin: 0 8px; padding: 0 8px; border: 0; border-radius: 6px; background: none; font: inherit; font-size: 13px; font-weight: 700; line-height: 20px; color: var(--gray-900); text-align: left; cursor: pointer; }
 .side .part > span { display: inline-flex; align-items: center; gap: 6px; }
+.side .part .pico { width: 16px; height: 16px; flex: none; color: var(--gray-700); }
 .side .part:hover, .side .part:focus-visible { background: var(--gray-100); outline: none; }
 .side .part .chev { width: 14px; height: 14px; flex: none; color: var(--gray-400); transition: transform .2s ease; }
 .side .part-w.shut .part .chev { transform: rotate(-90deg); }

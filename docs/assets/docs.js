@@ -8,7 +8,7 @@
      - 개발 전달: 개발자가 구현할 때 보는 규격 (드라이브 전달 폴더에 넣는 범위)
      - 디자인: 시안을 그릴 때만 쓰는 작업 규칙 (구현 대상 아님 · badge = 이름 옆 표시) */
   var NAV = [
-    { part: "개발 전달" },
+    { part: "개발 전달", icon: "code" },
     { g: "시작하기", items: [["프로젝트 안내", "index.html"], ["산출물", "deliverables.html"]] },
     { g: "기존 소스 수정", items: [["기존 수정 목록", "changes.html"]] },
     { g: "공통 규격", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
@@ -16,7 +16,7 @@
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["CTA", null]] },
     { g: "인터랙션", items: [["인터랙션 목록", null]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"]] },
-    { part: "디자인", badge: "클로드용" },
+    { part: "디자인", icon: "pen", badge: "클로드용" },
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
 
@@ -43,6 +43,11 @@
   try { shut = JSON.parse(localStorage.getItem("wisa-docs-nav") || "{}") || {}; } catch (e) { shut = {}; }
   var chev = '<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
   // 덩어리(part)마다 묶어서 그림: 덩어리 이름 버튼 + 그 아래 분류들
+  // 덩어리 아이콘 (개발 전달 = 코드 · 디자인 = 펜)
+  var PICON = {
+    code: '<svg class="pico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 4.5 2 8l3.5 3.5M10.5 4.5 14 8l-3.5 3.5M9 3 7 13"/></svg>',
+    pen: '<svg class="pico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2.5l3 3L6 13H3v-3z"/><path d="M9 4l3 3"/></svg>'
+  };
   var parts = [];
   NAV.forEach(function (grp, gi) {
     if (grp.part) parts.push({ p: grp, gs: [] });
@@ -52,8 +57,9 @@
     var key = "part:" + pt.p.part;
     var hasHere = pt.gs.some(function (x) { return x[0].items.some(function (it) { return it[1] === here; }); });
     var open = hasHere || !shut[key];
+    var ico = PICON[pt.p.icon] || "";
     var badge = pt.p.badge ? '<em class="badge">' + pt.p.badge + "</em>" : "";
-    return '<div class="part-w' + (pi ? "" : " first") + (open ? "" : " shut") + '"><button type="button" class="part" data-k="' + key + '" aria-expanded="' + open + '" aria-controls="nav-p' + pi + '"><span>' + pt.p.part + badge + "</span>" + chev + '</button><div class="part-b" id="nav-p' + pi + '">' +
+    return '<div class="part-w' + (pi ? "" : " first") + (open ? "" : " shut") + '"><button type="button" class="part" data-k="' + key + '" aria-expanded="' + open + '" aria-controls="nav-p' + pi + '"><span>' + ico + pt.p.part + badge + "</span>" + chev + '</button><div class="part-b" id="nav-p' + pi + '">' +
       pt.gs.map(function (x) { return grpHtml(x[0], x[1]); }).join("") + "</div></div>";
   }).join("");
   function grpHtml(grp, gi) {
