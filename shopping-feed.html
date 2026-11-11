@@ -18,6 +18,14 @@
 <style>
   /* =====================================================================
      [개발 전달] 상품DB 연동 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-11 patch-333 (점검 반영): 해결 ② 정상 = 회색 칩 · 반려 수치 레드 제거 (상태색 반려 1곳) · 히어로 상품 DB 카드 그린 점 제거 · 다른 쇼핑몰 상품 사진에서 라운드위크 로고 스웨트 제외 · 그래프 차이 말풍선 위로
+     · 2026-11-11 patch-333: 비주얼 1차 — 빈 박스를 실제 화면으로 교체 (브랜드 라운드위크 · 공식채널운영 sns-vis 스타일 재사용 + @region sf-vis · 스크립트 sf-hero)
+       - 히어로: 가운데 창 = 쇼핑 채널 검색 결과('크루 스웨트') · 제목 롤링 채널에 맞춰 네이버쇼핑 · 카카오쇼핑 · 구글쇼핑 화면 교체 · 블루 = 자사몰 상품 카드 · 떠 있는 카드 상품 DB 연동 1,236개 · 쇼핑 채널 유입 · 알림
+       - 문제: 같은 상품의 채널별 상품 정보 · 기존 = 가격 · 품절 · 누락이 채널마다 다름 (회색 창) / 개선 = 쇼핑몰 상품 DB 한 줄(블루) → 세 채널 체크 차례로 (반복)
+       - 그래프: 오픈서베이 「온라인 쇼핑 트렌드 리포트 2025」 최근 1개월 이용률 쿠팡 69.9% · 네이버쇼핑 56.0%(블루) · 자사몰 20.0% · 차이 −36.0%p / 수치 칸 56.0% · 20.0%(이용 경험 80.0%) · 모바일 비중 77.8%(통계청 2025.6)
+       - 단계: 상품 관리 목록(체크) · 채널별 연동 막대(차오름) · 네이버쇼핑 검색 결과의 자사몰 상품(블루 링)
+       - 해결: 정비 전 → 후 (AI 속성 보완 블루 · 정비 후 글자 차례로) · 채널 연동 현황 (구글쇼핑 반려 1건 레드 → 보완 완료) · 쇼핑 채널 성과 (채널별 유입 막대 · 네이버쇼핑 블루)
+       - 문제 · 해결 타이틀 수정: 문제 "상품 정보는 쇼핑몰 DB 하나로 맞춰야 합니다" · 해결 "연동 후에도 상품 정보를 관리합니다"
      · 2026-11-11 patch-332: 리포트(#geo-report) 숨김 — 기획문서 상품DB 연동에 REPORT 영역 없음 (마크업은 hidden 으로 보관)
      · 2026-11-11 patch-331: 상품DB 연동 기획안 단계 — 공식채널운영 기획안 단계(patch-295 · GEO 구조)를 복사해 시작 · 기획문서(아티팩트 파일 wisa_channel_page.html #shopping-feed) 문장 · 흐름을
        GEO 영역 규격(히어로 · 문제 · 그래프 · 단계(카드 3개) · 해결 · 리포트 · 사례 · FAQ · CTA)으로 재구성 · 비주얼 영역은 규격 크기 빈 박스(.ph-box)로 표시 (비주얼 작업 전 확인용)
@@ -160,6 +168,364 @@
   @media (max-width: 767px) { .rp-refs { grid-template-columns: minmax(0, 1fr); } }
   /* @endregion sns-ph */
 </style>
+<style>
+  /* 공식채널운영(sns-ops.html) 비주얼 스타일 재사용 (patch-333) */
+  /* patch-313: 그래프 = 광고 클릭 63.7% (Gray 300) vs 광고 보고 구매 28.2% (Primary 600 · 봐야 할 1곳) · 구매 막대 위 점선 칸 = 이어지지 않은 차이 · 말풍선 −35.5%p · 막대가 아래에서 차오름 */
+  #geo-market .mk-chart .sn-agb { fill: var(--gray-300); } #geo-market .mk-chart .sn-agb.now { fill: var(--primary-600); }
+  #geo-market .mk-chart .sn-bv { font-size: 15px; fill: var(--gray-600); } #geo-market .mk-chart .sn-bv.now { fill: var(--primary-600); }
+  #geo-market .mk-chart .sn-gap { fill: var(--gray-50); stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
+  #geo-market .mk-chart .sn-gl { stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
+  #geo-market .mk-lg i.sn-gpl { width: 12px; height: 12px; border-radius: 3px; background: var(--gray-50); box-shadow: none; border: 1.5px dashed var(--gray-400); box-sizing: border-box; }
+  #geo-market .mk-chart.mk-anim .chart .sn-agb { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .9s var(--ease-out); transition-delay: calc(var(--i) * 200ms + .15s); }
+  #geo-market .mk-chart.mk-anim.on .chart .sn-agb { transform: none; }
+  #geo-market .mk-chart.mk-anim .chart .sn-bv { transition-delay: calc(var(--i) * 200ms + .8s); }
+  #geo-market .mk-chart.mk-anim .chart .sn-gap, #geo-market .mk-chart.mk-anim .chart .sn-gl { opacity: 0; transition: opacity .4s ease-out 1.2s; } #geo-market .mk-chart.mk-anim.on .chart .sn-gap, #geo-market .mk-chart.mk-anim.on .chart .sn-gl { opacity: 1; }
+  /* @region sns-vis (patch-296): 공식채널운영 비주얼 — 브랜드 = 라운드위크(assets/geo/fashion 사진) · 색 = Gray 바탕 + Primary 600 한 곳 + 증감 · 이슈 Error 600 (#d92d20 · 25 #fef3f2) · 연결 점 Success 500
+     · 화면 틀은 GEO 그대로: 히어로 .ai-chat 자리 · 문제 .pn.ows 550×300 · 단계 .pn 360×250 · 해결 .vw-win 460×340 · 리포트 GEO 대시보드 */
+  .sn-av img, .sn-grid img, .sn-th img, .sn-cv img, .sn-lk img, .sn-gen img, .sn-wk img, .sn-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .sn-st, .sn-grid, .sn-rows, .sn-dir, .sn-gen, .sn-bars, .sn-k3, .sn-cr, .sn-wk, .sn-up, .sn-fn { margin: 0; padding: 0; list-style: none; }
+  .sn-shop { flex: none; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 6px; background: var(--gray-200); color: var(--gray-600); font-style: normal; }
+  .sn-shop svg { width: 10px; height: 10px; }
+  .sn-th { flex: none; display: block; width: 32px; height: 32px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
+  .sn-swap { flex: none; display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 99px; background: #fef3f2; color: #d92d20; font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; vertical-align: 1px; }
+  .sn-ck { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-700); color: var(--white); text-decoration: none; }
+
+  /* ── 히어로 가운데 창 (GEO .ai-chat 자리 · 크기 그대로) ── */
+  #geo-hero .sh-visual > .ai-chat.sn-hw { position: relative; height: 418px; min-height: 0; padding: 0; gap: 0; overflow: hidden; }
+  @media (max-width: 1023px) { #geo-hero .sh-visual > .ai-chat.sn-hw { height: 417px; } }
+  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat.sn-hw { height: 404px; padding: 0; } }
+  /* patch-303: 화면 전환 = 앞 화면이 먼저 빠진 뒤(0.25초) 다음 화면이 들어옴 · 두 화면이 겹쳐 보이지 않게 (합계 0.6초 · 제목 키워드 전환과 같음) */
+  .sn-sc { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
+  .sn-sc.on { opacity: 1; visibility: visible; transform: none; transition: opacity .35s .25s, transform .35s .25s var(--ease-out), visibility 0s; }
+  /* patch-303: 히어로 왼쪽 = AI 소재 생성 카드 + 사진 생성 연출 (6초 반복) */
+  .sn-aic b { display: flex; align-items: center; gap: 6px; }
+  .sn-aic .aim-av { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
+  .sn-aic .aim-av svg { width: 62%; height: 62%; }
+  /* patch-309: AI 생성 글자 + 만든 사진 = 카드 하나 (왼쪽 떠 있는 사진 자리 · 위 글자 한 줄 → 아래 사진) */
+  #geo-hero .sh-float.f1.sn-aic { left: calc(14% - 70px);   /* patch-325: 가운데 창 쪽으로 40 이동 */ top: calc(50% - 128px); gap: 10px; width: 184px; padding: 12px; box-sizing: border-box; }
+  #geo-hero .sn-aic .sn-gs { justify-items: start; padding: 0 4px; font-size: 13px; line-height: 20px; }
+  .sn-aic .sn-gi { position: relative; display: block; height: 204px; border-radius: 10px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sn-aic .sn-gi img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  #geo-hero .sn-aic .sn-gs b { color: var(--gray-900); }   /* patch-306: 히어로 AI 카드 글자 = 블랙 (생성 중 · 완료 모두) */
+  .sn-aic .g1 .aim-av svg { animation: snSpin 1.2s linear infinite; }
+  /* patch-305: 사진 나오는 연출 = 단계 STEP 2 와 같은 키프레임 · 7.2초 (snGenO · snRev · 카드 글자 snG1 · snG2 와 같은 타이머) */
+  .sn-gi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGenO 7.2s infinite; }
+  .sn-gi img { animation: snRev 7.2s infinite; }
+  .sn-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 14.5px; }
+  .sn-bar > img { width: 24px; height: 24px; }
+  .sn-bar b { font-weight: 700; color: var(--gray-900); }
+  .sn-fl { margin-left: auto; padding: 6px 16px; border-radius: 8px; background: var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-900); }
+  .sn-pf { flex: none; display: flex; align-items: center; gap: 20px; padding: 16px 20px; }
+  .sn-av { flex: none; display: block; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; background: var(--gray-100); box-shadow: 0 0 0 2px var(--white), 0 0 0 3px var(--gray-200); }
+  .sn-pf > div { min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; line-height: 18px; color: var(--gray-600); }
+  .sn-pf > div > b { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .sn-st { display: flex; gap: 16px; }
+  .sn-st li { color: var(--gray-500); }
+  .sn-st b { margin-left: 4px; font-weight: 700; color: var(--gray-900); }   /* patch-328: 한국어 인스타 표기 = 라벨 → 숫자 */
+  .sn-pf u { text-decoration: none; font-weight: 600; color: var(--gray-900); }
+  /* patch-328: 실제 인스타 프로필처럼 — 그리드 위 탭 아이콘 줄 · 3칸 세로형(3:4) · 칸 사이 2px · 릴스 = 흰 아이콘 (아래 줄은 창 밖으로 이어짐) */
+  .sn-itab { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); height: 40px; border-top: 1px solid var(--gray-100); color: var(--gray-400); }
+  .sn-itab span { display: grid; place-items: center; }
+  .sn-itab .on { color: var(--gray-900); box-shadow: inset 0 -1px 0 var(--gray-900); }
+  .sn-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: auto; align-content: start; gap: 2px; overflow: hidden; }
+  .sn-grid li { aspect-ratio: 3 / 4; }
+  .sn-grid .sn-tag { bottom: auto; top: var(--tag-top, 160px); }
+  .sn-grid li { position: relative; background: var(--gray-100); }
+  .sn-grid li:first-child { z-index: 1; }
+  .sn-grid img { object-position: 50% 15%; }
+  .sn-tag { position: absolute; left: 10px; bottom: 20px; display: inline-flex; align-items: center; gap: 6px; padding: 4px 4px 4px 6px; border-radius: 99px; background: var(--white); box-shadow: 0 4px 12px rgba(16,24,40,.16); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--gray-900); white-space: nowrap; }
+  .sn-tag em { padding: 4px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; font-weight: 700; }
+  .sn-hw .sn-tag { animation: snTag 2.4s ease-in-out infinite; }
+  @keyframes snTag { 0%, 100% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 0 rgba(21,112,239,0); } 50% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 6px rgba(21,112,239,.16); } }
+  .sn-rli { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 20px; height: 20px; color: var(--white); font-style: normal; filter: drop-shadow(0 1px 2px rgba(16,24,40,.4)); }   /* 릴스(영상) 자리 · 영상 받으면 img → video 로 교체 */
+  .sn-grid li.mo6 { display: none; }   /* patch-314: 모바일 전용 5 · 6번째 썸네일 (3칸 × 2줄) */
+  .sn-grid li.full { overflow: hidden; }
+  .sn-grid li.full img { transform: scale(1.45); transform-origin: 50% 8%; }   /* 전신 컷 → 상반신 위주로 확대 */
+  .sn-fpf { flex: none; position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; min-height: 56px; padding: 8px 20px 4px 120px; }
+  .sn-fpf .sn-av { position: absolute; left: 20px; top: -44px; width: 84px; height: 84px; box-shadow: 0 0 0 4px var(--white); }
+  .sn-fpf > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; line-height: 18px; color: var(--gray-500); }
+  .sn-fpf > div > b { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  /* patch-328: 페이스북 = 앱 상단 줄 · 페이지 이름 20 · 좋아요 · 팔로워 수 · 좋아요 / 메시지 보내기 버튼 (블루는 샵 자사몰 보기 1곳만이라 버튼은 회색) */
+  .sn-fbar { gap: 10px; }
+  .sn-fbar > img { width: 32px; height: 32px; border-radius: 50%; }
+  .sn-srch { display: flex; align-items: center; gap: 6px; width: 200px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-100); font-size: 12.5px; color: var(--gray-500); }
+  .sn-ib { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--gray-100); color: var(--gray-900); }
+  .sn-srch + .sn-ib { margin-left: auto; }
+  .sn-fpf > div > b { font-size: 20px; line-height: 24px; }
+  .sn-fpf > div > b { white-space: nowrap; }
+  @media (max-width: 1023px) { .sn-fpf > .sn-fbt .sn-fl.m2 { display: none; } }   /* 태블릿: 이름이 줄바꿈되지 않게 좋아요 버튼만 */
+  .sn-fpf > .sn-fbt { flex: none; display: flex; flex-direction: row; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-900); }
+  .sn-fbt .sn-fl { display: flex; align-items: center; gap: 6px; margin-left: 0; padding: 6px 12px; }
+  .sn-ftab { flex: none; display: flex; gap: 20px; height: 36px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-500); }
+  .sn-ftab span { display: flex; align-items: center; border-bottom: 2px solid transparent; }
+  .sn-ftab .on { border-color: var(--gray-900); color: var(--gray-900); }
+  .sn-shp { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: 12px; margin: 0; padding: 12px 20px 16px; list-style: none; }
+  .sn-shp li { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sn-shp i { position: relative; display: block; flex: 1; min-height: 0; margin-bottom: 6px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sn-shp img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  .sn-shp b { font-size: 12.5px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sn-go { position: absolute; left: 6px; bottom: 6px; padding: 4px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; line-height: 14px; font-weight: 700; animation: snTag 2.4s ease-in-out infinite; }
+  .sn-cv { flex: none; height: 110px; overflow: hidden; background: var(--gray-100); }
+  .sn-cv img { object-position: 50% 6%; }
+  .sn-fb .sn-pf { padding: 12px 20px; gap: 16px; }
+  .sn-fb .sn-av { width: 56px; height: 56px; }
+  .sn-fb .sn-pf > div { gap: 4px; }
+  .sn-post { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding: 16px 20px 20px; border-top: 1px solid var(--gray-100); font-size: 13px; line-height: 20px; color: var(--gray-900); }
+  .sn-lk { flex: 1; min-height: 0; display: flex; align-items: center; gap: 16px; border-radius: 10px; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
+  .sn-lk > img { flex: none; width: 120px; object-position: 50% 15%; }
+  .sn-lk > div { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-size: 13px; line-height: 18px; color: var(--gray-600); }
+  .sn-lk small { font-size: 11px; color: var(--gray-500); letter-spacing: .02em; }
+  .sn-lk b { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .sn-lk em { margin-top: 6px; padding: 6px 12px; border-radius: 6px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 12px; line-height: 16px; font-weight: 700; }
+  #geo-hero .sh-toast .sn-tl { flex: none; width: 36px; height: 36px; }
+  @media (max-width: 767px) {
+    .sn-bar { padding: 0 16px; font-size: 13px; } .sn-bar > img { width: 20px; height: 20px; }
+    .sn-fl { padding: 4px 12px; font-size: 12px; }
+    .sn-pf { gap: 12px; padding: 12px 16px; } .sn-av { width: 56px; height: 56px; }
+    .sn-pf > div { gap: 4px; font-size: 12px; } .sn-pf > div > b { font-size: 14.5px; } .sn-st { gap: 10px; }
+    .sn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); } .sn-grid li { aspect-ratio: auto; } .sn-grid .sn-tag { top: auto; } .sn-grid li.mo6 { display: block; } .sn-itab { height: 36px; } .sn-itab svg { width: 14px; height: 14px; } .sn-srch { width: auto; flex: 1; } .sn-fbar .sn-ib:last-child { display: none; } .sn-fbar > img { width: 28px; height: 28px; }   /* patch-314: 모바일 = 실제 인스타 프로필처럼 3칸 × 2줄 6개 */
+    .sn-tag { left: 8px; bottom: 16px; font-size: 11px; }
+    .sn-cv { height: 90px; } .sn-fpf { gap: 12px; min-height: 48px; padding: 6px 16px 4px 92px; } .sn-fpf .sn-av { left: 16px; top: -34px; width: 64px; height: 64px; } .sn-fpf > div > b { font-size: 14.5px; } .sn-fpf > div { font-size: 11px; } .sn-fpf > .sn-fbt { display: none; }
+    .sn-ftab { gap: 16px; padding: 0 16px; font-size: 12px; } .sn-shp { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px 16px 12px; } .sn-shp li:nth-child(4) { display: none; } .sn-shp b { font-size: 12px; } .sn-shp span { font-size: 11px; }
+    .sn-post { gap: 8px; padding: 12px 16px 16px; font-size: 12.5px; } .sn-lk { gap: 12px; } .sn-lk > img { width: 96px; }
+  }
+
+  /* ── 문제 (기존 · 개선 같은 화면 · 채널별 운영 현황) ── */
+  #geo-market .sn-ex { margin-left: 6px; padding: 2px 8px; border-radius: 99px; background: var(--gray-100); color: var(--gray-500); font-size: 12px; font-weight: 600; font-style: normal; vertical-align: 1px; }
+  .sn-hi { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--gray-100); color: var(--gray-500); font-style: normal; }
+  .sn-hi svg { width: 12px; height: 12px; }
+  .sn-ok .sn-hi { background: var(--primary-50); color: var(--primary-600); }
+  .sn-hm { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--gray-500); }
+  #geo-why .pn.ows > .sn-rows { display: flex; flex-direction: column; gap: 6px; margin: 0 12px !important; padding: 0; }   /* 줄 바탕 12 · 사진 16 = 머리줄 아이콘 시작선 */
+  .sn-rows li { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 8px 0 4px; border-radius: 10px; }
+  .sn-cn { flex: none; width: 116px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+  .sn-cn > img { flex: none; width: 16px; height: 16px; }
+  .sn-cn > img[src$="meta.svg"] { border-radius: 4px; outline: 1px solid var(--gray-200); outline-offset: -1px; }   /* patch-329: 메타 = 흰 타일이라 바탕과 구분되게 테두리 (16 안쪽 · 다른 로고와 같은 크기) */
+  .sn-cp { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sn-ow { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-size: 12px; font-weight: 600; font-style: normal; }
+  /* patch-302: 문제 영역 왼쪽(기존) 창 = 회색 바탕(Gray 50 + 테두리 Gray 200)으로 오른쪽(개선) 화면을 돋보이게 (GEO .pn.serp · CRM · 리포트 같음) */
+  #geo-why .bento.ba .pn.sn-ch:not(.sn-ok) { --ft-bg: var(--gray-50); background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  #geo-why .pn.sn-ch:not(.sn-ok) .sn-ow { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  /* patch-311: 개선 화면 = 자사몰 데이터 줄(블루 포인트 1곳) → 채널 4줄 같은 메시지 · 데이터 줄이 켜진 뒤 체크가 위에서부터 차례로 */
+  #geo-why .pn.sn-ok > .sn-dt { display: flex; align-items: center; gap: 8px; height: 36px; margin: -4px 12px 8px; padding: 0 12px 0 8px; border-radius: 10px; background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-100); font-size: 12px; line-height: 16px; color: var(--primary-700); white-space: nowrap; animation: snDt 4.8s infinite both; }
+  .sn-dt .aim-av { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
+  .sn-dt .aim-av svg { width: 62%; height: 62%; }
+  .sn-dt span { font-weight: 600; }
+  .sn-dt b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .sn-dt em { flex: none; font-style: normal; font-weight: 700; color: var(--primary-600); }
+  #geo-why .pn.sn-ok > .sn-rows { gap: 4px; } .sn-ok .sn-rows li { height: 34px; }
+  @keyframes snDt { 0% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,.28); } 10% { box-shadow: inset 0 0 0 1px var(--primary-300), 0 0 0 4px rgba(21,112,239,.12); } 22%, 100% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,0); } }
+  .sn-ok .sn-ck { background: var(--primary-600); animation: snCk 4.8s infinite both; animation-delay: calc(.45s + var(--i, 0) * .35s); }
+  .sn-ok .sn-rows li:nth-child(2) .sn-ck { --i: 1; } .sn-ok .sn-rows li:nth-child(3) .sn-ck { --i: 2; } .sn-ok .sn-rows li:nth-child(4) .sn-ck { --i: 3; }
+  @keyframes snCk { 0%, 6% { transform: scale(0); opacity: 0; } 12% { transform: scale(1.15); opacity: 1; } 16%, 86% { transform: scale(1); opacity: 1; } 94%, 100% { transform: scale(0); opacity: 0; } }
+
+  /* ── 단계 3장 (360×250 · GEO .pn 틀) ── */
+  .sn-dir, .sn-bars { display: flex; flex-direction: column; gap: 8px; }
+  .sn-dir li { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 10px 0 8px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .sn-dir li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+  .sn-di { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--gray-100); color: var(--gray-500); font-style: normal; }
+  .sn-dir div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .sn-dir small { font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .sn-dir b { font-size: 13px; line-height: 16px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }
+  .sn-dir em { font-size: 11px; font-style: normal; color: var(--gray-500); white-space: nowrap; }
+  .sn-dir .sn-ck { animation: snCk 6s infinite both; animation-delay: calc(var(--i, 0) * .5s); }
+  .sn-dir li.hl .sn-ck { background: var(--primary-600); }
+  .sn-dir li:nth-child(2) .sn-ck { --i: 1; } .sn-dir li:nth-child(3) .sn-ck { --i: 2; }
+  .sn-aiv { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 6px; vertical-align: -4px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
+  .sn-aiv svg { width: 11px; height: 11px; }
+  .sn-gen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .sn-gen li { display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; color: var(--gray-500); text-align: center; }
+  .sn-gen i { position: relative; display: block; height: 136px; border-radius: 10px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sn-gen img { object-position: 50% 15%; }
+  .sn-gen li.on i { box-shadow: 0 0 0 2px var(--primary-600); }
+  .sn-gen li.on span { color: var(--primary-700); font-weight: 600; }
+  @keyframes snSelC { 0%, 40% { color: var(--gray-500); font-weight: 400; } 44%, 90% { color: var(--primary-700); font-weight: 600; } 94%, 100% { color: var(--gray-500); font-weight: 400; } }
+  .sn-gen em { position: absolute; z-index: 1; left: 6px; top: 6px; padding: 2px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; }
+  /* patch-299: AI 생성 연출 7.2초 반복 · 생성 중(반짝 로딩) → A · B · C 순서로 흐림 → 선명 → 머리줄 3개 생성 → B 선택 */
+  .sn-gen i::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGenO 7.2s infinite; animation-delay: 0s, calc(var(--i, 0) * .4s); }
+  .sn-gen img { animation: snRev 7.2s infinite; animation-delay: calc(var(--i, 0) * .4s); }
+  .sn-gen li:nth-child(2) img { --i: 1; } .sn-gen li:nth-child(3) img { --i: 2; }
+  .sn-gen li.on i { animation: snSel 7.2s infinite; } .sn-gen em { animation: snSelO 7.2s infinite; } .sn-gen li.on span { animation: snSelC 7.2s infinite; }
+  .sn-gs { display: inline-grid; justify-items: end; } .sn-gs b { grid-area: 1 / 1; display: flex; align-items: center; font-weight: 500; white-space: nowrap; }
+  .sn-gs .g1 { color: var(--primary-700); animation: snG1 7.2s infinite; } .sn-gs .g2 { animation: snG2 7.2s infinite; }
+  .sn-gs .g1 .sn-aiv svg { animation: snSpin 1.2s linear infinite; }
+  .sn-dots { display: inline-flex; gap: 2px; margin-left: 4px; font-style: normal; } .sn-dots i { width: 3px; height: 3px; border-radius: 99px; background: currentColor; animation: snDot 1.2s infinite; } .sn-dots i:nth-child(2) { animation-delay: .2s; } .sn-dots i:nth-child(3) { animation-delay: .4s; }
+  @keyframes snShim { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  @keyframes snGenO { 0%, 22% { opacity: 1; } 30%, 90% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  @keyframes snRev { 0%, 22% { filter: blur(10px); transform: scale(1.08); } 34%, 90% { filter: blur(0); transform: none; } 96%, 100% { filter: blur(10px); transform: scale(1.08); } }
+  @keyframes snSel { 0%, 40% { box-shadow: 0 0 0 0 var(--primary-600); } 44%, 90% { box-shadow: 0 0 0 2px var(--primary-600); } 94%, 100% { box-shadow: 0 0 0 0 var(--primary-600); } }
+  @keyframes snSelO { 0%, 40% { opacity: 0; } 44%, 90% { opacity: 1; } 94%, 100% { opacity: 0; } }
+  @keyframes snG1 { 0%, 34% { opacity: 1; } 38%, 92% { opacity: 0; } 96%, 100% { opacity: 1; } }
+  @keyframes snG2 { 0%, 34% { opacity: 0; } 38%, 92% { opacity: 1; } 96%, 100% { opacity: 0; } }
+  @keyframes snSpin { to { transform: rotate(360deg); } }
+  @keyframes snDot { 0%, 60%, 100% { opacity: .3; } 30% { opacity: 1; } }
+  .sn-gen li:nth-child(2) i::after { --i: 1; } .sn-gen li:nth-child(3) i::after { --i: 2; }
+  .sn-bars li { display: flex; align-items: center; gap: 10px; height: 48px; }
+  .sn-bars div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; color: var(--gray-600); }
+  .sn-bars div > i { display: block; width: calc(var(--v) * 100%); height: 8px; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: snBar 6s var(--ease-out) infinite; }
+  .sn-bars li.hl div > i { background: var(--primary-600); }
+  .sn-bars li.hl span { color: var(--gray-900); font-weight: 600; }
+  .sn-bars b { flex: none; width: 40px; text-align: right; font-size: 14.5px; font-weight: 700; color: var(--gray-500); }
+  .sn-bars li.hl b { color: var(--primary-600); }
+  @keyframes snBar { 0% { transform: scaleX(0); } 18%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+
+  /* ── 해결 3줄 (460×340 · 공통 .vw-win) ── */
+  #geo-diagnosis .vw-win.sn-d1, #geo-diagnosis .vw-win.sn-d2, #geo-diagnosis .vw-win.sn-d3 { display: flex; flex-direction: column; }
+  #geo-diagnosis .vw-win[class*="sn-d"] > .vw-bd { flex: 1; min-height: 0; justify-content: center; gap: 12px; }
+  .sn-k3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .sn-k3 li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 10px; background: var(--gray-50); font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .sn-k3 strong { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .sn-k3 small { margin-left: 2px; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+  .sn-k3 em { font-style: normal; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+  .sn-k3 em.inc { color: #d92d20; }
+  .sn-cr { display: flex; flex-direction: column; gap: 4px; }
+  .sn-cr li { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 12px 0 4px; border-radius: 8px; font-size: 12px; color: var(--gray-500); }
+  .sn-cr .sn-th { width: 28px; height: 28px; border-radius: 6px; }
+  .sn-cr .nm { flex: 1; min-width: 0; display: flex; align-items: center; white-space: nowrap; font-size: 12.5px; font-weight: 600; color: var(--gray-900); }
+  .sn-cr .ctr { flex: none; width: 76px; text-align: right; white-space: nowrap; }
+  .sn-cr b { flex: none; width: 48px; text-align: right; font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .sn-cr li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+  .sn-cr li.hl b { color: var(--primary-600); }
+  .sn-cr li.bad .sn-swap { animation: snPulse 2.4s ease-in-out infinite; }
+  @keyframes snPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(217,45,32,0); } 50% { box-shadow: 0 0 0 4px rgba(217,45,32,.14); } }
+  .sn-wk { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .sn-wk li { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .sn-wk b { display: grid; place-items: center; min-width: 24px; height: 20px; margin-bottom: 4px; border-radius: 99px; font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .sn-wk li.today b { background: var(--primary-600); color: var(--white); }
+  .sn-wk i { position: relative; display: block; width: 100%; height: 64px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sn-wk i.em { box-sizing: border-box; background: none; border: 1px dashed var(--gray-200); }
+  .sn-wk i .lg { position: absolute; right: 4px; bottom: 4px; width: 16px; height: 16px; }
+  .sn-wk li.today i { box-shadow: 0 0 0 2px var(--primary-600); }
+  .sn-wk li.done i { opacity: .55; }
+  .sn-up { display: flex; flex-direction: column; gap: 6px; }
+  .sn-up li { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 8px 0 12px; border-radius: 8px; background: var(--gray-50); font-size: 12.5px; color: var(--gray-900); }
+  .sn-up time { flex: none; width: 96px; font-size: 12px; color: var(--gray-500); }
+  .sn-up span { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sn-up span img { flex: none; width: 16px; height: 16px; }
+  .sn-dot { flex: none; width: 6px; height: 6px; margin: 0 5px; border-radius: 50%; background: #12b76a; }
+  .sn-up em, .sn-st2 b { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); font-size: 12px; line-height: 16px; font-weight: 600; font-style: normal; text-align: center; }
+  .sn-up li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+  .sn-up em.sn-st2 { display: grid; padding: 0; background: none; box-shadow: none; }
+  .sn-st2 b { grid-area: 1 / 1; animation: snStA 6s infinite; }
+  .sn-st2 b + b { background: var(--primary-600); box-shadow: none; color: var(--white); animation-name: snStB; }
+  @keyframes snStA { 0%, 44% { opacity: 1; } 50%, 94% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes snStB { 0%, 44% { opacity: 0; } 50%, 94% { opacity: 1; } 100% { opacity: 0; } }
+  #geo-diagnosis .vw-win.sn-d3 > .vw-bd { flex-direction: row; align-items: center; gap: 24px; }
+  #geo-diagnosis .steprow:nth-child(3) .vw-win.sn-d3 > .vw-bd { gap: 32px !important; }   /* patch-329: 휴대폰 ↔ 경로 12 → 32 (공통 3번째 단계 gap 12 !important 덮음) */
+  .sn-ph { position: relative; flex: none; width: 156px; height: 236px; border-radius: 16px; overflow: hidden; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 8px 20px rgba(16,24,40,.08); }
+  .sn-ph .sc { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--white); }
+  .sn-ph .a { animation: snScA 6s infinite; }
+  .sn-ph .b { animation: snScB 6s infinite; }
+  @keyframes snScA { 0%, 46% { opacity: 1; transform: none; } 52%, 94% { opacity: 0; transform: translateX(-16px); } 100% { opacity: 1; transform: none; } }
+  @keyframes snScB { 0%, 46% { opacity: 0; transform: translateX(16px); } 52%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(16px); } }
+  .sn-pb { flex: none; display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; font-size: 11px; font-weight: 600; color: var(--gray-900); }
+  .sn-pb img { width: 16px; height: 16px; }
+  .sn-ph .im { position: relative; display: block; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sn-ph .a .im { flex: 1; min-height: 0; }
+  .sn-ph .im img { object-position: 50% 15%; }
+  .sn-ph .sn-tag { left: 8px; bottom: 10px; gap: 4px; padding: 4px 8px 4px 6px; font-size: 11px; }
+  .sn-ph .sn-tag em { padding: 0; background: none; color: var(--gray-500); font-size: 12px; }
+  .sn-ph .tap { position: absolute; left: 28px; bottom: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(21,112,239,.28); transform: scale(0); opacity: 0; animation: snTap 6s infinite; }
+  @keyframes snTap { 0%, 32% { transform: scale(0); opacity: 0; } 38% { transform: scale(1); opacity: 1; } 46%, 100% { transform: scale(1.6); opacity: 0; } }
+  .sn-pm { flex: none; display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 10px; font-size: 11px; color: var(--gray-600); }
+  .sn-ph .b { padding-bottom: 12px; }
+  .sn-ph .b .im { flex: none; height: 128px; }
+  .sn-ph .b .nm { padding: 10px 12px 2px; font-size: 12px; line-height: 16px; color: var(--gray-700); }
+  .sn-ph .b .pr { padding: 0 12px; font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .sn-ph .buy { display: grid; place-items: center; height: 32px; margin: auto 12px 0; border-radius: 6px; background: var(--primary-600); color: var(--white); font-size: 12px; font-weight: 700; }
+  /* patch-327: 점 · 세로선 · 차오름 애니메이션 제거 (왼쪽 단계 번호 라인과 겹치고 휴대폰 애니메이션과 2개가 됨) → 줄 사이 아래 화살표 칩으로 흐름 표시 · 움직임은 휴대폰만
+     patch-323: 자사몰 유입 = 경로 타임라인 · 점 + 세로선으로 태그 클릭 → 페이지 유입 → 구매를 잇고, 줄 사이 칩 = 다음 단계로 넘어간 비율
+     줄마다 큰 숫자 1개 · 구매 줄만 Primary 600 · 화면에 들어오면 선이 위 → 아래로 차오르고 닿은 점이 켜짐 (1회) */
+  .sn-fn { flex: none; display: flex; flex-direction: column; justify-content: center; }
+  #geo-diagnosis .vw-win.sn-d3 > .vw-bd { justify-content: center; }   /* 휴대폰 + 경로 묶음을 창 가운데 (좌우 여백 같게) */
+  .sn-path { position: relative; }
+  .sn-fn li { position: relative; display: flex; flex-direction: column; gap: 2px; font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sn-fn strong { font-size: 20px; line-height: 24px; font-weight: 700; color: var(--gray-900); }
+  .sn-fn small { margin-left: 2px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
+  .sn-fn em { display: flex; align-items: center; gap: 4px; margin-top: 4px; font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-500); white-space: nowrap; }
+  .sn-path .hl strong { color: var(--primary-600); }
+  .sn-path .cv { flex-direction: row; align-items: center; gap: 4px; height: 36px; font-size: 11px; color: var(--gray-500); }
+  .sn-path .cv b { display: flex; align-items: center; gap: 2px; padding: 2px 8px 2px 6px; border-radius: 99px; background: var(--gray-100); font-size: 11px; line-height: 16px; font-weight: 700; color: var(--gray-700); }
+  .sn-path .cv.on b { background: var(--primary-50); color: var(--primary-700); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b, #geo-why .pn.sn-ok > .sn-dt { animation: none !important; transition: none !important; }
+    .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1, .sn-gi::after { opacity: 0; }
+    .sn-ck { opacity: 1; transform: none; }
+  }
+  /* @endregion sns-vis */
+
+  /* @region sf-vis (patch-333): 상품DB 연동 비주얼 — 공식채널운영 sns-vis 틀 재사용 + 아래 sf- 보정 · 브랜드 라운드위크 · Gray 바탕 + Primary 600 한 곳 · 이슈 Error 600 한 곳 */
+  .sf-db { flex: none; display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--primary-600); color: var(--white); font-style: normal; }
+  /* 히어로: 검색 결과 창 */
+  .sf-q { width: 260px; color: var(--gray-500); } .sf-q b { font-weight: 600; color: var(--gray-900); }
+  .sf-cnt { margin-left: auto; font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+  .sn-sc .sn-bar > img { border-radius: 6px; }
+  .sf-shp { padding-top: 16px; }
+  .sf-shp li small { font-size: 11px; line-height: 14px; color: var(--gray-400); }
+  .sf-shp li.me i { box-shadow: 0 0 0 2px var(--primary-600); }
+  .sf-shp li.me small { font-weight: 600; color: var(--primary-700); }
+  #geo-hero .sf-f1 b { display: flex; align-items: center; gap: 6px; }
+  #geo-hero .sf-f1 .sf-ok { display: flex; align-items: center; gap: 6px; color: var(--gray-500); font-weight: 500; }
+  #geo-hero .sh-toast .sn-tl { border-radius: 10px; }
+  @media (max-width: 767px) { .sf-q { width: auto; flex: 1; } .sf-cnt { display: none; } .sf-shp { padding-top: 12px; } .sf-shp li small { font-size: 10px; } }
+  /* 문제: 채널 3 · 4줄 높이 맞춤 */
+  #geo-why .pn.sn-ok.sf-ok3 > .sn-rows { gap: 6px; } .sf-ok3 .sn-rows li { height: 40px; }
+  .sn-ch .sn-cn > img { border-radius: 4px; }
+  #geo-why .pn.sn-ch .sn-th:empty { box-sizing: border-box; background: var(--white); border: 1px dashed var(--gray-300); }
+  #geo-why .pn.sn-ok > .sn-dt .sf-db { width: 20px; height: 20px; }
+  /* 단계 */
+  .sn-dir small { font-variant-numeric: tabular-nums; }
+  .sf-lg { width: 28px; height: 28px; border-radius: 8px; background: none; }
+  .sf-on { margin-left: 4px; font-style: normal; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+  .sn-bars li.hl .sf-on { color: var(--primary-700); }
+  .sf-pt { margin-bottom: 12px; }
+  .sf-pq { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px 4px 4px; border-radius: 99px; background: var(--gray-100); font-size: 12.5px !important; font-weight: 600 !important; color: var(--gray-900) !important; }
+  .sf-pq img { width: 20px; height: 20px; border-radius: 99px; }
+  .sf-res { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .sf-res li { display: flex; flex-direction: column; gap: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .sf-res i { position: relative; display: block; height: 124px; margin-bottom: 6px; border-radius: 10px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .sf-res img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+  .sf-res b { font-size: 13px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
+  .sf-res li.on i { box-shadow: 0 0 0 2px var(--primary-600); }
+  .sf-res li.on small { font-weight: 600; color: var(--primary-700); }
+  .sf-res em { position: absolute; left: 6px; top: 6px; padding: 2px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; animation: snTag 2.4s ease-in-out infinite; }
+  /* 해결 ① 정비 전 → 후 */
+  .sf-pd { display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
+  .sf-pd .sn-th { width: 40px; height: 40px; }
+  .sf-pd div { display: flex; flex-direction: column; gap: 2px; font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sf-pd b { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .sf-fx { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .sf-fx li { display: flex; gap: 12px; padding: 8px 12px; border-radius: 10px; background: var(--gray-50); }
+  .sf-fx .lb { flex: none; width: 52px; padding-top: 1px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--gray-500); }
+  .sf-fx li > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .sf-fx s { font-size: 12px; line-height: 16px; color: var(--gray-400); }
+  .sf-fx b { display: flex; align-items: center; gap: 6px; font-size: 13px; line-height: 20px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: sfIn 6s infinite both; animation-delay: calc(var(--i, 0) * .5s); }
+  .sf-fx li:nth-child(2) b { --i: 1; } .sf-fx li:nth-child(3) b { --i: 2; }
+  .sf-fx li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+  .sf-fx li.hl b { color: var(--primary-700); }
+  .sf-fx .aim-av { flex: none; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
+  .sf-fx .aim-av svg { width: 62%; height: 62%; }
+  @keyframes sfIn { 0%, 8% { opacity: 0; transform: translateX(-6px); } 16%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+  /* 해결 ② 채널 연동 현황 */
+  .sf-chs { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .sf-chs li { display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 8px 0 12px; border-radius: 8px; background: var(--gray-50); font-size: 12px; color: var(--gray-500); }
+  .sf-chs li > img { flex: none; width: 20px; height: 20px; border-radius: 6px; }
+  .sf-chs .nm { flex: none; width: 68px; font-size: 12.5px; font-weight: 600; color: var(--gray-900); }
+  .sf-chs .ct { flex: 1; min-width: 0; display: flex; align-items: center; white-space: nowrap; }
+  .sf-chs li.bad { background: #fef3f2; box-shadow: inset 0 0 0 1px #fecdca; }
+  .sf-chs li.bad .sn-swap { animation: snPulse 2.4s ease-in-out infinite; }
+  .sf-st { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; line-height: 16px; font-style: normal; font-weight: 600; color: var(--gray-700); }   /* 정상 = 회색 칩 (이 화면 상태색은 반려 레드 1곳만) */
+  .sf-st .sn-dot { margin: 0; }
+  .sf-chs .sn-st2 { flex: none; display: grid; }
+  .sf-chs .sn-st2 b { grid-area: 1 / 1; padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); font-size: 12px; line-height: 16px; font-weight: 600; text-align: center; animation: snStA 6s infinite; }
+  .sf-chs .sn-st2 b + b { background: var(--primary-600); box-shadow: none; color: var(--white); animation-name: snStB; }
+  /* 해결 ③ 성과: 막대 1회 자람 대신 반복 (snBar 6s) */
+  .sf-d3 .sn-bars { gap: 4px; } .sf-d3 .sn-bars li { height: 44px; }
+  @media (prefers-reduced-motion: reduce) { .sf-fx b, .sf-res em, .sf-chs .sn-st2 b, .sf-chs li.bad .sn-swap { animation: none !important; } .sf-chs .sn-st2 b + b { opacity: 0; } }
+  /* @endregion sf-vis */
+</style>
+
 </head>
 <body>
 
@@ -206,8 +572,28 @@
     </div>
   </div>
   <div class="container">
-    <div class="sh-visual rv ph-hv" style="--d:260ms" aria-hidden="true">
-      <div class="ph-box"><span class="sz">1340×460</span>히어로 비주얼<small>가운데 = 제목 롤링 채널의 쇼핑 검색 결과 화면 (자사몰 상품이 노출된 카드 1개 블루) · 떠 있는 카드 = 쇼핑몰 상품 DB(상품 수 · 연동 완료) · 채널별 연동 상품 수 · 쇼핑 채널 유입 알림 (공통 둥둥 애니메이션)</small></div>
+    <div class="sh-visual rv sf-hv" style="--d:260ms" aria-hidden="true">   <!-- patch-333: 가운데 창 = 쇼핑 채널 검색 결과 · 제목 롤링 채널(네이버쇼핑 · 카카오쇼핑 · 구글쇼핑)에 맞춰 화면 교체 (스크립트 sf-hero) · 블루 = 자사몰 상품 카드 1곳 -->
+      <div class="ai-chat sn-hw">
+        <div class="sn-sc on" data-ch="0">   <!-- 네이버쇼핑 검색 결과 -->
+          <div class="sn-bar sn-fbar"><img src="assets/common/brand/naver.svg" alt=""><span class="sn-srch sf-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>크루 스웨트</b></span><span class="sf-cnt">상품 1.2만개</span></div>
+          <nav class="sn-ftab"><span class="on">전체</span><span>가격비교</span><span>네이버페이</span><span>쇼핑몰</span></nav>
+          <ul class="sn-shp sf-shp"><li><i><img src="assets/geo/fashion/polo-navy-sit.webp" alt=""></i><small>데일리핏</small><b>피케 카라 티셔츠</b><span>39,800원</span></li><li class="me"><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><em class="sn-go">자사몰 상품</em></i><small>라운드위크</small><b>겨울 크루 스웨트</b><span>59,000원</span></li><li><i><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></i><small>모노웨어</small><b>라운드넥 니트 네이비</b><span>45,000원</span></li><li><i><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><small>스튜디오K</small><b>니트 카라 스웨트</b><span>52,000원</span></li></ul>
+        </div>
+        <div class="sn-sc" data-ch="1">   <!-- 카카오쇼핑 검색 결과 -->
+          <div class="sn-bar sn-fbar"><img src="assets/common/brand/kakao.svg" alt=""><span class="sn-srch sf-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>크루 스웨트</b></span><span class="sf-cnt">상품 8,420개</span></div>
+          <nav class="sn-ftab"><span class="on">추천순</span><span>낮은 가격순</span><span>리뷰 많은순</span><span>최신순</span></nav>
+          <ul class="sn-shp sf-shp"><li class="me"><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><em class="sn-go">자사몰 상품</em></i><small>라운드위크</small><b>겨울 크루 스웨트</b><span>59,000원</span></li><li><i><img src="assets/geo/fashion/polo-navy-sit.webp" alt=""></i><small>데일리핏</small><b>피케 카라 티셔츠</b><span>39,800원</span></li><li><i><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></i><small>모노웨어</small><b>라운드넥 니트 네이비</b><span>45,000원</span></li><li><i><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><small>스튜디오K</small><b>니트 카라 스웨트</b><span>52,000원</span></li></ul>
+        </div>
+        <div class="sn-sc" data-ch="2">   <!-- 구글쇼핑 검색 결과 -->
+          <div class="sn-bar sn-fbar"><img src="assets/common/brand/google.svg" alt=""><span class="sn-srch sf-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>크루 스웨트</b></span><span class="sf-cnt">결과 약 3,100개</span></div>
+          <nav class="sn-ftab"><span>전체</span><span class="on">쇼핑</span><span>이미지</span><span>동영상</span></nav>
+          <ul class="sn-shp sf-shp"><li><i><img src="assets/geo/fashion/polo-navy-sit.webp" alt=""></i><small>데일리핏</small><b>피케 카라 티셔츠</b><span>39,800원</span></li><li><i><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></i><small>모노웨어</small><b>라운드넥 니트 네이비</b><span>45,000원</span></li><li class="me"><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><em class="sn-go">자사몰 상품</em></i><small>라운드위크</small><b>겨울 크루 스웨트</b><span>59,000원</span></li><li><i><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><small>스튜디오K</small><b>니트 카라 스웨트</b><span>52,000원</span></li></ul>
+        </div>
+      </div>
+      <div class="sh-img sh-img2"><img src="assets/geo/fashion/rw-model-green.webp" alt=""></div>
+      <div class="sh-float f1 sf-f1"><b><i class="sf-db"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></i>쇼핑몰 상품 DB</b><strong>1,236<small>개 연동</small></strong><span class="sf-ok">3개 채널 · 방금 반영</span></div>
+      <div class="sh-toast"><img class="sn-tl" src="assets/common/brand/naver.svg" alt=""><div><p><b>자사몰 유입</b> +18명</p><small><i></i>쇼핑 검색에서 상품 페이지로 · 방금</small></div></div>
+      <div class="sh-float f2"><b>쇼핑 채널 유입</b><strong>2,140<small>명</small></strong><span>▲ 23%</span></div>
     </div>
   </div>
 </section>
@@ -216,20 +602,29 @@
 <!-- @region why : 기존 방식 vs 새 방식 -->
 <section class="sec" id="geo-why">   <!-- [상품DB 연동] ① 문제 · 채널마다 따로 등록 vs 쇼핑몰 상품 DB 기준 -->
   <div class="container">
-    <div class="sub-title rv"><h2>채널마다 상품 정보를<br class="mo-br"> 따로 관리하면</h2><p>쇼핑 채널이 늘어날수록 상품 정보를 맞추는 일도 함께 늘어납니다.</p></div>
+    <div class="sub-title rv"><h2>상품 정보는 쇼핑몰 DB<br class="mo-br"> 하나로 맞춰야 합니다</h2><p>쇼핑 채널이 늘어날수록 상품 정보를 맞추는 일도 함께 늘어납니다.</p></div>
     <div class="bento b2 ba">
       <span class="bt-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       <div class="bt rv">
         <div class="bt-hd"><span class="bt-eb">기존 · 채널별 개별 관리</span><h3>채널마다 상품 정보를 따로 등록</h3><p>쇼핑 채널별로 상품 정보를 등록하고, 상품을 고칠 때마다 채널마다 다시 반영해야 해 채널 간 정보가 어긋나기 쉽습니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn ows ph-pn"><div class="ph-box"><span class="sz">550×300</span>기존 화면<small>같은 상품이 채널마다 가격 · 상품명 · 품절 상태가 다르게 보이는 채널별 상품 목록 (회색 바탕 창)</small></div><div class="ows-ft"><i class="me-tag">채널마다 어긋나는 상품 정보</i></div></div>
+          <div class="pn ows sn-ch">
+            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12.2V4.5a1 1 0 0 1 1-1h7.7l8.3 8.3a1 1 0 0 1 0 1.4l-7.3 7.3a1 1 0 0 1-1.4 0z"/><circle cx="8" cy="8" r="1.5"/></svg></i>채널별 상품 정보<span class="sn-hm">겨울 크루 스웨트 · 채널마다 따로 등록</span></div>
+            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/roundweek.png" alt="">자사몰</span><span class="sn-cp">겨울 크루 스웨트 · 59,000원</span><em class="sn-ow">판매중</em></li><li><i class="sn-th"><img src="assets/geo/fashion/rw-front-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/naver.svg" alt="">네이버쇼핑</span><span class="sn-cp">크루스웨트 그린 · 62,000원</span><em class="sn-ow">지난 가격</em></li><li><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/kakao.svg" alt="">카카오쇼핑</span><span class="sn-cp">겨울 크루 스웨트 · 59,000원</span><em class="sn-ow">품절 표시</em></li><li><i class="sn-th"></i><span class="sn-cn"><img src="assets/common/brand/google.svg" alt="">구글쇼핑</span><span class="sn-cp">크루 스웨트 · 가격 없음</span><em class="sn-ow">정보 누락</em></li></ul>
+            <div class="ows-ft ov"><i class="me-tag">채널마다 어긋나는 상품 정보</i></div>
+          </div>
         </div>
         <p class="bt-goal"><span>결과</span>관리 부담과 정보 불일치</p>
       </div>
       <div class="bt is-new rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">상품DB 연동 · 솔루션 DB 기반</span><h3>쇼핑몰 상품 DB가 기준</h3><p>부스터 · 스마트윙 상품 DB를 기준으로 네이버 · 카카오 · 구글 쇼핑과 연동해, 쇼핑몰의 상품 정보가 쇼핑 채널에 그대로 반영됩니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn ows ph-pn"><div class="ph-box"><span class="sz">550×300</span>개선 화면<small>쇼핑몰 상품 DB 한 줄(블루) → 세 채널에 같은 가격 · 상품명이 차례로 반영 체크 (반복 애니메이션)</small></div><div class="ows-ft"><i class="hit-tag">한 곳의 상품 정보로 세 채널에</i></div></div>
+          <div class="pn ows sn-ch sn-ok sf-ok3">
+            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></i>상품DB 연동<span class="sn-hm">겨울 크루 스웨트 · 3개 채널</span></div>
+            <div class="sn-dt"><i class="sf-db"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg></i><span>쇼핑몰 상품 DB</span><b>겨울 크루 스웨트 그린 · 판매중</b><em>59,000원</em></div>
+            <ul class="sn-rows"><li><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/naver.svg" alt="">네이버쇼핑</span><span class="sn-cp">겨울 크루 스웨트 · 59,000원</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/kakao.svg" alt="">카카오쇼핑</span><span class="sn-cp">겨울 크루 스웨트 · 59,000원</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><span class="sn-cn"><img src="assets/common/brand/google.svg" alt="">구글쇼핑</span><span class="sn-cp">겨울 크루 스웨트 · 59,000원</span><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul>
+            <div class="ows-ft ov"><i class="hit-tag">한 곳의 상품 정보로 세 채널에</i></div>
+          </div>
         </div>
         <p class="bt-goal"><span>목표</span>한 곳의 상품 정보로 여러 쇼핑 채널</p>
       </div>
@@ -238,17 +633,22 @@
 </section>
 <!-- @endregion -->
 
-<!-- @region market : 근거 그래프 + 수치 3칸 (기획문서에 없음 · 근거 자료 확인 후 입력) -->
-<section class="sec sec-tight" id="geo-market">   <!-- [상품DB 연동] ② 근거 · 기획문서에 없는 영역 (GEO 구조 유지 · 그래프 · 수치 출처 확인 필요) -->
+<!-- @region market : 근거 그래프 + 수치 3칸 (기획문서에 없음 · 조사 자료) -->
+<section class="sec sec-tight" id="geo-market">   <!-- [상품DB 연동] ② 근거 · 기획문서에 없는 영역 → 공개 조사 자료로 작성 (오픈서베이 2025 · 통계청 2025.6) -->
   <div class="container">
-    <div class="sub-title center rv"><h2>고객은 쇼핑 검색에서<br class="mo-br"> 상품을 먼저 비교합니다</h2><p>[확인 필요] 기획문서에 없는 영역입니다. 쇼핑 검색 · 가격 비교를 거쳐 쇼핑몰로 들어오는 흐름을 보여 줄 근거 자료를 확인한 뒤 문장과 그래프를 넣습니다.</p></div>
+    <div class="sub-title center rv"><h2>고객은 자사몰보다<br class="mo-br"> 쇼핑 채널에서 상품을 찾습니다</h2><p>최근 한 달 네이버쇼핑을 이용한 소비자는 56.0%, 자사몰은 20.0%입니다.<br class="pc-only"> 고객이 찾는 쇼핑 채널에 쇼핑몰 상품이 정확히 보여야 자사몰까지 들어옵니다.</p></div>
     <div class="mk-chart rv" style="--d:100ms">
-      <div class="ph-box mk-ph"><span class="sz">세로 PC 250 · TB 220 · MO 210 · 가로 유동</span>그래프<small>쇼핑 검색 · 가격 비교 서비스를 거쳐 쇼핑몰에 들어온 방문 추이 등 (공개 자료 확인 후 · 예시 데이터 표시)</small></div>
+      <div class="mk-hd"><b>최근 한 달, 어디서 쇼핑했을까</b><span class="mk-lg"><i class="ai"></i>상품DB 연동 채널<i class="sn-gpl"></i>자사몰과의 차이</span></div>
+      <!-- patch-333 그래프 3종: chart-pc 920×250 · chart-tb 640×220 · chart-mo 298×210 — 같은 데이터 · 화면별로 하나만 보임 · 블루 = 네이버쇼핑(연동 채널) 1곳 -->
+      <svg viewBox="0 0 920 250" class="chart chart-pc" role="img" aria-label="최근 1개월 이용률: 쿠팡 69.9%, 네이버쇼핑 56.0%, 자사몰 20.0% (오픈서베이 온라인 쇼핑 트렌드 리포트 2025)"><line x1="40" x2="880" y1="166.5" y2="166.5" class="mg"/><text x="30" y="170.5" class="ya" text-anchor="end">20%</text><line x1="40" x2="880" y1="119" y2="119" class="mg"/><text x="30" y="123" class="ya" text-anchor="end">40%</text><line x1="40" x2="880" y1="71.5" y2="71.5" class="mg"/><text x="30" y="75.5" class="ya" text-anchor="end">60%</text><line x1="40" x2="880" y1="24" y2="24" class="mg"/><text x="30" y="28" class="ya" text-anchor="end">80%</text><line x1="40" x2="880" y1="214" y2="214" class="mg base"/><rect x="650.8" y="81.8" width="98.5" height="84.7" rx="6" class="sn-gap"/><line x1="510" x2="650" y1="81" y2="81" class="sn-gl"/><rect x="170" y="48" width="100" height="166" rx="6" class="sn-agb" style="--i:0"/><rect x="410" y="81" width="100" height="133" rx="6" class="sn-agb now" style="--i:1"/><rect x="650" y="166.5" width="100" height="47.5" rx="6" class="sn-agb" style="--i:2"/><text x="220" y="38" class="pv real sn-bv" text-anchor="middle" style="--i:0">69.9%</text><text x="460" y="71" class="pv real sn-bv now" text-anchor="middle" style="--i:1">56.0%</text><text x="700" y="156.5" class="pv real sn-bv" text-anchor="middle" style="--i:2">20.0%</text><g class="tip2"><rect x="652" y="94" width="96" height="30" rx="15"/><text x="700" y="114" text-anchor="middle">−36.0%p</text></g><text x="220" y="237" class="yr" text-anchor="middle">쿠팡</text><text x="460" y="237" class="yr now" text-anchor="middle">네이버쇼핑</text><text x="700" y="237" class="yr" text-anchor="middle">자사몰</text></svg>
+      <svg viewBox="0 0 640 220" class="chart chart-tb" aria-hidden="true"><line x1="40" x2="600" y1="144" y2="144" class="mg"/><text x="32" y="148" class="ya" text-anchor="end">20%</text><line x1="40" x2="600" y1="104" y2="104" class="mg"/><text x="32" y="108" class="ya" text-anchor="end">40%</text><line x1="40" x2="600" y1="64" y2="64" class="mg"/><text x="32" y="68" class="ya" text-anchor="end">60%</text><line x1="40" x2="600" y1="24" y2="24" class="mg"/><text x="32" y="28" class="ya" text-anchor="end">80%</text><line x1="40" x2="600" y1="184" y2="184" class="mg base"/><rect x="438.8" y="72.8" width="82.5" height="71.2" rx="6" class="sn-gap"/><line x1="362" x2="438" y1="72" y2="72" class="sn-gl"/><rect x="118" y="44.2" width="84" height="139.8" rx="6" class="sn-agb" style="--i:0"/><rect x="278" y="72" width="84" height="112" rx="6" class="sn-agb now" style="--i:1"/><rect x="438" y="144" width="84" height="40" rx="6" class="sn-agb" style="--i:2"/><text x="160" y="34.2" class="pv real sn-bv" text-anchor="middle" style="--i:0">69.9%</text><text x="320" y="62" class="pv real sn-bv now" text-anchor="middle" style="--i:1">56.0%</text><text x="480" y="134" class="pv real sn-bv" text-anchor="middle" style="--i:2">20.0%</text><g class="tip2"><rect x="432" y="81" width="96" height="30" rx="15"/><text x="480" y="101" text-anchor="middle">−36.0%p</text></g><text x="160" y="207" class="yr" text-anchor="middle">쿠팡</text><text x="320" y="207" class="yr now" text-anchor="middle">네이버쇼핑</text><text x="480" y="207" class="yr" text-anchor="middle">자사몰</text></svg>
+      <svg viewBox="0 0 298 210" class="chart chart-mo" aria-hidden="true"><line x1="44" x2="278" y1="138" y2="138" class="mg"/><text x="36" y="142" class="ya" text-anchor="end">20%</text><line x1="44" x2="278" y1="100" y2="100" class="mg"/><text x="36" y="104" class="ya" text-anchor="end">40%</text><line x1="44" x2="278" y1="62" y2="62" class="mg"/><text x="36" y="66" class="ya" text-anchor="end">60%</text><line x1="44" x2="278" y1="24" y2="24" class="mg"/><text x="36" y="28" class="ya" text-anchor="end">80%</text><line x1="44" x2="278" y1="176" y2="176" class="mg base"/><rect x="215.8" y="70.39999999999999" width="46.5" height="67.6" rx="6" class="sn-gap"/><line x1="185" x2="215" y1="69.6" y2="69.6" class="sn-gl"/><rect x="59" y="43.2" width="48" height="132.8" rx="6" class="sn-agb" style="--i:0"/><rect x="137" y="69.6" width="48" height="106.4" rx="6" class="sn-agb now" style="--i:1"/><rect x="215" y="138" width="48" height="38" rx="6" class="sn-agb" style="--i:2"/><text x="83" y="33.2" class="pv real sn-bv" text-anchor="middle" style="--i:0">69.9%</text><text x="161" y="59.599999999999994" class="pv real sn-bv now" text-anchor="middle" style="--i:1">56.0%</text><text x="239" y="128" class="pv real sn-bv" text-anchor="middle" style="--i:2">20.0%</text><g class="tip2"><rect x="199" y="78" width="80" height="28" rx="14"/><text x="239" y="97" text-anchor="middle">−36.0%p</text></g><text x="83" y="198" class="yr" text-anchor="middle">쿠팡</text><text x="161" y="198" class="yr now" text-anchor="middle">네이버쇼핑</text><text x="239" y="198" class="yr" text-anchor="middle">자사몰</text></svg>
+      <p class="mk-note5">출처: 오픈서베이 「온라인 쇼핑 트렌드 리포트 2025」 (전국 만 15~69세) · 최근 1개월 이용률</p>
     </div>
     <ul class="mk-stats rv" style="--d:160ms">
-      <li class="ph-st"><strong>00<small>%</small></strong><span>수치 1 · 공개 자료 확인 후 입력</span><em>출처</em></li>
-      <li class="ph-st"><strong>00<small>%</small></strong><span>수치 2 · 공개 자료 확인 후 입력</span><em>출처</em></li>
-      <li class="ph-st"><strong>00<small>%</small></strong><span>수치 3 · 공개 자료 확인 후 입력</span><em>출처</em></li>
+      <li><strong data-to="56.0">56.0<small>%</small></strong><span>최근 한 달 네이버쇼핑을 이용한 소비자</span><em>오픈서베이 (2025)</em></li>
+      <li><strong data-to="20.0">20.0<small>%</small></strong><span>최근 한 달 자사몰을 이용한 소비자 (이용 경험 80.0%)</span><em>오픈서베이 (2025)</em></li>
+      <li><strong data-to="77.8">77.8<small>%</small></strong><span>온라인쇼핑 거래액 중 모바일 비중</span><em>통계청 온라인쇼핑 동향 (2025.6)</em></li>
     </ul>
   </div>
 </section>
@@ -261,15 +661,18 @@
     <ol class="bento b3 howflow"><li class="fl-ar a1" aria-hidden="true"></li><li class="fl-ar a2" aria-hidden="true"></li>
       <li class="bt rv">
         <div class="bt-hd"><span class="bt-eb">STEP 1 · 상품 DB</span><h3>부스터 · 스마트윙에 등록된<br>상품 정보가 출발점입니다</h3></div>
-        <div class="bt-vis" aria-hidden="true"><div class="pn ph-pn"><div class="ph-box"><span class="sz">360×250</span>상품 DB 화면<small>쇼핑몰 관리자 상품 목록 (상품명 · 가격 · 이미지 · 재고)</small></div></div></div>
+        <div class="bt-vis" aria-hidden="true"><div class="pn sf-h1"><p class="pn-t">상품 관리 <span>부스터 · 상품 1,240개</span></p>
+          <ul class="sn-dir"><li class="hl"><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><div><small>RW-2611 · 판매중</small><b>겨울 크루 스웨트</b></div><em>59,000원</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-wine-crop.webp" alt=""></i><div><small>RW-2604 · 판매중</small><b>럭비 니트 폴로</b></div><em>69,000원</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li><li><i class="sn-th"><img src="assets/geo/fashion/polo-navy-m.webp" alt=""></i><div><small>RW-2598 · 판매중</small><b>피케 폴로 네이비</b></div><em>49,000원</em><s class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></s></li></ul></div></div>
       </li>
       <li class="bt rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">STEP 2 · 쇼핑 채널 연동</span><h3>네이버쇼핑 · 카카오쇼핑 ·<br>구글쇼핑과 연동됩니다</h3></div>
-        <div class="bt-vis" aria-hidden="true"><div class="pn ph-pn"><div class="ph-box"><span class="sz">360×250</span>채널 연동 화면<small>상품 정보 → 채널 3곳 연동 상태 (연동 완료 · 상품 수)</small></div></div></div>
+        <div class="bt-vis" aria-hidden="true"><div class="pn sf-h2"><p class="pn-t">쇼핑 채널 연동 <span>상품 1,240개 기준</span></p>
+          <ul class="sn-bars"><li class="hl"><i class="sn-th sf-lg"><img src="assets/common/brand/naver.svg" alt=""></i><div><span>네이버쇼핑 <em class="sf-on">연동</em></span><i style="--v:1"></i></div><b>1,236</b></li><li><i class="sn-th sf-lg"><img src="assets/common/brand/kakao.svg" alt=""></i><div><span>카카오쇼핑 <em class="sf-on">연동</em></span><i style="--v:0.985"></i></div><b>1,221</b></li><li><i class="sn-th sf-lg"><img src="assets/common/brand/google.svg" alt=""></i><div><span>구글쇼핑 <em class="sf-on">연동</em></span><i style="--v:0.97"></i></div><b>1,203</b></li></ul></div></div>
       </li>
       <li class="bt rv" style="--d:200ms">
         <div class="bt-hd"><span class="bt-eb">STEP 3 · 노출 → 유입</span><h3>쇼핑 채널에서 상품을 찾은 고객이<br>자사몰로 들어옵니다</h3></div>
-        <div class="bt-vis" aria-hidden="true"><div class="pn ph-pn"><div class="ph-box"><span class="sz">360×250</span>노출 · 유입 화면<small>쇼핑 검색 결과의 자사몰 상품 → 클릭 → 자사몰 상품 페이지 (유입 강조)</small></div></div></div>
+        <div class="bt-vis" aria-hidden="true"><div class="pn sf-h3"><p class="pn-t sf-pt"><span class="sf-pq"><img src="assets/common/brand/naver.svg" alt="">크루 스웨트</span><span>네이버쇼핑 검색</span></p>
+          <ul class="sf-res"><li><i><img src="assets/geo/fashion/polo-navy-sit.webp" alt=""></i><small>데일리핏</small><b>39,800원</b></li><li class="on"><i><img src="assets/geo/fashion/rw-land-green.webp" alt=""><em>자사몰</em></i><small>라운드위크</small><b>59,000원</b></li><li><i><img src="assets/geo/fashion/knit-navy-w.webp" alt=""></i><small>모노웨어</small><b>45,000원</b></li></ul></div></div>
       </li>
     </ol>
   </div>
@@ -279,22 +682,28 @@
 <!-- @region items : 관리 범위 (해결 · 정비 · 점검 · 성과 · 화면 460×340) -->
 <section class="sec one-panel" id="geo-diagnosis">   <!-- [상품DB 연동] ④ 해결 · 기획문서 SCOPE(연동 · 상품 정보 관리 8 + 성과 · 확장 3)를 METHOD 흐름(정비 → 점검 → 성과)으로 3줄 재구성 (세부 범위 확정 중) -->
   <div class="container">
-    <div class="sub-title center rv"><h2>상품 정보가 쇼핑 채널에서<br class="tb-br"> 제대로 보이게 관리합니다</h2><p>연동으로 끝나지 않고, 채널에서 상품이 정확하고 매력적으로 보이도록 정보를 관리합니다.<br class="pc-only"> 세부 항목과 범위는 상담을 통해 쇼핑몰 상황에 맞게 정합니다.</p></div>
+    <div class="sub-title center rv"><h2>연동 후에도<br class="mo-br"> 상품 정보를 관리합니다</h2><p>연동으로 끝나지 않고, 채널에서 상품이 정확하고 매력적으로 보이도록 정보를 관리합니다.<br class="pc-only"> 세부 항목과 범위는 상담을 통해 쇼핑몰 상황에 맞게 정합니다.</p></div>
     <ol class="steprows">
       <li class="steprow rv">
         <span class="sr-no">1</span>
         <div class="sr-body"><h3><em class="key">정비</em> 채널 기준에 맞게 상품 정보를 다듬습니다</h3><p>쇼핑몰 상품 DB를 기준으로 연동하고, 채널별 노출 기준에 맞춰 상품명 · 카테고리 · 이미지 · 가격 · 배송 정보를 정리합니다. 부족한 설명과 속성 정보는 AI로 보완합니다.</p><p class="sr-out">대표 이미지 · 판매가 · 배송비가 채널에 정확히 보입니다</p><ul class="sr-tags"><li>상품 DB 기반 연동</li><li>상품명 · 카테고리 정비</li><li>이미지 · 가격 · 배송 정보 점검</li><li>AI 상품 정보 보완</li></ul></div>
-        <div class="sr-vis rp-sr" aria-hidden="true"><div class="ph-box"><span class="sz">460×340</span>상품 정보 정비 화면<small>상품 1개의 정비 전 → 후 (상품명 · 카테고리 · 속성 · AI 보완 문구 블루)</small></div></div>
+        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d1 sf-d1"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></i><b>상품 정보 정비</b><span class="vw-m">네이버쇼핑 노출 기준</span><em class="vw-chip">정비 3건</em></div><div class="vw-bd">
+          <div class="sf-pd"><i class="sn-th"><img src="assets/geo/fashion/rw-land-green.webp" alt=""></i><div><b>겨울 크루 스웨트 그린</b><span>RW-2611 · 59,000원 · 판매중</span></div></div>
+          <ul class="sf-fx"><li><span class="lb">상품명</span><div><s>크루스웨트 그린 신상</s><b>라운드위크 겨울 크루 스웨트 그린 오버핏</b></div></li><li><span class="lb">카테고리</span><div><s>의류 &gt; 기타</s><b>패션의류 &gt; 남녀공용 &gt; 스웨트셔츠</b></div></li><li class="hl"><span class="lb">속성</span><div><s>소재 · 핏 · 사이즈 없음</s><b><i class="aim-av"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>면 100% · 오버핏 · M / L / XL</b></div></li></ul></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">2</span>
         <div class="sr-body"><h3><em class="key">점검</em> 누락 · 오류 상품을 찾아 바로잡습니다</h3><p>채널이 요구하는 항목이 비었거나 어긋난 상품, 반려되거나 오류가 난 상품을 찾아 원인을 확인하고 보완합니다. 상품 수정이나 판매 상태 변경이 채널에 제때 반영되는지도 확인합니다.</p><p class="sr-out">채널별 연동 상품 수와 제외된 상품, 그 이유를 한눈에 봅니다</p><ul class="sr-tags"><li>필수 정보 누락 점검</li><li>상품 변경 반영 확인</li><li>채널 연동 현황 점검</li><li>오류 · 반려 대응</li></ul></div>
-        <div class="sr-vis rp-sr" aria-hidden="true"><div class="ph-box"><span class="sz">460×340</span>연동 현황 점검 화면<small>채널별 연동 · 제외 상품 수 + 반려 상품 1건(레드 · 사유) → 보완 완료</small></div></div>
+        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d2 sf-d2"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></i><b>채널 연동 현황</b><span class="vw-m">점검 11/11 (수) 09:00</span><em class="vw-chip">상품 1,240개</em></div><div class="vw-bd">
+          <ul class="sn-k3"><li><span>연동 상품</span><strong>1,236<small>개</small></strong><em>3개 채널</em></li><li><span>제외 상품</span><strong>3<small>개</small></strong><em>판매 중지</em></li><li><span>반려 상품</span><strong>1<small>개</small></strong><em>보완 중</em></li></ul>
+          <ul class="sf-chs"><li><img src="assets/common/brand/naver.svg" alt=""><span class="nm">네이버쇼핑</span><span class="ct">1,236개 연동</span><em class="sf-st">정상</em></li><li><img src="assets/common/brand/kakao.svg" alt=""><span class="nm">카카오쇼핑</span><span class="ct">1,236개 연동</span><em class="sf-st">정상</em></li><li class="bad"><img src="assets/common/brand/google.svg" alt=""><span class="nm">구글쇼핑</span><span class="ct">럭비 니트 폴로 · 색상 누락<em class="sn-swap">반려</em></span><em class="sn-st2"><b>보완 중</b><b>보완 완료</b></em></li></ul></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">3</span>
         <div class="sr-body"><h3><em class="key">성과</em> 잘 되는 상품과 채널로 운영을 넓힙니다</h3><p>네이버 · 카카오 · 구글 쇼핑 채널별로 유입과 구매를 비교하고, 노출과 유입이 좋은 상품을 중심으로 정보를 보강하며 운영을 이어갑니다.</p><p class="sr-out">연동한 상품 정보를 바탕으로 쇼핑광고(매체 광고 상품) 집행까지 상담합니다</p><ul class="sr-tags"><li>채널별 유입 · 구매 성과 점검</li><li>잘 되는 상품 중심 운영</li><li>쇼핑광고 연계</li></ul></div>
-        <div class="sr-vis rp-sr" aria-hidden="true"><div class="ph-box"><span class="sz">460×340</span>채널 성과 화면<small>채널 3곳 유입 · 구매 비교 + 유입 상위 상품 (가장 잘 되는 채널 1곳 블루)</small></div></div>
+        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d1 sf-d3"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><b>쇼핑 채널 성과</b><span class="vw-m">11/2 – 11/8 · 자사몰 유입</span><em class="vw-chip">최근 7일</em></div><div class="vw-bd">
+          <ul class="sn-k3"><li><span>쇼핑 채널 유입</span><strong>2,140<small>명</small></strong><em class="inc">▲ 23%</em></li><li><span>구매</span><strong>86<small>건</small></strong><em class="inc">▲ 15%</em></li><li><span>구매 전환율</span><strong>4.0<small>%</small></strong><em>자사몰 평균 3.1%</em></li></ul>
+          <ul class="sn-bars"><li class="hl"><i class="sn-th sf-lg"><img src="assets/common/brand/naver.svg" alt=""></i><div><span>네이버쇼핑</span><i style="--v:1"></i></div><b>1,280</b></li><li><i class="sn-th sf-lg"><img src="assets/common/brand/kakao.svg" alt=""></i><div><span>카카오쇼핑</span><i style="--v:0.41"></i></div><b>520</b></li><li><i class="sn-th sf-lg"><img src="assets/common/brand/google.svg" alt=""></i><div><span>구글쇼핑</span><i style="--v:0.27"></i></div><b>340</b></li></ul></div></div></div>
       </li>
     </ol>
   </div>
@@ -597,77 +1006,26 @@
   if (mkStats && !reduced && 'IntersectionObserver' in window) {
     const nums = [...mkStats.querySelectorAll('strong[data-to]')];
     const setN = (el, v) => { el.firstChild.nodeValue = String(v); };
-    nums.forEach(el => setN(el, 0));
+    nums.forEach(el => setN(el, (0).toFixed((el.dataset.to.split('.')[1] || '').length)));
     const io = new IntersectionObserver(es => {
       if (!es.some(e => e.isIntersecting)) return;
       io.disconnect();
       const t0 = performance.now(), dur = 1400;
       const step = t => {
         const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
-        nums.forEach(el => setN(el, Math.round(+el.dataset.to * e)));
+        nums.forEach(el => { const d = (el.dataset.to.split('.')[1] || '').length; setN(el, (+el.dataset.to * e).toFixed(d)); });   /* patch-312: 소수점 자리 유지 */
         if (k < 1) requestAnimationFrame(step);
       };
       requestAnimationFrame(step);
     }, { threshold: .4 });
     io.observe(mkStats);
   }
-  // 크롤러 방문 알림: 봇 이름 · 아이콘 · 조사(이/가)를 2.8초마다 교체
-  const toast = document.querySelector('.sh-toast');
-  if (toast && !reduced) {
-    const BOTS = [['GPTBot', '', 'gpt'], ['Google-Extended', '', 'gemini'], ['ClaudeBot', '', 'claude'], ['PerplexityBot', '', 'perplexity']];
-    const ic = toast.querySelector('.app'), nm = toast.querySelector('p b'), jo = toast.querySelector('.jo') || {};
-    let bi = 0;
-    setInterval(() => {
-      toast.classList.add('swap');
-      setTimeout(() => { bi = (bi + 1) % BOTS.length; const [n, j, c] = BOTS[bi]; nm.textContent = n; jo.textContent = j; ic.className = 'app ' + c; toast.classList.remove('swap'); }, 300);
-    }, 2800);
-  }
-  const chat = document.querySelector('.ai-chat');
-  if (chat && !reduced) {   // 질문 3개를 차례로: 질문 교체 → 답변 타이핑 → 결과 목록 등장 → 다음 질문 (무한 반복 · 탭 없음)
-    const DATA = [
-      { img: 'assets/geo/p-cream-th.jpg', q: '30대 건성 피부에 맞는 수분크림 추천해줘', a: '건성 피부라면 보습 지속력과 저자극 성분을 함께 보세요. 많이 언급되는 제품은 다음과 같습니다.', li: [['우리 브랜드 · 세라마이드 수분크림', '48시간 보습 · 저자극 테스트 완료 · 50ml'], ['B 브랜드 · 히알루론 크림', '가벼운 젤 제형'], ['C 브랜드 · 시카 크림', '진정 중심']] },
-      { img: 'assets/geo/p-sun-th.jpg', q: '민감성 피부에 순한 선크림 추천해줘', a: '민감한 피부라면 무기자차 여부와 백탁, 자극 테스트를 함께 확인하세요. 많이 추천되는 제품은 다음과 같습니다.', li: [['우리 브랜드 · 마일드 선크림 SPF50+', '무기자차 · 백탁 없음 · 50ml'], ['B 브랜드 · 톤업 선크림', '톤업 효과'], ['C 브랜드 · 선스틱', '휴대 간편']] },
-      { img: 'assets/geo/p-cleanser-th.jpg', q: '피부 자극 없는 약산성 클렌저 비교해줘', a: '세안 후 당김이 적은 약산성 제품이 좋아요. 성분과 후기를 바탕으로 많이 언급되는 제품은 다음과 같습니다.', li: [['우리 브랜드 · 약산성 젤 클렌저', 'pH 5.5 · 저자극 · 150ml'], ['B 브랜드 · 폼 클렌저', '풍성한 거품'], ['C 브랜드 · 클렌징 오일', '메이크업 세정']] },
-    ];
-    const qEl = chat.querySelector('.ai-q span'), pEl = chat.querySelector('.ai-a > p'), lis = [...chat.querySelectorAll('.ai-a ol li')], qBox = chat.querySelector('.ai-q'), src = chat.querySelector('.ai-src');   // [수정] C3 출처 · 태그
-    DATA.forEach(d => { new Image().src = d.img; });   // 상품 이미지 미리 불러오기
-    // 질문이 바뀌어도 창 높이가 변하지 않도록: 가장 긴 질문 · 답변 기준으로 높이 고정 (patch-85)
-    const lock = () => {
-      const pq = qEl.textContent, pa = pEl.textContent, subs = lis.map(li => li.querySelector('div span').textContent);
-      chat.style.minHeight = '';
-      let h = 0;   // 창 전체 높이만 고정 → 설명글과 상품 목록 사이 간격은 항상 같고, 남는 공간은 창 아래쪽에 (patch-86)
-      DATA.forEach(d => { pEl.textContent = d.a; qEl.textContent = d.q; lis.forEach((li, i) => li.querySelector('div span').textContent = d.li[i][1]); h = Math.max(h, chat.offsetHeight); });
-      chat.style.minHeight = h + 'px';
-      qEl.textContent = pq; pEl.textContent = pa; lis.forEach((li, i) => li.querySelector('div span').textContent = subs[i]);
-    };
-    lock(); addEventListener('resize', lock);
-    let cur = 0;
-    const show = k => {
-      const d = DATA[k];
-      qBox.classList.add('swap');
-      lis.forEach(li => li.classList.add('wait')); if (src) src.classList.add('wait');
-      setTimeout(() => {
-        qEl.textContent = d.q; qBox.classList.remove('swap');
-        const th = lis[0].querySelector('.ai-thumb img'); if (th && d.img) th.src = d.img;
-        lis.forEach((li, i) => { li.querySelector('strong').textContent = d.li[i][0]; li.querySelector('div span').textContent = d.li[i][1]; });
-        let n = 0; pEl.textContent = ''; pEl.classList.add('typing');
-        const type = () => {
-          n += 2; pEl.textContent = d.a.slice(0, n);
-          if (n < d.a.length) { setTimeout(type, 28); return; }
-          pEl.classList.remove('typing');
-          lis.forEach((li, i) => setTimeout(() => li.classList.remove('wait'), 200 + i * 220));
-          if (src) setTimeout(() => src.classList.remove('wait'), 200 + lis.length * 220 + 120);   // [수정] C3 출처 · 태그는 상품 목록이 다 나온 뒤
-          setTimeout(() => { cur = (cur + 1) % DATA.length; show(cur); }, 200 + lis.length * 220 + 1800);   // [수정] C3 출처가 보이도록 다음 질문까지 1400 → 1800   // 결과 목록이 다 나온 뒤 곧바로 다음 질문 (patch-85)
-        };
-        setTimeout(type, 450);
-      }, 350);
-    };
-    lis.forEach(li => li.classList.add('wait')); if (src) src.classList.add('wait'); pEl.textContent = '';
-    // 답변 박스가 화면에 들어오면 시작
-    if ('IntersectionObserver' in window) {
-      const ioc = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { ioc.disconnect(); show(0); } }, { threshold: .4 });
-      ioc.observe(chat);
-    } else show(0);
+  // sf-hero (patch-333): 제목 롤링 채널(네이버쇼핑 · 카카오쇼핑 · 구글쇼핑)에 맞춰 가운데 검색 결과 화면 · 알림 아이콘 교체 (롤링 2.4초와 같은 박자)
+  const sfRoll = document.querySelector('#geo-hero .ai-roll-in'), sfSc = [...document.querySelectorAll('#geo-hero .sn-sc')], sfTl = document.querySelector('#geo-hero .sn-tl');
+  if (sfRoll && sfSc.length) {
+    const LG = ['naver', 'kakao', 'google'];
+    const sync = () => { const m = /translateY\((-?[\d.]+)em\)/.exec(sfRoll.style.transform || ''); const i = m ? Math.round(-parseFloat(m[1]) / 1.3) % sfSc.length : 0; sfSc.forEach((e, k) => e.classList.toggle('on', k === i)); if (sfTl) sfTl.src = 'assets/common/brand/' + LG[i] + '.svg'; };
+    new MutationObserver(sync).observe(sfRoll, { attributes: true, attributeFilter: ['style'] }); sync();
   }
   // 리포트: 화면에 들어오면 그래프 등장 + 카드 숫자 카운트업 (1회)
   const rpEl = document.querySelector('#geo-report .rp');
