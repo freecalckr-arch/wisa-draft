@@ -8,6 +8,9 @@
 - 시안 보기(고객 공유용): https://freecalckr-arch.github.io/wisa-draft/
 - 작업 전 `git pull`, 작업 후 `git add` · `git commit` · `git push`. 푸시하면 1~2분 뒤 위 주소에 반영됩니다.
 - 기획문서: https://claude.ai/artifact/1Ha9stzfkA4fdiCrGmFzgx#geo (문장 · 흐름 · 레이아웃의 기준)
+  - 이 아티팩트는 HTML 파일 여러 개 묶음. 기본 read(index.html)에는 자사몰 마케팅 4P 만 보이고 채널마케팅 등은 안 보임 → "기획문서에 없다"고 하지 말고 파일을 찾아 읽음.
+  - 찾는 법: Artifact `action: "list"` · `scope: "files"` 로 파일 목록 확인 → `action: "read"` · `path: "<파일명>"` 으로 해당 파일 저장 → 페이지 id(예: `id="shopping-feed"`) 부터 다음 섹션 id 까지 글자만 뽑아 봄 (python 없음 · node 사용).
+  - 파일: 자사몰 마케팅(GEO · 온사이트 · CRM · 리포트) = `wisa_marketing_page.html` (index.html 과 같은 내용) · 채널마케팅(공식채널운영 `#sns-ops` · 상품DB 연동 `#shopping-feed` · 버티컬커머스 `#vertical-commerce`) = `wisa_channel_page.html` · 매체 광고 = `wisa_ads_page.html` · 그 외 `wisa_main` · `wisa_solution_page` · `wisa_specialty_page` · `wisa_support_page` · `wisa_comparison_page`.
 - 작업 범위: 자사몰 마케팅 4P (GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트) + 채널마케팅 3P (공식채널운영 · 상품DB 연동 · 버티컬커머스)
 
 ## 자사몰 마케팅 디자인 순서 · 지침 (상세: docs/workflow.html)
