@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>산출물 · WISA 디자인 규칙</title>
+<link rel="icon" href="../assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 전달 이력 · 페이지별 최신 시안 날짜는 전달할 때 채웁니다 (지금은 양식). -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">개발 전달 · 시작하기</p>
+    <h1>산출물</h1>
+    <p class="lede">개발자에게 전달하는 폴더의 구성입니다. 받은 폴더에 무엇이 들어 있고 어디부터 열면 되는지, 어떤 버전을 언제 전달했는지 적습니다.</p>
+  </header>
+  <div class="body">
+<h2 id="history">전달 이력</h2>
+    <div class="tbl"><table><thead><tr><th>차수</th><th>전달일</th><th>포함 페이지</th><th>바뀐 내용</th><th>상태</th></tr></thead><tbody>
+<tr><td>1차 전달</td><td>-</td><td>자사몰 마케팅 4 · 채널마케팅 3</td><td>최초 전달</td><td><span class="tag">전달 전</span></td></tr>
+<tr><td>수정 전달</td><td>-</td><td>-</td><td>-</td><td><span class="tag">전달 전</span></td></tr>
+</tbody></table></div>
+    <p class="note">전달할 때마다 한 줄씩 추가합니다. 바뀐 내용의 자세한 기록은 각 페이지 HTML 맨 위 <code>[개발 전달]</code> 주석에 있습니다.</p>
+
+    <h2 id="open">여는 법</h2>
+    <ol class="rules">
+      <li><div><b>폴더 받기</b><span>드라이브의 전달 폴더를 통째로 내려받아 압축을 풉니다. 폴더 안 상대 경로로 연결되어 있으니 파일 위치를 바꾸지 않습니다.</span></div></li>
+      <li><div><b>규칙 사이트 열기</b><span><code>docs/index.html</code> 을 브라우저로 엽니다. 프로젝트 안내의 보는 순서대로 확인합니다.</span></div></li>
+      <li><div><b>시안 열기</b><span><code>index.html</code>(시안 목록) 또는 페이지 HTML 을 브라우저로 엽니다. 브라우저 폭을 줄이면 해상도별 화면을 볼 수 있습니다.</span></div></li>
+    </ol>
+
+    <h2 id="pages">페이지</h2>
+    <div class="tbl"><table><thead><tr><th>묶음</th><th>페이지</th><th>파일</th><th>최신 시안</th><th>마지막 수정 번호</th></tr></thead><tbody>
+<tr><td rowspan="4">자사몰 마케팅</td><td>GEO / AI 검색</td><td><a href="../geo.html">geo.html</a></td><td>-</td><td>-</td></tr>
+<tr><td>온사이트마케팅</td><td><a href="../onsite.html">onsite.html</a></td><td>-</td><td>-</td></tr>
+<tr><td>CRM마케팅</td><td><a href="../crm.html">crm.html</a></td><td>-</td><td>-</td></tr>
+<tr><td>리포트</td><td><a href="../report.html">report.html</a></td><td>-</td><td>-</td></tr>
+<tr><td rowspan="3">채널마케팅</td><td>공식채널운영</td><td><a href="../sns-ops.html">sns-ops.html</a></td><td>-</td><td>-</td></tr>
+<tr><td>상품DB 연동</td><td><a href="../shopping-feed.html">shopping-feed.html</a></td><td>-</td><td>-</td></tr>
+<tr><td>버티컬커머스</td><td>준비 중</td><td>-</td><td>-</td></tr>
+</tbody></table></div>
+    <p class="note">최신 시안 · 마지막 수정 번호(<code>patch-NNN</code>)는 전달할 때 채웁니다.</p>
+
+    <h2 id="files">파일 구조</h2>
+    <div class="tbl"><table><thead><tr><th>경로</th><th>내용</th></tr></thead><tbody>
+<tr><td><code>index.html</code></td><td>시안 목록</td></tr>
+<tr><td><code>geo.html</code> 등 페이지 HTML</td><td>페이지별 최신 시안 · 페이지 전용 CSS(<code>&lt;style&gt;</code>) · 스크립트 포함</td></tr>
+<tr><td><code>assets/common/wisa.css</code></td><td>마케팅 페이지 공통 스타일: 토큰(<code>:root</code>) · 헤더 · GNB · 모바일 메뉴 · 푸터 · CTA · FAQ · 영역 공통 · 타이포 · 반응형</td></tr>
+<tr><td><code>assets/common/wisa.js</code></td><td>마케팅 페이지 공통 스크립트: 등장 효과 · 히어로 축소 · 페이지 전환 탭 · 해결 영역 세로 라인 · 리포트 축소 등</td></tr>
+<tr><td><code>assets/common/brand/</code></td><td>채널 · 매체 · AI 서비스 로고 (48×48 타일 · 목록 <a href="../assets/common/brand/index.html">brand/index.html</a>)</td></tr>
+<tr><td><code>assets/</code></td><td>폰트 · 로고 · 상품 · 프로필 이미지</td></tr>
+<tr><td><code>docs/</code></td><td>이 규칙 사이트</td></tr>
+</tbody></table></div>
+    <p>공통 파일은 페이지마다 <code>wisa.css?v=수정 번호</code> 처럼 같은 숫자를 붙여 불러옵니다. 페이지 HTML 의 <code>&lt;style&gt;</code> 이 공통 파일보다 뒤에 오므로 페이지 전용 규칙이 공통 규칙을 덮어씁니다.</p>
+
+    <h2 id="excluded">전달 폴더에서 빠지는 것</h2>
+    <div class="tbl"><table><thead><tr><th>파일</th><th>이유</th></tr></thead><tbody>
+<tr><td><code>shopping-feed-v1.html</code> 등 이전 시안 사본</td><td>고객 비교용 지난 버전 · 최신은 각 페이지 HTML</td></tr>
+<tr><td><code>docs/assets/visual-check.js</code></td><td>시안 점검 스크립트</td></tr>
+<tr><td>작업 기록 파일 · 저장소 설정 폴더</td><td>시안 작업용</td></tr>
+</tbody></table></div>
+    <p class="note">시안 히스토리 버튼(<code>#vh</code>)은 페이지 HTML 안에 남아 있지만 구현하지 않습니다 (<a href="index.html#draft-only">구현하지 않는 시안 전용 코드</a>).</p>
+    <p class="foot">마지막 수정 2026-11-11 · 양식만 만든 상태이며, 전달할 때 전달 이력 · 페이지 표를 채웁니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

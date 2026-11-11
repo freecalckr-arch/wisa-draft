@@ -9,7 +9,7 @@
      - 디자인: 시안을 그릴 때만 쓰는 작업 규칙 (구현 대상 아님 · badge = 이름 옆 표시) */
   var NAV = [
     { part: "개발 전달" },
-    { g: "시작하기", items: [["프로젝트 안내", "index.html"]] },
+    { g: "시작하기", items: [["프로젝트 안내", "index.html"], ["산출물", "deliverables.html"]] },
     { g: "기존 소스 수정", items: [["기존 수정 목록", "changes.html"]] },
     { g: "공통 규격", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
     { g: "영역 규격", items: [["히어로", "hero.html"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
