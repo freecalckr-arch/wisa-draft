@@ -2827,7 +2827,7 @@ img, video { max-width: 100%; display: block; }
   .sh h1 { font-size: 46px; }
   .sub-title h2, .vow h2 { font-size: 36px; }
   .cta-copy h2 { font-size: 36px; }
-  .depth2[data-menu="marketing"] .d2-col { width: 236px; padding: 0 0 0 24px; }   /* 마케팅 3단: 솔루션과 같은 폭 */
+  /* patch-352: 마케팅 메뉴 2단(자사몰 마케팅 · 채널마케팅)으로 바뀌어 태블릿 3단 폭 축소 규칙 삭제 · 기본 280 폭 그대로 */
 }
 @media (max-width: 767px) {
   .tab-page a { padding-inline: 10px; }
