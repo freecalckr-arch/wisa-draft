@@ -9,7 +9,7 @@
     { g: "기초", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
     { g: "영역 규격", items: [["히어로", "hero.html"], ["비주얼 공통", "visual.html", "Claude용"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["시안 히스토리", null]] },
-    { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", null]] }
+    { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"]] }
   ];
 
   var here = location.pathname.split("/").pop() || "index.html";
@@ -31,15 +31,29 @@
   side.className = "side";
   side.id = "side";
   side.setAttribute("aria-label", "규칙 메뉴");
-  side.innerHTML = NAV.map(function (grp) {
-    return "<h4>" + grp.g + "</h4><ul>" + grp.items.map(function (it) {
+  // 분류 접기 · 펴기 (분류 이름 오른쪽 화살표 · 접은 상태는 이 브라우저에만 기억 · 지금 보는 페이지가 든 분류는 항상 펼침)
+  var shut = {};
+  try { shut = JSON.parse(localStorage.getItem("wisa-docs-nav") || "{}") || {}; } catch (e) { shut = {}; }
+  var chev = '<svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>';
+  side.innerHTML = NAV.map(function (grp, gi) {
+    var hasHere = grp.items.some(function (it) { return it[1] === here; });
+    var open = hasHere || !shut[grp.g];
+    return '<div class="grp' + (open ? "" : " shut") + '"><h4><button type="button" class="grp-t" aria-expanded="' + open + '" aria-controls="nav-g' + gi + '">' + grp.g + chev + "</button></h4><ul id=\"nav-g" + gi + "\">" + grp.items.map(function (it) {
       if (!it[1]) return '<li><span class="off">' + it[0] + "<small>준비 중</small></span></li>";
       var out = it[1].indexOf("../") === 0;
       var cur = !out && it[1] === here ? ' aria-current="page"' : "";
       var badge = it[2] ? '<em class="badge">' + it[2] + "</em>" : "";
       return '<li><a href="' + it[1] + '"' + cur + ">" + it[0] + (out ? ext : badge) + "</a></li>";
-    }).join("") + "</ul>";
+    }).join("") + "</ul></div>";
   }).join("");
+  side.addEventListener("click", function (e) {
+    var t = e.target.closest(".grp-t");
+    if (!t) return;
+    var g = t.closest(".grp"), isShut = g.classList.toggle("shut");
+    t.setAttribute("aria-expanded", isShut ? "false" : "true");
+    shut[t.textContent] = isShut;
+    try { localStorage.setItem("wisa-docs-nav", JSON.stringify(shut)); } catch (e2) {}
+  });
 
   var dim = document.createElement("div");
   dim.className = "dim";

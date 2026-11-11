@@ -45,7 +45,14 @@ img, svg { max-width: 100%; }
 /* 왼쪽 메뉴 */
 .side { position: fixed; z-index: 20; top: var(--bar-h); bottom: 0; left: 0; width: var(--nav-w); overflow-y: auto; background: var(--gray-50); border-right: 1px solid var(--gray-200); padding: 16px 0 40px; scrollbar-width: thin; scrollbar-color: var(--gray-300) transparent; }
 .side h4 { margin: 20px 0 4px; padding: 0 16px; font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--gray-500); }
-.side h4:first-child { margin-top: 4px; }
+.side .grp:first-child h4 { margin-top: 4px; }
+/* 분류 접기 · 펴기 (docs.js · 분류 이름 오른쪽 화살표) */
+.side h4 { padding: 0 8px; }
+.side .grp-t { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 28px; padding: 0 8px; border: 0; border-radius: 6px; background: none; font: inherit; letter-spacing: inherit; color: inherit; text-align: left; cursor: pointer; }
+.side .grp-t:hover, .side .grp-t:focus-visible { background: var(--gray-100); color: var(--gray-700); outline: none; }
+.side .grp-t .chev { width: 14px; height: 14px; flex: none; color: var(--gray-400); transition: transform .2s ease; }
+.side .grp.shut .chev { transform: rotate(-90deg); }
+.side .grp.shut ul { display: none; }
 .side ul { list-style: none; margin: 0; padding: 0; }
 .side a, .side .off { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 36px; padding: 6px 16px 6px 29px; font-size: 14px; line-height: 20px; color: var(--gray-700); text-decoration: none; border-left: 3px solid transparent; }
 .side a:hover, .side a:focus-visible { background: var(--gray-100); color: var(--gray-900); outline: none; }
@@ -204,4 +211,4 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
   .bp div:nth-child(-n+2) { border-bottom: 1px solid var(--gray-200); }
   .type-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
 }
-@media (prefers-reduced-motion: reduce) { .side { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .side, .side .grp-t .chev { transition: none; } }
