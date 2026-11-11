@@ -18,7 +18,11 @@
 <style>
   /* =====================================================================
      [개발 전달] 상품DB 연동 (채널마케팅) 페이지 기록 (2026-11-11)
-     · 2026-11-11 patch-334: 업종을 화장품으로 변경 · 가상 브랜드 DEWLA(듀라) — 이미지는 GPT 생성(assets/geo/beauty · 배경 연한 그레이 통일)
+     · 2026-11-11 patch-335: 상품 · 모델 이미지 다시 생성 (피그마 AI · 정방형 1:1 · 상하좌우 여백 · 어떤 칸 비율에서도 덜 잘리게)
+       - 모델컷 외국인 · 상반신 · 얼굴이 꽉 차지 않게 / 히어로 사진 칸 축소 (모델 180×180 · 에센스 140×140)
+       - 타사 제품: 무난한 파스텔 패키지로 다시 생성 + 이미지 흐리게(opacity .5) · 색 죽임(grayscale)
+       - 쇼핑 결과 목록(히어로 · 단계 3)은 자사몰 상품이 항상 첫 줄 · 해결 1 상품은 선크림 대신 모이스처 크림
+    · 2026-11-11 patch-334: 업종을 화장품으로 변경 · 가상 브랜드 DEWLA(듀라) — 이미지는 GPT 생성(assets/geo/beauty · 배경 연한 그레이 통일)
        - 자사 제품(dw-*) = 사용자 레퍼런스 무드(무광 화이트 · 블랙 산세리프 · 자연광) · 타사 제품(cp-*) = 원색 · 광택 · 스티커 배지로 톤앤매너 다르게 · 뷰티 모델컷 2장(dw-model-*)
        - 히어로 · 문제 비주얼 새 구성 (공식채널운영과 같지 않게 · @region sf-v2)
          히어로: 가운데 창 = '톤업 선크림' 쇼핑 검색 결과 목록(줄 4개 · 자사몰 상품 줄만 블루) · 왼쪽 = 모델 사진 + 겹친 상품 DB 카드(세 채널 반영 체크) · 오른쪽 = 상품 사진 + 자사몰 유입 알림
@@ -212,7 +216,7 @@
   #geo-hero .sh-float.f1.sn-aic { left: calc(14% - 70px);   /* patch-325: 가운데 창 쪽으로 40 이동 */ top: calc(50% - 128px); gap: 10px; width: 184px; padding: 12px; box-sizing: border-box; }
   #geo-hero .sn-aic .sn-gs { justify-items: start; padding: 0 4px; font-size: 13px; line-height: 20px; }
   .sn-aic .sn-gi { position: relative; display: block; height: 204px; border-radius: 10px; overflow: hidden; background: var(--gray-100); font-style: normal; }
-  .sn-aic .sn-gi img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+  .sn-aic .sn-gi img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
   #geo-hero .sn-aic .sn-gs b { color: var(--gray-900); }   /* patch-306: 히어로 AI 카드 글자 = 블랙 (생성 중 · 완료 모두) */
   .sn-aic .g1 .aim-av svg { animation: snSpin 1.2s linear infinite; }
   /* patch-305: 사진 나오는 연출 = 단계 STEP 2 와 같은 키프레임 · 7.2초 (snGenO · snRev · 카드 글자 snG1 · snG2 와 같은 타이머) */
@@ -537,7 +541,7 @@
   .sf-list { flex: 1; min-height: 0; margin: 0; padding: 4px 20px 0; list-style: none; overflow: hidden; }
   .sf-list > li { display: flex; align-items: center; gap: 16px; height: 88px; border-bottom: 1px solid var(--gray-100); }
   .sf-lt { flex: none; position: relative; display: block; width: 68px; height: 68px; border-radius: 10px; overflow: hidden; background: var(--gray-100); font-style: normal; }
-  .sf-lt img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; }
+  .sf-lt img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
   .sf-list > li.me .sf-lt { overflow: visible; box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600); }
   .sf-list > li.me .sf-lt img { border-radius: 10px; }
   .sf-li { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -551,17 +555,17 @@
   .sf-list strong small { margin-left: 1px; font-size: 13px; font-weight: 600; }
   @media (max-width: 767px) { .sf-list { padding: 0 16px; } .sf-list > li { gap: 12px; height: 80px; } .sf-lt { width: 56px; height: 56px; } .sf-li b { font-size: 13px; line-height: 18px; } .sf-li span i { display: none; } .sf-list strong { font-size: 14.5px; } }
   /* 히어로 주변: 왼쪽 모델 사진 + 겹친 상품 DB 카드 / 오른쪽 상품 사진 + 알림 */
-  #geo-hero .sf-hv .sh-img.sf-hm { left: 48px; top: 40px; right: auto; bottom: auto; width: 200px; height: 244px; }
-  #geo-hero .sf-hv .sh-img.sf-hm img { object-position: 55% 30%; }
-  #geo-hero .sf-hv .sh-img.sf-hp { left: auto; top: 44px; right: 104px; bottom: auto; width: 150px; height: 180px; }
-  #geo-hero .sf-hv .sh-img.sf-hp img { object-position: 50% 45%; }
+  #geo-hero .sf-hv .sh-img.sf-hm { left: 72px; top: 40px; right: auto; bottom: auto; width: 180px; height: 180px; }
+  #geo-hero .sf-hv .sh-img.sf-hm img { object-position: 50% 50%; }
+  #geo-hero .sf-hv .sh-img.sf-hp { left: auto; top: 48px; right: 112px; bottom: auto; width: 140px; height: 140px; }
+  #geo-hero .sf-hv .sh-img.sf-hp img { object-position: 50% 50%; }
   #geo-hero .sf-hv .sh-toast.sf-ht { top: auto; right: 48px; bottom: 100px; }
   #geo-hero .sh-float.sf-dbc { left: 92px; top: 232px; bottom: auto; width: 230px; gap: 12px; padding: 16px; box-sizing: border-box; }
   #geo-hero .sf-dbc > b { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--gray-900); }
   #geo-hero .sf-dbc .sf-db { background: var(--gray-900); }
   .sf-dbp { display: flex; align-items: center; gap: 12px; }
   .sf-dbp > i { flex: none; width: 48px; height: 48px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
-  .sf-dbp > i img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+  .sf-dbp > i img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
   .sf-dbp > div { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
   #geo-hero .sf-dbp small { margin: 0; font-size: 11px; line-height: 14px; font-weight: 500; color: var(--gray-400); }
   #geo-hero .sf-dbp strong { font-size: 13px; line-height: 16px; font-weight: 600; color: var(--gray-900); }
@@ -580,7 +584,7 @@
   .sf-cc { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--gray-700); }
   .sf-cc img { width: 16px; height: 16px; border-radius: 4px; }
   .sf-ci { position: relative; display: grid; place-items: center; height: 84px; margin-bottom: 4px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
-  .sf-ci img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+  .sf-ci img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
   .sf-ci small { font-size: 11px; color: var(--gray-400); }
   .sf-3c li:last-child .sf-ci { background: var(--white); outline: 1px dashed var(--gray-300); outline-offset: -1px; }
   .sf-ci em { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(255,255,255,.62); font-style: normal; font-size: 12px; font-weight: 700; color: var(--gray-700); }
@@ -590,7 +594,7 @@
   /* 문제 · 개선: 상품 정보 수정 1번 → 세 채널 반영 (판매가 32,000 → 28,000 · 체크 차례로 · 6초 반복) */
   .sf-ed { display: flex; gap: 16px; margin: 16px 16px 0; }
   .sf-ei { flex: none; width: 112px; height: 168px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
-  .sf-ei img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; }
+  .sf-ei img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
   .sf-ef { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; margin: 0; padding: 0; list-style: none; }
   .sf-ef li { display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
   .sf-ef span { flex: none; width: 52px; font-size: 12px; color: var(--gray-500); }
@@ -610,6 +614,9 @@
   .sf-rf li:nth-child(2) .sn-ck { --i: 1; } .sf-rf li:nth-child(3) .sn-ck { --i: 2; }
   @keyframes sfCk2 { 0%, 34% { opacity: 0; transform: scale(.4); } 40%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .sf-dbl .sn-ck, .sf-pv s, .sf-rf .sn-ck { animation: none !important; } .sf-pv s:first-child { opacity: 0; } }
+  /* 타사 상품 이미지: 흐리게 · 색감 죽임 (자사 제품이 먼저 보이게 · patch-335) */
+  img[src*="geo/beauty/"] { object-position: 50% 50% !important; }
+  img[src*="beauty/cp-"] { filter: grayscale(.9) contrast(.85); opacity: .5; }
   /* @endregion sf-v2 */
 </style>
 
@@ -665,7 +672,7 @@
         <div class="sn-sc on" data-ch="0">
           <div class="sn-bar sn-fbar"><img src="assets/common/brand/naver.svg" alt=""><span class="sn-srch sf-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>톤업 선크림</b></span><span class="sf-cnt">상품 2.4만개</span></div>
           <nav class="sn-ftab"><span class="on">전체</span><span>가격비교</span><span>네이버페이</span><span>쇼핑몰</span></nav>
-          <ul class="sf-list"><li><i class="sf-lt"><img src="assets/geo/beauty/cp-sunnypop.jpg" alt=""></i><div class="sf-li"><small>SUNNY POP</small><b>써니팝 톤업 선크림 SPF50+ 50ml</b><span>배송비 3,000원<i>★ 4.6 · 리뷰 3,812</i></span></div><strong>19,800<small>원</small></strong></li><li class="me"><i class="sf-lt"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div class="sf-li"><small><img src="assets/common/brand/dewla.svg" alt="">DEWLA 공식몰<em class="sn-go">자사몰 상품</em></small><b>DEWLA 톤업 선크림 SPF50+ PA++++ 50ml</b><span>무료배송 · 오늘출발<i>★ 4.9 · 리뷰 1,204</i></span></div><strong>28,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-vivi.jpg" alt=""></i><div class="sf-li"><small>VIVI 스토어</small><b>비비 UV 선스틱 1+1 기획 20g</b><span>무료배송<i>★ 4.7 · 리뷰 2,045</i></span></div><strong>22,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-greenday.jpg" alt=""></i><div class="sf-li"><small>그린데이</small><b>그린데이 시카 수딩 크림 70ml</b><span>무료배송<i>★ 4.5 · 리뷰 968</i></span></div><strong>18,900<small>원</small></strong></li></ul>
+          <ul class="sf-list"><li class="me"><i class="sf-lt"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div class="sf-li"><small><img src="assets/common/brand/dewla.svg" alt="">DEWLA 공식몰<em class="sn-go">자사몰 상품</em></small><b>DEWLA 톤업 선크림 SPF50+ PA++++ 50ml</b><span>무료배송 · 오늘출발<i>★ 4.9 · 리뷰 1,204</i></span></div><strong>28,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-sunnypop.jpg" alt=""></i><div class="sf-li"><small>SUNNY POP</small><b>써니팝 톤업 선크림 SPF50+ 50ml</b><span>배송비 3,000원<i>★ 4.6 · 리뷰 3,812</i></span></div><strong>19,800<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-vivi.jpg" alt=""></i><div class="sf-li"><small>VIVI 스토어</small><b>비비 UV 선스틱 1+1 기획 20g</b><span>무료배송<i>★ 4.7 · 리뷰 2,045</i></span></div><strong>22,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-greenday.jpg" alt=""></i><div class="sf-li"><small>그린데이</small><b>그린데이 시카 수딩 크림 70ml</b><span>무료배송<i>★ 4.5 · 리뷰 968</i></span></div><strong>18,900<small>원</small></strong></li></ul>
         </div>
         <div class="sn-sc" data-ch="1">
           <div class="sn-bar sn-fbar"><img src="assets/common/brand/kakao.svg" alt=""><span class="sn-srch sf-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>톤업 선크림</b></span><span class="sf-cnt">상품 9,860개</span></div>
@@ -675,7 +682,7 @@
         <div class="sn-sc" data-ch="2">
           <div class="sn-bar sn-fbar"><img src="assets/common/brand/google.svg" alt=""><span class="sn-srch sf-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>톤업 선크림</b></span><span class="sf-cnt">결과 약 5,300개</span></div>
           <nav class="sn-ftab"><span>전체</span><span class="on">쇼핑</span><span>이미지</span><span>동영상</span></nav>
-          <ul class="sf-list"><li><i class="sf-lt"><img src="assets/geo/beauty/cp-sunnypop.jpg" alt=""></i><div class="sf-li"><small>SUNNY POP</small><b>써니팝 톤업 선크림 SPF50+ 50ml</b><span>배송비 3,000원<i>★ 4.6 · 리뷰 3,812</i></span></div><strong>19,800<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-vivi.jpg" alt=""></i><div class="sf-li"><small>VIVI 스토어</small><b>비비 UV 선스틱 1+1 기획 20g</b><span>무료배송<i>★ 4.7 · 리뷰 2,045</i></span></div><strong>22,000<small>원</small></strong></li><li class="me"><i class="sf-lt"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div class="sf-li"><small><img src="assets/common/brand/dewla.svg" alt="">DEWLA 공식몰<em class="sn-go">자사몰 상품</em></small><b>DEWLA 톤업 선크림 SPF50+ PA++++ 50ml</b><span>무료배송 · 오늘출발<i>★ 4.9 · 리뷰 1,204</i></span></div><strong>28,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-greenday.jpg" alt=""></i><div class="sf-li"><small>그린데이</small><b>그린데이 시카 수딩 크림 70ml</b><span>무료배송<i>★ 4.5 · 리뷰 968</i></span></div><strong>18,900<small>원</small></strong></li></ul>
+          <ul class="sf-list"><li class="me"><i class="sf-lt"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div class="sf-li"><small><img src="assets/common/brand/dewla.svg" alt="">DEWLA 공식몰<em class="sn-go">자사몰 상품</em></small><b>DEWLA 톤업 선크림 SPF50+ PA++++ 50ml</b><span>무료배송 · 오늘출발<i>★ 4.9 · 리뷰 1,204</i></span></div><strong>28,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-sunnypop.jpg" alt=""></i><div class="sf-li"><small>SUNNY POP</small><b>써니팝 톤업 선크림 SPF50+ 50ml</b><span>배송비 3,000원<i>★ 4.6 · 리뷰 3,812</i></span></div><strong>19,800<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-vivi.jpg" alt=""></i><div class="sf-li"><small>VIVI 스토어</small><b>비비 UV 선스틱 1+1 기획 20g</b><span>무료배송<i>★ 4.7 · 리뷰 2,045</i></span></div><strong>22,000<small>원</small></strong></li><li><i class="sf-lt"><img src="assets/geo/beauty/cp-greenday.jpg" alt=""></i><div class="sf-li"><small>그린데이</small><b>그린데이 시카 수딩 크림 70ml</b><span>무료배송<i>★ 4.5 · 리뷰 968</i></span></div><strong>18,900<small>원</small></strong></li></ul>
         </div>
       </div>
       <div class="sh-img sf-hm"><img src="assets/geo/beauty/dw-model-sun.jpg" alt=""></div>
@@ -759,7 +766,7 @@
       <li class="bt rv" style="--d:200ms">
         <div class="bt-hd"><span class="bt-eb">STEP 3 · 노출 → 유입</span><h3>쇼핑 채널에서 상품을 찾은 고객이<br>자사몰로 들어옵니다</h3></div>
         <div class="bt-vis" aria-hidden="true"><div class="pn sf-h3"><p class="pn-t sf-pt"><span class="sf-pq"><img src="assets/common/brand/naver.svg" alt="">톤업 선크림</span><span>네이버쇼핑 검색</span></p>
-          <ul class="sf-res"><li><i><img src="assets/geo/beauty/cp-sunnypop.jpg" alt=""></i><small>SUNNY POP</small><b>19,800원</b></li><li class="on"><i><img src="assets/geo/beauty/dw-sun.jpg" alt=""><em>자사몰</em></i><small>DEWLA</small><b>28,000원</b></li><li><i><img src="assets/geo/beauty/cp-vivi.jpg" alt=""></i><small>VIVI</small><b>22,000원</b></li></ul></div></div>
+          <ul class="sf-res"><li class="on"><i><img src="assets/geo/beauty/dw-sun.jpg" alt=""><em>자사몰</em></i><small>DEWLA</small><b>28,000원</b></li><li><i><img src="assets/geo/beauty/cp-sunnypop.jpg" alt=""></i><small>SUNNY POP</small><b>19,800원</b></li><li><i><img src="assets/geo/beauty/cp-vivi.jpg" alt=""></i><small>VIVI</small><b>22,000원</b></li></ul></div></div>
       </li>
     </ol>
   </div>
@@ -775,8 +782,8 @@
         <span class="sr-no">1</span>
         <div class="sr-body"><h3><em class="key">정비</em> 채널 기준에 맞게 상품 정보를 다듬습니다</h3><p>쇼핑몰 상품 DB를 기준으로 연동하고, 채널별 노출 기준에 맞춰 상품명 · 카테고리 · 이미지 · 가격 · 배송 정보를 정리합니다. 부족한 설명과 속성 정보는 AI로 보완합니다.</p><p class="sr-out">대표 이미지 · 판매가 · 배송비가 채널에 정확히 보입니다</p><ul class="sr-tags"><li>상품 DB 기반 연동</li><li>상품명 · 카테고리 정비</li><li>이미지 · 가격 · 배송 정보 점검</li><li>AI 상품 정보 보완</li></ul></div>
         <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d1 sf-d1"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></i><b>상품 정보 정비</b><span class="vw-m">네이버쇼핑 노출 기준</span><em class="vw-chip">정비 3건</em></div><div class="vw-bd">
-          <div class="sf-pd"><i class="sn-th"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div><b>DEWLA 톤업 선크림 50ml</b><span>DW-SC050 · 28,000원 · 판매중</span></div></div>
-          <ul class="sf-fx"><li><span class="lb">상품명</span><div><s>톤업크림 50 신상</s><b>DEWLA 톤업 선크림 SPF50+ PA++++ 50ml</b></div></li><li><span class="lb">카테고리</span><div><s>화장품 &gt; 기타</s><b>화장품/미용 &gt; 선케어 &gt; 선크림</b></div></li><li class="hl"><span class="lb">속성</span><div><s>피부 타입 · 제형 · 기능 없음</s><b><i class="aim-av"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>모든 피부 · 크림 · 톤업 · 자외선 차단</b></div></li></ul></div></div></div>
+          <div class="sf-pd"><i class="sn-th"><img src="assets/geo/beauty/dw-cream.jpg" alt=""></i><div><b>DEWLA 모이스처 크림 50ml</b><span>DW-MC050 · 36,000원 · 판매중</span></div></div>
+          <ul class="sf-fx"><li><span class="lb">상품명</span><div><s>모이스처크림 50 신상</s><b>DEWLA 모이스처 크림 50ml 수분 장벽 케어</b></div></li><li><span class="lb">카테고리</span><div><s>화장품 &gt; 기타</s><b>화장품/미용 &gt; 스킨케어 &gt; 크림</b></div></li><li class="hl"><span class="lb">속성</span><div><s>피부 타입 · 제형 · 기능 없음</s><b><i class="aim-av"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>건성 · 복합성 · 크림 · 보습 · 장벽 케어</b></div></li></ul></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">2</span>
