@@ -21,10 +21,12 @@
   --primary-700: #175cd3;
   --bar-h: 48px;
   --nav-w: 256px;
-  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --mono: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;   /* 숫자 · 인라인 코드도 Pretendard (tabular-nums 로 숫자 폭 고정) */
+  --code: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;   /* 코드 블록(pre)만 고정폭 */
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+button, input, select, textarea { font-family: inherit; }   /* 버튼 · 입력도 Pretendard */
 html { scroll-padding-top: calc(var(--bar-h) + 24px); }
 body { margin: 0; background: var(--white); color: var(--gray-900); font: 16px/1.6 "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; -webkit-font-smoothing: antialiased; word-break: keep-all; }
 a { color: var(--primary-700); }
@@ -79,7 +81,7 @@ img, svg { max-width: 100%; }
 .doc { margin-left: var(--nav-w); padding-top: var(--bar-h); min-width: 0; }
 .ph { padding: 56px 48px 40px; background: var(--white); border-bottom: 1px solid var(--gray-200); }
 .ph .eyebrow { margin: 0 0 12px; font-size: 14px; color: var(--gray-500); }
-.ph h1 { margin: 0; font-size: 42px; line-height: 1.2; font-weight: 300; letter-spacing: -.01em; }
+.ph h1 { margin: 0; font-size: 42px; line-height: 1.2; font-weight: 300; letter-spacing: -.01em; color: #000; }   /* 가장 높은 위계 = 검정 */
 .ph .lede { margin: 16px 0 0; max-width: 46em; font-size: 16px; line-height: 1.6; color: var(--gray-600); }
 
 .tabs { position: sticky; top: var(--bar-h); z-index: 10; display: flex; gap: 0; padding: 0 48px; background: var(--white); border-bottom: 1px solid var(--gray-200); overflow-x: auto; scrollbar-width: none; }
@@ -195,7 +197,7 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 
 /* 코드 */
 .code { position: relative; margin: 0 0 24px; background: var(--gray-900); color: var(--gray-100); }
-.code pre { margin: 0; padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; }
+.code pre { margin: 0; padding: 20px; overflow-x: auto; font-family: var(--code); font-size: 13px; line-height: 1.6; }
 .code button { position: absolute; top: 8px; right: 8px; height: 32px; padding: 0 12px; border: 0; background: var(--gray-700); color: var(--white); font: inherit; font-size: 13px; cursor: pointer; }
 .code button:hover, .code button:focus-visible { background: var(--gray-900); outline: none; }
 
