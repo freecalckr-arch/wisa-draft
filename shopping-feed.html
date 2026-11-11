@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 상품DB 연동 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-11 patch-348: 히어로 왼쪽 상품 DB 카드 오른쪽 여백 줄임 (가로 230 → 200) · 줄인 30 만큼 왼쪽 요소 전체 오른쪽으로 (모델 이미지 left 42 → 72 · 카드 left 72 → 102 · 카드 오른쪽 끝 위치는 그대로)
      · 2026-11-11 patch-347: 히어로 검색 결과 타사 썸네일 6종을 세럼 병 이미지로 교체 (피그마 AI 생성 · 640 JPG · assets/geo/beauty/cp-*-serum.jpg · 페이지 공통 흐림 처리 그대로) · 아래 영역의 기존 cp-*.jpg 는 그대로
      · 2026-11-11 patch-346: 피그마(WISA 상품DB 연동 히어로)에서 사용자가 넣은 이미지로 히어로 반영 — 자사 상품을 MUE 보태니컬 세럼 애프리콧 블라썸 30ml 로 변경 · 왼쪽 160×160 모델컷(mue-serum-model.png) · 오른쪽 140×140 연출컷(mue-serum-stone.png) · 검색 결과 3화면 · DB 카드 썸네일(mue-serum.png) · 검색어 '세럼' · 카테고리 스킨케어 › 에센스/세럼 · 상품코드 MU-SR030 · 타사 상품명도 세럼/앰플로 (타사 이미지는 기존 튜브 그대로) · 피그마 배치대로 왼쪽 모델 이미지 left 92 → 42 · 상품 DB 카드 left 92 → 72
      · 2026-11-11 patch-345: 히어로 좌우 이미지(왼쪽 160×160 · 오른쪽 140×140)를 다시 빈 박스(.sf-ph)로 — 사용자가 이미지 새로 제작해 전달 예정 · 받으면 <img> 로 교체
@@ -569,7 +570,7 @@
   .sf-list strong small { margin-left: 1px; font-size: 13px; font-weight: 600; }
   @media (max-width: 767px) { .sf-list { padding: 0 16px; } .sf-list > li { gap: 12px; height: 80px; } .sf-lt { width: 56px; height: 56px; } .sf-li b { font-size: 13px; line-height: 18px; } .sf-li span i { display: none; } .sf-list strong { font-size: 14.5px; } }
   /* 히어로 주변: 왼쪽 모델 사진 + 겹친 상품 DB 카드 / 오른쪽 상품 사진 + 알림 */
-  #geo-hero .sf-hv .sh-img.sf-hm { left: 42px; top: 90px; right: auto; bottom: auto; width: 160px; height: 160px; }   /* patch-346: 피그마 기준 왼쪽으로 */
+  #geo-hero .sf-hv .sh-img.sf-hm { left: 72px; top: 90px; right: auto; bottom: auto; width: 160px; height: 160px; }   /* patch-348: 카드 줄인 만큼 오른쪽으로 (346: 92 → 42) */
   #geo-hero .sf-hv .sh-img.sf-hm img { object-position: 50% 50%; }
   #geo-hero .sf-hv .sh-img.sf-hp { left: auto; top: 230px; right: 80px; bottom: auto; width: 140px; height: 140px; }
   #geo-hero .sf-hv .sh-img.sf-hp img { object-position: 50% 50%; }
@@ -577,7 +578,7 @@
   #geo-hero .sf-hv .sh-img.sf-ph { background: none; box-shadow: none; }
   #geo-hero .sf-hv .sf-ph .ph-box { height: 100%; padding: 12px; gap: 8px; border-radius: inherit; background: rgba(255, 255, 255, .6); font-size: 13px; }
   #geo-hero .sf-hv .sh-toast.sf-ht { top: 100px; right: 48px; bottom: auto; }
-  #geo-hero .sh-float.sf-dbc { left: 72px; top: 232px; bottom: auto; width: 230px; gap: 12px; padding: 16px; box-sizing: border-box; }   /* patch-346 */
+  #geo-hero .sh-float.sf-dbc { left: 102px; top: 232px; bottom: auto; width: 200px; gap: 12px; padding: 16px; box-sizing: border-box; }   /* patch-348: 오른쪽 여백 줄임 230 → 200 · 그만큼 오른쪽으로 */
   #geo-hero .sf-dbc > b { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--gray-900); }
   #geo-hero .sf-dbc .sf-db { background: var(--gray-900); }
   .sf-dbp { display: flex; align-items: center; gap: 12px; }
