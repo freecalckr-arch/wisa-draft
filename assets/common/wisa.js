@@ -244,7 +244,7 @@
 })();
 /* @endregion */
 
-/* @region sr-line (patch-290): 해결(#geo-diagnosis) 카드 왼쪽 번호 · 세로 라인 — 화면 55% 지점이 지나간 만큼 라인(--lp)이 차오르고, 번호 원 가운데를 지나면 켜짐 (위로 스크롤하면 되돌아감) */
+/* @region sr-line (patch-290 · patch-357 번호 = 카드 세로 가운데 · 라인 길이 --lh 계산): 해결(#geo-diagnosis) 카드 왼쪽 번호 · 세로 라인 — 화면 55% 지점이 지나간 만큼 라인(--lp)이 차오르고, 번호 원 가운데를 지나면 켜짐 (위로 스크롤하면 되돌아감) */
 (() => {
   const rows = [...document.querySelectorAll("#geo-diagnosis .steprows > .steprow")]; if (!rows.length) return;
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -256,6 +256,7 @@
       no.classList.toggle("on", a.top + a.height / 2 < th);
       const nx = rows[i + 1] && rows[i + 1].querySelector(".sr-no"); if (!nx) return;
       const t = a.bottom + 8, b = nx.getBoundingClientRect().top - 8;
+      row.style.setProperty("--lh", Math.max(0, b - t).toFixed(1) + "px");   /* patch-357: 번호가 카드 세로 가운데라 라인 길이를 실제 거리로 */
       row.style.setProperty("--lp", Math.min(1, Math.max(0, (th - t) / Math.max(1, b - t))).toFixed(3));
     });
   };
