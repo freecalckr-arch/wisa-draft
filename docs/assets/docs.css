@@ -107,7 +107,7 @@ img, svg { max-width: 100%; }
 code { font-family: var(--mono); font-size: .86em; background: var(--gray-100); padding: 1px 6px; white-space: nowrap; }
 .rules code, .call code, .body p code { white-space: normal; overflow-wrap: anywhere; }
 .num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
-b.num { color: var(--primary-700); }
+b.num { color: var(--gray-900); }
 
 /* 표 */
 .tbl { overflow-x: auto; margin: 0 0 24px; border-top: 1px solid var(--gray-300); }
@@ -117,7 +117,7 @@ th { font-weight: 600; background: var(--gray-100); color: var(--gray-700); whit
 td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 
 /* 안내 상자 */
-.call { margin: 0 0 24px; padding: 16px 20px; background: var(--primary-50); border-left: 3px solid var(--primary-600); font-size: 15px; max-width: 46em; }
+.call { margin: 0 0 24px; padding: 16px 20px; background: var(--gray-50); border-left: 3px solid var(--gray-400); font-size: 15px; max-width: 46em; }
 .call.warn { background: #fffaeb; border-left-color: #dc6803; }
 .call p:last-child { margin: 0; }
 .formula { margin: 0 0 24px; padding: 16px 20px; background: var(--gray-100); font-family: var(--mono); font-size: 14px; overflow-x: auto; white-space: nowrap; }
@@ -130,12 +130,12 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 .cards small { font-size: 12px; color: var(--gray-500); }
 .cards b { font-size: 18px; font-weight: 600; }
 .cards span { font-size: 14px; color: var(--gray-600); line-height: 1.5; }
-.cards i { margin-top: auto; font-style: normal; color: var(--primary-600); font-size: 20px; }
+.cards i { margin-top: auto; font-style: normal; color: var(--gray-400); font-size: 20px; }
 
 /* 규칙 목록 */
 .rules { list-style: none; margin: 0 0 24px; padding: 0; counter-reset: r; max-width: 46em; border-top: 1px solid var(--gray-200); }
 .rules li { counter-increment: r; display: grid; grid-template-columns: 40px minmax(0, 1fr); padding: 16px 0; border-bottom: 1px solid var(--gray-200); }
-.rules li::before { content: counter(r, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--primary-600); padding-top: 3px; }
+.rules li::before { content: counter(r, decimal-leading-zero); font-family: var(--mono); font-size: 13px; color: var(--gray-500); padding-top: 3px; }
 .rules b { display: block; margin-bottom: 2px; }
 .rules span { color: var(--gray-600); font-size: 15px; }
 
@@ -152,7 +152,7 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 /* 축소 그림 */
 .scale { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: end; margin: 0 0 24px; padding: 24px; background: var(--gray-50); border: 1px solid var(--gray-200); }
 .scale figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.scale .box { width: 100%; border: 1px solid var(--primary-600); background: var(--primary-50); }
+.scale .box { width: 100%; border: 1px solid var(--gray-400); background: var(--gray-50); }
 .scale figcaption { font-size: 13px; color: var(--gray-500); text-align: center; line-height: 1.4; }
 .scale figcaption b { display: block; color: var(--gray-900); font-family: var(--mono); font-weight: 500; }
 
@@ -197,7 +197,7 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 .code { position: relative; margin: 0 0 24px; background: var(--gray-900); color: var(--gray-100); }
 .code pre { margin: 0; padding: 20px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.6; }
 .code button { position: absolute; top: 8px; right: 8px; height: 32px; padding: 0 12px; border: 0; background: var(--gray-700); color: var(--white); font: inherit; font-size: 13px; cursor: pointer; }
-.code button:hover, .code button:focus-visible { background: var(--primary-600); outline: none; }
+.code button:hover, .code button:focus-visible { background: var(--gray-900); outline: none; }
 
 .foot { margin-top: 80px; padding-top: 16px; border-top: 1px solid var(--gray-200); font-size: 13px; color: var(--gray-500); }
 
