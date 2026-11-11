@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 상품DB 연동 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-11 patch-343: 문제 오른쪽(상품 정보 수정) 상품 이미지 · 해결 > 정비 상품 썸네일을 20% 줌 (img transform scale 1.2 · 칸 크기 그대로)
      · 2026-11-11 patch-342: 히어로 검색 결과 3화면 · DB 카드 자사 상품을 사용자 제공 MUE 보태니컬 핸드크림 이미지로 교체 (assets/geo/beauty/mue-hand-tube.jpg) · 검색어 '핸드크림' · 상품명 · 카테고리 · 타사 상품명도 핸드크림으로 맞춤 (히어로만 · 아래 영역은 순서대로 교체 예정)
     · 2026-11-11 patch-341: 히어로 좌우 빈 박스를 사용자 제공 이미지로 교체 — 왼쪽 160×160 = MUE 핸드크림 연출컷(mue-hand-stone.jpg) · 오른쪽 140×140 = MUE 핸드크림 누끼(mue-hand.jpg)
     · 2026-11-11 patch-340: 브랜드 이름 DEWLA → MUE (사용자 제공 히어로 상품 이미지 기준) · 로고 assets/common/brand/mue.svg (dewla.svg 삭제)
@@ -512,6 +513,7 @@
   /* 해결 ① 정비 전 → 후 */
   .sf-pd { display: flex; align-items: center; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
   .sf-pd .sn-th { width: 40px; height: 40px; }
+  .sf-pd .sn-th img { transform: scale(1.2); }   /* patch-343: 상품 20% 줌 (칸 크기 그대로) */
   .sf-pd div { display: flex; flex-direction: column; gap: 2px; font-size: 12px; line-height: 16px; color: var(--gray-500); }
   .sf-pd b { font-size: 13px; font-weight: 700; color: var(--gray-900); }
   .sf-fx { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -605,7 +607,7 @@
   /* 문제 · 개선: 상품 정보 수정 1번 → 세 채널 반영 (판매가 32,000 → 28,000 · 체크 차례로 · 6초 반복) */
   .sf-ed { display: flex; gap: 16px; margin: 16px 16px 0; }
   .sf-ei { flex: none; width: 112px; height: 168px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
-  .sf-ei img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+  .sf-ei img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; transform: scale(1.2); }   /* patch-343: 상품 20% 줌 (칸 크기 그대로) */
   .sf-ef { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: space-between; margin: 0; padding: 0; list-style: none; }
   .sf-ef li { display: flex; align-items: center; gap: 12px; height: 36px; padding: 0 12px; border-radius: 8px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
   .sf-ef span { flex: none; width: 52px; font-size: 12px; color: var(--gray-500); }
