@@ -77,7 +77,7 @@
     </ol>
 
     <h2 id="common">공통 파일 고치는 법</h2>
-    <p>파일 구조와 공통 파일이 담는 내용은 <a href="index.html#files">개요 · 파일 구조</a>에 있습니다. 그 밖에 저장소에는 <code>CLAUDE.md</code>(Claude 가 작업 시작 때 읽는 요약 규칙)가 있고, 새 이미지는 <code>assets/geo/…</code> 아래에 넣습니다. 공통 파일은 <code>wisa.css</code> 를 <code>&lt;head&gt;</code> 의 첫 <code>&lt;style&gt;</code> 바로 위, <code>wisa.js</code> 를 <code>&lt;/body&gt;</code> 바로 위(페이지 스크립트 다음)에서 불러옵니다 (patch-172).</p>
+    <p>파일 구조와 공통 파일이 담는 내용은 <a href="index.html#files">프로젝트 안내 · 파일 구조</a>에 있습니다. 그 밖에 저장소에는 <code>CLAUDE.md</code>(Claude 가 작업 시작 때 읽는 요약 규칙)가 있고, 새 이미지는 <code>assets/geo/…</code> 아래에 넣습니다. 공통 파일은 <code>wisa.css</code> 를 <code>&lt;head&gt;</code> 의 첫 <code>&lt;style&gt;</code> 바로 위, <code>wisa.js</code> 를 <code>&lt;/body&gt;</code> 바로 위(페이지 스크립트 다음)에서 불러옵니다 (patch-172).</p>
     <ol class="rules">
       <li><div><b>새 페이지</b><span>GEO 또는 온사이트를 복사해 시작하고, <code>wisa.css</code> · <code>wisa.js</code> 연결은 그대로 둡니다. 페이지 전용 CSS · 스크립트만 HTML 안에 씁니다.</span></div></li>
       <li><div><b>페이지 전용 수정</b><span>HTML 의 <code>&lt;style&gt;</code> 에 씁니다. 공통 파일보다 뒤에 오므로 공통 규칙을 덮어씁니다.</span></div></li>

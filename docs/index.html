@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>개요 · WISA 디자인 규칙</title>
+<title>프로젝트 안내 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
 </head>
@@ -12,14 +12,23 @@
 <main class="doc">
   <header class="ph">
     <p class="eyebrow">개발 전달 · 시작하기</p>
-    <h1>개요</h1>
-    <p class="lede">WISA 마케팅 페이지 리뉴얼 시안을 구현할 때 보는 규격입니다. 왼쪽 메뉴의 <b>개발 전달</b>이 구현 대상이고, <b>디자인</b>은 시안을 그릴 때만 쓰는 규칙이라 구현하지 않아도 됩니다.</p>
+    <h1>프로젝트 안내</h1>
+    <p class="lede">WISA 홈페이지에 새로 추가하는 <b>마케팅 서브페이지</b>(자사몰 마케팅 · 채널마케팅)의 구현 규격입니다. 신규 페이지 스타일에 맞춰 <b>기존 홈페이지의 공통 요소도 일부 수정</b>합니다. 왼쪽 메뉴의 <b>개발 전달</b>이 구현 대상이고, <b>디자인</b>은 시안을 그릴 때만 쓰는 규칙이라 구현하지 않아도 됩니다.</p>
   </header>
   <div class="body">
-<h2 id="order">보는 순서</h2>
+<h2 id="scope">작업 범위</h2>
+    <div class="tbl"><table><thead><tr><th>구분</th><th>대상</th><th>내용</th></tr></thead><tbody>
+<tr><td rowspan="2"><b>신규 페이지</b></td><td>자사몰 마케팅 4개</td><td>GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트</td></tr>
+<tr><td>채널마케팅 3개</td><td>공식채널운영 · 상품DB 연동 · 버티컬커머스</td></tr>
+<tr><td><b>기존 페이지 수정</b></td><td>기존 홈페이지 서브페이지 (wisa.co.kr)</td><td>신규 페이지와 같게 맞추는 공통 요소 3가지: CTA 빛 위치 · 페이지 전환 탭 · 모바일 콘텐츠 타이틀 (<a href="changes.html">기존 수정 목록</a>)</td></tr>
+<tr><td><b>구현하지 않음</b></td><td>시안 전용 코드</td><td>시안 히스토리 · 점검 스크립트 · 디자인 메뉴 (<a href="#draft-only">아래 목록</a>)</td></tr>
+</tbody></table></div>
+    <p>모든 신규 페이지는 같은 공통 파일(<code>assets/common/wisa.css</code> · <code>wisa.js</code>)과 같은 영역 구성(히어로 → 문제 → 그래프 → 단계 → 해결 → 리포트 → 사례 → FAQ → CTA)을 씁니다. 해상도는 PC · PC 최소 · 태블릿 · 모바일 네 구간입니다.</p>
+
+    <h2 id="order">보는 순서</h2>
     <ol class="rules">
       <li><div><b>기존 수정 목록</b><span>신규 시안에 맞춰 기존 홈페이지 소스도 고쳐야 하는 항목입니다 (CTA 빛 위치 · 페이지 전환 탭 · 모바일 타이틀). <a href="changes.html">기존 수정 목록</a></span></div></li>
-      <li><div><b>기초</b><span>해상도 구간 · 영역 이름 · 그리드 · 컬러 · 타이포. 모든 페이지가 같이 씁니다.</span></div></li>
+      <li><div><b>공통 규격</b><span>해상도 구간 · 영역 이름 · 그리드 · 컬러 · 타이포. 모든 페이지가 같이 씁니다.</span></div></li>
       <li><div><b>영역 규격</b><span>히어로 · 이미지 · 그래프의 크기와 해상도별 축소 규칙입니다.</span></div></li>
       <li><div><b>페이지 시안</b><span>위 규칙이 적용된 완성 시안입니다. 각 HTML 맨 위 <code>[개발 전달]</code> 주석에 수정 기록이 있습니다.</span></div></li>
     </ol>
@@ -28,9 +37,9 @@
     <h2 id="start">빠르게 찾기</h2>
     <div class="cards">
       <a href="changes.html"><small>기존 소스 수정</small><b>기존 수정 목록</b><span>기존 홈페이지에서 고칠 3가지 · 기존 값과 신규 값 비교</span><i>→</i></a>
-      <a href="breakpoints.html"><small>기초</small><b>해상도 구간</b><span>PC · PC 최소 · 태블릿 · 모바일 네 구간과 확인 폭</span><i>→</i></a>
-      <a href="sections.html"><small>기초</small><b>영역 이름</b><span>히어로부터 CTA까지 영역 이름과 코드 id · 마케팅 · 호스팅 탭</span><i>→</i></a>
-      <a href="grid.html"><small>기초</small><b>그리드 · 여백</b><span>본문 폭 1240, 좌우 여백, 영역 사이 간격</span><i>→</i></a>
+      <a href="breakpoints.html"><small>공통 규격</small><b>해상도 구간</b><span>PC · PC 최소 · 태블릿 · 모바일 네 구간과 확인 폭</span><i>→</i></a>
+      <a href="sections.html"><small>공통 규격</small><b>영역 이름</b><span>히어로부터 CTA까지 영역 이름과 코드 id · 마케팅 · 호스팅 탭</span><i>→</i></a>
+      <a href="grid.html"><small>공통 규격</small><b>그리드 · 여백</b><span>본문 폭 1240, 좌우 여백, 영역 사이 간격</span><i>→</i></a>
       <a href="hero.html"><small>영역 규격</small><b>히어로</b><span>페이지 묶음별 탭 · 마케팅 파란 박스 (PC 460 · 태블릿 · 모바일 440)</span><i>→</i></a>
       <a href="image.html"><small>영역 규격</small><b>이미지</b><span>PC 크기로 그리고 비율대로 축소 · 영역별 기준 크기</span><i>→</i></a>
       <a href="graph.html"><small>영역 규격</small><b>그래프</b><span>그래프 세로 길이 (태블릿 220 · 모바일 210)</span><i>→</i></a>

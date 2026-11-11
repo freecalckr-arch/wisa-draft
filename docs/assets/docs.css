@@ -121,7 +121,7 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 .call p:last-child { margin: 0; }
 .formula { margin: 0 0 24px; padding: 16px 20px; background: var(--gray-100); font-family: var(--mono); font-size: 14px; overflow-x: auto; white-space: nowrap; }
 
-/* 카드 격자 (개요) */
+/* 카드 격자 (프로젝트 안내) */
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); margin: 0 0 32px; }
 .cards a { display: flex; flex-direction: column; gap: 8px; min-height: 160px; padding: 20px; background: var(--white); color: var(--gray-900); text-decoration: none; }
 .cards a:hover, .cards a:focus-visible { background: var(--gray-50); outline: none; }
