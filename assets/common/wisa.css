@@ -3305,3 +3305,10 @@ img, video { max-width: 100%; display: block; }
 .bt-arrow { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 0; border-radius: 50%; background: var(--black); color: var(--white); box-shadow: 0 0 0 4px var(--white); }
 .bt-arrow svg { width: 16px; height: 16px; }
 .bt-arrow svg, .bt-arrow svg path { stroke-width: 2.4; }
+
+/* @region tab-hover · patch-365 · 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지 a.rn-cl-tab:hover 와 같게)
+   · 굵어져도 탭 폭이 흔들리지 않게 글자(span.tp-t · wisa.js tab-ind 가 감쌈) 아래에 굵은 글자 폭을 높이 0 으로 미리 깔아 둠 */
+.tab-page a:hover { color: var(--black); font-weight: 600; }
+.tab-page .tp-t { display: inline-flex; flex-direction: column; }
+.tab-page .tp-t::after { content: attr(data-t); height: 0; overflow: hidden; visibility: hidden; font-weight: 600; pointer-events: none; user-select: none; }
+/* @endregion tab-hover */

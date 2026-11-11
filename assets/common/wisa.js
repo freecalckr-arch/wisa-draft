@@ -168,6 +168,13 @@
 
 /* @region tab-ind (patch-173): 히어로 탭 선택 표시(알약)를 옆 탭으로 미끄러뜨린 뒤 이동 (CSS wisa.css tab-ind) */
 (() => {
+  /* patch-365: 탭 글자를 span.tp-t 로 감싸고 굵은 글자 폭을 미리 잡아 둠 → 호버 · 선택 시 굵기 600 이 돼도 탭 폭이 그대로 (CSS wisa.css tab-hover)
+     [개발 전달] 실제 구현은 마크업에 <span class="tp-t" data-t="GEO">GEO</span> 처럼 직접 넣어도 됨 (기존 홈페이지 a.rn-cl-tab::after data-label 과 같은 방식) */
+  document.querySelectorAll('.tab-page a').forEach(a => {
+    if (a.querySelector('.tp-t')) return;
+    const t = [...a.childNodes].filter(n => n.nodeType === 3 && n.textContent.trim());
+    t.forEach(n => { const s = document.createElement('span'); s.className = 'tp-t'; s.dataset.t = n.textContent.trim(); s.textContent = n.textContent.trim(); n.replaceWith(s); });
+  });
   const nav = document.querySelector('.tab-page'); if (!nav) return;
   const place = a => { nav.style.setProperty('--ix', a.offsetLeft + 'px'); nav.style.setProperty('--iy', a.offsetTop + 'px'); nav.style.setProperty('--iw', a.offsetWidth + 'px'); nav.style.setProperty('--ih', a.offsetHeight + 'px'); };
   const cur = () => nav.querySelector('a.on');
