@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-11 patch-351: 단계 → 해결 간격 235 → 160 (공통 235 를 온사이트 · CRM · 리포트와 같은 덮어쓰기로 160 · 태블릿 이하 0)
      · 2026-11-10 patch-330: 히어로 인스타그램 그리드 순서를 페이스북 샵과 같게 — 크루 스웨트 그린 · 럭비 니트 폴로 와인 · 피케 폴로 네이비(릴스) · 라운드 니트 네이비 (모바일 5 · 6번째 그대로)
      · 2026-11-10 patch-329: 문제 영역 메타 로고 테두리(Gray 200 · 16 안쪽)로 다른 로고와 같은 크기로 보이게 · 해결 3단계 휴대폰 ↔ 경로 간격 12 → 32
      · 2026-11-10 patch-328: 히어로 인스타 · 페이스북 화면 실제처럼 — 인스타 게시물 · 릴스 · 태그됨 탭 줄 추가 · 그리드 3칸 세로형(3:4) · 칸 사이 2px · 게시물 248 · 팔로워 3.2만 · 팔로우 12 표기 · 릴스 흰 아이콘 / 페이스북 머리줄 → 앱 상단 줄(로고 · 검색 · 메신저 · 알림) · 페이지 이름 20 · 좋아요 1.8만개 · 팔로워 2.1만명 · 좋아요 · 메시지 보내기 버튼(회색 · 블루는 자사몰 보기 1곳)
@@ -147,6 +148,9 @@
   html.sw #geo-hero .rv { opacity: 1; transform: none; transition: none; }
   @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
 
+  /* patch-351: 해결 영역 위 간격 — 공통 235(GEO URL 영역 뒤 기준)가 그대로 적용돼 단계 → 해결 간격이 넓었음 → 온사이트 · CRM · 리포트 · 상품DB 연동과 같게 160 */
+  @media (min-width: 1024px) { #geo-diagnosis.one-panel { padding-top: 160px; padding-bottom: 0; } }
+  @media (max-width: 1023px) { #geo-diagnosis.one-panel { padding-top: 0; } }
   /* @region sr-340-fit (patch-290): 해결 화면 460×340 — 줄어든 높이(본문 288 · 위아래 여백 20)에 맞춰 간격 · 행 높이 조정 */
   #geo-diagnosis .steprow:nth-child(1) .vw-bd { gap: 14px !important; } #geo-diagnosis .vw-nx.vw-urg { margin-top: 0 !important; } #geo-diagnosis .vw-nx { padding-top: 10px !important; padding-bottom: 10px !important; }
   #geo-diagnosis .vw-qs li { padding-top: 7px !important; padding-bottom: 7px !important; } #geo-diagnosis .vw-qs li:first-child { padding-top: 0 !important; } #geo-diagnosis .steprow:nth-child(3) .vw-bd { gap: 12px !important; }
