@@ -18,6 +18,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 상품DB 연동 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-11 patch-366: 고객 피드백 반영 — 위사는 점검 · 피드백 서비스가 없고 연동(채널 기준 정비) + 판매 데이터로 쇼핑광고 진행. 히어로 설명 · 해결 타이틀 · ① 정비(AI 보완 문장 · 아이콘 삭제, 속성 = 채널 항목에 맞춤) · ② 점검 → 반영(화면: 상품 정보 반영 기록 .sf-log · 첫 줄 반영 중 → 반영 완료) · ③ 성과(채널 막대 → 잘 팔리는 상품 .sf-top · 1위 광고 추천) · 다짐 띠(숨김) 03 쇼핑광고 · 사례 ② ③ · FAQ Q2 · Q4(쇼핑광고) · CTA 문구
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
      · 2026-11-11 patch-352: 마케팅 메뉴 2단으로 변경 — 3단 '매체 광고 상품'(광고 4개)을 채널마케팅 단 마지막 한 줄 '매체 광고 상품 · 쇼핑 · 검색 · 디스플레이 · SNS 광고'(외부 MARKETINGSTORE)로 합침 · PC/태블릿 2depth · 모바일 메뉴 · 푸터 같게 · wisa.css 태블릿 마케팅 3단 폭 규칙 삭제 (?v=352)
@@ -556,6 +557,34 @@
   .sf-chs .sn-st2 { flex: none; display: grid; }
   .sf-chs .sn-st2 b { grid-area: 1 / 1; padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); font-size: 12px; line-height: 16px; font-weight: 600; text-align: center; animation: snStA 6s infinite; }
   .sf-chs .sn-st2 b + b { background: var(--primary-600); box-shadow: none; color: var(--white); animation-name: snStB; }
+  /* patch-366 해결 ② 상품 정보 반영 기록 (점검 화면 대체 · 첫 줄 = 방금 반영 · 블루 포인트) */
+  .sf-log { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .sf-log li { display: flex; align-items: center; gap: 10px; height: 54px; padding: 0 10px; border-radius: 10px; background: var(--gray-50); }
+  .sf-log li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+  .sf-log li > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .sf-log li > div > b { font-size: 12.5px; line-height: 16px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sf-log li > div > span { font-size: 11px; line-height: 14px; color: var(--gray-500); white-space: nowrap; }
+  .sf-log li.hl > div > span { color: var(--primary-700); font-weight: 600; }
+  .sf-log s { color: var(--gray-400); font-weight: 400; }
+  .sf-chi { flex: none; display: flex; gap: 3px; }
+  .sf-chi img { width: 16px; height: 16px; border-radius: 4px; }
+  .sf-log .sf-st { padding: 3px 8px; }
+  .sf-log .sn-st2 { flex: none; display: grid; }
+  .sf-log .sn-st2 b { grid-area: 1 / 1; padding: 3px 8px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); font-size: 12px; line-height: 16px; font-weight: 600; text-align: center; animation: snStA 6s infinite; }
+  .sf-log .sn-st2 b + b { background: var(--primary-600); box-shadow: none; color: var(--white); animation-name: snStB; }
+  /* patch-366 해결 ③ 잘 팔리는 상품 (채널 막대 대체 · 1위 = 광고 추천 · 블루 포인트) */
+  .sf-top { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .sf-top li { display: flex; align-items: center; gap: 10px; height: 46px; padding: 0 12px 0 10px; border-radius: 10px; background: var(--gray-50); }
+  .sf-top li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+  .sf-top li > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .sf-top li > div > b { display: flex; align-items: center; gap: 6px; font-size: 12.5px; line-height: 16px; font-weight: 600; color: var(--gray-900); white-space: nowrap; }
+  .sf-top li > div > span { display: flex; align-items: center; gap: 4px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .sf-top li > div > span img { width: 12px; height: 12px; border-radius: 3px; }
+  .sf-top strong { flex: none; font-size: 14.5px; font-weight: 700; color: var(--gray-500); }
+  .sf-top strong small { margin-left: 1px; font-size: 11px; font-weight: 600; }
+  .sf-top li.hl strong { color: var(--primary-600); }
+  .sf-ad { flex: none; padding: 1px 6px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; animation: snTag 2.4s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .sf-log .sn-st2 b, .sf-ad { animation: none !important; } .sf-log .sn-st2 b + b { opacity: 0; } }
   /* 해결 ③ 성과: 막대 1회 자람 대신 반복 (snBar 6s) */
   .sf-d3 .sn-bars { gap: 4px; } .sf-d3 .sn-bars li { height: 44px; }
   @media (prefers-reduced-motion: reduce) { .sf-fx b, .sf-res em, .sf-chs .sn-st2 b, .sf-chs li.bad .sn-swap { animation: none !important; } .sf-chs .sn-st2 b + b { opacity: 0; } }
@@ -732,7 +761,7 @@
     </nav>
     <div class="sh-text">
       <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="네이버쇼핑 · 카카오쇼핑 · 구글쇼핑"><span class="ai-roll-in"><span><img class="rl-ic" src="assets/common/brand/naver.svg" alt="">네이버쇼핑</span><span><img class="rl-ic" src="assets/common/brand/kakao.svg" alt="">카카오쇼핑</span><span><img class="rl-ic" src="assets/common/brand/google.svg" alt="">구글쇼핑</span></span></span>에<br class="mo-br tb-br"> 쇼핑몰 상품 DB를<br><em class="gt">그대로 연동</em>합니다</h1>
-      <p class="rv" style="--d:160ms">쇼핑몰에서 한 번 등록한 상품 정보가 세 쇼핑 채널에 그대로 반영됩니다.<br class="pc-only"> 채널마다 상품을 따로 올리지 않아도 쇼핑 검색에 노출됩니다.</p>
+      <p class="rv" style="--d:160ms">쇼핑몰에 등록한 상품 정보를 세 쇼핑 채널에 그대로 연동해 드립니다.<br class="pc-only"> 채널마다 상품을 따로 올리지 않아도 내 상품이 쇼핑 검색에 정확히 보입니다.</p>
       <ul class="chips rv" style="--d:220ms"><li>부스터 · 스마트윙 상품 DB</li><li>네이버쇼핑</li><li>카카오쇼핑</li><li>구글쇼핑</li></ul>
     </div>
   </div>
@@ -844,31 +873,30 @@
 </section>
 <!-- @endregion -->
 
-<!-- @region items : 관리 범위 (해결 · 정비 · 점검 · 성과 · 화면 460×340) -->
-<section class="sec one-panel" id="geo-diagnosis">   <!-- [상품DB 연동] ④ 해결 · 기획문서 SCOPE(연동 · 상품 정보 관리 8 + 성과 · 확장 3)를 METHOD 흐름(정비 → 점검 → 성과)으로 3줄 재구성 (세부 범위 확정 중) -->
+<!-- @region items : 해결 (정비 · 반영 · 성과 · 화면 460×340 · patch-366 고객 피드백: 점검 서비스 없음 → 자동 반영 · 성과 → 쇼핑광고) -->
+<section class="sec one-panel" id="geo-diagnosis">   <!-- [상품DB 연동] ④ 해결 · 기획문서 SCOPE(연동 · 상품 정보 관리 8 + 성과 · 확장 3)를 흐름(정비 → 반영 → 성과)으로 3줄 재구성 (patch-366 고객 피드백) -->
   <div class="container">
-    <div class="sub-title center rv"><h2>다듬고, 바로잡고,<br class="mo-br"> 잘 팔리는 곳으로 넓힙니다</h2><p>연동으로 끝나지 않고, 채널에서 상품이 정확하고 매력적으로 보이도록 정보를 관리합니다.<br class="pc-only"> 세부 항목과 범위는 상담을 통해 쇼핑몰 상황에 맞게 정합니다.</p></div>
+    <div class="sub-title center rv"><h2>채널 기준에 맞게 연동하고,<br class="mo-br"> 판매 데이터로 쇼핑광고까지 이어갑니다</h2><p>쇼핑몰 데이터를 쇼핑 채널 기준에 맞게 정비해 연동하고,<br class="pc-only"> 채널에서 쌓인 판매 데이터를 바탕으로 쇼핑광고 마케팅을 진행합니다.</p></div>
     <ol class="steprows">
       <li class="steprow rv">
         <span class="sr-no">1</span>
-        <div class="sr-body"><h3><em class="key">정비</em> 채널 기준에 맞게 상품 정보를 다듬습니다</h3><p>쇼핑몰 상품 DB를 기준으로 연동하고, 채널별 노출 기준에 맞춰 상품명 · 카테고리 · 이미지 · 가격 · 배송 정보를 정리합니다. 부족한 설명과 속성 정보는 AI로 보완합니다.</p><p class="sr-out">대표 이미지 · 판매가 · 배송비가 채널에 정확히 보입니다</p><ul class="sr-tags"><li>상품 DB 기반 연동</li><li>상품명 · 카테고리 정비</li><li>이미지 · 가격 · 배송 정보 점검</li><li>AI 상품 정보 보완</li></ul></div>
+        <div class="sr-body"><h3><em class="key">정비</em> 쇼핑몰 데이터를 채널 기준에 맞게 정비해 연동합니다</h3><p>부스터 · 스마트윙 상품 DB를 네이버쇼핑 · 카카오쇼핑 · 구글쇼핑 기준에 맞게 정비해 연동합니다. 상품명 · 카테고리 · 이미지 · 가격 · 배송 정보가 채널에 제대로 보이도록 맞춥니다.</p><p class="sr-out">대표 이미지 · 판매가 · 배송비가 채널에 정확히 보입니다</p><ul class="sr-tags"><li>상품 DB 기반 연동</li><li>채널 기준 정비</li><li>상품명 · 카테고리 정리</li><li>3개 쇼핑 채널</li></ul></div>
         <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d1 sf-d1"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></i><b>상품 정보 정비</b><span class="vw-m">네이버쇼핑 노출 기준</span><em class="vw-chip">정비 3건</em></div><div class="vw-bd">
           <div class="sf-pd"><i class="sn-th"><img src="assets/geo/beauty/dw-cream.jpg" alt=""></i><div><b>MUE 모이스처 크림 50ml</b><span>MU-MC050 · 36,000원 · 판매중</span></div></div>
-          <ul class="sf-fx"><li><span class="lb">상품명</span><div><s>모이스처크림 50 신상</s><b>MUE 모이스처 크림 50ml 수분 장벽 케어</b></div></li><li><span class="lb">카테고리</span><div><s>화장품 &gt; 기타</s><b>화장품/미용 &gt; 스킨케어 &gt; 크림</b></div></li><li class="hl"><span class="lb">속성</span><div><s>피부 타입 · 제형 · 기능 없음</s><b><i class="aim-av"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M18.5 14.5l.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9z"/></svg></i>건성 · 복합성 · 크림 · 보습 · 장벽 케어</b></div></li></ul></div></div></div>
+          <ul class="sf-fx"><li><span class="lb">상품명</span><div><s>모이스처크림 50 신상</s><b>MUE 모이스처 크림 50ml 수분 장벽 케어</b></div></li><li><span class="lb">카테고리</span><div><s>화장품 &gt; 기타</s><b>화장품/미용 &gt; 스킨케어 &gt; 크림</b></div></li><li class="hl"><span class="lb">속성</span><div><s>건성 피부용 크림 타입 (상세 설명 안)</s><b>피부 타입 건성 · 제형 크림 · 기능 보습</b></div></li></ul></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">2</span>
-        <div class="sr-body"><h3><em class="key">점검</em> 누락 · 오류 상품을 찾아 바로잡습니다</h3><p>채널이 요구하는 항목이 비었거나 어긋난 상품, 반려되거나 오류가 난 상품을 찾아 원인을 확인하고 보완합니다. 상품 수정이나 판매 상태 변경이 채널에 제때 반영되는지도 확인합니다.</p><p class="sr-out">채널별 연동 상품 수와 제외된 상품, 그 이유를 한눈에 봅니다</p><ul class="sr-tags"><li>필수 정보 누락 점검</li><li>상품 변경 반영 확인</li><li>채널 연동 현황 점검</li><li>오류 · 반려 대응</li></ul></div>
-        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d2 sf-d2"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1 1 2-2M3.5 12l1 1 2-2M3.5 18l1 1 2-2"/></svg></i><b>채널 연동 현황</b><span class="vw-m">점검 11/11 (수) 09:00</span><em class="vw-chip">상품 1,240개</em></div><div class="vw-bd">
-          <ul class="sn-k3"><li><span>연동 상품</span><strong>1,236<small>개</small></strong><em>3개 채널</em></li><li><span>제외 상품</span><strong>3<small>개</small></strong><em>판매 중지</em></li><li><span>반려 상품</span><strong>1<small>개</small></strong><em>보완 중</em></li></ul>
-          <ul class="sf-chs"><li><img src="assets/common/brand/naver.svg" alt=""><span class="nm">네이버쇼핑</span><span class="ct">1,236개 연동</span><em class="sf-st">정상</em></li><li><img src="assets/common/brand/kakao.svg" alt=""><span class="nm">카카오쇼핑</span><span class="ct">1,236개 연동</span><em class="sf-st">정상</em></li><li class="bad"><img src="assets/common/brand/google.svg" alt=""><span class="nm">구글쇼핑</span><span class="ct">트리트먼트 에센스 · 용량 누락<em class="sn-swap">반려</em></span><em class="sn-st2"><b>보완 중</b><b>보완 완료</b></em></li></ul></div></div></div>
+        <div class="sr-body"><h3><em class="key">반영</em> 쇼핑몰에서 고친 정보가 채널에 자동으로 반영됩니다</h3><p>가격 · 재고 · 판매 상태를 쇼핑몰에서 바꾸면 연동된 채널에도 자동으로 반영돼, 채널마다 정보가 어긋나는 오차를 줄입니다.</p><p class="sr-out">한 번 수정하면 세 채널에 그대로</p><ul class="sr-tags"><li>가격 변경 반영</li><li>품절 · 판매 상태 반영</li><li>채널 간 오차 감소</li></ul></div>
+        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d2 sf-d2"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.9-3.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.9 3.9L20 16"/><path d="M20 20v-4h-4"/></svg></i><b>상품 정보 반영</b><span class="vw-m">쇼핑몰 수정 → 3개 채널</span><em class="vw-chip">오늘 4건</em></div><div class="vw-bd">
+          <ul class="sf-log"><li class="hl"><i class="sn-th"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div><b>MUE 톤업 선크림 50ml</b><span>판매가 <s>32,000</s> → 28,000원 · 방금</span></div><span class="sf-chi"><img src="assets/common/brand/naver.svg" alt=""><img src="assets/common/brand/kakao.svg" alt=""><img src="assets/common/brand/google.svg" alt=""></span><em class="sn-st2"><b>반영 중</b><b>반영 완료</b></em></li><li><i class="sn-th"><img src="assets/geo/beauty/mue-cleanser.jpg" alt=""></i><div><b>MUE 마일드 클렌저 300ml</b><span>재고 0 → 품절 처리 · 12분 전</span></div><span class="sf-chi"><img src="assets/common/brand/naver.svg" alt=""><img src="assets/common/brand/kakao.svg" alt=""><img src="assets/common/brand/google.svg" alt=""></span><em class="sf-st">반영 완료</em></li><li><i class="sn-th"><img src="assets/geo/beauty/dw-cream.jpg" alt=""></i><div><b>MUE 모이스처 크림 50ml</b><span>대표 이미지 교체 · 35분 전</span></div><span class="sf-chi"><img src="assets/common/brand/naver.svg" alt=""><img src="assets/common/brand/kakao.svg" alt=""><img src="assets/common/brand/google.svg" alt=""></span><em class="sf-st">반영 완료</em></li><li><i class="sn-th"><img src="assets/geo/beauty/dw-essence.jpg" alt=""></i><div><b>MUE 트리트먼트 에센스 150ml</b><span>배송비 3,000원 → 무료 · 1시간 전</span></div><span class="sf-chi"><img src="assets/common/brand/naver.svg" alt=""><img src="assets/common/brand/kakao.svg" alt=""><img src="assets/common/brand/google.svg" alt=""></span><em class="sf-st">반영 완료</em></li></ul></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">3</span>
-        <div class="sr-body"><h3><em class="key">성과</em> 잘 되는 상품과 채널로 운영을 넓힙니다</h3><p>네이버 · 카카오 · 구글 쇼핑 채널별로 유입과 구매를 비교하고, 노출과 유입이 좋은 상품을 중심으로 정보를 보강하며 운영을 이어갑니다.</p><p class="sr-out">연동한 상품 정보를 바탕으로 쇼핑광고(매체 광고 상품) 집행까지 상담합니다</p><ul class="sr-tags"><li>채널별 유입 · 구매 성과 점검</li><li>잘 되는 상품 중심 운영</li><li>쇼핑광고 연계</li></ul></div>
+        <div class="sr-body"><h3><em class="key">성과</em> 채널별 성과를 보고, 잘 되는 상품을 쇼핑광고로 넓힙니다</h3><p>네이버 · 카카오 · 구글 쇼핑 채널별로 유입과 구매를 비교하고, 노출과 유입이 좋은 상품을 파악해 운영을 이어갑니다. 잘 팔리는 상품은 판매 데이터를 바탕으로 쇼핑광고 마케팅으로 넓힙니다.</p><p class="sr-out">잘 되는 상품을 골라 쇼핑광고로 키웁니다</p><ul class="sr-tags"><li>채널별 유입 · 구매 성과 점검</li><li>잘 되는 상품 중심 운영</li><li>쇼핑광고 연계</li></ul></div>
         <div class="sr-vis vw" aria-hidden="true"><div class="vw-win sn-d1 sf-d3"><div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i><b>쇼핑 채널 성과</b><span class="vw-m">11/2 – 11/8 · 자사몰 유입</span><em class="vw-chip">최근 7일</em></div><div class="vw-bd">
           <ul class="sn-k3"><li><span>쇼핑 채널 유입</span><strong>2,140<small>명</small></strong><em class="inc">▲ 23%</em></li><li><span>구매</span><strong>86<small>건</small></strong><em class="inc">▲ 15%</em></li><li><span>구매 전환율</span><strong>4.0<small>%</small></strong><em>자사몰 평균 3.1%</em></li></ul>
-          <ul class="sn-bars"><li class="hl"><i class="sn-th sf-lg"><img src="assets/common/brand/naver.svg" alt=""></i><div><span>네이버쇼핑</span><i style="--v:1"></i></div><b>1,280</b></li><li><i class="sn-th sf-lg"><img src="assets/common/brand/kakao.svg" alt=""></i><div><span>카카오쇼핑</span><i style="--v:0.41"></i></div><b>520</b></li><li><i class="sn-th sf-lg"><img src="assets/common/brand/google.svg" alt=""></i><div><span>구글쇼핑</span><i style="--v:0.27"></i></div><b>340</b></li></ul></div></div></div>
+          <ul class="sf-top"><li class="hl"><i class="sn-th"><img src="assets/geo/beauty/mue-cleanser.jpg" alt=""></i><div><b>MUE 마일드 클렌저 300ml<em class="sf-ad">광고 추천</em></b><span><img src="assets/common/brand/naver.svg" alt="">네이버쇼핑 · 전환율 6.2%</span></div><strong>41<small>건</small></strong></li><li><i class="sn-th"><img src="assets/geo/beauty/dw-sun.jpg" alt=""></i><div><b>MUE 톤업 선크림 50ml</b><span><img src="assets/common/brand/kakao.svg" alt="">카카오쇼핑 · 전환율 4.1%</span></div><strong>23<small>건</small></strong></li><li><i class="sn-th"><img src="assets/geo/beauty/dw-cream.jpg" alt=""></i><div><b>MUE 모이스처 크림 50ml</b><span><img src="assets/common/brand/google.svg" alt="">구글쇼핑 · 전환율 2.8%</span></div><strong>12<small>건</small></strong></li></ul></div></div></div>
       </li>
     </ol>
   </div>
@@ -878,13 +906,13 @@
 <!-- @region vow : 다짐 띠 (다른 페이지와 같이 숨김 · 기획문서 OUR COMMITMENT 문장 보관) -->
 <section class="band vow" id="geo-vow" hidden>
   <div class="container">
-    <h2 class="rv" style="--d:80ms">상품 정보는 하나로,<br><em class="gt">채널은 여러 곳으로</em> 넓혀갑니다</h2>
-    <p class="rv" style="--d:140ms">쇼핑몰 상품 DB를 기준으로 채널을 연동해, 채널마다 정보를 따로 관리하는 수고와 오류를 줄입니다.</p>
+    <h2 class="rv" style="--d:80ms">상품 정보는 하나로,<br><em class="gt">판매는 쇼핑광고로</em> 넓혀갑니다</h2>
+    <p class="rv" style="--d:140ms">쇼핑몰 상품 DB를 기준으로 채널을 연동하고, 채널에서 쌓인 판매 데이터로 쇼핑광고까지 이어갑니다.</p>
     <div class="vloop rv" style="--d:200ms" aria-hidden="true">
       <ol class="vl-steps">
         <li><span class="vl-no">01</span><b>상품DB</b><em>쇼핑몰 상품 정보</em></li>
         <li><span class="vl-no">02</span><b>채널 연동</b><em>네이버 · 카카오 · 구글</em></li>
-        <li><span class="vl-no">03</span><b>노출 · 유입</b><em>쇼핑 검색에서 자사몰로</em></li>
+        <li><span class="vl-no">03</span><b>쇼핑광고</b><em>판매 데이터로 광고</em></li>
       </ol>
     </div>
   </div>
@@ -915,7 +943,7 @@
   <div class="container">
     <div class="sub-title row rv"><div><h2>상품DB 연동 사례 · 고객 인터뷰</h2><p>상품DB 연동을 함께한 브랜드 담당자들이 직접 전하는 변화와 성과입니다.</p></div><a class="link-u ref-more" href="#portfolio">전체 사례 보기</a></div>
     <div class="ref-strip rv" style="--d:100ms">
-    <ul class="ref-grid rvw-track"><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-cleanformula.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>쇼핑 채널 유입</span><strong><em class="up">▲</em> 72%</strong></li><li><span>연동 상품</span><strong>1,240개</strong></li></ul><p class="rvw-q">"채널마다 가격을 따로 고치던 일이 없어졌어요. 쇼핑몰에서 할인가를 바꾸면 네이버쇼핑에도 그대로 보여서 문의가 확 줄었습니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-01.jpg" alt=""></i><div><b>김서연</b><span>마케팅 팀장 · 클린포뮬러</span></div></div></div></li><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-woodroom.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>반려 상품</span><strong><em class="dn">▼</em> 91%</strong></li><li><span>연동 채널</span><strong>3곳</strong></li></ul><p class="rvw-q">"구글쇼핑에서 반려되던 상품이 왜 빠졌는지 몰랐는데, 누락된 항목을 찾아 채워 주니 대부분 다시 노출되고 있어요."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-03.jpg" alt=""></i><div><b>박지민</b><span>브랜드 매니저 · 우드앤룸</span></div></div></div></li><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-roundweek.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>쇼핑 채널 경유 매출</span><strong><em class="up">▲</em> 1.8배</strong></li><li><span>정비한 상품명</span><strong>320개</strong></li></ul><p class="rvw-q">"상품명과 카테고리를 채널 기준에 맞게 정리하고 나서 카카오쇼핑 검색에 잡히는 상품이 늘었어요. 잘 되는 상품은 쇼핑광고까지 이어 가고 있습니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-02.jpg" alt=""></i><div><b>이준호</b><span>대표 · 라운드위크</span></div></div></div></li></ul>
+    <ul class="ref-grid rvw-track"><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-cleanformula.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>쇼핑 채널 유입</span><strong><em class="up">▲</em> 72%</strong></li><li><span>연동 상품</span><strong>1,240개</strong></li></ul><p class="rvw-q">"채널마다 가격을 따로 고치던 일이 없어졌어요. 쇼핑몰에서 할인가를 바꾸면 네이버쇼핑에도 그대로 보여서 문의가 확 줄었습니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-01.jpg" alt=""></i><div><b>김서연</b><span>마케팅 팀장 · 클린포뮬러</span></div></div></div></li><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-woodroom.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>상품 정보 오차</span><strong><em class="dn">▼</em> 91%</strong></li><li><span>연동 채널</span><strong>3곳</strong></li></ul><p class="rvw-q">"품절된 상품이 채널에 그대로 떠 있어서 문의가 많았는데, 이제 쇼핑몰에서 품절 처리하면 채널에도 자동으로 반영돼요."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-03.jpg" alt=""></i><div><b>박지민</b><span>브랜드 매니저 · 우드앤룸</span></div></div></div></li><li class="rvw"><div class="rvw-img"><img src="assets/geo/case-roundweek.jpg" alt=""></div><div class="rvw-body"><ul class="rvw-kpi"><li><span>쇼핑광고 ROAS</span><strong><em class="up">▲</em> 2.4배</strong></li><li><span>정비한 상품명</span><strong>320개</strong></li></ul><p class="rvw-q">"상품명과 카테고리를 채널 기준에 맞게 정비하고 나서 검색에 잡히는 상품이 늘었어요. 잘 팔리는 상품은 쇼핑광고로 키우고 있습니다."</p><div class="rvw-who"><i class="pf"><img src="assets/geo/profile/pf-02.jpg" alt=""></i><div><b>이준호</b><span>대표 · 라운드위크</span></div></div></div></li></ul>
   </div>
   </div>
 </section>
@@ -928,9 +956,9 @@
     <div class="sub-title center rv"><h2>자주 묻는 질문</h2></div>
     <div class="faq rv">
       <details open><summary>상품DB 연동은 어떤 쇼핑 채널과 연동되나요?</summary><p>부스터 · 스마트윙 상품 DB가 네이버쇼핑, 카카오쇼핑, 구글쇼핑과 연동되어 있습니다. 연동 범위와 방식은 상담에서 안내합니다.</p></details>
-      <details><summary>채널마다 상품 정보를 따로 입력해야 하나요?</summary><p>쇼핑몰 상품 DB를 기준으로 연동하는 구조라, 채널별로 정보를 따로 관리하는 부담을 줄이는 것이 목표입니다.</p></details>
+      <details><summary>채널마다 상품 정보를 따로 입력해야 하나요?</summary><p>따로 입력하지 않아도 됩니다. 쇼핑몰 상품 DB를 기준으로 연동해, 쇼핑몰에서 등록 · 수정한 정보가 채널에 자동으로 반영됩니다.</p></details>
       <details><summary>자사몰 마케팅과 채널마케팅은 어떻게 다른가요?</summary><p>자사몰 마케팅은 쇼핑몰 안의 데이터를 활용해 유입 · 구매전환 · 재구매를 높이는 일이고, 채널마케팅은 쇼핑 채널 연동, 공식채널 운영, 버티컬 커머스 입점처럼 자사몰 밖에서 이뤄지는 일입니다.</p></details>
-      <details><summary>연동한 뒤에도 계속 관리가 필요한가요?</summary><p>채널의 노출 기준과 상품 정보는 계속 달라지기 때문에, 연동 이후에도 누락과 오류를 점검하는 것을 권해드립니다. 관리 범위는 상담에서 정합니다.</p></details>
+      <details><summary>쇼핑광고는 어떻게 진행되나요?</summary><p>쇼핑 채널에서 판매된 상품과 유입 · 구매 데이터를 바탕으로 광고할 상품을 고르고 쇼핑광고 마케팅을 진행합니다. 매체와 예산은 상담에서 정합니다.</p></details>
     </div>
   </div>
 </section>
@@ -940,8 +968,8 @@
 <!-- @region cta : 메인 CTA 스타일 + 버튼 2개 + 상담 전화 -->
 <section class="cta sub-cta" id="cta">
   <div class="cta-copy">
-    <h2 class="rv">우리 상품, 어느 쇼핑 채널에<br>연동할 수 있을까요?</h2>
-    <p class="cta-desc rv" style="--d:60ms">현재 운영 상황과 목표를 알려주시면<br> 연동 범위와 방식을 제안해 드립니다.</p>
+    <h2 class="rv">연동한 상품,<br>쇼핑광고로 더 많이 팔아볼까요?</h2>
+    <p class="cta-desc rv" style="--d:60ms">쇼핑 채널 연동부터 판매 데이터를 활용한 쇼핑광고까지,<br> 쇼핑몰 상황에 맞게 제안해 드립니다.</p>
     <div class="cta-btns rv" style="--d:120ms"><a class="btn btn-dark" href="#">마케팅 상담 신청</a><a class="btn cta-sub-btn" href="sns-ops.html">공식채널운영 보기</a></div>
     <p class="cta-tel rv" style="--d:160ms" hidden>마케팅 상담 <a href="tel:025454432">02-545-4432</a><span>평일 09:30 – 17:30</span></p>
   </div>
