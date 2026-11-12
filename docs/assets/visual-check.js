@@ -8,7 +8,7 @@
    단계 탭을 누르므로 점검 뒤에는 탭 자동 전환이 멈춥니다 (새로고침하면 원래대로).
    실제 앱 화면을 본뜬 브랜드 고유색은 감싼 요소에 data-brand 를 붙이면 ①에서 빠집니다. */
 (function () {
-  var PALETTE = "000000 027a48 039855 054f31 05603a 101323 101828 12b76a 1570ef 175cd3 1849a9 194185 1d2939 2d31a6 2d3282 2e90fa 32d583 344054 3538cd 444ce7 475467 53b1fd 6172f3 667085 6ce9a6 7a271a 7a2e0e 8098f9 84caff 912018 93370d 98a2b3 a4bcfd a6f4c5 b2ddff b42318 b54708 c7d7fe d0d5dd d1e9ff d1fadf d92d20 dc6803 e0eaff eaecf0 ecfdf3 eef4ff eff8ff f04438 f2f4f7 f5f8ff f5faff f6fef9 f79009 f8f9fc f97066 f9fafb fcfcfd fda29b fdb022 fec84b fecdca fedf89 fee4e2 fef0c7 fef3f2 fffaeb fffbfa fffcf5 ffffff".split(" ");
+  var PALETTE = "000000 027a48 039855 054f31 05603a 101323 101828 12b76a 1570ef 175cd3 1849a9 194185 1d2939 293056 2d31a6 2d3282 2e90fa 32d583 344054 3538cd 363f72 3e1c96 3e4784 444ce7 475467 4a1fb8 4e5ba6 53b1fd 5925dc 6172f3 667085 6938ef 6ce9a6 717bbc 7a271a 7a2e0e 7a5af8 8098f9 84caff 912018 93370d 98a2b3 9b8afb a4bcfd a6f4c5 b2ddff b3b8db b42318 b54708 bdb4fe c7d7fe d0d5dd d1e9ff d1fadf d5d9eb d92d20 d9d6fe dc6803 e0eaff eaecf0 eaecf5 ebe9fe ecfdf3 eef4ff eff8ff f04438 f2f4f7 f4f3ff f5f8ff f5faff f6fef9 f79009 f8f9fc f97066 f9fafb fafaff fcfcfd fda29b fdb022 fec84b fecdca fedf89 fee4e2 fef0c7 fef3f2 fffaeb fffbfa fffcf5 ffffff".split(" ");
   // 화면 이미지 안 글자 크기 (PC 기준 · px)
   var FONT = [10, 11, 12, 12.5, 13, 14.5, 16, 20, 24, 28];
   // 점검할 비주얼: [이름, 선택자, 여백 쏠림 점검 여부]
@@ -23,6 +23,7 @@
   var FAM = {
     "Primary": "2e90fa 1570ef 175cd3 1849a9 194185 53b1fd 84caff b2ddff d1e9ff eff8ff f5faff",
     "Indigo": "6172f3 444ce7 3538cd 2d31a6 2d3282 8098f9 a4bcfd c7d7fe e0eaff eef4ff f5f8ff",
+    "Purple": "fafaff f4f3ff ebe9fe d9d6fe bdb4fe 9b8afb 7a5af8 6938ef 5925dc 4a1fb8 3e1c96",
     "Error(레드)": "f04438 d92d20 b42318 912018 7a271a f97066 fda29b fecdca fee4e2 fef3f2 fffbfa",
     "Warning(오렌지)": "f79009 dc6803 b54708 93370d 7a2e0e fdb022 fec84b fedf89 fef0c7 fffaeb fffcf5",
     "Success(그린)": "12b76a 039855 027a48 05603a 054f31 32d583 6ce9a6 a6f4c5 d1fadf ecfdf3 f6fef9"

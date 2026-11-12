@@ -13,7 +13,7 @@
   <header class="ph">
     <p class="eyebrow">공통 규격</p>
     <h1>컬러</h1>
-    <p class="lede">색은 <a href="https://www.figma.com/design/AbBQwzCc7KirogHOpPVF8L/WISA?node-id=6414-61459">Figma WISA · Colors</a> 를 기준으로 합니다. Base(블랙 · 화이트)와 Primary · Gray · Indigo · Error · Warning · Success 여섯 묶음(각 25~900 단계)만 씁니다. 시안 CSS 맨 위 <code>:root</code> 에는 쓰는 단계만 두고, 새 단계가 필요하면 아래 값 그대로 <code>:root</code> 에 추가합니다.</p>
+    <p class="lede">색은 <a href="https://www.figma.com/design/AbBQwzCc7KirogHOpPVF8L/WISA?node-id=6414-61459">Figma WISA · Colors</a> 를 기준으로 합니다. Base(블랙 · 화이트)와 Primary · Gray · Indigo · Purple · Blue gray · Error · Warning · Success 여덟 묶음(각 25~900 단계)만 씁니다. 시안 CSS 맨 위 <code>:root</code> 에는 쓰는 단계만 두고, 새 단계가 필요하면 아래 값 그대로 <code>:root</code> 에 추가합니다.</p>
   </header>
   <div class="body">
     <h2 id="base">Base <small>블랙 · 화이트</small></h2>
@@ -65,6 +65,36 @@
       <div><i style="background:#3538CD;color:#ffffff">AAA</i><p><b>700</b><span class="num">#3538CD</span><code>--indigo-700</code></p></div>
       <div><i style="background:#2D31A6;color:#ffffff">AAA</i><p><b>800</b><span class="num">#2D31A6</span><code>--indigo-800</code></p></div>
       <div><i style="background:#2D3282;color:#ffffff">AAA</i><p><b>900</b><span class="num">#2D3282</span><code>--indigo-900</code></p></div>
+    </div>
+
+    <h2 id="purple">Purple <small>퍼플</small></h2>
+    <div class="pal">
+      <div><i style="background:#FAFAFF;color:#5925DC">AAA</i><p><b>25</b><span class="num">#FAFAFF</span><code>--purple-25</code></p></div>
+      <div><i style="background:#F4F3FF;color:#5925DC">AAA</i><p><b>50</b><span class="num">#F4F3FF</span><code>--purple-50</code></p></div>
+      <div><i style="background:#EBE9FE;color:#5925DC">AA 6.47</i><p><b>100</b><span class="num">#EBE9FE</span><code>--purple-100</code></p></div>
+      <div><i style="background:#D9D6FE;color:#5925DC">AA 5.51</i><p><b>200</b><span class="num">#D9D6FE</span><code>--purple-200</code></p></div>
+      <div><i style="background:#BDB4FE;color:#ffffff">1.89</i><p><b>300</b><span class="num">#BDB4FE</span><code>--purple-300</code></p></div>
+      <div><i style="background:#9B8AFB;color:#ffffff">2.83</i><p><b>400</b><span class="num">#9B8AFB</span><code>--purple-400</code></p></div>
+      <div><i style="background:#7A5AF8;color:#ffffff">AA 4.52</i><p><b>500</b><span class="num">#7A5AF8</span><code>--purple-500</code></p></div>
+      <div><i style="background:#6938EF;color:#ffffff">AA 6.15</i><p><b>600</b><span class="num">#6938EF</span><code>--purple-600</code></p></div>
+      <div><i style="background:#5925DC;color:#ffffff">AAA</i><p><b>700</b><span class="num">#5925DC</span><code>--purple-700</code></p></div>
+      <div><i style="background:#4A1FB8;color:#ffffff">AAA</i><p><b>800</b><span class="num">#4A1FB8</span><code>--purple-800</code></p></div>
+      <div><i style="background:#3E1C96;color:#ffffff">AAA</i><p><b>900</b><span class="num">#3E1C96</span><code>--purple-900</code></p></div>
+    </div>
+
+    <h2 id="blue-gray">Blue gray <small>블루 그레이</small></h2>
+    <div class="pal">
+      <div><i style="background:#FCFCFD;color:#363F72">AAA</i><p><b>25</b><span class="num">#FCFCFD</span><code>--blue-gray-25</code></p></div>
+      <div class="on"><i style="background:#F8F9FC;color:#363F72">AAA</i><p><b>50</b><span class="num">#F8F9FC</span><code>--blue-gray-50</code><em>비교표 묶음 줄 (라이선스 비교)</em></p></div>
+      <div><i style="background:#EAECF5;color:#363F72">AAA</i><p><b>100</b><span class="num">#EAECF5</span><code>--blue-gray-100</code></p></div>
+      <div><i style="background:#D5D9EB;color:#363F72">AAA</i><p><b>200</b><span class="num">#D5D9EB</span><code>--blue-gray-200</code></p></div>
+      <div><i style="background:#B3B8DB;color:#ffffff">1.95</i><p><b>300</b><span class="num">#B3B8DB</span><code>--blue-gray-300</code></p></div>
+      <div><i style="background:#717BBC;color:#ffffff">3.99</i><p><b>400</b><span class="num">#717BBC</span><code>--blue-gray-400</code></p></div>
+      <div><i style="background:#4E5BA6;color:#ffffff">AA 6.23</i><p><b>500</b><span class="num">#4E5BA6</span><code>--blue-gray-500</code></p></div>
+      <div><i style="background:#3E4784;color:#ffffff">AAA</i><p><b>600</b><span class="num">#3E4784</span><code>--blue-gray-600</code></p></div>
+      <div><i style="background:#363F72;color:#ffffff">AAA</i><p><b>700</b><span class="num">#363F72</span><code>--blue-gray-700</code></p></div>
+      <div><i style="background:#293056;color:#ffffff">AAA</i><p><b>800</b><span class="num">#293056</span><code>--blue-gray-800</code></p></div>
+      <div><i style="background:#101323;color:#ffffff">AAA</i><p><b>900</b><span class="num">#101323</span><code>--blue-gray-900</code></p></div>
     </div>
 
     <h2 id="error">Error <small>오류</small></h2>
