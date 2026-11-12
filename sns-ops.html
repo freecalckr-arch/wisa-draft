@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-12 patch-414: 히어로 카피 변경 — "[채널] 광고부터 페이지까지 / 공식채널 운영을 대행합니다" → "[채널] 광고부터 페이지 운영까지 / 한 번에 대행합니다" (강조 = 한 번에 대행 · 모바일 · 태블릿 3줄: [채널] 광고부터 / 페이지 운영까지 / 한 번에 대행합니다 · patch-413 줄바꿈 고정 규칙 삭제)
      · 2026-11-12 patch-413: 히어로 타이틀 모바일 4줄 → 3줄 ([채널] 광고부터 / 페이지까지 공식채널 운영을 / 대행합니다 · 가운데 줄은 줄바꿈 없이 · PC · 태블릿 그대로)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 막대 값 15 → 13 / 700 · 막대 범례 10 × 10 모서리 3 (.mk-lg.bar) · 대시보드 도넛 Primary 한 계열
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
@@ -87,7 +88,6 @@
     #geo-diagnosis .sr-vis.vw .vw-win { height: 380px; display: flex; flex-direction: column; }
     #geo-diagnosis .sr-vis.vw .vw-bd { flex: 1; min-height: 0; justify-content: space-between; gap: 16px; }
   }
-  @media (max-width: 767px) { #geo-hero h1 br.no-mo { display: none; } #geo-hero h1 .mo-nw { white-space: nowrap; } }   /* patch-413: 모바일 타이틀 3줄 ([채널] 광고부터 / 페이지까지 공식채널 운영을 / 대행합니다) */
 </style>
 
 <style>
@@ -537,7 +537,7 @@
       <a href="vertical-commerce.html" data-vh="버티컬커머스">버티컬커머스</a>
     </nav>
     <div class="sh-text">
-      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="인스타그램 · 페이스북"><span class="ai-roll-in"><span><img class="rl-ic" src="assets/common/brand/instagram.svg" alt="">인스타그램</span><span><img class="rl-ic" src="assets/common/brand/facebook.svg" alt="">페이스북</span></span></span> 광고부터<br class="mo-br tb-br"> <span class="mo-nw">페이지까지<br class="no-mo"> <em class="gt">공식채널 운영</em>을</span><br class="mo-br"> 대행합니다</h1>
+      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="인스타그램 · 페이스북"><span class="ai-roll-in"><span><img class="rl-ic" src="assets/common/brand/instagram.svg" alt="">인스타그램</span><span><img class="rl-ic" src="assets/common/brand/facebook.svg" alt="">페이스북</span></span></span> 광고부터<br class="mo-br tb-br"> 페이지 운영까지<br><em class="gt">한 번에 대행</em>합니다</h1>
       <p class="rv" style="--d:160ms">인스타그램, 페이스북 등 SNS 광고와 브랜드 페이지 운영을 대행합니다.<br class="pc-only"> 콘텐츠 제작에는 AI를 활용합니다.</p>
       <ul class="chips rv" style="--d:220ms"><li>인스타그램</li><li>페이스북</li><li>AI 크리에이티브</li></ul>
     </div>
