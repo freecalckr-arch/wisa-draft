@@ -17,7 +17,7 @@
 .pc-pop.gray { background: var(--gray-100); color: var(--gray-700); }
 .pc-pop.solid { background: var(--primary-600); color: var(--white); font-weight: 600; }   /* patch-445 진한 뱃지: 두 방식 카드처럼 뱃지를 먼저 읽혀야 할 때 · Primary 600 / 흰 */
 .pc-pop.solid.indigo { background: #444ce7; color: var(--white); }   /* 팔레트 Indigo 600 / 흰 (patch-446 · Cloud Primary 600 과 같은 단계) */
-.pc-pop.solid.purple { background: #6938ef; color: var(--white); }   /* 팔레트 Purple 600 / 흰 (patch-448 · Enterprise 시험) */
+.pc-pop.solid.ent { background: linear-gradient(90deg, #4568dc, #b06ab3); color: var(--white); }   /* patch-449 Enterprise 진한 뱃지 = 기존 홈페이지 Enterprise 요금 영역(.rn-ent-plan) 그라데이션 그대로 (팔레트 밖 · 기존 브랜드 색 예외) */
 .pc-pop.off { visibility: hidden; }   /* 뱃지 없는 카드도 줄 맞춤 */
 
 /* 이름 · 설명 */
