@@ -15,10 +15,11 @@
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=424">
-<link rel="stylesheet" href="assets/common/plan.css?v=442">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=443">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-443: 히어로 타이틀 = 기존 홈페이지 "Cloud와 Enterprise, 무엇이 다를까요?" (키워드 교체 애니메이션 삭제) · 두 방식 카드 아이콘 칸 삭제 · 타이틀 아래 태그(SaaS 구독형 Cloud 등) 삭제 · 설명 문장 → 카드 60/50/40
      · 2026-11-12 patch-442: 히어로 비주얼(patch-440 · MUE 쇼핑몰) 삭제 → 기존 홈페이지처럼 타이틀 바로 아래 두 방식 카드 2장 (영역 제목 "두 가지 방식으로 시작할 수 있어요" 삭제 · 위 여백 60/50/40) · 카드 사이 VS 원(56 · Gray 900 · 모바일 44 위아래 사이) · 카드 차별화 = 방식 카드 색(plan.css .tone-blue Cloud · .tone-indigo Enterprise · 위 25 단계 → 흰 그라데이션 · 테두리 100 단계) + 아이콘 칸 .pc-ic(구름 · </>) · 흐름 주석의 히어로 비주얼 없음
      · 2026-11-12 patch-441: 히어로 쇼핑몰 상품 목록 이미지 교체 — 새 정방형 상품 컷 5장(클렌저 · 크림 · 선크림 · 세럼 · 토너 · assets/geo/beauty/mue-p-*) · 칸 꽉 채움(그라데이션 없음) · 4 · 5번째 상품 이름 · 가격을 세럼 · 토너로 맞춤
      · 2026-11-12 patch-440: 히어로 비주얼 — 빈 박스 → 브랜드 MUE 하나가 첫 오픈부터 글로벌까지 커 가는 쇼핑몰 화면(가운데 창 760×420 · 상품 5개 정방형 · 배너 상품 원형) + 창 아래 단계 라벨([요금제 뱃지 Cloud 파랑 · Enterprise 인디고] 키워드 · 단계) + 라벨 문구와 같은 곳 파란 표시 · 양옆 고정 카드(관리자 주문 알림 · 고객 후기 · 창에서 30) · 비주얼은 타이틀 키워드(2.4초)와 따로 4.8초 박자(라벨 → 화면 → 표시 순서) · 태블릿 520×417 상품 3개 · 모바일 404 상품 2개 · 양옆 카드 숨김 · 떠 있던 가격 카드(cp-hf) 삭제
@@ -436,10 +437,8 @@
       <a href="comparison.html" class="on" aria-current="page"><i aria-hidden="true"></i>라이선스 비교</a>
     </nav>
     <div class="sh-text">
-      <!-- [개발 전달] patch-415 키워드 한 자리 교체 (2.4초 · 전환 0.6초 · 마케팅 공통) · 기존 타이틀 "Cloud와 Enterprise, 무엇이 다를까요?" 의 질문을 뒤 문장으로 유지 -->
-      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="첫 창업"><span class="ai-roll-in"><span>첫 창업</span><span>1인 브랜드</span><span>성장 중인</span><span>중대형</span><span>글로벌</span></span></span> 쇼핑몰이라면<br>Cloud와 Enterprise 중<br class="mo-br"> <em class="gt">무엇이 맞을까요?</em></h1>
+      <h1 class="rv" style="--d:80ms">Cloud와 Enterprise,<br class="mo-br"> <em class="gt">무엇이 다를까요?</em></h1>   <!-- [개발 전달] patch-443 기존 홈페이지 타이틀 그대로 (키워드 교체 없음) -->
       <p class="rv" style="--d:160ms">부스터는 하나의 엔진을 두 가지 방식으로 제공합니다.<br class="pc-only"> 월 단위로 이용하는 구독형과 소스코드를 직접 소유하는 라이선스형을 비교해 보세요.</p>
-      <ul class="chips rv" style="--d:220ms"><li>SaaS 구독형 Cloud</li><li>라이선스 소유형 Enterprise</li><li>같은 부스터 엔진</li></ul>
     </div>
   </div>
 </section>
@@ -449,8 +448,7 @@
 <section class="sec" id="cmp-plan">
   <div class="container">
     <ul class="pc-list cp-list">   <!-- [개발 전달] patch-416 요금 카드 공통 부품(assets/common/plan.css · docs/plan.html) · 뱃지 Cloud 파랑 / Enterprise 인디고 · 버튼 1개(흰) + 자세히 보기 텍스트 링크 -->
-      <li class="pc tone-blue rv">   <!-- [개발 전달] patch-442 방식 카드 색 .tone-blue · 아이콘 칸 .pc-ic (plan.css) -->
-        <span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+      <li class="pc tone-blue rv">   <!-- [개발 전달] patch-442 방식 카드 색 .tone-blue (plan.css) · 아이콘 칸 삭제 patch-443 -->
         <span class="pc-pop">SaaS 구독형</span>
         <h3>Cloud</h3>
         <p class="pc-sub">WISA 클라우드에서 바로 쓰는 쇼핑몰</p>
@@ -479,7 +477,6 @@
                   <linearGradient id="rkG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient>
                 </defs>
               </svg></div>
-        <span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg></span>
         <span class="pc-pop indigo">라이선스 소유형</span>
         <h3>Enterprise</h3>
         <p class="pc-sub">소스코드와 서버를 직접 소유하는 쇼핑몰</p>
