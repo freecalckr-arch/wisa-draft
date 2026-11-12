@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-426: 핵심 차이 제품명 PC 20 → 24 (아이콘 26 → 30 · 사이 10) · 모바일 18 → 20 (아이콘 22 → 24)
      · 2026-11-12 patch-425: 페이지 탭 모바일(≤767) 이름 줄임 "부스터 Cloud" → "Cloud" · "부스터 Enterprise" → "Enterprise" (밀지 않고 한 줄에 다 보임 · PC · 태블릿은 그대로) · 맞는 경우 카드 아래 고객 태그 복구(태그 공통 규격 .sr-tags · 제목 없이)
      · 2026-11-12 patch-424: 어떤 방식이 맞을까요 카드 = 뱃지 삭제 · 메인 솔루션 카드처럼 아이콘 + 제품명(28/700) · 아래 “맞는 경우” 한 문장(18/600 Gray 700 · 따옴표) · "이런 분께 맞아요" 제목 삭제(태그는 patch-425 에서 공통 규격으로 다시 넣음) / 태그 공통 규격(wisa.css tag-std · plan.css · docs/tag.html): 높이 32 · 6/12 · 모서리 8 · 13/500 · Gray 700 · 사이 8
      · 2026-11-12 patch-423: 두 가지 방식 카드 뒤 흐린 빛 애니메이션 (메인 솔루션 영역과 같은 장치 · 왼쪽 위 Primary 500 · 오른쪽 아래 Indigo 500 · blur 50 · 18초 왕복 · 동작 줄이기 시 정지) · 표 영역은 흰 바탕 유지
@@ -95,9 +96,9 @@
   .cd-hd + .cd-row { border-top: 0; }
   .cd-hd > .cd-lb { visibility: hidden; }
   .cd-hd > div { gap: 2px; padding-block: 24px; }
-  .cd-hd b { font-size: 20px; font-weight: 700; line-height: 28px; }
-  .cd-hd b:has(svg) { display: inline-flex; align-items: center; gap: 8px; }   /* patch-420: 메인 솔루션 카드(.rn-sol-head) 아이콘 · 선 1.6 · Gray 900 */
-  .cd-hd b svg { flex: none; width: 26px; height: 26px; }
+  .cd-hd b { font-size: 24px; font-weight: 700; line-height: 32px; }   /* patch-426: 20 → 24 (메인 솔루션 카드 제품명과 같음) */
+  .cd-hd b:has(svg) { display: inline-flex; align-items: center; gap: 10px; }   /* patch-420: 메인 솔루션 카드(.rn-sol-head) 아이콘 · 선 1.6 · Gray 900 */
+  .cd-hd b svg { flex: none; width: 30px; height: 30px; }
   .cd-hd span { font-size: 14px; }
   @media (max-width: 1023px) { .cd-row > div { padding: 18px 24px; } .cd-row { grid-template-columns: minmax(0, 1fr) 140px minmax(0, 1fr); } }
   @media (max-width: 767px) {
@@ -109,7 +110,7 @@
     .cd-row > div:last-child { grid-column: 2; grid-row: 2; border-left: 1px solid var(--gray-100); }
     .cd-row b { font-size: 15px; line-height: 22px; } .cd-row span { font-size: 13px; line-height: 18px; }
     .cd-hd > div, .cd-hd > div:first-child { grid-row: 1; align-items: center; text-align: center; padding: 16px 12px; }
-    .cd-hd b { font-size: 18px; line-height: 24px; } .cd-hd b svg { width: 22px; height: 22px; } .cd-hd b:has(svg) { gap: 6px; } .cd-hd span { font-size: 13px; }
+    .cd-hd b { font-size: 20px; line-height: 28px; } .cd-hd b svg { width: 24px; height: 24px; } .cd-hd b:has(svg) { gap: 6px; } .cd-hd span { font-size: 13px; }
     .cd-hd > .cd-lb { display: none; }
     .cd-hd > div:last-child { grid-row: 1; }
   }
