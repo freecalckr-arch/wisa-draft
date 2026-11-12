@@ -9,6 +9,8 @@
 .pc-list { display: grid; grid-template-columns: repeat(var(--pc-n, 3), minmax(0, 1fr)); gap: 20px; align-items: stretch; margin: 0; padding: 0; list-style: none; }
 .pc { position: relative; display: flex; transition: box-shadow .3s; flex-direction: column; align-items: center; box-sizing: border-box; padding: 30px 30px 40px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); text-align: center; }
 
+@media (min-width: 1024px) { .pc { padding: 40px; } }   /* patch-447: PC 안쪽 여백 위 · 좌우 · 아래 40 (태블릿 30/30/40 · 모바일 30 그대로) */
+
 /* 뱃지 (기존 .rn-cl-pop) */
 .pc-pop { display: inline-flex; align-items: center; gap: 4px; height: 28px; box-sizing: border-box; padding: 4px 12px; border-radius: 16px; background: var(--primary-50); color: var(--primary-700); font-size: 13px; font-weight: 500; line-height: 20px; white-space: nowrap; }
 .pc-pop.indigo { background: var(--indigo-50, #eef4ff); color: #3538cd; }   /* 팔레트 Indigo 50 / 700 */
