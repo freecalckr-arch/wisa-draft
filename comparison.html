@@ -19,6 +19,8 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-453: 두 방식 카드 뒤 블루 빛 위치 = Cloud 카드 왼쪽 위 모서리(크기 420 · 움직임 카드 모서리 안에서만)
+     · 2026-11-12 patch-452: 상세 기능 비교표 PC · 태블릿 마우스 오버 시 줄 바탕 Primary 25(#f5faff) = 핵심 차이 켜진 줄과 같은 색
      · 2026-11-12 patch-451: 두 방식 카드 뒤 빛 = 왼쪽 블루(Primary 500) 하나만 · 오른쪽 인디고 빛 삭제
      · 2026-11-12 patch-450: 모바일 핵심 차이 마지막 항목 활성 라인이 둥근 모서리에서 잘리던 것 수정(모서리 15) · 상세 비교표 모바일도 스크롤 활성화(화면 가운데 항목 · 띠 Primary 50 / 700 + 항목 라인 Primary 600 · 스크립트 cmp-table-scroll)
      · 2026-11-12 patch-449: Enterprise 진한 뱃지 = 기존 홈페이지 Enterprise 요금 영역 그라데이션(#4568dc → #b06ab3 · 왼 → 오) + 흰 글자 (.pc-pop.solid.ent · 퍼플 시험 삭제)
@@ -131,10 +133,10 @@
   /* patch-423: 카드 뒤 흐린 빛 — 메인 솔루션 영역(.rn-solution::after · blur 50 · 18초 ease-in-out 왕복) 같은 장치 · 왼쪽 위 Primary 500 · 오른쪽 아래 Indigo 500(Cloud 파랑 · Enterprise 인디고 뱃지와 이어짐) · 표 영역에는 넣지 않음 */
   #cmp-plan { position: relative; isolation: isolate; overflow-x: clip; }
   #cmp-plan::before { content: ""; position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; filter: blur(50px); animation: cp-glow 18s ease-in-out infinite alternate; }
-  #cmp-plan::before { left: calc(50% - 760px); top: 200px; width: 490px; height: 490px; background: radial-gradient(circle, rgba(46, 144, 250, .30) 0%, rgba(46, 144, 250, .12) 40%, rgba(46, 144, 250, 0) 70%); }   /* Primary 500 */
-  @keyframes cp-glow { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(4vw, -8%) scale(1.08); } 100% { transform: translate(1.5vw, -14%) scale(.95); } }
-  @media (max-width: 1439px) { #cmp-plan::before { left: -140px; } }   /* patch-451: 오른쪽 인디고 빛 삭제 · 왼쪽 블루만 */
-  @media (max-width: 767px) { #cmp-plan::before { left: -160px; top: 180px; width: 360px; height: 360px; } }
+  #cmp-plan::before { left: calc(50% - 795px); top: -50px; width: 420px; height: 420px; background: radial-gradient(circle, rgba(46, 144, 250, .30) 0%, rgba(46, 144, 250, .12) 40%, rgba(46, 144, 250, 0) 70%); }   /* Primary 500 */
+  @keyframes cp-glow { 0% { transform: translate(0, 0) scale(1); } 50% { transform: translate(24px, 16px) scale(1.08); } 100% { transform: translate(8px, -12px) scale(.95); } }   /* patch-453: 움직임을 카드 왼쪽 위 안에서만 */
+  @media (max-width: 1439px) { #cmp-plan::before { left: -130px; } }   /* patch-451: 오른쪽 인디고 빛 삭제 · 왼쪽 블루만 · patch-453: Cloud 카드 왼쪽 위 모서리 */
+  @media (max-width: 767px) { #cmp-plan::before { left: -170px; top: -40px; width: 340px; height: 340px; } }
   @media (prefers-reduced-motion: reduce) { #cmp-plan::before { animation: none; } }
   .cp-checks { display: flex; flex-direction: column; gap: 16px; width: 100%; margin: 30px 0 0; padding: 30px 0 0; border-top: 1px solid var(--gray-100); list-style: none; }   /* 어떤 방식이 맞을까요 카드 체크 목록 */
   .cp-checks li { position: relative; padding-left: 24px; font-size: 15px; line-height: 20px; color: var(--gray-900); }
@@ -210,6 +212,7 @@
   .cp-fee { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }   /* patch-417: 기존 .rn-cp-fee 그대로 (가격 · 취소선 · 뱃지 한 줄, 좁으면 뱃지 아래로) */
   .cpt td.fee .cp-fee strong { display: block; }
   .cpt s { color: var(--gray-500); font-size: 14px; font-weight: 400; }
+  @media (min-width: 768px) and (hover: hover) { .cpt tbody tr:not(.g) > * { transition: background-color .2s; } .cpt tbody tr:not(.g):hover > * { background: #f5faff; } }   /* patch-452: 마우스 오버 시 줄 바탕 = 핵심 차이 켜진 줄(.cd-row.on)과 같은 Primary 25 */
   .cp-ev { display: block; padding: 0 8px; border-radius: 6px; background: #fffaeb; color: #b54708; font-size: 12px; font-style: normal; font-weight: 500; line-height: 18px; white-space: nowrap; }   /* patch-417: 기존 홈페이지 그대로 = 팔레트 Warning 25 / 700 */
   .ct-note { margin: 20px 0 0; font-size: 15px; line-height: 22px; color: var(--gray-500); }
   .ct-note a { font-weight: 600; color: var(--gray-900); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--gray-300); }
