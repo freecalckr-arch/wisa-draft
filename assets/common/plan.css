@@ -1,0 +1,60 @@
+/* =====================================================================
+   요금 카드 공통 부품 (patch-416) — 규칙 사이트 docs/plan.html
+   · 기준: 기존 홈페이지 solution/cloud 요금 카드 .rn-cl-plan (2026-11-12 실측) · 값을 바꾸면 이 파일을 쓰는 모든 페이지에 반영
+   · 쓰는 곳: 라이선스 비교(comparison.html #cmp-plan) · 요금 · 상품 카드가 들어가는 모든 페이지 (카드 개수만 목록의 --pc-n 으로 지정)
+   · 순서 고정: 뱃지 → 이름 → 설명 → 가격 → 가격 메모 → 태그 → 버튼 → 텍스트 링크 → 체크 목록
+   · 뱃지 색: 기본(파랑 · Cloud · 일반 상품) / .indigo (Enterprise · 라이선스) / .gray (분류만) — 한 카드에 뱃지 1개
+   · 버튼은 카드당 1개(흰 버튼 · 추천 카드만 검정) · 보조 이동은 텍스트 링크 .pc-more
+   ===================================================================== */
+.pc-list { display: grid; grid-template-columns: repeat(var(--pc-n, 3), minmax(0, 1fr)); gap: 20px; align-items: stretch; margin: 0; padding: 0; list-style: none; }
+.pc { position: relative; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; padding: 30px 30px 40px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); text-align: center; }
+
+/* 뱃지 (기존 .rn-cl-pop) */
+.pc-pop { display: inline-flex; align-items: center; gap: 4px; height: 28px; box-sizing: border-box; padding: 4px 12px; border-radius: 16px; background: var(--primary-50); color: var(--primary-700); font-size: 13px; font-weight: 500; line-height: 20px; white-space: nowrap; }
+.pc-pop.indigo { background: var(--indigo-50, #eef4ff); color: #3538cd; }   /* 팔레트 Indigo 50 / 700 */
+.pc-pop.gray { background: var(--gray-100); color: var(--gray-700); }
+.pc-pop.off { visibility: hidden; }   /* 뱃지 없는 카드도 줄 맞춤 */
+
+/* 이름 · 설명 */
+.pc h3 { margin: 12px 0 0; color: var(--gray-900); font-size: 28px; font-weight: 700; line-height: 38px; white-space: nowrap; }
+.pc .pc-sub { margin: 10px 0 0; color: var(--gray-700); font-size: 16px; line-height: 24px; word-break: keep-all; }
+
+/* 가격 (기존 .rn-cl-price) */
+.pc-price { display: flex; align-items: baseline; justify-content: center; gap: 2px; height: 29px; margin: 20px 0 0; color: var(--gray-900); }
+.pc-price strong { font-size: 26px; font-weight: 600; line-height: 29px; }
+.pc-price span { font-size: 18px; line-height: 26px; }
+
+/* 가격 메모 (기존 .rn-cl-chip · 할인 안내 등) */
+.pc-note { display: inline-flex; align-items: center; gap: 4px; height: 20px; margin-top: 12px; padding-inline: 4px; border-radius: 4px; background: #fef0c7; color: var(--gray-900); font-size: 13px; font-weight: 500; line-height: 20px; white-space: nowrap; }   /* 팔레트 Warning 100 (기존 색) */
+.pc-note.plain { background: none; color: var(--gray-500); }
+.pc-note.off { visibility: hidden; }
+
+/* 태그 (사양 · 포함 요금제) */
+.pc-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.pc-tags li { height: 28px; box-sizing: border-box; padding: 4px 8px; border-radius: 6px; background: var(--gray-100); color: var(--gray-700); font-size: 13px; font-weight: 500; line-height: 20px; white-space: nowrap; }
+
+/* 버튼 1개 (기존 .rn-btn-lg .rn-btn-block · 흰 버튼) + 텍스트 링크 */
+.pc .pc-btn { width: 100%; height: 42px; margin-top: 30px; padding: 10px 18px; border-radius: 8px; font-size: 16px; font-weight: 600; line-height: 20px; }
+.pc-more { display: inline-flex; align-items: center; gap: 2px; margin-top: 16px; color: var(--gray-500); font-size: 14px; font-weight: 500; line-height: 20px; text-decoration: none; transition: color .2s; }
+.pc-more::after { content: ""; width: 16px; height: 16px; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m6 4 4 4-4 4' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m6 4 4 4-4 4' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+.pc-more:hover { color: var(--gray-900); }
+
+/* 체크 목록 (기존 .rn-cl-checks) */
+.pc-checks { display: flex; flex-direction: column; gap: 18px; width: 100%; margin: 0; padding: 40px 0 0; list-style: none; text-align: left; }
+.pc-checks li { position: relative; padding-left: 24px; color: var(--gray-900); font-size: 15px; line-height: 20px; word-break: keep-all; }
+.pc-checks li::before { content: ""; position: absolute; left: 0; top: 3px; width: 14px; height: 14px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M2.5 7.4 5.6 10.3 11.5 3.9' stroke='%23101828' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* 추천 카드 (검정 2px 테두리 + 위 라벨 · 버튼 검정) */
+.pc.is-rec { box-shadow: inset 0 0 0 2px var(--gray-900), 0 12px 32px rgba(16, 24, 40, .08); }
+.pc.is-rec::before { content: attr(data-rec); position: absolute; top: -12px; left: 50%; transform: translateX(-50%); height: 24px; padding: 0 12px; border-radius: 99px; background: var(--gray-900); color: var(--white); font-size: 12px; font-weight: 700; line-height: 24px; white-space: nowrap; }
+
+@media (max-width: 767px) {
+  .pc-list { grid-template-columns: minmax(0, 1fr); }
+  .pc { padding: 30px; }
+  .pc h3 { font-size: 26px; }
+  .pc .pc-sub { font-size: 14px; line-height: 20px; }
+  .pc-price strong { font-size: 25px; }
+  .pc-checks { gap: 16px; }
+  .pc-checks li { font-size: 14px; }
+  .pc-pop.off, .pc-note.off { display: none; }
+}

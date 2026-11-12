@@ -13,7 +13,7 @@
     { g: "기존 소스 수정", items: [["기존 수정 목록", "changes.html"]] },
     { g: "공통 규격", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
     { g: "영역 규격", items: [["히어로", "hero.html"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
-    { g: "컴포넌트", items: [["탭", null], ["카드", null], ["CTA", null]] },
+    { g: "컴포넌트", items: [["탭", null], ["카드", null], ["요금 카드", "plan.html"], ["CTA", null]] },
     { g: "인터랙션", items: [["인터랙션 목록", null]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"]] },
     { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
