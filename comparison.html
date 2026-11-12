@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-421: 핵심 차이 가운데 라벨 바탕 Gray 100 → Gray 50 (모바일 가로 띠와 같은 색)
      · 2026-11-12 patch-420: 핵심 차이 = 가운데 라벨 테두리 없이 Gray 100 바탕 + 14/700 Gray 900 · 제품명 앞에 메인 솔루션 카드 아이콘(Cloud 구름 · Enterprise </>, 선 1.6 · PC 26 / 모바일 22)
      · 2026-11-12 patch-419: 요금 카드 설명 → 가격 사이 20 → 12 (plan.css)
      · 2026-11-12 patch-418: 요금 카드 호버 = 그림자 없이 테두리만 Gray 900 (plan.css)
@@ -74,7 +75,7 @@
   .cd-row > div:first-child { align-items: flex-end; text-align: right; }
   .cd-row b { font-size: 17px; font-weight: 600; line-height: 24px; color: var(--gray-900); word-break: keep-all; }
   .cd-row span { font-size: 14px; line-height: 20px; color: var(--gray-500); word-break: keep-all; }
-  .cd-lb { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-100); font-style: normal; font-size: 14px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }   /* patch-420: 테두리 없이 Gray 100 바탕 + 굵게 · 검정 */
+  .cd-lb { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-50); font-style: normal; font-size: 14px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }   /* patch-420: 테두리 없이 굵게 · 검정 · patch-421: 바탕 Gray 50 = 모바일 띠와 같은 색 */
   .cd-em { flex: none; font-family: "Tossface", "TossFaceSub", sans-serif; font-style: normal; font-size: 16px; font-weight: 400; line-height: 1; }   /* 토스 이모지 (wisa.css 에서 Tossface 불러옴) */
   .cd-hd { min-height: 0; background: var(--white); border-bottom: 1px solid var(--gray-200); }   /* patch-416: 제품명 머리줄 흰 바탕 */
   .cd-hd + .cd-row { border-top: 0; }
