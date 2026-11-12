@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-454: 상세 기능 비교표 = 핵심 차이 표와 한 규격 — 바깥 테두리 Gray 200 · 머리줄 아래 선 Gray 200 · 안쪽 선 Gray 100 · 머리줄 제품명 PC 24/700 · 모바일 20/28 · 모바일 항목 띠 #f8f9fc 14/700 Gray 900 가운데 · 값 칸 16 · 값 15/22 600 + 설명 13/18 · 두 값 사이 선 Gray 100
      · 2026-11-12 patch-453: 두 방식 카드 뒤 블루 빛 위치 = Cloud 카드 왼쪽 위 모서리(크기 420 · 움직임 카드 모서리 안에서만)
      · 2026-11-12 patch-452: 상세 기능 비교표 PC · 태블릿 마우스 오버 시 줄 바탕 Primary 25(#f5faff) = 핵심 차이 켜진 줄과 같은 색
      · 2026-11-12 patch-451: 두 방식 카드 뒤 빛 = 왼쪽 블루(Primary 500) 하나만 · 오른쪽 인디고 빛 삭제
@@ -197,9 +198,9 @@
   .cpt col.lb { width: 280px; }
   .cpt th, .cpt td { height: auto; white-space: normal; border-top: 1px solid var(--gray-100); text-align: left; vertical-align: middle; word-break: keep-all; color: var(--gray-900); }
   .cpt :is(th, td) + :is(th, td) { border-left: 1px solid var(--gray-100); }
-  .cpt thead :is(th, td) { position: sticky; top: var(--ct-top, 62px); z-index: 2; border-top: 0; background: var(--white); box-shadow: inset 0 -1px var(--gray-100); }
+  .cpt thead :is(th, td) { position: sticky; top: var(--ct-top, 62px); z-index: 2; border-top: 0; background: var(--white); box-shadow: inset 0 -1px var(--gray-200); }   /* patch-454: 머리줄 아래 선 Gray 200 = 핵심 차이 */
   .cpt thead th { padding: 26px 30px; text-align: center; font-weight: 400; }
-  .cpt thead strong { display: block; color: var(--gray-900); font-size: 26px; font-weight: 600; line-height: 31px; }
+  .cpt thead strong { display: block; color: var(--gray-900); font-size: 24px; font-weight: 700; line-height: 32px; }   /* patch-454: 핵심 차이 머리줄 제품명과 같음 (24/700) */
   .cpt thead span { display: block; margin-top: 8px; color: var(--gray-600); font-size: 15px; line-height: 24px; }
   .cpt tr.g th { padding: 14px 20px; background: #f8f9fc; color: var(--black); font-size: 16px; font-weight: 600; line-height: 22px; }   /* 기존 홈페이지 묶음 줄 색 */
   .cpt tbody tr:not(.g) th { padding: 16px 20px; color: var(--gray-500); font-size: 15px; font-weight: 500; line-height: 18px; }
@@ -231,8 +232,9 @@
     .cpt thead tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
     .cpt thead td { display: none; }
     .cpt thead th { position: static; display: block; padding: 14px 8px; background: none; box-shadow: none; }
-    .cpt thead th + th { border-left: 1px solid var(--gray-300); }
-    .cpt thead strong { font-size: 18px; line-height: 22px; }
+    .cpt thead th { padding: 16px 12px; }
+    .cpt thead th + th { border-left: 1px solid var(--gray-100); }
+    .cpt thead strong { font-size: 20px; line-height: 28px; }
     .cpt thead span { margin-top: 2px; font-size: 13px; line-height: 18px; }
     .cpt tbody tr.g, .cpt tbody tr.g th { display: block; }
     .cpt tbody tr.g:first-child { display: none; }   /* 첫 묶음 이름은 머리줄 바로 아래라 생략 (기존 홈페이지 동일) */
@@ -241,12 +243,14 @@
     .cpt tbody tr.g + tr { border-top: 1px solid var(--gray-200); border-radius: 16px 16px 0 0; }
     .cpt tbody tr.g:first-child + tr { border-top: 0; border-radius: 0; }
     .cpt tbody tr:not(.g):has(+ tr.g), .cpt tbody tr:not(.g):last-child { border-bottom: 1px solid var(--gray-200); border-radius: 0 0 16px 16px; }
-    .cpt tbody tr:not(.g) :is(th, td) { border-top: 1px solid var(--gray-200); border-left: 0; }
+    .cpt tbody tr:not(.g) :is(th, td) { border-top: 1px solid var(--gray-100); border-left: 0; }
     .cpt tbody tr.g + tr th { border-top: 0; }
-    .cpt tbody tr:not(.g) th { grid-column: 1 / -1; padding: 12px 16px; background: #f8f9fc; color: var(--black); font-size: 15px; font-weight: 600; line-height: 18px; }
-    .cpt tbody td { display: block; padding: 14px 16px; }
-    .cpt tbody tr:not(.g) td + td { border-left: 1px solid var(--gray-300); }
-    .cpt tbody td strong { font-size: 15px; }
+    .cpt tbody tr:not(.g) th { grid-column: 1 / -1; padding: 10px 16px; background: #f8f9fc; color: var(--gray-900); font-size: 14px; font-weight: 700; line-height: 20px; text-align: center; }
+    .cpt tbody td { display: block; padding: 16px; }
+    .cpt tbody tr:not(.g) td + td { border-left: 1px solid var(--gray-100); }
+    .cpt tbody td strong { font-size: 15px; font-weight: 600; line-height: 22px; }
+    .cpt tbody td strong + span { margin-top: 4px; line-height: 18px; }
+    /* patch-454: 모바일 표 = 핵심 차이 모바일과 한 규격 — 항목 띠 #f8f9fc · 14/700 Gray 900 가운데 · 안쪽 선 모두 Gray 100 · 값 칸 여백 16 · 값 15/22 600 + 설명 13/18 · 머리줄 20/28 */
     .ct-note { font-size: 13px; }
     /* patch-450: 핵심 차이(모바일)와 같은 스크롤 활성화 — 화면 가운데에 가장 가까운 항목 .on · 항목 띠 Primary 50 / 700 + 항목 전체 Primary 600 라인 (모서리는 항목 모서리를 따라감 · 스크립트 cmp-table-scroll) */
     .cpt tbody tr:not(.g) { position: relative; }
