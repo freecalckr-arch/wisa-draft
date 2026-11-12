@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-431: 핵심 차이 줄 순서대로 활성화 반복 (2.4초 간격 · 줄 바탕 Primary 25 · 라벨 Primary 600 + 흰 글자 + 파동 1번 · 마우스 올린 줄 고정 + 순환 멈춤 · 화면에 보일 때만 · 모바일은 라벨 띠만 Primary 50 / 700 · 동작 줄이기 시 없음 · 스크립트 cmp-diff-cycle)
      · 2026-11-12 patch-430: 하이라이트가 켜진 카드 테두리 Gray 200 → Gray 900 (밑줄과 같은 6초 주기 · Cloud → Enterprise 번갈아 · 요금 카드 호버와 같은 규칙)
      · 2026-11-12 patch-429: 하이라이트 밑줄 색 Primary 50 → 100 (흰 카드 위에서 잘 보이게)
      · 2026-11-12 patch-428: 어떤 방식이 맞을까요 카드 문장(.cf-q)에 하이라이트 밑줄 애니메이션 — 왼쪽→오른쪽으로 그어지고 오른쪽으로 사라짐, Cloud → Enterprise 번갈아 반복 (6초 · Primary 50 · 동작 줄이기 시 정지)
@@ -95,6 +96,13 @@
   .cd-row b { font-size: 17px; font-weight: 600; line-height: 24px; color: var(--gray-900); word-break: keep-all; }
   .cd-row span { font-size: 14px; line-height: 20px; color: var(--gray-500); word-break: keep-all; }
   .cd-lb { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-50); font-style: normal; font-size: 14px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }   /* patch-420: 테두리 없이 굵게 · 검정 · patch-421: 바탕 Gray 50 = 모바일 띠와 같은 색 */
+  /* patch-431: 6가지 차이를 한 줄씩 짚는 순환 — 2.4초마다 다음 줄 .on (스크립트 cmp-diff-cycle) · 줄 바탕 Primary 25 · 라벨 Primary 600 + 흰 글자 + 파동 1번 · 마우스 올린 줄이 켜지고 순환 멈춤 · 화면에 보일 때만 · 동작 줄이기 시 없음 */
+  .cd-row:not(.cd-hd) { transition: background-color .3s; }
+  .cd-row:not(.cd-hd) .cd-lb { position: relative; transition: background-color .3s, color .3s; }
+  .cd-row.on { background: #f5faff; }   /* 팔레트 Primary 25 */
+  .cd-row.on .cd-lb { background: var(--primary-600); color: var(--white); }
+  .cd-row.on .cd-lb::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: 0 0 0 0 rgba(178, 221, 255, 0); animation: cd-wave 1.2s ease-out .15s 1; pointer-events: none; }
+  @keyframes cd-wave { 0% { box-shadow: 0 0 0 0 rgba(178, 221, 255, .9); } 100% { box-shadow: 0 0 0 12px rgba(178, 221, 255, 0); } }   /* Primary 200 */
   .cd-hd { min-height: 0; background: var(--white); border-bottom: 1px solid var(--gray-200); }   /* patch-416: 제품명 머리줄 흰 바탕 */
   .cd-hd + .cd-row { border-top: 0; }
   .cd-hd > .cd-lb { visibility: hidden; }
@@ -116,6 +124,7 @@
     .cd-hd b { font-size: 20px; line-height: 28px; } .cd-hd b svg { width: 24px; height: 24px; } .cd-hd b:has(svg) { gap: 6px; } .cd-hd span { font-size: 13px; }
     .cd-hd > .cd-lb { display: none; }
     .cd-hd > div:last-child { grid-row: 1; }
+    .cd-row.on { background: none; } .cd-row.on .cd-lb { background: var(--primary-50); color: var(--primary-700); } .cd-row.on .cd-lb::after { content: none; }   /* patch-431: 모바일은 띠만 Primary 50 / 700 · 파동 없음 */
   }
   /* @endregion cmp-diff */
 
@@ -1016,6 +1025,23 @@
   /* @region host-tabs (patch-377): 모바일에서 현재 탭이 탭 줄 안에 보이게 가로 위치 맞춤 */
   (() => { const n = document.querySelector("#geo-hero .tab-page"), on = n && n.querySelector("a.on"); if (!on || n.scrollWidth <= n.clientWidth) return; n.scrollLeft = on.offsetLeft - (n.clientWidth - on.offsetWidth) / 2; })();
   /* @endregion host-tabs */
+  /* @region cmp-diff-cycle (patch-431): 핵심 차이 줄 순서대로 켜기 — 2.4초 간격 반복 · 표가 화면에 보일 때만 · 마우스 올린 줄 고정 */
+  (() => {
+    const rows = [...document.querySelectorAll("#cmp-diff .cd-row:not(.cd-hd)")];
+    if (!rows.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let i = -1, timer = null, seen = false, hover = false;
+    const set = n => { rows.forEach((r, k) => r.classList.toggle("on", k === n)); i = n; };
+    const next = () => set((i + 1) % rows.length);
+    const play = () => { if (timer || hover || !seen) return; next(); timer = setInterval(next, 2400); };
+    const stop = () => { clearInterval(timer); timer = null; };
+    new IntersectionObserver(es => { seen = es[0].isIntersecting; seen ? play() : stop(); }, { threshold: .35 }).observe(rows[0].parentElement);
+    rows.forEach((r, k) => {
+      r.addEventListener("mouseenter", () => { hover = true; stop(); set(k); });
+      r.addEventListener("mouseleave", () => { hover = false; play(); });
+    });
+  })();
+  /* @endregion cmp-diff-cycle */
+
   /* @region cmp-table-stuck (patch-416): 모바일 표 머리줄이 화면 위에 붙으면 .is-stuck (모서리 아래로 · 그림자) — 기존 홈페이지 동일 */
   (() => { const h = document.querySelector(".cpt thead"); if (!h) return; const mq = matchMedia("(max-width: 767px)");
     const f = () => { const top = parseFloat(getComputedStyle(h).top) || 0, r = h.getBoundingClientRect(), t = h.closest("table").getBoundingClientRect(); h.classList.toggle("is-stuck", mq.matches && r.top <= top + 1 && t.top < r.top - 1); };
