@@ -19,6 +19,8 @@
 <style>
   /* =====================================================================
      [개발 전달] 버티컬커머스 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-12 patch-411: 히어로 태블릿 휴대폰 = 전환 없이 무신사(왼쪽) · 오늘의집(오른쪽) 두 화면 고정 · 두 화면 모두 우리 상품(머쉬룸 무드등) 활성화 — 블루 링 · 광고 배지 블루 · 이름 굵게 · 쿠팡 화면은 태블릿에서 숨김
+     · 2026-11-12 patch-410: 히어로 모바일 휴대폰 전환을 제자리 페이드만으로 — 옆에서 밀려 들어오던 이동(±60px) 제거 · 앞 화면 0.3초 사라진 뒤 다음 화면 0.3초 나타남 (합계 0.6초 · 키워드 교체와 같은 리듬)
      · 2026-11-12 patch-409: 히어로 채널 광고 수익률 카드 증감 "▲ 0.6"(단위 없음) → "▲ 12%" — 리포트 대시보드 광고 수익률 412% · 전월 대비 ▲ 12% 와 같게
      · 2026-11-12 patch-408: 문제 영역 오른쪽(채널별 매출) — 오늘의집 → 쿠팡 → 무신사 순서로 막대가 차오르고 차는 동안만 블루 · 머리줄 합산 금액이 412 → 1,184만원으로 함께 올라감 · 합산 금액 굵게 + 검정 (보일 때만 반복 · 동작 줄이기 시 완성 상태 · 스크립트 vc-why-sum)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 비교 값 600 · 모바일 말풍선 11.5 · 단계 퍼널(.vc-fn) 값 13 · 막대 14 / 모서리 4 · 문제 영역 가로 막대 기본색 Gray 300 · 대시보드 도넛 Primary 한 계열
@@ -294,11 +296,22 @@
     .vc-ph.p2 { transform: translateX(calc(-50% + 465px)); opacity: 0; transition: opacity .3s, transform 0s .3s; }
     .vc-ph.p1::after, .vc-ph.p2::after { opacity: 0; }
   }
-  @media (max-width: 767px) {
+  @media (min-width: 768px) and (max-width: 1023px) {   /* patch-411: 태블릿 = 전환 없이 무신사(왼쪽) · 오늘의집(오른쪽) 두 화면 고정 · 두 화면 모두 우리 상품 활성화(블루 링 · 광고 배지 블루 · 이름 굵게) · 쿠팡 숨김 */
+    #geo-hero .vc-ph { transition: none; opacity: 1; }
+    #geo-hero .vc-ph::after { opacity: 0; }
+    #geo-hero .vc-ph[data-ch="2"] { z-index: 2; transform: translateX(calc(-50% - 155px)); }
+    #geo-hero .vc-ph[data-ch="0"] { z-index: 2; transform: translateX(calc(-50% + 155px)); }
+    #geo-hero .vc-ph[data-ch="1"] { display: none; }
+    #geo-hero .vc-ph[data-ch] .me > i { animation: vcRing 2.4s ease-in-out infinite; }
+    #geo-hero .vc-ph[data-ch] .vc-ad { background: var(--primary-600); }
+    #geo-hero .vc-ph[data-ch] .me small, #geo-hero .vc-ph[data-ch] .me b { color: var(--gray-900); font-weight: 600; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) and (prefers-reduced-motion: reduce) { #geo-hero .vc-ph[data-ch] .me > i { animation: none; box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600); } }
+  @media (max-width: 767px) {   /* patch-410: 모바일 화면 전환 = 제자리 페이드만 (위치 · 크기 이동 없음 · 앞 화면 0.3초 사라진 뒤 다음 화면 0.3초 나타남 · 규칙 사이트 히어로 배치 규칙) */
     .vc-ph { width: min(290px, calc(100% - 40px)); }
-    .vc-ph.p0 { transform: translateX(-50%); }
-    .vc-ph.p1 { transform: translateX(calc(-50% + 60px)); opacity: 0; }
-    .vc-ph.p2 { transform: translateX(calc(-50% - 60px)); opacity: 0; transition: transform .6s var(--ease-out), opacity .4s; }
+    .vc-ph.p0, .vc-ph.p1, .vc-ph.p2 { transform: translateX(-50%); }
+    .vc-ph.p1, .vc-ph.p2 { opacity: 0; transition: opacity .3s ease; }
+    .vc-ph.p0 { opacity: 1; transition: opacity .3s ease .3s; }
   }
 
   /* ── 문제: 채널별 매출 (기존 = 자사몰 한 줄만 · 개선 = 채널 3곳이 더해짐 · 오늘의집 1곳 블루) ── */
