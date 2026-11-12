@@ -13,10 +13,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=400">
+<link rel="stylesheet" href="assets/common/wisa.css?v=406">
+<link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 가로축 13 · 말풍선 12 (모바일 11.5) · 대시보드 도넛 Primary 한 계열
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
      · 2026-11-11 patch-352: 마케팅 메뉴 2단으로 변경 — 3단 '매체 광고 상품'(광고 4개)을 채널마케팅 단 마지막 한 줄 '매체 광고 상품 · 쇼핑 · 검색 · 디스플레이 · SNS 광고'(외부 MARKETINGSTORE)로 합침 · PC/태블릿 2depth · 모바일 메뉴 · 푸터 같게 · wisa.css 태블릿 마케팅 3단 폭 규칙 삭제 (?v=352)
@@ -552,7 +554,7 @@
     #geo-market .mk-chart .chart-mo { display: block; width: 100%; height: 210px; margin-top: 6px; }
     #geo-market .mk-chart .chart-mo .yr { font-size: 12px; }
     #geo-market .mk-chart .chart-mo .pv.real { font-size: 12.5px; }
-    #geo-market .mk-chart .chart-mo .tip2 text { font-size: 11px; }
+    #geo-market .mk-chart .chart-mo .tip2 text { font-size: 11.5px; }
   }
   /* patch-157 ③ 6단계(#geo-how) 모바일: 단계 화면 이미지를 PC 크기(560×483) 그대로 그리고 폭에 맞게 축소 (스크립트 onsite-why-scale) */
   @media (max-width: 1439px) {   /* patch-162 PC 최소 · 태블릿까지 확장 (칸이 넓으면 PC 크기로 가운데) */
@@ -1323,8 +1325,8 @@
   #geo-why .sm-pop2 .cp-btn { background: var(--gray-900); color: var(--white); }
   #geo-why .sm-pop2 .cp-x { color: var(--gray-400); }
   /* patch-112 [온사이트 2차] ② 그래프: 하단 단계 이름 굵게 · 3px 작게 · 구매 구간 진하게 · 배지 구매 위로 */
-  #geo-market .mk-chart .chart .yr { font-size: 11.6px; font-weight: 700; }
-  #geo-market .mk-chart .ev-tip text { font-size: 11px; font-weight: 600; }
+  /* patch-406: 가로축 11.6 굵게 → 공통 13 · 지금 값만 굵게 */
+  /* patch-406: 말풍선 11 → 공통 12 */
   /* patch-113 [온사이트 2차] ③ 6단계 = 실제 커머스 화면 + 화면 안 구매 전환 요소 번호 (왼쪽 태그 순서와 같음) */
   #geo-how .vw-bd.os8-bd { gap: 12px; padding: 16px 16px 14px; }
   .os8-pg { position: relative; flex: 1; min-height: 286px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; text-align: left; font-size: 12px; color: var(--gray-800); }
@@ -3094,4 +3096,5 @@
 </html>
 
 <script src="assets/common/wisa.js?v=400"></script>
+<script src="assets/common/chart.js?v=406"></script>
 </body></html>

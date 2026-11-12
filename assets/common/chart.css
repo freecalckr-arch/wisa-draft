@@ -1,0 +1,103 @@
+/* =====================================================================
+   WISA 그래프 공통 부품 (patch-406) · 규칙 사이트 docs/graph.html "그래프 부품" 탭
+   - 화면 이미지(창) 안 작은 그래프 5종: gx-hbar 가로 막대 · gx-vbar 세로 막대 · gx-spark 스파크라인 · gx-donut 도넛 · gx-funnel 퍼널
+   - 색: 기본 계열 Gray 300 · 봐야 할 1개(.on)만 Primary 600 · 이슈(.bad) Error 600 화면당 1곳 · 증감 ▲ Error 600 / ▼ Primary 600
+   - 데이터는 style="--v:.4" (0~1 비율) 로만 바꿈 · 화면에 들어오면 chart.js 가 .gx-go 를 붙여 차오름 (동작 줄이기 시 바로 표시)
+   - 색 변수는 wisa.css · docs.css 의 팔레트 변수를 그대로 씀 (Error 만 팔레트 값 직접)
+   ===================================================================== */
+:root { --primary-25: #f5faff; --primary-200: #b2ddff; --primary-300: #84caff; --primary-400: #53b1fd; }   /* 팔레트 Primary 보조 단계 (wisa.css 에 없는 값) */
+.gx-hbar, .gx-vbar, .gx-funnel { --gx-on: var(--primary-600); --gx-base: var(--gray-300); --gx-track: var(--gray-100); --gx-bad: #d92d20; --gx-ease: cubic-bezier(.22, 1, .36, 1); margin: 0; padding: 0; list-style: none; font-variant-numeric: tabular-nums; }
+
+/* ① 가로 막대 목록 — 순위 · 비중 · 점수 (행 3~5) ------------------------------
+   <ul class="gx-hbar" style="--gx-lb:104px">
+     <li class="on"><span>라벨</span><i style="--v:.4"></i><b>40</b></li>
+   라벨 폭 --gx-lb (기본 96) · 행 높이 20 · 행 간격 12 · 막대 8 / 모서리 99 / 바탕 Gray 100 */
+.gx-hbar { display: flex; flex-direction: column; gap: 12px; }
+.gx-hbar > li { display: grid; grid-template-columns: var(--gx-lb, 96px) minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 20px; font-size: 12.5px; line-height: 16px; color: var(--gray-600); }
+.gx-hbar > li > span { display: flex; align-items: center; gap: 6px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gx-hbar > li > span img { flex: none; width: 16px; height: 16px; border-radius: 4px; }
+.gx-hbar i { position: relative; display: block; height: 8px; border-radius: 99px; background: var(--gx-track); overflow: hidden; }
+.gx-hbar i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--v, 0) * 100%); border-radius: 99px; background: var(--gx-base); transition: width .9s var(--gx-ease) calc(var(--k, 0) * .08s); }
+.gx-hbar > li > b { min-width: 28px; font-size: 12.5px; font-weight: 700; text-align: right; color: var(--gray-700); }
+.gx-hbar > li.on > span { font-weight: 600; color: var(--gray-900); }
+.gx-hbar > li.on i::after { background: var(--gx-on); }
+.gx-hbar > li.on > b { color: var(--gx-on); }
+.gx-hbar > li.bad i::after { background: var(--gx-bad); }
+.gx-hbar > li.bad > b { color: var(--gx-bad); }
+/* 라벨이 막대 위에 오는 형태 (채널 로고 + 이름 + 배지 · 행 높이 36) */
+.gx-hbar.stack > li { grid-template-columns: minmax(0, 1fr) auto; row-gap: 6px; }
+.gx-hbar.stack > li > span { grid-column: 1; grid-row: 1; }
+.gx-hbar.stack > li > i { grid-column: 1; grid-row: 2; }
+.gx-hbar.stack > li > b { grid-column: 2; grid-row: 1 / 3; font-size: 14.5px; }
+
+/* ② 세로 막대 — 기간별 · 항목별 비교 (막대 4~8) ------------------------------
+   <ul class="gx-vbar" style="--gx-h:120px">
+     <li><i style="--v:.6"><b>60</b></i><span>1월</span></li> · 강조 li.on
+   막대 칸 높이 --gx-h (기본 100) · 막대 간격 8 · 모서리 위 6 아래 2 · 기준선 Gray 200 · 수치는 막대 위 (선택) */
+.gx-vbar { display: flex; align-items: flex-end; gap: 8px; }
+.gx-vbar > li { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 6px; }
+.gx-vbar > li > i { position: relative; display: block; height: var(--gx-h, 100px); border-bottom: 1px solid var(--gray-200); }
+.gx-vbar > li > i::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--v, 0) * 100%); border-radius: 6px 6px 2px 2px; background: var(--gx-base); transform-origin: 50% 100%; transition: transform .9s var(--gx-ease) calc(var(--k, 0) * .06s); }
+.gx-vbar > li > i > b { position: absolute; left: 0; right: 0; bottom: calc(var(--v, 0) * 100% + 4px); font-size: 11px; font-weight: 700; line-height: 14px; text-align: center; color: var(--gray-500); transition: opacity .4s ease .7s; }
+.gx-vbar > li > span { font-size: 11px; line-height: 14px; text-align: center; color: var(--gray-500); white-space: nowrap; }
+.gx-vbar > li.on > i::after { background: var(--gx-on); }
+.gx-vbar > li.on > i > b, .gx-vbar > li.on > span { font-weight: 700; color: var(--gx-on); }
+.gx-vbar > li.bad > i::after { background: var(--gx-bad); }
+.gx-vbar > li.bad > i > b { color: var(--gx-bad); }
+.gx-vbar.soft > li > i::after { background: var(--primary-100); }   /* 대시보드 카드처럼 블루 계열 하나로 볼 때: 기본 Primary 100 + 강조 Primary 600 */
+.gx-vbar.soft > li.on > i::after { background: var(--gx-on); }
+
+/* ③ 스파크라인 — 수치 옆 작은 추세 (선 1개) -----------------------------------
+   <svg class="gx-spark up" viewBox="0 0 64 22"><path class="a" d="M0 18 … L64 22 L0 22Z"/><path class="l" d="M0 18 …"/><circle cx="64" cy="4" r="2.5"/></svg>
+   up = 증가 Error 600 · dn = 감소 Primary 600 · 없으면 Gray 400 · 선 1.5 · 면(.a)은 선택 · 끝점 1개 r 2.5 */
+.gx-spark { display: block; overflow: visible; color: var(--gray-400); }
+.gx-spark.up { color: #d92d20; }
+.gx-spark.dn { color: var(--primary-600); }
+.gx-spark .l { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.gx-spark .a { fill: currentColor; opacity: .1; stroke: none; }
+.gx-spark circle { fill: currentColor; }
+
+/* ④ 도넛 — 전체 중 비중 · 점수 (조각 2~4) ------------------------------------
+   <div class="gx-donut" style="--gx-d:96px">
+     <svg viewBox="0 0 120 120"><circle class="t" cx="60" cy="60" r="52"/><circle class="s" cx="60" cy="60" r="52" style="--a:0;--p:31"/><circle class="s on" cx="60" cy="60" r="52" style="--a:31;--p:24"/></svg>
+     <p><strong>62<small>%</small></strong><span>라벨</span></p></div>
+   --a 시작(%) · --p 크기(%) · 두께 = 지름의 12% · 조각 사이 1% 틈 · 기본 조각 Gray 300 → 400 → 200 · 강조 1개 Primary 600 */
+.gx-donut { position: relative; flex: none; width: var(--gx-d, 96px); height: var(--gx-d, 96px); }
+.gx-donut svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
+.gx-donut circle { fill: none; stroke-width: 14; }   /* 원 위치 · 반지름은 마크업 cx="60" cy="60" r="52" */
+.gx-donut .t { stroke: var(--gray-100); }
+.gx-donut .s { stroke: var(--gray-300); stroke-dasharray: calc(var(--p) * 3.267 - 3.267) 400; stroke-dashoffset: calc(var(--a) * -3.267); transition: stroke-dasharray .9s cubic-bezier(.22, 1, .36, 1) calc(var(--k, 0) * .12s); }   /* 둘레 326.7 ÷ 100 */
+.gx-donut .s.g2 { stroke: var(--gray-400); } .gx-donut .s.g3 { stroke: var(--gray-200); }
+.gx-donut .s.on { stroke: var(--primary-600); }
+.gx-donut .s.bad { stroke: #d92d20; }
+.gx-donut.one .s { stroke-dasharray: calc(var(--p) * 3.267) 400; stroke-linecap: round; }   /* 점수 링 (값 1개) */
+.gx-donut.one .s:not(.bad) { stroke: var(--primary-600); }
+.gx-donut > p { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; text-align: center; }
+.gx-donut > p strong { font-size: calc(var(--gx-d, 96px) * .21); font-weight: 700; line-height: 1.1; color: var(--gray-900); }
+.gx-donut > p small { margin-left: 1px; font-size: .55em; font-weight: 600; color: var(--gray-500); }
+.gx-donut > p span { margin-top: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+
+/* ⑤ 퍼널 — 단계별로 줄어드는 수 (단계 3~4) ------------------------------------
+   <ol class="gx-funnel"><li><span>노출</span><b>48,200</b><i style="--v:1"></i></li> … <li class="on">…</li></ol>
+   한 줄 = 단계 이름 · 수치 / 아래 막대 14 · 모서리 4 · 마지막(봐야 할) 단계 .on Primary 600 · 단계 사이 전환율 <em> (선택) */
+.gx-funnel { display: flex; flex-direction: column; gap: 10px; }
+.gx-funnel > li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; row-gap: 6px; font-size: 12.5px; line-height: 16px; color: var(--gray-600); }
+.gx-funnel > li > b { font-size: 13px; font-weight: 700; color: var(--gray-700); }
+.gx-funnel > li > i { grid-column: 1 / -1; position: relative; display: block; height: 14px; border-radius: 4px; background: var(--gx-track); overflow: hidden; }
+.gx-funnel > li > i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--v, 0) * 100%); min-width: 4px; border-radius: 4px; background: var(--gx-base); transition: width .9s var(--gx-ease) calc(var(--k, 0) * .15s); }
+.gx-funnel > li.on > span { font-weight: 600; color: var(--gray-900); }
+.gx-funnel > li.on > b { color: var(--gx-on); }
+.gx-funnel > li.on > i::after { background: var(--gx-on); }
+.gx-funnel > li.cv { display: flex; align-items: center; gap: 6px; margin: -4px 0; font-size: 11px; color: var(--gray-500); }
+.gx-funnel > li.cv em { font-style: normal; font-weight: 700; color: var(--gray-700); }
+.gx-funnel > li.cv::before { content: "↓"; color: var(--gray-400); }
+
+/* 차오르기: .gx-anim 이 붙은 부품은 화면에 들어와 .gx-go 가 붙을 때 차오름 (chart.js) */
+.gx-anim:not(.gx-go) .gx-hbar i::after, .gx-anim:not(.gx-go).gx-hbar i::after,
+.gx-anim:not(.gx-go) .gx-funnel i::after, .gx-anim:not(.gx-go).gx-funnel i::after { width: 0; }
+.gx-anim:not(.gx-go) .gx-vbar i::after, .gx-anim:not(.gx-go).gx-vbar i::after { transform: scaleY(0); }
+.gx-anim:not(.gx-go) .gx-vbar i > b, .gx-anim:not(.gx-go).gx-vbar i > b { opacity: 0; }
+.gx-anim:not(.gx-go) .gx-donut .s, .gx-anim:not(.gx-go).gx-donut .s { stroke-dasharray: 0 400; }
+@media (prefers-reduced-motion: reduce) {
+  .gx-hbar i::after, .gx-vbar i::after, .gx-vbar i > b, .gx-funnel i::after, .gx-donut .s { transition: none !important; }
+}

@@ -6,6 +6,12 @@
 <title>그래프 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
+<link rel="stylesheet" href="../assets/common/chart.css?v=406">
+<style>
+  .gx-demo { display: flex; flex-wrap: wrap; gap: 16px; margin: 0 0 12px; }
+  .gx-demo-in { display: flex; align-items: center; gap: 24px; width: min(100%, var(--w)); padding: 24px; border: 1px solid var(--gray-200); border-radius: 14px; background: var(--white); box-sizing: border-box; }
+  .gx-demo-in > ul, .gx-demo-in > ol { flex: 1; }
+</style>
 </head>
 <body>
 <!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 탭은 <section class="panel" data-tab="이름">, 목차는 그 안의 <h2 id> 로 만듭니다. -->
@@ -13,9 +19,172 @@
   <header class="ph">
     <p class="eyebrow">영역 규격</p>
     <h1>그래프</h1>
-    <p class="lede">그래프 영역(<code>#geo-market</code>) 메인 그래프는 PC 에서 폭에 비례하고, 태블릿 · 모바일은 전용 그림을 세로 고정으로 씁니다.</p>
+    <p class="lede">마케팅 시안 그래프는 8가지 양식 중에서 데이터에 맞는 것을 골라 씁니다. 그래프 영역(<code>#geo-market</code>) 메인 그래프 3종은 SVG 규격, 화면 이미지 안 작은 그래프 5종은 공통 부품(<code>chart.css</code>)입니다.</p>
   </header>
   <div class="body">
+<section class="panel" data-tab="고르는 법">
+    <h2 id="pick">데이터에 맞는 그래프 고르기</h2>
+    <p>그래프는 아래 8가지 중에서만 고릅니다. 같은 성격의 데이터면 같은 그래프를 쓰고, 한 화면에 그래프는 1개입니다.</p>
+    <div class="tbl"><table><thead><tr><th>보여 줄 데이터</th><th>그래프</th><th>위치</th><th>쓰는 페이지</th></tr></thead><tbody>
+<tr><td>시간 · 단계에 따라 커지는 · 줄어드는 흐름</td><td><b>① 꺾은선</b> · 면 + 전망 점선</td><td>그래프 영역</td><td>GEO · 온사이트</td></tr>
+<tr><td>두 방식 · 두 집단을 시간에 따라 비교</td><td><b>② 비교 꺾은선</b> · 차이 표시</td><td>그래프 영역</td><td>CRM · 리포트 · 버티컬커머스</td></tr>
+<tr><td>항목 2~4개 크기 비교</td><td><b>③ 비교 세로 막대</b> · 차이 점선</td><td>그래프 영역</td><td>공식채널운영 · 상품DB 연동</td></tr>
+<tr><td>항목 3~5개 순위 · 점수 · 비중 목록</td><td><b>④ 가로 막대</b> <code>gx-hbar</code></td><td>화면 이미지 안</td><td>GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스</td></tr>
+<tr><td>기간별 · 항목별 값 4~8개</td><td><b>⑤ 세로 막대</b> <code>gx-vbar</code></td><td>화면 이미지 안</td><td>리포트 · 대시보드</td></tr>
+<tr><td>수치 옆 작은 추세</td><td><b>⑥ 스파크라인</b> <code>gx-spark</code></td><td>화면 이미지 안</td><td>온사이트 · CRM · 리포트 · 버티컬커머스</td></tr>
+<tr><td>전체 중 비중 2~4조각 · 점수 1개</td><td><b>⑦ 도넛</b> <code>gx-donut</code></td><td>화면 이미지 안</td><td>대시보드 · GEO 진단 점수</td></tr>
+<tr><td>단계마다 줄어드는 수 (노출 → 클릭 → 구매)</td><td><b>⑧ 퍼널</b> <code>gx-funnel</code></td><td>화면 이미지 안</td><td>공식채널운영 · 버티컬커머스</td></tr>
+</tbody></table></div>
+    <h2 id="common">모든 그래프 공통</h2>
+    <ol class="rules">
+      <li><div><b>색은 그레이 + 블루 1개</b><span>기본 계열 Gray 300, 봐야 할 값 1개만 Primary 600. 비교 대상은 Gray 400. 계열이 여러 개면 Gray 명도(200 · 300 · 400)로 나눕니다.</span></div></li>
+      <li><div><b>이슈 · 증감 색</b><span>이슈(이상 · 손해)는 Error 600 레드 화면당 1곳. 증감은 방향 색 — 증가 ▲ Error 600 · 감소 ▼ Primary 600.</span></div></li>
+      <li><div><b>실선 = 실제 · 점선 = 가정 · 전망</b><span>실제 데이터는 실선, 예측이나 "하지 않을 때" 같은 가정 계열은 점선입니다.</span></div></li>
+      <li><div><b>양은 적게</b><span>막대 · 행 3~5개(세로 막대는 8개까지). 수치 표시는 강조 값과 끝 값 위주로.</span></div></li>
+      <li><div><b>움직임 1번</b><span>화면에 들어오면 선은 왼쪽부터 그려지고 막대 · 도넛은 차오릅니다. 동작 줄이기 설정이면 바로 보입니다.</span></div></li>
+    </ol>
+</section>
+
+<section class="panel" data-tab="메인 그래프">
+    <h2 id="main">그래프 영역 메인 그래프 ① ② ③</h2>
+    <p>그래프 영역(<code>#geo-market</code>) 그래프는 SVG 로 그리고 아래 클래스 · 크기를 씁니다 (공통 <code>wisa.css</code> 의 <code>.mk-chart</code>). 글자 크기는 PC 그림(viewBox 920 × 250) 기준이며 폭에 비례합니다.</p>
+    <div class="tbl"><table><thead><tr><th>요소</th><th>클래스</th><th>규격</th></tr></thead><tbody>
+<tr><td>격자 · 기준선</td><td><code>.mg</code> · <code>.mg.base</code></td><td>Gray 100 · 기준선 Gray 200</td></tr>
+<tr><td>세로축 글자</td><td><code>.ya</code></td><td>11 · Gray 400</td></tr>
+<tr><td>가로축 글자 (연도 · 단계)</td><td><code>.yr</code> · <code>.yr.now</code></td><td>13 · 500 Gray 600 / 지금 값 700 Black</td></tr>
+<tr><td>주 계열 선</td><td><code>.ln</code> · 전망 <code>.ln.fc</code></td><td>Primary 600 · 2 · 전망은 점선 2 8</td></tr>
+<tr><td>주 계열 점</td><td><code>.pt</code> · <code>.pt.now</code></td><td>Primary 600 · 지금 값은 흰 원 + Primary 600 테두리</td></tr>
+<tr><td>주 계열 면</td><td><code>.ar</code></td><td>Primary 600 세로 그라데이션 (위 투명도 .16 → 0)</td></tr>
+<tr><td>비교 계열 선 ②</td><td><code>.cmp</code> (실제) · <code>.cmp.fc</code> (가정)</td><td>Gray 400 · 2 · 가정은 점선 5 5</td></tr>
+<tr><td>비교 막대 ③</td><td><code>.bar</code> · <code>.bar.now</code></td><td>Gray 300 · 강조 Primary 600</td></tr>
+<tr><td>차이 표시</td><td><code>.gap</code></td><td>Gray 50 바탕 + Gray 400 점선 1.5 (4 4) · 손해를 보여 줄 때만 Error 600 계열</td></tr>
+<tr><td>값</td><td><code>.pv.real</code> · 강조 <code>.now</code> · 비교 <code>.cmp-v</code></td><td>13 · 700 Gray 700 / 강조 Primary 600 / 비교 600 Gray 500</td></tr>
+<tr><td>말풍선</td><td><code>.tip2</code></td><td>Gray 900 바탕 · 12 · 600 흰색</td></tr>
+<tr><td>범례</td><td><code>.mk-lg</code> (선) · <code>.mk-lg.bar</code> (막대)</td><td>13 · Gray 600 · 선 16 × 3 (가정 · 전망은 점선) · 막대 10 × 10 모서리 3 · 차이 10 × 10 점선 사각</td></tr>
+</tbody></table></div>
+    <p class="note">태블릿 · 모바일 전용 그림은 가로축 12 · 값 12.5 · 말풍선 11.5. 세로 길이는 그래프 영역 탭 참고.</p>
+</section>
+
+<section class="panel" data-tab="그래프 부품">
+    <h2 id="parts">화면 이미지 안 그래프 부품</h2>
+    <p>화면 이미지(창) 안 작은 그래프는 공통 부품을 그대로 가져다 쓰고, 데이터 값 <code>--v</code>(0~1)와 글자만 바꿉니다. 페이지에 <code>assets/common/chart.css</code> · <code>chart.js</code> 가 연결돼 있어야 합니다 (마케팅 시안은 모두 연결됨). <code>gx-anim</code> 을 붙이면 화면에 들어올 때 차오릅니다.</p>
+    <h2 id="hbar">④ 가로 막대 gx-hbar</h2>
+    <p>항목 3~5개의 순위 · 점수 · 비중. 행 간격 12 · 막대 8 · 라벨 12.5 · 라벨 폭 <code>--gx-lb</code>. 봐야 할 행 <code>.on</code> · 이슈 행 <code>.bad</code>. 로고 + 이름이 있으면 <code>.stack</code> (라벨이 막대 위).</p>
+    <div class="gx-demo" style="--w:380px"><div class="gx-demo-in"><ul class="gx-hbar gx-anim" style="--gx-lb:96px">
+  <li><span>구조화 데이터</span><i style="--v:.7"></i><b>70</b></li>
+  <li class="on"><span>상품 정보 품질</span><i style="--v:.35"></i><b>35</b></li>
+  <li><span>크롤러 접근성</span><i style="--v:.9"></i><b>90</b></li>
+  <li><span>AI 답변 노출</span><i style="--v:.4"></i><b>40</b></li>
+</ul></div><div class="gx-demo-in"><ul class="gx-hbar stack gx-anim">
+  <li class="on"><span><img src="../assets/common/brand/naver.svg" alt="">네이버쇼핑</span><i style="--v:1"></i><b>1,236</b></li>
+  <li><span><img src="../assets/common/brand/kakao.svg" alt="">카카오쇼핑</span><i style="--v:.72"></i><b>890</b></li>
+  <li><span><img src="../assets/common/brand/google.svg" alt="">구글쇼핑</span><i style="--v:.46"></i><b>571</b></li>
+</ul></div></div>
+    <div class="code"><button type="button" data-copy="c-hbar">복사</button><pre id="c-hbar">&lt;ul class="gx-hbar gx-anim" style="--gx-lb:96px"&gt;
+  &lt;li&gt;&lt;span&gt;구조화 데이터&lt;/span&gt;&lt;i style="--v:.7"&gt;&lt;/i&gt;&lt;b&gt;70&lt;/b&gt;&lt;/li&gt;
+  &lt;li class="on"&gt;&lt;span&gt;상품 정보 품질&lt;/span&gt;&lt;i style="--v:.35"&gt;&lt;/i&gt;&lt;b&gt;35&lt;/b&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span&gt;크롤러 접근성&lt;/span&gt;&lt;i style="--v:.9"&gt;&lt;/i&gt;&lt;b&gt;90&lt;/b&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span&gt;AI 답변 노출&lt;/span&gt;&lt;i style="--v:.4"&gt;&lt;/i&gt;&lt;b&gt;40&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul class="gx-hbar stack gx-anim"&gt;
+  &lt;li class="on"&gt;&lt;span&gt;&lt;img src="../assets/common/brand/naver.svg" alt=""&gt;네이버쇼핑&lt;/span&gt;&lt;i style="--v:1"&gt;&lt;/i&gt;&lt;b&gt;1,236&lt;/b&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span&gt;&lt;img src="../assets/common/brand/kakao.svg" alt=""&gt;카카오쇼핑&lt;/span&gt;&lt;i style="--v:.72"&gt;&lt;/i&gt;&lt;b&gt;890&lt;/b&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span&gt;&lt;img src="../assets/common/brand/google.svg" alt=""&gt;구글쇼핑&lt;/span&gt;&lt;i style="--v:.46"&gt;&lt;/i&gt;&lt;b&gt;571&lt;/b&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre></div>
+
+    <h2 id="vbar">⑤ 세로 막대 gx-vbar</h2>
+    <p>기간별 · 항목별 값 4~8개. 막대 칸 높이 <code>--gx-h</code> · 간격 8 · 모서리 위 6 아래 2 · 막대 위 수치 11 (선택). 대시보드처럼 블루 계열로 볼 때 <code>.soft</code> (기본 Primary 100).</p>
+    <div class="gx-demo" style="--w:380px"><div class="gx-demo-in"><ul class="gx-vbar gx-anim" style="--gx-h:100px">
+  <li><i style="--v:.42"><b>42</b></i><span>6월</span></li>
+  <li><i style="--v:.55"><b>55</b></i><span>7월</span></li>
+  <li><i style="--v:.48"><b>48</b></i><span>8월</span></li>
+  <li><i style="--v:.66"><b>66</b></i><span>9월</span></li>
+  <li class="on"><i style="--v:.9"><b>90</b></i><span>10월</span></li>
+</ul></div></div>
+    <div class="code"><button type="button" data-copy="c-vbar">복사</button><pre id="c-vbar">&lt;ul class="gx-vbar gx-anim" style="--gx-h:100px"&gt;
+  &lt;li&gt;&lt;i style="--v:.42"&gt;&lt;b&gt;42&lt;/b&gt;&lt;/i&gt;&lt;span&gt;6월&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;i style="--v:.55"&gt;&lt;b&gt;55&lt;/b&gt;&lt;/i&gt;&lt;span&gt;7월&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;i style="--v:.48"&gt;&lt;b&gt;48&lt;/b&gt;&lt;/i&gt;&lt;span&gt;8월&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;i style="--v:.66"&gt;&lt;b&gt;66&lt;/b&gt;&lt;/i&gt;&lt;span&gt;9월&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="on"&gt;&lt;i style="--v:.9"&gt;&lt;b&gt;90&lt;/b&gt;&lt;/i&gt;&lt;span&gt;10월&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;</pre></div>
+
+    <h2 id="spark">⑥ 스파크라인 gx-spark</h2>
+    <p>수치 옆 작은 추세. 선 1.5 · 끝점 r 2.5 · 면(<code>.a</code>)은 선택. 증가 <code>.up</code> 레드 · 감소 <code>.dn</code> 블루 · 없으면 Gray 400.</p>
+    <div class="gx-demo" style="--w:380px"><div class="gx-demo-in"><svg class="gx-spark up" viewBox="0 0 64 22" width="64" height="22" aria-hidden="true">
+  <path class="a" d="M0 18 L12 15 L24 16 L36 10 L48 11 L64 4 L64 22 L0 22Z"/>
+  <path class="l" d="M0 18 L12 15 L24 16 L36 10 L48 11 L64 4"/>
+  <circle cx="64" cy="4" r="2.5"/>
+</svg>
+<svg class="gx-spark dn" viewBox="0 0 64 22" width="64" height="22" aria-hidden="true">
+  <path class="l" d="M0 5 L12 8 L24 7 L36 12 L48 13 L64 18"/>
+  <circle cx="64" cy="18" r="2.5"/>
+</svg></div></div>
+    <div class="code"><button type="button" data-copy="c-spark">복사</button><pre id="c-spark">&lt;svg class="gx-spark up" viewBox="0 0 64 22" width="64" height="22" aria-hidden="true"&gt;
+  &lt;path class="a" d="M0 18 L12 15 L24 16 L36 10 L48 11 L64 4 L64 22 L0 22Z"/&gt;
+  &lt;path class="l" d="M0 18 L12 15 L24 16 L36 10 L48 11 L64 4"/&gt;
+  &lt;circle cx="64" cy="4" r="2.5"/&gt;
+&lt;/svg&gt;
+&lt;svg class="gx-spark dn" viewBox="0 0 64 22" width="64" height="22" aria-hidden="true"&gt;
+  &lt;path class="l" d="M0 5 L12 8 L24 7 L36 12 L48 13 L64 18"/&gt;
+  &lt;circle cx="64" cy="18" r="2.5"/&gt;
+&lt;/svg&gt;</pre></div>
+
+    <h2 id="donut">⑦ 도넛 gx-donut</h2>
+    <p>전체 중 비중 2~4조각(<code>--a</code> 시작 % · <code>--p</code> 크기 %) 또는 점수 1개(<code>.one</code>). 두께 = 지름의 12% · 조각 사이 1% 틈 · 조각 Gray 300 · <code>.g2</code> 400 · <code>.g3</code> 200 · 강조 <code>.on</code> Primary 600. 크기 <code>--gx-d</code>.</p>
+    <div class="gx-demo" style="--w:380px"><div class="gx-demo-in"><div class="gx-donut gx-anim" style="--gx-d:112px">
+  <svg viewBox="0 0 120 120" aria-hidden="true">
+    <circle class="t" cx="60" cy="60" r="52"/>
+    <circle class="s on" cx="60" cy="60" r="52" style="--a:0;--p:42"/>
+    <circle class="s g2" cx="60" cy="60" r="52" style="--a:42;--p:31"/>
+    <circle class="s" cx="60" cy="60" r="52" style="--a:73;--p:27"/>
+  </svg>
+  <p><strong>42<small>%</small></strong><span>재구매 고객</span></p>
+</div>
+<div class="gx-donut one gx-anim" style="--gx-d:96px">
+  <svg viewBox="0 0 120 120" aria-hidden="true">
+    <circle class="t" cx="60" cy="60" r="52"/>
+    <circle class="s" cx="60" cy="60" r="52" style="--a:0;--p:62"/>
+  </svg>
+  <p><strong>62</strong><span>/ 100</span></p>
+</div></div></div>
+    <div class="code"><button type="button" data-copy="c-donut">복사</button><pre id="c-donut">&lt;div class="gx-donut gx-anim" style="--gx-d:112px"&gt;
+  &lt;svg viewBox="0 0 120 120" aria-hidden="true"&gt;
+    &lt;circle class="t" cx="60" cy="60" r="52"/&gt;
+    &lt;circle class="s on" cx="60" cy="60" r="52" style="--a:0;--p:42"/&gt;
+    &lt;circle class="s g2" cx="60" cy="60" r="52" style="--a:42;--p:31"/&gt;
+    &lt;circle class="s" cx="60" cy="60" r="52" style="--a:73;--p:27"/&gt;
+  &lt;/svg&gt;
+  &lt;p&gt;&lt;strong&gt;42&lt;small&gt;%&lt;/small&gt;&lt;/strong&gt;&lt;span&gt;재구매 고객&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="gx-donut one gx-anim" style="--gx-d:96px"&gt;
+  &lt;svg viewBox="0 0 120 120" aria-hidden="true"&gt;
+    &lt;circle class="t" cx="60" cy="60" r="52"/&gt;
+    &lt;circle class="s" cx="60" cy="60" r="52" style="--a:0;--p:62"/&gt;
+  &lt;/svg&gt;
+  &lt;p&gt;&lt;strong&gt;62&lt;/strong&gt;&lt;span&gt;/ 100&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;</pre></div>
+
+    <h2 id="funnel">⑧ 퍼널 gx-funnel</h2>
+    <p>단계마다 줄어드는 수 3~4단계. 막대 14 · 모서리 4 · 마지막(봐야 할) 단계 <code>.on</code> · 단계 사이 전환율 <code>li.cv</code> (선택).</p>
+    <div class="gx-demo" style="--w:380px"><div class="gx-demo-in"><ol class="gx-funnel gx-anim">
+  <li><span>노출</span><b>48,200</b><i style="--v:1"></i></li>
+  <li class="cv">클릭률 <em>4.0%</em></li>
+  <li><span>클릭</span><b>1,930</b><i style="--v:.56"></i></li>
+  <li class="cv">구매 전환율 <em>4.5%</em></li>
+  <li class="on"><span>구매</span><b>86건</b><i style="--v:.24"></i></li>
+</ol></div></div>
+    <div class="code"><button type="button" data-copy="c-funnel">복사</button><pre id="c-funnel">&lt;ol class="gx-funnel gx-anim"&gt;
+  &lt;li&gt;&lt;span&gt;노출&lt;/span&gt;&lt;b&gt;48,200&lt;/b&gt;&lt;i style="--v:1"&gt;&lt;/i&gt;&lt;/li&gt;
+  &lt;li class="cv"&gt;클릭률 &lt;em&gt;4.0%&lt;/em&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span&gt;클릭&lt;/span&gt;&lt;b&gt;1,930&lt;/b&gt;&lt;i style="--v:.56"&gt;&lt;/i&gt;&lt;/li&gt;
+  &lt;li class="cv"&gt;구매 전환율 &lt;em&gt;4.5%&lt;/em&gt;&lt;/li&gt;
+  &lt;li class="on"&gt;&lt;span&gt;구매&lt;/span&gt;&lt;b&gt;86건&lt;/b&gt;&lt;i style="--v:.24"&gt;&lt;/i&gt;&lt;/li&gt;
+&lt;/ol&gt;</pre></div>
+
+</section>
+
 <section class="panel" data-tab="그래프 영역">
     <h2 id="height">세로 길이</h2>
     <div class="tbl"><table><thead><tr><th>구간</th><th>그래프 세로</th><th>그림</th></tr></thead><tbody>
@@ -41,9 +210,10 @@
 </tbody></table></div>
     <p class="note">해결 · 적용 꺾은선처럼 화면 이미지 안에 있는 그래프는 따로 정하지 않고 <a href="image.html">이미지 배율</a>을 따릅니다.</p>
     </section>
-    <p class="foot">마지막 수정 2026-11-11 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+    <p class="foot">마지막 수정 2026-11-12 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>
+<script src="../assets/common/chart.js?v=406"></script>
 </body>
 </html>

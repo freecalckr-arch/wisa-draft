@@ -14,10 +14,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=400">
+<link rel="stylesheet" href="assets/common/wisa.css?v=406">
+<link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 가로축 13 · 말풍선 12 · 범례 선 16×3 (전망 점선) · 해결 점수 막대(.vw-bars) → 공통 가로 막대 gx-hbar (가장 시급한 1개만 블루) · 대시보드 도넛 Primary 한 계열
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
      · 2026-11-11 patch-352: 마케팅 메뉴 2단으로 변경 — 3단 '매체 광고 상품'(광고 4개)을 채널마케팅 단 마지막 한 줄 '매체 광고 상품 · 쇼핑 · 검색 · 디스플레이 · SNS 광고'(외부 MARKETINGSTORE)로 합침 · PC/태블릿 2depth · 모바일 메뉴 · 푸터 같게 · wisa.css 태블릿 마케팅 3단 폭 규칙 삭제 (?v=352)
@@ -460,7 +462,7 @@
       <li class="steprow rv">
         <span class="sr-no">1</span>
         <div class="sr-body"><h3><em class="key">진단</em> AI가 우리 쇼핑몰을 어떻게 읽는지 확인합니다</h3><p>AI가 우리 쇼핑몰을 어떻게 읽고 답하는지, 8가지 관점에서 살펴봅니다.</p><p class="sr-out">현재 상태와 개선 우선순위가 담긴 진단 결과를 받습니다</p><ul class="sr-tags"><li>AI 답변 노출 현황</li><li>AI 크롤러 접근성</li><li>구조화 데이터</li><li>상품 정보 품질</li><li>콘텐츠 · FAQ</li><li>브랜드 신뢰 정보</li><li>채널 간 정보 일관성</li><li>경쟁 브랜드 비교</li></ul></div>
-        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>AI 진단 결과</b><span class="vw-m">mybrand.co.kr</span><em class="vw-chip">진단 완료</em></div><div class="vw-bd"><div class="vw-sc"><svg viewBox="0 0 80 80" class="vw-ring"><circle cx="40" cy="40" r="32" class="vw-rg"/><circle cx="40" cy="40" r="32" class="vw-rv" style="--p:62"/></svg><div><strong>62<small> / 100</small></strong><span>개선이 필요한 영역 <b>2개</b></span></div></div><ul class="vw-bars"><li class="lo"><span>AI 답변 노출</span><i style="--v:.4"></i><b>40</b></li><li><span>구조화 데이터</span><i style="--v:.7"></i><b>70</b></li><li class="lo"><span>상품 정보 품질</span><i style="--v:.35"></i><b>35</b></li><li><span>크롤러 접근성</span><i style="--v:.9"></i><b>90</b></li></ul><p class="vw-nx vw-urg"><b>가장 시급</b>상품 정보 품질 · 상세 이미지 속 규격이 텍스트로 없음</p></div></div></div>
+        <div class="sr-vis vw" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><b>AI 진단 결과</b><span class="vw-m">mybrand.co.kr</span><em class="vw-chip">진단 완료</em></div><div class="vw-bd"><div class="vw-sc"><svg viewBox="0 0 80 80" class="vw-ring"><circle cx="40" cy="40" r="32" class="vw-rg"/><circle cx="40" cy="40" r="32" class="vw-rv" style="--p:62"/></svg><div><strong>62<small> / 100</small></strong><span>개선이 필요한 영역 <b>2개</b></span></div></div><ul class="gx-hbar gx-anim" style="--gx-lb:104px"><li><span>AI 답변 노출</span><i style="--v:.4"></i><b>40</b></li><li><span>구조화 데이터</span><i style="--v:.7"></i><b>70</b></li><li class="on"><span>상품 정보 품질</span><i style="--v:.35"></i><b>35</b></li><li><span>크롤러 접근성</span><i style="--v:.9"></i><b>90</b></li></ul><p class="vw-nx vw-urg"><b>가장 시급</b>상품 정보 품질 · 상세 이미지 속 규격이 텍스트로 없음</p></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">2</span>
@@ -1112,6 +1114,7 @@
 /* report-zoom → assets/common/wisa.js (patch-172) */
 </script>
 <script src="assets/common/wisa.js?v=400"></script>
+<script src="assets/common/chart.js?v=406"></script>
 </body>
 </html>
 

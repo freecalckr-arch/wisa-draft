@@ -14,10 +14,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=400">
+<link rel="stylesheet" href="assets/common/wisa.css?v=406">
+<link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 막대 값 15 → 13 / 700 · 막대 범례 10 × 10 모서리 3 (.mk-lg.bar) · 대시보드 도넛 Primary 한 계열
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
      · 2026-11-11 patch-352: 마케팅 메뉴 2단으로 변경 — 3단 '매체 광고 상품'(광고 4개)을 채널마케팅 단 마지막 한 줄 '매체 광고 상품 · 쇼핑 · 검색 · 디스플레이 · SNS 광고'(외부 MARKETINGSTORE)로 합침 · PC/태블릿 2depth · 모바일 메뉴 · 푸터 같게 · wisa.css 태블릿 마케팅 3단 폭 규칙 삭제 (?v=352)
@@ -200,10 +202,10 @@
   #geo-market .mk-stats .ph-st strong { color: var(--gray-300); }
   /* patch-313: 그래프 = 광고 클릭 63.7% (Gray 300) vs 광고 보고 구매 28.2% (Primary 600 · 봐야 할 1곳) · 구매 막대 위 점선 칸 = 이어지지 않은 차이 · 말풍선 −35.5%p · 막대가 아래에서 차오름 */
   #geo-market .mk-chart .sn-agb { fill: var(--gray-300); } #geo-market .mk-chart .sn-agb.now { fill: var(--primary-600); }
-  #geo-market .mk-chart .sn-bv { font-size: 15px; fill: var(--gray-600); } #geo-market .mk-chart .sn-bv.now { fill: var(--primary-600); }
+  #geo-market .mk-chart .sn-bv { font-weight: 700; font-size: 13px; fill: var(--gray-600); } #geo-market .mk-chart .sn-bv.now { fill: var(--primary-600); }
   #geo-market .mk-chart .sn-gap { fill: var(--gray-50); stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
   #geo-market .mk-chart .sn-gl { stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
-  #geo-market .mk-lg i.sn-gpl { width: 12px; height: 12px; border-radius: 3px; background: var(--gray-50); box-shadow: none; border: 1.5px dashed var(--gray-400); box-sizing: border-box; }
+  #geo-market .mk-lg i.sn-gpl { width: 10px; height: 10px; border-radius: 3px; background: var(--gray-50); box-shadow: none; border: 1.5px dashed var(--gray-400); box-sizing: border-box; }
   #geo-market .mk-chart.mk-anim .chart .sn-agb { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .9s var(--ease-out); transition-delay: calc(var(--i) * 200ms + .15s); }
   #geo-market .mk-chart.mk-anim.on .chart .sn-agb { transform: none; }
   #geo-market .mk-chart.mk-anim .chart .sn-bv { transition-delay: calc(var(--i) * 200ms + .8s); }
@@ -603,7 +605,7 @@
   <div class="container">
     <div class="sub-title center rv"><h2>광고를 눌러도<br class="mo-br"> 구매까지 이어지지 않습니다</h2><p>SNS 이용자 10명 중 6명은 광고를 눌러 보지만, 광고를 보고 구매한 사람은 3명에 그칩니다.<br class="pc-only"> 광고에서 페이지 · 쇼핑몰까지 같은 경험이 이어져야 구매로 연결됩니다.</p></div>
     <div class="mk-chart rv" style="--d:100ms">
-      <div class="mk-hd"><b>SNS 광고를 본 고객, 구매까지 이어졌을까</b><span class="mk-lg"><i class="ai"></i>구매까지 이어짐<i class="sn-gpl"></i>이어지지 않은 차이</span></div>
+      <div class="mk-hd"><b>SNS 광고를 본 고객, 구매까지 이어졌을까</b><span class="mk-lg bar"><i class="ai"></i>구매까지 이어짐<i class="sn-gpl"></i>이어지지 않은 차이</span></div>
       <!-- [수정] M6 · T2 그래프 3종: chart-pc (PC) · chart-tb (태블릿 640×220 · patch-164) · chart-mo (모바일 298×210 · patch-164) — 같은 데이터, 화면별로 하나만 보임 -->
       <svg viewBox="0 0 920 250" class="chart chart-pc" role="img" aria-label="SNS 이용자 중 광고를 클릭한 경험 63.7%, 광고를 보고 상품을 구매한 경험 28.2% (한국언론진흥재단 2024 소셜미디어 이용자 조사)"><line x1="40" x2="880" y1="166.5" y2="166.5" class="mg"/><text x="30" y="170.5" class="ya" text-anchor="end">20%</text><line x1="40" x2="880" y1="119" y2="119" class="mg"/><text x="30" y="123" class="ya" text-anchor="end">40%</text><line x1="40" x2="880" y1="71.5" y2="71.5" class="mg"/><text x="30" y="75.5" class="ya" text-anchor="end">60%</text><line x1="40" x2="880" y1="24" y2="24" class="mg"/><text x="30" y="28" class="ya" text-anchor="end">80%</text><line x1="40" x2="880" y1="214" y2="214" class="mg base"/><rect x="250" y="62.7" width="100" height="151.3" rx="6" class="sn-agb" style="--i:0"/><rect x="570.8" y="63.5" width="98.5" height="83.6" rx="6" class="sn-gap"/><line x1="350" x2="570" y1="62.7" y2="62.7" class="sn-gl"/><rect x="570" y="147" width="100" height="67" rx="6" class="sn-agb now" style="--i:1"/><text x="300" y="52.7" class="pv real sn-bv" text-anchor="middle" style="--i:0">63.7%</text><text x="620" y="137" class="pv real sn-bv now" text-anchor="middle" style="--i:1">28.2%</text><g class="tip2"><rect x="572" y="76.8" width="96" height="30" rx="15"/><text x="620" y="96.8" text-anchor="middle">−35.5%p</text></g><text x="300" y="237" class="yr" text-anchor="middle">광고 클릭</text><text x="620" y="237" class="yr now" text-anchor="middle">광고 보고 구매</text></svg>
       <svg viewBox="0 0 640 220" class="chart chart-tb" aria-hidden="true"><line x1="40" x2="600" y1="144" y2="144" class="mg"/><text x="32" y="148" class="ya" text-anchor="end">20%</text><line x1="40" x2="600" y1="104" y2="104" class="mg"/><text x="32" y="108" class="ya" text-anchor="end">40%</text><line x1="40" x2="600" y1="64" y2="64" class="mg"/><text x="32" y="68" class="ya" text-anchor="end">60%</text><line x1="40" x2="600" y1="24" y2="24" class="mg"/><text x="32" y="28" class="ya" text-anchor="end">80%</text><line x1="40" x2="600" y1="184" y2="184" class="mg base"/><rect x="178" y="56.6" width="84" height="127.4" rx="6" class="sn-agb" style="--i:0"/><rect x="378.8" y="57.4" width="82.5" height="70.3" rx="6" class="sn-gap"/><line x1="262" x2="378" y1="56.6" y2="56.6" class="sn-gl"/><rect x="378" y="127.6" width="84" height="56.4" rx="6" class="sn-agb now" style="--i:1"/><text x="220" y="46.6" class="pv real sn-bv" text-anchor="middle" style="--i:0">63.7%</text><text x="420" y="117.6" class="pv real sn-bv now" text-anchor="middle" style="--i:1">28.2%</text><g class="tip2"><rect x="372" y="64.1" width="96" height="30" rx="15"/><text x="420" y="84.1" text-anchor="middle">−35.5%p</text></g><text x="220" y="207" class="yr" text-anchor="middle">광고 클릭</text><text x="420" y="207" class="yr now" text-anchor="middle">광고 보고 구매</text></svg>
@@ -1248,6 +1250,7 @@
 /* report-zoom → assets/common/wisa.js (patch-172) */
 </script>
 <script src="assets/common/wisa.js?v=400"></script>
+<script src="assets/common/chart.js?v=406"></script>
 </body>
 </html>
 

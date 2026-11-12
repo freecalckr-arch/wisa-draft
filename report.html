@@ -13,11 +13,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=400">
+<link rel="stylesheet" href="assets/common/wisa.css?v=406">
+<link rel="stylesheet" href="assets/common/chart.css?v=406">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 가로축 13 · 말풍선 12 · 비교 값 13 / 600 Gray 500 · 대시보드 도넛 Primary 한 계열 · KPI 스파크라인 = 공통 gx-spark 값 (선 1.5 · 증가 Error 600 · 감소 Primary 600 · 기본 Gray 400)
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
      · 2026-11-11 patch-352: 마케팅 메뉴 2단으로 변경 — 3단 '매체 광고 상품'(광고 4개)을 채널마케팅 단 마지막 한 줄 '매체 광고 상품 · 쇼핑 · 검색 · 디스플레이 · SNS 광고'(외부 MARKETINGSTORE)로 합침 · PC/태블릿 2depth · 모바일 메뉴 · 푸터 같게 · wisa.css 태블릿 마케팅 3단 폭 규칙 삭제 (?v=352)
@@ -1405,8 +1407,8 @@
   #geo-why .sm-pop2 .cp-btn { background: var(--gray-900); color: var(--white); }
   #geo-why .sm-pop2 .cp-x { color: var(--gray-400); }
   /* patch-112 [온사이트 2차] ② 그래프: 하단 단계 이름 굵게 · 3px 작게 · 구매 구간 진하게 · 배지 구매 위로 */
-  #geo-market .mk-chart .chart .yr { font-size: 11.6px; font-weight: 700; }
-  #geo-market .mk-chart .ev-tip text { font-size: 11px; font-weight: 600; }
+  /* patch-406: 가로축 11.6 굵게 → 공통 13 · 지금 값만 굵게 */
+  /* patch-406: 말풍선 11 → 공통 12 */
   /* patch-113 [온사이트 2차] ③ 6단계 = 실제 커머스 화면 + 화면 안 구매 전환 요소 번호 (왼쪽 태그 순서와 같음) */
   #geo-how .vw-bd.os8-bd { gap: 12px; padding: 16px 16px 14px; }
   .os8-pg { position: relative; flex: 1; min-height: 286px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; text-align: left; font-size: 12px; color: var(--gray-800); }
@@ -2141,7 +2143,7 @@
   #geo-market .mk-chart .mk-hd { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
   #geo-market .mk-chart .cr-ln0 { fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-dasharray: 5 5; stroke-linecap: round; }
   #geo-market .mk-chart .cr-pt0 { fill: var(--white); stroke: var(--gray-400); stroke-width: 2; }
-  #geo-market .mk-chart .cr-pv0 { font-size: 12px; font-weight: 600; fill: var(--gray-400); }
+  #geo-market .mk-chart .cr-pv0 { font-size: 13px; font-weight: 600; fill: var(--gray-500); }   /* patch-406: 비교 값 = 공통 .cmp-v */
   @media (max-width: 767px) { .cr-lg { margin-left: 0; gap: 12px; font-size: 12px; } }
   /* 수치 3칸: patch-194 — 한 값 수치라 CRM 전용 모바일 규격(112 · 28px) 제거 · 공통 규격(92 · 32px)으로 GEO · 온사이트와 같게 */
 
@@ -2943,7 +2945,7 @@
   .rx-lg { margin: 0 0 0 auto; padding: 0; list-style: none; display: flex; gap: 10px; } .rx-lg li { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; color: var(--gray-500); white-space: nowrap; } .rx-lg i { width: 8px; height: 8px; border-radius: 2px; background: var(--k); } .rx-lg i.dash { height: 2px; border-radius: 0; background: repeating-linear-gradient(90deg, var(--gray-300) 0 3px, transparent 3px 5px); }
   .rx-card { padding: 12px 14px 10px; border-radius: 12px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
   .rx-ct { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; } .rx-ct > b { font-size: 13px; font-weight: 700; color: var(--gray-900); white-space: nowrap; } .rx-cr { margin-left: auto; font-size: 11px; color: var(--gray-400); }
-  .rx-spk { width: 48px; height: 18px; overflow: visible; } .rx-spk path { fill: none; stroke: #53b1fd; stroke-width: 1.8; stroke-linecap: round; } .rx-spk circle { fill: var(--primary-600); } .rx-spk.r path { stroke: #fda29b; } .rx-spk.r circle { fill: #f04438; }
+  .rx-spk { width: 48px; height: 18px; overflow: visible; } .rx-spk path { fill: none; stroke: var(--gray-400); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }   /* patch-406: 공통 gx-spark 값 */ .rx-spk circle { fill: var(--gray-400); } .rx-spk.r path { stroke: #d92d20; } .rx-spk.r circle { fill: #d92d20; }
   @keyframes rxDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   @keyframes rxUp { from { transform: scaleY(0); } }
 
@@ -3034,7 +3036,7 @@
   .rx-rb { width: 44px; height: 6px; border-radius: 3px; background: var(--gray-100); overflow: hidden; } .rx-rb i { display: block; width: var(--w); height: 100%; border-radius: 3px; background: #53b1fd; }
   .rx-tb tr.x td { background: #fffbfa; } .rx-tb tr.x .rx-rb i { background: #f04438; } .rx-tb tr.x td:nth-child(4) b { color: #d92d20; }
   .rx-tb td.g { font-size: 11px; font-weight: 700; color: #039855; } .rx-tb td.r { font-size: 11px; font-weight: 700; color: #d92d20; }
-  .rx-tb .rx-spk { width: 52px; height: 18px; vertical-align: middle; } .rx-tb .rx-spk.g path { stroke: #53b1fd; }
+  .rx-tb .rx-spk { width: 52px; height: 18px; vertical-align: middle; } .rx-tb .rx-spk.g path { stroke: var(--gray-400); }
 
   /* 해결 공통 */
   .sr-vis .vw-win:has(.rx-d1, .rx-d2, .rx-d3, .rx-d4) { height: 380px; display: flex; flex-direction: column; }
@@ -3124,8 +3126,8 @@
   :root { --rp-inc: #d92d20; --rp-inc-bg: #fef3f2; --rp-dec: #1570ef; --rp-dec-bg: #eff8ff; --rp-wn: #b42318; --rp-wn-c: #d92d20; --rp-wn-bg: #fef3f2; --rp-wn-bd: #fecdca; }
   .inc, em.inc, td.inc, i.inc { color: var(--rp-inc) !important; font-style: normal; font-weight: 700; }
   .dec, em.dec, td.dec, i.dec { color: var(--rp-dec) !important; font-style: normal; font-weight: 700; }
-  .rx-spk.inc path, .spk.inc polyline { stroke: #fda29b; } .rx-spk.inc circle, .spk.inc circle { fill: #f04438; }
-  .rx-spk.dec path, .spk.dec polyline { stroke: #84caff; } .rx-spk.dec circle, .spk.dec circle { fill: var(--primary-600); }
+  .rx-spk.inc path, .spk.inc polyline { stroke: #d92d20; } .rx-spk.inc circle, .spk.inc circle { fill: #d92d20; }
+  .rx-spk.dec path, .spk.dec polyline { stroke: var(--primary-600); } .rx-spk.dec circle, .spk.dec circle { fill: var(--primary-600); }
   .db-ft em.up, .db-top em.up { color: var(--rp-inc); } .db-ft em.down, .db-top em.down { color: var(--rp-dec); }
   /* 상태 = 오렌지 · 블루 */
   .rx-ins li.r > i, .rx-ins li.w > i { background: #fee4e2; color: var(--rp-wn-c); } .rx-ins li.g > i { background: var(--primary-50); color: var(--primary-600); }
@@ -4291,6 +4293,7 @@
 /* @endregion */
 </script>
 <script src="assets/common/wisa.js?v=400"></script>
+<script src="assets/common/chart.js?v=406"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */
 (() => {

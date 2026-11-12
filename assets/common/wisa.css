@@ -1779,7 +1779,8 @@ img, video { max-width: 100%; display: block; }
 .mk-chart { max-width: 1240px; margin: 0 auto; padding: 28px 32px 22px; border: 1px solid var(--gray-200); border-radius: 20px; }
 .mk-hd { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; font-size: 16px; }
 .mk-lg { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray-600); }
-.mk-lg i { width: 10px; height: 10px; margin-left: 10px; border-radius: 50%; }
+.mk-lg i { width: 16px; height: 3px; margin-left: 10px; border-radius: 2px; }   /* patch-406: 선 그래프 범례 = 16×3 선 (막대 그래프는 .mk-lg.bar) */
+.mk-lg.bar i { width: 10px; height: 10px; border-radius: 3px; }
 .mk-lg i.ai { background: var(--primary-600); } .mk-lg i.se { background: var(--gray-400); }
 .mk-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .mk-grid { stroke: var(--gray-100); }
@@ -2487,7 +2488,7 @@ img, video { max-width: 100%; display: block; }
 .vx-next { display: flex; gap: 8px; padding: 11px 14px; border-radius: 10px; background: var(--primary-50); font-size: 12px; color: var(--gray-700); } .vx-next b { color: var(--primary-700); }
 /* patch-59 (A): 시장 변화 그래프 = 기존 라인 스타일 유지 · 교차 구성 제거 (AI 선 하나 · 실적 실선 → 전망 점선 · 현재 2026 강조 · 도입기/확산기/일상화 구간) */
 #geo-market .mk-chart .chart { display: block; width: 100%; height: auto; overflow: visible; font-family: inherit; }
-#geo-market .mk-lg i.mk-fc5 { background: var(--white); box-shadow: inset 0 0 0 1.5px var(--primary-600); }
+#geo-market .mk-lg i.mk-fc5 { height: 0; border-top: 2px dashed var(--primary-600); background: none; box-shadow: none; }   /* patch-406: 전망 = 점선 */
 #geo-market .mk-chart .mg { stroke: var(--gray-100); } #geo-market .mk-chart .mg.base { stroke: var(--gray-200); }
 #geo-market .mk-chart .ph0, #geo-market .mk-chart .ph2 { fill: transparent; } #geo-market .mk-chart .ph1 { fill: #f5faff; }
 #geo-market .mk-chart .phl { font-size: 12px; font-weight: 600; fill: var(--gray-400); }
@@ -2495,9 +2496,9 @@ img, video { max-width: 100%; display: block; }
 #geo-market .mk-chart .ln { fill: none; stroke: var(--primary-600); stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; } #geo-market .mk-chart .ln.fc { stroke-dasharray: 2 8; }
 #geo-market .mk-chart .pt { fill: var(--primary-600); } #geo-market .mk-chart .pt.fc { fill: var(--white); stroke: var(--primary-600); stroke-width: 2; } #geo-market .mk-chart .pt.now { fill: var(--white); stroke: var(--primary-600); stroke-width: 3.5; }
 #geo-market .mk-chart .pv { font-size: 13px; font-weight: 700; fill: var(--gray-600); } #geo-market .mk-chart .pv.fc { fill: var(--gray-400); }
-#geo-market .mk-chart .yr { font-size: 14px; fill: var(--gray-600); } #geo-market .mk-chart .yr.now { font-weight: 700; fill: var(--black); }
+#geo-market .mk-chart .yr { font-size: 13px; font-weight: 500; fill: var(--gray-600); }   /* patch-406: 가로축 14 → 13 (모든 메인 그래프 같게) */ #geo-market .mk-chart .yr.now { font-weight: 700; fill: var(--black); }
 #geo-market .mk-chart .drop { stroke: #84caff; stroke-dasharray: 3 4; }
-#geo-market .mk-chart .tip2 rect { fill: var(--gray-900); } #geo-market .mk-chart .tip2 text { font-size: 13px; font-weight: 600; fill: var(--white); }
+#geo-market .mk-chart .tip2 rect { fill: var(--gray-900); } #geo-market .mk-chart .tip2 text { font-size: 12px; font-weight: 600; fill: var(--white); }   /* patch-406: 말풍선 13 → 12 */
 .mk-note5 { margin-top: 10px; font-size: 12px; color: var(--gray-400); }
 /* 등장: 왼쪽에서 오른쪽으로 그려짐 (화면에 들어오면 1회) */
 #geo-market .mk-chart.mk-anim .chart .ar, #geo-market .mk-chart.mk-anim .chart .ln { clip-path: inset(0 100% 0 0); transition: clip-path 1.6s cubic-bezier(.45, 0, .25, 1) .2s; }
@@ -3312,3 +3313,14 @@ img, video { max-width: 100%; display: block; }
 .tab-page .tp-t { display: inline-flex; flex-direction: column; }
 .tab-page .tp-t::after { content: attr(data-t); height: 0; overflow: hidden; visibility: hidden; font-weight: 600; pointer-events: none; user-select: none; }
 /* @endregion tab-hover */
+
+/* @region chart-unify (patch-406): 그래프 양식 통일 — 규칙 사이트 docs/graph.html (고르는 법 · 메인 그래프 · 그래프 부품)
+   메인 그래프 표준 클래스 .cmp · .cmp-v · .bar · .gap (기존 페이지 클래스 cr-ln0 · vc-gl · cr-pv0 · vc-gv · sn-agb · sn-gap 도 같은 값) · 대시보드 도넛 = Primary 한 계열 (다색 블루 · 보라 · 하늘 → Primary 600 · 400 · 300 · 200 · 100) */
+#geo-market .mk-chart .cmp { fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+#geo-market .mk-chart .cmp.fc { stroke-dasharray: 5 5; }
+#geo-market .mk-chart .cmp-v { font-size: 13px; font-weight: 600; fill: var(--gray-500); }
+#geo-market .mk-chart .bar { fill: var(--gray-300); } #geo-market .mk-chart .bar.now { fill: var(--primary-600); }
+#geo-market .mk-chart .gap { fill: var(--gray-50); stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
+#geo-report .dn circle:nth-of-type(1) { stroke: var(--primary-600); } #geo-report .dn circle:nth-of-type(2) { stroke: var(--primary-400); } #geo-report .dn circle:nth-of-type(3) { stroke: var(--primary-300); } #geo-report .dn circle:nth-of-type(4) { stroke: var(--primary-200); } #geo-report .dn circle:nth-of-type(5) { stroke: var(--primary-100); }
+#geo-report .dn-lg li:nth-child(1) i { background: var(--primary-600) !important; } #geo-report .dn-lg li:nth-child(2) i { background: var(--primary-400) !important; } #geo-report .dn-lg li:nth-child(3) i { background: var(--primary-300) !important; } #geo-report .dn-lg li:nth-child(4) i { background: var(--primary-200) !important; } #geo-report .dn-lg li:nth-child(5) i { background: var(--primary-100) !important; }
+/* @endregion chart-unify */

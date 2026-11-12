@@ -14,10 +14,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=400">
+<link rel="stylesheet" href="assets/common/wisa.css?v=406">
+<link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 버티컬커머스 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 비교 값 600 · 모바일 말풍선 11.5 · 단계 퍼널(.vc-fn) 값 13 · 막대 14 / 모서리 4 · 문제 영역 가로 막대 기본색 Gray 300 · 대시보드 도넛 Primary 한 계열
      · 2026-11-12 patch-405: 히어로 검색 "조명"에 맞게 목록 상품 모두 조명으로 — 홈스틸 메탈 돔 스탠드 · 라탄하우스 라탄 머쉬룸 테이블 조명 · 글라스데이 유리 구슬 무드등 S · 리넨앤코 린넨 갓 도자기 스탠드(29,900) · 우드앤룸 오크 원목 스탠드 조명 (lp-*.jpg · wr-stand.jpg · 피그마 AI 640 JPG) · 소파 연출(wr-sofa) 러그 제거 · 흰 벽 + 광택 흰 바닥으로 다시 생성 (소파 디자인 유지)
      · 2026-11-12 patch-404: 히어로 앱 검색어 사이드테이블 → 조명 (휴대폰 3대) · 오늘의집 필터 칩 조명 → 무드등 (검색어와 겹치지 않게)
      · 2026-11-12 patch-403: 히어로 자사 광고 상품 = 오크 사이드테이블 → 머쉬룸 무드등 크림(wr-lamp.jpg · 25% 59,000) · 무신사 목록의 무드등 자리는 사이드테이블로 맞바꿈 · 오늘의집 필터 칩 원목 → 조명 · 소파 연출(wr-sofa) 러그를 소파와 같은 크림 톤으로 다시 생성
@@ -307,7 +309,7 @@
   .vc-cn { flex: none; width: 88px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--gray-900); white-space: nowrap; }
   .vc-cn > img { flex: none; width: 20px; height: 20px; border-radius: 6px; }
   .vc-bar { flex: 1; min-width: 0; height: 8px; border-radius: 99px; background: var(--gray-100); overflow: hidden; }
-  .vc-bar i { display: block; width: calc(var(--v) * 100%); height: 100%; border-radius: 99px; background: var(--gray-400); transform-origin: 0 50%; }
+  .vc-bar i { display: block; width: calc(var(--v) * 100%); height: 100%; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; }
   .vc-cr b { flex: none; width: 64px; text-align: right; font-size: 13px; font-weight: 700; color: var(--gray-900); }
   .vc-cr .sn-ow { width: 64px; box-sizing: border-box; padding: 3px 0; text-align: center; }
   .vc-cr li.no .vc-cn { color: var(--gray-500); } .vc-cr li.no .vc-cn > img { opacity: .5; }
@@ -322,9 +324,9 @@
   #geo-market .mk-chart .vc-gl { fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
   #geo-market .mk-chart .vc-gp { fill: var(--gray-400); }
   #geo-market .mk-chart .mg.zero { stroke: var(--gray-300); }
-  #geo-market .mk-chart .vc-gv { fill: var(--gray-500); font-size: 13px; }
+  #geo-market .mk-chart .vc-gv { fill: var(--gray-500); font-size: 13px; font-weight: 600; }   /* patch-406: 비교 값 = 공통 .cmp-v */
   #geo-market .mk-chart .chart-mo .vc-gv, #geo-market .mk-chart .chart-mo .pv.real { font-size: 11px; }   /* patch-362: 모바일 값 글자 11 */
-  #geo-market .mk-chart .chart-mo .tip2 text { font-size: 11px; }
+  #geo-market .mk-chart .chart-mo .tip2 text { font-size: 11.5px; }
   #geo-market .mk-chart.mk-anim .chart .vc-gl { clip-path: inset(0 100% 0 0); transition: clip-path 1.6s cubic-bezier(.45, 0, .25, 1) .2s; }
   #geo-market .mk-chart.mk-anim.on .chart .vc-gl { clip-path: inset(0 0 0 0); }
   #geo-market .mk-chart.mk-anim .chart .pt, #geo-market .mk-chart.mk-anim .chart .vc-gp, #geo-market .mk-chart.mk-anim .chart .tip2, #geo-market .mk-chart.mk-anim .chart .vc-gv { opacity: 0; transition: opacity .4s ease-out 1.5s; }
@@ -369,9 +371,9 @@
   .vc-th { position: relative; flex: none; width: 112px; height: 152px; border-radius: 10px; overflow: hidden; background: var(--gray-100); font-style: normal; }
   .vc-th img { display: block; width: 100%; height: 100%; }
   .vc-fn { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; }
-  .vc-fn li { display: grid; grid-template-columns: 1fr auto; row-gap: 6px; font-size: 12px; line-height: 16px; color: var(--gray-600); }
-  .vc-fn b { font-size: 14.5px; line-height: 16px; font-weight: 700; color: var(--gray-500); }
-  .vc-fn i { grid-column: 1 / -1; display: block; width: calc(var(--v) * 100%); height: 8px; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: vcBar 6s var(--ease-out) infinite both; animation-delay: calc(var(--i, 0) * .3s); }
+  .vc-fn li { display: grid; grid-template-columns: 1fr auto; row-gap: 6px; font-size: 12.5px; line-height: 16px; color: var(--gray-600); }
+  .vc-fn b { font-size: 13px; line-height: 16px; font-weight: 700; color: var(--gray-700); }   /* patch-406: 퍼널 = 공통 gx-funnel 값 (값 13 · 막대 14 / 모서리 4) */
+  .vc-fn i { grid-column: 1 / -1; display: block; width: calc(var(--v) * 100%); height: 14px; border-radius: 4px; background: var(--gray-300); transform-origin: 0 50%; animation: vcBar 6s var(--ease-out) infinite both; animation-delay: calc(var(--i, 0) * .3s); }
   .vc-fn li:nth-child(2) i { --i: 1; } .vc-fn li:nth-child(3) i { --i: 2; }
   .vc-fn li.hl { color: var(--gray-900); font-weight: 600; } .vc-fn li.hl b { color: var(--primary-600); } .vc-fn li.hl i { background: var(--primary-600); }
 
@@ -1223,6 +1225,7 @@
 /* report-zoom → assets/common/wisa.js (patch-172) */
 </script>
 <script src="assets/common/wisa.js?v=400"></script>
+<script src="assets/common/chart.js?v=406"></script>
 </body>
 </html>
 
