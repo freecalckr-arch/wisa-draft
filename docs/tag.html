@@ -6,7 +6,7 @@
 <title>태그 · 뱃지 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
-<link rel="stylesheet" href="../assets/common/plan.css?v=444">
+<link rel="stylesheet" href="../assets/common/plan.css?v=445">
 <style>
   /* 미리보기 칸 (이 페이지 전용) · 값은 wisa.css tag-std · plan.css 와 같음 */
   .pv { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 8px; padding: 30px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
@@ -37,7 +37,7 @@
     <h2 id="tag">태그</h2>
     <p>흰 면 위</p>
     <div class="pv"><ul><li>Standard</li><li>Pro</li><li>Hybrid</li><li>라이선스 1회 구매</li><li>자동 업데이트</li></ul></div>
-    <p>회색 면 위 (바탕만 한 단계 진하게)</p>
+    <p>회색 면 위 (바탕만 한 단계 진하게) · 색 그라데이션 카드(.tone-indigo) 위에서는 흰 바탕</p>
     <div class="pv gray"><ul><li>Standard</li><li>Pro</li><li>Hybrid</li><li>라이선스 1회 구매</li><li>자동 업데이트</li></ul></div>
     <div class="tbl"><table><thead><tr><th>항목</th><th>값 (모든 해상도 같음)</th></tr></thead><tbody>
 <tr><td>크기</td><td>높이 <b class="num">32</b> · 위아래 6 · 좌우 12 · 모서리 8</td></tr>
@@ -48,10 +48,11 @@
 </tbody></table></div>
 
     <h2 id="badge">뱃지</h2>
-    <div class="pv"><span class="pc-pop">SaaS 구독형</span><span class="pc-pop indigo">라이선스 소유형</span><span class="pc-pop gray">분류</span></div>
+    <div class="pv"><span class="pc-pop">SaaS 구독형</span><span class="pc-pop indigo">라이선스 소유형</span><span class="pc-pop gray">분류</span><span class="pc-pop solid">SaaS 구독형</span><span class="pc-pop solid indigo">라이선스 소유형</span></div>
     <div class="tbl"><table><thead><tr><th>클래스</th><th>색 (바탕 / 글자)</th><th>쓰는 곳</th></tr></thead><tbody>
 <tr><td><code>.pc-pop</code></td><td>Primary 50 / Primary 700</td><td>Cloud · 구독형 · 일반 상품</td></tr>
 <tr><td><code>.pc-pop.indigo</code></td><td>Indigo 50 / Indigo 700</td><td>Enterprise · 라이선스 소유형</td></tr>
+<tr><td><code>.pc-pop.solid</code> · <code>.solid.indigo</code></td><td>Primary 600 / 흰 · Indigo 500 / 흰 (굵기 600)</td><td>뱃지를 먼저 읽혀야 할 때 (두 방식 카드 등)</td></tr>
 <tr><td><code>.pc-pop.gray</code></td><td>Gray 100 / Gray 700</td><td>분류만 알리는 뱃지</td></tr>
 </tbody></table></div>
     <p>크기: 높이 28 · 좌우 12 · 모서리 16(알약) · 13/500. Cloud = 파랑 · Enterprise = 인디고는 모든 페이지 공통입니다.</p>
