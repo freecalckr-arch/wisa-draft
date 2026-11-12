@@ -20,7 +20,7 @@
 .pc .pc-sub { margin: 10px 0 0; color: var(--gray-700); font-size: 16px; line-height: 24px; word-break: keep-all; }
 
 /* 가격 (기존 .rn-cl-price) */
-.pc-price { display: flex; align-items: baseline; justify-content: center; gap: 2px; height: 29px; margin: 20px 0 0; color: var(--gray-900); }
+.pc-price { display: flex; align-items: baseline; justify-content: center; gap: 2px; height: 29px; margin: 12px 0 0; color: var(--gray-900); }   /* patch-419: 설명 → 가격 20 → 12 */
 .pc-price strong { font-size: 26px; font-weight: 600; line-height: 29px; }
 .pc-price span { font-size: 18px; line-height: 26px; }
 
