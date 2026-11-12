@@ -15,15 +15,16 @@
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=406">
-<link rel="stylesheet" href="assets/common/plan.css?v=417">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=418">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-418: 요금 카드 호버 = 그림자 없이 테두리만 Gray 900 (plan.css)
      · 2026-11-12 patch-417: 영역별 수정 2차
        - 핵심 차이 가운데 라벨 = 흰 바탕 + Gray 300 테두리 뱃지 (PC · 태블릿)
        - 무료 이벤트 뱃지 = 기존 홈페이지 그대로 (Warning 25 바탕 / Warning 700 글자 · 12/500 · 줄 18 · 좌우 8 · 모서리 6) · 가격 · 취소선(₩220,000) · 뱃지 한 줄(.cp-fee · 사이 8, 좁으면 뱃지 아래로) · patch-415 의 블루 변경은 되돌림
        - 어떤 방식이 맞을까요 카드 뱃지 = 공통 .pc-pop (Cloud 파랑 · Enterprise 인디고 · 모든 페이지 공통 규칙)
-       - 요금 카드(plan.css) = 가격 → 태그 사이 12 → 20 · 호버 파란 빛 그림자 (공통 .sol-card 와 같음)
+       - 요금 카드(plan.css) = 가격 → 태그 사이 12 → 20 · 호버 (patch-418 에서 테두리 Gray 900 으로 변경)
      · 2026-11-12 patch-416: 영역별 수정
        - 두 방식 카드 = 요금 카드 공통 부품(assets/common/plan.css · 규칙 사이트 docs/plan.html)으로 교체 · 뱃지 Cloud 파랑(Primary 50/700) · Enterprise 인디고(Indigo 50/700) · 버튼은 카드당 1개 흰 버튼(무료로 시작하기 · 도입 상담하기) + "자세히 보기"는 아래 텍스트 링크
        - 핵심 차이 = 제품명 머리줄 흰 바탕 · 가운데 라벨 아이콘 토스 이모지(Tossface 🔑 🖥️ 🛠️ 💰 💳 🔄) · 모바일 라벨은 기존 홈페이지처럼 가로 꽉 채운 띠 + 가운데 정렬
