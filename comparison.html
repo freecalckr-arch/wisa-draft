@@ -15,10 +15,11 @@
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=424">
-<link rel="stylesheet" href="assets/common/plan.css?v=424">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=442">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-442: 히어로 비주얼(patch-440 · MUE 쇼핑몰) 삭제 → 기존 홈페이지처럼 타이틀 바로 아래 두 방식 카드 2장 (영역 제목 "두 가지 방식으로 시작할 수 있어요" 삭제 · 위 여백 60/50/40) · 카드 사이 VS 원(56 · Gray 900 · 모바일 44 위아래 사이) · 카드 차별화 = 방식 카드 색(plan.css .tone-blue Cloud · .tone-indigo Enterprise · 위 25 단계 → 흰 그라데이션 · 테두리 100 단계) + 아이콘 칸 .pc-ic(구름 · </>) · 흐름 주석의 히어로 비주얼 없음
      · 2026-11-12 patch-441: 히어로 쇼핑몰 상품 목록 이미지 교체 — 새 정방형 상품 컷 5장(클렌저 · 크림 · 선크림 · 세럼 · 토너 · assets/geo/beauty/mue-p-*) · 칸 꽉 채움(그라데이션 없음) · 4 · 5번째 상품 이름 · 가격을 세럼 · 토너로 맞춤
      · 2026-11-12 patch-440: 히어로 비주얼 — 빈 박스 → 브랜드 MUE 하나가 첫 오픈부터 글로벌까지 커 가는 쇼핑몰 화면(가운데 창 760×420 · 상품 5개 정방형 · 배너 상품 원형) + 창 아래 단계 라벨([요금제 뱃지 Cloud 파랑 · Enterprise 인디고] 키워드 · 단계) + 라벨 문구와 같은 곳 파란 표시 · 양옆 고정 카드(관리자 주문 알림 · 고객 후기 · 창에서 30) · 비주얼은 타이틀 키워드(2.4초)와 따로 4.8초 박자(라벨 → 화면 → 표시 순서) · 태블릿 520×417 상품 3개 · 모바일 404 상품 2개 · 양옆 카드 숨김 · 떠 있던 가격 카드(cp-hf) 삭제
      · 2026-11-12 patch-439: 상세 기능 비교 바탕 Gray 100 → Primary 100 (기존 Cloud 페이지 요금 영역과 같은 블루)
@@ -68,9 +69,9 @@
 
   /* 영역 간격 = 마케팅 페이지 (PC 위 160 · 태블릿 120 · 모바일 80 · 아래 0) */
   #cmp-plan, #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-bottom: 0; }
-  @media (min-width: 1024px) { #cmp-plan, #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 160px; } }
-  @media (min-width: 768px) and (max-width: 1023px) { #cmp-plan, #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 120px; } }
-  @media (max-width: 767px) { #cmp-plan, #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 80px; } }
+  @media (min-width: 1024px) { #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 160px; } }
+  @media (min-width: 768px) and (max-width: 1023px) { #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 120px; } }
+  @media (max-width: 767px) { #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 80px; } }
   /* patch-435: 상세 기능 비교 = 가로 꽉 찬 Gray 50 바탕 (자료 영역 구분 · 흰 영역이 길게 이어지지 않게) · 바깥 간격은 다른 영역과 같고 바탕 안쪽 위아래 같게 · 표는 흰 바탕 그대로 */
   #cmp-table { background: var(--primary-100); }   /* patch-439: 기존 홈페이지 solution/cloud 요금 영역(.rn-cl-pricing)과 같은 Primary 100 블루 · patch-436 Gray 100 → */
   @media (min-width: 1024px) { #cmp-table { margin-top: 160px; padding-block: 120px; } }
@@ -80,121 +81,6 @@
   html.sw #geo-hero .rv { opacity: 1; transform: none; transition: none; }
   @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
 
-  /* @region cv-hero (patch-440): 히어로 비주얼 — 브랜드 MUE 하나가 첫 오픈부터 글로벌까지 커 가는 쇼핑몰 화면 + 아래 단계 라벨([요금제 뱃지] 키워드 · 단계)
-     · 가운데 쇼핑몰 창 760×420 (아래 붙임 · 위 40) · 양옆 고정 카드(관리자 주문 알림 · 고객 후기) = 창에서 30 · 박스 끝에서 50 · 공통 둥둥(hero-bob) · 태블릿 · 모바일 숨김(공통 .sh-float)
-     · 비주얼은 타이틀 키워드(공통 2.4초)와 따로 4.8초마다 다음 단계 — 라벨 0초 → 쇼핑몰 화면 0.4초(새 화면이 위에서 페이드 인 · 다 나타난 뒤 앞 화면 숨김) → 파란 표시 1.2초
-     · 파란 표시(.cv-hl) = 라벨 문구와 같은 곳 · Primary 600 테두리 + Primary 50 바탕 (화면의 파란 포인트 1곳)
-     · 사진 = assets/geo/beauty MUE 그레이톤 · 상품 정방형 꽉 채움 · 배너 상품은 정방형 원 · 별점 노랑 = 브랜드색 예외 */
-  #geo-hero .sh-visual.cv-hv { padding-top: 40px; }
-  #geo-hero .cv-win { position: relative; z-index: 1; display: flex; flex-direction: column; width: 760px; height: 420px; border-radius: 16px 16px 0 0; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 20px 56px rgba(21, 112, 239, .18); overflow: hidden; text-align: left; }
-  #geo-hero .cv-bar { flex: none; display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 16px; border-bottom: 1px solid var(--gray-100); background: var(--gray-50); }
-  #geo-hero .cv-dots { display: flex; gap: 6px; } #geo-hero .cv-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-300); }
-  #geo-hero .cv-url { flex: 1; max-width: 320px; height: 24px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 6px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; color: var(--gray-500); }
-  #geo-hero .cv-sp { width: 46px; }
-  #geo-hero .cv-shops { position: relative; flex: 1; }
-  #geo-hero .cv-shops::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 64px; background: linear-gradient(rgba(255, 255, 255, 0), var(--white) 80%); pointer-events: none; }   /* 아래 라벨 자리: 내용이 흐려지며 끝남 (.ows-ft.ov 방식) */
-  #geo-hero .cv-shop { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--white); opacity: 0; transition: opacity .6s ease; }
-  #geo-hero .cv-shop.was { z-index: 1; opacity: 1; transition: none; }   /* 앞 화면은 그대로 두고 */
-  #geo-hero .cv-shop.on { z-index: 2; opacity: 1; }   /* 새 화면이 위에서 페이드 인 (patch-412 방식 · 깜빡임 없음) */
-
-  #geo-hero .cv-nav { flex: none; display: flex; align-items: center; gap: 28px; height: 54px; padding: 0 24px; border-bottom: 1px solid var(--gray-100); font-size: 13px; color: var(--gray-700); white-space: nowrap; }
-  #geo-hero .cv-logo { font-family: Georgia, "Times New Roman", serif; font-size: 20px; font-weight: 500; letter-spacing: .18em; color: var(--gray-900); }   /* MUE 로고 (assets/common/brand/mue.svg 와 같은 세리프) */
-  #geo-hero .cv-menu { display: flex; gap: 18px; font-weight: 500; }
-  #geo-hero .cv-menu .cv-hl { gap: 18px; }
-  #geo-hero .cv-b { font-weight: 700; color: var(--gray-900); }
-  #geo-hero .cv-r { margin-left: auto; display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--gray-500); }
-  #geo-hero .cv-r svg { color: var(--gray-800); }
-  #geo-hero .cv-r .cv-hl { gap: 10px; }
-  #geo-hero .cv-cart { position: relative; display: inline-flex; }
-  #geo-hero .cv-cart b { position: absolute; top: -6px; right: -8px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 99px; background: var(--gray-900); color: var(--white); font-size: 10px; font-weight: 700; line-height: 16px; text-align: center; }
-  #geo-hero .cv-lang { display: flex; gap: 2px; padding: 2px; border-radius: 8px; background: var(--gray-100); }
-  #geo-hero .cv-lang span { height: 22px; padding: 0 7px; border-radius: 6px; font-size: 11px; font-weight: 600; line-height: 22px; color: var(--gray-500); }
-  #geo-hero .cv-lang span.on { background: var(--white); color: var(--gray-900); box-shadow: 0 1px 2px rgba(16, 24, 40, .08); }
-  #geo-hero .cv-member { height: 22px; padding: 0 8px; border-radius: 6px; background: var(--gray-900); color: var(--white); font-size: 11px; font-weight: 700; line-height: 22px; }
-
-  #geo-hero .cv-main { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 14px; padding: 14px 24px; }
-  #geo-hero .cv-banner { position: relative; flex: none; display: flex; align-items: center; height: 96px; padding: 0 24px; border-radius: 12px; background: var(--gray-100); }
-  #geo-hero .cv-banner > img { position: absolute; right: 24px; top: 50%; width: 76px; height: 76px; margin-top: -38px; border-radius: 50%; object-fit: cover; }   /* 배너 상품 = 정방형 원 */
-  #geo-hero .cv-tx { display: flex; flex-direction: column; }
-  #geo-hero .cv-tx small { font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--gray-500); }
-  #geo-hero .cv-tx h4 { margin: 2px 0 0; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--gray-900); }
-  #geo-hero .cv-tx p { margin: 2px 0 0; font-size: 12.5px; line-height: 18px; color: var(--gray-600); }
-  #geo-hero .cv-pg { position: absolute; right: 112px; bottom: 10px; height: 20px; padding: 0 8px; border-radius: 99px; background: var(--white); color: var(--gray-600); font-size: 10px; font-weight: 600; line-height: 20px; }
-  #geo-hero .cv-sec { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: -4px; font-size: 14.5px; font-weight: 700; color: var(--gray-900); }
-  #geo-hero .cv-sec > span { font-size: 12px; font-weight: 500; color: var(--gray-500); }
-  #geo-hero .cv-sec .cv-hl { font-weight: 600; color: var(--gray-900); }
-  #geo-hero .cv-prods { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
-  #geo-hero .cv-prod { display: grid; gap: 3px; min-width: 0; font-size: 12px; }
-  #geo-hero .cv-ph { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--gray-100); }   /* 상품 = 정방형 꽉 채움 */
-  #geo-hero .cv-ph img { width: 100%; height: 100%; object-fit: cover; }
-  #geo-hero .cv-ph.cv-soon { display: grid; place-items: center; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; color: var(--gray-400); }
-  #geo-hero .cv-prod > b { margin-top: 5px; overflow: hidden; font-weight: 500; color: var(--gray-700); white-space: nowrap; text-overflow: ellipsis; }
-  #geo-hero .cv-prod > strong { font-size: 13px; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
-  #geo-hero .cv-prod > strong s { margin-right: 4px; font-size: 12px; font-weight: 400; color: var(--gray-400); }
-  #geo-hero .cv-rv { display: flex; align-items: center; gap: 3px; font-size: 11px; color: var(--gray-500); }
-  #geo-hero .cv-rv::before { content: "★"; color: #fdb022; }   /* 별점 노랑 = 브랜드색 예외 (팔레트 Warning 400) */
-  #geo-hero .cv-badge-s { position: absolute; top: 8px; left: 8px; height: 20px; padding: 0 6px; border-radius: 6px; background: var(--gray-900); color: var(--white); font-size: 10px; font-weight: 700; line-height: 20px; }
-
-  /* 파란 표시 */
-  #geo-hero .cv-hl { position: relative; isolation: isolate; display: inline-flex; align-items: center; }
-  #geo-hero .cv-hl::before { content: ""; position: absolute; inset: -5px -8px; z-index: -1; border-radius: 8px; background: var(--primary-50); box-shadow: inset 0 0 0 1.5px var(--primary-600); opacity: 0; transform: scale(.94); transition: opacity .2s, transform .2s; }
-  #geo-hero .cv-shop.on .cv-hl::before { opacity: 1; transform: none; transition: opacity .4s ease .8s, transform .5s var(--ease-out, ease) .8s; }
-
-  /* 아래 단계 라벨 (창 아래 끝에서 20 위 · 가운데) */
-  #geo-hero .cv-kwl { position: absolute; z-index: 3; bottom: 20px; left: 50%; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 18px 0 8px; border-radius: 99px; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 8px 24px rgba(16, 24, 40, .10); font-size: 14.5px; line-height: 20px; white-space: nowrap; transform: translateX(-50%); }
-  #geo-hero .cv-pb { height: 26px; padding: 0 10px; border-radius: 99px; background: var(--primary-50); color: var(--primary-700); font-size: 12.5px; font-weight: 600; line-height: 26px; }
-  #geo-hero .cv-pb.indigo { background: var(--indigo-50); color: #3538cd; }   /* Cloud = 파랑 · Enterprise = 인디고 (공통 뱃지 규칙) */
-  #geo-hero .cv-k { font-weight: 700; color: var(--gray-900); }
-  #geo-hero .cv-kwl i { width: 3px; height: 3px; border-radius: 50%; background: var(--gray-300); }
-  #geo-hero .cv-d { font-weight: 500; color: var(--gray-500); }
-  #geo-hero .cv-kwl > * { transition: opacity .3s; }
-  #geo-hero .cv-kwl.sw-out > * { opacity: 0; }
-
-  /* 양옆 고정 카드 (공통 .sh-float · 둥둥) */
-  #geo-hero .sh-float.cv-toast, #geo-hero .sh-float.cv-review { box-sizing: border-box; width: 210px; padding: 16px; gap: 0; display: grid; box-shadow: 0 12px 32px rgba(21, 112, 239, .16); }
-  #geo-hero .cv-toast { left: 50px; top: 84px; gap: 12px !important; }
-  #geo-hero .cv-review { right: 50px; bottom: 72px; gap: 10px !important; }
-  #geo-hero .cv-h { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-500); }
-  #geo-hero .cv-ic { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--gray-900); }
-  #geo-hero .cv-h b { font-size: 12px; font-weight: 600; color: var(--gray-700); }
-  #geo-hero .cv-h em { margin-left: auto; font-style: normal; font-size: 11px; color: var(--gray-400); }
-  #geo-hero .cv-m { display: flex; align-items: center; gap: 12px; }
-  #geo-hero .cv-m img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
-  #geo-hero .cv-m div, #geo-hero .cv-f div { display: grid; gap: 2px; }
-  #geo-hero .cv-m strong { font-size: 16px; line-height: 22px; font-weight: 700; color: var(--gray-900); }
-  #geo-hero .cv-m span { font-size: 12.5px; color: var(--gray-500); }
-  #geo-hero .cv-live { display: inline-flex; align-items: center; gap: 6px; }
-  #geo-hero .cv-live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--success-500, #12b76a); }
-  #geo-hero .cv-stars { font-size: 13px; letter-spacing: 1px; color: #fdb022; }
-  #geo-hero .cv-review .cv-h b { font-size: 13px; font-weight: 700; color: var(--gray-900); }
-  #geo-hero .cv-review p { margin: 0; font-size: 14.5px; line-height: 20px; font-weight: 600; color: var(--gray-900); }
-  #geo-hero .cv-f { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--gray-500); }
-  #geo-hero .cv-f img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; }
-  #geo-hero .cv-f b { font-weight: 500; color: var(--gray-700); }
-  #geo-hero .sh-float.cv-toast span, #geo-hero .sh-float.cv-review span { font-size: 12px; font-weight: 400; color: var(--gray-500); }   /* 공통 .sh-float span(레드 증감) 덮어쓰기 */
-  #geo-hero .sh-float.cv-toast .cv-m span { font-size: 12.5px; } #geo-hero .sh-float .cv-ic { color: var(--white); } #geo-hero .sh-float .cv-stars { font-size: 13px; color: #fdb022; }
-
-  @media (max-width: 1023px) { #geo-hero .sh-float.cv-toast, #geo-hero .sh-float.cv-review { display: none; } }   /* 태블릿 · 모바일: 양옆 카드 숨김 (공통 .sh-float 규칙과 같게) */
-  /* 태블릿: 창 520×417 · 위 23 · 가운데 · 상품 3개 · 메뉴 앞 2개 숨김 */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    #geo-hero .sh-visual.cv-hv { height: 440px; min-height: 0; padding-top: 23px; }
-    #geo-hero .cv-win { width: 520px; height: 417px; }
-    #geo-hero .cv-nav { gap: 20px; } #geo-hero .cv-menu { gap: 14px; } #geo-hero .cv-menu > span:nth-child(-n+2) { display: none; } #geo-hero .cv-r .cv-t { display: none; }
-    #geo-hero .cv-prods { grid-template-columns: repeat(3, minmax(0, 1fr)); } #geo-hero .cv-prod:nth-child(n+4) { display: none; }
-  }
-  /* 모바일: 위 36 · 높이 404 · 가로 = 박스 − 좌우 30 · 상품 2개 · 메뉴 숨김 · 라벨은 뱃지 + 키워드 */
-  @media (max-width: 767px) {
-    #geo-hero .sh-visual.cv-hv { padding-top: 36px; }
-    #geo-hero .cv-win { width: calc(100% + 20px); height: 404px; margin-inline: -10px; }
-    #geo-hero .cv-bar { height: 36px; padding: 0 12px; } #geo-hero .cv-dots, #geo-hero .cv-sp { display: none; } #geo-hero .cv-url { max-width: none; height: 22px; font-size: 11px; }
-    #geo-hero .cv-nav { height: 46px; gap: 10px; padding: 0 14px; } #geo-hero .cv-menu, #geo-hero .cv-r .cv-t { display: none; } #geo-hero .cv-logo { font-size: 16px; }
-    #geo-hero .cv-main { padding: 12px 14px; gap: 12px; }
-    #geo-hero .cv-banner { height: 84px; padding: 0 14px; } #geo-hero .cv-banner > img { right: 14px; width: 60px; height: 60px; margin-top: -30px; } #geo-hero .cv-pg, #geo-hero .cv-tx small, #geo-hero .cv-tx p { display: none; } #geo-hero .cv-tx h4 { font-size: 15px; line-height: 22px; }
-    #geo-hero .cv-prods { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } #geo-hero .cv-prod:nth-child(n+3) { display: none; }
-    #geo-hero .cv-kwl { padding: 0 14px 0 6px; gap: 8px; font-size: 13px; } #geo-hero .cv-d, #geo-hero .cv-kwl i { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) { #geo-hero .cv-shop, #geo-hero .cv-kwl > *, #geo-hero .cv-shop.on .cv-hl::before { transition: none; } }
-  /* @endregion cv-hero */
 
   /* @region cmp-plan : 두 가지 방식 카드 — 기존 solution/cloud 요금 카드(.rn-cl-plan) 규격 (호스팅 허브 .hp-plan 과 같은 값) */
   /* @region cmp-rocket (patch-437): 부스터 로켓 — 메인 솔루션 카드(.sol-card > .rocket)와 같은 마크업 · 위치 · 효과
@@ -225,7 +111,14 @@
   }
   /* @endregion cmp-rocket */
 
-  .cp-list { --pc-n: 2; }   /* patch-416: 카드 규격은 assets/common/plan.css · 이 페이지는 두 장 */
+  .cp-list { --pc-n: 2; }
+  /* patch-442: 히어로 비주얼 없이 타이틀 바로 아래 카드 2장 (기존 홈페이지처럼) · 영역 제목 삭제 · 위 여백 PC 60 / 태블릿 50 / 모바일 40 */
+  #cmp-plan { padding-top: 60px; }
+  @media (min-width: 768px) and (max-width: 1023px) { #cmp-plan { padding-top: 50px; } }
+  @media (max-width: 767px) { #cmp-plan { padding-top: 40px; } }
+  /* patch-442: 두 카드 사이 VS — 두 번째 카드에 붙여 카드 사이 가운데 (PC · 태블릿 = 세로 가운데 · 모바일 = 위아래 카드 사이) · 원 56 Gray 900 + 흰 테두리 6 */
+  .cp-list > .pc + .pc::before { content: "VS"; position: absolute; z-index: 3; left: -10px; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%; background: var(--gray-900); box-shadow: 0 0 0 6px var(--white); color: var(--white); font-size: 16px; font-weight: 800; line-height: 56px; letter-spacing: .02em; text-align: center; }
+  @media (max-width: 767px) { .cp-list > .pc + .pc::before { left: 50%; top: -6px; width: 44px; height: 44px; margin: -22px 0 0 -22px; font-size: 14px; line-height: 44px; } }   /* patch-416: 카드 규격은 assets/common/plan.css · 이 페이지는 두 장 */
   /* patch-423: 카드 뒤 흐린 빛 — 메인 솔루션 영역(.rn-solution::after · blur 50 · 18초 ease-in-out 왕복) 같은 장치 · 왼쪽 위 Primary 500 · 오른쪽 아래 Indigo 500(Cloud 파랑 · Enterprise 인디고 뱃지와 이어짐) · 표 영역에는 넣지 않음 */
   #cmp-plan { position: relative; isolation: isolate; overflow-x: clip; }
   #cmp-plan::before, #cmp-plan::after { content: ""; position: absolute; z-index: -1; border-radius: 50%; pointer-events: none; filter: blur(50px); animation: cp-glow 18s ease-in-out infinite alternate; }
@@ -549,109 +442,15 @@
       <ul class="chips rv" style="--d:220ms"><li>SaaS 구독형 Cloud</li><li>라이선스 소유형 Enterprise</li><li>같은 부스터 엔진</li></ul>
     </div>
   </div>
-  <div class="container">
-    <div class="sh-visual rv cv-hv" style="--d:300ms" aria-hidden="true">   <!-- [개발 전달] patch-440 히어로 비주얼: MUE 쇼핑몰이 커 가는 화면 (스크립트 cv-hero · 타이틀 키워드와 따로 4.8초) -->
-      <div class="sh-float cv-toast">
-        <div class="cv-h"><span class="cv-ic"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8l1-5.5Z" fill="#fff"/></svg></span><b>부스터 관리자</b><em>방금</em></div>
-        <div class="cv-m"><img src="assets/geo/beauty/mue-cleanser.jpg" alt=""><div><strong>새 주문 3건</strong><span class="cv-live">클렌저 외 2건</span></div></div>
-      </div>
-      <div class="sh-float cv-review">
-        <div class="cv-h"><span class="cv-stars">★★★★★</span><b>5.0</b><em>김*연</em></div>
-        <p>“순해서 매일 써요”</p>
-        <div class="cv-f"><img src="assets/geo/beauty/mue-cream.jpg" alt=""><div><b>수분 크림 50ml</b><span>재구매 3회째</span></div></div>
-      </div>
-      <div class="cv-win">
-        <div class="cv-bar"><span class="cv-dots"><i></i><i></i><i></i></span><span class="cv-url"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><rect x="1" y="5" width="9" height="6.5" rx="1.5" fill="currentColor"/><path d="M3 5V3.5a2.5 2.5 0 0 1 5 0V5" stroke="currentColor" stroke-width="1.3"/></svg><span data-url>mue.co.kr</span></span><span class="cv-sp"></span></div>
-        <div class="cv-shops">
-          <!-- 1 첫 창업 : 오픈 첫 달 · 상품 3개 -->
-          <div class="cv-shop on" data-url="mue.co.kr">
-            <div class="cv-nav"><span class="cv-logo">MUE</span><span class="cv-menu"><span>SHOP</span><span>ABOUT</span></span><span class="cv-r"><span class="cv-t">로그인</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="cv-cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 8h14l-1.2 11H6.2L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.8"/></svg></span></span></div>
-            <div class="cv-main">
-              <div class="cv-banner"><img src="assets/geo/beauty/mue-cleanser-foam.webp" alt=""><div class="cv-tx"><small>GRAND OPEN</small><h4>MUE 그랜드 오픈</h4><p>첫 구매 10% 할인 · 무료 배송</p></div></div>
-              <div class="cv-sec">전체 상품<span class="cv-hl">상품 3개</span></div>
-              <div class="cv-prods">
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cleanser.png" alt=""></div><b>마일드 클렌저 300ml</b><strong>18,000원</strong><span class="cv-rv">신상품</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cream.webp" alt=""></div><b>수분 크림 50ml</b><strong>28,000원</strong><span class="cv-rv">신상품</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-sun.webp" alt=""></div><b>데일리 선크림 50ml</b><strong>21,000원</strong><span class="cv-rv">신상품</span></div>
-                <div class="cv-prod"><div class="cv-ph cv-soon">곧 출시</div></div>
-                <div class="cv-prod"><div class="cv-ph cv-soon">곧 출시</div></div>
-              </div>
-            </div>
-          </div>
-          <!-- 2 1인 브랜드 : 1년 차 · 신상품 · 후기 -->
-          <div class="cv-shop" data-url="mue.co.kr">
-            <div class="cv-nav"><span class="cv-logo">MUE</span><span class="cv-menu"><span>SHOP</span><span>NEW</span><span>REVIEW</span><span>ABOUT</span></span><span class="cv-r"><span class="cv-t">로그인</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="cv-cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 8h14l-1.2 11H6.2L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.8"/></svg><b>2</b></span></span></div>
-            <div class="cv-main">
-              <div class="cv-banner"><img src="assets/geo/beauty/mue-cleanser-hand.jpg" alt=""><div class="cv-tx"><small>DAILY ROUTINE</small><h4>Mild Daily Care</h4><p>매일 쓰는 저자극 루틴 · 새 시즌</p></div><span class="cv-pg">1 / 3</span></div>
-              <div class="cv-sec">이번 주 인기<span class="cv-hl">★ 4.9 · 후기 1,240개</span></div>
-              <div class="cv-prods">
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cleanser.png" alt=""></div><b>마일드 클렌저 300ml</b><strong>18,000원</strong><span class="cv-rv">4.9 (612)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cream.webp" alt=""></div><b>수분 크림 50ml</b><strong>28,000원</strong><span class="cv-rv">4.8 (384)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-sun.webp" alt=""></div><b>데일리 선크림 50ml</b><strong>21,000원</strong><span class="cv-rv">4.9 (244)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-serum.webp" alt=""><span class="cv-badge-s">NEW</span></div><b>수분 세럼 30ml</b><strong>32,000원</strong><span class="cv-rv">신상품</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-toner.webp" alt=""><span class="cv-badge-s">NEW</span></div><b>수분 토너 200ml</b><strong>22,000원</strong><span class="cv-rv">신상품</span></div>
-              </div>
-            </div>
-          </div>
-          <!-- 3 성장 중인 : 2년 차 · 카테고리 · BEST · 기획전 -->
-          <div class="cv-shop" data-url="mue.co.kr">
-            <div class="cv-nav"><span class="cv-logo">MUE</span><span class="cv-menu"><span>스킨케어</span><span>클렌징</span><span>선케어</span><span class="cv-hl"><span>세트</span><span>기획전</span><span class="cv-b">BEST</span></span></span><span class="cv-r"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="cv-cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 8h14l-1.2 11H6.2L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.8"/></svg><b>2</b></span></span></div>
-            <div class="cv-main">
-              <div class="cv-banner"><img src="assets/geo/beauty/mue-cleanser-pack.webp" alt=""><div class="cv-tx"><small>SUMMER SALE</small><h4>여름 기획전 최대 30%</h4><p>베스트 세트 · 1+1 · 무료 배송</p></div><span class="cv-pg">2 / 5</span></div>
-              <div class="cv-sec">BEST<span>월 주문 3,200건</span></div>
-              <div class="cv-prods">
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cleanser.png" alt=""><span class="cv-badge-s">BEST 1</span></div><b>마일드 클렌저 300ml</b><strong>18,000원</strong><span class="cv-rv">4.9 (3,812)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-sun.webp" alt=""><span class="cv-badge-s">BEST 2</span></div><b>데일리 선크림 50ml</b><strong>21,000원</strong><span class="cv-rv">4.9 (2,140)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cream.webp" alt=""><span class="cv-badge-s">BEST 3</span></div><b>수분 크림 50ml</b><strong>28,000원</strong><span class="cv-rv">4.8 (1,906)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-toner.webp" alt=""><span class="cv-badge-s">1+1</span></div><b>수분 토너 200ml</b><strong><s>44,000</s>22,000원</strong><span class="cv-rv">4.9 (722)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-serum.webp" alt=""></div><b>수분 세럼 30ml</b><strong>32,000원</strong><span class="cv-rv">4.9 (512)</span></div>
-              </div>
-            </div>
-          </div>
-          <!-- 4 중대형 : 4년 차 · B2B 도매가 · 파트너 -->
-          <div class="cv-shop" data-url="mue.co.kr/b2b">
-            <div class="cv-nav"><span class="cv-logo">MUE</span><span class="cv-menu"><span>스킨케어</span><span>클렌징</span><span>선케어</span><span>세트</span><span class="cv-b">B2B 도매</span></span><span class="cv-r"><span class="cv-member">B2B 파트너</span><span class="cv-t">(주)뷰티라운지</span><span class="cv-cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 8h14l-1.2 11H6.2L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.8"/></svg><b>120</b></span></span></div>
-            <div class="cv-main">
-              <div class="cv-banner"><img src="assets/geo/beauty/mue-cleanser-foam.webp" alt=""><div class="cv-tx"><small>B2B PARTNER</small><h4>파트너 도매가 적용 중</h4><p>100개 이상 35% · 월말 정산 · 전용 물류</p></div></div>
-              <div class="cv-sec">도매 주문<span class="cv-hl">B2B 파트너 186곳 · 도매가</span></div>
-              <div class="cv-prods">
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cleanser.png" alt=""></div><b>마일드 클렌저 300ml</b><strong><s>18,000</s>11,700원</strong><span class="cv-rv">재고 8,400</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-sun.webp" alt=""></div><b>데일리 선크림 50ml</b><strong><s>21,000</s>13,650원</strong><span class="cv-rv">재고 5,200</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cream.webp" alt=""></div><b>수분 크림 50ml</b><strong><s>28,000</s>18,200원</strong><span class="cv-rv">재고 4,900</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-serum.webp" alt=""></div><b>수분 세럼 30ml</b><strong><s>32,000</s>20,800원</strong><span class="cv-rv">재고 3,100</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-toner.webp" alt=""></div><b>수분 토너 200ml</b><strong><s>22,000</s>14,300원</strong><span class="cv-rv">재고 2,600</span></div>
-              </div>
-            </div>
-          </div>
-          <!-- 5 글로벌 : 6년 차 · 영문몰 · 달러 -->
-          <div class="cv-shop" data-url="en.mue.co.kr">
-            <div class="cv-nav"><span class="cv-logo">MUE</span><span class="cv-menu"><span>Skincare</span><span>Cleansing</span><span>Sun Care</span><span>Sets</span></span><span class="cv-r"><span class="cv-hl"><span class="cv-lang"><span>KR</span><span class="on">EN</span><span>JP</span></span><span>USD $</span></span><span class="cv-cart"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 8h14l-1.2 11H6.2L5 8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8" stroke="currentColor" stroke-width="1.8"/></svg><b>1</b></span></span></div>
-            <div class="cv-main">
-              <div class="cv-banner"><img src="assets/geo/beauty/mue-cleanser-hand.jpg" alt=""><div class="cv-tx"><small>WORLDWIDE</small><h4>Mild Daily Care, worldwide</h4><p>Free shipping over $60 · 38 countries</p></div><span class="cv-pg">1 / 4</span></div>
-              <div class="cv-sec">Best Sellers<span>21K reviews</span></div>
-              <div class="cv-prods">
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cleanser.png" alt=""></div><b>Mild Cleanser 300ml</b><strong>$14.00</strong><span class="cv-rv">4.9 (9,204)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-sun.webp" alt=""></div><b>Daily Sunscreen 50ml</b><strong>$16.00</strong><span class="cv-rv">4.9 (5,630)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-cream.webp" alt=""></div><b>Moisture Cream 50ml</b><strong>$21.00</strong><span class="cv-rv">4.8 (4,018)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-toner.webp" alt=""></div><b>Hydrating Toner 200ml</b><strong>$17.00</strong><span class="cv-rv">4.9 (1,876)</span></div>
-                <div class="cv-prod"><div class="cv-ph"><img src="assets/geo/beauty/mue-p-serum.webp" alt=""></div><b>Hydrating Serum 30ml</b><strong>$24.00</strong><span class="cv-rv">4.9 (1,102)</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="cv-kwl"><span class="cv-pb" data-cvb>Cloud Standard</span><span class="cv-k" data-cvk>첫 창업</span><i></i><span class="cv-d" data-cvd>MUE 오픈 첫 달 · 상품 3개</span></div>
-    </div>
-  </div>
 </section>
 <!-- @endregion -->
 
 <!-- @region cmp-plan : 두 가지 방식 카드 (기존 히어로 카드 2장 · 내용 그대로 · 같은 위계 흰 카드) -->
 <section class="sec" id="cmp-plan">
   <div class="container">
-    <div class="sub-title center rv"><h2>두 가지 방식으로 시작할 수 있어요</h2><p>비즈니스에 맞게 고르고, 성장하면 언제든 옮길 수 있어요.</p></div>
     <ul class="pc-list cp-list">   <!-- [개발 전달] patch-416 요금 카드 공통 부품(assets/common/plan.css · docs/plan.html) · 뱃지 Cloud 파랑 / Enterprise 인디고 · 버튼 1개(흰) + 자세히 보기 텍스트 링크 -->
-      <li class="pc rv">
+      <li class="pc tone-blue rv">   <!-- [개발 전달] patch-442 방식 카드 색 .tone-blue · 아이콘 칸 .pc-ic (plan.css) -->
+        <span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
         <span class="pc-pop">SaaS 구독형</span>
         <h3>Cloud</h3>
         <p class="pc-sub">WISA 클라우드에서 바로 쓰는 쇼핑몰</p>
@@ -661,7 +460,7 @@
         <a class="pc-more" href="https://www.wisa.co.kr/solution/cloud">요금제 자세히 보기</a>
         <ul class="pc-checks"><li>서버 준비 없이 가입 후 바로 오픈합니다</li><li>업데이트와 인프라 운영은 WISA가 맡습니다</li><li>판매와 운영에만 집중하면 됩니다</li></ul>
       </li>
-      <li class="pc rv" style="--d:100ms">
+      <li class="pc tone-indigo rv" style="--d:100ms">
         <!-- [개발 전달] patch-437 부스터 로켓 = 메인(wisa-main .sol-card > .rocket) 마크업 · 효과 그대로 -->
         <div class="rocket rv" style="--d:1000ms" aria-hidden="true"><svg width="101" height="122" viewBox="0 0 101 122" fill="none">
                 <g class="rk-flame"><g transform="rotate(30.6 31 81)"><g class="rk-len"><g class="rk-wid"><path transform="rotate(-30.6 31 81)" d="M22.6226 108.324C24.9155 109.648 35.725 104.56 40.0968 97.1866C43.4885 91.4634 45.0595 85.5463 38.0947 81.5252L38.0783 81.5157C31.1136 77.4946 26.7747 81.8137 23.5141 87.6125C19.3142 95.0855 20.3133 106.99 22.6062 108.314L22.6226 108.324Z" fill="url(#rkG2)"/></g></g></g></g>
@@ -680,6 +479,7 @@
                   <linearGradient id="rkG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient>
                 </defs>
               </svg></div>
+        <span class="pc-ic" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg></span>
         <span class="pc-pop indigo">라이선스 소유형</span>
         <h3>Enterprise</h3>
         <p class="pc-sub">소스코드와 서버를 직접 소유하는 쇼핑몰</p>
@@ -1051,36 +851,6 @@
       if (ri === n) setTimeout(() => { inn.style.transition = 'none'; ri = 0; fit(); void inn.offsetHeight; inn.style.transition = ''; }, 650);
     }, 2400);
   }
-  /* @region cv-hero (patch-440): 히어로 비주얼 단계 — 타이틀 키워드(2.4초)와 따로 4.8초마다 다음 단계
-     · 라벨 0초(0.3초 페이드) → 쇼핑몰 화면 0.4초(새 화면이 앞 화면 위에서 페이드 인 · 0.65초 뒤 앞 화면 숨김) → 파란 표시 1.2초(CSS 지연)
-     · 화면에 보일 때만 진행 · 동작 줄이기 시 첫 단계에 멈춤 */
-  const cvHero = document.querySelector('#geo-hero .cv-hv');
-  if (cvHero) {
-    const ST = [
-      ['Cloud Standard', '첫 창업', 'MUE 오픈 첫 달 · 상품 3개'],
-      ['Cloud Pro', '1인 브랜드', 'MUE 1년 차 · 후기 1,240개'],
-      ['Cloud Hybrid', '성장 중인', 'MUE 2년 차 · 세트 · 기획전 · BEST 확장'],
-      ['Enterprise', '중대형', 'MUE 4년 차 · B2B 파트너 186곳'],
-      ['Enterprise', '글로벌', 'MUE 6년 차 · 영문몰 · 달러 결제']
-    ];
-    const shops = [...cvHero.querySelectorAll('.cv-shop')], lb = cvHero.querySelector('.cv-kwl'), url = cvHero.querySelector('[data-url]');
-    const pb = cvHero.querySelector('[data-cvb]'), kk = cvHero.querySelector('[data-cvk]'), dd = cvHero.querySelector('[data-cvd]');
-    let ci = 0, seen = false;
-    const go = () => {
-      const prev = ci; ci = (ci + 1) % ST.length; const k = ci;
-      lb.classList.add('sw-out');
-      setTimeout(() => { pb.textContent = ST[k][0]; pb.classList.toggle('indigo', k >= 3); kk.textContent = ST[k][1]; dd.textContent = ST[k][2]; lb.classList.remove('sw-out'); }, 300);
-      setTimeout(() => {
-        shops[prev].classList.remove('on'); shops[prev].classList.add('was'); shops[k].classList.add('on'); url.textContent = shops[k].dataset.url;
-        setTimeout(() => shops[prev].classList.remove('was'), 650);
-      }, 400);
-    };
-    if (!reduced) {
-      if ('IntersectionObserver' in window) new IntersectionObserver(es => { seen = es.some(e => e.isIntersecting); }).observe(cvHero); else seen = true;
-      setInterval(() => { if (seen && !document.hidden) go(); }, 4800);
-    }
-  }
-  /* @endregion cv-hero */
   // 시장 변화 그래프: 화면에 들어오면 선이 왼쪽에서 오른쪽으로 그려지고 교차 시점이 나타남 (1회)
   const mkChart = document.querySelector('.mk-chart');
   if (mkChart && !reduced && 'IntersectionObserver' in window) {
