@@ -19,6 +19,9 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-464: 성장 경로 ② = 미디어 업로드 4행(4K 영상 486MB 업로드 중 · GIF 38MB · 상세페이지 원본 PNG 24MB · 누끼 TIFF 72MB) · 블루 = 영상 진행 막대 → 완료 체크 · 아래 "파일 크기 · 용량 제한 없음" · [개발 전달] 영상 · GIF 썸네일 자리 박스 → 받으면 교체
+     · 2026-11-12 patch-463: 성장 경로 ① = 쇼핑몰 첫 화면(주소창 mue.co.kr + 메뉴 + 배너 + 상품 5개 진열) · 블루 = 주소창 오른쪽 "오픈 완료" · 움직임 = 회색 뼈대가 위에서부터 걷히며 쇼핑몰이 채워진 뒤 "오픈 완료" 켜짐 · ② 창 제목 미디어 보관함
+     · 2026-11-12 patch-462: 성장 경로 ② 두 번째 줄 = 같은 사진 확대(중복) → 받을 이미지 자리 박스(점선 · 영상 · 거품 세안 0:15 / 사용 컷 · 거품 / 사용 컷 · 손 / 상세 컷 · 제형 / 상세 컷 · 성분 업로드 중) · 장 수 → 개수(사진 · 영상) · [개발 전달] 모델 사진 · 영상 받으면 교체
      · 2026-11-12 patch-461: 성장 경로 ③ = 글로벌몰 상품 페이지(사진 128 · 언어 탭 KR → EN → JP 2.4초 반복 · 상품명 · 가격 원 → $ → ¥ · 배송이 함께 바뀜 · 블루 = 켜진 탭) + 전담 매니저 메시지 · ④ = WISA Cloud → 자체 서버(사이 선으로 회색 점이 흐름) + 상품 · 주문 · 회원 3행이 차례로 옮겨지며 숫자가 올라감(지금 옮기는 행만 블루 · 반복) · 완료 체크 검정 → 회색 (스크립트 cg-loop)
      · 2026-11-12 patch-460: 성장 경로 ② = 상품 등록 + 큰 "무제한" 글자 → 이미지 보관함 (상품 사진 5 + 상세 컷 5 · 1,284장 · 23.6GB 사용 · "용량 한도 없음" 회색 글자) · 블루 = 마지막 칸 업로드 링 · 움직임 = 링이 차면 칸이 열리고 1,283장 → 1,284장
      · 2026-11-12 patch-459: 성장 경로 ① 아래 줄 = 스위치 삭제 → 오픈 완료 알림 줄 (블루 체크 24 + "쇼핑몰이 오픈됐어요" 13/700 + 가입 3분 만 · 시각 12 + 흰 버튼 "내 쇼핑몰 보기") · 움직임 = 아래 진행 막대가 차오르면 "쇼핑몰을 여는 중…" → "오픈됐어요" + 체크
@@ -304,64 +307,58 @@
   .cg-chip { margin-left: auto; flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-style: normal; font-size: 12px; font-weight: 600; }
   .cg-ok { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-200); color: var(--gray-600); }
   .cg-ok svg { width: 11px; height: 11px; }
-  /* ① 내 쇼핑몰 */
-  .cg-shop { border-radius: 12px; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-100); padding: 12px; }
-  .cg-shop-bar { display: flex; align-items: center; gap: 8px; height: 20px; margin-bottom: 12px; }
-  .cg-shop-bar b { font-size: 13px; font-weight: 700; letter-spacing: .12em; color: var(--black); }
-  .cg-shop-bar span { font-size: 11px; color: var(--gray-400); }
-  .cg-shop-bar i { margin-left: auto; display: flex; gap: 4px; } .cg-shop-bar i::before, .cg-shop-bar i::after { content: ""; width: 16px; height: 2px; border-radius: 1px; background: var(--gray-300); }
-  .cg-prods { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
-  .cg-prods li { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .cg-prods img + b { margin-top: 4px; }
-  .cg-prods img { display: block; width: 100%; aspect-ratio: 1; border-radius: 8px; background: var(--white); object-fit: cover; }   /* patch-457: MUE 상품 5종 정방형 그대로 */
-  .cg-prods b { font-size: 12px; font-weight: 600; line-height: 16px; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .cg-prods span { font-size: 11px; line-height: 14px; color: var(--gray-500); }
-  /* patch-459: 상태 줄 = 스위치 → 오픈 완료 알림 (진행 막대가 차오르면 "오픈하는 중" → "쇼핑몰이 오픈됐어요" + 블루 체크 · 오른쪽 흰 버튼 1개) */
-  .cg-state { position: relative; display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 12px 0 16px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
-  .cg-done { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--primary-600); color: var(--white); }
-  .cg-done svg { width: 13px; height: 13px; }
-  .cg-state p { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-  .cg-state p b { position: relative; display: block; height: 18px; font-size: 13px; font-weight: 700; line-height: 18px; color: var(--black); white-space: nowrap; }
-  .cg-state p b span { display: block; }
-  .cg-state p b span + span { position: absolute; left: 0; top: 0; }
-  .cg-state p small { font-size: 12px; line-height: 16px; color: var(--gray-500); white-space: nowrap; }
-  .cg-go { flex: none; margin-left: auto; padding: 6px 12px; border-radius: 6px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-style: normal; font-size: 12px; font-weight: 700; line-height: 16px; color: var(--gray-900); }
-  .cg-pg { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--primary-600); transform-origin: 0 50%; opacity: 0; }
-  .cg-sr.vw-anim .cg-pg { transition: transform 1s cubic-bezier(.4, 0, .2, 1) .3s, opacity .3s ease-out 1.4s; }
-  .cg-sr.vw-anim:not(.vw-go) .cg-pg { transform: scaleX(0); opacity: 1; }
-  .cg-sr.vw-anim .cg-done { transition: opacity .25s ease-out 1.3s, transform .4s cubic-bezier(.34, 1.56, .64, 1) 1.3s, background-color .25s ease-out 1.3s; }
-  .cg-sr.vw-anim:not(.vw-go) .cg-done { background: var(--gray-200); transform: scale(.6); }
-  .cg-sr.vw-anim:not(.vw-go) .cg-done svg { opacity: 0; }
-  .cg-sr.vw-anim .cg-done svg { transition: opacity .2s ease-out 1.4s; }
-  .cg-sr.vw-anim .cg-state b span { transition: opacity .3s ease-out 1.3s, transform .4s var(--ease-out) 1.3s; }
-  .cg-sr.vw-anim:not(.vw-go) .cg-state b span + span, .cg-sr.vw-go .cg-state b span:first-child, .cg-sr:not(.vw-anim) .cg-state b span:first-child { opacity: 0; transform: translateY(-6px); }
-  .cg-sr.vw-anim:not(.vw-go) .cg-state b span + span { transform: translateY(6px); }
-  .cg-sr.vw-anim .cg-go { transition: opacity .3s ease-out 1.5s; } .cg-sr.vw-anim:not(.vw-go) .cg-go { opacity: .4; }
-  /* ② 이미지 보관함 (patch-460): 상품 사진 + 상세 컷이 쌓인 보관함 · 마지막 칸 새 이미지 업로드(블루 링 = 화면당 1곳) → 올라가면 장 수 +1 · 아래 저장 공간은 회색 글자로 "한도 없음" */
-  .cg-lib-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .cg-lib-hd p { margin: 0; display: flex; align-items: baseline; gap: 6px; }
-  .cg-lib-hd b { font-size: 13px; font-weight: 700; color: var(--black); }
-  .cg-lib-hd p span { position: relative; display: inline-block; min-width: 52px; height: 18px; font-size: 13px; font-weight: 600; line-height: 18px; color: var(--gray-500); font-variant-numeric: tabular-nums; }
-  .cg-lib-hd p span i { display: block; font-style: normal; }
-  .cg-lib-hd p span i + i { position: absolute; left: 0; top: 0; }
-  .cg-lib-hd > span { font-size: 12px; color: var(--gray-500); }
-  .cg-lib { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
-  .cg-lib li { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--gray-50); }
-  .cg-lib img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .cg-lib li.dt img { transform: scale(1.9); transform-origin: var(--o, 50% 55%); }   /* 상세 컷 = 같은 사진 확대 */
-  .cg-lib li.up::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 2px var(--primary-600); }
-  .cg-lib li.up .ring { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(255, 255, 255, .72); }
-  .cg-lib li.up .ring svg { width: 30px; height: 30px; transform: rotate(-90deg); }
-  .cg-lib li.up .ring circle { fill: none; stroke-width: 3; }
-  .cg-lib li.up .ring circle:first-child { stroke: var(--gray-200); }
-  .cg-lib li.up .ring circle + circle { stroke: var(--primary-600); stroke-linecap: round; stroke-dasharray: 69 69; stroke-dashoffset: 0; }
-  .cg-sr.vw-anim .cg-lib li.up .ring circle + circle { transition: stroke-dashoffset 1.4s cubic-bezier(.4, 0, .2, 1) .4s; }
-  .cg-sr.vw-anim:not(.vw-go) .cg-lib li.up .ring circle + circle { stroke-dashoffset: 69; }
-  .cg-sr .cg-lib li.up .ring { opacity: 0; }
-  .cg-sr.vw-anim .cg-lib li.up .ring { transition: opacity .3s ease-out 1.9s; } .cg-sr.vw-anim:not(.vw-go) .cg-lib li.up .ring { opacity: 1; }
-  .cg-sr.vw-anim .cg-lib-hd p span i { transition: opacity .3s ease-out 1.9s, transform .4s var(--ease-out) 1.9s; }
-  .cg-sr.vw-anim:not(.vw-go) .cg-lib-hd p span i + i, .cg-sr.vw-go .cg-lib-hd p span i:first-child, .cg-sr:not(.vw-anim) .cg-lib-hd p span i:first-child { opacity: 0; transform: translateY(-6px); }
-  .cg-sr.vw-anim:not(.vw-go) .cg-lib-hd p span i + i { transform: translateY(6px); }
+  /* ① 쇼핑몰 첫 화면 (patch-463): 주소창(mue.co.kr · 오른쪽 "오픈 완료" = 블루 1곳) + 메뉴 + 배너 + 상품 5개 진열 · 움직임 = 회색 뼈대가 위에서부터 걷히며 쇼핑몰이 채워지고 마지막에 "오픈 완료" 켜짐 */
+  #geo-diagnosis .sr-vis.cg-sr .vw-bd.cg-std-bd { padding: 16px !important; }
+  .cg-store { height: 100%; display: flex; flex-direction: column; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
+  .cg-addr { flex: none; display: flex; align-items: center; gap: 6px; height: 36px; padding: 0 8px 0 12px; background: var(--gray-50); border-bottom: 1px solid var(--gray-100); }
+  .cg-addr i { display: flex; gap: 4px; } .cg-addr i::before, .cg-addr i::after, .cg-addr i span { content: ""; display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--gray-200); }
+  .cg-addr p { flex: 1; display: flex; align-items: center; gap: 4px; margin: 0 0 0 4px; height: 24px; padding: 0 10px; border-radius: 6px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-100); font-size: 12px; color: var(--gray-600); }
+  .cg-addr p svg { width: 11px; height: 11px; color: var(--gray-400); }
+  .cg-open { flex: none; display: flex; align-items: center; gap: 4px; padding: 3px 10px 3px 6px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 12px; font-weight: 700; line-height: 16px; }
+  .cg-open svg { width: 12px; height: 12px; }
+  .cg-nav { flex: none; display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 16px; }
+  .cg-nav b { font-size: 14.5px; font-weight: 700; letter-spacing: .14em; color: var(--black); }
+  .cg-nav span { font-size: 11px; font-weight: 600; color: var(--gray-500); letter-spacing: .02em; }
+  .cg-nav span:first-of-type { margin-left: 8px; }
+  .cg-nav i { margin-left: auto; display: flex; gap: 10px; color: var(--gray-700); } .cg-nav i svg { width: 15px; height: 15px; }
+  .cg-bn { flex: none; display: flex; align-items: center; justify-content: space-between; height: 56px; margin: 0 12px; padding-left: 16px; border-radius: 8px; background: var(--gray-100); overflow: hidden; }
+  .cg-bn p { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .cg-bn small { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--gray-500); }
+  .cg-bn b { font-size: 13px; font-weight: 700; color: var(--black); } .cg-bn span { font-size: 11px; color: var(--gray-600); }
+  .cg-bn img { width: 56px; height: 56px; object-fit: cover; }
+  .cg-pd { flex: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; align-content: center; margin: 0; padding: 0 12px; list-style: none; }
+  .cg-pd li { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .cg-pd img { display: block; width: 100%; aspect-ratio: 1; border-radius: 6px; object-fit: cover; background: var(--gray-50); }
+  .cg-pd b { margin-top: 4px; font-size: 11px; font-weight: 600; line-height: 14px; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cg-pd span { font-size: 11px; font-weight: 700; line-height: 14px; color: var(--black); }
+  .cg-sk { position: relative; }
+  .cg-sk::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 6px; background: var(--gray-100); opacity: 0; pointer-events: none; }
+  .cg-sr.vw-anim .cg-sk::after { transition: opacity .4s ease-out calc(var(--k) * .22s + .3s); }
+  .cg-sr.vw-anim:not(.vw-go) .cg-sk::after { opacity: 1; }
+  .cg-sr.vw-anim .cg-open { transition: opacity .3s ease-out 1.7s, transform .4s cubic-bezier(.34, 1.56, .64, 1) 1.7s; }
+  .cg-sr.vw-anim:not(.vw-go) .cg-open { opacity: 0; transform: scale(.6); }
+  /* ② 미디어 업로드 (patch-464): 4K 영상 · GIF · 원본 이미지 등 고용량 파일 4행 · 맨 위 영상 업로드 중(블루 진행 막대 = 화면당 1곳) → 완료 · 아래 저장 공간 "파일 크기 · 용량 제한 없음"
+     [개발 전달] 영상 · GIF 썸네일은 점선 자리 박스 — 모델 거품 세안 영상 · 제형 GIF 받으면 교체 */
+  .cg-ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .cg-ul li { display: flex; align-items: center; gap: 12px; height: 46px; padding: 0 12px 0 6px; border-radius: 10px; background: var(--gray-50); }
+  .cg-ul li.on { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .cg-th { position: relative; flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 6px; overflow: hidden; background: var(--white); }
+  .cg-th img { width: 100%; height: 100%; object-fit: cover; }
+  .cg-th.ph { box-sizing: border-box; border: 1.5px dashed var(--gray-300); background: var(--gray-50); color: var(--gray-500); font-size: 10px; font-weight: 700; }
+  .cg-th.ph svg { width: 12px; height: 12px; margin-left: 1px; }
+  .cg-ul .cg-fn { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .cg-ul .cg-fn b { font-size: 12.5px; font-weight: 600; line-height: 16px; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cg-ul .cg-fn span { display: flex; align-items: center; gap: 6px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .cg-ul .cg-fn span em { padding: 0 4px; border-radius: 4px; background: var(--gray-200); color: var(--gray-700); font-style: normal; font-size: 10px; font-weight: 700; line-height: 14px; }
+  .cg-ul .cg-fz { flex: none; width: 52px; text-align: right; font-size: 12.5px; font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; }
+  .cg-ul .cg-fs { flex: none; width: 20px; display: grid; place-items: center; }
+  .cg-ul li.on .cg-fn span i { position: relative; flex: 1; max-width: 120px; height: 4px; border-radius: 99px; background: var(--gray-200); overflow: hidden; }
+  .cg-ul li.on .cg-fn span i::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--primary-600); transform-origin: 0 50%; }
+  .cg-sr.vw-anim .cg-ul li.on .cg-fn span i::after { transition: transform 2s cubic-bezier(.4, 0, .2, 1) .4s; }
+  .cg-sr.vw-anim:not(.vw-go) .cg-ul li.on .cg-fn span i::after { transform: scaleX(.08); }
+  .cg-ul li.on .cg-fs .cg-ok { background: var(--primary-50); color: var(--primary-600); }
+  .cg-sr.vw-anim .cg-ul li.on .cg-fs .cg-ok { transition: opacity .3s ease-out 2.4s, transform .4s cubic-bezier(.34, 1.56, .64, 1) 2.4s; }
+  .cg-sr.vw-anim:not(.vw-go) .cg-ul li.on .cg-fs .cg-ok { opacity: 0; transform: scale(.4); }
   .cg-cap { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--gray-100); }
   .cg-cap p { margin: 0; font-size: 12px; color: var(--gray-500); } .cg-cap p b { margin-left: 6px; font-size: 13px; font-weight: 600; color: var(--gray-900); }
   .cg-cap em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--gray-700); }
@@ -729,12 +726,12 @@
       <li class="steprow rv">
         <span class="sr-no">1</span>
         <div class="sr-body"><h3><em class="key">Cloud Standard</em> 무료로 바로 쇼핑몰을 엽니다</h3><p>브랜드형 · 입점형 쇼핑몰을 가입 후 바로 오픈하고, 서버 · 보안 · 업데이트는 WISA가 맡습니다.</p><p class="sr-out">트래픽 · 웹 / DB 용량 무제한 · 상품 이미지 1GB</p><ul class="sr-tags"><li>무료</li><li>브랜드형</li><li>입점형</li><li>자동 업데이트</li></ul></div>
-        <div class="sr-vis vw cg-sr" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M4 9.5V20h16V9.5"/><path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/></svg></span><b>내 쇼핑몰</b><span class="vw-m">브랜드형</span><em class="cg-chip">Standard · 무료</em></div><div class="vw-bd"><div class="cg-shop"><div class="cg-shop-bar"><b>MUE</b><span>mue.co.kr</span><i></i></div><ul class="cg-prods"><li><img src="assets/geo/beauty/mue-p-cleanser.png" alt="" loading="lazy"><b>클렌징 폼</b><span>18,000원</span></li><li><img src="assets/geo/beauty/mue-p-toner.webp" alt="" loading="lazy"><b>토너</b><span>22,000원</span></li><li><img src="assets/geo/beauty/mue-p-serum.webp" alt="" loading="lazy"><b>세럼</b><span>32,000원</span></li><li><img src="assets/geo/beauty/mue-p-cream.webp" alt="" loading="lazy"><b>수분 크림</b><span>28,000원</span></li><li><img src="assets/geo/beauty/mue-p-sun.webp" alt="" loading="lazy"><b>선크림</b><span>24,000원</span></li></ul></div><div class="cg-state"><em class="cg-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></em><p><b><span>쇼핑몰을 여는 중…</span><span>쇼핑몰이 오픈됐어요</span></b><small>가입 3분 만 · 2026.11.12 (목) 14:05</small></p><em class="cg-go">내 쇼핑몰 보기</em><i class="cg-pg"></i></div></div></div></div>
+        <div class="sr-vis vw cg-sr" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 4.5 4h15L21 9.5"/><path d="M4 9.5V20h16V9.5"/><path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/></svg></span><b>내 쇼핑몰</b><span class="vw-m">가입 3분 만에 오픈</span><em class="cg-chip">Standard · 무료</em></div><div class="vw-bd cg-std-bd"><div class="cg-store"><div class="cg-addr"><i><span></span></i><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>mue.co.kr</p><em class="cg-open"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>오픈 완료</em></div><div class="cg-nav cg-sk" style="--k:0"><b>MUE</b><span>NEW</span><span>BEST</span><span>SKINCARE</span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></i></div><div class="cg-bn cg-sk" style="--k:1"><p><small>NEW ARRIVAL</small><b>수분 장벽 크림</b><span>첫 구매 10% 할인</span></p><img src="assets/geo/beauty/mue-p-cream.webp" alt=""></div><ul class="cg-pd"><li class="cg-sk" style="--k:2"><img src="assets/geo/beauty/mue-p-cleanser.png" alt="" loading="lazy"><b>클렌징 폼</b><span>18,000원</span></li><li class="cg-sk" style="--k:3"><img src="assets/geo/beauty/mue-p-toner.webp" alt="" loading="lazy"><b>토너</b><span>22,000원</span></li><li class="cg-sk" style="--k:4"><img src="assets/geo/beauty/mue-p-serum.webp" alt="" loading="lazy"><b>세럼</b><span>32,000원</span></li><li class="cg-sk" style="--k:5"><img src="assets/geo/beauty/mue-p-cream.webp" alt="" loading="lazy"><b>수분 크림</b><span>28,000원</span></li><li class="cg-sk" style="--k:6"><img src="assets/geo/beauty/mue-p-sun.webp" alt="" loading="lazy"><b>선크림</b><span>24,000원</span></li></ul></div></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">2</span>
         <div class="sr-body"><h3><em class="key">Cloud Pro</em> 이미지 용량 걱정 없이 상품을 늘립니다</h3><p>월 33,000원(연간 결제 시 월 27,500원)으로 상품 이미지 용량이 무제한이 됩니다.</p><p class="sr-out">상품 이미지 용량 무제한</p><ul class="sr-tags"><li>월 33,000원</li><li>연간 결제 월 27,500원</li><li>이미지 무제한</li></ul></div>
-        <div class="sr-vis vw cg-sr" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5L5 20"/></svg></span><b>이미지 보관함</b><span class="vw-m">MUE · 상품 상세</span><em class="cg-chip">Pro</em></div><div class="vw-bd"><div><div class="cg-lib-hd"><p><b>상품 이미지</b><span><i>1,283장</i><i>1,284장</i></span></p><span>상세 컷 · 원본 화질</span></div><ul class="cg-lib"><li><img src="assets/geo/beauty/mue-p-cleanser.png" alt="" loading="lazy"></li><li><img src="assets/geo/beauty/mue-p-toner.webp" alt="" loading="lazy"></li><li><img src="assets/geo/beauty/mue-p-serum.webp" alt="" loading="lazy"></li><li><img src="assets/geo/beauty/mue-p-cream.webp" alt="" loading="lazy"></li><li><img src="assets/geo/beauty/mue-p-sun.webp" alt="" loading="lazy"></li><li class="dt" style="--o:50% 52%"><img src="assets/geo/beauty/mue-p-cream.webp" alt="" loading="lazy"></li><li class="dt" style="--o:50% 40%"><img src="assets/geo/beauty/mue-p-serum.webp" alt="" loading="lazy"></li><li class="dt" style="--o:45% 70%"><img src="assets/geo/beauty/mue-p-cleanser.png" alt="" loading="lazy"></li><li class="dt" style="--o:60% 35%"><img src="assets/geo/beauty/mue-p-sun.webp" alt="" loading="lazy"></li><li class="dt up" style="--o:50% 45%"><img src="assets/geo/beauty/mue-p-toner.webp" alt="" loading="lazy"><span class="ring"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="11"/><circle cx="15" cy="15" r="11"/></svg></span></li></ul></div><div class="cg-cap"><p>저장 공간<b>23.6GB 사용</b></p><em>용량 한도 없음</em></div></div></div></div>
+        <div class="sr-vis vw cg-sr" aria-hidden="true"><div class="vw-win"><div class="vw-hd"><span class="vw-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5L5 20"/></svg></span><b>미디어 업로드</b><span class="vw-m">MUE · 영상 · GIF · 원본 이미지</span><em class="cg-chip">Pro</em></div><div class="vw-bd"><ul class="cg-ul"><li class="on"><span class="cg-th ph"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l10.5-6.5z"/></svg></span><p class="cg-fn"><b>거품세안_모델컷.mp4</b><span><em>MP4</em><i></i></span></p><span class="cg-fz">486MB</span><span class="cg-fs"><em class="cg-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></em></span></li><li><span class="cg-th ph">GIF</span><p class="cg-fn"><b>제형_텍스처.gif</b><span><em>GIF</em>1080px · 6초</span></p><span class="cg-fz">38MB</span><span class="cg-fs"><em class="cg-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></em></span></li><li><span class="cg-th"><img src="assets/geo/beauty/mue-p-cream.webp" alt=""></span><p class="cg-fn"><b>수분크림_상세페이지_원본.png</b><span><em>PNG</em>1200 × 9600px</span></p><span class="cg-fz">24MB</span><span class="cg-fs"><em class="cg-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></em></span></li><li><span class="cg-th"><img src="assets/geo/beauty/mue-p-serum.webp" alt=""></span><p class="cg-fn"><b>세럼_누끼_원본.tiff</b><span><em>TIFF</em>5000 × 5000px</span></p><span class="cg-fz">72MB</span><span class="cg-fs"><em class="cg-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></em></span></li></ul><div class="cg-cap"><p>저장 공간<b>23.6GB 사용</b></p><em>파일 크기 · 용량 제한 없음</em></div></div></div></div>
       </li>
       <li class="steprow rv">
         <span class="sr-no">3</span>
