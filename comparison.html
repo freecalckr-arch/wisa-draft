@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-427: 핵심 차이 가운데 라벨 이모지 삭제 (머리줄 선 아이콘과 섞이지 않게 · 글자만)
      · 2026-11-12 patch-426: 핵심 차이 제품명 PC 20 → 24 (아이콘 26 → 30 · 사이 10) · 모바일 18 → 20 (아이콘 22 → 24)
      · 2026-11-12 patch-425: 페이지 탭 모바일(≤767) 이름 줄임 "부스터 Cloud" → "Cloud" · "부스터 Enterprise" → "Enterprise" (밀지 않고 한 줄에 다 보임 · PC · 태블릿은 그대로) · 맞는 경우 카드 아래 고객 태그 복구(태그 공통 규격 .sr-tags · 제목 없이)
      · 2026-11-12 patch-424: 어떤 방식이 맞을까요 카드 = 뱃지 삭제 · 메인 솔루션 카드처럼 아이콘 + 제품명(28/700) · 아래 “맞는 경우” 한 문장(18/600 Gray 700 · 따옴표) · "이런 분께 맞아요" 제목 삭제(태그는 patch-425 에서 공통 규격으로 다시 넣음) / 태그 공통 규격(wisa.css tag-std · plan.css · docs/tag.html): 높이 32 · 6/12 · 모서리 8 · 13/500 · Gray 700 · 사이 8
@@ -91,7 +92,6 @@
   .cd-row b { font-size: 17px; font-weight: 600; line-height: 24px; color: var(--gray-900); word-break: keep-all; }
   .cd-row span { font-size: 14px; line-height: 20px; color: var(--gray-500); word-break: keep-all; }
   .cd-lb { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-50); font-style: normal; font-size: 14px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }   /* patch-420: 테두리 없이 굵게 · 검정 · patch-421: 바탕 Gray 50 = 모바일 띠와 같은 색 */
-  .cd-em { flex: none; font-family: "Tossface", "TossFaceSub", sans-serif; font-style: normal; font-size: 16px; font-weight: 400; line-height: 1; }   /* 토스 이모지 (wisa.css 에서 Tossface 불러옴) */
   .cd-hd { min-height: 0; background: var(--white); border-bottom: 1px solid var(--gray-200); }   /* patch-416: 제품명 머리줄 흰 바탕 */
   .cd-hd + .cd-row { border-top: 0; }
   .cd-hd > .cd-lb { visibility: hidden; }
@@ -416,12 +416,12 @@
     <div class="sub-title rv"><h2>한눈에 보는 핵심 차이</h2><p>소유권부터 업데이트까지, 두 방식의 가장 중요한 6가지 차이를 비교해 보세요.</p></div>
     <div class="cd rv" style="--d:100ms">
       <div class="cd-row cd-hd"><div><b><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Cloud</b><span>SaaS 구독형</span></div><i class="cd-lb" aria-hidden="true"></i><div><b><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg>Enterprise</b><span>라이선스 소유형</span></div></div>
-      <div class="cd-row"><div><b>WISA 플랫폼을 이용</b><span>월 단위 구독으로 서비스를 빌려 씁니다</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🔑</i>소유권</em><div><b>소스코드 영구 소유</b><span>라이선스를 구매해 기업의 기술 자산이 됩니다</span></div></div>
-      <div class="cd-row"><div><b>WISA 관리형 클라우드</b><span>서버 구성 · 보안 · 장애 대응을 WISA가 운영</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🖥️</i>서버 · 인프라</em><div><b>독립 서버 직접 운영</b><span>온프레미스 · AWS · Azure 등 원하는 환경 선택</span></div></div>
-      <div class="cd-row"><div><b>디자인 편집 + 정해진 범위의 맞춤</b><span>HTML · CSS · JS 디자인 수정, Hybrid는 WISA가 맞춤 구성</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🛠️</i>커스터마이징</em><div><b>제한 없는 전면 커스터마이징</b><span>소스코드 · DB 직접 수정, 내부 개발팀 활용</span></div></div>
-      <div class="cd-row"><div><b>무료 ~ 월 이용료</b><span>초기 비용 부담 없이 시작</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">💰</i>비용 구조</em><div><b>라이선스 1회 구매</b><span>호스팅 사양과 구성에 따라 별도 견적</span></div></div>
-      <div class="cd-row"><div><b>WISA 지정 결제(PG)</b><span>가입비 · 연동비 무료, 표준 수수료 적용</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">💳</i>결제 수수료</em><div><b>PG사 자유 계약</b><span>거래 규모에 맞춰 직접 수수료 협상</span></div></div>
-      <div class="cd-row"><div><b>최신 버전 자동 적용</b><span>별도 작업 없이 항상 최신 상태</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🔄</i>업데이트</em><div><b>패치 파일 선택 적용</b><span>개발자센터에서 제공, 커스텀 영역에 맞춰 적용</span></div></div>
+      <div class="cd-row"><div><b>WISA 플랫폼을 이용</b><span>월 단위 구독으로 서비스를 빌려 씁니다</span></div><em class="cd-lb">소유권</em><div><b>소스코드 영구 소유</b><span>라이선스를 구매해 기업의 기술 자산이 됩니다</span></div></div>
+      <div class="cd-row"><div><b>WISA 관리형 클라우드</b><span>서버 구성 · 보안 · 장애 대응을 WISA가 운영</span></div><em class="cd-lb">서버 · 인프라</em><div><b>독립 서버 직접 운영</b><span>온프레미스 · AWS · Azure 등 원하는 환경 선택</span></div></div>
+      <div class="cd-row"><div><b>디자인 편집 + 정해진 범위의 맞춤</b><span>HTML · CSS · JS 디자인 수정, Hybrid는 WISA가 맞춤 구성</span></div><em class="cd-lb">커스터마이징</em><div><b>제한 없는 전면 커스터마이징</b><span>소스코드 · DB 직접 수정, 내부 개발팀 활용</span></div></div>
+      <div class="cd-row"><div><b>무료 ~ 월 이용료</b><span>초기 비용 부담 없이 시작</span></div><em class="cd-lb">비용 구조</em><div><b>라이선스 1회 구매</b><span>호스팅 사양과 구성에 따라 별도 견적</span></div></div>
+      <div class="cd-row"><div><b>WISA 지정 결제(PG)</b><span>가입비 · 연동비 무료, 표준 수수료 적용</span></div><em class="cd-lb">결제 수수료</em><div><b>PG사 자유 계약</b><span>거래 규모에 맞춰 직접 수수료 협상</span></div></div>
+      <div class="cd-row"><div><b>최신 버전 자동 적용</b><span>별도 작업 없이 항상 최신 상태</span></div><em class="cd-lb">업데이트</em><div><b>패치 파일 선택 적용</b><span>개발자센터에서 제공, 커스텀 영역에 맞춰 적용</span></div></div>
     </div>
   </div>
 </section>
