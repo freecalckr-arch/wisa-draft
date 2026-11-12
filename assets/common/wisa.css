@@ -3324,3 +3324,12 @@ img, video { max-width: 100%; display: block; }
 #geo-report .dn circle:nth-of-type(1) { stroke: var(--primary-600); } #geo-report .dn circle:nth-of-type(2) { stroke: var(--primary-400); } #geo-report .dn circle:nth-of-type(3) { stroke: var(--primary-300); } #geo-report .dn circle:nth-of-type(4) { stroke: var(--primary-200); } #geo-report .dn circle:nth-of-type(5) { stroke: var(--primary-100); }
 #geo-report .dn-lg li:nth-child(1) i { background: var(--primary-600) !important; } #geo-report .dn-lg li:nth-child(2) i { background: var(--primary-400) !important; } #geo-report .dn-lg li:nth-child(3) i { background: var(--primary-300) !important; } #geo-report .dn-lg li:nth-child(4) i { background: var(--primary-200) !important; } #geo-report .dn-lg li:nth-child(5) i { background: var(--primary-100) !important; }
 /* @endregion chart-unify */
+
+/* @region tag-std (patch-424): 태그 공통 규격 — 마케팅 · 요금 카드 · 솔루션 모든 페이지 같은 값 (규칙 사이트 docs/tag.html)
+   · 높이 32 · 위아래 6 · 좌우 12 · 모서리 8 · 13/500 · 줄 20 · 글자 Gray 700 · 사이 8
+   · 바탕: 흰 면 위 Gray 100 / 회색 면 위 Gray 200 (sr-tags-tone 그대로)
+   · 단계 탭 선택 칩(#geo-how .jt-tags · 번호 + 선택 블루)은 누르는 칩이라 따로 (말풍선 보정 때문에 크기 유지) */
+.sr-tags { gap: 8px; }
+.sr-tags li, #geo-diagnosis .sr-tags li { box-sizing: border-box; min-height: 32px; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; line-height: 20px; color: var(--gray-700); }
+#geo-diagnosis .sr-tags { gap: 8px; }
+/* @endregion tag-std */

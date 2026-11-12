@@ -14,11 +14,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=406">
-<link rel="stylesheet" href="assets/common/plan.css?v=419">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/wisa.css?v=424">
+<link rel="stylesheet" href="assets/common/plan.css?v=424">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-424: 어떤 방식이 맞을까요 카드 = 뱃지 삭제 · 메인 솔루션 카드처럼 아이콘 + 제품명(28/700) · 아래 “맞는 경우” 한 문장(18/600 Gray 700 · 따옴표) · "이런 분께 맞아요" 태그 묶음 삭제 / 태그 공통 규격(wisa.css tag-std · plan.css · docs/tag.html): 높이 32 · 6/12 · 모서리 8 · 13/500 · Gray 700 · 사이 8
      · 2026-11-12 patch-423: 두 가지 방식 카드 뒤 흐린 빛 애니메이션 (메인 솔루션 영역과 같은 장치 · 왼쪽 위 Primary 500 · 오른쪽 아래 Indigo 500 · blur 50 · 18초 왕복 · 동작 줄이기 시 정지) · 표 영역은 흰 바탕 유지
      · 2026-11-12 patch-422: 어떤 방식이 맞을까요 카드 제목 앞에 메인 솔루션 카드 아이콘(Cloud 구름 · Enterprise </> · 선 1.6 · PC 32 / 모바일 26) · 카드 바탕은 두 장 모두 흰색 유지(비교 페이지라 같은 위계 · 색 구분은 뱃지 + 아이콘만)
      · 2026-11-12 patch-421: 핵심 차이 가운데 라벨 바탕 Gray 100 → Gray 50 (모바일 가로 띠와 같은 색)
@@ -176,21 +177,16 @@
 
   /* @region cmp-fit : 어떤 방식이 맞을까요 — 두 카드 같은 위계(흰 카드 · 검정 카드 삭제) */
   .cf { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-  .cf-c { display: flex; flex-direction: column; padding: 40px; border-radius: 24px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  .cf-eb { align-self: flex-start; }   /* patch-417: 뱃지 = 공통 .pc-pop (Cloud 파랑 · Enterprise 인디고 · plan.css) */
-  .cf-c h3 { margin: 14px 0 0; font-size: 24px; font-weight: 700; line-height: 34px; color: var(--gray-900); word-break: keep-all; }
-  .cf-c h3:has(svg) { display: flex; align-items: flex-start; gap: 10px; }   /* patch-422: 메인 솔루션 카드 아이콘(구름 · </>) · 카드 바탕은 두 장 모두 흰색 그대로 */
-  .cf-c h3 svg { flex: none; width: 32px; height: 32px; margin-top: 1px; }
+  .cf-c { display: flex; flex-direction: column; padding: 40px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }   /* patch-424: 모서리 24 → 16 (요금 카드 · 메인 솔루션 카드와 같음) */
+  .cf-c h3 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 28px; font-weight: 700; line-height: 38px; color: var(--gray-900); }   /* patch-424: 메인 솔루션 카드처럼 아이콘 + 제품명 (뱃지 삭제) */
+  .cf-c h3 svg { flex: none; width: 32px; height: 32px; }
+  .cf-q { margin: 12px 0 0; font-size: 18px; font-weight: 600; line-height: 28px; color: var(--gray-700); word-break: keep-all; }   /* 맞는 경우 한 문장 (따옴표) */
   .cf-c ul.cp-checks { margin-top: 24px; padding-top: 24px; }
-  .cf-who { display: flex; flex-wrap: wrap; gap: 8px; margin: auto 0 0; padding: 30px 0 0; list-style: none; }
-  .cf-who li { padding: 8px 14px; border-radius: 10px; background: var(--gray-100); font-size: 15px; font-weight: 500; color: var(--gray-800); }
-  .cf-who b { flex-basis: 100%; margin-bottom: 2px; font-size: 13px; font-weight: 700; color: var(--black); }
-  @media (max-width: 1023px) { .cf-c { padding: 32px; } .cf-c h3 { font-size: 22px; line-height: 32px; } }
+  @media (max-width: 1023px) { .cf-c { padding: 32px; } .cf-c h3 { font-size: 26px; line-height: 36px; } .cf-q { font-size: 17px; line-height: 26px; } }
   @media (max-width: 767px) {
     .cf { grid-template-columns: minmax(0, 1fr); gap: 12px; }
     .cf-c { padding: 24px 20px; border-radius: 16px; }
-    .cf-c h3 { font-size: 19px; line-height: 28px; } .cf-c h3 svg { width: 26px; height: 26px; margin-top: 1px; } .cf-c h3:has(svg) { gap: 8px; }
-    .cf-who { padding-top: 24px; } .cf-who li { padding: 6px 10px; font-size: 13px; }
+    .cf-c h3 { gap: 8px; font-size: 24px; line-height: 32px; } .cf-c h3 svg { width: 28px; height: 28px; } .cf-q { margin-top: 8px; font-size: 16px; line-height: 24px; }
   }
   /* @endregion cmp-fit */
 
@@ -478,16 +474,14 @@
     <div class="sub-title rv"><h2>우리 비즈니스에는<br class="mo-br"> 어떤 방식이 맞을까요?</h2><p>현재 쇼핑몰 규모와 향후 비즈니스 로드맵에 따라 맞는 라이선스를 제안해 드립니다.</p></div>
     <div class="cf">
       <div class="cf-c rv">
-        <span class="pc-pop cf-eb">Cloud가 맞는 경우</span>
-        <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>빠르게 시작하고 운영은 맡기고 싶다면</span></h3>
+        <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Cloud</span></h3>
+        <p class="cf-q">“빠르게 시작하고 운영은 맡기고 싶다면”</p>
         <ul class="cp-checks"><li>초기 비용 없이 쇼핑몰을 바로 열고 싶다</li><li>서버 · 보안 · 업데이트를 직접 관리할 인력이 없다</li><li>브랜드형 · 입점형 쇼핑몰로 시작한다</li><li>콘텐츠 · 글로벌을 정해진 범위에서 도입하고 싶다</li></ul>
-        <ul class="cf-who"><b>이런 분께 맞아요</b><li>첫 창업자</li><li>1인 · 소규모 브랜드</li><li>성장 중인 전문몰</li></ul>
       </div>
       <div class="cf-c rv" style="--d:100ms">
-        <span class="pc-pop indigo cf-eb">Enterprise가 맞는 경우</span>
-        <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg><span>우리만의 커머스 시스템을 직접 소유하고 싶다면</span></h3>
+        <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg><span>Enterprise</span></h3>
+        <p class="cf-q">“우리만의 커머스 시스템을 직접 소유하고 싶다면”</p>
         <ul class="cp-checks"><li>소스코드를 기업의 기술 자산으로 보유해야 한다</li><li>ERP · POS · WMS 등 내부 시스템과 깊이 연동한다</li><li>B2B · O2O · 정기배송 · 모바일인앱이 필요하다</li><li>보안 정책상 독립 서버 · 전용 DB가 필요하다</li></ul>
-        <ul class="cf-who"><b>이런 분께 맞아요</b><li>중대형 쇼핑몰</li><li>웹에이전시 · SI</li><li>인하우스 개발팀 보유</li></ul>
       </div>
     </div>
   </div>
