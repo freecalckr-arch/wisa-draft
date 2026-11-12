@@ -6,7 +6,7 @@
 <title>요금 카드 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
-<link rel="stylesheet" href="../assets/common/plan.css?v=416">
+<link rel="stylesheet" href="../assets/common/plan.css?v=417">
 <style>
   /* 미리보기 칸 (이 페이지 전용) · 버튼은 사이트 공통 .btn 과 같은 값 */
   .pv { margin: 16px 0 8px; padding: 40px 30px; border-radius: 16px; background: var(--gray-50); }
@@ -100,7 +100,7 @@
 <tr><td>3</td><td>설명</td><td><code>.pc-sub</code></td><td>위 10 · 16 · 줄 24 · Gray 700</td><td>14 · 줄 20</td></tr>
 <tr><td>4</td><td>가격</td><td><code>.pc-price</code></td><td>위 20 · 숫자 <b class="num">26</b>/600 · 단위 18</td><td>숫자 25</td></tr>
 <tr><td>5</td><td>가격 메모</td><td><code>.pc-note</code></td><td>위 12 · 높이 20 · 13/500 · Warning 100 바탕 (할인) / <code>.plain</code> 글자만 Gray 500</td><td>빈 자리는 숨김</td></tr>
-<tr><td>6</td><td>태그</td><td><code>.pc-tags</code></td><td>위 12 · 사이 6 · 높이 28 · 좌우 8 · 모서리 6 · Gray 100 / 700 · 13/500</td><td>같음</td></tr>
+<tr><td>6</td><td>태그</td><td><code>.pc-tags</code></td><td>위 12 (가격 바로 아래면 <b class="num">20</b>) · 사이 6 · 높이 28 · 좌우 8 · 모서리 6 · Gray 100 / 700 · 13/500</td><td>같음</td></tr>
 <tr><td>7</td><td>버튼</td><td><code>.btn.pc-btn</code></td><td>위 30 · 가로 꽉 · 높이 42 · 모서리 8 · 16/600 · 흰 버튼 (추천 카드만 <code>.btn-dark</code>)</td><td>같음</td></tr>
 <tr><td>8</td><td>텍스트 링크</td><td><code>.pc-more</code></td><td>위 16 · 14/500 · Gray 500 + 오른쪽 화살표 16 · 호버 Gray 900</td><td>같음</td></tr>
 <tr><td>9</td><td>체크 목록</td><td><code>.pc-checks</code></td><td>위 40 · 사이 18 · 15 · 체크 14 (왼쪽 정렬)</td><td>사이 16 · 14</td></tr>
@@ -111,11 +111,12 @@
 <tr><td>카드</td><td>흰 바탕 · Gray 200 테두리 1 · 모서리 <b class="num">16</b> · 안쪽 위 30 · 좌우 30 · 아래 40 (모바일 30) · 가운데 정렬</td></tr>
 <tr><td>카드 사이</td><td><b class="num">20</b> (모바일 세로 한 줄 · 사이 12~20)</td></tr>
 <tr><td>카드 개수</td><td>목록에 <code>--pc-n</code> 으로 지정 (기본 3) · 4장 이상은 1439 이하에서 2장씩 · 모바일 1장</td></tr>
+<tr><td>호버</td><td>파란 빛 그림자 <code>0 0 40px rgba(21,112,239,.2)</code> · 0.3초 (공통 <code>.sol-card</code> 와 같음 · 마우스 기기만)</td></tr>
 <tr><td>추천 카드</td><td><code>.pc.is-rec</code> + <code>data-rec="라벨"</code> · 테두리 Gray 900 2 · 위 가운데 라벨(높이 24 · 12/700 · 검정) · 버튼 검정 · 한 목록에 1장만</td></tr>
 </tbody></table></div>
 
     <h2 id="badge">뱃지 색</h2>
-    <p>한 카드에 뱃지는 1개. 색은 상품 계열로 정하고, 같은 페이지 안에서 섞지 않습니다.</p>
+    <p>한 카드에 뱃지는 1개. 색은 상품 계열로 정하고, 같은 페이지 안에서 섞지 않습니다. <b>Cloud = 파랑 · Enterprise = 인디고</b>는 요금 카드뿐 아니라 모든 페이지의 Cloud · Enterprise 뱃지에 똑같이 씁니다 (<code>.pc-pop</code> · <code>.pc-pop.indigo</code> 를 그대로 가져와 씀).</p>
     <div class="tbl"><table><thead><tr><th>클래스</th><th>색 (바탕 / 글자)</th><th>쓰는 곳</th></tr></thead><tbody>
 <tr><td><code>.pc-pop</code></td><td>Primary 50 / Primary 700 (파랑)</td><td>Cloud · 구독형 상품 · 일반 상품</td></tr>
 <tr><td><code>.pc-pop.indigo</code></td><td>Indigo 50 / Indigo 700</td><td>Enterprise · 라이선스 소유형</td></tr>

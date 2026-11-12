@@ -38,6 +38,7 @@
 - `assets/common/chart.css` · `chart.js` 그래프 공통 부품 (patch-406 · 마케팅 7P 연결). 그래프는 규칙 사이트 docs/graph.html "고르는 법" 8가지(① 꺾은선 ② 비교 꺾은선 ③ 비교 세로 막대 = 그래프 영역 SVG · ④ gx-hbar ⑤ gx-vbar ⑥ gx-spark ⑦ gx-donut ⑧ gx-funnel = 화면 안 부품) 중 데이터에 맞는 것을 골라 쓰고, 새로 그리지 않음. 화면 안 그래프는 부품 마크업을 복사해 `--v` 값 · 글자만 바꿈.
 - `assets/` 공용 이미지 · 폰트 (새 이미지는 `assets/geo/...` 아래에 추가하고 상대 경로로 참조)
 - `assets/common/brand/` 채널 · 매체 · AI 서비스 로고 에셋 (48×48 · 모서리 11 타일 SVG/PNG · 목록 `assets/common/brand/index.html`). 비주얼 안 채널 아이콘(네이버 · 메타 · 구글 · 카카오 · 스마트스토어 · 슬랙 · 엑셀 · 챗GPT · 클로드 · 제미나이 · 퍼플렉시티 · 젠스파크 · 페이코 · 토스페이 · 카카오페이 · 인스타그램 · 유튜브)은 글자 타일(N · M · G)로 만들지 않고 여기 파일을 `<img src="assets/common/brand/naver.svg">` 로 가져와 씀. 없는 로고는 같은 타일 규격으로 추가하고 목록에 한 줄 추가 (기존 공통 `.app` 클래스 아이콘도 같은 로고)
+- Cloud · Enterprise 뱃지 색은 모든 페이지 공통: Cloud = 파랑(Primary 50/700 · `.pc-pop`) · Enterprise = 인디고(Indigo 50/700 · `.pc-pop.indigo`) · assets/common/plan.css (patch-417)
 - AI 아이콘은 히어로와 같은 규격 하나만 씀: 블루→인디고 그라데이션 사각형(Primary 600 → #6172f3) · 흰 반짝이(칸의 62%) · 모서리 = 크기의 30% (`.aim-av`)
 - `docs/` 디자인 규칙 사이트 (왼쪽 메뉴 = `docs/assets/docs.js` 의 NAV · 새 규격 페이지는 기존 페이지를 복사해 만들고 NAV 에 한 줄 추가 · 메뉴는 두 덩어리: "개발 전달"(개발자가 구현할 규격 · 드라이브 전달 범위 · 기존 홈페이지 수정은 docs/changes.html) / "디자인"(클로드용 뱃지)(작업 방법 · 비주얼 공통 등 시안 그릴 때만 쓰는 규칙) · 새 페이지는 어느 쪽인지 정해 그 아래에 넣음)
 
