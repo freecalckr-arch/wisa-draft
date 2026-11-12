@@ -2223,7 +2223,7 @@ img, video { max-width: 100%; display: block; }
 .op-link span { padding: 6px 14px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 13px; font-weight: 600; color: var(--gray-600); }
 /* 단계 타이틀은 URL 타이틀(34)보다 한 단계 낮게 */
 #geo-diagnosis .sub-title h3 { font-size: 28px; line-height: 1.35; font-weight: 700; }
-#geo-diagnosis .sub-title { margin-bottom: 64px; }
+#geo-diagnosis .sub-title { margin-bottom: 50px; }   /* patch-400: 타이틀 ↔ 내용 간격 64 → 50 (다른 영역과 같게 · 태블릿 50 · 모바일 40) */
 .one-panel .sr-no { background: var(--white); }
 .steprow > * { min-width: 0; }   /* 코드 블록이 열 폭을 넓혀 모바일에서 넘치던 문제 */
 @media (min-width: 1024px) {
@@ -2264,7 +2264,7 @@ img, video { max-width: 100%; display: block; }
 /* patch-29 (A): 진단·해결·점검 = URL과 분리된 영역 (위 간격 160 · 타이틀 복원) · URL 카드 뱃지 그레이 */
 #geo-diagnosis.one-panel { padding-top: 160px; }
 #geo-diagnosis.one-panel > .container { padding-top: 0; }
-#geo-diagnosis .sub-title { margin-bottom: 64px; }
+#geo-diagnosis .sub-title { margin-bottom: 50px; }   /* patch-400: 타이틀 ↔ 내용 간격 64 → 50 (다른 영역과 같게 · 태블릿 50 · 모바일 40) */
 .scope-steps .ss-no { background: var(--gray-100); color: var(--black); }
 /* 리포트 대시보드 가로 1240 (그래프는 기존 높이 유지 → 세로 늘지 않게) */
 #geo-report .rp { max-width: var(--container); }
@@ -2535,7 +2535,7 @@ img, video { max-width: 100%; display: block; }
   #geo-how .bento.b3 .tbl li { border-top-color: #e9ebf0; }
 }
 /* patch-66 (A): 섹션 타이틀 정렬 기준 — 정보 섹션(비교 · 시장 변화 · 3단계 · 진단·해결·점검 · 리포트 · 사례)은 왼쪽, 행동 유도 섹션(URL 입력 · FAQ · CTA)은 가운데 */
-#geo-market .sub-title.center, #geo-diagnosis .sub-title.center { align-items: flex-start; text-align: left; }   /* 리포트(대시보드) 섹션은 가운데 유지 */
+#geo-market .sub-title.center { align-items: flex-start; text-align: left; }   /* patch-400: 해결(#geo-diagnosis) 타이틀은 가운데 정렬로 (.sub-title.center 그대로) */   /* 리포트(대시보드) 섹션은 가운데 유지 */
 /* patch-67 (A): 진단·해결·점검 비주얼 = 같은 '서비스 화면' 틀 (흰 창 · 상단 바 · 몸체 하나 · 포인트 블루) — 비교 페이지 개선안 */
 #geo-diagnosis .sr-vis.vw { padding: 0; border-radius: 0; background: none; box-shadow: none; }
 .vw-win { width: 100%; border-radius: 16px; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 12px 32px rgba(16,24,40,.06); overflow: hidden; text-align: left; }
