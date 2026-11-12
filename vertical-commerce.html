@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 버티컬커머스 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-12 patch-408: 문제 영역 오른쪽(채널별 매출) — 오늘의집 → 쿠팡 → 무신사 순서로 막대가 차오르고 차는 동안만 블루 · 머리줄 합산 금액이 412 → 1,184만원으로 함께 올라감 · 합산 금액 굵게 + 검정 (보일 때만 반복 · 동작 줄이기 시 완성 상태 · 스크립트 vc-why-sum)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 비교 값 600 · 모바일 말풍선 11.5 · 단계 퍼널(.vc-fn) 값 13 · 막대 14 / 모서리 4 · 문제 영역 가로 막대 기본색 Gray 300 · 대시보드 도넛 Primary 한 계열
      · 2026-11-12 patch-405: 히어로 검색 "조명"에 맞게 목록 상품 모두 조명으로 — 홈스틸 메탈 돔 스탠드 · 라탄하우스 라탄 머쉬룸 테이블 조명 · 글라스데이 유리 구슬 무드등 S · 리넨앤코 린넨 갓 도자기 스탠드(29,900) · 우드앤룸 오크 원목 스탠드 조명 (lp-*.jpg · wr-stand.jpg · 피그마 AI 640 JPG) · 소파 연출(wr-sofa) 러그 제거 · 흰 벽 + 광택 흰 바닥으로 다시 생성 (소파 디자인 유지)
      · 2026-11-12 patch-404: 히어로 앱 검색어 사이드테이블 → 조명 (휴대폰 3대) · 오늘의집 필터 칩 조명 → 무드등 (검색어와 겹치지 않게)
@@ -316,9 +317,13 @@
   .vc-cr li.no .vc-bar { box-sizing: border-box; background: none; border: 1px dashed var(--gray-300); }
   .vc-cr li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
   .vc-cr li.hl .vc-bar i { background: var(--primary-600); } .vc-cr li.hl b { color: var(--primary-600); }
-  .vc-w2 .vc-cr li + li .vc-bar i { animation: vcBar 4.8s var(--ease-out) infinite both; animation-delay: calc(var(--i, 0) * .35s); }
-  .vc-w2 .vc-cr li + li b { animation: vcFade 4.8s infinite both; animation-delay: calc(var(--i, 0) * .35s); }
-  .vc-w2 .vc-cr li:nth-child(3) { --i: 1; } .vc-w2 .vc-cr li:nth-child(4) { --i: 2; }
+  /* patch-408: 오른쪽(개선) 채널 막대 — 오늘의집 → 쿠팡 → 무신사 순서로 차오르고, 차는 동안만 막대 · 금액 Primary 600 (다 차면 Gray) · 머리줄 합산 금액이 412 → 1,184 로 같이 올라감 (스크립트 vc-why-sum · 보일 때만 반복 · 동작 줄이기 시 완성 상태) */
+  .vc-w2 .vc-cr.ani li + li .vc-bar i { transform: scaleX(0); transition: transform .8s var(--ease-out), background-color .3s ease; }
+  .vc-w2 .vc-cr.ani li + li b { opacity: 0; transition: opacity .4s ease, color .3s ease; }
+  .vc-w2 .vc-cr.ani li.fill .vc-bar i { transform: none; } .vc-w2 .vc-cr.ani li.fill b { opacity: 1; }
+  .vc-w2 .vc-cr.ani li.run .vc-bar i { background: var(--primary-600); } .vc-w2 .vc-cr.ani li.run b { color: var(--primary-600); }
+  .vc-w2 .vc-cr.ani.rst li + li .vc-bar i { transition-duration: .4s; }
+  .vc-w2 .vc-sum { font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; }
 
   /* ── 그래프 (patch-357): 라인 2개 · 전문몰(버티컬) = Primary 600 · 종합몰 = Gray 400 · 0% 기준선 진하게 (막대 규칙은 아래 그대로 · 지금 안 씀) ── */
   #geo-market .mk-chart .vc-gl { fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
@@ -503,8 +508,8 @@
         <div class="bt-hd"><span class="bt-eb">버티컬커머스 · 입점과 광고</span><h3>고객이 모인 채널 안에서 만남</h3><p>버티컬 커머스 입점을 지원하고, 채널 안 네이티브 광고와 채널별 운영 방향까지 함께 정합니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
           <div class="pn ows sn-ch sn-ok vc-w2">
-            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i>채널별 매출<span class="sn-hm">11월 1주 · 합산 1,184만원</span></div>
-            <ul class="vc-cr"><li><span class="vc-cn"><img src="assets/common/brand/woodroom.svg" alt="">자사몰</span><span class="vc-bar"><i style="--v:1"></i></span><b>412만원</b></li><li class="hl"><span class="vc-cn"><img src="assets/common/brand/ohou.svg" alt="">오늘의집</span><span class="vc-bar"><i style="--v:0.94"></i></span><b>386만원</b></li><li><span class="vc-cn"><img src="assets/common/brand/coupang.svg" alt="">쿠팡</span><span class="vc-bar"><i style="--v:0.57"></i></span><b>236만원</b></li><li><span class="vc-cn"><img src="assets/common/brand/musinsa.svg" alt="">무신사</span><span class="vc-bar"><i style="--v:0.36"></i></span><b>150만원</b></li></ul>
+            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i>채널별 매출<span class="sn-hm">11월 1주 · 합산 <b class="vc-sum" data-to="1184">1,184만원</b></span></div>
+            <ul class="vc-cr"><li><span class="vc-cn"><img src="assets/common/brand/woodroom.svg" alt="">자사몰</span><span class="vc-bar"><i style="--v:1"></i></span><b>412만원</b></li><li data-w="386"><span class="vc-cn"><img src="assets/common/brand/ohou.svg" alt="">오늘의집</span><span class="vc-bar"><i style="--v:0.94"></i></span><b>386만원</b></li><li data-w="236"><span class="vc-cn"><img src="assets/common/brand/coupang.svg" alt="">쿠팡</span><span class="vc-bar"><i style="--v:0.57"></i></span><b>236만원</b></li><li data-w="150"><span class="vc-cn"><img src="assets/common/brand/musinsa.svg" alt="">무신사</span><span class="vc-bar"><i style="--v:0.36"></i></span><b>150만원</b></li></ul>
             <div class="ows-ft"><i class="hit-tag">채널마다 새로운 고객 접점</i></div>
           </div>
         </div>
@@ -1174,6 +1179,30 @@
   }
   /* @endregion */
 
+  /* @region vc-why-sum (patch-408): 문제 영역 오른쪽 — 채널 막대가 오늘의집 → 쿠팡 → 무신사 순서로 차오르며(차는 동안 블루) 합산 금액이 함께 올라감 · 화면에 보일 때만 반복 (한 바퀴 약 6.6초) */
+  (() => {
+    const w = document.querySelector('#geo-why .vc-w2'); if (!w) return;
+    const ul = w.querySelector('.vc-cr'), sum = w.querySelector('.vc-sum'), rows = [...ul.querySelectorAll('li[data-w]')];
+    if (!ul || !sum || !rows.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const base = +sum.dataset.to - rows.reduce((a, r) => a + +r.dataset.w, 0);   // 자사몰 412
+    const fmt = n => Math.round(n).toLocaleString('ko-KR') + '만원';
+    let raf = 0, tms = [], on = false, cur = base;
+    const count = (to, ms) => { cancelAnimationFrame(raf); const from = cur, t0 = performance.now(); const step = t => { const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3); cur = from + (to - from) * e; sum.textContent = fmt(cur); if (k < 1) raf = requestAnimationFrame(step); }; raf = requestAnimationFrame(step); };
+    const at = (ms, fn) => tms.push(setTimeout(fn, ms));
+    const run = () => {
+      tms.forEach(clearTimeout); tms = []; if (!on) return;
+      ul.classList.add('rst'); rows.forEach(r => r.classList.remove('fill', 'run')); cur = base; sum.textContent = fmt(base);
+      at(450, () => ul.classList.remove('rst'));
+      let acc = base;
+      rows.forEach((r, i) => { const t = 500 + i * 1000; acc += +r.dataset.w; const to = acc;
+        at(t, () => { r.classList.add('fill', 'run'); count(to, 800); });
+        at(t + 950, () => r.classList.remove('run')); });
+      at(500 + rows.length * 1000 + 3100, run);
+    };
+    ul.classList.add('ani');
+    new IntersectionObserver(es => { const v = es[0].isIntersecting; if (v && !on) { on = true; run(); } else if (!v && on) { on = false; tms.forEach(clearTimeout); cancelAnimationFrame(raf); rows.forEach(r => r.classList.add('fill')); rows.forEach(r => r.classList.remove('run')); sum.textContent = fmt(+sum.dataset.to); cur = +sum.dataset.to; } }, { threshold: .4 }).observe(w);
+  })();
+  /* @endregion vc-why-sum */
   /* @region footer
      푸터 메뉴 아코디언
      - 태블릿·모바일에서만 동작 (PC는 4단 펼침) · 여러 개 동시에 열림

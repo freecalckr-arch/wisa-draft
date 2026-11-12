@@ -16,7 +16,7 @@
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["CTA", null]] },
     { g: "인터랙션", items: [["인터랙션 목록", null]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"]] },
-    { part: "디자인", icon: "pen", badge: "클로드용" },
+    { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
 
@@ -59,7 +59,7 @@
     var open = hasHere || !shut[key];
     var ico = PICON[pt.p.icon] || "";
     var badge = pt.p.badge ? '<em class="badge">' + pt.p.badge + "</em>" : "";
-    return '<div class="part-w' + (pi ? "" : " first") + (open ? "" : " shut") + '"><button type="button" class="part" data-k="' + key + '" aria-expanded="' + open + '" aria-controls="nav-p' + pi + '"><span>' + ico + pt.p.part + badge + "</span>" + chev + '</button><div class="part-b" id="nav-p' + pi + '">' +
+    return '<div class="part-w' + (pi ? "" : " first") + (open ? "" : " shut") + '"' + (pt.p.lock ? " data-lock hidden" : "") + '><button type="button" class="part" data-k="' + key + '" aria-expanded="' + open + '" aria-controls="nav-p' + pi + '"><span>' + ico + pt.p.part + badge + "</span>" + chev + '</button><div class="part-b" id="nav-p' + pi + '">' +
       pt.gs.map(function (x) { return grpHtml(x[0], x[1]); }).join("") + "</div></div>";
   }).join("");
   function grpHtml(grp, gi) {
@@ -73,6 +73,25 @@
       return '<li><a href="' + it[1] + '"' + cur + ">" + it[0] + (out ? ext : badge) + "</a></li>";
     }).join("") + "</ul></div>";
   }
+  /* 잠긴 덩어리(lock): 작업자 공인 IP(SHA-256 값만 저장 · IP 원문은 파일에 없음) 또는 로컬 서버에서만 펼쳐 보임.
+     IP 가 바뀌면 OWNER 에 새 값 추가 (같은 탭에서는 한 번 확인한 결과를 기억). 메뉴만 숨기며 주소로 직접 여는 것은 막지 않음. */
+  var OWNER = ["52f98c9ebb24c913931e14e899363015d6230dc81fa307d9bd2b8c989e1cf93e"];
+  (function () {
+    var locks = side.querySelectorAll("[data-lock]");
+    if (!locks.length) return;
+    var show = function () { locks.forEach(function (el) { el.hidden = false; }); };
+    if (/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) return show();
+    try { if (sessionStorage.getItem("wisa-docs-own") === "1") return show(); } catch (e) {}
+    if (!window.fetch || !window.crypto || !crypto.subtle) return;
+    fetch("https://api.ipify.org").then(function (r) { return r.text(); }).then(function (ip) {
+      return crypto.subtle.digest("SHA-256", new TextEncoder().encode(ip.trim()));
+    }).then(function (buf) {
+      var hex = Array.prototype.map.call(new Uint8Array(buf), function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+      if (OWNER.indexOf(hex) < 0) return;
+      try { sessionStorage.setItem("wisa-docs-own", "1"); } catch (e) {}
+      show();
+    }).catch(function () {});
+  })();
   side.addEventListener("click", function (e) {
     var t = e.target.closest(".grp-t, .part");
     if (!t) return;

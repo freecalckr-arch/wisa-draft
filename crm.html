@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-12 patch-407: 히어로 90일 재구매율 카드 증감 색 규칙 적용 — ▲ 2%p · 스파크라인 블루 → Error 600 레드
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 가로축 13 · 말풍선 12 · 비교 값 13 / 600 Gray 500 · 대시보드 도넛 Primary 한 계열
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
@@ -2434,7 +2435,7 @@
   .cr-hv4 .sh-float.cr-rr { left: calc(50% + var(--cw) / 2 - 40px); right: auto; top: 175px; bottom: auto; width: 180px; padding: 16px 16px 12px; transform: translateY(-50%) scale(.84); transform-origin: left center; animation: crRrFloat 6s ease-in-out infinite alternate; }   /* patch-190: 오른쪽 20 더 이동 · 둥둥 떠 있는 효과 */
   @keyframes crRrFloat { from { transform: translateY(-50%) scale(.84); } to { transform: translateY(calc(-50% - 10px)) scale(.84); } }
   @media (prefers-reduced-motion: reduce) { .cr-hv4 .sh-float.cr-rr { animation: none; } }   /* patch-187: 오른쪽 30 · 위 10 이동 · 카드 16% 축소 */
-  .cr-rr strong { display: flex; align-items: baseline; gap: 2px; } .cr-rr strong span { margin-left: 6px; font-size: 13px; font-weight: 700; color: var(--primary-600); }
+  .cr-rr strong { display: flex; align-items: baseline; gap: 2px; } .cr-rr strong span { margin-left: 6px; font-size: 13px; font-weight: 700; color: #d92d20; }   /* patch-407: 증가 ▲ = Error 600 */
   .cr-rr .cr-spark2 { display: block; width: 100%; height: 46px; margin-top: -4px; }   /* patch-187: 수치와 그래프 간격 10px 줄임 */
   @media (max-width: 1279px) { .cr-hv4 .sh-float.cr-rr { display: none; } }
   /* patch-225: 히어로 ① 창 왼쪽 아래 '자동 발송 예약' 카드 — ① 창 왼쪽 여백(목록 왼쪽 18px)에만 16px 걸침 · 높이는 목록 아래쪽 (창 내용 안 가림) · 오른쪽 재구매율 카드와 같은 축소(.84) · 둥둥 떠 있음 */
@@ -2763,7 +2764,7 @@
       </div>
       <div class="sh-float cr-sd">   <!-- patch-225: ① 창 왼쪽 아래 (창 왼쪽 여백에만 걸침 · 내용 안 가림) 자동 발송 예약 카드 — 제목 롤링 채널(data-ch)에 맞춰 대상 · 시간 · 채널이 바뀌고 막대가 차오름 -->
         <p class="hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>자동 발송 예약<em>ON</em></p><div class="tx"><p class="v on"><b>단골 등급 변경 36명</b><small>오전 9:00 · 이메일</small></p></div><i class="br"></i></div>   <!-- patch-252: 문구 교체 · 막대 애니메이션 제거, 공통 둥둥만 -->
-      <div class="sh-float f1 cr-rr"><b>90일 재구매율</b><strong>31<small>%</small><span>▲ 2%p</span></strong><svg class="cr-spark2" viewBox="0 0 150 46" aria-hidden="true"><defs><linearGradient id="crSpG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e90fa" stop-opacity=".22"/><stop offset="1" stop-color="#2e90fa" stop-opacity="0"/></linearGradient></defs><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6 V46 H2 Z" fill="url(#crSpG2)"/><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6" fill="none" stroke="#1570ef" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="146" cy="6" r="3.5" fill="#fff" stroke="#1570ef" stroke-width="2"/></svg></div>
+      <div class="sh-float f1 cr-rr"><b>90일 재구매율</b><strong>31<small>%</small><span>▲ 2%p</span></strong><svg class="cr-spark2" viewBox="0 0 150 46" aria-hidden="true"><defs><linearGradient id="crSpG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d92d20" stop-opacity=".16"/><stop offset="1" stop-color="#d92d20" stop-opacity="0"/></linearGradient></defs><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6 V46 H2 Z" fill="url(#crSpG2)"/><path d="M2 40 L22 38 L42 34 L62 33 L82 24 L102 20 L122 13 L146 6" fill="none" stroke="#d92d20" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="146" cy="6" r="3.5" fill="#fff" stroke="#d92d20" stroke-width="2"/></svg></div>
     </div>
   </div>
 </section>
