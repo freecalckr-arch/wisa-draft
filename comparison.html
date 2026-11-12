@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-420: 핵심 차이 = 가운데 라벨 테두리 없이 Gray 100 바탕 + 14/700 Gray 900 · 제품명 앞에 메인 솔루션 카드 아이콘(Cloud 구름 · Enterprise </>, 선 1.6 · PC 26 / 모바일 22)
      · 2026-11-12 patch-419: 요금 카드 설명 → 가격 사이 20 → 12 (plan.css)
      · 2026-11-12 patch-418: 요금 카드 호버 = 그림자 없이 테두리만 Gray 900 (plan.css)
      · 2026-11-12 patch-417: 영역별 수정 2차
@@ -73,13 +74,15 @@
   .cd-row > div:first-child { align-items: flex-end; text-align: right; }
   .cd-row b { font-size: 17px; font-weight: 600; line-height: 24px; color: var(--gray-900); word-break: keep-all; }
   .cd-row span { font-size: 14px; line-height: 20px; color: var(--gray-500); word-break: keep-all; }
-  .cd-lb { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-300); font-style: normal; font-size: 14px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+  .cd-lb { justify-self: center; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-100); font-style: normal; font-size: 14px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }   /* patch-420: 테두리 없이 Gray 100 바탕 + 굵게 · 검정 */
   .cd-em { flex: none; font-family: "Tossface", "TossFaceSub", sans-serif; font-style: normal; font-size: 16px; font-weight: 400; line-height: 1; }   /* 토스 이모지 (wisa.css 에서 Tossface 불러옴) */
   .cd-hd { min-height: 0; background: var(--white); border-bottom: 1px solid var(--gray-200); }   /* patch-416: 제품명 머리줄 흰 바탕 */
   .cd-hd + .cd-row { border-top: 0; }
   .cd-hd > .cd-lb { visibility: hidden; }
   .cd-hd > div { gap: 2px; padding-block: 24px; }
   .cd-hd b { font-size: 20px; font-weight: 700; line-height: 28px; }
+  .cd-hd b:has(svg) { display: inline-flex; align-items: center; gap: 8px; }   /* patch-420: 메인 솔루션 카드(.rn-sol-head) 아이콘 · 선 1.6 · Gray 900 */
+  .cd-hd b svg { flex: none; width: 26px; height: 26px; }
   .cd-hd span { font-size: 14px; }
   @media (max-width: 1023px) { .cd-row > div { padding: 18px 24px; } .cd-row { grid-template-columns: minmax(0, 1fr) 140px minmax(0, 1fr); } }
   @media (max-width: 767px) {
@@ -91,7 +94,7 @@
     .cd-row > div:last-child { grid-column: 2; grid-row: 2; border-left: 1px solid var(--gray-100); }
     .cd-row b { font-size: 15px; line-height: 22px; } .cd-row span { font-size: 13px; line-height: 18px; }
     .cd-hd > div, .cd-hd > div:first-child { grid-row: 1; align-items: center; text-align: center; padding: 16px 12px; }
-    .cd-hd b { font-size: 18px; line-height: 24px; } .cd-hd span { font-size: 13px; }
+    .cd-hd b { font-size: 18px; line-height: 24px; } .cd-hd b svg { width: 22px; height: 22px; } .cd-hd b:has(svg) { gap: 6px; } .cd-hd span { font-size: 13px; }
     .cd-hd > .cd-lb { display: none; }
     .cd-hd > div:last-child { grid-row: 1; }
   }
@@ -395,7 +398,7 @@
   <div class="container">
     <div class="sub-title rv"><h2>한눈에 보는 핵심 차이</h2><p>소유권부터 업데이트까지, 두 방식의 가장 중요한 6가지 차이를 비교해 보세요.</p></div>
     <div class="cd rv" style="--d:100ms">
-      <div class="cd-row cd-hd"><div><b>Cloud</b><span>SaaS 구독형</span></div><i class="cd-lb" aria-hidden="true"></i><div><b>Enterprise</b><span>라이선스 소유형</span></div></div>
+      <div class="cd-row cd-hd"><div><b><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Cloud</b><span>SaaS 구독형</span></div><i class="cd-lb" aria-hidden="true"></i><div><b><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg>Enterprise</b><span>라이선스 소유형</span></div></div>
       <div class="cd-row"><div><b>WISA 플랫폼을 이용</b><span>월 단위 구독으로 서비스를 빌려 씁니다</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🔑</i>소유권</em><div><b>소스코드 영구 소유</b><span>라이선스를 구매해 기업의 기술 자산이 됩니다</span></div></div>
       <div class="cd-row"><div><b>WISA 관리형 클라우드</b><span>서버 구성 · 보안 · 장애 대응을 WISA가 운영</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🖥️</i>서버 · 인프라</em><div><b>독립 서버 직접 운영</b><span>온프레미스 · AWS · Azure 등 원하는 환경 선택</span></div></div>
       <div class="cd-row"><div><b>디자인 편집 + 정해진 범위의 맞춤</b><span>HTML · CSS · JS 디자인 수정, Hybrid는 WISA가 맞춤 구성</span></div><em class="cd-lb"><i class="cd-em" aria-hidden="true">🛠️</i>커스터마이징</em><div><b>제한 없는 전면 커스터마이징</b><span>소스코드 · DB 직접 수정, 내부 개발팀 활용</span></div></div>
