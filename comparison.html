@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-12 patch-429: 하이라이트 밑줄 색 Primary 50 → 100 (흰 카드 위에서 잘 보이게)
      · 2026-11-12 patch-428: 어떤 방식이 맞을까요 카드 문장(.cf-q)에 하이라이트 밑줄 애니메이션 — 왼쪽→오른쪽으로 그어지고 오른쪽으로 사라짐, Cloud → Enterprise 번갈아 반복 (6초 · Primary 50 · 동작 줄이기 시 정지)
      · 2026-11-12 patch-427: 핵심 차이 가운데 라벨 이모지 삭제 (머리줄 선 아이콘과 섞이지 않게 · 글자만)
      · 2026-11-12 patch-426: 핵심 차이 제품명 PC 20 → 24 (아이콘 26 → 30 · 사이 10) · 모바일 18 → 20 (아이콘 22 → 24)
@@ -184,8 +185,8 @@
   .cf-c h3 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 28px; font-weight: 700; line-height: 38px; color: var(--gray-900); }   /* patch-424: 메인 솔루션 카드처럼 아이콘 + 제품명 (뱃지 삭제) */
   .cf-c h3 svg { flex: none; width: 32px; height: 32px; }
   .cf-q { margin: 12px 0 0; font-size: 18px; font-weight: 600; line-height: 28px; color: var(--gray-700); word-break: keep-all; }   /* 맞는 경우 한 문장 (따옴표) */
-  /* patch-428: 맞는 경우 문장 하이라이트 밑줄 — Cloud 그어짐 → 사라짐 → Enterprise 그어짐 → 사라짐 반복 (한 바퀴 6초 · 카드마다 3초 엇갈림 · Primary 50 · 글자 아래 45%) */
-  .cf-hl { background: linear-gradient(var(--primary-50), var(--primary-50)) no-repeat 0 88% / 0 45%; animation: cf-hl 6s ease-in-out infinite; }
+  /* patch-428: 맞는 경우 문장 하이라이트 밑줄 — Cloud 그어짐 → 사라짐 → Enterprise 그어짐 → 사라짐 반복 (한 바퀴 6초 · 카드마다 3초 엇갈림 · Primary 100 (patch-429: 50 → 100) · 글자 아래 45%) */
+  .cf-hl { background: linear-gradient(var(--primary-100), var(--primary-100)) no-repeat 0 88% / 0 45%; animation: cf-hl 6s ease-in-out infinite; }
   .cf-c + .cf-c .cf-hl { animation-delay: 3s; }
   @keyframes cf-hl { 0% { background-size: 0 45%; background-position: 0 88%; } 12% { background-size: 100% 45%; background-position: 0 88%; } 35% { background-size: 100% 45%; background-position: 100% 88%; } 47%, 100% { background-size: 0 45%; background-position: 100% 88%; } }
   @media (prefers-reduced-motion: reduce) { .cf-hl { animation: none; } }
