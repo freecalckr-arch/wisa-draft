@@ -14,7 +14,7 @@
 .pc-pop.indigo { background: var(--indigo-50, #eef4ff); color: #3538cd; }   /* 팔레트 Indigo 50 / 700 */
 .pc-pop.gray { background: var(--gray-100); color: var(--gray-700); }
 .pc-pop.solid { background: var(--primary-600); color: var(--white); font-weight: 600; }   /* patch-445 진한 뱃지: 두 방식 카드처럼 뱃지를 먼저 읽혀야 할 때 · Primary 600 / 흰 */
-.pc-pop.solid.indigo { background: #6172f3; color: var(--white); }   /* 팔레트 Indigo 500 / 흰 */
+.pc-pop.solid.indigo { background: #444ce7; color: var(--white); }   /* 팔레트 Indigo 600 / 흰 (patch-446 · Cloud Primary 600 과 같은 단계) */
 .pc-pop.off { visibility: hidden; }   /* 뱃지 없는 카드도 줄 맞춤 */
 
 /* 이름 · 설명 */
