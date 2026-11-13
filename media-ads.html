@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-482: 탭 설명 카드 대표 상품 번호 원 숫자 세로 가운데 (줄 높이 상속 20 → 1)
      · 2026-11-13 patch-481: 매체 탭 설명 카드 + 상품 목록 = 흰 카드 하나 (위 설명 · 구분선 · 아래 목록) · 목록 머리말(상품 목록 · 새 창 안내) 삭제 · 매체 이름 위 · 상품 PC 4열(사이 20 · 3열 시작 = 위 화면 왼쪽 선) / PC 최소 위 카드 글 · 화면 같은 폭 + 상품 사이 40 / 태블릿 3열 / 모바일 2열
      · 2026-11-13 patch-480: 그래프(#geo-market) · 단계(#geo-how) 영역 숨김 (hidden · 내용 보관) · 매체 탭 설명 카드에 말풍선(프로필 + 개선 후 고객 반응 4개 · 온사이트 단계 탭 모양)
      · 2026-11-13 patch-479: 해결 영역(#geo-diagnosis 4줄) 삭제 · 상품 목록(#ads-products)을 기획서 MEDIA 구조로 — 탭 4칸(번호 01~04 · 같은 폭) → 설명 카드(STEP · 제목 · 설명 · 대표 상품 번호 태그 + 상품 구성 화면 560×480) → 상품 목록(가운데 제목 · 묶음 이름 위 · 상품 PC 4열 / 태블릿 3열 / 모바일 2열 · 오른쪽 위 ↗) · 상품 이름 기획서대로(핫아이템)
@@ -200,7 +201,7 @@
   #ads-products .ad-rep b { font-size: 14px; font-weight: 700; color: var(--black); }
   #ads-products .ad-rep .sr-tags { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; counter-reset: adr; }
   #ads-products .ad-rep .sr-tags li { counter-increment: adr; display: inline-flex; align-items: center; gap: 6px; background: var(--gray-100); }
-  #ads-products .ad-rep .sr-tags li::before { content: counter(adr); display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 10px; font-weight: 700; }
+  #ads-products .ad-rep .sr-tags li::before { content: counter(adr); display: grid; place-items: center; flex: none; width: 16px; height: 16px; line-height: 1; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 10px; font-weight: 700; }
   #ads-products .ad-vis .ph-box { height: 480px; }
   #ads-products .ad-grp { margin-top: 40px; }
   #ads-products .ad-grp + .ad-grp { margin-top: 32px; }
