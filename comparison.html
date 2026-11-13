@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-13 patch-475: 상세 기능 비교 머리줄 이름 왼쪽 구름 · 코드 아이콘 (PC 30 · 모바일 24 · 핵심 차이 · 방식 카드와 같음) · 표 아래 안내 문구 ~ 영역 끝 여백 PC 120 → 160 · 태블릿 100 → 120 · 모바일 64 → 80
      · 2026-11-13 patch-474: 두 방식 카드 뱃지 삭제 (아이콘 · 설명과 같은 말 반복) · Cloud 설명 "WISA 클라우드에서 바로 쓰는 쇼핑몰" → "WISA 클라우드를 구독해 바로 쓰는 쇼핑몰" (구독 vs 소유 키워드는 설명에 남김) · 첫 줄이 이름일 때 위 여백 0 (plan.css)
      · 2026-11-13 patch-473: 두 방식 카드 이름 왼쪽 아이콘 — Cloud 구름 · Enterprise 코드 (핵심 차이 표 머리줄과 같은 아이콘 · 30 · 선 1.6 · Gray 900 · 사이 10 · 모바일 26 · plan.css .pc h3:has(svg))
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지) · 두 방식 카드 뱃지 = .pc-pop.w-badge.md (Cloud 파랑 · Enterprise .purple) · 성장 경로 회색 칩 .cg-chip → 공통 .vw-chip.gray
@@ -107,9 +108,9 @@
   @media (max-width: 767px) { #cmp-diff, #cmp-table, #geo-how, #geo-diagnosis { padding-top: 80px; } }
   /* patch-435: 상세 기능 비교 = 가로 꽉 찬 Gray 50 바탕 (자료 영역 구분 · 흰 영역이 길게 이어지지 않게) · 바깥 간격은 다른 영역과 같고 바탕 안쪽 위아래 같게 · 표는 흰 바탕 그대로 */
   #cmp-table { background: var(--primary-100); }   /* patch-439: 기존 홈페이지 solution/cloud 요금 영역(.rn-cl-pricing)과 같은 Primary 100 블루 · patch-436 Gray 100 → */
-  @media (min-width: 1024px) { #cmp-table { margin-top: 160px; padding-block: 120px; } }
-  @media (min-width: 768px) and (max-width: 1023px) { #cmp-table { margin-top: 120px; padding-block: 100px; } }
-  @media (max-width: 767px) { #cmp-table { margin-top: 80px; padding-block: 64px; } }
+  @media (min-width: 1024px) { #cmp-table { margin-top: 160px; padding-block: 120px 160px; } }   /* patch-475: 아래 안내 문구 ~ 영역 끝 120 → 160 (태블릿 100 → 120 · 모바일 64 → 80) */
+  @media (min-width: 768px) and (max-width: 1023px) { #cmp-table { margin-top: 120px; padding-block: 100px 120px; } }
+  @media (max-width: 767px) { #cmp-table { margin-top: 80px; padding-block: 64px 80px; } }
 
   html.sw #geo-hero .rv { opacity: 1; transform: none; transition: none; }
   @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
@@ -222,6 +223,8 @@
   .cpt thead :is(th, td) { position: sticky; top: var(--ct-top, 62px); z-index: 2; border-top: 0; background: var(--white); box-shadow: inset 0 -1px var(--gray-200); }   /* patch-454: 머리줄 아래 선 Gray 200 = 핵심 차이 */
   .cpt thead th { padding: 26px 30px; text-align: center; font-weight: 400; }
   .cpt thead strong { display: block; color: var(--gray-900); font-size: 24px; font-weight: 700; line-height: 32px; }   /* patch-454: 핵심 차이 머리줄 제품명과 같음 (24/700) */
+  .cpt thead strong:has(svg) { display: flex; align-items: center; justify-content: center; gap: 10px; }   /* patch-475: 이름 왼쪽 아이콘 = 핵심 차이 머리줄 · 방식 카드와 같음 (30 · 선 1.6 · Gray 900) */
+  .cpt thead strong svg { flex: none; width: 30px; height: 30px; }
   .cpt thead span { display: block; margin-top: 8px; color: var(--gray-600); font-size: 15px; line-height: 24px; }
   .cpt tr.g th { padding: 14px 20px; background: #f8f9fc; color: var(--black); font-size: 16px; font-weight: 600; line-height: 22px; }   /* 기존 홈페이지 묶음 줄 색 */
   .cpt tbody tr:not(.g) th { padding: 16px 20px; color: var(--gray-500); font-size: 15px; font-weight: 500; line-height: 18px; }
@@ -256,6 +259,7 @@
     .cpt thead th { padding: 16px 12px; }
     .cpt thead th + th { border-left: 1px solid var(--gray-100); }
     .cpt thead strong { font-size: 20px; line-height: 28px; }
+    .cpt thead strong:has(svg) { gap: 6px; } .cpt thead strong svg { width: 24px; height: 24px; }
     .cpt thead span { margin-top: 2px; font-size: 13px; line-height: 18px; }
     .cpt tbody tr.g, .cpt tbody tr.g th { display: block; }
     .cpt tbody tr.g:first-child { display: none; }   /* 첫 묶음 이름은 머리줄 바로 아래라 생략 (기존 홈페이지 동일) */
@@ -675,7 +679,7 @@
     <div class="sub-title rv"><h2>상세 기능 비교</h2><p>기본 사양부터 보안 · 고객 지원까지, 도입 전에 확인할 항목을 모두 비교해 보세요.</p></div>
     <div class="cpt rv" style="--d:100ms">
       <table><colgroup><col class="lb"><col><col></colgroup>
-        <thead><tr><td></td><th scope="col"><strong>Cloud</strong><span>SaaS 구독형</span></th><th scope="col"><strong>Enterprise</strong><span>라이선스 소유형</span></th></tr></thead>
+        <thead><tr><td></td><th scope="col"><strong><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Cloud</strong><span>SaaS 구독형</span></th><th scope="col"><strong><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg>Enterprise</strong><span>라이선스 소유형</span></th></tr></thead>
         <tbody>
           <tr class="g"><th colspan="3" scope="colgroup">기본 사양</th></tr>
           <tr><th scope="row">솔루션 모델</th><td><strong>SaaS (Software as a Service)</strong><span>WISA 클라우드에서 월 단위 이용</span></td><td><strong>라이선스 소유 + 커스터마이징</strong><span>소스코드 직접 소유 · 기술 자산화</span></td></tr>
