@@ -14,11 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=424">
+<link rel="stylesheet" href="assets/common/wisa.css?v=472">
+<link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 버티컬커머스 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-413: 히어로 타이틀 모바일 4줄 → 3줄 (자사몰에만 머물지 않고 / [채널]에서도 / 팔리게 합니다 · PC · 태블릿 그대로)
      · 2026-11-12 patch-412: 히어로 모바일 전환 깜빡임 수정 — 앞 화면이 사라진 뒤 나타나던 방식(가운데 빈 순간) → 앞 화면을 그대로 둔 채 새 화면이 위에서 0.6초 페이드로 나타나고, 다 나타난 뒤 앞 화면을 숨김
      · 2026-11-12 patch-411: 히어로 태블릿 휴대폰 = 전환 없이 무신사(왼쪽) · 오늘의집(오른쪽) 두 화면 고정 · 두 화면 모두 우리 상품(머쉬룸 무드등) 활성화 — 블루 링 · 광고 배지 블루 · 이름 굵게 · 쿠팡 화면은 태블릿에서 숨김
@@ -742,8 +744,8 @@
 <div class="container ft-news rv-mo">
   <div class="fn-box">
         <ul class="fn-list">
-      <li><a href="#top"><span class="fn-bdg case">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
-      <li class="fn-2"><a href="#top"><span class="fn-bdg upd">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
+      <li><a href="#top"><span class="fn-bdg w-badge sm success">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
+      <li class="fn-2"><a href="#top"><span class="fn-bdg w-badge sm">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
     </ul>
   </div>
 </div>

@@ -6,7 +6,8 @@
 <title>태그 · 뱃지 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
-<link rel="stylesheet" href="../assets/common/plan.css?v=471">
+<link rel="stylesheet" href="../assets/common/plan.css?v=472">
+<link rel="stylesheet" href="../assets/common/badge.css?v=472">
 <style>
   /* 미리보기 칸 (이 페이지 전용) · 값은 wisa.css tag-std · plan.css 와 같음 */
   .pv { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 8px; padding: 30px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
@@ -14,7 +15,9 @@
   .pv ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
   .pv ul li { box-sizing: border-box; height: 32px; margin: 0; padding: 6px 12px; border-radius: 8px; background: var(--gray-100); color: var(--gray-700); font-size: 13px; font-weight: 500; line-height: 20px; white-space: nowrap; }
   .pv.gray ul li { background: var(--gray-200); }
-  .pv .pc-pop { margin: 0; }
+  .pv .w-badge { margin: 0; }
+  .pv.bd-grid { display: grid; grid-template-columns: 90px repeat(4, max-content); gap: 12px 16px; align-items: center; }
+  .pv.bd-grid > b { font-size: 13px; font-weight: 600; color: var(--gray-500); }
 </style>
 </head>
 <body>
@@ -30,7 +33,7 @@
     <h2 id="role">구분</h2>
     <div class="tbl"><table><thead><tr><th>이름</th><th>역할</th><th>모양</th><th>클래스</th></tr></thead><tbody>
 <tr><td>태그</td><td>사양 · 포함 항목 · 키워드 나열 (누르지 않음)</td><td>사각 · 회색</td><td><code>.sr-tags li</code> · <code>.pc-tags li</code></td></tr>
-<tr><td>뱃지</td><td>상품 계열 · 분류 표시 (한 덩어리에 1개)</td><td>알약 · 색</td><td><code>.pc-pop</code></td></tr>
+<tr><td>뱃지</td><td>상품 계열 · 분류 · 상태 표시 (한 덩어리에 1개)</td><td>알약 · 색</td><td><code>.w-badge</code> (assets/common/badge.css)</td></tr>
 <tr><td>선택 칩</td><td>단계 탭에서 누르면 화면이 바뀌는 칩 (번호 + 선택 블루)</td><td>사각 · 회색 → 선택 시 Primary 600</td><td><code>#geo-how .jt-tags li</code></td></tr>
 </tbody></table></div>
 
@@ -48,14 +51,32 @@
 </tbody></table></div>
 
     <h2 id="badge">뱃지</h2>
-    <div class="pv"><span class="pc-pop">SaaS 구독형</span><span class="pc-pop indigo">라이선스 소유형</span><span class="pc-pop gray">분류</span><span class="pc-pop solid">SaaS 구독형</span><span class="pc-pop solid indigo">라이선스 소유형</span></div>
-    <div class="tbl"><table><thead><tr><th>클래스</th><th>색 (바탕 / 글자)</th><th>쓰는 곳</th></tr></thead><tbody>
-<tr><td><code>.pc-pop</code></td><td>Primary 50 / Primary 700</td><td>Cloud · 구독형 · 일반 상품</td></tr>
-<tr><td><code>.pc-pop.indigo</code></td><td>Indigo 50 / Indigo 700</td><td>Enterprise · 라이선스 소유형</td></tr>
-<tr><td><code>.pc-pop.solid</code> · <code>.solid.indigo</code></td><td>Primary 600 / 흰 · Indigo 600 / 흰 (굵기 600)</td><td>뱃지를 먼저 읽혀야 할 때 (두 방식 카드 등)</td></tr>
-<tr><td><code>.pc-pop.gray</code></td><td>Gray 100 / Gray 700</td><td>분류만 알리는 뱃지</td></tr>
+    <p>모든 페이지 · 요금 카드 · 목록의 뱃지는 공통 컴포넌트 <code>.w-badge</code> 하나만 씁니다 (<a href="https://www.figma.com/design/AbBQwzCc7KirogHOpPVF8L/WISA?node-id=1046-3819">Figma WISA · Badge</a> 기준). 페이지마다 뱃지 크기 · 굵기 · 색을 새로 만들지 않고, 크기 1개 + 색 1개 클래스를 붙여 꺼내 씁니다.</p>
+    <div class="pv bd-grid"><b></b><b>sm</b><b>md</b><b>lg</b><b>md · 점</b>
+      <b>Gray</b><span class="w-badge sm gray">Label</span><span class="w-badge md gray">Label</span><span class="w-badge lg gray">Label</span><span class="w-badge md dot gray"><i></i>Label</span>
+      <b>Primary</b><span class="w-badge sm">Label</span><span class="w-badge md">Label</span><span class="w-badge lg">Label</span><span class="w-badge md dot"><i></i>Label</span>
+      <b>Error</b><span class="w-badge sm error">Label</span><span class="w-badge md error">Label</span><span class="w-badge lg error">Label</span><span class="w-badge md dot error"><i></i>Label</span>
+      <b>Warning</b><span class="w-badge sm warning">Label</span><span class="w-badge md warning">Label</span><span class="w-badge lg warning">Label</span><span class="w-badge md dot warning"><i></i>Label</span>
+      <b>Success</b><span class="w-badge sm success">Label</span><span class="w-badge md success">Label</span><span class="w-badge lg success">Label</span><span class="w-badge md dot success"><i></i>Label</span>
+      <b>Blue gray</b><span class="w-badge sm bluegray">Label</span><span class="w-badge md bluegray">Label</span><span class="w-badge lg bluegray">Label</span><span class="w-badge md dot bluegray"><i></i>Label</span>
+      <b>Indigo</b><span class="w-badge sm indigo">Label</span><span class="w-badge md indigo">Label</span><span class="w-badge lg indigo">Label</span><span class="w-badge md dot indigo"><i></i>Label</span>
+      <b>Purple</b><span class="w-badge sm purple">Label</span><span class="w-badge md purple">Label</span><span class="w-badge lg purple">Label</span><span class="w-badge md dot purple"><i></i>Label</span></div>
+    <div class="tbl"><table><thead><tr><th>크기</th><th>높이</th><th>여백 (위아래 / 좌우)</th><th>글자</th><th>쓰는 곳</th></tr></thead><tbody>
+<tr><td><code>.w-badge.sm</code></td><td class="num">22</td><td>2 / 8</td><td>12 / 500 · 줄 18</td><td>목록 줄 앞 분류 (새 소식 고객사례 · 업데이트)</td></tr>
+<tr><td><code>.w-badge.md</code></td><td class="num">24</td><td>2 / 10</td><td>14 / 500 · 줄 20</td><td>요금 · 방식 카드 맨 위 (Cloud · Enterprise)</td></tr>
+<tr><td><code>.w-badge.lg</code></td><td class="num">28</td><td>4 / 12</td><td>14 / 500 · 줄 20</td><td>큰 제목 옆 등 뱃지를 더 크게 보여야 할 때</td></tr>
 </tbody></table></div>
-    <p>크기: 높이 28 · 좌우 12 · 모서리 16(알약) · 13/500. Cloud = 파랑 · Enterprise = 인디고는 모든 페이지 공통입니다.</p>
+    <div class="tbl"><table><thead><tr><th>색 클래스</th><th>바탕 / 글자 / 점</th><th>쓰는 곳</th></tr></thead><tbody>
+<tr><td>(없음 · 기본)</td><td>Primary 50 / 700 / 500</td><td>Cloud · 구독형 · 일반 상품 · 업데이트</td></tr>
+<tr><td><code>.purple</code></td><td>Purple 50 / 700 / 500</td><td>Enterprise · 라이선스 소유형</td></tr>
+<tr><td><code>.gray</code></td><td>Gray 100 / 700 / 500</td><td>분류만 알리는 뱃지 (강조 없음)</td></tr>
+<tr><td><code>.success</code></td><td>Success 50 / 700 / 500</td><td>고객사례 · 완료 · 정상</td></tr>
+<tr><td><code>.error</code> · <code>.warning</code></td><td>Error · Warning 50 / 700 / 500</td><td>오류 · 주의 상태</td></tr>
+<tr><td><code>.indigo</code> · <code>.bluegray</code></td><td>Indigo · Blue gray 50 / 700 / 500</td><td>그 밖의 분류 (한 화면에 색 계열 1개 더까지)</td></tr>
+<tr><td><code>.dot</code> + <code>&lt;i&gt;&lt;/i&gt;</code></td><td>글자 앞 점 6 · 점-글자 6 (점 = 500 단계)</td><td>상태 표시 (진행 중 · 연결됨 등)</td></tr>
+<tr><td><code>.on-tint</code></td><td>바탕만 흰색</td><td>색 그라데이션 카드 · 색 면 위</td></tr>
+</tbody></table></div>
+    <p>Cloud = 파랑 · Enterprise = 퍼플은 모든 페이지 공통입니다. 화면 이미지(목업) 안 머리줄 상태 칩은 <code>.vw-chip</code>(파랑) · <code>.vw-chip.gray</code>(회색)를 씁니다.</p>
 
     <h2 id="chip">선택 칩</h2>
     <p>단계 탭(<code>#geo-how .jt-tags</code>)의 칩은 눌러서 화면을 바꾸는 버튼이라 태그와 따로 둡니다. 번호 원 16 · 15/500 · 위아래 8 · 좌우 14 · 모서리 10, 선택되면 Primary 600 바탕 + 흰 글자. 번호 말풍선 위치가 이 크기에 맞춰져 있어 크기를 바꾸지 않습니다.</p>
@@ -67,10 +88,12 @@
 &lt;!-- 요금 카드 --&gt;
 &lt;ul class="pc-tags"&gt;&lt;li&gt;Standard&lt;/li&gt;&lt;li&gt;Pro&lt;/li&gt;&lt;/ul&gt;
 
-&lt;!-- 뱃지 --&gt;
-&lt;span class="pc-pop"&gt;SaaS 구독형&lt;/span&gt;
-&lt;span class="pc-pop indigo"&gt;라이선스 소유형&lt;/span&gt;</pre></div>
-    <p class="foot">마지막 수정 2026-11-12 · 태그 값은 <code>assets/common/wisa.css</code>(tag-std) · <code>assets/common/plan.css</code>(.pc-tags) 두 곳을 같이 고칩니다.</p>
+&lt;!-- 뱃지 (assets/common/badge.css) --&gt;
+&lt;span class="w-badge md"&gt;SaaS 구독형&lt;/span&gt;
+&lt;span class="w-badge md purple"&gt;라이선스 소유형&lt;/span&gt;
+&lt;span class="w-badge sm success"&gt;고객사례&lt;/span&gt;
+&lt;span class="w-badge md dot"&gt;&lt;i&gt;&lt;/i&gt;진행 중&lt;/span&gt;</pre></div>
+    <p class="foot">마지막 수정 2026-11-13 · 뱃지 값은 <code>assets/common/badge.css</code> 한 곳만 고칩니다. 태그 값은 <code>assets/common/wisa.css</code>(tag-std) · <code>assets/common/plan.css</code>(.pc-tags) 두 곳을 같이 고칩니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

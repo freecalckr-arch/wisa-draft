@@ -6,7 +6,8 @@
 <title>요금 카드 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
-<link rel="stylesheet" href="../assets/common/plan.css?v=471">
+<link rel="stylesheet" href="../assets/common/plan.css?v=472">
+<link rel="stylesheet" href="../assets/common/badge.css?v=472">
 <style>
   /* 미리보기 칸 (이 페이지 전용) · 버튼은 사이트 공통 .btn 과 같은 값 */
   .pv { margin: 16px 0 8px; padding: 40px 30px; border-radius: 16px; background: var(--gray-50); }
@@ -38,7 +39,7 @@
     <div class="pv">
       <ul class="pc-list">
         <li class="pc">
-          <span class="pc-pop off" aria-hidden="true"></span>
+          <span class="pc-pop w-badge md off" aria-hidden="true"></span>
           <h3>Standard</h3>
           <p class="pc-sub">무료로 지금 바로 시작이 가능한</p>
           <p class="pc-price"><strong>무료</strong></p>
@@ -47,7 +48,7 @@
           <ul class="pc-checks"><li>이미지 용량 1GB</li><li>웹/DB 용량 무제한</li><li>트래픽 무제한</li></ul>
         </li>
         <li class="pc is-rec" data-rec="가장 인기">
-          <span class="pc-pop">SaaS 구독형</span>
+          <span class="pc-pop w-badge md">SaaS 구독형</span>
           <h3>Pro</h3>
           <p class="pc-sub">최고의 사양으로 전문적 운영이 가능한</p>
           <p class="pc-price"><strong>27,500</strong><span>/월</span></p>
@@ -56,7 +57,7 @@
           <ul class="pc-checks"><li>이미지 용량 무제한</li><li>웹/DB 용량 무제한</li><li>트래픽 무제한</li></ul>
         </li>
         <li class="pc">
-          <span class="pc-pop off" aria-hidden="true"></span>
+          <span class="pc-pop w-badge md off" aria-hidden="true"></span>
           <h3>Hybrid</h3>
           <p class="pc-sub">커스텀 솔루션을 SaaS 요금제로</p>
           <p class="pc-price"><strong>55,000</strong><span>/월</span></p>
@@ -70,7 +71,7 @@
     <div class="pv two">
       <ul class="pc-list">
         <li class="pc">
-          <span class="pc-pop">SaaS 구독형</span>
+          <span class="pc-pop w-badge md">SaaS 구독형</span>
           <h3>Cloud</h3>
           <p class="pc-sub">WISA 클라우드에서 바로 쓰는 쇼핑몰</p>
           <p class="pc-price"><strong>무료</strong><span>~</span></p>
@@ -80,7 +81,7 @@
           <ul class="pc-checks"><li>서버 준비 없이 가입 후 바로 오픈합니다</li><li>업데이트와 인프라 운영은 WISA가 맡습니다</li></ul>
         </li>
         <li class="pc">
-          <span class="pc-pop indigo">라이선스 소유형</span>
+          <span class="pc-pop w-badge md purple">라이선스 소유형</span>
           <h3>Enterprise</h3>
           <p class="pc-sub">소스코드와 서버를 직접 소유하는 쇼핑몰</p>
           <p class="pc-price"><strong>별도 문의</strong></p>
@@ -95,7 +96,7 @@
     <h2 id="order">구성 순서</h2>
     <p>위에서 아래로 순서를 바꾸지 않습니다. 없는 줄은 빼되, 같은 줄에 놓인 카드끼리 높이를 맞춰야 할 때는 빈 자리(<code>.off</code>)를 둡니다.</p>
     <div class="tbl"><table><thead><tr><th>순서</th><th>요소</th><th>클래스</th><th>규격 (PC)</th><th>모바일</th></tr></thead><tbody>
-<tr><td>1</td><td>뱃지</td><td><code>.pc-pop</code></td><td>높이 28 · 좌우 12 · 모서리 16 · 13/500</td><td>같음 · 빈 자리는 숨김</td></tr>
+<tr><td>1</td><td>뱃지</td><td><code>.pc-pop.w-badge.md</code></td><td>공통 뱃지 md (높이 24 · 2/10 · 14/500 · <a href="tag.html#badge">태그 · 뱃지</a>)</td><td>같음 · 빈 자리는 숨김</td></tr>
 <tr><td>2</td><td>상품 이름</td><td><code>h3</code></td><td>위 12 · <b class="num">28</b>/700 · 줄 38 · Gray 900</td><td><span class="num">26</span></td></tr>
 <tr><td>3</td><td>설명</td><td><code>.pc-sub</code></td><td>위 10 · 16 · 줄 24 · Gray 700</td><td>14 · 줄 20</td></tr>
 <tr><td>4</td><td>가격</td><td><code>.pc-price</code></td><td>위 12 · 숫자 <b class="num">26</b>/600 · 단위 18</td><td>숫자 25</td></tr>
@@ -112,24 +113,25 @@
 <tr><td>카드 사이</td><td><b class="num">20</b> (모바일 세로 한 줄 · 사이 12~20)</td></tr>
 <tr><td>카드 개수</td><td>목록에 <code>--pc-n</code> 으로 지정 (기본 3) · 4장 이상은 1439 이하에서 2장씩 · 모바일 1장</td></tr>
 <tr><td>호버</td><td>그림자 없이 테두리만 Gray 900 (1) · 0.3초 · 추천 카드는 그대로 · 마우스 기기만</td></tr>
-<tr><td>방식 카드 색</td><td>서로 다른 두 방식(Cloud · Enterprise)을 나란히 비교할 때만 · Cloud = 기본 흰 카드 / <code>.pc.tone-indigo</code> Enterprise = 카드 전체 위 Indigo 100 → 가운데 Indigo 25 → 아래 흰 그라데이션 · 테두리 Indigo 100 · 이 카드 위 태그는 흰 바탕 · 두 방식 카드 뱃지는 진한 뱃지 <code>.pc-pop.solid</code>(Cloud Primary 600 · Enterprise Indigo 600)</td></tr>
+<tr><td>방식 카드 색</td><td>서로 다른 두 방식(Cloud · Enterprise)을 나란히 비교할 때만 · Cloud = 기본 흰 카드 / <code>.pc.tone-indigo</code> Enterprise = 카드 전체 위 Indigo 100 → 가운데 Indigo 25 → 아래 흰 그라데이션 · 테두리 Indigo 100 · 이 카드 위 태그는 흰 바탕 · 두 방식 카드 뱃지도 공통 뱃지 md (Cloud 파랑 · Enterprise 퍼플)</td></tr>
 <tr><td>추천 카드</td><td><code>.pc.is-rec</code> + <code>data-rec="라벨"</code> · 테두리 Gray 900 2 · 위 가운데 라벨(높이 24 · 12/700 · 검정) · 버튼 검정 · 한 목록에 1장만</td></tr>
 </tbody></table></div>
 
     <h2 id="badge">뱃지 색</h2>
-    <p>한 카드에 뱃지는 1개. 색은 상품 계열로 정하고, 같은 페이지 안에서 섞지 않습니다. <b>Cloud = 파랑 · Enterprise = 인디고</b>는 요금 카드뿐 아니라 모든 페이지의 Cloud · Enterprise 뱃지에 똑같이 씁니다 (<code>.pc-pop</code> · <code>.pc-pop.indigo</code> 를 그대로 가져와 씀).</p>
+    <p>한 카드에 뱃지는 1개. 모양 · 색은 공통 뱃지(<a href="tag.html#badge">태그 · 뱃지</a> · <code>badge.css</code>)를 그대로 쓰고 요금 카드에서 따로 정하지 않습니다. <b>Cloud = 파랑 · Enterprise = 퍼플</b>은 요금 카드뿐 아니라 모든 페이지의 Cloud · Enterprise 뱃지에 똑같이 씁니다.</p>
     <div class="tbl"><table><thead><tr><th>클래스</th><th>색 (바탕 / 글자)</th><th>쓰는 곳</th></tr></thead><tbody>
-<tr><td><code>.pc-pop</code></td><td>Primary 50 / Primary 700 (파랑)</td><td>Cloud · 구독형 상품 · 일반 상품</td></tr>
-<tr><td><code>.pc-pop.indigo</code></td><td>Indigo 50 / Indigo 700</td><td>Enterprise · 라이선스 소유형</td></tr>
-<tr><td><code>.pc-pop.gray</code></td><td>Gray 100 / Gray 700</td><td>분류만 알리는 뱃지 (강조 없음)</td></tr>
+<tr><td><code>.w-badge.md</code></td><td>Primary 50 / Primary 700 (파랑)</td><td>Cloud · 구독형 상품 · 일반 상품</td></tr>
+<tr><td><code>.w-badge.md.purple</code></td><td>Purple 50 / Purple 700</td><td>Enterprise · 라이선스 소유형</td></tr>
+<tr><td><code>.w-badge.md.gray</code></td><td>Gray 100 / Gray 700</td><td>분류만 알리는 뱃지 (강조 없음)</td></tr>
 </tbody></table></div>
 
     <h2 id="use">마크업</h2>
     <div class="code"><button type="button" data-copy="c-pc">복사</button><pre id="c-pc">&lt;link rel="stylesheet" href="assets/common/plan.css"&gt;
+&lt;link rel="stylesheet" href="assets/common/badge.css"&gt;
 
 &lt;ul class="pc-list" style="--pc-n: 2"&gt;
   &lt;li class="pc"&gt;
-    &lt;span class="pc-pop"&gt;SaaS 구독형&lt;/span&gt;           &lt;!-- Enterprise: class="pc-pop indigo" --&gt;
+    &lt;span class="pc-pop w-badge md"&gt;SaaS 구독형&lt;/span&gt;   &lt;!-- Enterprise: class="pc-pop w-badge md purple" --&gt;
     &lt;h3&gt;Cloud&lt;/h3&gt;
     &lt;p class="pc-sub"&gt;WISA 클라우드에서 바로 쓰는 쇼핑몰&lt;/p&gt;
     &lt;p class="pc-price"&gt;&lt;strong&gt;무료&lt;/strong&gt;&lt;span&gt;~&lt;/span&gt;&lt;/p&gt;

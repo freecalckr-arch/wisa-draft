@@ -402,9 +402,7 @@ img, video { max-width: 100%; display: block; }
 .fn-list li + li::before { content: ""; position: absolute; left: 0; top: 50%; width: 1px; height: 14px; margin-top: -7px; background: var(--gray-300); }
 /* 두 칸 경계 = 띠 정가운데 */
 .fn-list a { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; }
-.fn-bdg { flex: none; font-size: 12px; line-height: 18px; font-weight: 600; border-radius: 9px; padding: 2px 8px; }
-.fn-bdg.case { color: #067647; background: #ecfdf3; }
-.fn-bdg.upd { color: var(--primary-700); background: var(--primary-50); }
+.fn-bdg { flex: none; }   /* patch-472: 모양 = 공통 뱃지 .w-badge.sm (badge.css) · 고객사례 = .success · 업데이트 = 기본 파랑 */
 .fn-t { min-width: 0; font-size: 14px; line-height: 24px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .fn-list a:hover .fn-t, .fn-list a:focus-visible .fn-t { text-decoration: underline; text-underline-offset: 3px; }
 .fn-d { flex: none; margin-left: auto; padding-left: 16px; font-size: 12px; line-height: 24px; color: var(--gray-400); }
@@ -2544,6 +2542,7 @@ img, video { max-width: 100%; display: block; }
 .vw-ic { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--primary-50); color: var(--primary-600); }
 .vw-hd b { flex: none; font-weight: 700; color: var(--black); } .vw-m { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 12.5px; color: var(--gray-400); }
 .vw-chip { margin-left: auto; flex: none; padding: 3px 10px; border-radius: 99px; background: var(--primary-50); color: var(--primary-700); font-style: normal; font-size: 12px; font-weight: 600; }
+.vw-chip.gray { background: var(--gray-100); color: var(--gray-700); }   /* patch-472: 회색 상태 칩 (강조 없는 요금제 · 분류) · 페이지마다 따로 만들지 않음 */
 .vw-bd { display: flex; flex-direction: column; gap: 20px; padding: 22px 22px 24px; }
 .vw-sc { display: flex; align-items: center; gap: 18px; }
 .vw-ring { flex: none; width: 72px; height: 72px; transform: rotate(-90deg); } .vw-rg { fill: none; stroke: var(--gray-100); stroke-width: 9; } .vw-rv { fill: none; stroke: var(--primary-600); stroke-width: 9; stroke-linecap: round; stroke-dasharray: calc(var(--p) * 2.01) 201; }

@@ -14,11 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=424">
+<link rel="stylesheet" href="assets/common/wisa.css?v=472">
+<link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-414: 히어로 카피 변경 — "[채널] 광고부터 페이지까지 / 공식채널 운영을 대행합니다" → "[채널] 광고부터 페이지 운영까지 / 한 번에 대행합니다" (강조 = 한 번에 대행 · 모바일 · 태블릿 3줄: [채널] 광고부터 / 페이지 운영까지 / 한 번에 대행합니다 · patch-413 줄바꿈 고정 규칙 삭제)
      · 2026-11-12 patch-413: 히어로 타이틀 모바일 4줄 → 3줄 ([채널] 광고부터 / 페이지까지 공식채널 운영을 / 대행합니다 · 가운데 줄은 줄바꿈 없이 · PC · 태블릿 그대로)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 막대 값 15 → 13 / 700 · 막대 범례 10 × 10 모서리 3 (.mk-lg.bar) · 대시보드 도넛 Primary 한 계열
@@ -812,8 +814,8 @@
 <div class="container ft-news rv-mo">
   <div class="fn-box">
         <ul class="fn-list">
-      <li><a href="#top"><span class="fn-bdg case">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
-      <li class="fn-2"><a href="#top"><span class="fn-bdg upd">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
+      <li><a href="#top"><span class="fn-bdg w-badge sm success">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
+      <li class="fn-2"><a href="#top"><span class="fn-bdg w-badge sm">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
     </ul>
   </div>
 </div>

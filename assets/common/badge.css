@@ -1,0 +1,33 @@
+/* =========================================================================
+   WISA 뱃지 공통 컴포넌트 (patch-472)
+   기준: Figma WISA · Badge (node 1046:3819) — 크기 sm · md · lg / 점(dot) / 색
+   모든 페이지 · 규칙 사이트의 뱃지는 이 파일 클래스만 씀. 페이지마다 새 뱃지 스타일을 만들지 않음.
+   쓰는 법: <span class="w-badge md">SaaS 구독형</span>
+            <span class="w-badge md purple">라이선스 소유형</span>
+            <span class="w-badge sm success dot"><i></i>고객사례</span>
+   색은 규칙 사이트 팔레트(docs/color.html) 50(바탕) / 700(글자) / 500(점)만 씀.
+   (화면 이미지 안 상태 칩은 .vw-chip · wisa.css)
+   ========================================================================= */
+.w-badge {
+  --bd-bg: var(--primary-50, #eff8ff); --bd-fg: var(--primary-700, #175cd3); --bd-dot: #2e90fa;   /* 기본 = Primary 50 / 700 / 500 */
+  flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  box-sizing: border-box; height: 24px; margin: 0; padding: 2px 10px; border-radius: 99px;
+  background: var(--bd-bg); color: var(--bd-fg);
+  font-style: normal; font-size: 14px; font-weight: 500; line-height: 20px; white-space: nowrap; vertical-align: middle;
+}
+/* 크기 (기본 md) */
+.w-badge.sm { height: 22px; padding: 2px 8px; font-size: 12px; line-height: 18px; }   /* sm 22 · 2/8 · 12/500/18 */
+.w-badge.md { height: 24px; padding: 2px 10px; font-size: 14px; line-height: 20px; }  /* md 24 · 2/10 · 14/500/20 */
+.w-badge.lg { height: 28px; padding: 4px 12px; font-size: 14px; line-height: 20px; }  /* lg 28 · 4/12 · 14/500/20 */
+/* 점 (앞에 <i></i>) · 점 6 · 점-글자 6 · 여백은 크기 그대로 */
+.w-badge > i { flex: none; width: 6px; height: 6px; margin: 0; border-radius: 50%; background: var(--bd-dot); }
+/* 색 */
+.w-badge.gray     { --bd-bg: var(--gray-100, #f2f4f7); --bd-fg: var(--gray-700, #344054); --bd-dot: #667085; }   /* Gray 100 / 700 / 500 */
+.w-badge.error    { --bd-bg: #fef3f2; --bd-fg: #b42318; --bd-dot: #f04438; }   /* Error 50 / 700 / 500 */
+.w-badge.warning  { --bd-bg: #fffaeb; --bd-fg: #b54708; --bd-dot: #f79009; }   /* Warning 50 / 700 / 500 */
+.w-badge.success  { --bd-bg: #ecfdf3; --bd-fg: #027a48; --bd-dot: #12b76a; }   /* Success 50 / 700 / 500 */
+.w-badge.bluegray { --bd-bg: #f8f9fc; --bd-fg: #363f72; --bd-dot: #4e5ba6; }   /* Blue gray 50 / 700 / 500 */
+.w-badge.indigo   { --bd-bg: #eef4ff; --bd-fg: #3538cd; --bd-dot: #6172f3; }   /* Indigo 50 / 700 / 500 */
+.w-badge.purple   { --bd-bg: #f4f3ff; --bd-fg: #5925dc; --bd-dot: #7a5af8; }   /* Purple 50 / 700 / 500 */
+/* 색 면(그라데이션 카드 등) 위에서는 흰 바탕 */
+.w-badge.on-tint  { --bd-bg: var(--white, #fff); }

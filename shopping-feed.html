@@ -14,11 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=424">
+<link rel="stylesheet" href="assets/common/wisa.css?v=472">
+<link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 상품DB 연동 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 막대 값 15 → 13 / 700 · 막대 범례 10 × 10 모서리 3 (.mk-lg.bar) · 대시보드 도넛 Primary 한 계열
      · 2026-11-11 patch-366: 고객 피드백 반영 — 위사는 점검 · 피드백 서비스가 없고 연동(채널 기준 정비) + 판매 데이터로 쇼핑광고 진행. 히어로 설명 · 해결 타이틀 · ① 정비(AI 보완 문장 · 아이콘 삭제, 속성 = 채널 항목에 맞춤) · ② 점검 → 반영(화면: 상품 정보 반영 기록 .sf-log · 첫 줄 반영 중 → 반영 완료) · ③ 성과(채널 막대 → 잘 팔리는 상품 .sf-top · 1위 광고 추천) · 다짐 띠(숨김) 03 쇼핑광고 · 사례 ② ③ · FAQ Q2 · Q4(쇼핑광고) · CTA 문구
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
@@ -984,8 +986,8 @@
 <div class="container ft-news rv-mo">
   <div class="fn-box">
         <ul class="fn-list">
-      <li><a href="#top"><span class="fn-bdg case">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
-      <li class="fn-2"><a href="#top"><span class="fn-bdg upd">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
+      <li><a href="#top"><span class="fn-bdg w-badge sm success">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
+      <li class="fn-2"><a href="#top"><span class="fn-bdg w-badge sm">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
     </ul>
   </div>
 </div>

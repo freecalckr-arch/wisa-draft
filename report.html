@@ -13,12 +13,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=424">
+<link rel="stylesheet" href="assets/common/wisa.css?v=472">
+<link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] 리포트 페이지 (report.html · 2026-11-08 · crm.html 을 복사해 시작 · 아래 CRM 패치 기록은 복사 원본 이력)
+     · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 가로축 13 · 말풍선 12 · 비교 값 13 / 600 Gray 500 · 대시보드 도넛 Primary 한 계열 · KPI 스파크라인 = 공통 gx-spark 값 (선 1.5 · 증가 Error 600 · 감소 Primary 600 · 기본 Gray 400)
      · 2026-11-11 patch-365: 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지와 같게 · 굵어져도 탭 폭 그대로 · 공통 wisa.css tab-hover · wisa.js tab-ind ?v=365)
      · 2026-11-11 patch-357: 해결 영역 왼쪽 번호 원을 카드 세로 가운데로 이동 (모든 해상도 · 이어지는 세로 라인 길이는 다음 번호까지 실제 거리로 계산 · 공통 wisa.css · wisa.js sr-line · ?v=357)
@@ -3692,8 +3694,8 @@
 <div class="container ft-news rv-mo">
   <div class="fn-box">
         <ul class="fn-list">
-      <li><a href="#top"><span class="fn-bdg case">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
-      <li class="fn-2"><a href="#top"><span class="fn-bdg upd">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
+      <li><a href="#top"><span class="fn-bdg w-badge sm success">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
+      <li class="fn-2"><a href="#top"><span class="fn-bdg w-badge sm">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
     </ul>
   </div>
 </div>
