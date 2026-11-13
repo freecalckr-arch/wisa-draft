@@ -11,6 +11,21 @@
   .gx-demo { display: flex; flex-wrap: wrap; gap: 16px; margin: 0 0 12px; }
   .gx-demo-in { display: flex; align-items: center; gap: 24px; width: min(100%, var(--w)); padding: 24px; border: 1px solid var(--gray-200); border-radius: 14px; background: var(--white); box-sizing: border-box; }
   .gx-demo-in > ul, .gx-demo-in > ol { flex: 1; }
+  /* 페이지별 보기 (2026-11-13): 실제 페이지 #geo-market 만 보이게 잘라 축소 */
+  .gv-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 24px; font-size: 13px; color: var(--gray-500); }
+  .gv-bar .gv-sp { margin-left: 16px; }
+  .gv-bar button { height: 32px; padding: 0 12px; border: 1px solid var(--gray-200); border-radius: 8px; background: var(--white); font: inherit; font-weight: 500; color: var(--gray-700); cursor: pointer; }
+  .gv-bar button:hover { background: var(--gray-50); }
+  .gv-bar button.on { border-color: var(--gray-900); background: var(--gray-900); color: var(--white); }
+  .gv { max-width: 1100px; margin: 0 0 32px; }
+  .gv[hidden] { display: none; }
+  .gv figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 13px; color: var(--gray-500); }
+  .gv figcaption b { font-size: 15px; color: var(--gray-900); }
+  .gv .gv-t { height: 24px; padding: 0 8px; border-radius: 6px; background: var(--primary-50); color: var(--primary-700); font-weight: 600; line-height: 24px; }
+  .gv figcaption a { margin-left: auto; color: var(--gray-500); }
+  .gv-f { position: relative; overflow: hidden; border: 1px solid var(--gray-200); border-radius: 12px; background: var(--white); }
+  .gv-f iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; pointer-events: none; }
+  @media (max-width: 767px) { .gv-bar .gv-sp { margin-left: 0; width: 100%; } .gv figcaption a { margin-left: 0; } }
 </style>
 </head>
 <body>
@@ -35,6 +50,7 @@
 <tr><td>전체 중 비중 2~4조각 · 점수 1개</td><td><b>⑦ 도넛</b> <code>gx-donut</code></td><td>화면 이미지 안</td><td>대시보드 · GEO 진단 점수</td></tr>
 <tr><td>단계마다 줄어드는 수 (노출 → 클릭 → 구매)</td><td><b>⑧ 퍼널</b> <code>gx-funnel</code></td><td>화면 이미지 안</td><td>공식채널운영 · 버티컬커머스</td></tr>
 </tbody></table></div>
+    <p class="note">실제 페이지에 쓰인 모습은 <a href="#tab=페이지별 보기">페이지별 보기</a> 탭에서 해상도별로 볼 수 있습니다.</p>
     <h2 id="common">모든 그래프 공통</h2>
     <ol class="rules">
       <li><div><b>색은 그레이 + 블루 1개</b><span>기본 계열 Gray 300, 봐야 할 값 1개만 Primary 600. 비교 대상은 Gray 400. 계열이 여러 개면 Gray 명도(200 · 300 · 400)로 나눕니다.</span></div></li>
@@ -43,6 +59,44 @@
       <li><div><b>양은 적게</b><span>막대 · 행 3~5개(세로 막대는 8개까지). 수치 표시는 강조 값과 끝 값 위주로.</span></div></li>
       <li><div><b>움직임 1번</b><span>화면에 들어오면 선은 왼쪽부터 그려지고 막대 · 도넛은 차오릅니다. 동작 줄이기 설정이면 바로 보입니다.</span></div></li>
     </ol>
+</section>
+
+<section class="panel" data-tab="페이지별 보기">
+    <h2 id="pages">마케팅 페이지 그래프 모아 보기</h2>
+    <p>각 마케팅 페이지의 그래프 영역(<code>#geo-market</code>)을 실제 페이지에서 그대로 불러와 보여 줍니다. 새 페이지 그래프를 고를 때 데이터 성격이 비슷한 페이지를 찾아 같은 양식을 씁니다.</p>
+    <div class="gv-bar" role="group" aria-label="보기 설정">
+      <span>해상도</span><button type="button" data-w="1440" class="on">PC 1440</button><button type="button" data-w="820">태블릿 820</button><button type="button" data-w="390">모바일 390</button>
+      <span class="gv-sp">양식</span><button type="button" data-k="all" class="on">전체</button><button type="button" data-k="1">① 꺾은선</button><button type="button" data-k="2">② 비교 꺾은선</button><button type="button" data-k="3">③ 비교 세로 막대</button>
+    </div>
+    <figure class="gv" data-type="1">
+      <figcaption><b>GEO / AI 검색</b><span class="gv-t">① 꺾은선</span><span class="gv-d">연도별로 커지는 수치 + 전망 · 실적 실선 / 전망 점선</span><a href="../geo.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../geo.html" title="GEO / AI 검색 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <figure class="gv" data-type="1">
+      <figcaption><b>온사이트마케팅</b><span class="gv-t">① 꺾은선</span><span class="gv-d">단계마다 줄어드는 수 · 방문 100명 → 구매</span><a href="../onsite.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../onsite.html" title="온사이트마케팅 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <figure class="gv" data-type="2">
+      <figcaption><b>CRM마케팅</b><span class="gv-t">② 비교 꺾은선</span><span class="gv-d">구매 횟수 단계별 두 방식 비교 · 관리할 때 / 그냥 둘 때 + 차이 면</span><a href="../crm.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../crm.html" title="CRM마케팅 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <figure class="gv" data-type="2">
+      <figcaption><b>리포트</b><span class="gv-t">② 비교 꺾은선</span><span class="gv-d">날짜에 따라 벌어지는 누적 차이 · 바로 알 때 / 월말에 알 때</span><a href="../report.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../report.html" title="리포트 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <figure class="gv" data-type="3">
+      <figcaption><b>공식채널운영</b><span class="gv-t">③ 비교 세로 막대</span><span class="gv-d">두 항목 크기 비교 · 광고 클릭 대비 구매 + 차이 점선</span><a href="../sns-ops.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../sns-ops.html" title="공식채널운영 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <figure class="gv" data-type="3">
+      <figcaption><b>상품DB 연동</b><span class="gv-t">③ 비교 세로 막대</span><span class="gv-d">두 항목 크기 비교 · 채널별 이용률 + 차이 점선</span><a href="../shopping-feed.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../shopping-feed.html" title="상품DB 연동 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <figure class="gv" data-type="2">
+      <figcaption><b>버티컬커머스</b><span class="gv-t">② 비교 꺾은선</span><span class="gv-d">두 집단 연도별 비교 · 버티컬 커머스 / 자사몰</span><a href="../vertical-commerce.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
+      <div class="gv-f"><iframe data-src="../vertical-commerce.html" title="버티컬커머스 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+    </figure>
+    <p class="note">그래프는 화면에 들어오면 한 번 그려집니다. 다시 보려면 해상도 버튼을 누릅니다.</p>
 </section>
 
 <section class="panel" data-tab="메인 그래프">
@@ -210,10 +264,52 @@
 </tbody></table></div>
     <p class="note">해결 · 적용 꺾은선처럼 화면 이미지 안에 있는 그래프는 따로 정하지 않고 <a href="image.html">이미지 배율</a>을 따릅니다.</p>
     </section>
-    <p class="foot">마지막 수정 2026-11-12 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+    <p class="foot">마지막 수정 2026-11-13 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>
 <script src="../assets/common/chart.js?v=406"></script>
+<script>
+// 페이지별 보기: iframe 안 실제 페이지에서 #geo-market 만 보이게 하고, 영역 높이에 맞춰 잘라 칸 폭에 맞게 축소
+(() => {
+  const bar = document.querySelector('.gv-bar'); if (!bar) return;
+  const cards = [...document.querySelectorAll('.gv')];
+  let W = 1440;
+  const fit = card => {
+    const fr = card.querySelector('iframe'), box = card.querySelector('.gv-f');
+    const d = fr.contentDocument, sec = d && d.getElementById('geo-market');
+    if (!sec) return;
+    const tg = sec.querySelector('.container') || sec, r = tg.getBoundingClientRect(), M = 48;
+    const h = Math.round(r.height + M * 2), s = Math.min(1, box.clientWidth / W);
+    fr.style.width = W + 'px'; fr.style.height = h + 'px';
+    fr.style.transform = 'scale(' + s + ')'; fr.style.left = Math.max(0, (box.clientWidth - W * s) / 2) + 'px';
+    box.style.height = Math.ceil(h * s) + 'px';
+    const y = r.top + fr.contentWindow.scrollY - M;
+    fr.contentWindow.scrollTo(0, y);
+  };
+  const prep = card => {
+    const fr = card.querySelector('iframe');
+    fr.onload = () => {
+      const d = fr.contentDocument; if (!d) return;
+      const st = d.createElement('style');
+      st.textContent = 'html,body{overflow:hidden!important;scroll-behavior:auto!important}body *{visibility:hidden!important}#geo-market,#geo-market *{visibility:visible!important}#geo-market{background:var(--white)}';
+      d.head.appendChild(st);
+      const go = () => fit(card);
+      go(); setTimeout(go, 400); setTimeout(go, 1500);
+      if (d.fonts) d.fonts.ready.then(go);
+    };
+  };
+  const load = card => { const fr = card.querySelector('iframe'); fr.style.width = W + 'px'; fr.src = fr.dataset.src; };
+  cards.forEach(c => { prep(c); load(c); });
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.w) { W = +b.dataset.w; cards.forEach(load); }
+    if (b.dataset.k) cards.forEach(c => { c.hidden = b.dataset.k !== 'all' && c.dataset.type !== b.dataset.k; });
+    [...bar.querySelectorAll(b.dataset.w ? '[data-w]' : '[data-k]')].forEach(x => x.classList.toggle('on', x === b));
+  });
+  addEventListener('resize', () => cards.forEach(fit));
+  document.addEventListener('click', e => { if (e.target.closest('[role=tab]')) setTimeout(() => cards.forEach(fit), 50); });
+})();
+</script>
 </body>
 </html>
