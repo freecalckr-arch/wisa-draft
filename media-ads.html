@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-491: 히어로 상품 화면이 바뀔 때 오른쪽 상품명 · 설명 글자가 겹쳐 보이던 문제 수정 (앞 화면 글자 0.2초에 먼저 사라짐 → 새 화면 글자 0.2초 뒤 나타남 · 왼쪽 미리보기 안 내용도 같음)
      · 2026-11-13 patch-490: 히어로 = C안 광고 상품 상세 페이지 (왼쪽 노출 위치 미리보기 · 오른쪽 매체 · 상품명 · 이런 목적에 좋아요 · 노출 위치 · 운영 기간 · 담기 + 신청하기 블루 · 제목 롤링 매체에 맞춰 제자리 페이드 교체) · 주변 = 담은 광고 상품 · 신청 완료 알림 · 광고 수익률 (일정표 · 인스타그램 소재 카드 삭제)
      · 2026-11-13 patch-489: 문제 영역 개선 화면 = 목표에 맞는 조합을 한 번에 — 머리줄 우리 상품(상품 정보 기준) · 광고 목표 칩 3개(신상품 판매 · 재방문 · 신규 고객 · 선택 1개 블루) · 매체 · 상품 조합 4줄 (3초마다 목표가 바뀌면 4줄이 함께 바뀜 · 스크립트 ads-why · 예산 막대 삭제)
      · 2026-11-13 patch-488: 매체 탭 설명 카드 대표 상품 태그 번호 원 삭제 (비주얼에 번호 표시가 없어서)
@@ -306,6 +307,10 @@
   .ad-pd { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; padding: 20px; opacity: 0; visibility: hidden; }
   .ad-pd.was { z-index: 1; opacity: 1; visibility: visible; }
   .ad-pd.on { z-index: 2; opacity: 1; visibility: visible; transition: opacity .6s ease; }
+  /* patch-491: 오른쪽 상품 정보 글자는 겹치지 않게 — 앞 화면 글자는 0.2초에 먼저 사라지고, 새 화면 글자는 0.2초 뒤 0.4초 동안 나타남 (왼쪽 미리보기 안 내용도 같음 · 미리보기 테두리 칸은 그대로) */
+  .ad-pd.was .ad-if, .ad-pd.was .ad-pv > * { opacity: 0; transition: opacity .2s ease; }
+  .ad-pd.on .ad-if, .ad-pd.on .ad-pv > * { animation: adIfIn .4s ease .2s both; }
+  @keyframes adIfIn { from { opacity: 0; } to { opacity: 1; } }
   /* 노출 위치 미리보기 (작은 지면 화면) */
   .ad-pv { position: relative; display: flex; flex-direction: column; min-height: 0; border-radius: 12px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
   .pv-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border-bottom: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-500); }
@@ -545,7 +550,7 @@
   .ad-lk b { font-weight: 700; color: var(--gray-900); }
 
   @media (prefers-reduced-motion: reduce) {
-    .ad-pd, .ad-ctl img, .ad-w2 .ad-cr, .ad-gl2 > em, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
+    .ad-pd, .ad-pd .ad-if, .ad-pd .ad-pv > *, .ad-ctl img, .ad-w2 .ad-cr, .ad-gl2 > em, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
     .ad-g4 .me i { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600); }
     .ad-cta { background: var(--primary-600); color: var(--white); }
   }
