@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-481: 매체 탭 설명 카드 + 상품 목록 = 흰 카드 하나 (위 설명 · 구분선 · 아래 목록) · 목록 머리말(상품 목록 · 새 창 안내) 삭제 · 매체 이름 위 · 상품 PC 4열(사이 20 · 3열 시작 = 위 화면 왼쪽 선) / PC 최소 위 카드 글 · 화면 같은 폭 + 상품 사이 40 / 태블릿 3열 / 모바일 2열
      · 2026-11-13 patch-480: 그래프(#geo-market) · 단계(#geo-how) 영역 숨김 (hidden · 내용 보관) · 매체 탭 설명 카드에 말풍선(프로필 + 개선 후 고객 반응 4개 · 온사이트 단계 탭 모양)
      · 2026-11-13 patch-479: 해결 영역(#geo-diagnosis 4줄) 삭제 · 상품 목록(#ads-products)을 기획서 MEDIA 구조로 — 탭 4칸(번호 01~04 · 같은 폭) → 설명 카드(STEP · 제목 · 설명 · 대표 상품 번호 태그 + 상품 구성 화면 560×480) → 상품 목록(가운데 제목 · 묶음 이름 위 · 상품 PC 4열 / 태블릿 3열 / 모바일 2열 · 오른쪽 위 ↗) · 상품 이름 기획서대로(핫아이템)
      · 2026-11-13 patch-478: 히어로 제목 롤링 로고 중 흰 바탕(구글 · 메타) = Gray 200 테두리 1px (흰 배경에 묻혀 타일 모양이 안 보이던 문제)
@@ -201,9 +202,6 @@
   #ads-products .ad-rep .sr-tags li { counter-increment: adr; display: inline-flex; align-items: center; gap: 6px; background: var(--gray-100); }
   #ads-products .ad-rep .sr-tags li::before { content: counter(adr); display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 10px; font-weight: 700; }
   #ads-products .ad-vis .ph-box { height: 480px; }
-  #ads-products .ad-lh { margin: 80px 0 0; text-align: center; }
-  #ads-products .ad-lh h3 { margin: 0; font-size: 24px; line-height: 1.4; font-weight: 700; color: var(--black); }
-  #ads-products .ad-lh p { margin: 6px 0 0; font-size: 15px; line-height: 22px; color: var(--gray-500); }
   #ads-products .ad-grp { margin-top: 40px; }
   #ads-products .ad-grp + .ad-grp { margin-top: 32px; }
   #ads-products .ad-gh h3 { margin: 0; font-size: 18px; line-height: 26px; font-weight: 700; color: var(--black); }
@@ -226,8 +224,7 @@
     #ads-products .ad-card { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px; }
     #ads-products .ad-vis .ph-box { height: auto; aspect-ratio: 560 / 480; max-width: 560px; margin-inline: auto; }
     #ads-products .ad-tabs .tabline { font-size: 16px; }
-    #ads-products .ad-lh { margin-top: 60px; }
-  }
+    }
   @media (max-width: 767px) {
     #ads-products .ad-tabs { display: flex; margin-bottom: 24px; overflow-x: auto; scrollbar-width: none; }
     #ads-products .ad-tabs .tabline { flex: 1 0 auto; padding: 12px 14px 10px; font-size: 15px; }
@@ -235,10 +232,7 @@
     #ads-products .ad-txt h3 { font-size: 20px; }
     #ads-products .ad-d { font-size: 14px; }
     #ads-products .ad-rep { margin-top: 6px; }
-    #ads-products .ad-lh { margin-top: 48px; }
-    #ads-products .ad-lh h3 { font-size: 20px; }
-    #ads-products .ad-lh p { font-size: 14px; }
-    #ads-products .ad-grp { margin-top: 28px; } #ads-products .ad-grp + .ad-grp { margin-top: 28px; }
+          #ads-products .ad-grp { margin-top: 28px; } #ads-products .ad-grp + .ad-grp { margin-top: 28px; }
     #ads-products .ad-gh h3 { font-size: 17px; }
     #ads-products .ad-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
     #ads-products .ad-list a { gap: 8px; min-height: 60px; padding: 10px 28px 10px 10px; }
@@ -246,6 +240,35 @@
     #ads-products .ad-list b { font-size: 13px; line-height: 18px; }
     #ads-products .ad-go { top: 8px; right: 8px; width: 12px; height: 12px; }
     #ads-products .ad-note { font-size: 13px; line-height: 20px; }
+  }
+  /* patch-481: 설명 · 상품 목록 = 흰 카드 하나 (위 설명 · 구분선 · 아래 목록 · 목록 머리말 없음 · 매체 이름 위)
+     정렬선: PC 내용 1140 = 글 1fr + 화면 560 (사이 60) → 상품 270 × 4 · 사이 20 → 1열 = 글 시작 · 3열 = 화면 왼쪽 · 4열 끝 = 화면 오른쪽
+     PC 최소: 글 · 화면 같은 폭(사이 40) + 상품 사이 40 → 같은 선 · 태블릿 3열 · 모바일 2열 */
+  #ads-products .ad-panel { padding: 40px 50px 48px; border-radius: 24px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  #ads-products .ad-panel .ad-card { padding: 0; border-radius: 0; box-shadow: none; }
+  #ads-products .ad-card + .ad-grp { margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--gray-200); }
+  #ads-products .ad-grp, #ads-products .ad-grp + .ad-grp { margin-top: 32px; }
+  #ads-products .ad-card + .ad-grp { margin-top: 40px; }
+  #ads-products .ad-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 20px; margin-top: 16px; }
+  #ads-products .ad-note { margin-top: 32px; }
+  @media (max-width: 1439px) {
+    #ads-products .ad-panel { padding: 36px 40px 44px; }
+    #ads-products .ad-panel .ad-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
+    #ads-products .ad-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 40px; }
+  }
+  @media (max-width: 1023px) {
+    #ads-products .ad-panel { padding: 32px; }
+    #ads-products .ad-panel .ad-card { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    #ads-products .ad-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  }
+  @media (max-width: 767px) {
+    #ads-products .ad-panel { padding: 24px 20px; }
+    #ads-products .ad-panel .ad-card { gap: 20px; }
+    #ads-products .ad-card + .ad-grp { margin-top: 28px; padding-top: 28px; }
+    #ads-products .ad-grp, #ads-products .ad-grp + .ad-grp { margin-top: 28px; }
+    #ads-products .ad-card + .ad-grp { margin-top: 28px; }
+    #ads-products .ad-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+    #ads-products .ad-note { margin-top: 24px; }
   }
   /* @endregion ads-products */
 </style>
@@ -383,7 +406,6 @@
         <div class="ad-txt"><span class="bt-eb">STEP 1 · 쇼핑광고</span><h3>쇼핑 지면에서<br>상품을 바로 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="jt-q">“시즌에 맞는 지면을 골라 주니 바로 시작했어요”</p></div><p class="ad-d">네이버 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 등 쇼핑 지면에 상품을 직접 노출합니다. 사려고 들어온 고객을 만나는 광고입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>핫아이템 · 포커스템</li><li>쇼핑박스</li><li>N+상품광고</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>쇼핑광고 상품 구성 화면<small>매체 광고 › 쇼핑광고 · 19개 상품 — 네이버 쇼핑 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 묶음별 상품 (네이버 쇼핑 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
-      <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
       <div class="ad-grp"><div class="ad-gh"><h3>네이버 쇼핑</h3><p>네이버 쇼핑 지면에 노출되는 상품</p></div>
         <ul class="ad-list">
           <li><a href="https://www.wisa.co.kr/products/view/98" target="_blank" rel="noopener"><img src="assets/common/brand/naver.svg" alt=""><b>핫아이템</b><i class="ad-go" aria-hidden="true"></i></a></li>
@@ -423,7 +445,6 @@
         <div class="ad-txt"><span class="bt-eb">STEP 2 · 검색광고</span><h3>찾는 순간에<br>먼저 보이게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="jt-q">“브랜드명을 검색하면 우리 몰이 맨 위에 떠요”</p></div><p class="ad-d">네이버 · 카카오 · 구글 검색 결과에 브랜드와 상품을 노출합니다. 이미 관심 있는 고객이 직접 검색할 때 만납니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>파워링크 · 쇼핑검색</li><li>브랜드검색</li><li>구글 검색광고</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>검색광고 상품 구성 화면<small>매체 광고 › 검색광고 · 8개 상품 — 네이버 · 카카오 · 구글 묶음별 상품 (네이버 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
-      <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
       <div class="ad-grp"><div class="ad-gh"><h3>네이버</h3><p>네이버 검색 결과 지면</p></div>
         <ul class="ad-list">
           <li><a href="https://www.wisa.co.kr/products/view/144" target="_blank" rel="noopener"><img src="assets/common/brand/naver.svg" alt=""><b>파워링크</b><i class="ad-go" aria-hidden="true"></i></a></li>
@@ -452,7 +473,6 @@
         <div class="ad-txt"><span class="bt-eb">STEP 3 · 디스플레이광고</span><h3>다녀간 고객을<br>다시 만나게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p class="jt-q">“장바구니에 두고 간 고객이 다시 들어와요”</p></div><p class="ad-d">구글 · 네이버 · 카카오 · 네이트 등 다양한 지면에 배너와 네이티브 광고를 노출합니다. 인지 확대부터 방문 고객 재유도까지 씁니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>리타기팅</li><li>비즈보드</li><li>네이티브</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>디스플레이광고 상품 구성 화면<small>매체 광고 › 디스플레이광고 · 11개 상품 — 구글 · 크리테오 / 네이버 · 카카오 · 네이트 / 애드네트워크 묶음별 상품 (리타기팅 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
-      <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
       <div class="ad-grp"><div class="ad-gh"><h3>구글 · 크리테오</h3><p>글로벌 네트워크 기반</p></div>
         <ul class="ad-list">
           <li><a href="https://www.wisa.co.kr/products/view/156" target="_blank" rel="noopener"><img src="assets/common/brand/google.svg" alt=""><b>구글 디스플레이 네트워크</b><i class="ad-go" aria-hidden="true"></i></a></li>
@@ -484,7 +504,6 @@
         <div class="ad-txt"><span class="bt-eb">STEP 4 · SNS/콘텐츠 광고</span><h3>고객이 머무는 곳에서<br>브랜드를 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="m" alt=""></i><p class="jt-q">“광고랑 인스타 운영을 한 번에 맡겼어요”</p></div><p class="ad-d">페이스북 · 인스타그램 · 유튜브 광고와 영상 제작, SNS 채널 운영 대행까지 콘텐츠 중심의 광고 상품입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>페이스북 · 인스타그램</li><li>유튜브</li><li>영상 · 채널 운영</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>SNS/콘텐츠 광고 상품 구성 화면<small>매체 광고 › SNS/콘텐츠 광고 · 5개 상품 — SNS · 영상 광고 / 운영 · 제작 묶음별 상품 (인스타그램 광고 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
-      <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
       <div class="ad-grp"><div class="ad-gh"><h3>SNS · 영상 광고</h3><p>광고 집행 상품</p></div>
         <ul class="ad-list">
           <li><a href="https://www.wisa.co.kr/products/view/161" target="_blank" rel="noopener"><img src="assets/common/brand/facebook.svg" alt=""><b>페이스북 광고</b><i class="ad-go" aria-hidden="true"></i></a></li>
