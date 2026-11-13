@@ -2151,6 +2151,12 @@ img, video { max-width: 100%; display: block; }
 .page-nav button:disabled { color: var(--gray-300); cursor: default; background: none; }
 .page-nav i { width: 16px; height: 1px; margin: 2px 0; background: var(--gray-200); }
 .consult-open .page-nav, .mo-menu-open .page-nav { opacity: 0; visibility: hidden; }
+/* 다크 (patch-492): 검정 배경 페이지(엔터프라이즈 등)는 nav 에 .dark 추가 — 바탕 Gray 900 · 테두리 Gray 700 · 화살표 Gray 300 · 호버 바탕 Gray 800 + 흰 화살표 · 비활성 Gray 600 · 구분선 Gray 700 */
+.page-nav.dark { background: var(--gray-900); box-shadow: 0 0 0 1px var(--gray-700), 0 8px 24px rgba(0,0,0,.4); }
+.page-nav.dark button { color: var(--gray-300); }
+.page-nav.dark button:hover { background: var(--gray-800); color: var(--white); }
+.page-nav.dark button:disabled { color: var(--gray-600); background: none; }
+.page-nav.dark i { background: var(--gray-700); }
 @media (min-width: 768px) and (max-width: 1023px) { .page-nav { right: 30px; } }
 @media (max-width: 767px) { .page-nav { right: 14px; padding: 3px; } .page-nav button { width: 32px; height: 32px; } }
 /* 진단·해결·점검: 스크롤 진행 라인 (점선 위로 파란 실선이 차오름 · 닿은 번호 원이 켜짐) */
