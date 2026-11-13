@@ -19,8 +19,9 @@
     <section class="panel" data-tab="마케팅">
 <h2 id="scope">작업 범위</h2>
     <div class="tbl"><table><thead><tr><th>구분</th><th>대상</th><th>내용</th></tr></thead><tbody>
-<tr><td rowspan="2"><b>신규 페이지</b></td><td>자사몰 마케팅 4개</td><td>GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트</td></tr>
+<tr><td rowspan="3"><b>신규 페이지</b></td><td>자사몰 마케팅 4개</td><td>GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트</td></tr>
 <tr><td>채널마케팅 3개</td><td>공식채널운영 · 상품DB 연동 · 버티컬커머스</td></tr>
+<tr><td>매체 광고 1개</td><td>쇼핑 · 검색 · 디스플레이 · SNS 광고 상품 <span class="tag">준비 중</span></td></tr>
 <tr><td><b>기존 페이지 수정</b></td><td>기존 홈페이지 서브페이지 (wisa.co.kr)</td><td>신규 페이지와 같게 맞추는 공통 요소 4가지: CTA 빛 위치 · 페이지 전환 탭 · 모바일 콘텐츠 타이틀 · 탑버튼 (<a href="changes.html">기존 수정 목록</a>)</td></tr>
 <tr><td><b>구현하지 않음</b></td><td>시안 전용 코드</td><td>시안 히스토리 · 점검 스크립트 · 디자인 메뉴 (<a href="#draft-only">아래 목록</a>)</td></tr>
 </tbody></table></div>
@@ -70,11 +71,27 @@
     </section>
 
     <section class="panel" data-tab="솔루션">
-    <h2 id="scope-solution">솔루션 페이지</h2>
-    <div class="call warn"><p>준비 중입니다. 솔루션 페이지 작업을 시작하면 작업 범위 · 보는 순서을 이 탭에 같은 형식으로 추가합니다.</p></div>
+    <h2 id="scope-solution">작업 범위</h2>
+    <div class="tbl"><table><thead><tr><th>구분</th><th>대상</th><th>내용</th></tr></thead><tbody>
+<tr><td rowspan="2"><b>기존 페이지 개선</b></td><td>라이선스 비교 (솔루션 비교)</td><td>기존 솔루션 비교 페이지의 문장 · 표 내용은 그대로 두고, 마케팅 페이지 공통 요소 규격으로 다시 구성 · Cloud · Enterprise 성장 경로 화면 추가 (<a href="../comparison.html">comparison.html</a>)</td></tr>
+<tr><td>Cloud 비주얼 반응형 표현</td><td>기존 Cloud 페이지 비주얼의 해상도별(PC · 태블릿 · 모바일) 표현 정리 <span class="tag">준비 중</span></td></tr>
+</tbody></table></div>
+    <p>개선 페이지도 신규 마케팅 페이지와 같은 공통 파일(<code>wisa.css</code> · <code>wisa.js</code>)과 해상도 네 구간을 씁니다. 공통 영역(히어로 · 단계 · 해결 · FAQ · CTA)은 마케팅 마크업 · id 를 그대로 쓰고, 비교 전용 영역만 <code>#cmp-</code> 로 시작합니다.</p>
+
+    <h2 id="flow-solution">라이선스 비교 영역 순서</h2>
+    <div class="tbl"><table><thead><tr><th>순서</th><th>영역</th><th>id</th><th>쓰는 공통 부품</th></tr></thead><tbody>
+<tr><td>1</td><td>히어로</td><td><code>#geo-hero</code></td><td>마케팅 히어로</td></tr>
+<tr><td>2</td><td>두 가지 방식 카드</td><td><code>#cmp-plan</code></td><td>요금 카드 <code>plan.css</code> (<a href="plan.html">요금 카드</a>) · 이름 왼쪽 구름 · 코드 아이콘</td></tr>
+<tr><td>3</td><td>한눈에 보는 핵심 차이</td><td><code>#cmp-diff</code></td><td>-</td></tr>
+<tr><td>4</td><td>상세 기능 비교</td><td><code>#cmp-table</code></td><td>표 머리줄 화면 위 고정 · 마우스 올린 줄 바탕</td></tr>
+<tr><td>5</td><td>어떤 방식이 맞을까요</td><td><code>#geo-how</code></td><td>마케팅 단계 영역</td></tr>
+<tr><td>6</td><td>성장 경로</td><td><code>#geo-diagnosis</code></td><td>해결 영역 번호 원 + 세로 라인 · 화면 이미지 460×340</td></tr>
+<tr><td>7</td><td>FAQ · CTA</td><td><code>#geo-faq</code> · <code>#cta</code></td><td>마케팅 공통</td></tr>
+</tbody></table></div>
+    <p class="note">Cloud · Enterprise 표시는 페이지 전체에서 같은 아이콘(구름 · 코드)을 이름 왼쪽에 씁니다. 뱃지는 공통 뱃지(<a href="tag.html#badge">태그 · 뱃지</a>)만 씁니다.</p>
     </section>
 
-    <p class="foot">마지막 수정 2026-11-11 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+    <p class="foot">마지막 수정 2026-11-13 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>
