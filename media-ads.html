@@ -20,6 +20,11 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-483: 비주얼 — 빈 박스를 실제 화면으로 교체 (가상 브랜드 우드앤룸 · assets/geo/interior · 매체 로고 assets/common/brand · 스타일 @region ads-vis · 스크립트 ads-hero · ads-vis-fit · ads-search)
+       - 히어로 = 매체 광고 일정표 창(PC 680×418 · 태블릿 520×417 · 모바일 박스 − 좌우 30 × 404) · 11월 주 단위 막대 4줄 · 제목 롤링 매체(네이버 → 카카오 → 구글 → 메타)와 같은 줄만 블루(2.4초) · 주변 = 인스타그램 광고 소재 · 카카오 쇼핑박스 노출 예약 알림(초록 점 없음 · 색 계열 블루 + 레드만) · 이번 달 광고 수익률(공통 hero-bob · 태블릿 · 모바일 숨김)
+       - 문제 = 기존: 매체별 광고 성과(지표 이름 · 기간이 매체마다 다름 · 회색 창) / 개선: 목표(신상품 판매 · 월 500만원)에 맞춘 매체 조합 · 예산 막대가 차례로 채워짐(6초 반복) · 1위 줄 블루
+       - 매체 탭 화면 560×480 (칸 폭에 맞춰 s = min(1, 칸 폭 ÷ 560) 축소): ① 네이버 쇼핑 핫아이템 첫 칸 우리 상품(블루 링) ② 브랜드 검색 결과(검색어 타이핑 → 브랜드검색 + 파워링크 첫 줄 블루) ③ 뉴스 기사 옆 리타기팅 배너(다시 보러 가기 블루 · 배너가 나타남) ④ 인스타그램 피드 광고(구매하기 줄이 블루로 바뀜)
+       - 리포트 = 공식채널운영 · 버티컬커머스 대시보드 틀 그대로 · 문구 · 수치만 매체 광고 성과(샘플 · 가상 데이터)
      · 2026-11-13 patch-482: 탭 설명 카드 대표 상품 번호 원 숫자 세로 가운데 (줄 높이 상속 20 → 1)
      · 2026-11-13 patch-481: 매체 탭 설명 카드 + 상품 목록 = 흰 카드 하나 (위 설명 · 구분선 · 아래 목록) · 목록 머리말(상품 목록 · 새 창 안내) 삭제 · 매체 이름 위 · 상품 PC 4열(사이 20 · 3열 시작 = 위 화면 왼쪽 선) / PC 최소 위 카드 글 · 화면 같은 폭 + 상품 사이 40 / 태블릿 3열 / 모바일 2열
      · 2026-11-13 patch-480: 그래프(#geo-market) · 단계(#geo-how) 영역 숨김 (hidden · 내용 보관) · 매체 탭 설명 카드에 말풍선(프로필 + 개선 후 고객 반응 4개 · 온사이트 단계 탭 모양)
@@ -202,7 +207,6 @@
   #ads-products .ad-rep .sr-tags { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; counter-reset: adr; }
   #ads-products .ad-rep .sr-tags li { counter-increment: adr; display: inline-flex; align-items: center; gap: 6px; background: var(--gray-100); }
   #ads-products .ad-rep .sr-tags li::before { content: counter(adr); display: grid; place-items: center; flex: none; width: 16px; height: 16px; line-height: 1; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 10px; font-weight: 700; }
-  #ads-products .ad-vis .ph-box { height: 480px; }
   #ads-products .ad-grp { margin-top: 40px; }
   #ads-products .ad-grp + .ad-grp { margin-top: 32px; }
   #ads-products .ad-gh h3 { margin: 0; font-size: 18px; line-height: 26px; font-weight: 700; color: var(--black); }
@@ -218,12 +222,10 @@
   @media (max-width: 1439px) {
     #ads-products .ad-card { grid-template-columns: minmax(0, 1fr) 420px; gap: 40px; padding: 36px 40px; }
     #ads-products .ad-txt h3 { font-size: 24px; }
-    #ads-products .ad-vis .ph-box { height: 360px; }
   }
   @media (max-width: 1023px) {
     #ads-products .ad-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     #ads-products .ad-card { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px; }
-    #ads-products .ad-vis .ph-box { height: auto; aspect-ratio: 560 / 480; max-width: 560px; margin-inline: auto; }
     #ads-products .ad-tabs .tabline { font-size: 16px; }
     }
   @media (max-width: 767px) {
@@ -273,6 +275,194 @@
   }
   /* @endregion ads-products */
 </style>
+<style>
+  /* @region ads-vis (patch-483): 매체 광고 비주얼 — 가상 브랜드 우드앤룸(assets/geo/interior · 버티컬커머스와 같은 사진) · 매체 로고 = assets/common/brand
+     · 색 = Gray 바탕 + Primary 600 한 곳 + 증가 ▲ Error 600 · 감소 ▼ Primary 600 · 연결 · 예약 점 Success 500 · 타사 상품 사진 = 흐리게 */
+  #geo-hero .ad-hv img[src$="brand/google.svg"], #geo-hero .ad-hv img[src$="brand/meta.svg"], #geo-why .pn img[src$="brand/google.svg"], #geo-why .pn img[src$="brand/meta.svg"], .ad-sc img[src$="brand/google.svg"], .ad-sc img[src$="brand/meta.svg"], #geo-report .db-top img[src$="brand/google.svg"], #geo-report .db-top img[src$="brand/meta.svg"] { outline: 1px solid var(--gray-200); outline-offset: -1px; }   /* 흰 바탕 로고 = Gray 200 테두리 */
+  .ad-sc img[src*="interior/cp-"] { filter: grayscale(.9) contrast(.85); opacity: .5; }   /* 타사 상품: 흐리게 (우리 상품이 먼저 보이게 · 버티컬커머스와 같음) */
+  .ad-sc img[src*="interior/"], #geo-hero .ad-hv img[src*="interior/"] { object-fit: cover; }
+  @keyframes adRing { 0%, 100% { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600), 0 0 0 4px rgba(21,112,239,0); } 50% { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600), 0 0 0 9px rgba(21,112,239,.16); } }
+  @keyframes adFill { 0%, 6% { transform: scaleX(0); } 22%, 88% { transform: none; } 96%, 100% { transform: scaleX(0); } }
+  @keyframes adVal { 0%, 14% { opacity: 0; } 26%, 88% { opacity: 1; } 96%, 100% { opacity: 0; } }
+  @keyframes adPop { 0%, 8% { opacity: 0; transform: translateY(8px); } 18%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(8px); } }
+  @keyframes adCta { 0%, 30% { background: var(--gray-100); color: var(--gray-900); } 38%, 92% { background: var(--primary-600); color: var(--white); } 100% { background: var(--gray-100); color: var(--gray-900); } }
+  @keyframes adCaret { 50% { opacity: 0; } }
+
+  /* ── 히어로: 가운데 창 = 매체 광고 일정표 (PC 680×418 · 태블릿 520×417 · 모바일 박스 − 좌우 30 × 404 · 다른 페이지 히어로 창과 같은 자리)
+        제목 롤링 매체(네이버 → 카카오 → 구글 → 메타)와 같은 줄만 블루 (스크립트 ads-hero) · 주변 = 인스타그램 광고 소재 · 카카오 노출 시작 알림 · 광고 수익률 ── */
+  #geo-hero .sh-visual.ad-hv { padding-top: 0; }
+  .ad-hw { position: relative; z-index: 1; flex: none; display: flex; flex-direction: column; width: 680px; height: 418px; border-radius: 18px 18px 0 0; background: var(--white); box-shadow: 0 20px 56px rgba(21,112,239,.18); overflow: hidden; text-align: left; }
+  .ad-hw .vw-hd { flex: none; }
+  .ad-cal { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 12px 20px 20px; --lw: 196px; }
+  .ad-wk, .ad-rows li { display: grid; grid-template-columns: var(--lw) repeat(4, minmax(0, 1fr)); align-items: center; }
+  .ad-wk { flex: none; height: 32px; font-size: 12px; line-height: 16px; color: var(--gray-400); }
+  .ad-wk > span { padding-left: 10px; white-space: nowrap; }
+  .ad-wk > span:first-child { padding-left: 0; }
+  .ad-wk b { margin-right: 4px; font-weight: 600; color: var(--gray-700); }
+  .ad-wk i { font-style: normal; }
+  .ad-gl { position: absolute; z-index: 1; top: 12px; bottom: 20px; left: calc(20px + var(--lw)); right: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); pointer-events: none; }
+  .ad-gl i { border-left: 1px solid var(--gray-100); }
+  .ad-now { position: absolute; top: 32px; bottom: 0; left: 37.5%; border-left: 1px dashed var(--gray-400); }   /* 오늘 11.13 (목) = 2주 가운데 */
+  .ad-now::before { content: ""; position: absolute; left: -4.5px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--gray-400); }
+  .ad-rows { flex: 1; min-height: 0; display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--gray-100); }
+  .ad-rows li { flex: 1; min-height: 0; border-bottom: 1px solid var(--gray-100); transition: background-color .4s; }
+  .ad-rows li:last-child { border-bottom: 0; }
+  .ad-mn { grid-column: 1; grid-row: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .ad-mn > img { flex: none; width: 28px; height: 28px; border-radius: 8px; }
+  .ad-mn > span { min-width: 0; display: flex; flex-direction: column; font-size: 12px; line-height: 16px; color: var(--gray-500); white-space: nowrap; }
+  .ad-mn b { font-size: 13px; line-height: 20px; font-weight: 600; color: var(--gray-900); overflow: hidden; text-overflow: ellipsis; }
+  .ad-bk { position: relative; z-index: 2; grid-row: 1; grid-column: var(--a) / var(--b); display: flex; align-items: center; gap: 6px; height: 28px; margin: 0 6px; padding: 0 10px; border-radius: 8px; background: var(--gray-100); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; font-weight: 600; color: var(--gray-500); font-style: normal; white-space: nowrap; overflow: hidden; transition: background-color .4s, color .4s, box-shadow .4s; }
+  .ad-bk em { font-style: normal; }
+  .ad-rows li.on { background: rgba(21,112,239,.04); }
+  .ad-rows li.on .ad-bk { background: var(--primary-600); box-shadow: none; color: var(--white); }
+  .ad-rows li.on .ad-mn b { color: var(--black); }
+  /* 주변 카드 (공통 hero-bob 둥둥) — .sh-float 공통 b · span · small 글자 규칙을 쓰지 않도록 p · u · em 사용 */
+  #geo-hero .ad-hv .sh-float.ad-cv { left: 80px; top: 64px; width: 200px; gap: 10px; padding: 12px; box-sizing: border-box; }
+  .ad-cv .ad-ch { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .ad-cv .ad-ch > img { flex: none; width: 24px; height: 24px; border-radius: 50%; box-shadow: 0 0 0 1px var(--gray-200); }
+  .ad-cv .ad-ch u { display: flex; flex-direction: column; text-decoration: none; }
+  .ad-cv .ad-ch u > em { font-style: normal; font-size: 12px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
+  .ad-cv .ad-ch > img + u + img { width: 16px; height: 16px; margin-left: auto; box-shadow: none; border-radius: 4px; }
+  .ad-cv .ad-ci { display: block; height: 176px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
+  .ad-cv .ad-ci img { display: block; width: 100%; height: 100%; object-position: 50% 60%; }
+  .ad-cv .ad-cb { display: flex; align-items: center; justify-content: space-between; height: 32px; margin: 0; padding: 0 12px; border-radius: 8px; background: var(--gray-100); font-size: 12px; font-weight: 600; color: var(--gray-900); }
+  #geo-hero .ad-hv .sh-toast.ad-ht { top: 64px; right: 48px; }
+  #geo-hero .ad-ht .ad-tl { flex: none; width: 36px; height: 36px; border-radius: 10px; }
+  #geo-hero .ad-hv .sh-float.ad-rs { left: auto; right: 80px; top: auto; bottom: 48px; width: 200px; box-sizing: border-box; }
+  #geo-hero .ad-rs .ad-sp { display: block; width: 100%; height: 40px; margin-top: 8px; }
+  #geo-hero .ad-rs .ad-spx { display: flex; justify-content: space-between; margin-top: 4px; font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-400); }
+  #geo-hero .ad-rs .ad-spx i { font-style: normal; }
+  @media (max-width: 1023px) { .ad-hw { width: 520px; height: 417px; } .ad-cal { --lw: 160px; } }
+  @media (max-width: 767px) {
+    .ad-hw { width: calc(100% - 60px); height: 404px; }
+    .ad-hw .vw-hd { padding: 0 16px; } .ad-hw .vw-chip, .ad-hw .vw-m { display: none; }
+    .ad-cal { --lw: 124px; padding: 8px 16px 16px; }
+    .ad-gl { top: 8px; bottom: 16px; left: calc(16px + var(--lw)); right: 16px; }
+    .ad-wk > span { padding-left: 0; text-align: center; } .ad-wk > span:first-child { text-align: left; } .ad-wk i { display: none; }
+    .ad-mn { gap: 8px; } .ad-mn > img { width: 24px; height: 24px; border-radius: 7px; }
+    .ad-mn b { font-size: 12px; } .ad-mn > span { font-size: 11px; }
+    .ad-bk { height: 24px; margin: 0 4px; padding: 0; } .ad-bk em { display: none; }
+  }
+
+  /* ── 문제: 기존 = 매체별 관리 화면 4곳 (지표 이름 · 기간 제각각 · 회색 창) / 개선 = 목표 하나에 맞춘 매체 조합 (예산 비중 막대가 차례로 채워짐 · 1위 줄 블루) ── */
+  .sn-hi { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--gray-100); color: var(--gray-500); font-style: normal; }
+  .sn-ok .sn-hi { background: var(--primary-50); color: var(--primary-600); }
+  .sn-hm { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--gray-500); white-space: nowrap; }
+  .sn-hm b { font-weight: 700; color: var(--black); }
+  .sn-ow { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-size: 12px; font-weight: 600; font-style: normal; }
+  #geo-why .pn.ows.ad-w1, #geo-why .pn.ows.ad-w2 { display: flex; flex-direction: column; }
+  #geo-why .bento.ba .pn.ad-w1 { --ft-bg: var(--gray-50); background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  #geo-why .pn.ad-w1 .sn-ow { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  #geo-why .pn.ows > .ad-cr { display: flex; flex-direction: column; gap: 6px; margin: 0 16px !important; padding: 0; list-style: none; }
+  .ad-cr li { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 12px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .ad-cn { flex: none; width: 112px; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--gray-900); white-space: nowrap; }
+  .ad-cn > img { flex: none; width: 20px; height: 20px; border-radius: 6px; }
+  .ad-mt { flex: 1; min-width: 0; font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+  .ad-mt b { margin-left: 6px; font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  .ad-cr .sn-ow { width: 96px; box-sizing: border-box; padding: 3px 0; text-align: center; }
+  .ad-sb2 { flex: 1; min-width: 0; height: 8px; border-radius: 99px; background: var(--gray-100); overflow: hidden; }
+  .ad-sb2 i { display: block; width: calc(var(--v) * 100%); height: 100%; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: adFill 6s var(--ease-out) infinite; animation-delay: calc(var(--k) * .3s); }
+  .ad-w2 .ad-cr b { flex: none; width: 56px; text-align: right; font-size: 13px; font-weight: 700; color: var(--gray-900); animation: adVal 6s infinite; animation-delay: calc(var(--k) * .3s); }
+  .ad-w2 .ad-cr li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }   /* Primary 25 */
+  .ad-w2 .ad-cr li.hl .ad-sb2 i { background: var(--primary-600); }
+  .ad-w2 .ad-cr li.hl b { color: var(--primary-600); }
+
+  /* ── 매체 탭 화면 560×480 (PC 크기로 그리고 칸 폭에 맞춰 s = min(1, 칸 폭 ÷ 560) 축소 · 스크립트 ads-vis-fit) ── */
+  #ads-products .ad-vis { position: relative; height: calc(480px * var(--s, 1)); }
+  #ads-products .ad-vis > .ad-sc { position: absolute; top: 0; left: 50%; display: flex; flex-direction: column; width: 560px; height: 480px; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
+  .ad-sc ul, .ad-sc ol { margin: 0; padding: 0; list-style: none; }
+  .ad-sb { flex: none; display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); }
+  .ad-sb > img { flex: none; width: 28px; height: 28px; border-radius: 8px; }
+  .ad-q { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 99px; box-shadow: inset 0 0 0 1.5px var(--gray-200); font-size: 13px; color: var(--gray-400); }
+  .ad-q b { font-weight: 600; color: var(--gray-900); white-space: nowrap; }
+  .ad-ib { flex: none; display: grid; place-items: center; width: 28px; height: 28px; color: var(--gray-700); }
+  .ad-chp { flex: none; display: flex; gap: 6px; padding: 12px 20px 0; }
+  .ad-chp span { padding: 4px 10px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--gray-600); white-space: nowrap; }
+  .ad-chp .on { background: var(--gray-900); box-shadow: none; color: var(--white); }
+  .ad-sbd { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 16px 20px; transition: opacity .4s; }
+  .ad-st { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 12px; line-height: 16px; color: var(--gray-400); }
+  .ad-st b { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .ad-st u, .ad-bt u, .ad-pl small u { text-decoration: none; padding: 0 6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--gray-300); font-size: 11px; line-height: 16px; font-weight: 600; color: var(--gray-500); }
+  .ad-ad { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 6px; background: rgba(16,24,40,.6); color: var(--white); font-size: 10px; line-height: 14px; font-weight: 700; font-style: normal; }
+  /* 1 쇼핑광고 = 네이버 쇼핑 검색 결과 · 핫아이템 첫 칸 우리 상품 (블루 링 · 광고 배지) */
+  .ad-g4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 10px !important; }
+  .ad-g4 li { min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .ad-g4 i { position: relative; display: block; aspect-ratio: 1; margin-bottom: 6px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .ad-g4 img, .ad-ls img, .ad-rt img, .ad-bs img, .ad-pi img, .ad-at img { display: block; width: 100%; height: 100%; border-radius: inherit; }
+  .ad-g4 b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ad-g4 strong { font-size: 13px; line-height: 18px; font-weight: 700; color: var(--gray-900); }
+  .ad-g4 u, .ad-rt u { margin-right: 4px; text-decoration: none; color: var(--gray-500); }
+  .ad-g4 .me i { overflow: visible; animation: adRing 2.4s ease-in-out infinite; }
+  .ad-g4 .me .ad-ad { background: var(--primary-600); }
+  .ad-g4 .me small, .ad-g4 .me b { font-weight: 600; color: var(--gray-900); }
+  .ad-g4 small, .ad-ls small, .ad-rt small, .ad-pl small, .ad-bt small, .ad-ph small { font-size: 11px; line-height: 14px; }   /* 공통 small 축소 막기 · 규격 11 */
+  .ad-ls { border-top: 1px solid var(--gray-100); }
+  .ad-ls li { display: flex; align-items: center; gap: 12px; height: 56px; border-bottom: 1px solid var(--gray-100); }
+  .ad-ls i { flex: none; width: 40px; height: 40px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
+  .ad-ls li > div { flex: 1; min-width: 0; display: flex; flex-direction: column; color: var(--gray-400); }
+  .ad-ls b { font-size: 12.5px; line-height: 18px; font-weight: 500; color: var(--gray-600); }
+  .ad-ls strong { flex: none; font-size: 13px; font-weight: 700; color: var(--gray-600); }
+  /* 2 검색광고 = 브랜드 키워드 검색 결과 · 브랜드검색 + 파워링크 첫 줄 블루 (검색어 타이핑 → 결과 · 스크립트 ads-search) */
+  .ad-ty::after { content: ""; display: inline-block; width: 1px; height: 14px; margin-left: 2px; background: var(--gray-900); vertical-align: -2px; animation: adCaret 1s steps(1) infinite; }
+  .ad-s2.typing .ad-sbd { opacity: .3; }
+  .ad-bs { border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
+  .ad-bs > i { display: block; height: 80px; background: var(--gray-100); }
+  .ad-bs > i img { object-position: 50% 28%; }
+  .ad-bt { display: flex; align-items: center; gap: 10px; padding: 12px 16px 0; }
+  .ad-bt > img { flex: none; width: 32px; height: 32px; border-radius: 8px; }
+  .ad-bt > div { flex: 1; min-width: 0; display: flex; flex-direction: column; color: var(--gray-400); }
+  .ad-bt b { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .ad-bl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 12px 16px !important; }
+  .ad-bl li { display: grid; place-items: center; height: 32px; border-radius: 8px; background: var(--gray-50); font-size: 12px; font-weight: 600; color: var(--gray-700); }
+  .ad-pl ul { display: flex; flex-direction: column; gap: 6px; margin-top: 8px !important; }
+  .ad-pl li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 10px; }
+  .ad-pl li small { display: flex; align-items: center; gap: 6px; color: var(--gray-400); }
+  .ad-pl li b { font-size: 13px; line-height: 20px; font-weight: 700; color: var(--gray-600); }
+  .ad-pl li.me { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }   /* Primary 25 */
+  .ad-pl li.me b { color: var(--primary-600); }
+  /* 3 디스플레이광고 = 뉴스 기사 옆 리타기팅 배너 (최근 본 상품 · 다시 보러 가기 블루 · 배너가 나타남) */
+  .ad-bw { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; border-bottom: 1px solid var(--gray-100); background: var(--gray-50); }
+  .ad-dt { flex: none; display: flex; gap: 6px; } .ad-dt i { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-300); }
+  .ad-url { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; color: var(--gray-500); white-space: nowrap; }
+  .ad-nw { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 24px; align-items: center; padding: 20px 24px; }
+  .ad-at { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+  .ad-at > small { font-size: 12px; line-height: 16px; color: var(--gray-400); }
+  .ad-at > b { font-size: 20px; line-height: 28px; font-weight: 700; color: var(--gray-900); word-break: keep-all; text-wrap: balance; }
+  .ad-at > i { display: block; height: 150px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
+  .ad-tx { display: flex; flex-direction: column; gap: 8px; }
+  .ad-tx i { display: block; height: 8px; border-radius: 99px; background: var(--gray-100); }
+  .ad-rt { position: relative; display: flex; flex-direction: column; gap: 2px; padding: 12px; border-radius: 12px; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 8px 24px rgba(16,24,40,.08); animation: adPop 6s var(--ease-out) infinite; }
+  .ad-rt > i { display: block; aspect-ratio: 1; margin-bottom: 8px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
+  .ad-rt > small { color: var(--gray-500); }
+  .ad-rt > small.ad-adl { position: absolute; top: 16px; right: 16px; padding: 0 6px; border-radius: 6px; background: rgba(255,255,255,.9); font-size: 10px; font-weight: 600; color: var(--gray-500); }
+  .ad-rt > b { font-size: 13px; line-height: 20px; font-weight: 600; color: var(--gray-900); }
+  .ad-rt > strong { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .ad-rt > em { display: grid; place-items: center; height: 32px; margin-top: 8px; border-radius: 8px; background: var(--primary-600); color: var(--white); font-size: 12px; font-weight: 700; font-style: normal; }
+  /* 4 SNS/콘텐츠 광고 = 인스타그램 피드 광고 게시물 (구매하기 줄이 블루로 바뀜 · 실제 인스타그램 광고처럼) */
+  .ad-ih { flex: none; display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 16px; }
+  .ad-ih > img { flex: none; width: 28px; height: 28px; border-radius: 8px; }
+  .ad-ih b { font-weight: 700; color: var(--gray-900); }
+  .ad-ii { margin-left: auto; display: flex; gap: 16px; color: var(--gray-900); }
+  .ad-ph { flex: none; display: flex; align-items: center; gap: 10px; height: 56px; padding: 0 20px; }
+  .ad-ph > img { flex: none; width: 32px; height: 32px; border-radius: 50% !important; box-shadow: 0 0 0 2px var(--white), 0 0 0 3px var(--gray-200); }
+  .ad-ph > div { flex: 1; min-width: 0; display: flex; flex-direction: column; color: var(--gray-500); }
+  .ad-ph b { font-size: 13px; line-height: 18px; font-weight: 700; color: var(--gray-900); }
+  .ad-ph > i { color: var(--gray-900); }
+  .ad-pi { flex: 1; min-height: 0; display: block; overflow: hidden; background: var(--gray-100); }
+  .ad-pi img { object-position: 50% 58%; }
+  .ad-cta { flex: none; display: flex; align-items: center; justify-content: space-between; height: 44px; margin: 0; padding: 0 20px; background: var(--gray-100); font-size: 13px; font-weight: 700; color: var(--gray-900); animation: adCta 6s infinite; }
+  .ad-ac { flex: none; display: flex; align-items: center; gap: 16px; height: 44px; padding: 0 20px; color: var(--gray-900); }
+  .ad-ac > svg:last-child { margin-left: auto; }
+  .ad-lk { flex: none; margin: 0; padding: 0 20px 20px; font-size: 12.5px; line-height: 18px; color: var(--gray-700); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ad-lk b { font-weight: 700; color: var(--gray-900); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ad-rows li, .ad-bk, .ad-sb2 i, .ad-w2 .ad-cr b, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
+    .ad-g4 .me i { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600); }
+    .ad-cta { background: var(--primary-600); color: var(--white); }
+  }
+  /* @endregion ads-vis */
+</style>
 </head>
 <body>
 
@@ -320,8 +510,19 @@
     </div>
   </div>
   <div class="container">
-    <div class="sh-visual rv ph-hv" style="--d:260ms" aria-hidden="true">
-      <div class="ph-box"><span class="sz">1340×460</span>히어로 비주얼<small>가운데 = 제목 롤링 매체의 광고 지면 화면 (네이버 쇼핑 · 카카오 쇼핑박스 · 구글 검색 · 인스타그램 피드 · 우리 상품 광고 1곳 블루) · 떠 있는 카드 = 집행 중인 매체 · 상품 목록 / 이번 달 광고 성과(노출 · 클릭 · 광고 수익률) (공통 둥둥 애니메이션)</small></div>
+    <div class="sh-visual rv ad-hv" style="--d:260ms" aria-hidden="true">   <!-- patch-483: 가운데 = 매체 광고 일정표 (이번 달 주 단위 막대 · 매체 로고) · 제목 롤링 매체와 같은 줄만 블루 (2.4초 · 스크립트 ads-hero)
+         · 주변: 왼쪽 = 인스타그램 광고 소재 미리보기 / 오른쪽 위 = 카카오 쇼핑박스 노출 시작 알림 / 오른쪽 아래 = 이번 달 광고 수익률 (공통 hero-bob) · 태블릿 · 모바일 = 가운데 창만 -->
+      <div class="sh-float ad-cv"><p class="ad-ch"><img src="assets/common/brand/woodroom.svg" alt=""><u><em>woodroom.official</em>광고</u><img src="assets/common/brand/instagram.svg" alt=""></p><i class="ad-ci"><img src="assets/geo/interior/wr-room.jpg" alt=""></i><p class="ad-cb">구매하기<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p></div>
+      <div class="ad-hw">
+        <div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></i><b>매체 광고 일정표</b><span class="vw-m">2026년 11월 · 우드앤룸</span><em class="vw-chip">집행 4곳</em></div>
+        <div class="ad-cal">
+          <div class="ad-wk"><span>매체 · 상품</span><span><b>1주</b><i>11.03</i></span><span><b>2주</b><i>11.10</i></span><span><b>3주</b><i>11.17</i></span><span><b>4주</b><i>11.24</i></span></div>
+          <ul class="ad-rows"><li class="on"><span class="ad-mn"><img src="assets/common/brand/naver.svg" alt=""><span><b>네이버 쇼핑</b>핫아이템</span></span><i class="ad-bk" style="--a:2;--b:6"><em>11.03 – 11.30 · 노출 중</em></i></li><li><span class="ad-mn"><img src="assets/common/brand/kakao.svg" alt=""><span><b>카카오 쇼핑박스</b>쇼핑박스</span></span><i class="ad-bk" style="--a:4;--b:6"><em>11.17 – 11.30</em></i></li><li><span class="ad-mn"><img src="assets/common/brand/google.svg" alt=""><span><b>구글 검색광고</b>검색 · 쇼핑</span></span><i class="ad-bk" style="--a:2;--b:5"><em>11.03 – 11.23</em></i></li><li><span class="ad-mn"><img src="assets/common/brand/meta.svg" alt=""><span><b>메타 광고</b>인스타그램 피드</span></span><i class="ad-bk" style="--a:3;--b:6"><em>11.10 – 11.30</em></i></li></ul>
+          <div class="ad-gl"><i></i><i></i><i></i><i></i><span class="ad-now"></span></div>
+        </div>
+      </div>
+      <div class="sh-toast ad-ht"><img class="ad-tl" src="assets/common/brand/kakao.svg" alt=""><div><p><b>카카오 쇼핑박스</b> 노출 예약</p><small>11.17 (월) 09:00 시작</small></div></div>
+      <div class="sh-float ad-rs"><b>이번 달 광고 수익률</b><strong>412<small>%</small></strong><span>▲ 12% 전월 대비</span><svg class="ad-sp" viewBox="0 0 160 40" aria-hidden="true"><defs><linearGradient id="adSpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d92d20" stop-opacity=".16"/><stop offset="1" stop-color="#d92d20" stop-opacity="0"/></linearGradient></defs><path d="M2 30 L24 32 L46 27 L68 28 L90 21 L112 22 L134 13 L156 7 V40 H2 Z" fill="url(#adSpG)"/><path d="M2 30 L24 32 L46 27 L68 28 L90 21 L112 22 L134 13 L156 7" fill="none" stroke="#d92d20" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="156" cy="7" r="3" fill="#d92d20"/></svg><em class="ad-spx"><i>6월</i><i>11월</i></em></div>
     </div>
   </div>
 </section>
@@ -336,14 +537,22 @@
       <div class="bt rv">
         <div class="bt-hd"><span class="bt-eb">기존 · 매체별로 따로</span><h3>지면마다 따로 알아보고 집행</h3><p>매체마다 상품과 신청 방법을 따로 확인하고, 상품 정보와 소재도 매체마다 다시 준비합니다. 집행 후 성과 역시 매체별 관리 화면에서 따로 봐야 합니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn ows ph-pn"><div class="ph-box"><span class="sz">550×300</span>기존 화면<small>매체별 광고 관리 화면 탭이 여러 개 열린 브라우저 · 매체마다 다른 지표 이름과 기간 (회색 바탕 창)</small></div><div class="ows-ft"><i class="me-tag">매체마다 따로 보는 신청 · 성과</i></div></div>
+          <div class="pn ows sn-ch ad-w1">
+            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></i>매체별 광고 성과<span class="sn-hm">관리 화면 4곳</span></div>
+            <ul class="ad-cr"><li><span class="ad-cn"><img src="assets/common/brand/naver.svg" alt="">네이버</span><span class="ad-mt">클릭수<b>1,204</b></span><em class="sn-ow">11.01 – 11.07</em></li><li><span class="ad-cn"><img src="assets/common/brand/kakao.svg" alt="">카카오</span><span class="ad-mt">클릭<b>982</b></span><em class="sn-ow">최근 7일</em></li><li><span class="ad-cn"><img src="assets/common/brand/google.svg" alt="">구글</span><span class="ad-mt">Clicks<b>1,530</b></span><em class="sn-ow">Last 7 days</em></li><li><span class="ad-cn"><img src="assets/common/brand/meta.svg" alt="">메타</span><span class="ad-mt">링크 클릭<b>2,115</b></span><em class="sn-ow">11/1 – 11/7</em></li></ul>
+            <div class="ows-ft"><i class="me-tag">매체마다 따로 보는 신청 · 성과</i></div>
+          </div>
         </div>
         <p class="bt-goal"><span>결과</span>운영 부담과 누락</p>
       </div>
       <div class="bt is-new rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">위사 매체 광고 · 한곳에서</span><h3>목표에 맞는 조합을 한 번에</h3><p>쇼핑몰 상품 정보를 기준으로 준비하고, 목표에 맞는 매체 · 상품 조합을 제안합니다. 집행 후 성과는 한곳에서 확인합니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn ows ph-pn"><div class="ph-box"><span class="sz">550×300</span>개선 화면<small>광고 목표(예: 신상품 판매) 하나에 쇼핑 · 검색 · 디스플레이 · SNS 매체 조합이 차례로 채워지는 제안 화면 · 추천 조합 1줄 블루 (반복 애니메이션)</small></div><div class="ows-ft"><i class="hit-tag">목표 하나에 맞춘 매체 조합</i></div></div>
+          <div class="pn ows sn-ch sn-ok ad-w2">
+            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/></svg></i>매체 조합 제안<span class="sn-hm">목표 <b>신상품 판매</b> · 월 500만원</span></div>
+            <ul class="ad-cr"><li class="hl" style="--k:0"><span class="ad-cn"><img src="assets/common/brand/naver.svg" alt="">네이버 쇼핑</span><span class="ad-sb2"><i style="--v:1"></i></span><b>200만원</b></li><li style="--k:1"><span class="ad-cn"><img src="assets/common/brand/google.svg" alt="">구글 검색광고</span><span class="ad-sb2"><i style="--v:0.625"></i></span><b>125만원</b></li><li style="--k:2"><span class="ad-cn"><img src="assets/common/brand/kakao.svg" alt="">카카오 쇼핑박스</span><span class="ad-sb2"><i style="--v:0.5"></i></span><b>100만원</b></li><li style="--k:3"><span class="ad-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="ad-sb2"><i style="--v:0.375"></i></span><b>75만원</b></li></ul>
+            <div class="ows-ft"><i class="hit-tag">목표 하나에 맞춘 매체 조합</i></div>
+          </div>
         </div>
         <p class="bt-goal"><span>목표</span>매체는 많아도 관리는 한 곳에서</p>
       </div>
@@ -405,7 +614,17 @@
     <div class="ad-panel" role="tabpanel" id="ad-p0" aria-labelledby="ad-t0">
       <div class="ad-card">
         <div class="ad-txt"><span class="bt-eb">STEP 1 · 쇼핑광고</span><h3>쇼핑 지면에서<br>상품을 바로 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="jt-q">“시즌에 맞는 지면을 골라 주니 바로 시작했어요”</p></div><p class="ad-d">네이버 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 등 쇼핑 지면에 상품을 직접 노출합니다. 사려고 들어온 고객을 만나는 광고입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>핫아이템 · 포커스템</li><li>쇼핑박스</li><li>N+상품광고</li></ul></div></div>
-        <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>쇼핑광고 상품 구성 화면<small>매체 광고 › 쇼핑광고 · 19개 상품 — 네이버 쇼핑 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 묶음별 상품 (네이버 쇼핑 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
+        <div class="ad-vis" aria-hidden="true">
+        <div class="vw-win ad-sc ad-s1">
+          <div class="ad-sb"><img src="assets/common/brand/naver.svg" alt=""><span class="ad-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>무드등</b></span><i class="ad-ib"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.3 11h10.8l2-8H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></i></div>
+          <nav class="ad-chp"><span class="on">네이버 가격비교</span><span>쇼핑 홈</span><span>핫딜</span><span>무료배송</span></nav>
+          <div class="ad-sbd">
+            <div><p class="ad-st"><b>핫아이템</b><u>광고</u>무드등 관련 추천 상품</p>
+            <ul class="ad-g4"><li class="me"><i><img src="assets/geo/interior/wr-lamp.jpg" alt=""><em class="ad-ad">광고</em></i><small>우드앤룸</small><b>머쉬룸 무드등 크림</b><strong><u>25%</u>59,000</strong></li><li><i><img src="assets/geo/interior/cp-metal.jpg" alt=""><em class="ad-ad">광고</em></i><small>홈스틸</small><b>메탈 돔 스탠드 조명</b><strong><u>20%</u>39,900</strong></li><li><i><img src="assets/geo/interior/cp-rattan.jpg" alt=""><em class="ad-ad">광고</em></i><small>라탄하우스</small><b>라탄 머쉬룸 조명</b><strong><u>15%</u>49,000</strong></li><li><i><img src="assets/geo/interior/cp-glass.jpg" alt=""><em class="ad-ad">광고</em></i><small>글라스데이</small><b>유리 구슬 무드등 S</b><strong><u>10%</u>19,800</strong></li></ul></div>
+            <ul class="ad-ls"><li><i><img src="assets/geo/interior/cp-cushion.jpg" alt=""></i><div><b>코튼 쿠션 무드등 LED</b><small>리빙홈 · 리뷰 2,031</small></div><strong>32,900원</strong></li><li><i><img src="assets/geo/interior/lp-linen.jpg" alt=""></i><div><b>린넨 갓 도자기 스탠드</b><small>리넨앤코 · 리뷰 1,486</small></div><strong>29,900원</strong></li></ul>
+          </div>
+        </div>
+      </div>
       </div>
       <div class="ad-grp"><div class="ad-gh"><h3>네이버 쇼핑</h3><p>네이버 쇼핑 지면에 노출되는 상품</p></div>
         <ul class="ad-list">
@@ -444,7 +663,16 @@
     <div class="ad-panel" role="tabpanel" id="ad-p1" aria-labelledby="ad-t1" hidden>
       <div class="ad-card">
         <div class="ad-txt"><span class="bt-eb">STEP 2 · 검색광고</span><h3>찾는 순간에<br>먼저 보이게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="jt-q">“브랜드명을 검색하면 우리 몰이 맨 위에 떠요”</p></div><p class="ad-d">네이버 · 카카오 · 구글 검색 결과에 브랜드와 상품을 노출합니다. 이미 관심 있는 고객이 직접 검색할 때 만납니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>파워링크 · 쇼핑검색</li><li>브랜드검색</li><li>구글 검색광고</li></ul></div></div>
-        <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>검색광고 상품 구성 화면<small>매체 광고 › 검색광고 · 8개 상품 — 네이버 · 카카오 · 구글 묶음별 상품 (네이버 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
+        <div class="ad-vis" aria-hidden="true">
+        <div class="vw-win ad-sc ad-s2">
+          <div class="ad-sb"><img src="assets/common/brand/naver.svg" alt=""><span class="ad-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b class="ad-ty">우드앤룸</b></span><i class="ad-ib"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></i></div>
+          <nav class="ad-chp"><span class="on">통합</span><span>쇼핑</span><span>이미지</span><span>블로그</span><span>지도</span></nav>
+          <div class="ad-sbd">
+            <div class="ad-bs"><i><img src="assets/geo/interior/wr-room.jpg" alt=""></i><div class="ad-bt"><img src="assets/common/brand/woodroom.svg" alt=""><div><b>우드앤룸 공식몰</b><small>woodroom.co.kr</small></div><u>브랜드 광고</u></div><ul class="ad-bl"><li>신상품</li><li>베스트</li><li>조명</li><li>겨울 기획전</li></ul></div>
+            <div class="ad-pl"><p class="ad-st"><b>파워링크</b>'우드앤룸' 관련 광고</p><ul><li class="me"><small>woodroom.co.kr<u>광고</u></small><b>우드앤룸 공식몰 – 원목 조명 · 가구 신상품 최대 25%</b></li><li><small>homedeco-mall.kr<u>광고</u></small><b>홈데코몰 – 무드등 · 인테리어 조명 모음전</b></li></ul></div>
+          </div>
+        </div>
+      </div>
       </div>
       <div class="ad-grp"><div class="ad-gh"><h3>네이버</h3><p>네이버 검색 결과 지면</p></div>
         <ul class="ad-list">
@@ -472,7 +700,15 @@
     <div class="ad-panel" role="tabpanel" id="ad-p2" aria-labelledby="ad-t2" hidden>
       <div class="ad-card">
         <div class="ad-txt"><span class="bt-eb">STEP 3 · 디스플레이광고</span><h3>다녀간 고객을<br>다시 만나게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p class="jt-q">“장바구니에 두고 간 고객이 다시 들어와요”</p></div><p class="ad-d">구글 · 네이버 · 카카오 · 네이트 등 다양한 지면에 배너와 네이티브 광고를 노출합니다. 인지 확대부터 방문 고객 재유도까지 씁니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>리타기팅</li><li>비즈보드</li><li>네이티브</li></ul></div></div>
-        <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>디스플레이광고 상품 구성 화면<small>매체 광고 › 디스플레이광고 · 11개 상품 — 구글 · 크리테오 / 네이버 · 카카오 · 네이트 / 애드네트워크 묶음별 상품 (리타기팅 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
+        <div class="ad-vis" aria-hidden="true">
+        <div class="vw-win ad-sc ad-s3">
+          <div class="ad-bw"><span class="ad-dt"><i></i><i></i><i></i></span><span class="ad-url"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>오늘의 생활 · 리빙</span></div>
+          <div class="ad-nw">
+            <div class="ad-at"><small>리빙 · 2026.11.13</small><b>겨울 거실, 조명 하나로 분위기 바꾸는 법</b><i><img src="assets/geo/interior/lp-linen.jpg" alt=""></i><span class="ad-tx"><i></i><i style="width:92%"></i><i style="width:96%"></i><i style="width:64%"></i></span></div>
+            <div class="ad-rt"><small class="ad-adl">광고</small><i><img src="assets/geo/interior/wr-lamp.jpg" alt=""></i><small>최근 본 상품 · 우드앤룸</small><b>머쉬룸 무드등 크림</b><strong><u>25%</u>59,000원</strong><em>다시 보러 가기</em></div>
+          </div>
+        </div>
+      </div>
       </div>
       <div class="ad-grp"><div class="ad-gh"><h3>구글 · 크리테오</h3><p>글로벌 네트워크 기반</p></div>
         <ul class="ad-list">
@@ -503,7 +739,16 @@
     <div class="ad-panel" role="tabpanel" id="ad-p3" aria-labelledby="ad-t3" hidden>
       <div class="ad-card">
         <div class="ad-txt"><span class="bt-eb">STEP 4 · SNS/콘텐츠 광고</span><h3>고객이 머무는 곳에서<br>브랜드를 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="m" alt=""></i><p class="jt-q">“광고랑 인스타 운영을 한 번에 맡겼어요”</p></div><p class="ad-d">페이스북 · 인스타그램 · 유튜브 광고와 영상 제작, SNS 채널 운영 대행까지 콘텐츠 중심의 광고 상품입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>페이스북 · 인스타그램</li><li>유튜브</li><li>영상 · 채널 운영</li></ul></div></div>
-        <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>SNS/콘텐츠 광고 상품 구성 화면<small>매체 광고 › SNS/콘텐츠 광고 · 5개 상품 — SNS · 영상 광고 / 운영 · 제작 묶음별 상품 (인스타그램 광고 블루) · ※ 화면은 상품 구성 예시</small></div></div>
+        <div class="ad-vis" aria-hidden="true">
+        <div class="vw-win ad-sc ad-s4">
+          <div class="ad-ih"><img src="assets/common/brand/instagram.svg" alt=""><b>Instagram</b><span class="ad-ii"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/></svg></span></div>
+          <div class="ad-ph"><img src="assets/common/brand/woodroom.svg" alt=""><div><b>woodroom.official</b><small>광고</small></div><i><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></i></div>
+          <i class="ad-pi"><img src="assets/geo/interior/wr-room.jpg" alt=""></i>
+          <p class="ad-cta">구매하기<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p>
+          <div class="ad-ac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.2 7.7L3.5 20.5l1.3-4.6a8.5 8.5 0 1 1 15.7-4.4z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"/></svg></div>
+          <p class="ad-lk"><b>좋아요 1,284개</b> · <b>woodroom.official</b> 겨울 거실을 따뜻하게, 머쉬룸 무드등 크림</p>
+        </div>
+      </div>
       </div>
       <div class="ad-grp"><div class="ad-gh"><h3>SNS · 영상 광고</h3><p>광고 집행 상품</p></div>
         <ul class="ad-list">
@@ -545,7 +790,61 @@
   <div class="container">
     <div class="sub-title center rv"><h2>집행 후에는 성과를<br class="mo-br"> 한 화면에서 확인합니다</h2><p>집행한 광고의 노출 · 클릭 · 구매 성과를 매체 구분 없이<br class="pc-only"> 한 화면에서 확인하는 리포트를 준비하고 있습니다.</p></div>
     <div class="rp-wrap">
-    <div class="ph-box rp-dph rv"><span class="sz">1240×620 (PC 1100 으로 표시) + 모바일 화면 280×560</span>매체 광고 리포트 대시보드<small>AI 요약 · 광고비 · 노출 · 클릭 · 광고 수익률 (매체별 비교 · 주차별 광고 수익률 그래프 · 이번 달 조정 제안 3개 · 샘플 화면 · 가상 데이터)</small></div>
+    <div class="rp-duo"><div class="rp-ph" aria-hidden="true">   <!-- patch-483: 공식채널운영 대시보드 틀(patch-250 · 274 · 버티컬커머스 patch-356) 그대로 · 문구 · 수치만 매체 광고 성과로 교체 (샘플 · 가상 데이터) / 같은 리포트의 모바일 화면 (PC 280×560 · 대시보드 오른쪽 아래에 겹침 · 공통 wisa.css · wisa.js rp-phone) --><div class="ph-scr">
+        <div class="ph-hd"><span class="rph-logo">W</span><p><b>매체 광고 리포트</b><span>2026년 10월 · 전월 대비</span></p></div>
+        <div class="ph-flow">   <!-- patch-274: 스크롤 영역 (PC 는 그대로 · 모바일 260×400 에서 위아래 자동 스크롤) -->
+        <div class="ph-ai"><i class="aim-av"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" aria-hidden="true"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/></svg></i><p><b>AI 요약</b>광고 수익률이 <strong>412%</strong>로 전월보다 12% 올랐어요. 매체별로는 네이버 쇼핑이 <strong>520%</strong>로 가장 높아요.</p></div>
+        <ul class="ph-kpi"><li><span>광고 수익률</span><b>412<small>%</small></b><em class="inc">▲ 12%</em></li><li><span>광고비</span><b>1,240<small>만원</small></b><em class="dec">▼ 4%</em></li><li><span>광고 클릭</span><b>4.8<small>만</small></b><em class="inc">▲ 15%</em></li><li><span>광고 구매</span><b>1,920<small>건</small></b><em class="inc">▲ 18%</em></li></ul>
+        <div class="ph-card"><p class="ph-ct"><b>일별 광고 클릭</b><span>최근 7일</span></p><svg class="ph-db" viewBox="0 0 224 88" aria-hidden="true"><line class="gl" x1="30" x2="222" y1="70" y2="70"/><text class="yl" x="26" y="73.0">0</text><line class="gl" x1="30" x2="222" y1="39" y2="39"/><text class="yl" x="26" y="42.0">4천</text><line class="gl" x1="30" x2="222" y1="8" y2="8"/><text class="yl" x="26" y="11.0">8천</text><rect class="c2" x="32" y="35.9" width="8" height="34.1" rx="4"/><text class="xl" x="36" y="84">10/25</text><rect class="c2" x="61" y="32.8" width="8" height="37.2" rx="4"/><text class="xl" x="65" y="84">10/26</text><rect class="c2" x="90" y="32.8" width="8" height="37.2" rx="4"/><text class="xl" x="94" y="84">10/27</text><rect class="c2" x="119" y="26.6" width="8" height="43.4" rx="4"/><text class="xl" x="123" y="84">10/28</text><rect class="c2" x="148" y="29.7" width="8" height="40.3" rx="4"/><text class="xl" x="152" y="84">10/29</text><rect class="c2" x="177" y="23.5" width="8" height="46.5" rx="4"/><text class="xl" x="181" y="84">10/30</text><rect class="c2" x="206" y="17.3" width="8" height="52.7" rx="4"/><text class="xl" x="210" y="84">10/31</text><polyline class="avg" points="36,37.4 65,35.9 94,34.7 123,33.1 152,31.9 181,30.3 210,28.5"/><circle class="avp" cx="36" cy="37.4" r="2.5"/><circle class="avp" cx="65" cy="35.9" r="2.5"/><circle class="avp" cx="94" cy="34.7" r="2.5"/><circle class="avp" cx="123" cy="33.1" r="2.5"/><circle class="avp" cx="152" cy="31.9" r="2.5"/><circle class="avp" cx="181" cy="30.3" r="2.5"/><circle class="avp" cx="210" cy="28.5" r="2.5"/></svg><div class="ph-lg"><span><i class="c2"></i>광고 클릭</span><span><i class="avg"></i>지난 7일 평균</span></div></div>
+        <div class="ph-card ph-mo"><p class="ph-ct"><b>월별 광고 수익률</b><span>최근 6개월</span></p><svg class="ph-db ph-ln" viewBox="0 0 224 88" aria-hidden="true"><line class="gl" x1="30" x2="222" y1="70" y2="70"/><text class="yl" x="26" y="73">0</text><line class="gl" x1="30" x2="222" y1="39" y2="39"/><text class="yl" x="26" y="42">250</text><line class="gl" x1="30" x2="222" y1="8" y2="8"/><text class="yl" x="26" y="11">500</text><path class="ar" d="M36,70 L36,51.4 L70.8,45.2 L105.6,42.1 L140.4,35.9 L175.2,29.7 L210,17.3 L210,70 Z"/><polyline class="ln" pathLength="1" points="36,51.4 70.8,45.2 105.6,42.1 140.4,35.9 175.2,29.7 210,17.3"/><circle class="pt" cx="36" cy="51.4" r="2.5"/><text class="xl" x="36" y="84">5월</text><circle class="pt" cx="70.8" cy="45.2" r="2.5"/><text class="xl" x="70.8" y="84">6월</text><circle class="pt" cx="105.6" cy="42.1" r="2.5"/><text class="xl" x="105.6" y="84">7월</text><circle class="pt" cx="140.4" cy="35.9" r="2.5"/><text class="xl" x="140.4" y="84">8월</text><circle class="pt" cx="175.2" cy="29.7" r="2.5"/><text class="xl" x="175.2" y="84">9월</text><circle class="pt last" cx="210" cy="17.3" r="3.5"/><text class="xl" x="210" y="84">10월</text></svg><div class="ph-lg"><span><i class="ln"></i>광고 수익률</span><span class="ph-now">이번 달 <b>412%</b></span></div></div>   <!-- patch-274: 모바일 전용 두 번째 그래프 (세로 스크롤로 보여 줌) -->
+        <div class="ph-card"><p class="ph-ct"><b>개선 제안</b><span>완료 2 / 5</span></p><ul class="ph-todo"><li class="done"><i><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i>네이버 쇼핑 예산 20% 증액</li><li class="done"><i><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i>구글 제외 검색어 12개 등록</li><li><i></i>카카오 쇼핑박스 소재 교체</li></ul></div>
+        </div>
+        <nav class="ph-tab"><span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7v9H4z"/></svg>홈</span><span class="on"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg>리포트</span><span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0"/></svg>알림</span><span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>더보기</span></nav>
+      </div></div>
+    <div class="rp rv" aria-hidden="true">
+      <aside class="rp-side"><div class="sd-top"><img src="assets/geo/admin/logo-w.png" alt=""><b>아임부스터</b><svg class="sd-caret" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#175cd3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m6 9 6 6 6-6" /></svg><svg class="sd-fold" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#98a2b3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m11 17-5-5 5-5" /><path d="m18 17-5-5 5-5" /></svg></div><div class="sd-cols"><ul class="sd-main"><li><i class="sd-em" aria-hidden="true">🏠</i><span>홈</span></li><li><i class="sd-em" aria-hidden="true">🛍️</i><span>상품</span></li><li><i class="sd-em" aria-hidden="true">📦</i><span>주문</span></li><li><i class="sd-em" aria-hidden="true">👤</i><span>회원</span></li><li><i class="sd-em" aria-hidden="true">📝</i><span>게시판</span></li><li><i class="sd-em" aria-hidden="true">🎨</i><span>디자인</span></li><li><i class="sd-em" aria-hidden="true">🎁</i><span>이벤트</span></li><li class="on"><i class="sd-em" aria-hidden="true">🖤</i><span>마케팅</span><svg class="sd-arr" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m9 18 6-6-6-6" /></svg></li><li><i class="sd-em" aria-hidden="true">📊</i><span>통계</span></li><li><i class="sd-em" aria-hidden="true">🏷️</i><span>재고</span></li><li><i class="sd-em" aria-hidden="true">🏳️</i><span>입점</span></li><li><i class="sd-em" aria-hidden="true">⚙️</i><span>설정</span></li><li><i class="sd-em" aria-hidden="true">⚡</i><span>앱</span></li></ul><div class="sd-sub"><p class="sd-g"><svg class="sd-dn" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m6 9 6 6 6-6" /></svg>광고</p><ul><li>광고상품</li></ul><p class="sd-g"><svg class="sd-dn" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m6 9 6 6 6-6" /></svg>리포트</p><ul><li>GEO</li><li class="on">매체 광고</li><li>CRM</li></ul><p class="sd-g"><svg class="sd-dn" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ><path d="m6 9 6 6 6-6" /></svg>마케팅 도구</p><ul><li>광고코드</li><li>검색엔진최적화</li><li>스크립트매니저</li></ul></div></div></aside>
+      <div class="rp-main">
+      <div class="rp-bar"><span class="crumb"><img src="assets/geo/admin/logo-w.png" alt="">WISA 리포트<i>/</i>마케팅<i>/</i><b>매체 광고 리포트</b></span></div>
+      <div class="rp-body">
+        <h3 class="np-title">매체 광고 리포트 · 2026년 10월</h3>
+        <p class="np-period"><span>기간</span>2026.10.01 – 10.31<i></i><span>비교</span>전월(9월) 대비<i></i><span>대상</span>네이버 · 카카오 · 구글 · 메타 · 광고 6개</p>
+        <div class="np-callout"><svg class="np-ai" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="npAiG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2e90fa"/><stop offset="1" stop-color="#8c75df"/></linearGradient></defs><path fill="url(#npAiG)" d="M10 2.5c.5 3.9 2.6 6 6.5 6.5-3.9.5-6 2.6-6.5 6.5-.5-3.9-2.6-6-6.5-6.5 3.9-.5 6-2.6 6.5-6.5Z"/><path fill="url(#npAiG)" d="M18 13c.3 2.3 1.5 3.5 3.8 3.8-2.3.3-3.5 1.5-3.8 3.8-.3-2.3-1.5-3.5-3.8-3.8 2.3-.3 3.5-1.5 3.8-3.8Z"/></svg><p><b>AI 요약</b> 광고 수익률이 전월보다 <strong>12%</strong> 올랐고, 매체별로는 네이버 쇼핑이 <strong>520%</strong>로 가장 높습니다.</p></div>
+        <ul class="np-kpi db db6">
+          <li><div class="db-hd"><b>광고비</b><span class="db-today">오늘</span></div><strong>1,240<small>만원</small></strong><p class="db-ft">전월 대비<em class="down">▼ 4%</em></p></li>
+          <li><div class="db-hd"><b>노출</b><span class="db-today">오늘</span></div><strong>312<small>만회</small></strong><p class="db-ft">전월 대비<em class="up">▲ 18%</em></p></li>
+          <li><div class="db-hd"><b>클릭</b><span class="db-today">오늘</span></div><strong>48,200<small>회</small></strong><p class="db-ft">전월 대비<em class="up">▲ 15%</em></p></li>
+          <li><div class="db-hd"><b>광고 구매</b><span class="db-today">오늘</span></div><strong>1,920<small>건</small></strong><p class="db-ft">전월 대비<em class="up">▲ 18%</em></p></li>
+          <li><div class="db-hd"><b>광고 수익률</b><span class="db-today">오늘</span></div><strong>412<small>%</small></strong><p class="db-ft">전월 대비<em class="up">▲ 12%</em></p></li>
+          <li><div class="db-hd"><b>집행 매체</b><span class="db-today">오늘</span></div><strong>4<small>곳</small></strong><p class="db-ft">전월 대비<em class="up">▲ 1곳</em></p></li>
+        </ul>
+        <div class="np-row db3">
+          <div class="np-block db-card db-chart"><div class="db-hd"><b>일별 매체 클릭</b><span class="seg"><b>7일</b><span>30일</span></span></div>
+            <svg class="db-svg" viewBox="0 0 440 200" aria-hidden="true"><line class="gl" x1="44" x2="432" y1="170.0" y2="170.0"/><text class="yl" x="34" y="174.0">0</text><line class="gl" x1="44" x2="432" y1="132.5" y2="132.5"/><text class="yl" x="34" y="136.5">2천</text><line class="gl" x1="44" x2="432" y1="95.0" y2="95.0"/><text class="yl" x="34" y="99.0">4천</text><line class="gl" x1="44" x2="432" y1="57.5" y2="57.5"/><text class="yl" x="34" y="61.5">6천</text><line class="gl" x1="44" x2="432" y1="20.0" y2="20.0"/><text class="yl" x="34" y="24.0">8천</text><g class="bar" style="--i:0"><rect class="c3" x="65.7" y="72.5" width="12" height="97.5" rx="6"/><rect class="c2" x="65.7" y="117.5" width="12" height="52.5"/><rect class="c1" x="65.7" y="140.0" width="12" height="30.0"/></g><text class="xl" x="71.7" y="190">10/25</text><g class="bar" style="--i:1"><rect class="c3" x="121.1" y="65.0" width="12" height="105.0" rx="6"/><rect class="c2" x="121.1" y="110.0" width="12" height="60.0"/><rect class="c1" x="121.1" y="140.0" width="12" height="30.0"/></g><text class="xl" x="127.1" y="190">10/26</text><g class="bar" style="--i:2"><rect class="c3" x="176.6" y="72.5" width="12" height="97.5" rx="6"/><rect class="c2" x="176.6" y="117.5" width="12" height="52.5"/><rect class="c1" x="176.6" y="140.0" width="12" height="30.0"/></g><text class="xl" x="182.6" y="190">10/27</text><g class="bar" style="--i:3"><rect class="c3" x="232.0" y="57.5" width="12" height="112.5" rx="6"/><rect class="c2" x="232.0" y="102.5" width="12" height="67.5"/><rect class="c1" x="232.0" y="132.5" width="12" height="37.5"/></g><text class="xl" x="238.0" y="190">10/28</text><g class="bar" style="--i:4"><rect class="c3" x="287.4" y="50.0" width="12" height="120.0" rx="6"/><rect class="c2" x="287.4" y="102.5" width="12" height="67.5"/><rect class="c1" x="287.4" y="132.5" width="12" height="37.5"/></g><text class="xl" x="293.4" y="190">10/29</text><g class="bar" style="--i:5"><rect class="c3" x="342.9" y="57.5" width="12" height="112.5" rx="6"/><rect class="c2" x="342.9" y="102.5" width="12" height="67.5"/><rect class="c1" x="342.9" y="132.5" width="12" height="37.5"/></g><text class="xl" x="348.9" y="190">10/30</text><g class="bar" style="--i:6"><rect class="c3" x="398.3" y="42.5" width="12" height="127.5" rx="6"/><rect class="c2" x="398.3" y="102.5" width="12" height="67.5"/><rect class="c1" x="398.3" y="132.5" width="12" height="37.5"/></g><text class="xl" x="404.3" y="190">10/31</text><polyline class="avg" pathLength="1" points="71.7,80.0 127.1,80.0 182.6,72.5 238.0,72.5 293.4,65.0 348.9,72.5 404.3,65.0"/></svg>
+            <div class="db-lg"><span><i class="c1"></i>메타</span><span><i class="c2"></i>구글</span><span><i class="c3"></i>네이버</span><span><i class="avg"></i>지난 7일 평균</span></div>
+          </div>
+          <div class="np-block db-card db-chart"><div class="db-hd"><b>매체별 광고비</b><span class="seg"><b>7일</b><span>30일</span></span></div>
+            <svg class="db-svg" viewBox="0 0 440 200" aria-hidden="true"><line class="gl" x1="44" x2="432" y1="170.0" y2="170.0"/><text class="yl" x="34" y="174.0">0</text><line class="gl" x1="44" x2="432" y1="132.5" y2="132.5"/><text class="yl" x="34" y="136.5">10</text><line class="gl" x1="44" x2="432" y1="95.0" y2="95.0"/><text class="yl" x="34" y="99.0">20</text><line class="gl" x1="44" x2="432" y1="57.5" y2="57.5"/><text class="yl" x="34" y="61.5">30</text><line class="gl" x1="44" x2="432" y1="20.0" y2="20.0"/><text class="yl" x="34" y="24.0">40</text><g class="bar" style="--i:0"><rect class="c3" x="65.7" y="80.0" width="12" height="90.0" rx="6"/><rect class="c2" x="65.7" y="98.8" width="12" height="71.2"/><rect class="c1" x="65.7" y="113.8" width="12" height="56.2"/></g><text class="xl" x="71.7" y="190">10/25</text><g class="bar" style="--i:1"><rect class="c3" x="121.1" y="91.2" width="12" height="78.8" rx="6"/><rect class="c2" x="121.1" y="108.1" width="12" height="61.9"/><rect class="c1" x="121.1" y="121.2" width="12" height="48.8"/></g><text class="xl" x="127.1" y="190">10/26</text><g class="bar" style="--i:2"><rect class="c3" x="176.6" y="65.0" width="12" height="105.0" rx="6"/><rect class="c2" x="176.6" y="87.5" width="12" height="82.5"/><rect class="c1" x="176.6" y="106.2" width="12" height="63.8"/></g><text class="xl" x="182.6" y="190">10/27</text><g class="bar" style="--i:3"><rect class="c3" x="232.0" y="44.4" width="12" height="125.6" rx="6"/><rect class="c2" x="232.0" y="70.6" width="12" height="99.4"/><rect class="c1" x="232.0" y="93.1" width="12" height="76.9"/></g><text class="xl" x="238.0" y="190">10/28</text><g class="bar" style="--i:4"><rect class="c3" x="287.4" y="59.4" width="12" height="110.6" rx="6"/><rect class="c2" x="287.4" y="81.9" width="12" height="88.1"/><rect class="c1" x="287.4" y="102.5" width="12" height="67.5"/></g><text class="xl" x="293.4" y="190">10/29</text><g class="bar" style="--i:5"><rect class="c3" x="342.9" y="72.5" width="12" height="97.5" rx="6"/><rect class="c2" x="342.9" y="91.2" width="12" height="78.8"/><rect class="c1" x="342.9" y="108.1" width="12" height="61.9"/></g><text class="xl" x="348.9" y="190">10/30</text><g class="bar" style="--i:6"><rect class="c3" x="398.3" y="33.1" width="12" height="136.9" rx="6"/><rect class="c2" x="398.3" y="61.2" width="12" height="108.8"/><rect class="c1" x="398.3" y="85.6" width="12" height="84.4"/></g><text class="xl" x="404.3" y="190">10/31</text><polyline class="avg" pathLength="1" points="71.7,76.2 127.1,78.1 182.6,74.4 238.0,70.6 293.4,66.9 348.9,68.8 404.3,63.1"/></svg>
+            <div class="db-lg"><span><i class="c1"></i>메타</span><span><i class="c2"></i>구글</span><span><i class="c3"></i>네이버</span><span><i class="avg"></i>지난 7일 평균</span></div>
+          </div>
+          <div class="np-block db-card db-rank"><div class="db-hd"><b>매체별 광고 수익률</b><span class="seg"><b>7일</b><span>30일</span></span></div>
+            <ol class="db-top"><li><i class="th"><img src="assets/common/brand/naver.svg" alt=""></i><div><span class="nm">네이버 쇼핑</span><small>쇼핑광고 · 클릭률 3.1%</small></div><strong>520<small>%</small></strong><em class="up">▲ 24%</em></li><li><i class="th"><img src="assets/common/brand/google.svg" alt=""></i><div><span class="nm">구글 검색</span><small>검색광고 · 클릭률 4.2%</small></div><strong>410<small>%</small></strong><em class="up">▲ 9%</em></li><li><i class="th"><img src="assets/common/brand/meta.svg" alt=""></i><div><span class="nm">인스타그램</span><small>SNS 광고 · 클릭률 1.2%</small></div><strong>280<small>%</small></strong><em class="down">▼ 2%</em></li></ol>
+          </div>
+          <div class="np-block db-card db-donut"><div class="db-hd"><b>매체별 광고비 비중</b><span class="dd">이번 달<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+            <div class="dn-body"><svg class="dn" viewBox="0 0 180 180" aria-hidden="true"><circle style="--i:0" cx="90" cy="90" r="64" fill="none" stroke="#8c75df" stroke-width="22" stroke-dasharray="215.1 187.0" stroke-dashoffset="0.0"></circle><circle style="--i:1" cx="90" cy="90" r="64" fill="none" stroke="#759edf" stroke-width="22" stroke-dasharray="114.6 287.5" stroke-dashoffset="-217.1"></circle><circle style="--i:2" cx="90" cy="90" r="64" fill="none" stroke="#75bedf" stroke-width="22" stroke-dasharray="66.4 335.7" stroke-dashoffset="-333.7"></circle><text x="90" y="86" class="dn-v">1,240<tspan>만원</tspan></text><text x="90" y="108" class="dn-l">이번 달 광고비</text></svg>
+            <ul class="dn-lg"><li><i style="background:#8c75df"></i>네이버<b>54%</b></li><li><i style="background:#759edf"></i>구글<b>29%</b></li><li><i style="background:#75bedf"></i>메타<b>17%</b></li></ul></div>
+          </div>
+          <div class="np-block db-card db-chart"><div class="db-hd"><b>월별 광고 수익률</b><span class="seg"><b>6개월</b><span>12개월</span></span></div>
+            <svg class="db-svg" viewBox="0 0 440 200" aria-hidden="true"><defs><linearGradient id="lnG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#759edf" stop-opacity=".28"/><stop offset="1" stop-color="#759edf" stop-opacity="0"/></linearGradient></defs><line class="gl" x1="44" x2="432" y1="170.0" y2="170.0"/><text class="yl" x="34" y="174.0">0</text><line class="gl" x1="44" x2="432" y1="132.5" y2="132.5"/><text class="yl" x="34" y="136.5">125</text><line class="gl" x1="44" x2="432" y1="95.0" y2="95.0"/><text class="yl" x="34" y="99.0">250</text><line class="gl" x1="44" x2="432" y1="57.5" y2="57.5"/><text class="yl" x="34" y="61.5">375</text><line class="gl" x1="44" x2="432" y1="20.0" y2="20.0"/><text class="yl" x="34" y="24.0">500</text><path d="M44.0,170 L44.0,125.0 L119.2,110.0 L194.4,102.5 L269.6,87.5 L344.8,72.5 L420.0,42.5 L420.0,170 Z" fill="url(#lnG)"/><polyline class="ln" pathLength="1" points="44.0,125.0 119.2,110.0 194.4,102.5 269.6,87.5 344.8,72.5 420.0,42.5"/><circle class="pt" cx="44.0" cy="125.0" r="4"></circle><text class="xl" x="44.0" y="190">5월</text><circle class="pt" cx="119.2" cy="110.0" r="4"></circle><text class="xl" x="119.2" y="190">6월</text><circle class="pt" cx="194.4" cy="102.5" r="4"></circle><text class="xl" x="194.4" y="190">7월</text><circle class="pt" cx="269.6" cy="87.5" r="4"></circle><text class="xl" x="269.6" y="190">8월</text><circle class="pt" cx="344.8" cy="72.5" r="4"></circle><text class="xl" x="344.8" y="190">9월</text><circle class="pt last" cx="420.0" cy="42.5" r="5"></circle><text class="xl" x="420.0" y="190">10월</text><g class="lt"><rect x="366.0" y="6.5" width="66" height="24" rx="12"/><text x="399.0" y="22.5">412%</text></g></svg>
+            <div class="db-lg"><span><i class="c2"></i>광고 수익률 (%)</span></div>
+          </div>
+          <div class="np-block db-card"><div class="db-hd"><b>이번 달 개선 제안</b><span class="db-cnt">완료 2 / 5</span></div>
+            <ul class="np-todo"><li class="done"><span class="tx">네이버 쇼핑 예산 20% 증액</span><em class="np-st ok">완료</em><time>10/08</time></li><li class="done"><span class="tx">구글 제외 검색어 12개 등록</span><em class="np-st ok">완료</em><time>10/15</time></li><li><span class="tx">카카오 쇼핑박스 소재 교체</span><em class="np-st ing">진행 중</em><time>~11/05</time></li><li><span class="tx">블랙프라이데이 매체별 예산 배분</span><em class="np-st ing">진행 중</em><time>~11/12</time></li><li><span class="tx">유튜브 영상 광고 집행 검토</span><em class="np-st plan">예정</em><time>~11/20</time></li></ul>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
     <div class="rp-foot rv" style="--d:100ms">
       <ol class="rp-steps">
         <li><b>1</b><div><h3>광고 집행</h3><p>매체별로 집행한 광고의 노출 · 클릭 · 구매 데이터를 자동으로 모읍니다.</p></div></li>
@@ -1060,6 +1359,33 @@
     });
   })();
   /* @endregion ads-tabs */
+  /* @region ads-hero (patch-483): 히어로 일정표 — 제목 롤링(geo-hero-ai)의 위치(translateY −k × 1.3em)를 보고 같은 매체 줄만 블루 (네이버 → 카카오 → 구글 → 메타 · 2.4초) */
+  const adHw = document.querySelector('.ad-hw'), adRoll = document.querySelector('#geo-hero .ai-roll-in');
+  if (adHw && adRoll) {
+    const rws = [...adHw.querySelectorAll('.ad-rows li')];
+    const sync = () => { const m = /translateY\((-?[\d.]+)em\)/.exec(adRoll.style.transform || ''); const k = m ? Math.round(-parseFloat(m[1]) / 1.3) % rws.length : 0; rws.forEach((r, i) => r.classList.toggle('on', i === k)); };
+    sync(); new MutationObserver(sync).observe(adRoll, { attributes: true, attributeFilter: ['style'] });
+  }
+  /* @endregion ads-hero */
+  /* @region ads-vis-fit (patch-483): 매체 탭 화면 560×480 — 칸 폭 ÷ 560 = 배율 --s (최대 1 · 숨긴 탭은 열릴 때 다시 계산) */
+  const adVis = [...document.querySelectorAll('#ads-products .ad-vis')];
+  if (adVis.length && 'ResizeObserver' in window) {
+    const ro = new ResizeObserver(es => es.forEach(e => { const w = e.target.clientWidth; if (w) e.target.style.setProperty('--s', Math.min(1, w / 560)); }));
+    adVis.forEach(v => ro.observe(v));
+  }
+  /* @endregion ads-vis-fit */
+  /* @region ads-search (patch-483): 검색광고 화면 — 검색어 '우드앤룸'을 한 글자씩 입력 → 결과(브랜드검색 · 파워링크)가 또렷해짐 · 6초 반복 */
+  const adS2 = document.querySelector('.ad-s2');
+  if (adS2 && !reduced) {
+    const ty = adS2.querySelector('.ad-ty'), full = ty.textContent;
+    const run = () => {
+      adS2.classList.add('typing'); ty.textContent = ''; let n = 0;
+      const step = () => { n += 1; ty.textContent = full.slice(0, n); if (n < full.length) setTimeout(step, 220); else { setTimeout(() => adS2.classList.remove('typing'), 300); setTimeout(run, 4600); } };
+      setTimeout(step, 400);
+    };
+    run();
+  }
+  /* @endregion ads-search */
   /* @region footer
      푸터 메뉴 아코디언
      - 태블릿·모바일에서만 동작 (PC는 4단 펼침) · 여러 개 동시에 열림
