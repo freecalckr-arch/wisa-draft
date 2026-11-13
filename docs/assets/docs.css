@@ -240,7 +240,6 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 .demo { max-width: 980px; margin: 0 0 24px; border: 1px solid var(--gray-200); }
 .demo iframe { display: block; width: 100%; border: 0; background: var(--white); }
 .demo p { max-width: none; margin: 0; padding: 8px 12px; border-top: 1px solid var(--gray-200); background: var(--gray-50); font-size: 13px; color: var(--gray-500); }
-.thumb { display: flex; align-items: center; gap: 6px; text-decoration: none; }
-.thumb img { width: 112px; height: 64px; object-fit: cover; border: 1px solid var(--gray-200); background: var(--white); }
-.thumb span { color: var(--gray-400); font-size: 12px; }
+.thumb { display: block; width: 140px; text-decoration: none; }
+.thumb img { display: block; width: 140px; height: 80px; object-fit: cover; border: 1px solid var(--gray-200); background: var(--white); }
 @media (max-width: 767px) { .ba { grid-template-columns: minmax(0, 1fr); } }
