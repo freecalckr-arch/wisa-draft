@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-480: 그래프(#geo-market) · 단계(#geo-how) 영역 숨김 (hidden · 내용 보관) · 매체 탭 설명 카드에 말풍선(프로필 + 개선 후 고객 반응 4개 · 온사이트 단계 탭 모양)
      · 2026-11-13 patch-479: 해결 영역(#geo-diagnosis 4줄) 삭제 · 상품 목록(#ads-products)을 기획서 MEDIA 구조로 — 탭 4칸(번호 01~04 · 같은 폭) → 설명 카드(STEP · 제목 · 설명 · 대표 상품 번호 태그 + 상품 구성 화면 560×480) → 상품 목록(가운데 제목 · 묶음 이름 위 · 상품 PC 4열 / 태블릿 3열 / 모바일 2열 · 오른쪽 위 ↗) · 상품 이름 기획서대로(핫아이템)
      · 2026-11-13 patch-478: 히어로 제목 롤링 로고 중 흰 바탕(구글 · 메타) = Gray 200 테두리 1px (흰 배경에 묻혀 타일 모양이 안 보이던 문제)
      · 2026-11-13 patch-477: 상품 목록(#ads-products) 위 · 아래 간격을 다른 영역 사이와 같게 — 해결 마지막 줄 → 제목, 안내 문장 → 리포트 제목 = PC 160 · 태블릿 120 · 모바일 80 (PC 위 0 → 160 · 아래 280 → 160)
@@ -187,6 +188,12 @@
   #ads-products .ad-card { display: grid; grid-template-columns: minmax(0, 1fr) 560px; gap: 60px; align-items: center; padding: 40px 50px; border-radius: 24px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
   #ads-products .ad-txt { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; min-width: 0; }
   #ads-products .ad-txt h3 { margin: 0; font-size: 28px; line-height: 1.4; font-weight: 700; color: var(--black); }
+  /* patch-480: 말풍선 = 개선 후 고객 반응 · 프로필 36 + 흰 말풍선(Gray 200 테두리 · 온사이트 단계 탭과 같은 모양) */
+  #ads-products .jt-say { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+  #ads-products .jt-pf { flex: none; width: 36px; height: 36px; border-radius: 50%; overflow: hidden; background: var(--gray-100); }
+  #ads-products .jt-pf img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  #ads-products .jt-q { margin: 0; padding: 8px 14px; border-radius: 14px 14px 14px 4px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 16px; font-weight: 600; color: var(--gray-700); }
+  @media (max-width: 767px) { #ads-products .jt-q { font-size: 14px; } }
   #ads-products .ad-d { margin: 0; font-size: 16px; line-height: 1.6; color: var(--gray-600); }
   #ads-products .ad-rep { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
   #ads-products .ad-rep b { font-size: 14px; font-weight: 700; color: var(--black); }
@@ -322,7 +329,7 @@
 <!-- @endregion -->
 
 <!-- @region market : 근거 그래프 + 수치 3칸 -->
-<section class="sec sec-tight" id="geo-market">   <!-- [매체 광고] ② 근거 · 기획문서에 없는 영역 · 공개 통계 조사 = 과학기술정보통신부 · 한국방송광고진흥공사 「방송통신광고비 조사」 온라인 광고비 (그래프 ① 꺾은선)
+<section class="sec sec-tight" id="geo-market" hidden>   <!-- patch-480: 숨김 (사용자 요청 · 내용 보관) -->   <!-- [매체 광고] ② 근거 · 기획문서에 없는 영역 · 공개 통계 조사 = 과학기술정보통신부 · 한국방송광고진흥공사 「방송통신광고비 조사」 온라인 광고비 (그래프 ① 꺾은선)
        · 2021 8조 36억 · 2022 8조 7,062억 · 2023 9조 3,653억 · 2024 10조 1,011억 · 2025 10조 7,204억 (전망) · 2024 온라인 비중 59% · 모바일 7조 7,899억 -->
   <div class="container">
     <div class="sub-title center rv"><h2>광고비는 이미<br class="mo-br"> 온라인 매체로 모이고 있습니다</h2><p>온라인 광고비는 해마다 늘어 2024년 10조 원을 넘었고, 전체 광고비의 절반 이상을 차지합니다.<br class="pc-only"> 광고가 모이는 매체가 늘어난 만큼, 목표에 맞는 매체를 고르는 일이 중요해졌습니다.</p></div>
@@ -340,7 +347,7 @@
 <!-- @endregion -->
 
 <!-- @region core : 3단계 (카드 타입 · 화면 360×250) -->
-<section class="sec sec-tight" id="geo-how">   <!-- [매체 광고] ③ 단계 · 목표 · 상품 확인 → 매체 조합 제안 → 집행 · 성과 확인 (기획문서 WHY 오른쪽 3줄 + COMMITMENT 흐름) -->
+<section class="sec sec-tight" id="geo-how" hidden>   <!-- patch-480: 숨김 (사용자 요청 · 내용 보관) -->   <!-- [매체 광고] ③ 단계 · 목표 · 상품 확인 → 매체 조합 제안 → 집행 · 성과 확인 (기획문서 WHY 오른쪽 3줄 + COMMITMENT 흐름) -->
   <div class="container">
     <div class="sub-title rv"><h2>목표와 상품을 먼저 보고 맞는 매체를 골라,<br class="tb-br"> 집행부터 성과까지 한곳에서 봅니다</h2><p>쇼핑몰 상품 정보와 광고 목표를 기준으로 매체와 상품을 고르고,<br class="pc-only"> 집행한 광고의 성과를 매체 구분 없이 한곳에서 확인합니다.</p></div>
     <ol class="bento b3 howflow"><li class="fl-ar a1" aria-hidden="true"></li><li class="fl-ar a2" aria-hidden="true"></li>
@@ -373,7 +380,7 @@
 
     <div class="ad-panel" role="tabpanel" id="ad-p0" aria-labelledby="ad-t0">
       <div class="ad-card">
-        <div class="ad-txt"><span class="bt-eb">STEP 1 · 쇼핑광고</span><h3>쇼핑 지면에서<br>상품을 바로 보여 줍니다</h3><p class="ad-d">네이버 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 등 쇼핑 지면에 상품을 직접 노출합니다. 사려고 들어온 고객을 만나는 광고입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>핫아이템 · 포커스템</li><li>쇼핑박스</li><li>N+상품광고</li></ul></div></div>
+        <div class="ad-txt"><span class="bt-eb">STEP 1 · 쇼핑광고</span><h3>쇼핑 지면에서<br>상품을 바로 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="jt-q">“시즌에 맞는 지면을 골라 주니 바로 시작했어요”</p></div><p class="ad-d">네이버 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 등 쇼핑 지면에 상품을 직접 노출합니다. 사려고 들어온 고객을 만나는 광고입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>핫아이템 · 포커스템</li><li>쇼핑박스</li><li>N+상품광고</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>쇼핑광고 상품 구성 화면<small>매체 광고 › 쇼핑광고 · 19개 상품 — 네이버 쇼핑 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 묶음별 상품 (네이버 쇼핑 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
       <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
@@ -413,7 +420,7 @@
 
     <div class="ad-panel" role="tabpanel" id="ad-p1" aria-labelledby="ad-t1" hidden>
       <div class="ad-card">
-        <div class="ad-txt"><span class="bt-eb">STEP 2 · 검색광고</span><h3>찾는 순간에<br>먼저 보이게 합니다</h3><p class="ad-d">네이버 · 카카오 · 구글 검색 결과에 브랜드와 상품을 노출합니다. 이미 관심 있는 고객이 직접 검색할 때 만납니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>파워링크 · 쇼핑검색</li><li>브랜드검색</li><li>구글 검색광고</li></ul></div></div>
+        <div class="ad-txt"><span class="bt-eb">STEP 2 · 검색광고</span><h3>찾는 순간에<br>먼저 보이게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="jt-q">“브랜드명을 검색하면 우리 몰이 맨 위에 떠요”</p></div><p class="ad-d">네이버 · 카카오 · 구글 검색 결과에 브랜드와 상품을 노출합니다. 이미 관심 있는 고객이 직접 검색할 때 만납니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>파워링크 · 쇼핑검색</li><li>브랜드검색</li><li>구글 검색광고</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>검색광고 상품 구성 화면<small>매체 광고 › 검색광고 · 8개 상품 — 네이버 · 카카오 · 구글 묶음별 상품 (네이버 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
       <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
@@ -442,7 +449,7 @@
 
     <div class="ad-panel" role="tabpanel" id="ad-p2" aria-labelledby="ad-t2" hidden>
       <div class="ad-card">
-        <div class="ad-txt"><span class="bt-eb">STEP 3 · 디스플레이광고</span><h3>다녀간 고객을<br>다시 만나게 합니다</h3><p class="ad-d">구글 · 네이버 · 카카오 · 네이트 등 다양한 지면에 배너와 네이티브 광고를 노출합니다. 인지 확대부터 방문 고객 재유도까지 씁니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>리타기팅</li><li>비즈보드</li><li>네이티브</li></ul></div></div>
+        <div class="ad-txt"><span class="bt-eb">STEP 3 · 디스플레이광고</span><h3>다녀간 고객을<br>다시 만나게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p class="jt-q">“장바구니에 두고 간 고객이 다시 들어와요”</p></div><p class="ad-d">구글 · 네이버 · 카카오 · 네이트 등 다양한 지면에 배너와 네이티브 광고를 노출합니다. 인지 확대부터 방문 고객 재유도까지 씁니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>리타기팅</li><li>비즈보드</li><li>네이티브</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>디스플레이광고 상품 구성 화면<small>매체 광고 › 디스플레이광고 · 11개 상품 — 구글 · 크리테오 / 네이버 · 카카오 · 네이트 / 애드네트워크 묶음별 상품 (리타기팅 묶음 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
       <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
@@ -474,7 +481,7 @@
 
     <div class="ad-panel" role="tabpanel" id="ad-p3" aria-labelledby="ad-t3" hidden>
       <div class="ad-card">
-        <div class="ad-txt"><span class="bt-eb">STEP 4 · SNS/콘텐츠 광고</span><h3>고객이 머무는 곳에서<br>브랜드를 보여 줍니다</h3><p class="ad-d">페이스북 · 인스타그램 · 유튜브 광고와 영상 제작, SNS 채널 운영 대행까지 콘텐츠 중심의 광고 상품입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>페이스북 · 인스타그램</li><li>유튜브</li><li>영상 · 채널 운영</li></ul></div></div>
+        <div class="ad-txt"><span class="bt-eb">STEP 4 · SNS/콘텐츠 광고</span><h3>고객이 머무는 곳에서<br>브랜드를 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="m" alt=""></i><p class="jt-q">“광고랑 인스타 운영을 한 번에 맡겼어요”</p></div><p class="ad-d">페이스북 · 인스타그램 · 유튜브 광고와 영상 제작, SNS 채널 운영 대행까지 콘텐츠 중심의 광고 상품입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>페이스북 · 인스타그램</li><li>유튜브</li><li>영상 · 채널 운영</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true"><div class="ph-box"><span class="sz">560×480</span>SNS/콘텐츠 광고 상품 구성 화면<small>매체 광고 › SNS/콘텐츠 광고 · 5개 상품 — SNS · 영상 광고 / 운영 · 제작 묶음별 상품 (인스타그램 광고 블루) · ※ 화면은 상품 구성 예시</small></div></div>
       </div>
       <div class="ad-lh"><h3>상품 목록</h3><p>상품을 누르면 신청 페이지가 새 창으로 열립니다.</p></div>
