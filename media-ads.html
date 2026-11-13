@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-478: 히어로 제목 롤링 로고 중 흰 바탕(구글 · 메타) = Gray 200 테두리 1px (흰 배경에 묻혀 타일 모양이 안 보이던 문제)
      · 2026-11-13 patch-477: 상품 목록(#ads-products) 위 · 아래 간격을 다른 영역 사이와 같게 — 해결 마지막 줄 → 제목, 안내 문장 → 리포트 제목 = PC 160 · 태블릿 120 · 모바일 80 (PC 위 0 → 160 · 아래 280 → 160)
      · 2026-11-13 patch-476: 기획안 단계 — 기획문서(wisa_ads_page) 문장 · 흐름을 GEO 영역 규격(히어로 · 문제 · 그래프 · 단계(카드 3개) · 해결 · 상품 목록 · 리포트 · 사례 · FAQ · CTA)으로 재구성 · 비주얼 영역은 규격 크기 빈 박스(.ph-box)
        - 위계: 채널마케팅 4번째 탭 (공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고) · GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' 링크 = 기존 홈페이지 외부 링크 → media-ads.html
@@ -148,6 +149,7 @@
   #geo-hero .sh-visual.ph-hv { position: relative; }
   #geo-hero .sh-visual.ph-hv .ph-box { position: absolute; inset: 24px; width: auto; background: rgba(255, 255, 255, .6); }
   #geo-hero .ai-roll .rl-ic { flex: none; width: .82em; height: .82em; border-radius: .24em; }
+  #geo-hero .ai-roll .rl-ic[src$="google.svg"], #geo-hero .ai-roll .rl-ic[src$="meta.svg"] { box-shadow: 0 0 0 1px var(--gray-200); }   /* patch-478: 흰 바탕 로고(구글 · 메타)는 흰 배경에 묻혀 Gray 200 테두리 (로고 SVG 테두리는 축소하면 안 보임) */
   #geo-why .pn.ph-pn, #geo-how .pn.ph-pn { padding: 0; background: none; box-shadow: none; }
   #geo-why .pn.ph-pn { position: relative; }   /* 단계(how) .pn 은 GEO 와 같이 absolute (좌우 20) 유지 */
   #geo-why .pn.ph-pn .ph-box { position: absolute; inset: 0; margin: 0; padding-bottom: 60px; }
