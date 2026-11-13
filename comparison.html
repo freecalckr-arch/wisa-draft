@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-13 patch-493: 어떤 방식이 맞을까요 카드 — 자동 반복(밑줄 · 테두리 번갈아) 삭제, 마우스를 올린 카드에만 같은 스타일 (문장 밑줄이 왼쪽→오른쪽으로 그어짐 · 테두리 Gray 900 · 떼면 밑줄이 오른쪽으로 사라짐 · PC ≥1024 만) · 태블릿 · 모바일(≤1023) · 터치 기기는 자동 반복 유지)
      · 2026-11-13 patch-476: GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' = 외부 링크 → media-ads.html (채널마케팅 새 페이지) · 공통 wisa.css ?v=476
      · 2026-11-13 patch-475: 상세 기능 비교 머리줄 이름 왼쪽 구름 · 코드 아이콘 (PC 30 · 모바일 24 · 핵심 차이 · 방식 카드와 같음) · 표 아래 안내 문구 ~ 영역 끝 여백 PC 120 → 160 · 태블릿 100 → 120 · 모바일 64 → 80
      · 2026-11-13 patch-474: 두 방식 카드 뱃지 삭제 (아이콘 · 설명과 같은 말 반복) · Cloud 설명 "WISA 클라우드에서 바로 쓰는 쇼핑몰" → "WISA 클라우드를 구독해 바로 쓰는 쇼핑몰" (구독 vs 소유 키워드는 설명에 남김) · 첫 줄이 이름일 때 위 여백 0 (plan.css)
@@ -293,15 +294,24 @@
   .cf-c h3 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 28px; font-weight: 700; line-height: 38px; color: var(--gray-900); }   /* patch-424: 메인 솔루션 카드처럼 아이콘 + 제품명 (뱃지 삭제) */
   .cf-c h3 svg { flex: none; width: 32px; height: 32px; }
   .cf-q { margin: 12px 0 0; font-size: 18px; font-weight: 600; line-height: 28px; color: var(--gray-700); word-break: keep-all; }   /* 맞는 경우 한 문장 (따옴표) */
-  /* patch-428: 맞는 경우 문장 하이라이트 밑줄 — Cloud 그어짐 → 사라짐 → Enterprise 그어짐 → 사라짐 반복 (한 바퀴 6초 · 카드마다 3초 엇갈림 · Primary 100 (patch-429: 50 → 100) · 글자 아래 45%) */
-  .cf-hl { background: linear-gradient(var(--primary-100), var(--primary-100)) no-repeat 0 88% / 0 45%; animation: cf-hl 6s ease-in-out infinite; }
-  .cf-c + .cf-c .cf-hl { animation-delay: 3s; }
+  /* patch-493: 자동 반복(patch-428 밑줄 · 430 테두리) 삭제 → 마우스를 올린 카드에만 같은 스타일 — 문장 밑줄이 왼쪽→오른쪽으로 그어지고(0.5초 · Primary 100 · 글자 아래 45%) 테두리 Gray 200 → Gray 900 (요금 카드 호버와 같은 규칙) · 마우스를 떼면 밑줄이 오른쪽으로 사라짐
+     · 위치는 바로 바꾸고 길이만 움직여서, 들어올 땐 왼쪽에서 자라고 나갈 땐 오른쪽으로 줄어듦 · 태블릿 · 모바일(≤1023) · 마우스 없는 기기는 아래 자동 반복 유지 */
+  .cf-c { transition: box-shadow .3s ease; }
+  .cf-hl { background: linear-gradient(var(--primary-100), var(--primary-100)) no-repeat 100% 88% / 0 45%; transition: background-size .5s ease-in-out; }
+  @media (hover: hover) and (min-width: 1024px) {
+    .cf-c:hover { box-shadow: inset 0 0 0 1px var(--gray-900); }
+    .cf-c:hover .cf-hl { background-position: 0 88%; background-size: 100% 45%; }
+  }
+  /* 태블릿 · 모바일(≤1023) · 마우스 없는 기기는 자동 반복 유지 (patch-428 · 430 그대로: Cloud → Enterprise 6초 번갈아 · 밑줄 + 테두리 Gray 900) */
+  @media (hover: none), (max-width: 1023px) {
+    .cf-hl { animation: cf-hl 6s ease-in-out infinite; }
+    .cf-c + .cf-c .cf-hl { animation-delay: 3s; }
+    .cf-c { animation: cf-focus 6s ease-in-out infinite; }
+    .cf-c + .cf-c { animation-delay: 3s; }
+  }
   @keyframes cf-hl { 0% { background-size: 0 45%; background-position: 0 88%; } 12% { background-size: 100% 45%; background-position: 0 88%; } 35% { background-size: 100% 45%; background-position: 100% 88%; } 47%, 100% { background-size: 0 45%; background-position: 100% 88%; } }
-  /* patch-430: 하이라이트가 켜진 카드 = 테두리 Gray 900 (요금 카드 호버와 같은 규칙 · 그어지기 시작 0.3초 → 사라질 때 Gray 200) */
-  .cf-c { animation: cf-focus 6s ease-in-out infinite; }
-  .cf-c + .cf-c { animation-delay: 3s; }
   @keyframes cf-focus { 0% { box-shadow: inset 0 0 0 1px var(--gray-200); } 5%, 40% { box-shadow: inset 0 0 0 1px var(--gray-900); } 47%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200); } }
-  @media (prefers-reduced-motion: reduce) { .cf-hl, .cf-c { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .cf-hl, .cf-c { transition: none; animation: none; } }
   .cf-c ul.cp-checks { margin-top: 24px; padding-top: 24px; }
   .cf-tags { margin: auto 0 0; padding-top: 30px; }   /* patch-425: 맞는 고객 태그 = 태그 공통 규격(.sr-tags · docs/tag.html) · 제목(이런 분께 맞아요)만 삭제 */
   @media (max-width: 1023px) { .cf-c { padding: 32px; } .cf-c h3 { font-size: 26px; line-height: 36px; } .cf-q { font-size: 17px; line-height: 26px; } }
