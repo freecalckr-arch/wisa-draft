@@ -20,12 +20,12 @@
   .gv { max-width: 1100px; margin: 0 0 32px; }
   .gv[hidden] { display: none; }
   .gv figcaption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 13px; color: var(--gray-500); }
-  .gv figcaption b { font-size: 15px; color: var(--gray-900); }
+  .gv figcaption b { font-size: 16px; color: var(--gray-900); }
+  .gv-same { margin: 10px 0 0; font-size: 13px; color: var(--gray-600); } .gv-same span { color: var(--gray-400); }
   .gv .gv-t { height: 24px; padding: 0 8px; border-radius: 6px; background: var(--primary-50); color: var(--primary-700); font-weight: 600; line-height: 24px; }
-  .gv figcaption a { margin-left: auto; color: var(--gray-500); }
   .gv-f { position: relative; overflow: hidden; border: 1px solid var(--gray-200); border-radius: 12px; background: var(--white); }
   .gv-f iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; pointer-events: none; }
-  @media (max-width: 767px) { .gv-bar .gv-sp { margin-left: 0; width: 100%; } .gv figcaption a { margin-left: 0; } }
+  @media (max-width: 767px) { .gv-bar .gv-sp { margin-left: 0; width: 100%; } }
 </style>
 </head>
 <body>
@@ -50,7 +50,7 @@
 <tr><td>전체 중 비중 2~4조각 · 점수 1개</td><td><b>⑦ 도넛</b> <code>gx-donut</code></td><td>화면 이미지 안</td><td>대시보드 · GEO 진단 점수</td></tr>
 <tr><td>단계마다 줄어드는 수 (노출 → 클릭 → 구매)</td><td><b>⑧ 퍼널</b> <code>gx-funnel</code></td><td>화면 이미지 안</td><td>공식채널운영 · 버티컬커머스</td></tr>
 </tbody></table></div>
-    <p class="note">실제 페이지에 쓰인 모습은 <a href="#tab=페이지별 보기">페이지별 보기</a> 탭에서 해상도별로 볼 수 있습니다.</p>
+    <p class="note">① ② ③ 이 실제 페이지에 쓰인 모습은 <a href="#tab=양식 보기">양식 보기</a> 탭에서 해상도별로 볼 수 있습니다.</p>
     <h2 id="common">모든 그래프 공통</h2>
     <ol class="rules">
       <li><div><b>색은 그레이 + 블루 1개</b><span>기본 계열 Gray 300, 봐야 할 값 1개만 Primary 600. 비교 대상은 Gray 400. 계열이 여러 개면 Gray 명도(200 · 300 · 400)로 나눕니다.</span></div></li>
@@ -61,40 +61,26 @@
     </ol>
 </section>
 
-<section class="panel" data-tab="페이지별 보기">
-    <h2 id="pages">마케팅 페이지 그래프 모아 보기</h2>
-    <p>각 마케팅 페이지의 그래프 영역(<code>#geo-market</code>)을 실제 페이지에서 그대로 불러와 보여 줍니다. 새 페이지 그래프를 고를 때 데이터 성격이 비슷한 페이지를 찾아 같은 양식을 씁니다.</p>
+<section class="panel" data-tab="양식 보기">
+    <h2 id="pages">그래프 영역 양식 3가지</h2>
+    <p>그래프 영역(<code>#geo-market</code>) 메인 그래프는 아래 3가지 양식 중 하나를 씁니다. 같은 양식을 쓰는 페이지는 하나만 실제 페이지에서 그대로 불러와 보여 주고, 나머지는 링크로 둡니다. 새 페이지는 데이터 성격에 맞는 양식을 골라 같은 모양으로 그립니다.</p>
     <div class="gv-bar" role="group" aria-label="보기 설정">
       <span>해상도</span><button type="button" data-w="1440" class="on">PC 1440</button><button type="button" data-w="820">태블릿 820</button><button type="button" data-w="390">모바일 390</button>
-      <span class="gv-sp">양식</span><button type="button" data-k="all" class="on">전체</button><button type="button" data-k="1">① 꺾은선</button><button type="button" data-k="2">② 비교 꺾은선</button><button type="button" data-k="3">③ 비교 세로 막대</button>
     </div>
     <figure class="gv" data-type="1">
-      <figcaption><b>GEO / AI 검색</b><span class="gv-t">① 꺾은선</span><span class="gv-d">연도별로 커지는 수치 + 전망 · 실적 실선 / 전망 점선</span><a href="../geo.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../geo.html" title="GEO / AI 검색 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
-    </figure>
-    <figure class="gv" data-type="1">
-      <figcaption><b>온사이트마케팅</b><span class="gv-t">① 꺾은선</span><span class="gv-d">단계마다 줄어드는 수 · 방문 100명 → 구매</span><a href="../onsite.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../onsite.html" title="온사이트마케팅 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+      <figcaption><b>① 꺾은선</b><span class="gv-d">시간 · 단계에 따라 커지거나 줄어드는 한 계열 (연도별 추이 + 전망 점선 · 방문 → 구매 단계)</span></figcaption>
+      <div class="gv-f"><iframe data-src="../geo.html" title="① 꺾은선 예시" loading="lazy" tabindex="-1"></iframe></div>
+      <p class="gv-same">같은 양식: <a href="../geo.html#geo-market" target="_blank" rel="noopener">GEO</a> · <a href="../onsite.html#geo-market" target="_blank" rel="noopener">온사이트마케팅</a> <span>(보이는 예시는 GEO)</span></p>
     </figure>
     <figure class="gv" data-type="2">
-      <figcaption><b>CRM마케팅</b><span class="gv-t">② 비교 꺾은선</span><span class="gv-d">구매 횟수 단계별 두 방식 비교 · 관리할 때 / 그냥 둘 때 + 차이 면</span><a href="../crm.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../crm.html" title="CRM마케팅 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
-    </figure>
-    <figure class="gv" data-type="2">
-      <figcaption><b>리포트</b><span class="gv-t">② 비교 꺾은선</span><span class="gv-d">날짜에 따라 벌어지는 누적 차이 · 바로 알 때 / 월말에 알 때</span><a href="../report.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../report.html" title="리포트 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+      <figcaption><b>② 비교 꺾은선</b><span class="gv-d">두 방식 · 두 집단을 시간 · 단계에 따라 비교 (차이를 강조할 때만 사이 면)</span></figcaption>
+      <div class="gv-f"><iframe data-src="../crm.html" title="② 비교 꺾은선 예시" loading="lazy" tabindex="-1"></iframe></div>
+      <p class="gv-same">같은 양식: <a href="../crm.html#geo-market" target="_blank" rel="noopener">CRM마케팅</a> · <a href="../report.html#geo-market" target="_blank" rel="noopener">리포트</a> · <a href="../vertical-commerce.html#geo-market" target="_blank" rel="noopener">버티컬커머스</a> <span>(보이는 예시는 CRM마케팅)</span></p>
     </figure>
     <figure class="gv" data-type="3">
-      <figcaption><b>공식채널운영</b><span class="gv-t">③ 비교 세로 막대</span><span class="gv-d">두 항목 크기 비교 · 광고 클릭 대비 구매 + 차이 점선</span><a href="../sns-ops.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../sns-ops.html" title="공식채널운영 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
-    </figure>
-    <figure class="gv" data-type="3">
-      <figcaption><b>상품DB 연동</b><span class="gv-t">③ 비교 세로 막대</span><span class="gv-d">두 항목 크기 비교 · 채널별 이용률 + 차이 점선</span><a href="../shopping-feed.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../shopping-feed.html" title="상품DB 연동 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
-    </figure>
-    <figure class="gv" data-type="2">
-      <figcaption><b>버티컬커머스</b><span class="gv-t">② 비교 꺾은선</span><span class="gv-d">두 집단 연도별 비교 · 버티컬 커머스 / 자사몰</span><a href="../vertical-commerce.html#geo-market" target="_blank" rel="noopener">페이지에서 보기 ↗</a></figcaption>
-      <div class="gv-f"><iframe data-src="../vertical-commerce.html" title="버티컬커머스 그래프 영역" loading="lazy" tabindex="-1"></iframe></div>
+      <figcaption><b>③ 비교 세로 막대</b><span class="gv-d">항목 2~4개 크기 비교 + 차이 점선</span></figcaption>
+      <div class="gv-f"><iframe data-src="../sns-ops.html" title="③ 비교 세로 막대 예시" loading="lazy" tabindex="-1"></iframe></div>
+      <p class="gv-same">같은 양식: <a href="../sns-ops.html#geo-market" target="_blank" rel="noopener">공식채널운영</a> · <a href="../shopping-feed.html#geo-market" target="_blank" rel="noopener">상품DB 연동</a> <span>(보이는 예시는 공식채널운영)</span></p>
     </figure>
     <p class="note">그래프는 화면에 들어오면 한 번 그려집니다. 다시 보려면 해상도 버튼을 누릅니다.</p>
 </section>
