@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-489: 문제 영역 개선 화면 = 목표에 맞는 조합을 한 번에 — 머리줄 우리 상품(상품 정보 기준) · 광고 목표 칩 3개(신상품 판매 · 재방문 · 신규 고객 · 선택 1개 블루) · 매체 · 상품 조합 4줄 (3초마다 목표가 바뀌면 4줄이 함께 바뀜 · 스크립트 ads-why · 예산 막대 삭제)
      · 2026-11-13 patch-488: 매체 탭 설명 카드 대표 상품 태그 번호 원 삭제 (비주얼에 번호 표시가 없어서)
      · 2026-11-13 patch-487: 쇼핑광고 탭 타사 상품 5개 = 1인 소파 사진(cp-chair-*.webp · 흐리게 처리 그대로) · 상품명 · 가격 소파로
      · 2026-11-13 patch-486: 디스플레이광고 탭 기사 사진 = 1인 소파 가로 연출 컷(wr-chair-room-h.webp · 조명 사진 대신)
@@ -365,12 +366,20 @@
   .ad-mt { flex: 1; min-width: 0; font-size: 12px; color: var(--gray-500); white-space: nowrap; }
   .ad-mt b { margin-left: 6px; font-size: 13px; font-weight: 700; color: var(--gray-900); }
   .ad-cr .sn-ow { width: 96px; box-sizing: border-box; padding: 3px 0; text-align: center; }
-  .ad-sb2 { flex: 1; min-width: 0; height: 8px; border-radius: 99px; background: var(--gray-100); overflow: hidden; }
-  .ad-sb2 i { display: block; width: calc(var(--v) * 100%); height: 100%; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: adFill 6s var(--ease-out) infinite; animation-delay: calc(var(--k) * .3s); }
-  .ad-w2 .ad-cr b { flex: none; width: 56px; text-align: right; font-size: 13px; font-weight: 700; color: var(--gray-900); animation: adVal 6s infinite; animation-delay: calc(var(--k) * .3s); }
-  .ad-w2 .ad-cr li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }   /* Primary 25 */
-  .ad-w2 .ad-cr li.hl .ad-sb2 i { background: var(--primary-600); }
-  .ad-w2 .ad-cr li.hl b { color: var(--primary-600); }
+  /* patch-489: 개선 화면 = 머리줄 우리 상품(상품 정보 기준) → 광고 목표 칩 3개(선택 1개 블루) → 목표에 맞는 매체 · 상품 조합 4줄 (3초마다 목표가 바뀌면 4줄이 함께 바뀜 · 스크립트 ads-why) */
+  .ad-w2 .sn-hm { display: flex; align-items: center; gap: 6px; }
+  .ad-w2 .sn-hm > img { width: 20px; height: 20px; border-radius: 6px; object-fit: cover; background: var(--gray-100); box-shadow: 0 0 0 1px var(--gray-200); }
+  #geo-why .pn.ows > .ad-gl2 { display: flex; align-items: center; gap: 6px; margin: 0 16px 10px !important; font-size: 12px; color: var(--gray-500); }
+  .ad-gl2 > span { margin-right: 4px; font-weight: 600; }
+  .ad-gl2 > em { padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-style: normal; font-weight: 600; line-height: 18px; color: var(--gray-600); transition: background-color .3s, color .3s, box-shadow .3s; }
+  .ad-gl2 > em.on { background: var(--primary-600); box-shadow: none; color: var(--white); }
+  #geo-why .pn.ows.ad-w2 > .ad-cr { gap: 4px; transition: opacity .25s; }
+  .ad-w2 .ad-cr.swap { opacity: 0; }
+  .ad-w2 .ad-cr li { height: 32px; }
+  .ad-w2 .ad-cr .ad-cn { width: 104px; }
+  .ad-pc { flex: 1; min-width: 0; }
+  .ad-pc > em { padding: 3px 10px; border-radius: 99px; background: var(--gray-100); font-style: normal; font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+  .ad-w2 .sn-ck { flex: none; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--gray-700); color: var(--white); font-style: normal; }
 
   /* ── 매체 탭 화면 560×480 (PC 크기로 그리고 칸 폭에 맞춰 s = min(1, 칸 폭 ÷ 560) 축소 · 스크립트 ads-vis-fit) ── */
   #ads-products .ad-vis { position: relative; height: calc(480px * var(--s, 1)); }
@@ -478,7 +487,7 @@
   .ad-lk b { font-weight: 700; color: var(--gray-900); }
 
   @media (prefers-reduced-motion: reduce) {
-    .ad-rows li, .ad-bk, .ad-sb2 i, .ad-w2 .ad-cr b, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
+    .ad-rows li, .ad-bk, .ad-w2 .ad-cr, .ad-gl2 > em, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
     .ad-g4 .me i { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600); }
     .ad-cta { background: var(--primary-600); color: var(--white); }
   }
@@ -569,9 +578,10 @@
       <div class="bt is-new rv" style="--d:100ms">
         <div class="bt-hd"><span class="bt-eb">위사 매체 광고 · 한곳에서</span><h3>목표에 맞는 조합을 한 번에</h3><p>쇼핑몰 상품 정보를 기준으로 준비하고, 목표에 맞는 매체 · 상품 조합을 제안합니다. 집행 후 성과는 한곳에서 확인합니다.</p></div>
         <div class="bt-vis" aria-hidden="true">
-          <div class="pn ows sn-ch sn-ok ad-w2">
-            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/></svg></i>매체 조합 제안<span class="sn-hm">목표 <b>신상품 판매</b> · 월 500만원</span></div>
-            <ul class="ad-cr"><li class="hl" style="--k:0"><span class="ad-cn"><img src="assets/common/brand/naver.svg" alt="">네이버 쇼핑</span><span class="ad-sb2"><i style="--v:1"></i></span><b>200만원</b></li><li style="--k:1"><span class="ad-cn"><img src="assets/common/brand/google.svg" alt="">구글 검색광고</span><span class="ad-sb2"><i style="--v:0.625"></i></span><b>125만원</b></li><li style="--k:2"><span class="ad-cn"><img src="assets/common/brand/kakao.svg" alt="">카카오 쇼핑박스</span><span class="ad-sb2"><i style="--v:0.5"></i></span><b>100만원</b></li><li style="--k:3"><span class="ad-cn"><img src="assets/common/brand/meta.svg" alt="">메타 광고</span><span class="ad-sb2"><i style="--v:0.375"></i></span><b>75만원</b></li></ul>
+          <div class="pn ows sn-ch sn-ok ad-w2" data-g='[[["naver.svg","네이버 쇼핑","핫아이템 · 포커스템"],["naver.svg","네이버 검색","브랜드검색"],["kakao.svg","카카오","쇼핑박스"],["meta.svg","메타","인스타그램 피드"]],[["google.svg","구글","리타기팅 배너"],["kakao.svg","카카오","비즈보드"],["meta.svg","메타","다이내믹 광고"],["naver.svg","네이버 검색","브랜드검색"]],[["naver.svg","네이버 검색","파워링크"],["google.svg","구글","검색광고"],["meta.svg","메타","인스타그램 피드"],["youtube.svg","유튜브","영상 광고"]]]'>
+            <div class="win-hd"><i class="sn-hi"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/></svg></i>매체 조합 제안<span class="sn-hm"><img src="assets/geo/interior/wr-chair.webp" alt="">부클 라운드 1인 소파 · 상품 정보 기준</span></div>
+            <p class="ad-gl2"><span>광고 목표</span><em class="on">신상품 판매</em><em>재방문</em><em>신규 고객</em></p>
+            <ul class="ad-cr"><li><span class="ad-cn"><img src="assets/common/brand/naver.svg" alt="">네이버 쇼핑</span><span class="ad-pc"><em>핫아이템 · 포커스템</em></span><i class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i></li><li><span class="ad-cn"><img src="assets/common/brand/naver.svg" alt="">네이버 검색</span><span class="ad-pc"><em>브랜드검색</em></span><i class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i></li><li><span class="ad-cn"><img src="assets/common/brand/kakao.svg" alt="">카카오</span><span class="ad-pc"><em>쇼핑박스</em></span><i class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i></li><li><span class="ad-cn"><img src="assets/common/brand/meta.svg" alt="">메타</span><span class="ad-pc"><em>인스타그램 피드</em></span><i class="sn-ck"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></i></li></ul>
             <div class="ows-ft"><i class="hit-tag">목표 하나에 맞춘 매체 조합</i></div>
           </div>
         </div>
@@ -1383,6 +1393,23 @@
     });
   })();
   /* @endregion ads-tabs */
+  /* @region ads-why (patch-489): 문제 영역 개선 화면 — 3초마다 광고 목표 칩이 바뀌고, 목표에 맞는 매체 · 상품 조합 4줄이 함께 바뀜 (화면에 보일 때만) */
+  const adW2 = document.querySelector('#geo-why .ad-w2');
+  if (adW2 && !reduced) {
+    const goals = [...adW2.querySelectorAll('.ad-gl2 > em')], ul = adW2.querySelector('.ad-cr'), data = JSON.parse(adW2.dataset.g);
+    let gi = 0, vis = true;
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(adW2);
+    setInterval(() => {
+      if (!vis) return;
+      gi = (gi + 1) % goals.length; goals.forEach((g, i) => g.classList.toggle('on', i === gi));
+      ul.classList.add('swap');
+      setTimeout(() => {
+        [...ul.children].forEach((li, i) => { const [lg, n, p] = data[gi][i]; const img = li.querySelector('img'); img.src = 'assets/common/brand/' + lg; img.nextSibling.nodeValue = n; li.querySelector('.ad-pc em').textContent = p; });
+        ul.classList.remove('swap');
+      }, 260);
+    }, 3000);
+  }
+  /* @endregion ads-why */
   /* @region ads-hero (patch-483): 히어로 일정표 — 제목 롤링(geo-hero-ai)의 위치(translateY −k × 1.3em)를 보고 같은 매체 줄만 블루 (네이버 → 카카오 → 구글 → 메타 · 2.4초) */
   const adHw = document.querySelector('.ad-hw'), adRoll = document.querySelector('#geo-hero .ai-roll-in');
   if (adHw && adRoll) {
