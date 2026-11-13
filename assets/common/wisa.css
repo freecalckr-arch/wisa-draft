@@ -3314,11 +3314,12 @@ img, video { max-width: 100%; display: block; }
 /* patch-494: 원 안 화살표 → 겹화살표(>>) 두 개가 왼쪽부터 차례로 켜지는 반복 (1.2초 · 0.2초 엇갈림 · 흐린 30% → 흰색) · 기존 → 개선 방향이 뚜렷하게
    · 원 · 크기 · 위치는 그대로, 태블릿 · 모바일은 원이 90도 돌아가 있어 아래 방향(⌄⌄) · 마크업 그대로(svg 는 숨기고 CSS 로 그림) */
 .bt-arrow svg { display: none; }
-.bt-arrow::before, .bt-arrow::after { content: ""; position: absolute; top: 50%; width: 7px; height: 7px; margin-top: -4.7px; border: solid currentColor; border-width: 2.4px 2.4px 0 0; border-radius: 1px; transform: rotate(45deg); animation: btChev 1.2s ease-in-out infinite; }
+.bt-arrow::before, .bt-arrow::after { content: ""; position: absolute; top: 50%; width: 7px; height: 7px; margin-top: -4.7px; border: solid currentColor; border-width: 2.4px 2.4px 0 0; border-radius: 1px; transform: rotate(45deg); animation: btChev 1.4s ease-in-out infinite; }
 .bt-arrow::before { left: 8.5px; }
-.bt-arrow::after { left: 16.5px; animation-delay: .2s; }
-@keyframes btChev { 0%, 100% { opacity: .3; } 40% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .bt-arrow::before, .bt-arrow::after { animation: none; } }
+.bt-arrow::after { left: 16.5px; animation-delay: .25s; }
+/* patch-495: 옆으로 가는 느낌 강화 — 깜빡임만 → 화살표가 진행 방향으로 6px 미끄러지며 나타났다 사라짐 (1.4초 · 0.25초 엇갈림) */
+@keyframes btChev { 0% { opacity: 0; transform: translateX(-4px) rotate(45deg); } 45% { opacity: 1; } 100% { opacity: 0; transform: translateX(4px) rotate(45deg); } }
+@media (prefers-reduced-motion: reduce) { .bt-arrow::before, .bt-arrow::after { animation: none; opacity: 1; } }
 
 /* @region tab-hover · patch-365 · 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지 a.rn-cl-tab:hover 와 같게)
    · 굵어져도 탭 폭이 흔들리지 않게 글자(span.tp-t · wisa.js tab-ind 가 감쌈) 아래에 굵은 글자 폭을 높이 0 으로 미리 깔아 둠 */
