@@ -15,10 +15,11 @@
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=424">
-<link rel="stylesheet" href="assets/common/plan.css?v=449">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=471">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-13 patch-471: 두 방식 카드 뱃지 = WISA 뱃지 컴포넌트 md (높이 24 · 2/10 · 14/500 · 둥근 끝) · Cloud = Primary 50/700 · Enterprise = Purple 50/700 (plan.css .pc-pop.md · .md.purple · 시험 적용 · 진한 뱃지 대신)
      · 2026-11-13 patch-470: 성장 경로 ① 주소창 오른쪽 블루 버튼 "쇼핑몰 만들기" → 커서가 누름 → 회색 뼈대가 걷히며 메뉴 · NEW 상품 채워짐 → 버튼이 "✓ 오픈 완료"로 바뀜 (같은 요소 · 6초 반복 · 동작 줄이기 시 오픈 완료 상태)
      · 2026-11-13 patch-469: 성장 경로 ① 쇼핑몰 오픈(뼈대 → 진열 → 오픈 완료) · ② 영상 업로드(진행 막대 → 완료 체크)도 5.2초마다 반복 (보일 때만 · 동작 줄이기 시 정지 · 스크립트 cg-loop)
      · 2026-11-13 patch-468: 성장 경로 ① 진열 제목 BEST → NEW (막 오픈한 쇼핑몰)
@@ -608,7 +609,7 @@
   <div class="container">
     <ul class="pc-list cp-list">   <!-- [개발 전달] patch-416 요금 카드 공통 부품(assets/common/plan.css · docs/plan.html) · 뱃지 Cloud 파랑 / Enterprise 인디고 · 버튼 1개(흰) + 자세히 보기 텍스트 링크 -->
       <li class="pc rv">   <!-- [개발 전달] patch-444 Cloud = 기본 흰 카드 · Enterprise = .tone-indigo 그라데이션 (plan.css) -->
-        <span class="pc-pop solid">SaaS 구독형</span>
+        <span class="pc-pop md">SaaS 구독형</span>
         <h3>Cloud</h3>
         <p class="pc-sub">WISA 클라우드에서 바로 쓰는 쇼핑몰</p>
         <p class="pc-price"><strong>무료</strong><span>~</span></p>
@@ -636,7 +637,7 @@
                   <linearGradient id="rkG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient>
                 </defs>
               </svg></div>
-        <span class="pc-pop solid ent">라이선스 소유형</span>
+        <span class="pc-pop md purple">라이선스 소유형</span>
         <h3>Enterprise</h3>
         <p class="pc-sub">소스코드와 서버를 직접 소유하는 쇼핑몰</p>
         <p class="pc-price"><strong>별도 문의</strong></p>
