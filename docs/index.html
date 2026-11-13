@@ -89,6 +89,22 @@
 <tr><td>7</td><td>FAQ · CTA</td><td><code>#geo-faq</code> · <code>#cta</code></td><td>마케팅 공통</td></tr>
 </tbody></table></div>
     <p class="note">Cloud · Enterprise 표시는 페이지 전체에서 같은 아이콘(구름 · 코드)을 이름 왼쪽에 씁니다. 뱃지는 공통 뱃지(<a href="tag.html#badge">태그 · 뱃지</a>)만 씁니다.</p>
+
+    <h2 id="interaction-solution">모바일 포커스 인터랙션</h2>
+    <p>모바일(≤767)에서는 마우스가 없어서, 핵심 차이 · 상세 기능 비교 표를 <b>스크롤하면 화면 가운데에 온 항목 하나가 켜집니다</b>. 두 표는 같은 방식 · 같은 색을 씁니다.</p>
+    <ol class="rules">
+      <li><div><b>켜지는 항목</b><span>화면 세로 가운데에 가장 가까운 항목 1개만 켜짐 (<code>.on</code>). 스크롤할 때마다 다시 계산합니다 (한 프레임에 1번 · <code>requestAnimationFrame</code>).</span></div></li>
+      <li><div><b>모두 꺼지는 때</b><span>표가 화면 위쪽 25% 위로 지나갔거나, 아래쪽 75% 아래에 아직 있을 때. 표 묶음 제목 줄(<code>tr.g</code>)은 켜지지 않습니다.</span></div></li>
+      <li><div><b>켜진 모습</b><span>항목 이름 띠 Primary 50 바탕 / Primary 700 글자 + 항목 전체(띠 + 두 값)에 Primary 600 선 1.5. 선은 위에 덮는 선(<code>::after</code> · inset)이라 레이아웃이 움직이지 않습니다. 켜지고 꺼질 때 0.3초 페이드.</span></div></li>
+      <li><div><b>모서리</b><span>선은 항목 모서리를 따라갑니다. 핵심 차이 마지막 항목은 표 둥근 모서리에 맞춰 아래 모서리 15 (표 모서리 16 − 테두리 1).</span></div></li>
+      <li><div><b>동작 줄이기</b><span>기기에서 동작 줄이기(<code>prefers-reduced-motion</code>)를 켜면 아무것도 켜지지 않습니다.</span></div></li>
+    </ol>
+    <div class="tbl"><table><thead><tr><th>영역</th><th>PC · 태블릿 (≥768)</th><th>모바일 (≤767)</th><th>스크립트</th></tr></thead><tbody>
+<tr><td>핵심 차이 <code>#cmp-diff</code></td><td>2.4초마다 다음 줄이 켜지며 반복 (줄 바탕 Primary 25 · 라벨 Primary 600 + 흰 글자 + 파동 1번) · 표가 35% 이상 보일 때만 · 마우스 올린 줄 고정 + 순환 멈춤</td><td>스크롤 포커스 (위 규칙) · 시간 순환 없음 · 파동 없음</td><td><code>cmp-diff-cycle</code></td></tr>
+<tr><td>상세 기능 비교 <code>#cmp-table</code></td><td>마우스 올린 줄 바탕 Primary 25 (#f5faff · 0.2초) · 마우스가 있는 기기만</td><td>스크롤 포커스 (위 규칙) · 머리줄이 화면 위에 붙으면 아래 모서리 둥글게 + 그림자(<code>.is-stuck</code>)</td><td><code>cmp-table-scroll</code> · <code>cmp-table-stuck</code></td></tr>
+</tbody></table></div>
+    <p class="note">해상도가 바뀌면(PC ↔ 모바일) 켜진 항목을 끄고 그 해상도 방식으로 다시 시작합니다. 코드는 <code>comparison.html</code> 아래쪽 스크립트의 <code>@region</code> 이름으로 찾습니다.</p>
+
     </section>
 
     <p class="foot">마지막 수정 2026-11-13 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
