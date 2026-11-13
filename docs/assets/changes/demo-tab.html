@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>페이지 전환 탭 · 움직임 보기</title>
+<link rel="stylesheet" href="../../../assets/common/wisa.css?v=498">
+<style>
+  html, body { margin: 0; background: var(--white); }
+  body { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: 100vh; padding: 16px; box-sizing: border-box; }
+  .dm-r { appearance: none; border: 0; background: none; padding: 4px 8px; font: inherit; font-size: 13px; color: var(--gray-500); text-decoration: underline; cursor: pointer; }
+</style>
+</head>
+<body>
+<!-- 규칙 사이트 기존 수정 목록 · 페이지 전환 탭 데모: 시안 공통 wisa.css 의 .tab-page 를 그대로 씀. 다른 탭을 누르면 흰 알약만 미끄러짐 (페이지 이동은 하지 않음) -->
+<nav class="tab-page" aria-label="데모 탭">
+  <a href="#cloud" class="on" aria-current="page"><i aria-hidden="true"></i><span class="tp-t" data-t="부스터 Cloud">부스터 Cloud</span></a>
+  <a href="#enterprise"><span class="tp-t" data-t="부스터 Enterprise">부스터 Enterprise</span></a>
+  <a href="#compare"><span class="tp-t" data-t="라이선스 비교">라이선스 비교</span></a>
+</nav>
+<button type="button" class="dm-r" onclick="location.reload()">처음부터 다시 보기 (선택 점 퍼짐)</button>
+<script>
+  // wisa.js tab-ind 와 같은 동작 (데모라 페이지 이동만 뺌)
+  const nav = document.querySelector('.tab-page');
+  const place = a => { nav.style.setProperty('--ix', a.offsetLeft + 'px'); nav.style.setProperty('--iy', a.offsetTop + 'px'); nav.style.setProperty('--iw', a.offsetWidth + 'px'); nav.style.setProperty('--ih', a.offsetHeight + 'px'); };
+  const cur = () => nav.querySelector('a.on');
+  place(cur()); nav.classList.add('ind'); setTimeout(() => nav.classList.add('ready'), 60);
+  if (document.fonts) document.fonts.ready.then(() => place(cur()));
+  addEventListener('resize', () => place(cur()));
+  nav.addEventListener('click', e => {
+    const a = e.target.closest('a'); e.preventDefault(); const on = cur(); if (!a || a === on) return;
+    const dot = on.querySelector('i'); on.classList.remove('on'); on.removeAttribute('aria-current');
+    a.classList.add('on'); a.setAttribute('aria-current', 'page'); if (dot) a.prepend(dot); place(a);
+  });
+</script>
+</body>
+</html>

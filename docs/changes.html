@@ -18,16 +18,23 @@
   <div class="body">
 <section class="panel" data-tab="요약">
     <h2 id="summary">한눈에 보기</h2>
-    <div class="tbl"><table><thead><tr><th>항목</th><th>바뀌는 것</th><th>바뀌지 않는 것</th><th>대상</th></tr></thead><tbody>
-<tr><td><b>CTA</b></td><td>배경 빛 위치: 오른쪽 끝 → 문구 뒤 가운데 (모든 구간)</td><td>빛 색 · 크기 · 움직임 · 속도, 타이틀 · 버튼 크기</td><td>서브페이지 CTA <code>.rn-cta</code></td></tr>
-<tr><td><b>페이지 전환 탭</b></td><td>크기 (박스 44 → 48 · 글자 13 → 15), 선택 표시 움직임, 선택 점 퍼짐</td><td>색 · 모서리 · 좌우 패딩 · 호버(검정 + 굵게)</td><td>히어로 위 탭 <code>.rn-cl-tabs</code> · <code>.rn-ent-tabs</code> 등 같은 모양 탭</td></tr>
-<tr><td><b>모바일 콘텐츠 타이틀</b></td><td>모바일(≤767) 28 → 26px</td><td>PC 34 · 태블릿 36 · 히어로 h1</td><td>영역 타이틀 h2 · CTA 타이틀 (28 인 페이지만)</td></tr>
-<tr><td><b>탑버튼</b></td><td>오른쪽 아래 로켓 탑버튼 → 오른쪽 가운데 맨 위 · 맨 아래 이동 버튼 (위 · 아래 2개)</td><td>스크롤하면 나타남 · 부드럽게 이동</td><td>모든 서브페이지 <code>#scroll_top</code></td></tr>
+    <div class="tbl"><table><thead><tr><th>항목</th><th>미리보기 (기존 → 신규)</th><th>바뀌는 것</th><th>바뀌지 않는 것</th><th>대상</th></tr></thead><tbody>
+<tr><td><b>CTA</b></td><td><a class="thumb" href="#tab=CTA"><img src="assets/changes/cta-old-1440.jpg" alt="기존" style="object-fit:cover;object-position:center"><span>→</span><img src="assets/changes/cta-new-1440.jpg" alt="신규" style="object-fit:cover;object-position:center"></a></td><td>배경 빛 위치: 오른쪽 끝 → 문구 뒤 가운데 (모든 구간)</td><td>빛 색 · 크기 · 움직임 · 속도, 타이틀 · 버튼 크기</td><td>서브페이지 CTA <code>.rn-cta</code></td></tr>
+<tr><td><b>페이지 전환 탭</b></td><td><a class="thumb" href="#tab=페이지 전환 탭"><img src="assets/changes/tab-old-1440.png" alt="기존" style="object-fit:contain"><span>→</span><img src="assets/changes/tab-new-1440.png" alt="신규" style="object-fit:contain"></a></td><td>크기 (박스 44 → 48 · 글자 13 → 15), 선택 표시 움직임, 선택 점 퍼짐</td><td>색 · 모서리 · 좌우 패딩 · 호버(검정 + 굵게)</td><td>히어로 위 탭 <code>.rn-cl-tabs</code> · <code>.rn-ent-tabs</code> 등 같은 모양 탭</td></tr>
+<tr><td><b>모바일 콘텐츠 타이틀</b></td><td><a class="thumb" href="#tab=모바일 타이틀"><img src="assets/changes/title-old-390.png" alt="기존" style="object-fit:cover;object-position:left center"><span>→</span><img src="assets/changes/title-new-390.png" alt="신규" style="object-fit:cover;object-position:left center"></a></td><td>모바일(≤767) 28 → 26px</td><td>PC 34 · 태블릿 36 · 히어로 h1</td><td>영역 타이틀 h2 · CTA 타이틀 (28 인 페이지만)</td></tr>
+<tr><td><b>탑버튼</b></td><td><a class="thumb" href="#tab=탑버튼"><img src="assets/changes/top-old-1440.jpg" alt="기존" style="object-fit:cover;object-position:center 86%"><span>→</span><img src="assets/changes/top-new-1440.jpg" alt="신규" style="object-fit:cover;object-position:center 50%"></a></td><td>오른쪽 아래 로켓 탑버튼 → 오른쪽 가운데 맨 위 · 맨 아래 이동 버튼 (위 · 아래 2개)</td><td>스크롤하면 나타남 · 부드럽게 이동</td><td>모든 서브페이지 <code>#scroll_top</code></td></tr>
 </tbody></table></div>
+    <p class="note">미리보기를 누르면 해당 탭으로 이동합니다. 기존 화면은 wisa.co.kr/solution/cloud 를 2026-11-13 에 캡처했고, CTA · 모바일 타이틀의 신규 화면은 같은 기존 화면에 신규 값만 적용해 찍었습니다 (다른 곳은 그대로).</p>
     <div class="call"><p>신규 시안 코드는 공통 파일 <code>assets/common/wisa.css</code> · <code>wisa.js</code> 에 있습니다. 각 탭의 "시안 코드 위치"에서 찾을 수 있습니다.</p></div>
 </section>
 
 <section class="panel" data-tab="CTA">
+    <h2 id="cta-see">미리보기</h2>
+    <div class="ba"><figure><figcaption>기존 · 빛이 오른쪽 끝 (PC 1440)</figcaption><div class="im"><img src="assets/changes/cta-old-1440.jpg" alt="기존 빛이 오른쪽 끝 (PC 1440)" loading="lazy"></div></figure><figure><figcaption><b>신규</b> · 빛이 문구 뒤 가운데 (PC 1440)</figcaption><div class="im"><img src="assets/changes/cta-new-1440.jpg" alt="신규 빛이 문구 뒤 가운데 (PC 1440)" loading="lazy"></div></figure></div>
+    <div class="ba mo"><figure><figcaption>기존 · 모바일 390</figcaption><div class="im"><img src="assets/changes/cta-old-390.jpg" alt="기존 모바일 390" loading="lazy"></div></figure><figure><figcaption><b>신규</b> · 모바일 390</figcaption><div class="im"><img src="assets/changes/cta-new-390.jpg" alt="신규 모바일 390" loading="lazy"></div></figure></div>
+    <p class="ba-cap">같은 기존 화면에 빛 위치만 바꿔 찍은 그림입니다. 빛은 천천히 움직이므로 찍는 순간마다 모양이 조금씩 다릅니다.</p>
+    <div class="demo"><iframe src="assets/changes/demo-cta.html" title="움직임 보기 · 신규 CTA (시안 공통 파일 그대로) · 빛 두 개가 문구 뒤에서 10초 · 13초 주기로 천천히 움직임" style="height:360px" loading="lazy"></iframe><p>움직임 보기 · 신규 CTA (시안 공통 파일 그대로) · 빛 두 개가 문구 뒤에서 10초 · 13초 주기로 천천히 움직임</p></div>
+
     <h2 id="cta-what">무엇이 바뀌나</h2>
     <p>기존 CTA 에도 같은 배경 빛 애니메이션(파란 빛 · 보라 빛 두 개)이 있습니다. <b>빛의 위치만</b> 오른쪽 끝에서 문구 뒤 가운데로 옮겨, 타이틀 뒤에서 빛이 흐르게 합니다 (PC · 태블릿 · 모바일 모두).</p>
 
@@ -72,6 +79,10 @@
 </section>
 
 <section class="panel" data-tab="페이지 전환 탭">
+    <h2 id="tab-see">미리보기</h2>
+    <div class="ba"><figure><figcaption>기존 · 박스 44 · 글자 13</figcaption><div class="im"><img src="assets/changes/tab-old-1440.png" alt="기존 박스 44 · 글자 13" loading="lazy"></div></figure><figure><figcaption><b>신규</b> · 박스 48 · 글자 15</figcaption><div class="im"><img src="assets/changes/tab-new-1440.png" alt="신규 박스 48 · 글자 15" loading="lazy"></div></figure></div>
+    <div class="demo"><iframe src="assets/changes/demo-tab.html" title="움직임 보기 · 다른 탭을 누르면 흰 알약만 미끄러지고 글자는 제자리 · 처음 열릴 때 선택 점에서 연한 블루 링이 3번 퍼짐 · 마우스를 올리면 검정 + 굵게" style="height:150px" loading="lazy"></iframe><p>움직임 보기 · 다른 탭을 누르면 흰 알약만 미끄러지고 글자는 제자리 · 처음 열릴 때 선택 점에서 연한 블루 링이 3번 퍼짐 · 마우스를 올리면 검정 + 굵게</p></div>
+
     <h2 id="tab-size">크기 (기존 → 신규)</h2>
     <div class="tbl"><table><thead><tr><th>항목</th><th>기존 <code>.rn-cl-tabs</code></th><th>신규 <code>.tab-page</code></th></tr></thead><tbody>
 <tr><td>회색 박스 높이</td><td>44</td><td><b>48</b></td></tr>
@@ -119,6 +130,10 @@
 </section>
 
 <section class="panel" data-tab="모바일 타이틀">
+    <h2 id="title-see">미리보기</h2>
+    <div class="ba mo"><figure><figcaption>기존 · 모바일 390 · 28px</figcaption><div class="im"><img src="assets/changes/title-old-390.png" alt="기존 모바일 390 · 28px" loading="lazy"></div></figure><figure><figcaption><b>신규</b> · 모바일 390 · 26px</figcaption><div class="im"><img src="assets/changes/title-new-390.png" alt="신규 모바일 390 · 26px" loading="lazy"></div></figure></div>
+    <p class="ba-cap">solution/cloud 첫 영역 타이틀을 같은 화면에서 크기만 바꿔 찍은 그림입니다.</p>
+
     <h2 id="title-what">무엇이 바뀌나</h2>
     <p>모바일(≤767)에서 콘텐츠 영역 타이틀을 <b>28 → 26px</b> 로 2px 줄입니다. 영역 타이틀 h2 와 CTA 타이틀이 대상이고, 히어로 h1(30)은 그대로입니다.</p>
     <div class="tbl"><table><thead><tr><th>구간</th><th>영역 타이틀</th><th>CTA 타이틀</th></tr></thead><tbody>
@@ -143,6 +158,11 @@
 </section>
 
 <section class="panel" data-tab="탑버튼">
+    <h2 id="top-see">미리보기</h2>
+    <div class="ba tall"><figure><figcaption>기존 · 오른쪽 아래 로켓 (PC 화면 오른쪽 끝)</figcaption><div class="im"><img src="assets/changes/top-old-1440.jpg" alt="기존 오른쪽 아래 로켓 (PC 화면 오른쪽 끝)" loading="lazy"></div></figure><figure><figcaption><b>신규</b> · 오른쪽 가운데 위 · 아래 2개 (PC 화면 오른쪽 끝)</figcaption><div class="im"><img src="assets/changes/top-new-1440.jpg" alt="신규 오른쪽 가운데 위 · 아래 2개 (PC 화면 오른쪽 끝)" loading="lazy"></div></figure></div>
+    <div class="ba tall mo"><figure><figcaption>기존 · 모바일 390</figcaption><div class="im"><img src="assets/changes/top-old-390.jpg" alt="기존 모바일 390" loading="lazy"></div></figure><figure><figcaption><b>신규</b> · 모바일 390</figcaption><div class="im"><img src="assets/changes/top-new-390.jpg" alt="신규 모바일 390" loading="lazy"></div></figure></div>
+    <div class="demo"><iframe src="assets/changes/demo-top.html" title="상태 보기 · 마우스를 올리면 원 바탕 연한 블루 + 화살표 Primary 700 · 맨 위 · 맨 아래에서는 해당 버튼 비활성 · 검정 배경 페이지는 .dark" style="height:190px" loading="lazy"></iframe><p>상태 보기 · 마우스를 올리면 원 바탕 연한 블루 + 화살표 Primary 700 · 맨 위 · 맨 아래에서는 해당 버튼 비활성 · 검정 배경 페이지는 .dark</p></div>
+
     <h2 id="top-what">무엇이 바뀌나</h2>
     <p>기존 오른쪽 아래 로켓 모양 탑버튼(맨 위로 1개)을 신규 시안의 <b>맨 위 · 맨 아래 이동 버튼</b>으로 바꿉니다. 흰 알약 안에 위 · 아래 화살표 버튼 2개가 세로로 있고, 화면 오른쪽 가운데에 떠 있습니다.</p>
 
