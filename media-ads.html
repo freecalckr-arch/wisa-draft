@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-488: 매체 탭 설명 카드 대표 상품 태그 번호 원 삭제 (비주얼에 번호 표시가 없어서)
      · 2026-11-13 patch-487: 쇼핑광고 탭 타사 상품 5개 = 1인 소파 사진(cp-chair-*.webp · 흐리게 처리 그대로) · 상품명 · 가격 소파로
      · 2026-11-13 patch-486: 디스플레이광고 탭 기사 사진 = 1인 소파 가로 연출 컷(wr-chair-room-h.webp · 조명 사진 대신)
      · 2026-11-13 patch-485: 검색광고 탭 화면 = 실제 네이버 브랜드검색 구성으로 (검색창 로고 안 · 글자 탭 · 카드 = 브랜드명 · 홈페이지 + 광고 / 새소식 / 왼쪽 연출 이미지 + 제목(블루) · 설명 · 링크 칩 · 상품 3개) · 파워링크 목록 삭제
@@ -210,7 +211,7 @@
   #ads-products .ad-rep b { font-size: 14px; font-weight: 700; color: var(--black); }
   #ads-products .ad-rep .sr-tags { display: flex; flex-wrap: wrap; margin: 0; padding: 0; list-style: none; counter-reset: adr; }
   #ads-products .ad-rep .sr-tags li { counter-increment: adr; display: inline-flex; align-items: center; gap: 6px; background: var(--gray-100); }
-  #ads-products .ad-rep .sr-tags li::before { content: counter(adr); display: grid; place-items: center; flex: none; width: 16px; height: 16px; line-height: 1; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 10px; font-weight: 700; }
+  #ads-products .ad-rep .sr-tags li::before { content: none; }   /* patch-488: 번호 원 삭제 (번호는 비주얼에 같은 번호가 있을 때만 쓰는 표시 · 이 화면은 대표 상품 3개를 한 화면에 담지 않음) */
   #ads-products .ad-grp { margin-top: 40px; }
   #ads-products .ad-grp + .ad-grp { margin-top: 32px; }
   #ads-products .ad-gh h3 { margin: 0; font-size: 18px; line-height: 26px; font-weight: 700; color: var(--black); }
