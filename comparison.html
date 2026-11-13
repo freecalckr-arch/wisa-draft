@@ -16,10 +16,11 @@
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=472">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
-<link rel="stylesheet" href="assets/common/plan.css?v=473">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=474">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-13 patch-474: 두 방식 카드 뱃지 삭제 (아이콘 · 설명과 같은 말 반복) · Cloud 설명 "WISA 클라우드에서 바로 쓰는 쇼핑몰" → "WISA 클라우드를 구독해 바로 쓰는 쇼핑몰" (구독 vs 소유 키워드는 설명에 남김) · 첫 줄이 이름일 때 위 여백 0 (plan.css)
      · 2026-11-13 patch-473: 두 방식 카드 이름 왼쪽 아이콘 — Cloud 구름 · Enterprise 코드 (핵심 차이 표 머리줄과 같은 아이콘 · 30 · 선 1.6 · Gray 900 · 사이 10 · 모바일 26 · plan.css .pc h3:has(svg))
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지) · 두 방식 카드 뱃지 = .pc-pop.w-badge.md (Cloud 파랑 · Enterprise .purple) · 성장 경로 회색 칩 .cg-chip → 공통 .vw-chip.gray
      · 2026-11-13 patch-471: 두 방식 카드 뱃지 = WISA 뱃지 컴포넌트 md (높이 24 · 2/10 · 14/500 · 둥근 끝) · Cloud = Primary 50/700 · Enterprise = Purple 50/700 (plan.css .pc-pop.md · .md.purple · 시험 적용 · 진한 뱃지 대신)
@@ -79,7 +80,7 @@
      · 2026-11-12 patch-417: 영역별 수정 2차
        - 핵심 차이 가운데 라벨 = 흰 바탕 + Gray 300 테두리 뱃지 (PC · 태블릿)
        - 무료 이벤트 뱃지 = 기존 홈페이지 그대로 (Warning 25 바탕 / Warning 700 글자 · 12/500 · 줄 18 · 좌우 8 · 모서리 6) · 가격 · 취소선(₩220,000) · 뱃지 한 줄(.cp-fee · 사이 8, 좁으면 뱃지 아래로) · patch-415 의 블루 변경은 되돌림
-       - 어떤 방식이 맞을까요 카드 뱃지 = 공통 뱃지 .w-badge.md (Cloud 파랑 · Enterprise 퍼플 · assets/common/badge.css · 모든 페이지 공통 규칙)
+       - 어떤 방식이 맞을까요 카드 뱃지 없음 (patch-474 · 이름 왼쪽 아이콘 + 설명으로 구분)
        - 요금 카드(plan.css) = 가격 → 태그 사이 12 → 20 · 호버 (patch-418 에서 테두리 Gray 900 으로 변경)
      · 2026-11-12 patch-416: 영역별 수정
        - 두 방식 카드 = 요금 카드 공통 부품(assets/common/plan.css · 규칙 사이트 docs/plan.html)으로 교체 · 뱃지 Cloud 파랑(Primary 50/700) · Enterprise 인디고(Indigo 50/700) · 버튼은 카드당 1개 흰 버튼(무료로 시작하기 · 도입 상담하기) + "자세히 보기"는 아래 텍스트 링크
@@ -611,9 +612,8 @@
   <div class="container">
     <ul class="pc-list cp-list">   <!-- [개발 전달] patch-416 요금 카드 공통 부품(assets/common/plan.css · docs/plan.html) · 뱃지 Cloud 파랑 / Enterprise 인디고 · 버튼 1개(흰) + 자세히 보기 텍스트 링크 -->
       <li class="pc rv">   <!-- [개발 전달] patch-444 Cloud = 기본 흰 카드 · Enterprise = .tone-indigo 그라데이션 (plan.css) -->
-        <span class="pc-pop w-badge md">SaaS 구독형</span>
         <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Cloud</h3>
-        <p class="pc-sub">WISA 클라우드에서 바로 쓰는 쇼핑몰</p>
+        <p class="pc-sub">WISA 클라우드를 구독해 바로 쓰는 쇼핑몰</p>
         <p class="pc-price"><strong>무료</strong><span>~</span></p>
         <ul class="pc-tags"><li>Standard</li><li>Pro</li><li>Hybrid</li></ul>
         <a class="btn pc-btn" href="#">무료로 시작하기</a>
@@ -639,7 +639,6 @@
                   <linearGradient id="rkG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient>
                 </defs>
               </svg></div>
-        <span class="pc-pop w-badge md purple">라이선스 소유형</span>
         <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg>Enterprise</h3>
         <p class="pc-sub">소스코드와 서버를 직접 소유하는 쇼핑몰</p>
         <p class="pc-price"><strong>별도 문의</strong></p>
