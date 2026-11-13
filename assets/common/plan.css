@@ -16,6 +16,8 @@
 
 /* 이름 · 설명 */
 .pc h3 { margin: 12px 0 0; color: var(--gray-900); font-size: 28px; font-weight: 700; line-height: 38px; white-space: nowrap; }
+.pc h3:has(svg) { display: inline-flex; align-items: center; gap: 10px; }   /* patch-473 이름 왼쪽 아이콘(선택) · 30 · 선 1.6 · Gray 900 = 핵심 차이 표 · 메인 솔루션 카드 아이콘과 같음 */
+.pc h3 svg { flex: none; width: 30px; height: 30px; }
 .pc .pc-sub { margin: 10px 0 0; color: var(--gray-700); font-size: 16px; line-height: 24px; word-break: keep-all; }
 
 /* 가격 (기존 .rn-cl-price) */
@@ -63,6 +65,7 @@
   .pc-list { grid-template-columns: minmax(0, 1fr); }
   .pc { padding: 30px; }
   .pc h3 { font-size: 26px; }
+  .pc h3 svg { width: 26px; height: 26px; }
   .pc .pc-sub { font-size: 14px; line-height: 20px; }
   .pc-price strong { font-size: 25px; }
   .pc-checks { gap: 16px; }

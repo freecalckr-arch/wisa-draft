@@ -16,10 +16,11 @@
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=472">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
-<link rel="stylesheet" href="assets/common/plan.css?v=472">   <!-- patch-416: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=473">   <!-- patch-416: 요금 카드 공통 부품 -->
 <style>
   /* =====================================================================
      [개발 전달] 라이선스 비교 (솔루션 · /solution/comparison) 개선 시안 — 2026-11-12
+     · 2026-11-13 patch-473: 두 방식 카드 이름 왼쪽 아이콘 — Cloud 구름 · Enterprise 코드 (핵심 차이 표 머리줄과 같은 아이콘 · 30 · 선 1.6 · Gray 900 · 사이 10 · 모바일 26 · plan.css .pc h3:has(svg))
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지) · 두 방식 카드 뱃지 = .pc-pop.w-badge.md (Cloud 파랑 · Enterprise .purple) · 성장 경로 회색 칩 .cg-chip → 공통 .vw-chip.gray
      · 2026-11-13 patch-471: 두 방식 카드 뱃지 = WISA 뱃지 컴포넌트 md (높이 24 · 2/10 · 14/500 · 둥근 끝) · Cloud = Primary 50/700 · Enterprise = Purple 50/700 (plan.css .pc-pop.md · .md.purple · 시험 적용 · 진한 뱃지 대신)
      · 2026-11-13 patch-470: 성장 경로 ① 주소창 오른쪽 블루 버튼 "쇼핑몰 만들기" → 커서가 누름 → 회색 뼈대가 걷히며 메뉴 · NEW 상품 채워짐 → 버튼이 "✓ 오픈 완료"로 바뀜 (같은 요소 · 6초 반복 · 동작 줄이기 시 오픈 완료 상태)
@@ -611,7 +612,7 @@
     <ul class="pc-list cp-list">   <!-- [개발 전달] patch-416 요금 카드 공통 부품(assets/common/plan.css · docs/plan.html) · 뱃지 Cloud 파랑 / Enterprise 인디고 · 버튼 1개(흰) + 자세히 보기 텍스트 링크 -->
       <li class="pc rv">   <!-- [개발 전달] patch-444 Cloud = 기본 흰 카드 · Enterprise = .tone-indigo 그라데이션 (plan.css) -->
         <span class="pc-pop w-badge md">SaaS 구독형</span>
-        <h3>Cloud</h3>
+        <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M20.48 24.96H9.6C6.065 24.96 3.2 22.0944 3.2 18.56c0-2.9031 1.9325-5.3556 4.5825-6.1388C9.165 9.2538 12.325 7.04 16 7.04c4.5625 0 8.33 3.4119 8.8875 7.8237C27.1325 15.4069 28.8 17.4287 28.8 19.84c0 2.8275-2.2925 5.12-5.12 5.12h-3.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Cloud</h3>
         <p class="pc-sub">WISA 클라우드에서 바로 쓰는 쇼핑몰</p>
         <p class="pc-price"><strong>무료</strong><span>~</span></p>
         <ul class="pc-tags"><li>Standard</li><li>Pro</li><li>Hybrid</li></ul>
@@ -639,7 +640,7 @@
                 </defs>
               </svg></div>
         <span class="pc-pop w-badge md purple">라이선스 소유형</span>
-        <h3>Enterprise</h3>
+        <h3><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 23.6 17.6 8.4"/><path d="M8 21.2l-4.8-4.8L8 11.6"/><path d="M24 11.6l4.8 4.8L24 21.2"/></g></svg>Enterprise</h3>
         <p class="pc-sub">소스코드와 서버를 직접 소유하는 쇼핑몰</p>
         <p class="pc-price"><strong>별도 문의</strong></p>
         <ul class="pc-tags"><li>라이선스 1회 구매</li><li>전체 쇼핑몰 타입</li></ul>
