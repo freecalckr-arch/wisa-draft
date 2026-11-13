@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-484: 우리 상품 = 우드앤룸 부클 라운드 1인 소파 (상품 컷 wr-chair.webp · 연출 컷 세로 wr-chair-room-v.webp = 히어로 인스타그램 카드 · 가로 wr-chair-room-h.webp = 검색 탭 브랜드검색 · SNS 탭 게시물) · 검색어 · 기사 · 파워링크 · 캡션 문구 소파로 · 쇼핑 탭 타사 상품 사진은 교체 예정
      · 2026-11-13 patch-483: 비주얼 — 빈 박스를 실제 화면으로 교체 (가상 브랜드 우드앤룸 · assets/geo/interior · 매체 로고 assets/common/brand · 스타일 @region ads-vis · 스크립트 ads-hero · ads-vis-fit · ads-search)
        - 히어로 = 매체 광고 일정표 창(PC 680×418 · 태블릿 520×417 · 모바일 박스 − 좌우 30 × 404) · 11월 주 단위 막대 4줄 · 제목 롤링 매체(네이버 → 카카오 → 구글 → 메타)와 같은 줄만 블루(2.4초) · 주변 = 인스타그램 광고 소재 · 카카오 쇼핑박스 노출 예약 알림(초록 점 없음 · 색 계열 블루 + 레드만) · 이번 달 광고 수익률(공통 hero-bob · 태블릿 · 모바일 숨김)
        - 문제 = 기존: 매체별 광고 성과(지표 이름 · 기간이 매체마다 다름 · 회색 창) / 개선: 목표(신상품 판매 · 월 500만원)에 맞춘 매체 조합 · 예산 막대가 차례로 채워짐(6초 반복) · 1위 줄 블루
@@ -324,7 +325,7 @@
   .ad-cv .ad-ch u > em { font-style: normal; font-size: 12px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
   .ad-cv .ad-ch > img + u + img { width: 16px; height: 16px; margin-left: auto; box-shadow: none; border-radius: 4px; }
   .ad-cv .ad-ci { display: block; height: 176px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
-  .ad-cv .ad-ci img { display: block; width: 100%; height: 100%; object-position: 50% 60%; }
+  .ad-cv .ad-ci img { display: block; width: 100%; height: 100%; object-position: 50% 68%; }
   .ad-cv .ad-cb { display: flex; align-items: center; justify-content: space-between; height: 32px; margin: 0; padding: 0 12px; border-radius: 8px; background: var(--gray-100); font-size: 12px; font-weight: 600; color: var(--gray-900); }
   #geo-hero .ad-hv .sh-toast.ad-ht { top: 64px; right: 48px; }
   #geo-hero .ad-ht .ad-tl { flex: none; width: 36px; height: 36px; border-radius: 10px; }
@@ -407,7 +408,7 @@
   .ad-s2.typing .ad-sbd { opacity: .3; }
   .ad-bs { border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
   .ad-bs > i { display: block; height: 80px; background: var(--gray-100); }
-  .ad-bs > i img { object-position: 50% 28%; }
+  .ad-bs > i img { object-position: 50% 38%; }
   .ad-bt { display: flex; align-items: center; gap: 10px; padding: 12px 16px 0; }
   .ad-bt > img { flex: none; width: 32px; height: 32px; border-radius: 8px; }
   .ad-bt > div { flex: 1; min-width: 0; display: flex; flex-direction: column; color: var(--gray-400); }
@@ -449,7 +450,7 @@
   .ad-ph b { font-size: 13px; line-height: 18px; font-weight: 700; color: var(--gray-900); }
   .ad-ph > i { color: var(--gray-900); }
   .ad-pi { flex: 1; min-height: 0; display: block; overflow: hidden; background: var(--gray-100); }
-  .ad-pi img { object-position: 50% 58%; }
+  .ad-pi img { object-position: 50% 50%; }
   .ad-cta { flex: none; display: flex; align-items: center; justify-content: space-between; height: 44px; margin: 0; padding: 0 20px; background: var(--gray-100); font-size: 13px; font-weight: 700; color: var(--gray-900); animation: adCta 6s infinite; }
   .ad-ac { flex: none; display: flex; align-items: center; gap: 16px; height: 44px; padding: 0 20px; color: var(--gray-900); }
   .ad-ac > svg:last-child { margin-left: auto; }
@@ -512,7 +513,7 @@
   <div class="container">
     <div class="sh-visual rv ad-hv" style="--d:260ms" aria-hidden="true">   <!-- patch-483: 가운데 = 매체 광고 일정표 (이번 달 주 단위 막대 · 매체 로고) · 제목 롤링 매체와 같은 줄만 블루 (2.4초 · 스크립트 ads-hero)
          · 주변: 왼쪽 = 인스타그램 광고 소재 미리보기 / 오른쪽 위 = 카카오 쇼핑박스 노출 시작 알림 / 오른쪽 아래 = 이번 달 광고 수익률 (공통 hero-bob) · 태블릿 · 모바일 = 가운데 창만 -->
-      <div class="sh-float ad-cv"><p class="ad-ch"><img src="assets/common/brand/woodroom.svg" alt=""><u><em>woodroom.official</em>광고</u><img src="assets/common/brand/instagram.svg" alt=""></p><i class="ad-ci"><img src="assets/geo/interior/wr-room.jpg" alt=""></i><p class="ad-cb">구매하기<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p></div>
+      <div class="sh-float ad-cv"><p class="ad-ch"><img src="assets/common/brand/woodroom.svg" alt=""><u><em>woodroom.official</em>광고</u><img src="assets/common/brand/instagram.svg" alt=""></p><i class="ad-ci"><img src="assets/geo/interior/wr-chair-room-v.webp" alt=""></i><p class="ad-cb">구매하기<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p></div>
       <div class="ad-hw">
         <div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></i><b>매체 광고 일정표</b><span class="vw-m">2026년 11월 · 우드앤룸</span><em class="vw-chip">집행 4곳</em></div>
         <div class="ad-cal">
@@ -616,11 +617,11 @@
         <div class="ad-txt"><span class="bt-eb">STEP 1 · 쇼핑광고</span><h3>쇼핑 지면에서<br>상품을 바로 보여 줍니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="jt-q">“시즌에 맞는 지면을 골라 주니 바로 시작했어요”</p></div><p class="ad-d">네이버 · 카카오 · 다음 · 네이트 · 줌 · 지그재그 등 쇼핑 지면에 상품을 직접 노출합니다. 사려고 들어온 고객을 만나는 광고입니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>핫아이템 · 포커스템</li><li>쇼핑박스</li><li>N+상품광고</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true">
         <div class="vw-win ad-sc ad-s1">
-          <div class="ad-sb"><img src="assets/common/brand/naver.svg" alt=""><span class="ad-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>무드등</b></span><i class="ad-ib"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.3 11h10.8l2-8H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></i></div>
+          <div class="ad-sb"><img src="assets/common/brand/naver.svg" alt=""><span class="ad-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b>1인 소파</b></span><i class="ad-ib"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2.2l2.3 11h10.8l2-8H6.4"/><circle cx="9.5" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg></i></div>
           <nav class="ad-chp"><span class="on">네이버 가격비교</span><span>쇼핑 홈</span><span>핫딜</span><span>무료배송</span></nav>
           <div class="ad-sbd">
-            <div><p class="ad-st"><b>핫아이템</b><u>광고</u>무드등 관련 추천 상품</p>
-            <ul class="ad-g4"><li class="me"><i><img src="assets/geo/interior/wr-lamp.jpg" alt=""><em class="ad-ad">광고</em></i><small>우드앤룸</small><b>머쉬룸 무드등 크림</b><strong><u>25%</u>59,000</strong></li><li><i><img src="assets/geo/interior/cp-metal.jpg" alt=""><em class="ad-ad">광고</em></i><small>홈스틸</small><b>메탈 돔 스탠드 조명</b><strong><u>20%</u>39,900</strong></li><li><i><img src="assets/geo/interior/cp-rattan.jpg" alt=""><em class="ad-ad">광고</em></i><small>라탄하우스</small><b>라탄 머쉬룸 조명</b><strong><u>15%</u>49,000</strong></li><li><i><img src="assets/geo/interior/cp-glass.jpg" alt=""><em class="ad-ad">광고</em></i><small>글라스데이</small><b>유리 구슬 무드등 S</b><strong><u>10%</u>19,800</strong></li></ul></div>
+            <div><p class="ad-st"><b>핫아이템</b><u>광고</u>1인 소파 관련 추천 상품</p>
+            <ul class="ad-g4"><li class="me"><i><img src="assets/geo/interior/wr-chair.webp" alt=""><em class="ad-ad">광고</em></i><small>우드앤룸</small><b>부클 라운드 1인 소파</b><strong><u>25%</u>349,000</strong></li><li><i><img src="assets/geo/interior/cp-metal.jpg" alt=""><em class="ad-ad">광고</em></i><small>홈스틸</small><b>메탈 돔 스탠드 조명</b><strong><u>20%</u>39,900</strong></li><li><i><img src="assets/geo/interior/cp-rattan.jpg" alt=""><em class="ad-ad">광고</em></i><small>라탄하우스</small><b>라탄 머쉬룸 조명</b><strong><u>15%</u>49,000</strong></li><li><i><img src="assets/geo/interior/cp-glass.jpg" alt=""><em class="ad-ad">광고</em></i><small>글라스데이</small><b>유리 구슬 무드등 S</b><strong><u>10%</u>19,800</strong></li></ul></div>
             <ul class="ad-ls"><li><i><img src="assets/geo/interior/cp-cushion.jpg" alt=""></i><div><b>코튼 쿠션 무드등 LED</b><small>리빙홈 · 리뷰 2,031</small></div><strong>32,900원</strong></li><li><i><img src="assets/geo/interior/lp-linen.jpg" alt=""></i><div><b>린넨 갓 도자기 스탠드</b><small>리넨앤코 · 리뷰 1,486</small></div><strong>29,900원</strong></li></ul>
           </div>
         </div>
@@ -668,8 +669,8 @@
           <div class="ad-sb"><img src="assets/common/brand/naver.svg" alt=""><span class="ad-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b class="ad-ty">우드앤룸</b></span><i class="ad-ib"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></i></div>
           <nav class="ad-chp"><span class="on">통합</span><span>쇼핑</span><span>이미지</span><span>블로그</span><span>지도</span></nav>
           <div class="ad-sbd">
-            <div class="ad-bs"><i><img src="assets/geo/interior/wr-room.jpg" alt=""></i><div class="ad-bt"><img src="assets/common/brand/woodroom.svg" alt=""><div><b>우드앤룸 공식몰</b><small>woodroom.co.kr</small></div><u>브랜드 광고</u></div><ul class="ad-bl"><li>신상품</li><li>베스트</li><li>조명</li><li>겨울 기획전</li></ul></div>
-            <div class="ad-pl"><p class="ad-st"><b>파워링크</b>'우드앤룸' 관련 광고</p><ul><li class="me"><small>woodroom.co.kr<u>광고</u></small><b>우드앤룸 공식몰 – 원목 조명 · 가구 신상품 최대 25%</b></li><li><small>homedeco-mall.kr<u>광고</u></small><b>홈데코몰 – 무드등 · 인테리어 조명 모음전</b></li></ul></div>
+            <div class="ad-bs"><i><img src="assets/geo/interior/wr-chair-room-h.webp" alt=""></i><div class="ad-bt"><img src="assets/common/brand/woodroom.svg" alt=""><div><b>우드앤룸 공식몰</b><small>woodroom.co.kr</small></div><u>브랜드 광고</u></div><ul class="ad-bl"><li>신상품</li><li>베스트</li><li>소파</li><li>겨울 기획전</li></ul></div>
+            <div class="ad-pl"><p class="ad-st"><b>파워링크</b>'우드앤룸' 관련 광고</p><ul><li class="me"><small>woodroom.co.kr<u>광고</u></small><b>우드앤룸 공식몰 – 부클 1인 소파 · 원목 가구 신상품 최대 25%</b></li><li><small>homedeco-mall.kr<u>광고</u></small><b>홈데코몰 – 1인 소파 · 리클라이너 모음전</b></li></ul></div>
           </div>
         </div>
       </div>
@@ -704,8 +705,8 @@
         <div class="vw-win ad-sc ad-s3">
           <div class="ad-bw"><span class="ad-dt"><i></i><i></i><i></i></span><span class="ad-url"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>오늘의 생활 · 리빙</span></div>
           <div class="ad-nw">
-            <div class="ad-at"><small>리빙 · 2026.11.13</small><b>겨울 거실, 조명 하나로 분위기 바꾸는 법</b><i><img src="assets/geo/interior/lp-linen.jpg" alt=""></i><span class="ad-tx"><i></i><i style="width:92%"></i><i style="width:96%"></i><i style="width:64%"></i></span></div>
-            <div class="ad-rt"><small class="ad-adl">광고</small><i><img src="assets/geo/interior/wr-lamp.jpg" alt=""></i><small>최근 본 상품 · 우드앤룸</small><b>머쉬룸 무드등 크림</b><strong><u>25%</u>59,000원</strong><em>다시 보러 가기</em></div>
+            <div class="ad-at"><small>리빙 · 2026.11.13</small><b>겨울 거실, 1인 소파 하나로 분위기 바꾸는 법</b><i><img src="assets/geo/interior/lp-linen.jpg" alt=""></i><span class="ad-tx"><i></i><i style="width:92%"></i><i style="width:96%"></i><i style="width:64%"></i></span></div>
+            <div class="ad-rt"><small class="ad-adl">광고</small><i><img src="assets/geo/interior/wr-chair.webp" alt=""></i><small>최근 본 상품 · 우드앤룸</small><b>부클 라운드 1인 소파</b><strong><u>25%</u>349,000원</strong><em>다시 보러 가기</em></div>
           </div>
         </div>
       </div>
@@ -743,10 +744,10 @@
         <div class="vw-win ad-sc ad-s4">
           <div class="ad-ih"><img src="assets/common/brand/instagram.svg" alt=""><b>Instagram</b><span class="ad-ii"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/></svg></span></div>
           <div class="ad-ph"><img src="assets/common/brand/woodroom.svg" alt=""><div><b>woodroom.official</b><small>광고</small></div><i><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></i></div>
-          <i class="ad-pi"><img src="assets/geo/interior/wr-room.jpg" alt=""></i>
+          <i class="ad-pi"><img src="assets/geo/interior/wr-chair-room-h.webp" alt=""></i>
           <p class="ad-cta">구매하기<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p>
           <div class="ad-ac"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.2 7.7L3.5 20.5l1.3-4.6a8.5 8.5 0 1 1 15.7-4.4z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/></svg><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-6-4.2-6 4.2z"/></svg></div>
-          <p class="ad-lk"><b>좋아요 1,284개</b> · <b>woodroom.official</b> 겨울 거실을 따뜻하게, 머쉬룸 무드등 크림</p>
+          <p class="ad-lk"><b>좋아요 1,284개</b> · <b>woodroom.official</b> 겨울 거실을 포근하게, 부클 라운드 1인 소파</p>
         </div>
       </div>
       </div>
