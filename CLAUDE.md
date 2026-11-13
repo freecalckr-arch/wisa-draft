@@ -11,7 +11,7 @@
   - 이 아티팩트는 HTML 파일 여러 개 묶음. 기본 read(index.html)에는 자사몰 마케팅 4P 만 보이고 채널마케팅 등은 안 보임 → "기획문서에 없다"고 하지 말고 파일을 찾아 읽음.
   - 찾는 법: Artifact `action: "list"` · `scope: "files"` 로 파일 목록 확인 → `action: "read"` · `path: "<파일명>"` 으로 해당 파일 저장 → 페이지 id(예: `id="shopping-feed"`) 부터 다음 섹션 id 까지 글자만 뽑아 봄 (python 없음 · node 사용).
   - 파일: 자사몰 마케팅(GEO · 온사이트 · CRM · 리포트) = `wisa_marketing_page.html` (index.html 과 같은 내용) · 채널마케팅(공식채널운영 `#sns-ops` · 상품DB 연동 `#shopping-feed` · 버티컬커머스 `#vertical-commerce`) = `wisa_channel_page.html` · 매체 광고 = `wisa_ads_page.html` · 그 외 `wisa_main` · `wisa_solution_page` · `wisa_specialty_page` · `wisa_support_page` · `wisa_comparison_page`.
-- 작업 범위: 자사몰 마케팅 4P (GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트) + 채널마케팅 3P (공식채널운영 · 상품DB 연동 · 버티컬커머스)
+- 작업 범위: 자사몰 마케팅 4P (GEO / AI 검색 · 온사이트마케팅 · CRM마케팅 · 리포트) + 채널마케팅 4P (공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고 `media-ads.html` · patch-476 · 새 영역 상품 목록 `#ads-products`)
 
 ## 자사몰 마케팅 디자인 순서 · 지침 (상세: docs/workflow.html)
 - 순서: 기획문서 확인 → 기획문서 문장 · 흐름 · 레이아웃을 디자인 완료 페이지(GEO · 온사이트) 규격에 맞게 내용 · 사이즈 재구성 → 비주얼 디자인. 재구성 전에 비주얼부터 그리지 않음.

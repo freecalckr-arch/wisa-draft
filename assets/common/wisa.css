@@ -3332,3 +3332,11 @@ img, video { max-width: 100%; display: block; }
 .sr-tags li, #geo-diagnosis .sr-tags li { box-sizing: border-box; min-height: 32px; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; line-height: 20px; color: var(--gray-700); }
 #geo-diagnosis .sr-tags { gap: 8px; }
 /* @endregion tag-std */
+
+/* @region tab-page-4 (patch-476): 히어로 탭이 4개(채널마케팅 · 매체 광고 추가)일 때 모바일에서 넘치지 않게 — 좌우 7 · 글자 13 · 그래도 넘치면(360 등) 탭 줄만 가로 스크롤 */
+@media (max-width: 767px) {
+  .tab-page { max-width: 100%; box-sizing: border-box; overflow-x: auto; scrollbar-width: none; }
+  .tab-page::-webkit-scrollbar { display: none; }
+  .tab-page:has(> a:nth-child(4)) a { padding-inline: 7px; font-size: 13px; }
+}
+/* @endregion tab-page-4 */

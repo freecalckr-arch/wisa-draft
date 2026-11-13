@@ -15,7 +15,7 @@
     { g: "영역 규격", items: [["히어로", "hero.html"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
     { g: "컴포넌트", items: [["탭", null], ["카드", null], ["요금 카드", "plan.html"], ["태그 · 뱃지", "tag.html"], ["CTA", null]] },
     { g: "인터랙션", items: [["인터랙션 목록", null]] },
-    { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"], ["라이선스 비교", "../comparison.html"]] },
+    { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"], ["매체 광고", "../media-ads.html"], ["라이선스 비교", "../comparison.html"]] },
     { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
