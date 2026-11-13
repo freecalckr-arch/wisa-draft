@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-477: 상품 목록(#ads-products) 위 · 아래 간격을 다른 영역 사이와 같게 — 해결 마지막 줄 → 제목, 안내 문장 → 리포트 제목 = PC 160 · 태블릿 120 · 모바일 80 (PC 위 0 → 160 · 아래 280 → 160)
      · 2026-11-13 patch-476: 기획안 단계 — 기획문서(wisa_ads_page) 문장 · 흐름을 GEO 영역 규격(히어로 · 문제 · 그래프 · 단계(카드 3개) · 해결 · 상품 목록 · 리포트 · 사례 · FAQ · CTA)으로 재구성 · 비주얼 영역은 규격 크기 빈 박스(.ph-box)
        - 위계: 채널마케팅 4번째 탭 (공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고) · GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' 링크 = 기존 홈페이지 외부 링크 → media-ads.html
        - 히어로 제목 롤링 = 매체 이름 한 자리 (네이버 · 카카오 · 구글 · 메타 · 공통 2.4초) · 로고 = assets/common/brand
@@ -171,6 +172,10 @@
 <style>
   /* @region ads-products (patch-476): 매체 광고 상품 목록 — 분류 탭(공통 .tabline) · 매체 묶음 · 상품 칸 */
   #geo-diagnosis .sr-more { margin-top: 20px; font-size: 15px; }
+  /* patch-477: 상품 목록 위 · 아래 간격 = 다른 영역 사이와 같게 (해결 마지막 줄 → 제목 · 안내 문장 → 리포트 제목 = PC 160 · 태블릿 120 · 모바일 80) */
+  @media (min-width: 1024px) { #ads-products { padding-top: 160px; padding-bottom: 0; } }
+  @media (min-width: 768px) and (max-width: 1023px) { #ads-products { padding-bottom: 120px; } }
+  @media (max-width: 767px) { #ads-products { padding-bottom: 80px; } }
   #ads-products .ad-tabs { display: flex; justify-content: center; gap: 40px; margin: 0 0 16px; border-bottom: 1px solid var(--gray-200); overflow-x: auto; scrollbar-width: none; }
   #ads-products .ad-tabs::-webkit-scrollbar { display: none; }
   #ads-products .ad-tabs .tabline { display: inline-flex; align-items: center; gap: 6px; margin-bottom: -1px; padding: 14px 0 12px; font-size: 17px; }
