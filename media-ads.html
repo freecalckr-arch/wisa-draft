@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-485: 검색광고 탭 화면 = 실제 네이버 브랜드검색 구성으로 (검색창 로고 안 · 글자 탭 · 카드 = 브랜드명 · 홈페이지 + 광고 / 새소식 / 왼쪽 연출 이미지 + 제목(블루) · 설명 · 링크 칩 · 상품 3개) · 파워링크 목록 삭제
      · 2026-11-13 patch-484: 우리 상품 = 우드앤룸 부클 라운드 1인 소파 (상품 컷 wr-chair.webp · 연출 컷 세로 wr-chair-room-v.webp = 히어로 인스타그램 카드 · 가로 wr-chair-room-h.webp = 검색 탭 브랜드검색 · SNS 탭 게시물) · 검색어 · 기사 · 파워링크 · 캡션 문구 소파로 · 쇼핑 탭 타사 상품 사진은 교체 예정
      · 2026-11-13 patch-483: 비주얼 — 빈 박스를 실제 화면으로 교체 (가상 브랜드 우드앤룸 · assets/geo/interior · 매체 로고 assets/common/brand · 스타일 @region ads-vis · 스크립트 ads-hero · ads-vis-fit · ads-search)
        - 히어로 = 매체 광고 일정표 창(PC 680×418 · 태블릿 520×417 · 모바일 박스 − 좌우 30 × 404) · 11월 주 단위 막대 4줄 · 제목 롤링 매체(네이버 → 카카오 → 구글 → 메타)와 같은 줄만 블루(2.4초) · 주변 = 인스타그램 광고 소재 · 카카오 쇼핑박스 노출 예약 알림(초록 점 없음 · 색 계열 블루 + 레드만) · 이번 달 광고 수익률(공통 hero-bob · 태블릿 · 모바일 숨김)
@@ -383,20 +384,20 @@
   .ad-sbd { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 16px 20px; transition: opacity .4s; }
   .ad-st { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 12px; line-height: 16px; color: var(--gray-400); }
   .ad-st b { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
-  .ad-st u, .ad-bt u, .ad-pl small u { text-decoration: none; padding: 0 6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--gray-300); font-size: 11px; line-height: 16px; font-weight: 600; color: var(--gray-500); }
+  .ad-st u, .ad-bh u { text-decoration: none; padding: 0 6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--gray-300); font-size: 11px; line-height: 16px; font-weight: 600; color: var(--gray-500); }
   .ad-ad { position: absolute; left: 6px; top: 6px; padding: 2px 6px; border-radius: 6px; background: rgba(16,24,40,.6); color: var(--white); font-size: 10px; line-height: 14px; font-weight: 700; font-style: normal; }
   /* 1 쇼핑광고 = 네이버 쇼핑 검색 결과 · 핫아이템 첫 칸 우리 상품 (블루 링 · 광고 배지) */
   .ad-g4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 10px !important; }
   .ad-g4 li { min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
   .ad-g4 i { position: relative; display: block; aspect-ratio: 1; margin-bottom: 6px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
-  .ad-g4 img, .ad-ls img, .ad-rt img, .ad-bs img, .ad-pi img, .ad-at img { display: block; width: 100%; height: 100%; border-radius: inherit; }
+  .ad-g4 img, .ad-ls img, .ad-rt img, .ad-bm > i img, .ad-bp i img, .ad-pi img, .ad-at img { display: block; width: 100%; height: 100%; border-radius: inherit; }
   .ad-g4 b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .ad-g4 strong { font-size: 13px; line-height: 18px; font-weight: 700; color: var(--gray-900); }
   .ad-g4 u, .ad-rt u { margin-right: 4px; text-decoration: none; color: var(--gray-500); }
   .ad-g4 .me i { overflow: visible; animation: adRing 2.4s ease-in-out infinite; }
   .ad-g4 .me .ad-ad { background: var(--primary-600); }
   .ad-g4 .me small, .ad-g4 .me b { font-weight: 600; color: var(--gray-900); }
-  .ad-g4 small, .ad-ls small, .ad-rt small, .ad-pl small, .ad-bt small, .ad-ph small { font-size: 11px; line-height: 14px; }   /* 공통 small 축소 막기 · 규격 11 */
+  .ad-g4 small, .ad-ls small, .ad-rt small, .ad-ph small { font-size: 11px; line-height: 14px; }   /* 공통 small 축소 막기 · 규격 11 */
   .ad-ls { border-top: 1px solid var(--gray-100); }
   .ad-ls li { display: flex; align-items: center; gap: 12px; height: 56px; border-bottom: 1px solid var(--gray-100); }
   .ad-ls i { flex: none; width: 40px; height: 40px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
@@ -406,21 +407,37 @@
   /* 2 검색광고 = 브랜드 키워드 검색 결과 · 브랜드검색 + 파워링크 첫 줄 블루 (검색어 타이핑 → 결과 · 스크립트 ads-search) */
   .ad-ty::after { content: ""; display: inline-block; width: 1px; height: 14px; margin-left: 2px; background: var(--gray-900); vertical-align: -2px; animation: adCaret 1s steps(1) infinite; }
   .ad-s2.typing .ad-sbd { opacity: .3; }
-  .ad-bs { border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
-  .ad-bs > i { display: block; height: 80px; background: var(--gray-100); }
-  .ad-bs > i img { object-position: 50% 38%; }
-  .ad-bt { display: flex; align-items: center; gap: 10px; padding: 12px 16px 0; }
-  .ad-bt > img { flex: none; width: 32px; height: 32px; border-radius: 8px; }
-  .ad-bt > div { flex: 1; min-width: 0; display: flex; flex-direction: column; color: var(--gray-400); }
-  .ad-bt b { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
-  .ad-bl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; padding: 12px 16px !important; }
-  .ad-bl li { display: grid; place-items: center; height: 32px; border-radius: 8px; background: var(--gray-50); font-size: 12px; font-weight: 600; color: var(--gray-700); }
-  .ad-pl ul { display: flex; flex-direction: column; gap: 6px; margin-top: 8px !important; }
-  .ad-pl li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 10px; }
-  .ad-pl li small { display: flex; align-items: center; gap: 6px; color: var(--gray-400); }
-  .ad-pl li b { font-size: 13px; line-height: 20px; font-weight: 700; color: var(--gray-600); }
-  .ad-pl li.me { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }   /* Primary 25 */
-  .ad-pl li.me b { color: var(--primary-600); }
+  /* patch-485: 실제 네이버 브랜드검색 구성 — 검색창(로고 안 · 검색어 굵게) · 글자 탭 / 카드 = 브랜드명 · 홈페이지 + 광고 → 새소식 줄 → 왼쪽 이미지 + 오른쪽 제목(블루 한 곳) · 설명 · 링크 칩 · 상품 3개 */
+  .ad-s2 .ad-nq { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; border-radius: 99px; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 16px; }
+  .ad-s2 .ad-nq > img { flex: none; width: 24px; height: 24px; border-radius: 6px; }
+  .ad-s2 .ad-nq b { flex: 1; min-width: 0; font-weight: 700; color: var(--gray-900); white-space: nowrap; }
+  .ad-s2 .ad-nq > svg { flex: none; color: var(--gray-700); }
+  .ad-s2 .ad-sb { height: 64px; padding-top: 4px; border-bottom: 0; }
+  .ad-ntab { flex: none; display: flex; gap: 20px; height: 32px; padding: 0 24px 4px; border-bottom: 1px solid var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-500); }
+  .ad-ntab span { display: flex; align-items: center; white-space: nowrap; }
+  .ad-s2 .ad-sbd { justify-content: center; padding: 20px; }
+  .ad-bc { display: flex; flex-direction: column; padding: 16px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .ad-bh { display: flex; align-items: center; gap: 8px; font-size: 14.5px; line-height: 20px; }
+  .ad-bh > img { flex: none; width: 24px; height: 24px; border-radius: 6px; }
+  .ad-bh b { font-weight: 700; color: var(--gray-900); }
+  .ad-bh span { color: var(--gray-700); }
+  .ad-bh u { margin-left: auto; border-radius: 99px; }
+  .ad-bn { display: flex; align-items: center; gap: 8px; height: 36px; margin: 10px 0 12px; border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); font-size: 12.5px; color: var(--gray-700); white-space: nowrap; }
+  .ad-bn > i { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-100); color: var(--gray-600); }
+  .ad-bn b { font-weight: 700; color: var(--gray-900); }
+  .ad-bn > svg { margin-left: auto; color: var(--gray-400); }
+  .ad-bm { display: grid; grid-template-columns: 172px minmax(0, 1fr); gap: 16px; }
+  .ad-bm > i { display: block; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
+  .ad-bm > i img { object-position: 45% 62%; }
+  .ad-bm > div { min-width: 0; display: flex; flex-direction: column; }
+  .ad-bm h4 { margin: 0; font-size: 16px; line-height: 24px; font-weight: 700; color: var(--primary-600); }
+  .ad-bm p { margin: 4px 0 0; font-size: 12.5px; line-height: 18px; color: var(--gray-600); }
+  .ad-bk2 { display: flex; gap: 6px; margin-top: 10px !important; overflow: hidden; }
+  .ad-bk2 li { flex: none; padding: 4px 10px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+  .ad-bp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px !important; }
+  .ad-bp li { min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--gray-900); text-align: center; white-space: nowrap; }
+  .ad-bp i { position: relative; display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .ad-bp em { position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 0; background: var(--gray-100); font-style: normal; font-size: 10px; line-height: 14px; font-weight: 600; color: var(--gray-700); }
   /* 3 디스플레이광고 = 뉴스 기사 옆 리타기팅 배너 (최근 본 상품 · 다시 보러 가기 블루 · 배너가 나타남) */
   .ad-bw { flex: none; display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; border-bottom: 1px solid var(--gray-100); background: var(--gray-50); }
   .ad-dt { flex: none; display: flex; gap: 6px; } .ad-dt i { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-300); }
@@ -666,11 +683,14 @@
         <div class="ad-txt"><span class="bt-eb">STEP 2 · 검색광고</span><h3>찾는 순간에<br>먼저 보이게 합니다</h3><div class="jt-say"><i class="jt-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="jt-q">“브랜드명을 검색하면 우리 몰이 맨 위에 떠요”</p></div><p class="ad-d">네이버 · 카카오 · 구글 검색 결과에 브랜드와 상품을 노출합니다. 이미 관심 있는 고객이 직접 검색할 때 만납니다.</p><div class="ad-rep"><b>대표 상품</b><ul class="sr-tags"><li>파워링크 · 쇼핑검색</li><li>브랜드검색</li><li>구글 검색광고</li></ul></div></div>
         <div class="ad-vis" aria-hidden="true">
         <div class="vw-win ad-sc ad-s2">
-          <div class="ad-sb"><img src="assets/common/brand/naver.svg" alt=""><span class="ad-q"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg><b class="ad-ty">우드앤룸</b></span><i class="ad-ib"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg></i></div>
-          <nav class="ad-chp"><span class="on">통합</span><span>쇼핑</span><span>이미지</span><span>블로그</span><span>지도</span></nav>
+          <div class="ad-sb"><span class="ad-nq"><img src="assets/common/brand/naver.svg" alt=""><b class="ad-ty">우드앤룸</b><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg></span></div>
+          <nav class="ad-ntab"><span>블로그</span><span>카페</span><span>이미지</span><span>지식iN</span><span>쇼핑</span><span>뉴스</span><span>지도</span></nav>
           <div class="ad-sbd">
-            <div class="ad-bs"><i><img src="assets/geo/interior/wr-chair-room-h.webp" alt=""></i><div class="ad-bt"><img src="assets/common/brand/woodroom.svg" alt=""><div><b>우드앤룸 공식몰</b><small>woodroom.co.kr</small></div><u>브랜드 광고</u></div><ul class="ad-bl"><li>신상품</li><li>베스트</li><li>소파</li><li>겨울 기획전</li></ul></div>
-            <div class="ad-pl"><p class="ad-st"><b>파워링크</b>'우드앤룸' 관련 광고</p><ul><li class="me"><small>woodroom.co.kr<u>광고</u></small><b>우드앤룸 공식몰 – 부클 1인 소파 · 원목 가구 신상품 최대 25%</b></li><li><small>homedeco-mall.kr<u>광고</u></small><b>홈데코몰 – 1인 소파 · 리클라이너 모음전</b></li></ul></div>
+            <div class="ad-bc">
+              <p class="ad-bh"><img src="assets/common/brand/woodroom.svg" alt=""><b>우드앤룸</b><span>홈페이지</span><u>광고</u></p>
+              <p class="ad-bn"><i><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l6 4V6L7 10z"/><path d="M17 9.5a3.5 3.5 0 0 1 0 5"/></svg></i><b>새소식</b>부클 라운드 1인 소파 출시 기념 25% 할인<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p>
+              <div class="ad-bm"><i><img src="assets/geo/interior/wr-chair-room-v.webp" alt=""></i><div><h4>우드앤룸 겨울 신상품 기획전</h4><p>포근한 부클 1인 소파부터 원목 가구까지,<br>겨울 거실을 채워 보세요.</p><ul class="ad-bk2"><li>소파</li><li>테이블</li><li>조명</li><li>러그</li></ul><ul class="ad-bp"><li><i><img src="assets/geo/interior/wr-chair.webp" alt=""><em>25% 할인</em></i>라운드 1인 소파</li><li><i><img src="assets/geo/interior/wr-table.jpg" alt=""><em>무료배송</em></i>오크 사이드테이블</li><li><i><img src="assets/geo/interior/wr-lamp.jpg" alt=""><em>신상품</em></i>머쉬룸 무드등</li></ul></div></div>
+            </div>
           </div>
         </div>
       </div>
