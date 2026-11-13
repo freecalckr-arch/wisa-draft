@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 매체 광고 상품 (채널마케팅) 페이지 기록 (2026-11-13)
+     · 2026-11-13 patch-490: 히어로 = C안 광고 상품 상세 페이지 (왼쪽 노출 위치 미리보기 · 오른쪽 매체 · 상품명 · 이런 목적에 좋아요 · 노출 위치 · 운영 기간 · 담기 + 신청하기 블루 · 제목 롤링 매체에 맞춰 제자리 페이드 교체) · 주변 = 담은 광고 상품 · 신청 완료 알림 · 광고 수익률 (일정표 · 인스타그램 소재 카드 삭제)
      · 2026-11-13 patch-489: 문제 영역 개선 화면 = 목표에 맞는 조합을 한 번에 — 머리줄 우리 상품(상품 정보 기준) · 광고 목표 칩 3개(신상품 판매 · 재방문 · 신규 고객 · 선택 1개 블루) · 매체 · 상품 조합 4줄 (3초마다 목표가 바뀌면 4줄이 함께 바뀜 · 스크립트 ads-why · 예산 막대 삭제)
      · 2026-11-13 patch-488: 매체 탭 설명 카드 대표 상품 태그 번호 원 삭제 (비주얼에 번호 표시가 없어서)
      · 2026-11-13 patch-487: 쇼핑광고 탭 타사 상품 5개 = 1인 소파 사진(cp-chair-*.webp · 흐리게 처리 그대로) · 상품명 · 가격 소파로
@@ -294,60 +295,117 @@
   @keyframes adCta { 0%, 30% { background: var(--gray-100); color: var(--gray-900); } 38%, 92% { background: var(--primary-600); color: var(--white); } 100% { background: var(--gray-100); color: var(--gray-900); } }
   @keyframes adCaret { 50% { opacity: 0; } }
 
-  /* ── 히어로: 가운데 창 = 매체 광고 일정표 (PC 680×418 · 태블릿 520×417 · 모바일 박스 − 좌우 30 × 404 · 다른 페이지 히어로 창과 같은 자리)
-        제목 롤링 매체(네이버 → 카카오 → 구글 → 메타)와 같은 줄만 블루 (스크립트 ads-hero) · 주변 = 인스타그램 광고 소재 · 카카오 노출 시작 알림 · 광고 수익률 ── */
+  /* ── 히어로 (patch-490 · C안): 가운데 창 = 광고 상품 상세 페이지 (PC 680×418 · 태블릿 520×417 · 모바일 박스 − 좌우 30 × 404 · 다른 페이지 히어로 창과 같은 자리)
+        왼쪽 = 노출 위치 미리보기(그 매체 지면에 우리 1인 소파 광고) · 오른쪽 = 매체 · 상품명 · 이런 목적에 좋아요 · 노출 위치 · 운영 기간 · 담기 + 신청하기(블루 한 곳)
+        제목 롤링 매체(네이버 → 카카오 → 구글 → 메타 · 2.4초)에 맞춰 상품 화면이 제자리 페이드로 바뀜 (새 화면이 위에서 0.6초 나타난 뒤 앞 화면 숨김 · 스크립트 ads-hero)
+        주변 = 담은 광고 상품(매체가 바뀔 때마다 하나씩 쌓임) · 신청 완료 알림 · 이번 달 광고 수익률 (공통 hero-bob · 태블릿 · 모바일 숨김) ── */
   #geo-hero .sh-visual.ad-hv { padding-top: 0; }
   .ad-hw { position: relative; z-index: 1; flex: none; display: flex; flex-direction: column; width: 680px; height: 418px; border-radius: 18px 18px 0 0; background: var(--white); box-shadow: 0 20px 56px rgba(21,112,239,.18); overflow: hidden; text-align: left; }
   .ad-hw .vw-hd { flex: none; }
-  .ad-cal { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 12px 20px 20px; --lw: 196px; }
-  .ad-wk, .ad-rows li { display: grid; grid-template-columns: var(--lw) repeat(4, minmax(0, 1fr)); align-items: center; }
-  .ad-wk { flex: none; height: 32px; font-size: 12px; line-height: 16px; color: var(--gray-400); }
-  .ad-wk > span { padding-left: 10px; white-space: nowrap; }
-  .ad-wk > span:first-child { padding-left: 0; }
-  .ad-wk b { margin-right: 4px; font-weight: 600; color: var(--gray-700); }
-  .ad-wk i { font-style: normal; }
-  .ad-gl { position: absolute; z-index: 1; top: 12px; bottom: 20px; left: calc(20px + var(--lw)); right: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); pointer-events: none; }
-  .ad-gl i { border-left: 1px solid var(--gray-100); }
-  .ad-now { position: absolute; top: 32px; bottom: 0; left: 37.5%; border-left: 1px dashed var(--gray-400); }   /* 오늘 11.13 (목) = 2주 가운데 */
-  .ad-now::before { content: ""; position: absolute; left: -4.5px; top: -4px; width: 8px; height: 8px; border-radius: 50%; background: var(--gray-400); }
-  .ad-rows { flex: 1; min-height: 0; display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--gray-100); }
-  .ad-rows li { flex: 1; min-height: 0; border-bottom: 1px solid var(--gray-100); transition: background-color .4s; }
-  .ad-rows li:last-child { border-bottom: 0; }
-  .ad-mn { grid-column: 1; grid-row: 1; display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .ad-mn > img { flex: none; width: 28px; height: 28px; border-radius: 8px; }
-  .ad-mn > span { min-width: 0; display: flex; flex-direction: column; font-size: 12px; line-height: 16px; color: var(--gray-500); white-space: nowrap; }
-  .ad-mn b { font-size: 13px; line-height: 20px; font-weight: 600; color: var(--gray-900); overflow: hidden; text-overflow: ellipsis; }
-  .ad-bk { position: relative; z-index: 2; grid-row: 1; grid-column: var(--a) / var(--b); display: flex; align-items: center; gap: 6px; height: 28px; margin: 0 6px; padding: 0 10px; border-radius: 8px; background: var(--gray-100); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; font-weight: 600; color: var(--gray-500); font-style: normal; white-space: nowrap; overflow: hidden; transition: background-color .4s, color .4s, box-shadow .4s; }
-  .ad-bk em { font-style: normal; }
-  .ad-rows li.on { background: rgba(21,112,239,.04); }
-  .ad-rows li.on .ad-bk { background: var(--primary-600); box-shadow: none; color: var(--white); }
-  .ad-rows li.on .ad-mn b { color: var(--black); }
-  /* 주변 카드 (공통 hero-bob 둥둥) — .sh-float 공통 b · span · small 글자 규칙을 쓰지 않도록 p · u · em 사용 */
-  #geo-hero .ad-hv .sh-float.ad-cv { left: 80px; top: 64px; width: 200px; gap: 10px; padding: 12px; box-sizing: border-box; }
-  .ad-cv .ad-ch { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 11px; line-height: 14px; color: var(--gray-500); }
-  .ad-cv .ad-ch > img { flex: none; width: 24px; height: 24px; border-radius: 50%; box-shadow: 0 0 0 1px var(--gray-200); }
-  .ad-cv .ad-ch u { display: flex; flex-direction: column; text-decoration: none; }
-  .ad-cv .ad-ch u > em { font-style: normal; font-size: 12px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
-  .ad-cv .ad-ch > img + u + img { width: 16px; height: 16px; margin-left: auto; box-shadow: none; border-radius: 4px; }
-  .ad-cv .ad-ci { display: block; height: 176px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
-  .ad-cv .ad-ci img { display: block; width: 100%; height: 100%; object-position: 50% 68%; }
-  .ad-cv .ad-cb { display: flex; align-items: center; justify-content: space-between; height: 32px; margin: 0; padding: 0 12px; border-radius: 8px; background: var(--gray-100); font-size: 12px; font-weight: 600; color: var(--gray-900); }
+  .ad-pds { position: relative; flex: 1; min-height: 0; }
+  .ad-pd { position: absolute; inset: 0; z-index: 0; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 24px; padding: 20px; opacity: 0; visibility: hidden; }
+  .ad-pd.was { z-index: 1; opacity: 1; visibility: visible; }
+  .ad-pd.on { z-index: 2; opacity: 1; visibility: visible; transition: opacity .6s ease; }
+  /* 노출 위치 미리보기 (작은 지면 화면) */
+  .ad-pv { position: relative; display: flex; flex-direction: column; min-height: 0; border-radius: 12px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; }
+  .pv-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; border-bottom: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-500); }
+  .ad-pv .pv-bar > img { flex: none; width: 20px; height: 20px; border-radius: 6px; }
+  .pv-bar b { font-weight: 700; color: var(--gray-900); }
+  .pv-q { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--gray-200); font-weight: 600; color: var(--gray-900); white-space: nowrap; }
+  .pv-lb { flex: none; display: flex; align-items: center; gap: 6px; margin: 0; padding: 10px 12px 8px; font-size: 12px; font-weight: 700; color: var(--gray-900); }
+  .pv-lb u { text-decoration: none; padding: 0 6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--gray-300); font-size: 10px; line-height: 14px; font-weight: 600; color: var(--gray-500); }
+  .ad-pv ul { margin: 0; padding: 0; list-style: none; }
+  .pv-g2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 8px; padding: 0 12px !important; }
+  .pv-g2 li { min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .pv-g2 b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pv-g2 strong { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
+  .pv-g2 u, .pv-kc u { margin-right: 4px; text-decoration: none; color: var(--gray-500); }
+  .pv-im { position: relative; display: block; aspect-ratio: 1; margin-bottom: 4px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
+  .ad-pv img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .pv-im em, .pv-kc em { position: absolute; left: 6px; top: 6px; padding: 1px 6px; border-radius: 6px; background: rgba(16,24,40,.6); color: var(--white); font-size: 10px; line-height: 14px; font-weight: 700; font-style: normal; }
+  .pv-g2 .me .pv-im { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--gray-900); overflow: visible; }   /* 우리 상품 = 진한 테두리 (블루는 신청하기 한 곳) */
+  .pv-g2 .me .pv-im img { border-radius: 8px; }
+  .pv-g2 .pv-im { aspect-ratio: 5 / 4; } .pv-im img { position: absolute; inset: 0; }
+  .pv-row { display: flex; align-items: center; gap: 10px; margin: 12px 12px 0 !important; padding-top: 12px; border-top: 1px solid var(--gray-100); font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .pv-row > i { flex: none; width: 40px; height: 40px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
+  .pv-row > span { flex: 1; min-width: 0; display: flex; flex-direction: column; } .pv-row b { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pv-row strong { font-size: 12px; font-weight: 700; color: var(--gray-900); }
+  .ad-pv img[src*="interior/cp-"] { filter: grayscale(.9) contrast(.85); opacity: .5; }
+  .pv-tab { flex: none; display: flex; gap: 16px; height: 36px; padding: 0 12px; border-bottom: 1px solid var(--gray-100); font-size: 12px; font-weight: 600; color: var(--gray-400); }
+  .pv-tab span { display: flex; align-items: center; border-bottom: 2px solid transparent; }
+  .pv-tab .on { border-color: var(--gray-900); color: var(--gray-900); }
+  .pv-kc { position: relative; display: flex; flex-direction: column; gap: 2px; margin: 12px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .pv-kc > i { display: block; height: 150px; margin-bottom: 6px; border-radius: 10px; overflow: hidden; background: var(--gray-100); }
+  .pv-kc > i img { object-position: 45% 55%; }
+  .pv-kc em { left: 8px; top: 8px; }
+  .pv-kc b { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--gray-900); }
+  .pv-kc strong { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .pv-sk { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
+  .pv-sk i { display: block; height: 8px; border-radius: 99px; background: var(--gray-100); }
+  .pv-sk b { display: block; height: 12px; width: 82%; margin-bottom: 4px; border-radius: 99px; background: var(--gray-200); }
+  .pv-bn { position: relative; display: flex; align-items: center; gap: 12px; margin: 4px 12px; padding: 10px; border-radius: 10px; box-shadow: 0 0 0 1px var(--gray-200), 0 6px 16px rgba(16,24,40,.08); font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .pv-bn > i { flex: none; width: 88px; height: 88px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
+  .pv-bn > div { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .pv-bn b, .pv-bn strong { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pv-bn b { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--gray-900); }
+  .pv-bn strong { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
+  .pv-bn u { margin-top: 6px; text-decoration: none; font-weight: 600; color: var(--gray-700); }
+  .pv-bn > em { position: absolute; top: 6px; right: 6px; padding: 0 6px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--gray-200); font-style: normal; font-size: 10px; line-height: 14px; font-weight: 600; color: var(--gray-400); }
+  .pv-ih { flex: none; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .ad-pv .pv-ih > img { flex: none; width: 24px; height: 24px; border-radius: 50%; box-shadow: 0 0 0 1px var(--gray-200); }
+  .pv-ih > span { display: flex; flex-direction: column; } .pv-ih b { font-size: 12px; line-height: 16px; font-weight: 700; color: var(--gray-900); }
+  .pv-ip { flex: 1; min-height: 0; display: block; overflow: hidden; background: var(--gray-100); }
+  .pv-ip img { object-position: 45% 62%; }
+  .pv-cta { flex: none; display: flex; align-items: center; justify-content: space-between; height: 36px; margin: 0; padding: 0 12px; background: var(--gray-100); font-size: 12px; font-weight: 700; color: var(--gray-900); }
+  /* 상품 정보 */
+  .ad-if { min-width: 0; display: flex; flex-direction: column; }
+  .ad-if > p { margin: 0; }
+  .ad-im { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--gray-600); }
+  .ad-im > img { flex: none; width: 28px; height: 28px; border-radius: 8px; }
+  .ad-im > img[src$="google.svg"], .ad-im > img[src$="meta.svg"] { outline: 1px solid var(--gray-200); outline-offset: -1px; }
+  .ad-if h4 { margin: 12px 0 0; font-size: 24px; line-height: 32px; font-weight: 700; color: var(--black); }
+  .ad-if .ad-ds { margin-top: 6px; font-size: 13px; line-height: 20px; color: var(--gray-600); word-break: keep-all; }
+  .ad-pp { display: flex; align-items: center; gap: 8px; margin-top: 16px !important; padding: 10px 12px; border-radius: 10px; background: var(--gray-50); font-size: 12px; font-weight: 600; color: var(--gray-500); }
+  .ad-pp em { padding: 2px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-style: normal; font-size: 12.5px; line-height: 18px; font-weight: 700; color: var(--gray-900); }
+  .ad-sp2 { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; margin: 16px 0 0; font-size: 12.5px; line-height: 18px; }
+  .ad-sp2 dt { color: var(--gray-400); } .ad-sp2 dd { margin: 0; color: var(--gray-700); font-weight: 500; }
+  .ad-bb { display: flex; gap: 8px; margin-top: auto !important; }
+  .ad-bb > span { display: grid; place-items: center; height: 44px; border-radius: 10px; font-size: 14.5px; font-weight: 700; }
+  .ad-bb > span:first-child { flex: none; width: 88px; box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-900); }
+  .ad-bb > span + span { flex: 1; background: var(--primary-600); color: var(--white); }
+  /* 주변 카드 (공통 hero-bob 둥둥) */
+  #geo-hero .ad-hv .sh-float.ad-ct { left: 80px; top: 150px; width: 200px; box-sizing: border-box; }
+  #geo-hero .ad-ct strong i { font-style: normal; }
+  .ad-ctl { display: flex; gap: 6px; margin: 10px 0 0; }
+  .ad-ctl img { width: 32px; height: 32px; border-radius: 8px; opacity: .25; filter: grayscale(1); transition: opacity .4s, filter .4s; }
+  .ad-ctl img.in { opacity: 1; filter: none; }
+  .ad-ctl img[src$="google.svg"], .ad-ctl img[src$="meta.svg"] { outline: 1px solid var(--gray-200); outline-offset: -1px; }
   #geo-hero .ad-hv .sh-toast.ad-ht { top: 64px; right: 48px; }
+  #geo-hero .ad-ht > * { transition: opacity .3s; } #geo-hero .ad-ht.swap > * { opacity: 0; }
   #geo-hero .ad-ht .ad-tl { flex: none; width: 36px; height: 36px; border-radius: 10px; }
+  #geo-hero .ad-ht .ad-tl[src$="google.svg"], #geo-hero .ad-ht .ad-tl[src$="meta.svg"] { outline: 1px solid var(--gray-200); outline-offset: -1px; }
   #geo-hero .ad-hv .sh-float.ad-rs { left: auto; right: 80px; top: auto; bottom: 48px; width: 200px; box-sizing: border-box; }
   #geo-hero .ad-rs .ad-sp { display: block; width: 100%; height: 40px; margin-top: 8px; }
   #geo-hero .ad-rs .ad-spx { display: flex; justify-content: space-between; margin-top: 4px; font-style: normal; font-size: 11px; line-height: 14px; color: var(--gray-400); }
   #geo-hero .ad-rs .ad-spx i { font-style: normal; }
-  @media (max-width: 1023px) { .ad-hw { width: 520px; height: 417px; } .ad-cal { --lw: 160px; } }
+  @media (max-width: 1023px) {
+    .ad-hw { width: 520px; height: 417px; }
+    .ad-pd { grid-template-columns: 220px minmax(0, 1fr); gap: 16px; padding: 16px; }
+    .pv-bn { gap: 10px; } .pv-bn > i { width: 64px; height: 64px; }
+    .pv-g2 { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .ad-if h4 { font-size: 20px; line-height: 28px; }
+    .ad-sp2 { grid-template-columns: minmax(0, 1fr); gap: 2px; } .ad-sp2 dd + dt { margin-top: 6px; }
+    .ad-bb > span:first-child { width: 64px; }
+  }
   @media (max-width: 767px) {
     .ad-hw { width: calc(100% - 60px); height: 404px; }
-    .ad-hw .vw-hd { padding: 0 16px; } .ad-hw .vw-chip, .ad-hw .vw-m { display: none; }
-    .ad-cal { --lw: 124px; padding: 8px 16px 16px; }
-    .ad-gl { top: 8px; bottom: 16px; left: calc(16px + var(--lw)); right: 16px; }
-    .ad-wk > span { padding-left: 0; text-align: center; } .ad-wk > span:first-child { text-align: left; } .ad-wk i { display: none; }
-    .ad-mn { gap: 8px; } .ad-mn > img { width: 24px; height: 24px; border-radius: 7px; }
-    .ad-mn b { font-size: 12px; } .ad-mn > span { font-size: 11px; }
-    .ad-bk { height: 24px; margin: 0 4px; padding: 0; } .ad-bk em { display: none; }
+    .ad-hw .vw-hd { padding: 0 16px; } .ad-hw .vw-m { display: none; }
+    .ad-pd { grid-template-columns: minmax(0, 1fr); grid-template-rows: 136px minmax(0, 1fr); gap: 12px; padding: 12px 16px 16px; }
+    .pv-kc > i { height: 96px; } .pv-bar + .pv-sk, .pv-row, .pv-bn u { display: none !important; } .pv-bn { margin-top: 12px; } .pv-g2 .pv-im { aspect-ratio: auto; height: 60px; } .pv-g2 li { gap: 0; } .pv-bn > i { width: 64px; height: 64px; }
+    .ad-if h4 { margin-top: 8px; font-size: 20px; line-height: 28px; }
+    .ad-if .ad-ds, .ad-sp2 { display: none; }
+    .ad-pp { margin-top: 10px !important; }
+    .ad-bb > span { height: 40px; font-size: 13px; }
   }
 
   /* ── 문제: 기존 = 매체별 관리 화면 4곳 (지표 이름 · 기간 제각각 · 회색 창) / 개선 = 목표 하나에 맞춘 매체 조합 (예산 비중 막대가 차례로 채워짐 · 1위 줄 블루) ── */
@@ -487,7 +545,7 @@
   .ad-lk b { font-weight: 700; color: var(--gray-900); }
 
   @media (prefers-reduced-motion: reduce) {
-    .ad-rows li, .ad-bk, .ad-w2 .ad-cr, .ad-gl2 > em, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
+    .ad-pd, .ad-ctl img, .ad-w2 .ad-cr, .ad-gl2 > em, .ad-g4 .me i, .ad-ty::after, .ad-rt, .ad-cta, .ad-sbd { animation: none !important; transition: none !important; }
     .ad-g4 .me i { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600); }
     .ad-cta { background: var(--primary-600); color: var(--white); }
   }
@@ -540,18 +598,19 @@
     </div>
   </div>
   <div class="container">
-    <div class="sh-visual rv ad-hv" style="--d:260ms" aria-hidden="true">   <!-- patch-483: 가운데 = 매체 광고 일정표 (이번 달 주 단위 막대 · 매체 로고) · 제목 롤링 매체와 같은 줄만 블루 (2.4초 · 스크립트 ads-hero)
-         · 주변: 왼쪽 = 인스타그램 광고 소재 미리보기 / 오른쪽 위 = 카카오 쇼핑박스 노출 시작 알림 / 오른쪽 아래 = 이번 달 광고 수익률 (공통 hero-bob) · 태블릿 · 모바일 = 가운데 창만 -->
-      <div class="sh-float ad-cv"><p class="ad-ch"><img src="assets/common/brand/woodroom.svg" alt=""><u><em>woodroom.official</em>광고</u><img src="assets/common/brand/instagram.svg" alt=""></p><i class="ad-ci"><img src="assets/geo/interior/wr-chair-room-v.webp" alt=""></i><p class="ad-cb">구매하기<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p></div>
+    <div class="sh-visual rv ad-hv" style="--d:260ms" aria-hidden="true">   <!-- patch-490 (C안): 가운데 = 광고 상품 상세 페이지 (왼쪽 노출 위치 미리보기 · 오른쪽 매체 · 상품명 · 이런 목적에 좋아요 · 노출 위치 · 운영 기간 · 담기 + 신청하기 블루) · 제목 롤링 매체에 맞춰 상품 화면이 제자리 페이드로 바뀜 (스크립트 ads-hero)
+         · 주변: 왼쪽 = 담은 광고 상품(매체가 바뀔 때마다 하나씩 쌓임) / 오른쪽 위 = 신청 완료 알림(상품 이름 교체) / 오른쪽 아래 = 이번 달 광고 수익률 (공통 hero-bob) · 태블릿 · 모바일 = 가운데 창만 -->
+      <div class="sh-float ad-ct"><b>담은 광고 상품</b><strong><i class="ad-ctn">1</i><small>개</small></strong><p class="ad-ctl"><img class="in" src="assets/common/brand/naver.svg" alt=""><img src="assets/common/brand/kakao.svg" alt=""><img src="assets/common/brand/google.svg" alt=""><img src="assets/common/brand/meta.svg" alt=""></p></div>
       <div class="ad-hw">
-        <div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></i><b>매체 광고 일정표</b><span class="vw-m">2026년 11월 · 우드앤룸</span><em class="vw-chip">집행 4곳</em></div>
-        <div class="ad-cal">
-          <div class="ad-wk"><span>매체 · 상품</span><span><b>1주</b><i>11.03</i></span><span><b>2주</b><i>11.10</i></span><span><b>3주</b><i>11.17</i></span><span><b>4주</b><i>11.24</i></span></div>
-          <ul class="ad-rows"><li class="on"><span class="ad-mn"><img src="assets/common/brand/naver.svg" alt=""><span><b>네이버 쇼핑</b>핫아이템</span></span><i class="ad-bk" style="--a:2;--b:6"><em>11.03 – 11.30 · 노출 중</em></i></li><li><span class="ad-mn"><img src="assets/common/brand/kakao.svg" alt=""><span><b>카카오 쇼핑박스</b>쇼핑박스</span></span><i class="ad-bk" style="--a:4;--b:6"><em>11.17 – 11.30</em></i></li><li><span class="ad-mn"><img src="assets/common/brand/google.svg" alt=""><span><b>구글 검색광고</b>검색 · 쇼핑</span></span><i class="ad-bk" style="--a:2;--b:5"><em>11.03 – 11.23</em></i></li><li><span class="ad-mn"><img src="assets/common/brand/meta.svg" alt=""><span><b>메타 광고</b>인스타그램 피드</span></span><i class="ad-bk" style="--a:3;--b:6"><em>11.10 – 11.30</em></i></li></ul>
-          <div class="ad-gl"><i></i><i></i><i></i><i></i><span class="ad-now"></span></div>
+        <div class="vw-hd"><i class="vw-ic"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></i><b>광고 상품</b><span class="vw-m">매체 광고 › <span class="ad-cat">쇼핑광고</span></span></div>
+        <div class="ad-pds">
+          <div class="ad-pd on" data-cat="쇼핑광고" data-n="쇼핑 핫아이템" data-lg="naver.svg"><div class="ad-pv"><div class="pv-bar"><img src="assets/common/brand/naver.svg" alt=""><span class="pv-q"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>1인 소파</span></div><p class="pv-lb">핫아이템<u>광고</u></p><ul class="pv-g2"><li class="me"><i class="pv-im"><img src="assets/geo/interior/wr-chair.webp" alt=""><em>광고</em></i>우드앤룸<b>부클 라운드 1인 소파</b><strong><u>25%</u>349,000</strong></li><li><i class="pv-im"><img src="assets/geo/interior/cp-chair-fabric.webp" alt=""><em>광고</em></i>소파앤코<b>패브릭 1인 소파</b><strong><u>20%</u>219,000</strong></li></ul><p class="pv-row"><i><img src="assets/geo/interior/cp-chair-leather.webp" alt=""></i><span>모던하우스<b>가죽 1인 소파 블랙</b></span><strong>459,000</strong></p></div><div class="ad-if"><p class="ad-im"><img src="assets/common/brand/naver.svg" alt="">네이버</p><h4>쇼핑 핫아이템</h4><p class="ad-ds">네이버 쇼핑 검색 결과 위 핫아이템 칸에 상품을 보여 줍니다.</p><p class="ad-pp">이런 목적에 좋아요<em>신상품 판매</em></p><dl class="ad-sp2"><dt>노출 위치</dt><dd>네이버 쇼핑 검색 결과 상단</dd><dt>운영 기간</dt><dd>1주 단위</dd></dl><p class="ad-bb"><span>담기</span><span>신청하기</span></p></div></div>
+          <div class="ad-pd" data-cat="쇼핑광고" data-n="쇼핑박스" data-lg="kakao.svg"><div class="ad-pv"><div class="pv-bar"><img src="assets/common/brand/kakao.svg" alt=""><b>쇼핑하기</b></div><nav class="pv-tab"><span class="on">홈</span><span>톡딜</span><span>선물하기</span><span>라이브</span></nav><div class="pv-kc"><i><img src="assets/geo/interior/wr-chair-room-h.webp" alt=""></i><em>광고</em>우드앤룸<b>부클 라운드 1인 소파</b><strong><u>25%</u>349,000원</strong></div></div><div class="ad-if"><p class="ad-im"><img src="assets/common/brand/kakao.svg" alt="">카카오</p><h4>쇼핑박스</h4><p class="ad-ds">카카오톡 쇼핑하기 탭 첫 화면에 상품을 크게 보여 줍니다.</p><p class="ad-pp">이런 목적에 좋아요<em>신상품 판매</em></p><dl class="ad-sp2"><dt>노출 위치</dt><dd>카카오톡 쇼핑하기 탭</dd><dt>운영 기간</dt><dd>1일 단위</dd></dl><p class="ad-bb"><span>담기</span><span>신청하기</span></p></div></div>
+          <div class="ad-pd" data-cat="디스플레이광고" data-n="리타기팅 배너" data-lg="google.svg"><div class="ad-pv"><div class="pv-bar"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>오늘의 생활 · 리빙</div><div class="pv-sk"><b></b><b style="width:56%"></b><i></i><i style="width:90%"></i></div><div class="pv-bn"><i><img src="assets/geo/interior/wr-chair.webp" alt=""></i><div>최근 본 상품<b>부클 라운드 1인 소파</b><strong>25% 349,000원</strong><u>다시 보러 가기 ›</u></div><em>광고</em></div><div class="pv-sk"><i></i><i style="width:94%"></i><i style="width:70%"></i></div></div><div class="ad-if"><p class="ad-im"><img src="assets/common/brand/google.svg" alt="">구글</p><h4>리타기팅 배너</h4><p class="ad-ds">쇼핑몰에 다녀간 고객이 보는 뉴스 · 블로그에 본 상품을 다시 보여 줍니다.</p><p class="ad-pp">이런 목적에 좋아요<em>재방문</em></p><dl class="ad-sp2"><dt>노출 위치</dt><dd>구글 제휴 사이트 · 앱</dd><dt>운영 기간</dt><dd>기간 · 예산 직접 설정</dd></dl><p class="ad-bb"><span>담기</span><span>신청하기</span></p></div></div>
+          <div class="ad-pd" data-cat="SNS/콘텐츠 광고" data-n="인스타그램 피드" data-lg="meta.svg"><div class="ad-pv"><div class="pv-ih"><img src="assets/common/brand/woodroom.svg" alt=""><span><b>woodroom.official</b>광고</span></div><i class="pv-ip"><img src="assets/geo/interior/wr-chair-room-v.webp" alt=""></i><p class="pv-cta">구매하기<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></p></div><div class="ad-if"><p class="ad-im"><img src="assets/common/brand/meta.svg" alt="">메타</p><h4>인스타그램 피드</h4><p class="ad-ds">관심사가 맞는 고객의 인스타그램 피드에 사진 · 영상 광고를 보여 줍니다.</p><p class="ad-pp">이런 목적에 좋아요<em>신규 고객</em></p><dl class="ad-sp2"><dt>노출 위치</dt><dd>인스타그램 · 페이스북 피드</dd><dt>운영 기간</dt><dd>기간 · 예산 직접 설정</dd></dl><p class="ad-bb"><span>담기</span><span>신청하기</span></p></div></div>
         </div>
       </div>
-      <div class="sh-toast ad-ht"><img class="ad-tl" src="assets/common/brand/kakao.svg" alt=""><div><p><b>카카오 쇼핑박스</b> 노출 예약</p><small>11.17 (월) 09:00 시작</small></div></div>
+      <div class="sh-toast ad-ht"><img class="ad-tl" src="assets/common/brand/naver.svg" alt=""><div><p><b class="ad-tn">쇼핑 핫아이템</b> 신청 완료</p><small>11.17 (월) 노출 시작</small></div></div>
       <div class="sh-float ad-rs"><b>이번 달 광고 수익률</b><strong>412<small>%</small></strong><span>▲ 12% 전월 대비</span><svg class="ad-sp" viewBox="0 0 160 40" aria-hidden="true"><defs><linearGradient id="adSpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d92d20" stop-opacity=".16"/><stop offset="1" stop-color="#d92d20" stop-opacity="0"/></linearGradient></defs><path d="M2 30 L24 32 L46 27 L68 28 L90 21 L112 22 L134 13 L156 7 V40 H2 Z" fill="url(#adSpG)"/><path d="M2 30 L24 32 L46 27 L68 28 L90 21 L112 22 L134 13 L156 7" fill="none" stroke="#d92d20" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="156" cy="7" r="3" fill="#d92d20"/></svg><em class="ad-spx"><i>6월</i><i>11월</i></em></div>
     </div>
   </div>
@@ -1410,12 +1469,26 @@
     }, 3000);
   }
   /* @endregion ads-why */
-  /* @region ads-hero (patch-483): 히어로 일정표 — 제목 롤링(geo-hero-ai)의 위치(translateY −k × 1.3em)를 보고 같은 매체 줄만 블루 (네이버 → 카카오 → 구글 → 메타 · 2.4초) */
+  /* @region ads-hero (patch-490): 히어로 광고 상품 상세 — 제목 롤링(geo-hero-ai) 위치(translateY −k × 1.3em)를 보고 같은 매체 상품 화면으로 교체
+     · 제자리 페이드: 새 화면(.on)이 위에서 0.6초 나타난 뒤 앞 화면(.was) 숨김 · 담은 광고 상품 수 · 로고 쌓임 · 신청 완료 알림 상품 이름 교체 */
   const adHw = document.querySelector('.ad-hw'), adRoll = document.querySelector('#geo-hero .ai-roll-in');
   if (adHw && adRoll) {
-    const rws = [...adHw.querySelectorAll('.ad-rows li')];
-    const sync = () => { const m = /translateY\((-?[\d.]+)em\)/.exec(adRoll.style.transform || ''); const k = m ? Math.round(-parseFloat(m[1]) / 1.3) % rws.length : 0; rws.forEach((r, i) => r.classList.toggle('on', i === k)); };
-    sync(); new MutationObserver(sync).observe(adRoll, { attributes: true, attributeFilter: ['style'] });
+    const pds = [...adHw.querySelectorAll('.ad-pd')], cat = adHw.querySelector('.ad-cat');
+    const ctn = document.querySelector('#geo-hero .ad-ctn'), cls = [...document.querySelectorAll('#geo-hero .ad-ctl img')];
+    const tl = document.querySelector('#geo-hero .ad-tl'), tn = document.querySelector('#geo-hero .ad-tn'), toast = tn && tn.closest('.sh-toast');
+    let cur = 0, wt;
+    const sync = () => {
+      const m = /translateY\((-?[\d.]+)em\)/.exec(adRoll.style.transform || ''); const k = m ? Math.round(-parseFloat(m[1]) / 1.3) % pds.length : 0;
+      if (k === cur) return;
+      const prev = pds[cur]; cur = k;
+      pds.forEach(p => p.classList.remove('was'));
+      prev.classList.remove('on'); prev.classList.add('was'); pds[k].classList.add('on');
+      clearTimeout(wt); wt = setTimeout(() => prev.classList.remove('was'), 650);
+      cat.textContent = pds[k].dataset.cat;
+      if (ctn) { ctn.textContent = k + 1; cls.forEach((c, i) => c.classList.toggle('in', i <= k)); }
+      if (toast) { toast.classList.add('swap'); setTimeout(() => { tl.src = 'assets/common/brand/' + pds[k].dataset.lg; tn.textContent = pds[k].dataset.n; toast.classList.remove('swap'); }, 300); }
+    };
+    new MutationObserver(sync).observe(adRoll, { attributes: true, attributeFilter: ['style'] });
   }
   /* @endregion ads-hero */
   /* @region ads-vis-fit (patch-483): 매체 탭 화면 560×480 — 칸 폭 ÷ 560 = 배율 --s (최대 1 · 숨긴 탭은 열릴 때 다시 계산) */
