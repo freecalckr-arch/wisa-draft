@@ -3311,14 +3311,16 @@ img, video { max-width: 100%; display: block; }
 .bt-arrow { width: 36px; height: 36px; margin: -18px 0 0 -18px; border: 0; border-radius: 50%; background: var(--black); color: var(--white); box-shadow: 0 0 0 4px var(--white); }
 .bt-arrow svg { width: 16px; height: 16px; }
 .bt-arrow svg, .bt-arrow svg path { stroke-width: 2.4; }
-/* patch-496: 원 안 겹화살표(>>)가 진행 방향으로 갔다(+4px) 돌아왔다(−2px)를 부드럽게 반복하는 넛지 모션 (1.2초 · ease-in-out) · 화살표는 항상 보임
-   · 원 · 크기 · 위치 그대로 · 태블릿 · 모바일은 원이 90도 돌아가 있어 위아래로 움직임
-   · 마크업 그대로(svg 는 숨기고 CSS 그림 · 흰 겹화살표 16 · 선 2.4) · patch-494 · 495 깜빡임 · 미끄러짐 대체 */
-.bt-arrow { overflow: hidden; }
-.bt-arrow svg { display: none; }
-.bt-arrow::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M6%206l6%206-6%206M13%206l6%206-6%206%22%2F%3E%3C%2Fsvg%3E") center / 16px no-repeat; animation: btSlide 1.2s ease-in-out infinite; }
-@keyframes btSlide { 0%, 100% { transform: translateX(-2px); } 50% { transform: translateX(4px); } }
-@media (prefers-reduced-motion: reduce) { .bt-arrow::before { animation: none; } }
+/* patch-497: 원 안 화살표 = 꺾쇠 세 개(›››) 물결 — 위치는 고정, 왼쪽부터 차례로 켜짐 (흐림 25% → 흰색 · 1.2초 · 0.2초 엇갈림) · 화살표 모양 비교에서 3번 선택
+   · 원 · 크기 · 위치 그대로 · 태블릿 · 모바일은 원이 90도 돌아가 있어 위 → 아래로 흐름
+   · 마크업 그대로: 꺾쇠 3개 = ::before(첫째) · 기존 svg 자리(둘째 · 안의 선은 숨김) · ::after(셋째) · patch-494~496 대체 */
+.bt-arrow svg, .bt-arrow::before, .bt-arrow::after { content: ""; position: absolute; left: 6px; top: 6px; display: block; width: 24px; height: 24px; background: no-repeat center / 24px 24px; opacity: .25; animation: btWave 1.2s linear infinite; }
+.bt-arrow svg * { display: none; }
+.bt-arrow::before { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2%206l6%206-6%206%22%2F%3E%3C%2Fsvg%3E"); }
+.bt-arrow svg { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M9%206l6%206-6%206%22%2F%3E%3C%2Fsvg%3E"); animation-delay: .2s; }
+.bt-arrow::after { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%222.4%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M16%206l6%206-6%206%22%2F%3E%3C%2Fsvg%3E"); animation-delay: .4s; }
+@keyframes btWave { 0%, 60%, 100% { opacity: .25; } 25% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .bt-arrow svg, .bt-arrow::before, .bt-arrow::after { animation: none; opacity: 1; } }
 
 /* @region tab-hover · patch-365 · 페이지 탭 호버 = 검정 + 굵기 600 (기존 홈페이지 a.rn-cl-tab:hover 와 같게)
    · 굵어져도 탭 폭이 흔들리지 않게 글자(span.tp-t · wisa.js tab-ind 가 감쌈) 아래에 굵은 글자 폭을 높이 0 으로 미리 깔아 둠 */
