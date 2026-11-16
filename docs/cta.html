@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTA · FAQ · WISA 디자인 규칙</title>
+<link rel="icon" href="../assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 미리보기는 실제 시안 페이지를 잘라 보여 줍니다 (assets/live.js). -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">컴포넌트</p>
+    <h1>CTA · FAQ</h1>
+    <p class="lede">모든 마케팅 · 솔루션 페이지 아래쪽에 같은 모양으로 들어가는 두 영역입니다. 글만 페이지마다 바뀌고 규격 · 움직임은 같습니다. 코드는 <code>assets/common/wisa.css</code> 입니다.</p>
+  </header>
+  <div class="body">
+<section class="panel" data-tab="CTA">
+    <h2 id="cta-see">미리보기</h2>
+    <p>GEO 페이지 맨 아래 영역입니다. 뒤쪽 블루 빛 두 개가 천천히 움직입니다.</p>
+    <div class="live" data-src="../geo.html" data-sel="#cta" data-m="0"></div>
+
+    <h2 id="cta-spec">규격 <code>#cta.cta.sub-cta</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC · PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>영역 패딩</td><td>위 160 · 아래 200</td><td>위 140 · 아래 140</td><td>위 80 · 아래 100</td></tr>
+<tr><td>정렬</td><td colspan="3">가운데 정렬 · 바탕 White</td></tr>
+<tr><td>제목 <code>h2</code></td><td>40 · 52 · 700 · Black</td><td>36</td><td>26</td></tr>
+<tr><td>설명 <code>p</code></td><td>16 · 1.6 · Gray 600</td><td>16 · 1.6</td><td>15</td></tr>
+<tr><td>버튼 <code>.cta-btns</code></td><td colspan="2">큰 버튼 2개 (프라이머리 → 세컨더리) · 높이 47 · 사이 10</td><td>첫 번째(프라이머리) 버튼만 · 높이 42</td></tr>
+</tbody></table></div>
+    <p class="note">버튼 색 · 호버 · 포커스는 <a href="button.html">버튼</a>과 같습니다.</p>
+
+    <h2 id="cta-glow">뒤쪽 빛</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>빛</th><th>위치</th><th>크기</th><th>흐림</th><th>움직임</th></tr></thead><tbody>
+<tr><td>큰 빛 <code>::before</code></td><td>왼쪽 calc(50% − 4vw) · 위 12%</td><td>min(620px, 46vw) × min(380px, 28vw)</td><td>blur 60</td><td><code>ctaGlow1</code> 10초 · 왕복(alternate) · 무한</td></tr>
+<tr><td>작은 빛 <code>::after</code></td><td>왼쪽 calc(50% + 12vw) · 위 10%</td><td>min(380px, 28vw) × min(240px, 18vw)</td><td>blur 55</td><td><code>ctaGlow2</code> 13초 · 왕복 · 무한</td></tr>
+</tbody></table></div>
+    <p class="note">큰 빛은 블루, 작은 빛은 인디고 계열 연한 원형 그라데이션(가운데 24~32% → 끝 0%)이고 글 · 버튼 뒤에 깔립니다. 시간을 다르게 해 겹치는 모양이 계속 바뀌어 보입니다. 모션 줄이기 = 움직임 없이 제자리.</p>
+</section>
+
+<section class="panel" data-tab="FAQ">
+    <h2 id="faq-see">미리보기</h2>
+    <p>GEO 페이지 FAQ 입니다. 미리보기 안에서 질문을 눌러 열고 닫을 수 있습니다.</p>
+    <div class="live" data-src="../geo.html" data-sel="#geo-faq .faq" data-m="24"></div>
+
+    <h2 id="faq-spec">규격 <code>#geo-faq .faq</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC · PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>목록 폭</td><td>900 · 가운데</td><td>720</td><td>칸 폭 전체</td></tr>
+<tr><td>선</td><td colspan="3">맨 위 1 Black · 질문 사이 1 Gray 200</td></tr>
+<tr><td>질문 <code>summary</code></td><td colspan="2">18 · 25.2 · 600 · 패딩 28/56/28/4</td><td>16 · 패딩 22/40/22/0</td></tr>
+<tr><td>Q 글자</td><td colspan="3">질문 앞 "Q" 700 · 오른쪽 간격 14</td></tr>
+<tr><td>열고 닫기 표시</td><td colspan="3">오른쪽 끝 꺾쇠 10 × 10 · 선 2 Gray 500 · 열리면 위로 뒤집힘</td></tr>
+<tr><td>답 <code>details p</code></td><td colspan="2">16 · 1.7 · Gray 600 · 패딩 0/56/28/36 (Q 글자 뒤에 맞춤)</td><td>15 · 패딩 0/0/22/26</td></tr>
+</tbody></table></div>
+
+    <h2 id="faq-motion">움직임</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>언제</th><th>동작</th></tr></thead><tbody>
+<tr><td>질문을 누를 때</td><td>답이 열리고 꺾쇠가 위로 뒤집힘 · 다시 누르면 닫힘 (<code>&lt;details&gt;</code> 기본 동작 · 여러 개 함께 열 수 있음)</td></tr>
+<tr><td>꺾쇠 회전</td><td>0.3초 ease-out</td></tr>
+</tbody></table></div>
+
+    <h2 id="sec-title">영역 타이틀 (공통)</h2>
+    <p>FAQ · 사례 · 해결 등 모든 영역 위 제목 · 설명 규격입니다.</p>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC · PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>제목 <code>h2</code></td><td>34 · 700 · Black</td><td>36</td><td>26</td></tr>
+<tr><td>설명 <code>p</code></td><td>18 · 1.6 · Gray 600</td><td>18</td><td>15</td></tr>
+<tr><td>제목 ↔ 설명</td><td>14</td><td>14</td><td>10</td></tr>
+</tbody></table></div>
+</section>
+    <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+<script src="assets/live.js"></script>
+</body>
+</html>

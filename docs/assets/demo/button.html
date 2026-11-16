@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>버튼 · 상태 보기</title>
+<link rel="stylesheet" href="../../../assets/common/wisa.css?v=498">
+<style>
+  html, body { margin: 0; background: var(--white); }
+  body { display: grid; gap: 24px; padding: 24px; box-sizing: border-box; font-size: 13px; color: var(--gray-500); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  .row > b { width: 120px; font-weight: 600; color: var(--gray-500); }
+  /* 데모: 헤더 · CTA 안에서 쓰는 크기를 그대로 보여 주려고 같은 부모 클래스를 씀 */
+  .header-act { display: flex; gap: 8px; }
+  .cta-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  @media (max-width: 1023px) { .header-act { display: flex !important; } }
+</style>
+</head>
+<body>
+<!-- 규칙 사이트 · 버튼 데모: 시안 공통 wisa.css 의 .btn 을 그대로 씀 (마우스를 올리거나 Tab 키로 포커스) -->
+<div class="row"><b>기본 34 (헤더)</b><div class="header-act"><a class="btn" href="#top">로그인</a><a class="btn btn-dark btn-start" href="#solution">무료 시작<span class="hb-rocket" aria-hidden="true"><svg width="48" height="58" viewBox="0 0 101 122" fill="none"><g class="hb-flame"><g transform="rotate(30.6 31 81)"><g class="hb-len"><g class="hb-wid"><path transform="rotate(-30.6 31 81)" d="M22.6226 108.324C24.9155 109.648 35.725 104.56 40.0968 97.1866C43.4885 91.4634 45.0595 85.5463 38.0947 81.5252L38.0783 81.5157C31.1136 77.4946 26.7747 81.8137 23.5141 87.6125C19.3142 95.0855 20.3133 106.99 22.6062 108.314L22.6226 108.324Z" fill="url(#hbG2)"/></g></g></g></g><g class="hb-body"><path d="M71.3957 61.0075C72.3287 67.0602 72.4621 77.7884 67.5794 81.4987C63.0074 84.9735 55.9688 79.3593 50.6645 74.8829C58.5217 75.363 65.7274 69.7946 71.3933 61.0116L71.3957 61.0075Z" fill="url(#hbG0)"/><path d="M39.1934 42.4149C33.4852 44.6332 24.1276 49.8818 23.3557 55.9655C22.6325 61.6624 31.0138 64.9509 37.5426 67.3064C33.1982 60.7418 34.4177 51.7174 39.1911 42.419L39.1934 42.4149Z" fill="url(#hbG1)"/><path d="M77.6125 13.0561C87.038 18.498 80.8994 45.6025 73.2756 58.8073C65.6518 72.0121 54.7984 79.3124 43.2151 72.6247L43.2315 72.6342C31.6481 65.9465 32.5413 52.9012 40.1674 39.6923C47.7936 26.4834 68.1828 7.61191 77.6125 13.0561Z" fill="url(#hbG3)"/><path d="M56.1384 50.2336C61.0206 53.0524 67.291 51.3319 70.1437 46.3909C72.9964 41.4499 71.3512 35.1594 66.4689 32.3406C61.5867 29.5219 55.3163 31.2423 52.4636 36.1833C49.6109 41.1243 51.2562 47.4149 56.1384 50.2336Z" fill="#fff"/><path d="M52.4453 56.6294C48.6496 54.438 43.8091 59.5976 40.7719 64.8866C37.7142 70.1637 35.662 76.9332 39.4576 79.1246C43.2532 81.316 48.0938 76.1564 51.131 70.8674C54.1887 65.5902 56.2409 58.8208 52.4453 56.6294Z" fill="url(#hbG4)"/></g><defs><linearGradient id="hbG0" x1="68.81" y1="61.99" x2="58.73" y2="79.44" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient><linearGradient id="hbG1" x1="36" y1="43" x2="28" y2="64" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient><linearGradient id="hbG2" x1="38.19" y1="81.34" x2="22.72" y2="108.14" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#FA6696"/><stop offset="1" stop-color="#FF6352"/></linearGradient><linearGradient id="hbG3" x1="77.48" y1="13.28" x2="43.52" y2="72.1" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#3BB9F1"/><stop offset="1" stop-color="#1A6DE2"/></linearGradient><linearGradient id="hbG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient></defs></svg></span></a></div></div>
+<div class="row"><b>큰 버튼 (CTA)</b><div class="cta-btns"><a class="btn btn-dark" href="#">마케팅 상담 신청</a><a class="btn cta-sub-btn" href="onsite.html">온사이트마케팅 보기</a></div></div>
+<div class="row"><b>텍스트 링크</b><a class="link-u" href="#">전체 리포트 · 대시보드 보기</a></div>
+<script>document.addEventListener("click", e => { if (e.target.closest("a")) e.preventDefault(); });</script>
+</body>
+</html>

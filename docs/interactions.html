@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>인터랙션 목록 · WISA 디자인 규칙</title>
+<link rel="icon" href="../assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">인터랙션</p>
+    <h1>인터랙션 목록</h1>
+    <p class="lede">시안에 들어간 움직임 전체 목록입니다. <b>공통</b>은 <code>wisa.css</code> · <code>wisa.js</code> 에 있어 마크업만 두면 모든 페이지에 같이 적용되고, <b>페이지별</b>은 각 HTML 의 <code>&lt;style&gt;</code> · <code>&lt;script&gt;</code> 에 있습니다. 시간 · 순서는 시안 코드 값 그대로 구현합니다.</p>
+  </header>
+  <div class="body">
+<section class="panel" data-tab="원칙">
+    <h2 id="p-rule">모든 움직임 공통 규칙</h2>
+    <ol class="rules">
+      <li><b>보일 때만 재생</b> — 화면 이미지 안 반복 애니메이션은 그 영역이 화면에 들어왔을 때 시작합니다 (IntersectionObserver · 클래스 <code>.go</code> · <code>.in</code> · <code>.on</code>). 보이지 않는 동안 타이머는 멈춥니다.</li>
+      <li><b>모션 줄이기</b> — <code>prefers-reduced-motion: reduce</code> 이면 반복 · 등장 애니메이션을 끄고 <b>마지막 상태</b>(다 나타난 화면 · 켜진 번호 · 다 찬 그래프)를 바로 보여 줍니다. 자동 전환(탭 · 히어로 키워드)도 멈춥니다.</li>
+      <li><b>한 화면 = 애니메이션 1개</b> — 화면 이미지마다 메시지를 보여 주는 움직임 하나만 둡니다. 여러 요소가 움직이면 같은 주기(예: 6초) 안에서 순서대로 움직입니다.</li>
+      <li><b>같은 역할 = 같은 시간</b> — 아래 공통 시간을 페이지마다 바꾸지 않습니다.</li>
+    </ol>
+
+    <h2 id="p-time">공통 시간</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>쓰는 곳</th><th>시간</th><th>이징</th></tr></thead><tbody>
+<tr><td>버튼 · 링크 색 바뀜</td><td>0.28초 (텍스트 링크 0.2초)</td><td>ease-out</td></tr>
+<tr><td>호버 글자 · 아이콘 색</td><td>0.2초</td><td>ease</td></tr>
+<tr><td>화면 이미지 · 영역 등장</td><td>0.9초 · 아래 32 → 제자리</td><td>cubic-bezier(.22, 1, .36, 1)</td></tr>
+<tr><td>히어로 키워드 교체</td><td>2.4초마다 · 전환 0.6초 (모든 페이지 · 해상도 같음)</td><td>cubic-bezier(.22, 1, .36, 1)</td></tr>
+<tr><td>탭 패널 전환</td><td>0.45초</td><td>ease-out</td></tr>
+<tr><td>모바일 화면 교체</td><td>0.6초 제자리 페이드 (새 화면이 위에서 나타난 뒤 앞 화면 숨김)</td><td>ease</td></tr>
+<tr><td>떠 있는 카드 둥둥</td><td>6초 · 위아래 8 · 왕복 · 짝수 번째 3초 엇갈림</td><td>ease-in-out</td></tr>
+<tr><td>화면 안 반복 연출</td><td>대부분 6초 주기 (짧은 강조 2.4초 · 긴 이야기 7.2초)</td><td>—</td></tr>
+</tbody></table></div>
+    <p class="note">시안 히스토리 버튼(<code>.vh</code>) · 규칙 사이트 · 기획안 빈 박스(<code>.ph-box</code>) 관련 코드는 시안 확인용이라 구현하지 않습니다 (<a href="index.html#draft-only">구현하지 않는 시안 전용 코드</a>).</p>
+</section>
+
+<section class="panel" data-tab="공통">
+    <h2 id="c-page">페이지 전체</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>무엇</th><th>코드</th><th>시작</th><th>시간 · 반복</th><th>모션 줄이기</th></tr></thead><tbody>
+<tr><td>영역 · 요소 페이드 업 등장</td><td><code>.rv</code> (+ <code>--d</code> 지연)</td><td>화면에 들어올 때 1회</td><td>0.9초 · 아래 32 → 0</td><td>바로 보임</td></tr>
+<tr><td>히어로 키워드 교체</td><td>페이지 <code>geo-hero-ai</code></td><td>페이지 열림</td><td>2.4초마다 · 전환 0.6초 · 무한</td><td>첫 키워드 고정</td></tr>
+<tr><td>히어로 떠 있는 카드 · 토스트 · 이미지</td><td><code>.sh-float</code> · <code>.sh-toast</code> · <code>.sh-img</code> · <code>.hv-card</code> (<code>hero-bob</code>)</td><td>페이지 열림</td><td>6초 왕복 · 위아래 8 · 짝수 3초 엇갈림 · 무한</td><td>정지</td></tr>
+<tr><td>히어로 크기 맞춤 (1024~1439)</td><td><code>wisa.js</code> <code>hero-fit</code></td><td>열림 · 창 크기 바뀔 때</td><td>—</td><td>—</td></tr>
+<tr><td>페이지 전환 탭</td><td><code>tab-ind</code> · <code>tab-dot-pulse</code></td><td>누름 / 열림</td><td>알약 0.28초 → 0.3초 뒤 이동 · 점 링 1.6초 × 3</td><td>바로 이동 · 링 없음</td></tr>
+<tr><td>맨 위 · 맨 아래 버튼</td><td><code>.page-nav</code></td><td>200 넘게 스크롤</td><td>페이드 0.3초</td><td>스크롤 없이 바로 이동</td></tr>
+<tr><td>상담 버튼 빛 · 점</td><td><code>.consult</code> (<code>consultRing</code> · <code>typingDot</code>)</td><td>페이지 열림</td><td>빛 9초 한 바퀴 · 점 1.4초 · 무한</td><td>정지</td></tr>
+<tr><td>CTA 뒤쪽 빛</td><td><code>.cta::before</code> · <code>::after</code></td><td>페이지 열림</td><td>10초 · 13초 왕복 · 무한</td><td>정지</td></tr>
+<tr><td>헤더 "무료 시작" 로켓</td><td><code>.btn-start</code> (<code>hbRumble</code>)</td><td>호버</td><td>1.8초 · 호버 동안</td><td>로켓만 보임</td></tr>
+</tbody></table></div>
+
+    <h2 id="c-area">영역 부품</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>무엇</th><th>코드</th><th>시작</th><th>시간 · 반복</th></tr></thead><tbody>
+<tr><td>그래프 <code>#geo-market</code></td><td>꺾은선이 왼쪽부터 그려짐 · 막대가 차례로 올라옴 · 수치 글자 나타남</td><td><code>mk-anim</code></td><td>화면에 들어올 때 1회</td><td>선 1.8초 (0.2초 뒤) · 막대 0.9초 · 90ms 간격 · 글자 1.1초 뒤</td></tr>
+<tr><td>그래프 <code>#geo-market</code></td><td>태블릿 · 모바일 그래프 가로 맞춤</td><td><code>mk-tb-fit</code></td><td>열림 · 창 크기</td><td>—</td></tr>
+<tr><td>단계 카드 <code>#geo-how .bento</code></td><td>사이 화살표 안 꺾쇠가 물결처럼 차례로 켜짐</td><td><code>btWave</code></td><td>페이지 열림</td><td>1.2초 · 무한</td></tr>
+<tr><td>단계 탭 <code>#geo-how .jt</code></td><td>자동 전환 · 번호 말풍선</td><td>페이지 <code>onsite-steps</code></td><td>보이는 동안</td><td><a href="tabs.html#tab=단계 탭">탭 › 단계 탭</a></td></tr>
+<tr><td>화면 이미지 (문제 · 해결)</td><td>화면 안 요소 등장 · 숫자 올라감</td><td><code>vw-enter</code> · <code>.os2-anim.go</code></td><td>화면 40% 보일 때 1회</td><td>숫자 1.2초 카운트업</td></tr>
+<tr><td>GEO 비교 창</td><td>AI 질문 → 답변 한 글자씩 입력</td><td><code>geo-chat-typing</code></td><td>화면 50% 보일 때마다</td><td>보일 때마다 다시 재생</td></tr>
+<tr><td>GEO STEP 2 코드</td><td>코드가 다듬어지는 장면</td><td><code>st2-code</code></td><td>화면 50% 보일 때마다</td><td>보일 때마다 다시 재생</td></tr>
+<tr><td>해결 <code>#geo-diagnosis</code></td><td>번호 사이 라인이 스크롤만큼 차오르고 닿은 번호가 켜짐</td><td><code>sr-line</code></td><td>스크롤</td><td><a href="cards.html#tab=해결 카드">카드 › 해결 카드</a></td></tr>
+<tr><td>리포트 <code>#geo-report</code></td><td>아래 1 · 2 · 3 번호가 차례로 켜지고 사이 라인이 차오름</td><td><code>rp-steps-seq</code></td><td>화면 60% 보일 때 1회</td><td>번호 → 라인 → 번호 순서</td></tr>
+<tr><td>리포트 <code>#geo-report</code></td><td>모바일 화면 막대 차오름 · AI 메시지 입력</td><td><code>rp-phone</code></td><td>화면에 들어올 때</td><td>입력 중 점 1초 → 문장 · 반복</td></tr>
+<tr><td>사례 <code>#geo-ref</code></td><td>카드 테두리 + 사진 1.06 배 (PC · 마우스 기기)</td><td><code>.rvw:hover</code></td><td>호버</td><td>사진 0.6초 ease-out</td></tr>
+<tr><td>다짐 띠 <code>#geo-vow</code></td><td>단계 칸이 차례로 켜짐 (바탕 Primary 50 + 테두리 2 Primary 600)</td><td><code>vlOn</code></td><td>화면에 들어올 때</td><td>6초</td></tr>
+<tr><td>URL <code>#geo-scope</code> (GEO)</td><td>연결선 위 점 흐름 · 타일 둥둥</td><td><code>netFlow</code> · <code>tileFloat</code></td><td>페이지 열림</td><td>1.6초 · 5초 · 무한</td></tr>
+<tr><td>질문 줄 (GEO 히어로 아래)</td><td>질문 칩 두 줄이 서로 반대로 흐름</td><td><code>qL</code> · <code>qR</code></td><td>페이지 열림</td><td>60초 · 무한</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="panel" data-tab="페이지별">
+    <p>각 페이지 HTML 안에만 있는 움직임입니다. 영역 흐름 순서대로 적었습니다. 모두 "보일 때만 재생 · 모션 줄이기 시 마지막 상태" 규칙을 따릅니다.</p>
+
+    <h2 id="pg-geo">GEO <code>geo.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>키워드가 바뀔 때 AI 답변 창 내용 교체 · 떠 있는 카드 둥둥 (공통)</td><td>2.4초</td></tr>
+<tr><td>문제</td><td>오른쪽 AI 답변 창 질문 → 답변 입력 (<code>geo-chat-typing</code>)</td><td>보일 때마다</td></tr>
+<tr><td>단계 · 해결 · URL</td><td>공통 부품만 (<code>btWave</code> · <code>st2-code</code> · <code>sr-line</code> · <code>netFlow</code>)</td><td>—</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-onsite">온사이트마케팅 <code>onsite.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>A안 휴대폰 고민 말풍선 3개 차례로 → B안 해결 말풍선 → 구매하기 버튼 눌림 → 구매 완료 알림 3개 · 컬러칩이 바뀌면 상세 이미지 · 컬러 이름 교체</td><td>11초 · 컬러 2.8초</td></tr>
+<tr><td>문제</td><td>쇼핑몰 화면 번호 1~7 에 요소 이름 말풍선이 번호 순서대로 뜸</td><td>번호당 1.3초 · 반복</td></tr>
+<tr><td>단계 (탭)</td><td>자동 전환 · 번호 말풍선 (<a href="tabs.html#tab=단계 탭">단계 탭</a>)</td><td>단계마다 3.2초~</td></tr>
+<tr><td>해결</td><td>화면 등장 1회 · 링 파동 · 다음 단계 점 깜빡임</td><td>1.8초 · 1.6초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-crm">CRM마케팅 <code>crm.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>키워드(채널)가 바뀔 때 ① 고객 상황 · ② 휴대폰 메시지 · ③ 반응 결과를 같은 순서로 교체 · LIVE 점 깜빡임 · 카드 둥둥 · 프로필 사진 교체</td><td>2.4초 · 점 1.6초</td></tr>
+<tr><td>문제</td><td>오른쪽 고객 줄마다 차례로 "발송" 강조 (고객마다 다른 시점)</td><td>줄당 2초 · 8초 반복</td></tr>
+<tr><td>단계 (탭)</td><td>자동 전환 · 번호 말풍선</td><td>단계마다 3.2초~</td></tr>
+<tr><td>해결 ① 분석</td><td>그룹 막대 숨쉬기 · 주의 그룹 깜빡임</td><td>2.4초 · 3초</td></tr>
+<tr><td>해결 ② 설계</td><td>자동화 흐름에서 점이 선을 따라 내려가며 지나는 단계가 블루 테두리로 켜짐</td><td>5초</td></tr>
+<tr><td>해결 ③ 테스트</td><td>A/B 막대가 차는 동안 목록 1 "진행" → 결과가 나오면 체크 + "적용" · 4.6초 보여 준 뒤 처음부터</td><td>반복</td></tr>
+<tr><td>해결 수치</td><td>숫자 카운트업</td><td>1.2초 · 1회</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-report">리포트 <code>report.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>왼쪽 아래 AI 말풍선 입력 중 점 → 문장 · 오른쪽 위 감지 알림이 키워드마다 교체 · 배경 점 반짝임</td><td>2.4초 · 문장 1.2초</td></tr>
+<tr><td>문제</td><td>오른쪽 메시지 문장 입력 → 요약 카드 → "바로 조정" 버튼 눌림 → 처리 완료 줄 · 문제 행 깜빡임</td><td>6초 · 2.4초</td></tr>
+<tr><td>단계 (탭)</td><td>자동 전환 · AI 메시지 입력 · 이번 달 막대 강조</td><td>8초 · 2초</td></tr>
+<tr><td>해결 ① 연결</td><td>매체 → 리포트 흐름 점 · 불러오는 중 아이콘 회전</td><td>1초 · 0.9초</td></tr>
+<tr><td>해결 ② 정리</td><td>할 일 2번째 줄 체크 → 줄 긋기</td><td>7초</td></tr>
+<tr><td>해결 ④ 알림</td><td>종 흔들림 · "새 알림" 칩 파동 · 긴급 알림이 위에서 새로 들어옴</td><td>5초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-sns">공식채널운영 <code>sns-ops.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>AI 카드 생성 중(로딩) → 사진 A · B · C 순서로 흐림 → 선명 → 문구 생성 → B 선택 · 인스타그램 태그 깜빡임</td><td>7.2초 · 2.4초</td></tr>
+<tr><td>문제</td><td>자사몰 데이터 줄 → 채널 4줄에 같은 메시지 체크</td><td>4.8초</td></tr>
+<tr><td>단계 (카드)</td><td>채널 체크 · AI 생성 장면 (히어로와 같은 키프레임)</td><td>6초 · 7.2초</td></tr>
+<tr><td>해결</td><td>문제 행 교체 표시 깜빡임 · 상태 글자 교체 · 휴대폰 화면 A ↔ B 교체 + 탭 표시</td><td>2.4초 · 6초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-feed">상품DB 연동 <code>shopping-feed.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>"연동" 태그 깜빡임 · 채널 체크 차례로</td><td>2.4초 · 4.8초</td></tr>
+<tr><td>문제</td><td>채널 체크 · 상품 미리보기 앞 → 뒤 교체</td><td>4.8초 · 6초</td></tr>
+<tr><td>단계 (카드)</td><td>채널 체크 · 결과 태그 깜빡임</td><td>6초 · 2.4초</td></tr>
+<tr><td>해결</td><td>상태 글자 교체 · 수정 값 들어옴 · 광고 태그 깜빡임</td><td>6초 · 2.4초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-vc">버티컬커머스 <code>vertical-commerce.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>앞 화면 우리 상품 블루 링 파동 · 상태 글자 교체 · 모바일 화면 제자리 페이드 교체</td><td>2.4초 · 6초</td></tr>
+<tr><td>문제</td><td>채널 막대가 오늘의집 → 쿠팡 → 무신사 순서로 차오르며(차는 동안 블루) 합산 금액이 함께 올라감</td><td>보일 때 · 반복</td></tr>
+<tr><td>단계 (카드)</td><td>맞는 행 강조 · 채널 체크 · 연결 칩 페이드</td><td>4.8초 · 6초</td></tr>
+<tr><td>해결</td><td>값 들어옴 · 선택 표시 · 행 강조</td><td>6초 · 4.8초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-ads">매체 광고 <code>media-ads.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>키워드(매체)가 바뀔 때 같은 매체 광고 상품 화면으로 교체 · 오른쪽 상품 정보 글자 0.4초 페이드 인 (앞 글자는 0.2초에 먼저 사라짐)</td><td>2.4초</td></tr>
+<tr><td>문제</td><td>광고 목표 칩이 바뀌면 맞는 매체 · 상품 조합 4줄이 함께 바뀜</td><td>3초</td></tr>
+<tr><td>광고 상품 <code>#ads-products</code></td><td>검색광고 = 검색어 한 글자씩 입력 → 결과 또렷 · 쇼핑광고 = 우리 상품 블루 링 · SNS 광고 = 구매하기 줄이 블루로</td><td>6초 · 2.4초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-cmp">라이선스 비교 <code>comparison.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>요금 <code>#cmp-plan</code></td><td>로켓 둥둥 · 불꽃 · 스크롤해 카드가 올라오면 발사 (모바일 = 첫 카드 · 위끝이 머리글 아래 120)</td><td>2.8초 · 발사 0.35초</td></tr>
+<tr><td>핵심 차이</td><td>차이 줄이 순서대로 켜짐 · Cloud → Enterprise 강조 (PC 는 호버 · 태블릿 · 모바일 · 마우스 없는 기기는 자동)</td><td>6초</td></tr>
+<tr><td>성장 경로</td><td>③ 언어 탭 교체 · ④ 데이터 이전 행 순서대로 · 번호 라인 (<code>sr-line</code>)</td><td>2.4초</td></tr>
+<tr><td>상세 비교표 (모바일)</td><td>화면 가운데에 가장 가까운 항목 강조 · 표 가로 스크롤</td><td>스크롤</td></tr>
+</tbody></table></div>
+</section>
+    <p class="foot">마지막 수정 2026-11-16 · 시간 값은 시안 코드(<code>@keyframes</code> · 스크립트 타이머) 값입니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+</body>
+</html>

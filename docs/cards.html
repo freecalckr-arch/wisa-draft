@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카드 · WISA 디자인 규칙</title>
+<link rel="icon" href="../assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body>
+<!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 미리보기는 실제 시안 페이지를 잘라 보여 줍니다 (assets/live.js). -->
+<main class="doc">
+  <header class="ph">
+    <p class="eyebrow">컴포넌트</p>
+    <h1>카드</h1>
+    <p class="lede">마케팅 페이지 영역 카드 세 가지입니다. 단계 영역의 <b>단계 카드</b>, 해결 영역의 <b>해결 카드</b>, 사례 영역의 <b>사례 카드</b>. 카드 안 화면 이미지 크기 · 축소 규칙은 <a href="image.html">이미지</a>, 요금 카드는 <a href="plan.html">요금 카드</a>에 있습니다.</p>
+  </header>
+  <div class="body">
+<section class="panel" data-tab="단계 카드">
+    <h2 id="bt-see">미리보기</h2>
+    <p>GEO 단계 영역입니다 (카드 타입 · 카드 3장 + 사이 화살표).</p>
+    <div class="live" data-src="../geo.html" data-sel="#geo-how .bento" data-m="24"></div>
+
+    <h2 id="bt-spec">규격 <code>.bento .bt</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC</th><th>PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>배치</td><td>3열 · 사이 20</td><td>3열</td><td colspan="2">1열 (위아래로 쌓음)</td></tr>
+<tr><td>카드</td><td>400 × 390 · 모서리 24 · 바탕 White</td><td>320 × 328 · 모서리 24</td><td>720 폭 · 모서리 16 · 바탕 Gray 50</td><td>338 폭 · 모서리 16 · 바탕 Gray 50</td></tr>
+<tr><td>머리 <code>.bt-hd</code></td><td>패딩 36/32/0 · 사이 10</td><td>패딩 36/28/0</td><td>패딩 32/32/0</td><td>패딩 26/22/0 · 사이 8</td></tr>
+<tr><td>단계 글자 <code>.bt-eb</code></td><td colspan="4">14/20 · 500 · Gray 500 (예: STEP 1)</td></tr>
+<tr><td>제목 <code>h3</code></td><td>22 · 1.4 · 700</td><td>20</td><td>22</td><td>18</td></tr>
+<tr><td>화면 칸 <code>.bt-vis</code></td><td>높이 230 · 좌우 20 · 화면 이미지 360 × 250</td><td>높이 174 · 좌우 24 (이미지 같은 비율 축소)</td><td>높이 230 · 좌우 24</td><td>높이 193 · 좌우 18</td></tr>
+<tr><td>사이 화살표 <code>.fl-ar</code></td><td colspan="2">카드 사이 가운데 · 검은 원 36 + 흰 테두리 4 · 흰 화살표</td><td colspan="2">없음</td></tr>
+</tbody></table></div>
+    <p class="note">쓰는 페이지: GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고. 단계가 4개 이상이고 단계마다 큰 화면이 필요한 페이지는 <a href="tabs.html#tab=단계 탭">단계 탭</a>을 씁니다.</p>
+</section>
+
+<section class="panel" data-tab="해결 카드">
+    <h2 id="sr-see">미리보기</h2>
+    <p>GEO 해결 영역입니다. 미리보기를 넓게 보려면 "페이지에서 보기" 로 열어 스크롤하면 왼쪽 라인이 차오르는 것을 볼 수 있습니다.</p>
+    <div class="live" data-src="../geo.html" data-sel="#geo-diagnosis .steprows" data-m="24"></div>
+
+    <h2 id="sr-spec">규격 <code>.steprows .steprow</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC</th><th>PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>줄</td><td colspan="2">왼쪽 번호 · 오른쪽 카드 · 줄 사이 72</td><td colspan="2">같은 배치 (카드 안은 위 글 · 아래 화면)</td></tr>
+<tr><td>번호 원 <code>.sr-no</code></td><td colspan="3">30 원 · 바탕 White · 테두리 1 Gray 300 · 글자 13 · 700 Gray 500</td><td>26 원 · 글자 12</td></tr>
+<tr><td>번호 사이 라인</td><td colspan="4">점선 2 Gray 300 위로 실선 2 Primary 600 이 스크롤에 맞춰 차오름</td></tr>
+<tr><td>카드</td><td>1190 폭 · 패딩 44/48 · 모서리 24 · 바탕 White · 칸 사이 40/56</td><td>950 폭 · 같음</td><td>630 폭 · 패딩 36/32 · 사이 28/24</td><td>300 폭 · 패딩 28/20 · 모서리 20 · 사이 24/16</td></tr>
+<tr><td>제목 <code>h3</code></td><td colspan="3">24 · 1.35 · 700</td><td>18</td></tr>
+<tr><td>설명 <code>p</code></td><td colspan="3">16 · 1.6 · Gray 600</td><td>14</td></tr>
+<tr><td>태그 <code>.sr-tags</code></td><td colspan="2">공통 태그 (높이 32 · 바탕 Gray 100)</td><td>공통 태그 (바탕 Gray 200)</td><td>숨김</td></tr>
+<tr><td>화면 <code>.sr-vis</code></td><td colspan="2">460 × 340</td><td>460 × 340 (칸 가운데)</td><td>칸 폭에 맞춰 같은 비율 축소 (390 → 260 × 192)</td></tr>
+</tbody></table></div>
+
+    <h2 id="sr-motion">움직임</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>언제</th><th>동작</th><th>시간</th></tr></thead><tbody>
+<tr><td>스크롤할 때</td><td>화면 높이 55% 지점이 지나간 만큼 번호 사이 실선이 차오름 · 위로 스크롤하면 되돌아감</td><td>스크롤에 맞춤</td></tr>
+<tr><td>라인이 번호 원 가운데를 지날 때</td><td>번호 원 켜짐: 바탕 · 테두리 Primary 600 · 글자 White · 살짝 커졌다 돌아오며 연한 블루 링이 퍼짐</td><td>색 0.3초 · 커짐 0.5초 · 링 0.9초</td></tr>
+<tr><td>모션 줄이기</td><td colspan="2">라인 · 번호 모두 켜진 상태로 바로 보임 (커짐 · 링 없음)</td></tr>
+</tbody></table></div>
+    <p class="note">코드: <code>wisa.css</code> <code>sr-line</code> · <code>sr-340</code> / <code>wisa.js</code> <code>sr-line</code>. 마크업을 그대로 두면 모든 페이지에 같이 적용됩니다.</p>
+</section>
+
+<section class="panel" data-tab="사례 카드">
+    <h2 id="rv-see">미리보기</h2>
+    <p>온사이트마케팅 사례 영역입니다. PC 에서 카드에 마우스를 올려 보세요.</p>
+    <div class="live" data-src="../onsite.html" data-sel="#geo-ref .ref-grid" data-m="24"></div>
+
+    <h2 id="rv-spec">규격 <code>.ref-grid .rvw</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC</th><th>PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>배치</td><td colspan="2">3열 세로 카드</td><td>가로형 카드 3장을 위아래로 (왼쪽 사진 280 · 오른쪽 글)</td><td>1열 세로 카드</td></tr>
+<tr><td>카드</td><td>400 × 475</td><td>320 × 500</td><td>720 × 254</td><td>338 폭</td></tr>
+<tr><td>카드 모양</td><td colspan="4">바탕 White · 모서리 16 · 사진 위 · 글 아래</td></tr>
+<tr><td>사진 <code>.rvw-img</code></td><td colspan="2">높이 210 · 꽉 채움(cover) · 바탕 Gray 200</td><td>280 × 254</td><td>높이 170</td></tr>
+<tr><td>글 <code>.rvw-body</code></td><td colspan="2">패딩 20/22/22 · 사이 16</td><td>패딩 20/24 · 사이 14</td><td>패딩 16/18/18 · 사이 12</td></tr>
+<tr><td>수치 <code>.rvw-kpi</code></td><td colspan="4">2칸 · 사이 8 · 높이 약 60</td></tr>
+<tr><td>후기 <code>.rvw-q</code></td><td colspan="2">15 · 1.65 · Gray 700</td><td colspan="2">14</td></tr>
+<tr><td>호버 (PC)</td><td colspan="4">카드 테두리 1 Black 이 생기고 사진이 1.06 배 확대 (마우스가 있는 기기만)</td></tr>
+</tbody></table></div>
+    <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트 · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고. GEO 사례는 AI 답변 화면이 들어간 사례 카드(<code>.case-ft</code>)로 GEO 페이지 HTML 에 있습니다.</p>
+</section>
+    <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
+  </div>
+</main>
+<script src="assets/docs.js"></script>
+<script src="assets/live.js"></script>
+</body>
+</html>
