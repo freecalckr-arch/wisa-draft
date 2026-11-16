@@ -20,7 +20,7 @@
     <h2 id="summary">한눈에 보기</h2>
     <div class="tbl"><table><thead><tr><th>항목</th><th>미리보기 (신규)</th><th>바뀌는 것</th><th>바뀌지 않는 것</th><th>대상</th></tr></thead><tbody>
 <tr><td><b>CTA</b></td><td><a class="thumb" href="#tab=CTA"><span class="tf"><iframe src="assets/changes/demo-cta.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>배경 빛 위치: 오른쪽 끝 → 문구 뒤 가운데 (모든 구간)</td><td>빛 색 · 크기 · 움직임 · 속도, 타이틀 · 버튼 크기</td><td>서브페이지 CTA <code>.rn-cta</code></td></tr>
-<tr><td><b>페이지 전환 탭</b></td><td><a class="thumb" href="#tab=페이지 전환 탭"><span class="tf"><iframe src="assets/changes/demo-tab.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>크기 (박스 44 → 48 · 글자 13 → 15), 선택 표시 움직임, 선택 점 퍼짐</td><td>색 · 모서리 · 좌우 패딩 · 호버(검정 + 굵게)</td><td>히어로 위 탭 <code>.rn-cl-tabs</code> · <code>.rn-ent-tabs</code> 등 같은 모양 탭</td></tr>
+<tr><td><b>페이지 전환 탭</b></td><td><a class="thumb" href="#tab=페이지 전환 탭"><span class="tf"><iframe src="assets/changes/demo-tab.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>선택 표시 움직임, 선택 점 퍼짐</td><td>크기(박스 44 · 글자 13) · 색 · 모서리 · 패딩 · 호버(검정 + 굵게)</td><td>히어로 위 탭 <code>.rn-cl-tabs</code> · <code>.rn-ent-tabs</code> 등 같은 모양 탭</td></tr>
 <tr><td><b>모바일 콘텐츠 타이틀</b></td><td><a class="thumb" href="#tab=모바일 타이틀"><span class="tf"><iframe src="assets/changes/demo-title.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>모바일(≤767) 28 → 26px</td><td>PC 34 · 태블릿 36 · 히어로 h1</td><td>영역 타이틀 h2 · CTA 타이틀 (28 인 페이지만)</td></tr>
 <tr><td><b>탑버튼</b></td><td><a class="thumb" href="#tab=탑버튼"><span class="tf"><iframe src="assets/changes/demo-top.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>오른쪽 아래 로켓 탑버튼 → 오른쪽 가운데 맨 위 · 맨 아래 이동 버튼 (위 · 아래 2개)</td><td>스크롤하면 나타남 · 부드럽게 이동</td><td>모든 서브페이지 <code>#scroll_top</code></td></tr>
 </tbody></table></div>
@@ -79,17 +79,8 @@
     <h2 id="tab-see">미리보기</h2>
     <div class="demo"><iframe src="assets/changes/demo-tab.html" title="움직임 보기 · 다른 탭을 누르면 흰 알약만 미끄러지고 글자는 제자리 · 처음 열릴 때 선택 점에서 연한 블루 링이 3번 퍼짐 · 마우스를 올리면 검정 + 굵게" style="height:150px" loading="lazy"></iframe><p>움직임 보기 · 다른 탭을 누르면 흰 알약만 미끄러지고 글자는 제자리 · 처음 열릴 때 선택 점에서 연한 블루 링이 3번 퍼짐 · 마우스를 올리면 검정 + 굵게</p></div>
 
-    <h2 id="tab-size">크기 (기존 → 신규)</h2>
-    <div class="tbl"><table><thead><tr><th>항목</th><th>기존 <code>.rn-cl-tabs</code></th><th>신규 <code>.tab-page</code></th></tr></thead><tbody>
-<tr><td>회색 박스 높이</td><td>44</td><td><b>48</b></td></tr>
-<tr><td>회색 박스 안쪽 여백</td><td colspan="2">6 (같음)</td></tr>
-<tr><td>탭 높이</td><td>32</td><td><b>36</b></td></tr>
-<tr><td>글자 크기 · 줄 높이</td><td>13 / 20</td><td><b>15</b> / 20</td></tr>
-<tr><td>탭 위아래 패딩</td><td>6</td><td><b>8</b></td></tr>
-<tr><td>탭 좌우 패딩</td><td colspan="2">14 · 모바일 10 (같음)</td></tr>
-<tr><td>모서리</td><td colspan="2">99 (같음)</td></tr>
-</tbody></table></div>
-    <p class="note">모든 구간(PC · 태블릿 · 모바일)에서 같은 크기입니다. 모바일만 좌우 패딩이 10 입니다.</p>
+    <h2 id="tab-size">크기</h2>
+    <p class="note">크기는 기존 <code>.rn-cl-tabs</code> 그대로 둡니다 — 회색 박스 높이 44 · 안쪽 6 / 탭 높이 32 · 패딩 6/14 (모바일 좌우 10) · 글자 13/20 · 모서리 99.</p>
 
     <h2 id="tab-state">상태</h2>
     <div class="tbl"><table><thead><tr><th>상태</th><th>기존</th><th>신규</th></tr></thead><tbody>
@@ -102,18 +93,14 @@
 </tbody></table></div>
 
     <h2 id="tab-code">바꿀 코드</h2>
-    <div class="code"><button type="button" data-copy="c-tab">복사</button><pre id="c-tab">/* 크기 */
-.rn-cl-tab { padding: 8px 14px; font-size: 15px; line-height: 20px; }
-@media (max-width: 767px) { .rn-cl-tab { padding-inline: 10px; } }
-
-/* 선택 점 퍼짐 (점 = 8px Primary 600) */
+    <div class="code"><button type="button" data-copy="c-tab">복사</button><pre id="c-tab">/* 선택 점 퍼짐 (점 = 8px Primary 600) */
 .rn-cl-tab.on .dot { position: relative; }
 .rn-cl-tab.on .dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--primary-600); opacity: 0; animation: tabDotPulse 1.6s ease-out .6s 3; }
 @keyframes tabDotPulse { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(2.6); opacity: 0; } }
 
 /* 흰 알약 이동: 알약을 탭 묶음의 ::before 로 분리하고, 스크립트가 선택 탭 위치 · 폭을 변수로 넣음 */
 .rn-cl-tabs { position: relative; isolation: isolate; }
-.rn-cl-tabs.ind::before { content: ""; position: absolute; z-index: -1; left: 0; top: var(--iy, 6px); width: var(--iw, 0); height: var(--ih, 36px); border-radius: 99px; background: var(--white); box-shadow: 0 0 2px rgba(0,0,0,.1); transform: translateX(var(--ix, 0)); }
+.rn-cl-tabs.ind::before { content: ""; position: absolute; z-index: -1; left: 0; top: var(--iy, 6px); width: var(--iw, 0); height: var(--ih, 32px); border-radius: 99px; background: var(--white); box-shadow: 0 0 2px rgba(0,0,0,.1); transform: translateX(var(--ix, 0)); }
 .rn-cl-tabs.ind.ready::before { transition: transform .28s cubic-bezier(.22, 1, .36, 1), width .28s cubic-bezier(.22, 1, .36, 1); }
 .rn-cl-tabs.ind .rn-cl-tab.on { background: none; filter: none; }
 
@@ -122,7 +109,7 @@
   .rn-cl-tab.on .dot::after { animation: none; }
 }</pre></div>
     <p class="note">선택 점은 기존에 <code>&lt;img src="tab-dot.svg"&gt;</code> 이라 퍼짐 효과를 넣으려면 <code>&lt;i class="dot"&gt;</code> 같은 요소로 바꿔야 합니다. 알약 이동 스크립트(선택 탭의 위치 · 폭을 <code>--ix · --iy · --iw · --ih</code> 로 넣고, 클릭 시 알약을 옮긴 뒤 0.3초 후 이동)는 시안 <code>wisa.js</code> 의 <code>tab-ind</code> 를 그대로 옮기면 됩니다.</p>
-    <p class="note">시안 코드 위치: <code>assets/common/wisa.css</code> <code>tab-page</code> · <code>tab-ind</code> (patch-173) · <code>hero-gap</code> (patch-318 · 319) · <code>tab-dot-pulse</code> (patch-321) · <code>tab-hover</code> (patch-365) / <code>wisa.js</code> <code>tab-ind</code>.</p>
+    <p class="note">시안 코드 위치: <code>assets/common/wisa.css</code> <code>tab-page</code> · <code>tab-ind</code> (patch-173) · <code>hero-gap</code> (patch-505) · <code>tab-dot-pulse</code> (patch-321) · <code>tab-hover</code> (patch-365) / <code>wisa.js</code> <code>tab-ind</code>.</p>
 </section>
 
 <section class="panel" data-tab="모바일 타이틀">
