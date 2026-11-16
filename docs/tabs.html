@@ -13,7 +13,7 @@
   <header class="ph">
     <p class="eyebrow">컴포넌트</p>
     <h1>탭</h1>
-    <p class="lede">탭은 두 가지입니다. 히어로 위에서 같은 묶음의 페이지를 오가는 <b>페이지 전환 탭</b>, 단계 영역(<code>#geo-how</code>)에서 단계마다 화면을 바꾸는 <b>단계 탭</b>입니다.</p>
+    <p class="lede">탭은 세 가지입니다. 히어로 위에서 같은 묶음의 페이지를 오가는 <b>페이지 전환 탭</b>, 단계 영역(<code>#geo-how</code>)에서 단계마다 화면을 바꾸는 <b>단계 탭</b>, 같은 영역 안에서 보는 내용만 바꾸는 <b>라인 탭</b>입니다. 페이지 전환 탭(회색 알약)은 다른 페이지로 이동할 때만 쓰고, 한 영역 안 전환에는 쓰지 않습니다.</p>
   </header>
   <div class="body">
 <section class="panel" data-tab="페이지 전환 탭">
@@ -66,6 +66,28 @@
 <tr><td>모션 줄이기</td><td colspan="2">자동 전환 · 번호 말풍선 없음 · 탭을 눌러서만 바꿈</td></tr>
 </tbody></table></div>
     <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트. 단계 영역이 카드 타입인 페이지(GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고)는 <a href="cards.html">카드 › 단계 (카드 타입)</a>. 코드: 각 페이지 <code>&lt;script&gt;</code> <code>onsite-steps</code> · 탭 줄 <code>wisa.css</code> <code>.tabline</code> · 화살표 <code>jt-ar</code> · 번호 원 <code>num-mark</code> / <code>wisa.js</code> <code>jt-nav-mo</code> (화살표 · 선택 탭 가운데).</p>
+</section>
+<section class="panel" data-tab="라인 탭">
+    <h2 id="tl-see">미리보기</h2>
+    <p>GEO 요금제 모바일 화면입니다. 탭을 누르면 그 요금 카드가 가운데로 옵니다. 글자 아래 검정 밑줄로 지금 보는 항목을 표시하는 탭이고, 단계 탭도 같은 탭 부품(<code>.tabline</code>)에 번호 · 바닥선을 더한 것입니다.</p>
+    <div class="live" data-src="../geo-price.html" data-sel="#geo-price .gp-tabs" data-ws="390" data-w="390" data-m="20"></div>
+
+    <h2 id="tl-spec">규격 <code>.tabline</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>큰 크기</th><th>작은 크기 (모바일)</th></tr></thead><tbody>
+<tr><td>글자</td><td>16 · 줄 1.4</td><td>14 · 줄 20</td></tr>
+<tr><td>패딩 (위/좌우/아래)</td><td>13 / 0 / 10</td><td>10 / 0 / 16</td></tr>
+<tr><td>탭 사이</td><td>22</td><td>18</td></tr>
+<tr><td>기본</td><td colspan="2">500 · Gray 400</td></tr>
+<tr><td>호버</td><td colspan="2">Black (0.2초)</td></tr>
+<tr><td>선택</td><td colspan="2">600 · Black + 아래 밑줄 3 Black (글자 폭만큼)</td></tr>
+<tr><td>정렬 · 바닥선</td><td colspan="2">바닥선 없음 · 정렬은 쓰는 곳에 맞춤 (요금제 = 가운데) · 단계 탭만 줄 전체 바닥선 Gray 200 1 + 앞 번호</td></tr>
+</tbody></table></div>
+    <h2 id="tl-use">쓰는 곳</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>곳</th><th>크기</th><th>동작</th></tr></thead><tbody>
+<tr><td>GEO 요금제 모바일 (<code>.gp-tabs</code>)</td><td>작은 크기 · 가운데 정렬 · 아래 20</td><td>누르면 그 카드를 가운데로 · 카드를 넘기면 선택 탭도 바뀜 (<a href="plan.html#swipe">요금 카드 › 모바일 넘기기</a>)</td></tr>
+<tr><td>단계 탭 (<code>.jt-nav</code>)</td><td>단계 탭 규격</td><td><a href="#tab=단계 탭">단계 탭</a></td></tr>
+</tbody></table></div>
+    <p class="note">코드: <code>wisa.css</code> <code>.tabline</code> (기본 · 큰 크기) · 작은 크기는 <code>geo-price.html</code> <code>@region geo-price</code> <code>.gp-tabs .tabline</code>.</p>
 </section>
     <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
   </div>
