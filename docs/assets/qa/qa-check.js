@@ -22,7 +22,7 @@
   function areas() { return [].slice.call(document.querySelectorAll("[id]")).filter(function (e) { return AREA.test(e.id) && !e.parentElement.closest("[id^='geo-'],[id^='cmp-'],[id^='ads-'],#cta"); }); }
   function sig(e) { var c = [].slice.call(e.classList).filter(function (x) { return !STATE.test(x); }).sort(); return e.tagName.toLowerCase() + (c.length ? "." + c.join(".") : ""); }
   function hasText(e) { for (var n = e.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && n.nodeValue.trim()) return true; return false; }
-  function fam(v) { return v.split(",")[0].replace(/["']/g, "").trim(); }
+  function fam(v) { return v.split(",")[0].replace(/["']/g, "").replace(/ Variable$/, "").trim(); }   // Pretendard Variable = Pretendard (같은 글꼴)
   // 영역마다 요소 목록 (svg 안쪽 · 숨겨진 요소 안쪽은 건너뜀)
   function walk(fn) {
     areas().forEach(function (a) {
@@ -63,7 +63,7 @@
     return [].slice.call(set);
   }
   function styles(dyn) {
-    var dset = new Set(dyn || []), flag = new Map();
+    var dset = new Set(dyn || []), flag = new Map(), keyOfEl = new Map();
     // 전환(transition)은 끝난 값으로 읽음 · 숫자는 소수 1자리로 맞춤 (기기마다 소수점 끝자리 차이)
     var off = document.createElement("style"); off.textContent = "*,*::before,*::after{transition-duration:0s!important;transition-delay:0s!important}"; document.head.appendChild(off); document.body.offsetHeight;
     var rnd = function (v) { return v.replace(/-?d+.d+/g, function (n) { return (+(+n).toFixed(1)).toString(); }); };
@@ -77,7 +77,9 @@
       // 움직이는 요소 = 애니메이션이 돌고 있거나, 자신 · 부모가 스크립트로 바뀌는 요소 (시점에 따라 값이 다를 수 있음)
       var up = flag.get(e.parentElement) || false, me = up || dset.has(k) || (e.getAnimations && e.getAnimations().some(function (x) { return x.playState === "running"; }));
       flag.set(e, me); var mv = me ? 1 : "";
-      el[k] = [t, b, Math.round(r.width), Math.round(r.height), Math.round(r.left - ar.left), mv].join(",");
+      el[k] = [t, b, Math.round(r.width), Math.round(r.height), Math.round(r.left - ar.left), mv, ""].join(",");
+      if (me) for (var p = e.parentElement; p && p !== a.parentElement; p = p.parentElement) { var pk = keyOfEl.get(p); if (pk && el[pk] && el[pk] !== "x") { var f = el[pk].split(","); if (f[6] === "1") break; f[6] = "1"; el[pk] = f.join(","); } }
+      keyOfEl.set(e, k);
       var an = cs.animationName; if (an && an !== "none") anim[k] = an;
     });
     off.remove();
@@ -106,23 +108,24 @@
   };
   function compare(A, B, tol) {
     var out = { miss: [], hide: [], typo: [], box: [], size: [], anim: [], hover: [], dyn: [], extra: 0 };
-    var dynSet = new Set(A.dyn);
+    var dynSet = new Set(A.dyn), bDyn = new Set(B.dyn);
     var moving = function (k) { return dynSet.has(k); };
     Object.keys(A.el).forEach(function (k) {
       var a = A.el[k], b = B.el[k];
       if (b == null) { out.miss.push({ k: k, mv: dynSet.has(k) || (a !== "x" && a.split(",")[5] === "1") }); return; }
-      if (a === "x" || b === "x") { if (a !== b) out.hide.push({ k: k, d: a === "x" ? "시안은 이 해상도에서 숨김 · 구현은 보임" : "시안은 보임 · 구현은 숨김" }); return; }
+      if (a === "x" || b === "x") { if (a !== b) out.hide.push({ k: k, d: a === "x" ? "시안은 이 해상도에서 숨김 · 구현은 보임" : "시안은 보임 · 구현은 숨김", mv: dynSet.has(k) || bDyn.has(k) }); return; }
       a = a.split(","); b = b.split(","); var mv = moving(k) || a[5] === "1" || b[5] === "1";
       if (a[0] !== "" && b[0] !== "") { var d = diffRow(TYPO, A.typo[a[0]], B.typo[b[0]]); if (d) out.typo.push({ k: k, d: d, mv: mv }); }
       var d2 = diffRow(BOX, A.box[a[1]], B.box[b[1]]); if (d2) out.box.push({ k: k, d: d2, mv: mv });
       var dz = []; if (Math.abs(a[2] - b[2]) > tol) dz.push("가로 " + a[2] + " → " + b[2]); if (Math.abs(a[3] - b[3]) > tol) dz.push("세로 " + a[3] + " → " + b[3]); if (Math.abs(a[4] - b[4]) > tol) dz.push("영역 안 가로 위치 " + a[4] + " → " + b[4]);
-      if (dz.length) out.size.push({ k: k, d: dz.join(" · "), mv: mv });
+      if (dz.length) out.size.push({ k: k, d: dz.join(" · "), mv: mv || a[6] === "1" || b[6] === "1" });
     });
-    Object.keys(A.anim).forEach(function (k) { if (B.el[k] == null || B.el[k] === "x") return; var bn = B.anim[k]; if (!bn) out.anim.push({ k: k, d: "애니메이션 없음 (시안: " + A.anim[k] + ")" }); else if (bn !== A.anim[k]) out.anim.push({ k: k, d: "이름 다름 " + A.anim[k] + " → " + bn + " (같은 움직임인지 확인)" }); });
+    Object.keys(A.anim).forEach(function (k) { if (B.el[k] == null || B.el[k] === "x") return; var bn = B.anim[k]; if (!bn) out.anim.push({ k: k, d: "애니메이션 없음 (시안: " + A.anim[k] + ")", mv: dynSet.has(k) && bDyn.has(k) }); else if (bn !== A.anim[k]) out.anim.push({ k: k, d: "이름 다름 " + A.anim[k] + " → " + bn + " (같은 움직임인지 확인)" }); });
     var hv = new Set(B.hover); A.hover.forEach(function (k) { if (B.el[k] != null && B.el[k] !== "x" && !hv.has(k)) out.hover.push({ k: k, d: "호버 스타일 없음" }); });
     var dy = new Set(B.dyn); A.dyn.forEach(function (k) { if (B.el[k] != null && !dy.has(k)) out.dyn.push({ k: k, d: "스크롤 · 시간에 따라 바뀌는 움직임이 없음 (스크립트 빠짐 의심)" }); });
     out.extra = Object.keys(B.el).filter(function (k) { return A.el[k] == null; }).length;
-    out.sum = { "시안에 있는데 없는 요소": out.miss.length, "숨김 차이": out.hide.length, "글자": out.typo.length, "모양": out.box.length, "크기 · 위치": out.size.length, "애니메이션": out.anim.length, "호버": out.hover.length, "스크립트 움직임": out.dyn.length, "시안에 없는 요소": out.extra };
+    var n = function (L) { return L.filter(function (x) { return !x.mv; }).length; }, nr = 0; ["miss", "hide", "typo", "box", "size", "anim", "hover", "dyn"].forEach(function (g) { nr += out[g].length - n(out[g]); });
+    out.sum = { "시안에 있는데 없는 요소": n(out.miss), "숨김 차이": n(out.hide), "글자": n(out.typo), "모양": n(out.box), "크기 · 위치": n(out.size), "애니메이션": n(out.anim), "호버": n(out.hover), "스크립트 움직임": n(out.dyn), "움직이는 요소 참고": nr, "시안에 없는 요소": out.extra };
     return out;
   }
   function diffRow(P, x, y) { if (x === y) return ""; x = (x || "").split("|"); y = (y || "").split("|"); return P.map(function (p, i) { return x[i] !== y[i] ? NAME[p] + " " + short(x[i]) + " → " + short(y[i]) : ""; }).filter(Boolean).join(" · "); }
@@ -139,14 +142,16 @@
   }
   function show(page, w, r) {
     var G = [["miss", "시안에 있는데 구현에 없는 요소"], ["hide", "해상도별 숨김 차이"], ["typo", "글자 (폰트 · 크기 · 굵기 · 줄 높이 · 자간 · 색)"], ["box", "모양 (여백 · 테두리 · 모서리 · 바탕 · 그림자 · 정렬 · 축소)"], ["size", "크기 · 위치 (±2px 넘는 것)"], ["anim", "애니메이션"], ["hover", "호버"], ["dyn", "스크립트 움직임 (스크롤 · 시간)"]];
-    var total = G.reduce(function (s, g) { return s + r[g[0]].length; }, 0);
-    var h = "<p style='margin:0 0 8px'><b>" + page + " · " + w + "px</b> — 다른 곳 " + total + "개" + (r.extra ? " · 시안에 없는 요소 " + r.extra + "개(참고)" : "") + "</p><p style='margin:0 0 12px;color:#475467'>항목을 누르면 그 요소로 이동해 빨간 테두리로 표시합니다. <span style='color:#98a2b3'>회색 글씨</span> = 시안에서도 움직이는 요소라 시점에 따라 다를 수 있음.</p>";
+    var real = function (L) { return L.filter(function (x) { return !x.mv; }); }, ref = function (L) { return L.filter(function (x) { return x.mv; }); };
+    var total = G.reduce(function (s, g) { return s + real(r[g[0]]).length; }, 0), totalRef = G.reduce(function (s, g) { return s + ref(r[g[0]]).length; }, 0);
+    var row = function (it) { return "<div data-k=\"" + it.k.replace(/"/g, "&quot;") + "\" style='margin:4px 0;padding:6px 8px;border-radius:6px;background:#f9fafb;cursor:pointer;" + (it.mv ? "color:#98a2b3" : "") + "'><code style='font-size:11px;word-break:break-all'>" + it.k + "</code>" + (it.d ? "<br>" + it.d : "") + "</div>"; };
+    var list = function (L) { var t = L.slice(0, 300).map(row).join(""); return L.length > 300 ? t + "<div>… 외 " + (L.length - 300) + "개 (콘솔 결과 참고)</div>" : t; };
+    var h = "<p style='margin:0 0 8px'><b>" + page + " · " + w + "px</b> — 고칠 곳 <b style='color:" + (total ? "#d92d20" : "#079455") + "'>" + total + "개</b>" + (totalRef ? " · 움직이는 요소 참고 " + totalRef + "개" : "") + (r.extra ? " · 시안에 없는 요소 " + r.extra + "개" : "") + "</p><p style='margin:0 0 12px;color:#475467'>항목을 누르면 그 요소로 이동해 빨간 테두리로 표시합니다. <span style='color:#98a2b3'>회색 = 움직이는 요소(키워드 교체 · 타이핑 · 자동 탭 · 숫자 올라가기)와 그 부모라, 재는 순간에 따라 값이 다를 수 있음 → 눈으로만 확인.</span></p>";
     G.forEach(function (g) {
-      var L = r[g[0]]; if (!L.length) { h += "<div style='margin:6px 0;color:#079455'>✓ " + g[1] + "</div>"; return; }
-      h += "<details" + (L.length < 30 ? " open" : "") + " style='margin:6px 0'><summary style='cursor:pointer;font-weight:600;color:#d92d20'>" + g[1] + " · " + L.length + "</summary>";
-      L.slice(0, 300).forEach(function (it) { h += "<div data-k=\"" + it.k.replace(/"/g, "&quot;") + "\" style='margin:4px 0;padding:6px 8px;border-radius:6px;background:#f9fafb;cursor:pointer;" + (it.mv ? "color:#98a2b3" : "") + "'><code style='font-size:11px;word-break:break-all'>" + it.k + "</code>" + (it.d ? "<br>" + it.d : "") + "</div>"; });
-      if (L.length > 300) h += "<div>… 외 " + (L.length - 300) + "개 (콘솔 결과 참고)</div>";
-      h += "</details>";
+      var R = real(r[g[0]]), F = ref(r[g[0]]);
+      if (!R.length) h += "<div style='margin:6px 0;color:#079455'>✓ " + g[1] + "</div>";
+      else h += "<details" + (R.length < 30 ? " open" : "") + " style='margin:6px 0'><summary style='cursor:pointer;font-weight:600;color:#d92d20'>" + g[1] + " · " + R.length + "</summary>" + list(R) + "</details>";
+      if (F.length) h += "<details style='margin:2px 0 8px 16px'><summary style='cursor:pointer;color:#98a2b3'>움직이는 요소 참고 · " + F.length + "</summary>" + list(F) + "</details>";
     });
     var p = panel(h);
     p.querySelector("[data-b]").addEventListener("click", function (e) {
