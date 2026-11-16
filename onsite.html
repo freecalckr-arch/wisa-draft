@@ -13,12 +13,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=503">
+<link rel="stylesheet" href="assets/common/wisa.css?v=504">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-16 patch-504: 여러 페이지 <style> 에 똑같이 복사돼 있던 규칙 정리 — 2페이지 이상에서 쓰는 규칙(단계 탭 · 단계 카드 · 해결 화면 · 채널 칩 등 184개)은 공통 wisa.css @region from-pages 로 옮기고, 이 페이지에서 쓰지 않는 다른 페이지용 복사본은 삭제 (화면 변화 없음 · 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-16 patch-503: 단계 탭 줄이 넘칠 때 양 끝 화살표 (원 없이 화살표 16 · 뒤 흰 그라데이션 56 으로 탭 글자가 흐려지며 가려짐 · 끝 마스크 흐림 대신 · 누르면 탭 줄이 칸 폭 60% 만큼 이동 · wisa.css jt-ar · wisa.js jt-nav-mo)
      · 2026-11-16 patch-502: 단계 탭 — 번호 원 글자 규격 공통으로 (wisa.css num-mark · 10 · 줄 높이 1 · 숫자 폭 고정) · 모바일 · 태블릿 탭 줄이 넘치면 끝 흐림 + 선택 탭을 가운데로 스크롤 (wisa.js jt-nav-mo)
      · 2026-11-13 patch-476: GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' = 외부 링크 → media-ads.html (채널마케팅 새 페이지) · 공통 wisa.css ?v=476
@@ -224,7 +225,6 @@
   .jt-tags b { font-size: 13px; font-weight: 600; color: var(--gray-500); }
   .jt-tags ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
   .jt-tags li { padding: 8px 14px; border-radius: 10px; background: var(--gray-50); font-size: 15px; font-weight: 500; color: var(--gray-800); }
-  .jt-tags li::before { content: none; }
   .jt-panel .ph { height: 340px; }
 
   /* 그 밖의 모든 것: 배경 없는 텍스트 · 따옴표 + 이탤릭 */
@@ -247,7 +247,7 @@
   }
   /* 태블릿 · 모바일 (기본 정렬만 · PC 확정 후 다듬기) */
   @media (max-width: 1023px) {
-    .jt-nav { display: flex; overflow-x: auto; scrollbar-width: none; } .jt-nav::-webkit-scrollbar { display: none; }
+    .jt-nav { display: flex; overflow-x: auto; scrollbar-width: none; } 
     .jt-nav .tabline { flex: 1 0 auto; padding: 12px 14px 10px; font-size: 15px; }
     .jt-panel.on { grid-template-columns: 1fr; gap: 28px; padding: 32px; }
     .jt-txt h3 { font-size: 22px; }
@@ -368,7 +368,6 @@
 
   /* [V3] ② 근거 그래프: 결제 직전에 떠나는 이유 (가로 막대 · 이유마다 관련 구매 단계 태그 = ③ 원인 탭과 연결) */
   .mk-chart .mk-hd small { font-size: 13px; font-weight: 500; color: var(--gray-400); }
-  .rs { margin: 6px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 56px; row-gap: 14px; counter-reset: rs; }
   .rs li { display: grid; grid-template-columns: 22px minmax(0, 1fr) 46px; grid-template-areas: "n t t" "n bar v"; align-items: center; column-gap: 12px; row-gap: 6px; text-align: left; counter-increment: rs; }
   .rs li::before { content: counter(rs); grid-area: n; align-self: start; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--gray-100); font-size: 12px; font-weight: 700; color: var(--gray-500); }
   .rs li:first-child::before { background: var(--primary-600); color: var(--white); }
@@ -391,7 +390,6 @@
   .jt-panel .sc { align-self: stretch; }
   .sc .vw-win { min-height: 402px; height: 100%; display: flex; flex-direction: column; }
   .sc .vw-bd { flex: 1; gap: 12px; padding: 20px; }
-  .sc .vw-ic svg { width: 15px; height: 15px; }
   .sc-stat { display: flex; justify-content: space-between; align-items: baseline; margin: auto 0 0; padding-top: 12px; border-top: 1px solid var(--gray-100); font-size: 13px; color: var(--gray-500); }
   .sc-stat b { font-size: 20px; font-weight: 700; color: var(--primary-600); font-variant-numeric: tabular-nums; }
   .sc-stat b.bad { color: #d92d20; }
@@ -460,7 +458,6 @@
     .fz-bd { grid-template-columns: 172px minmax(0, 1fr); gap: 20px; }
     .fz-pd .pimg { height: 132px; }
     .fz-res span { display: none; } .fz-drop { padding: 6px 8px; font-size: 11px; }
-    .rs { column-gap: 40px; }
     .rs-t { font-size: 14px; }
     .sc-bn { height: 150px; } .sc-bn b { font-size: 18px; }
     .sc-pd { grid-template-columns: 112px minmax(0, 1fr); gap: 12px; }
@@ -469,7 +466,6 @@
   }
   /* 태블릿 · 모바일 (기본 정렬만 · PC 확정 후 다듬기) */
   @media (max-width: 1023px) {
-    .rs { grid-template-columns: 1fr; grid-auto-flow: row; grid-template-rows: none; }
     .jt-panel .sc { min-height: 0; } .sc .vw-win { min-height: 0; }
   }
   @media (max-width: 767px) {
@@ -529,7 +525,6 @@
   .hv-b .hv-card { animation: shFloat 6s ease-in-out infinite alternate; }
   .hv-b .hv-card.hb-stat { animation-name: hbFloatC; }
   .hv-b .hv-card.r { animation-delay: -3s; }
-  @keyframes hbFloatC { from { transform: translateY(calc(-50% - 8px)); } to { transform: translateY(calc(-50% + 8px)); } }
   @media (prefers-reduced-motion: reduce) { .hv-b .hv-card { animation: none; } }
   /* patch-153 히어로 B안: 컬러칩을 눌러야 이미지 변경 → 문구 → 구매하기 → 결제 (자동 전환 없음 · 전 해상도 공통) */
   .hb-img .hb-cc i { position: relative; }
@@ -541,7 +536,6 @@
   .hb-cur.tap svg { transform: scale(.8); }
   .hb-cur::before { content: ""; position: absolute; left: -7px; top: -9px; width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,.75); opacity: 0; transform: scale(.3); }
   .hb-cur.tap::before { animation: hbTap .5s ease-out; }
-  @keyframes hbTap { 0% { opacity: .9; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.3); } }
   /* patch-154 ③ 6단계(#geo-how) 모바일: 패널 내용 폭 때문에 열이 화면보다 넓어져 페이지가 옆으로 밀리던 것 → 열을 화면 폭에 고정 */
   @media (max-width: 767px) { #geo-how .jt-panel { grid-template-columns: minmax(0, 1fr); } #geo-how .jt-panel > * { min-width: 0; } }
   /* patch-156 구매하기 → 결제 화면 전환 끊김 개선: 결제 화면을 미리 별도 레이어로 그려 두고(will-change) 이미지도 미리 디코드 · 부드러운 감속 곡선 */
@@ -552,15 +546,10 @@
   /* patch-161 그래프 영역(#geo-market) 흐름 그래프 세로 길이 규칙: 태블릿 220 · 모바일 210 (각각 전용 그림 chart-tb 640×220 · chart-mo 298×210 · 데이터 · 색은 PC와 동일) */
   #geo-market .mk-chart .chart-tb, #geo-market .mk-chart .chart-mo { display: none; }
   @media (min-width: 768px) and (max-width: 1023px) {
-    #geo-market .mk-chart .chart-pc { display: none; }
     #geo-market .mk-chart .chart-tb { display: block; width: 100%; height: 220px; }
   }
   @media (max-width: 767px) {
-    #geo-market .mk-chart .chart-pc { display: none; }
     #geo-market .mk-chart .chart-mo { display: block; width: 100%; height: 210px; margin-top: 6px; }
-    #geo-market .mk-chart .chart-mo .yr { font-size: 12px; }
-    #geo-market .mk-chart .chart-mo .pv.real { font-size: 12.5px; }
-    #geo-market .mk-chart .chart-mo .tip2 text { font-size: 11.5px; }
   }
   /* patch-157 ③ 6단계(#geo-how) 모바일: 단계 화면 이미지를 PC 크기(560×483) 그대로 그리고 폭에 맞게 축소 (스크립트 onsite-why-scale) */
   @media (max-width: 1439px) {   /* patch-162 PC 최소 · 태블릿까지 확장 (칸이 넓으면 PC 크기로 가운데) */
@@ -598,7 +587,6 @@
   .hb-feed li p { margin: 0; display: flex; flex-direction: column; gap: 1px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .hb-feed li small { font-size: 11px; font-weight: 500; color: var(--gray-500); }
   .hb-feed li em { margin-left: auto; flex: none; padding: 3px 7px; border-radius: 6px; background: var(--gray-100); color: var(--gray-600); font-style: normal; font-size: 11px; font-weight: 700; }
   .hb-feed li em.b { background: var(--primary-50); color: var(--primary-700); }
-  @keyframes hbIn { from { opacity: 0; transform: translateY(-10px); } }
   .hb-sum { bottom: 48px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; }
   .hb-sum > i { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--primary-50); color: var(--primary-600); } .hb-sum > i svg { width: 17px; height: 17px; }
   .hb-sum p { margin: 0; display: flex; flex-direction: column; gap: 2px; font-size: 12px; font-weight: 500; color: var(--gray-500); } .hb-sum p b { font-size: 15px; font-weight: 800; color: var(--black); } .hb-sum p b em { font-style: normal; color: #d92d20; }   /* patch-407: 증가 ▲ = Error 600 (히어로도 증감 색 규칙) */
@@ -649,20 +637,16 @@
   .hb-btn { margin-bottom: 12px; padding: 9px; border-radius: 6px; font-size: 12px; }
   .hb-dbt span { position: absolute; z-index: 3; padding: 6px 10px; border-radius: 12px 12px 12px 3px; background: var(--white); box-shadow: 0 6px 18px rgba(16,24,40,.16); font-size: 11px; font-weight: 600; color: #d92d20; white-space: nowrap; opacity: 0; animation: hbDbt 6s infinite; animation-delay: calc(var(--k) * 1.1s); }
   .hb-dbt span:nth-child(1) { left: 22px; top: 120px; } .hb-dbt span:nth-child(2) { right: 20px; top: 178px; border-radius: 12px 12px 3px 12px; } .hb-dbt span:nth-child(3) { left: 22px; top: 236px; }
-  @keyframes hbDbt { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 6%, 42% { opacity: 1; transform: none; } 52%, 100% { opacity: 0; transform: translateY(-6px); } }
   .hb-exit { position: absolute; z-index: 3; left: -64px; top: 300px; padding: 6px 12px; border-radius: 99px; background: #fef3f2; box-shadow: 0 6px 18px rgba(217,45,32,.15); color: #d92d20; font-size: 11px; font-weight: 700; white-space: nowrap; opacity: 0; animation: hbExit 6s infinite 3.3s; }
-  @keyframes hbExit { 0% { opacity: 0; transform: translateX(40px); } 10%, 40% { opacity: 1; transform: none; } 55%, 100% { opacity: 0; transform: translateX(-24px); } }
   .hb-buys span { position: absolute; z-index: 3; right: -34px; bottom: 30px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-size: 11px; font-weight: 700; white-space: nowrap; box-shadow: 0 8px 20px rgba(21,112,239,.3); opacity: 0; animation: hbBuy 3.6s infinite; animation-delay: calc(var(--k) * 1.2s); }
   .hb-buys span::before { content: "✓"; }
-  @keyframes hbBuy { 0% { opacity: 0; transform: translateY(16px); } 12% { opacity: 1; transform: none; } 62% { opacity: 1; transform: translateY(-110px); } 76%, 100% { opacity: 0; transform: translateY(-140px); } }
   .hv-b[hidden] .hb-dbt span, .hv-b[hidden] .hb-buys span, .hv-b[hidden] .hb-exit { animation: none; }
   @media (prefers-reduced-motion: reduce) { .hb-dbt span, .hb-exit, .hb-buys span:first-child { animation: none; opacity: 1; } }
   /* [시안 C 2차 보정] 말풍선은 이미지 · 가격 옆 빈자리 · 이탈 표시는 폰 바깥 · 구매 완료는 구매 버튼에서 오른쪽 위로 */
   .hb-dbt span:nth-child(1) { left: 18px; top: 100px; } .hb-dbt span:nth-child(2) { right: 16px; top: 152px; } .hb-dbt span:nth-child(3) { left: auto; right: 14px; top: 262px; border-radius: 12px 12px 3px 12px; }
   .hb-exit { left: -112px; top: 228px; }
   .hb-buys span { right: 18px; bottom: 22px; padding: 6px 11px; font-size: 11px; animation-name: hbBuy2; }
-  @keyframes hbBuy2 { 0% { opacity: 0; transform: none; } 8% { opacity: 1; } 55% { opacity: 1; transform: translate(52px, -64px); } 72%, 100% { opacity: 0; transform: translate(60px, -80px); } }
-  .hb-ph.b .hb-btn { animation: hbPress 1.2s infinite; } @keyframes hbPress { 0%, 14%, 100% { transform: none; } 6% { transform: scale(.96); background: var(--primary-600); } }
+  .hb-ph.b .hb-btn { animation: hbPress 1.2s infinite; } 
   .hv-b[hidden] .hb-btn { animation: none; }
   @media (prefers-reduced-motion: reduce) { .hb-ph.b .hb-btn { animation: none; } }
   .hb-dbt span:nth-child(3) { top: 290px; }
@@ -690,11 +674,8 @@
   .hb-fs { position: absolute; left: 10px; top: 10px; display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 4px; background: var(--gray-900); color: var(--white); font-size: 10px; font-weight: 700; }
   .hb-fs svg { width: 12px; height: 12px; }
   .hb-dbt span { animation: hbDbt3 7.2s infinite; animation-delay: calc(var(--k) * .8s); }
-  @keyframes hbDbt3 { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 4%, 30% { opacity: 1; transform: none; } 36%, 100% { opacity: 0; transform: translateY(-6px); } }
   .hb-buys span { animation: hbBuy3 7.2s infinite; animation-delay: calc(3.4s + var(--k) * .8s); }
-  @keyframes hbBuy3 { 0% { opacity: 0; transform: none; } 3% { opacity: 1; } 20% { opacity: 1; transform: translate(52px, -64px); } 27%, 100% { opacity: 0; transform: translate(60px, -80px); } }
   .hb-ph.b .hb-btn { animation: hbPress3 7.2s infinite 3.4s; }
-  @keyframes hbPress3 { 0%, 2.2%, 11.1%, 13.3%, 22.2%, 24.4%, 100% { transform: none; } 1.1%, 12.2%, 23.3% { transform: scale(.96); } }
   .hb-sum { gap: 10px; } .hb-spark { width: 52px; height: 30px; } .hb-sum p { white-space: nowrap; font-size: 11px; } .hb-sum p b { font-size: 14px; }
 
   /* @region onsite-why-ex: [온사이트] ① 문제 비교 화면 — GEO와 같은 방식(같은 상황 · 두 결과)으로 같은 고객 5명의 방문 여정을 비교
@@ -735,12 +716,9 @@
   #geo-market .mk-chart .rs-chart .yr { font-size: 14px; }
 
   /* [근거 그래프] 단계 구분 세로선 · 구매 쪽 수치 강조 */
-  #geo-market .mk-chart .ev-vl { stroke: var(--gray-200); }   /* [노션 수정] 구역 · 단계 세로 실선 */
-  #geo-market .mk-chart .pv.real.ev-now { fill: var(--primary-600); }
 
   /* [수정] V5 해결 결과 화면 규격 통일: GEO 진단 창(460 × 약 310~370)에 맞춰 4개 모두 같은 높이 · 제목 한 줄 */
   @media (min-width: 1024px) {
-    #geo-diagnosis .sr-vis.vw .vw-win { display: flex; flex-direction: column; min-height: 340px; }
     #geo-diagnosis .sr-vis.vw .vw-bd { flex: 1; }
   }
 
@@ -909,7 +887,6 @@
   .os2-lg { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--black); color: var(--white); font-size: 9px; font-weight: 800; letter-spacing: -.02em; }
   .os2-live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 99px; background: var(--primary-50); font-size: 12px; color: var(--primary-700); }
   .os2-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--primary-600); animation: os2Blink 1.6s ease-in-out infinite; }
-  @keyframes os2Blink { 50% { opacity: .3; } }
   .os2-pdp-bd { display: grid; grid-template-columns: 236px 1fr; gap: 34px; }
   .os2-pdp-img { position: relative; height: 300px; border-radius: 14px 14px 0 0; overflow: hidden; }
   .os2-badge { position: absolute; left: 12px; top: 12px; padding: 3px 9px; border-radius: 99px; background: var(--black); color: var(--white); font-size: 11px; font-weight: 700; }
@@ -941,9 +918,7 @@
   .os2-pin { position: absolute; left: -45px; top: 50%; z-index: 2; display: grid; place-items: center; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; font-weight: 700; box-shadow: 0 0 0 4px rgba(21,112,239,.18); animation: os2Pin .5s cubic-bezier(.34,1.56,.64,1) both; }
   .os2-k1 .os2-pin { animation-delay: .8s; } .os2-pr .os2-pin { animation-delay: 1.4s; } .os2-k3 .os2-pin { animation-delay: 2s; } .os2-k4 .os2-pin { animation-delay: 2.6s; }
   .os2-pr em.os2-k2 { position: static; } .os2-pr { position: relative; }
-  @keyframes os2Pin { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: none; } }
   .os2-pin::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; box-shadow: 0 0 0 2px var(--primary-600); opacity: 0; animation: os2Ring 2.4s ease-out infinite 3.2s; }
-  @keyframes os2Ring { 0% { opacity: .6; transform: scale(.9); } 70%, 100% { opacity: 0; transform: scale(1.6); } }
   .os2-tic { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; background: var(--primary-50); color: var(--primary-600); }
   .os2-hero .sh-float span.good { color: var(--primary-600); }
 
@@ -996,7 +971,6 @@
   .os2-fix-v { display: flex; align-items: baseline; gap: 6px; padding-top: 10px; border-top: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-500); }
   .os2-fix-v span { margin-right: auto; } .os2-fix-v s { color: var(--gray-400); } .os2-fix-v b { font-size: 16px; font-weight: 700; color: var(--primary-600); }
   .jt-panel.on .os2-fix { animation: os2Up .5s var(--ease-out) .25s both; }
-  @keyframes os2Up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
   .os2-note { margin-top: 14px; text-align: right; font-size: 12px; color: var(--gray-400); }
 
   /* ── ④ 찾기 · 가설 · 개선 · 적용 결과 화면 ── */
@@ -1125,7 +1099,6 @@
   .os2-ring circle { fill: none; stroke-width: 4; }
   .os2-ring .tk { stroke: #d1e9ff; }
   .os2-ring .pg { stroke: var(--primary-600); stroke-linecap: round; stroke-dasharray: 0 100; animation: os2Prog 6s ease-in-out infinite; }
-  @keyframes os2Prog { 0% { stroke-dasharray: 0 100; } 80%, 100% { stroke-dasharray: 100 0; } }
   @media (prefers-reduced-motion: reduce) { .os2-ring .pg { animation: none; stroke-dasharray: 64 36; } }
   #geo-report .db-rank .db-top em { width: auto; min-width: 52px; white-space: nowrap; }   /* patch-103 증감 한 줄 */
   .os2-mt li { padding: 16px 0; }
@@ -1341,7 +1314,6 @@
   /* 왼쪽 태그에 같은 번호 */
   #geo-how .jt-tags .sr-tags { counter-reset: os8; }
   #geo-how .jt-tags .sr-tags li { counter-increment: os8; display: inline-flex; align-items: center; gap: 6px; }
-  #geo-how .jt-tags .sr-tags li::before { content: counter(os8); display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-weight: 700; }
   /* 공통: 쇼핑몰 GNB */
   .os8-gnb { display: flex; align-items: center; gap: 14px; height: 40px; padding: 0 14px; border-bottom: 1px solid var(--gray-100); }
   .os8-gnb b { font-size: 13px; font-weight: 800; letter-spacing: .02em; color: var(--black); }
@@ -1679,7 +1651,6 @@
   .os16 .l { display: block; height: 6px; border-radius: 3px; background: var(--gray-200); } .os16 .w1 { width: 85%; background: var(--gray-300); } .os16 .w2 { width: 55%; }
   .os16 .sz { position: relative; display: flex; gap: 3px; margin-top: 2px; } .os16 .sz em { flex: 1; padding: 2px 0; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--gray-200); font-style: normal; font-size: 9px; text-align: center; color: var(--gray-500); } .os16 .sz em.on { box-shadow: inset 0 0 0 1.2px var(--gray-700); color: var(--black); font-weight: 700; }
   .os16 .ring { position: absolute; inset: -5px -5px; border-radius: 7px; box-shadow: 0 0 0 2px var(--primary-600); background: rgba(46,144,250,.08); animation: os16p 1.8s ease-in-out infinite; }
-  @keyframes os16p { 50% { box-shadow: 0 0 0 4px rgba(46,144,250,.35); } }
   .os16 .scr .btn { display: block; height: 12px; margin-top: auto; border-radius: 3px; background: var(--gray-900); }
   .os16 .kpi { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .os16 .kpi li { display: flex; align-items: center; justify-content: space-between; flex: 1; padding: 0 12px; border-radius: 8px; background: var(--gray-50); font-size: 12px; color: var(--gray-600); } .os16 .kpi b { font-size: 14.5px; font-weight: 700; color: var(--black); }
@@ -1728,7 +1699,7 @@
   .os16 .bars li > span { position: static !important; inset: auto !important; transform: none !important; line-height: 16px; margin-top: 6px; }
   .os16 .bars li.hot i { background: #f04438; } .os16 .bars li.hot b { color: #d92d20; }
   .os16 .drop { left: 31%; top: 50px; box-shadow: inset 0 0 0 1px #fecdca, 0 2px 6px rgba(16,24,40,.08); color: #d92d20; }
-  .os16 .ring { box-shadow: 0 0 0 2px #f04438; background: rgba(240,68,56,.07); } @keyframes os16p { 50% { box-shadow: 0 0 0 4px rgba(240,68,56,.3); } }
+  .os16 .ring { box-shadow: 0 0 0 2px #f04438; background: rgba(240,68,56,.07); } 
   .os16 .cz { padding-top: 12px; }
   .vw-chip.os18-bad { background: #fef3f2; color: #d92d20; }
   #geo-diagnosis li.bad b { color: #d92d20; }
@@ -1758,7 +1729,7 @@
   .os20 .gl { stroke: var(--gray-100); } .os20 .yl, .os20 .xl { font-size: 10px; fill: var(--gray-400); } .os20 .xl { text-anchor: middle; }
   .os20 .ar { fill: var(--primary-600); opacity: .08; } .os20 .ln { fill: none; stroke: var(--primary-600); stroke-width: 2.2; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 600; stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s var(--ease-out) .2s; }
   .os2-anim:not(.go) .os20 .ln { stroke-dashoffset: 600; }
-  .os20 .mk { stroke: #84caff; stroke-dasharray: 3 3; } .os20 .mp { fill: var(--white); stroke: var(--primary-600); stroke-width: 2; } .os20 .end { fill: var(--primary-600); }
+  .os20 .mk { stroke: #84caff; stroke-dasharray: 3 3; } .os20 .mp { fill: var(--white); stroke: var(--primary-600); stroke-width: 2; } 
   .os20 .mb rect { fill: var(--primary-600); } .os20 .mb text { font-size: 9px; font-weight: 700; fill: var(--white); text-anchor: middle; }
   .os20 .lg { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--gray-100); }
   .os20 .lg li { display: grid; grid-template-columns: 16px 1fr 40px 96px 52px; gap: 8px; align-items: center; height: 30px; border-bottom: 1px solid var(--gray-100); font-size: 12px; }
@@ -1797,27 +1768,20 @@
   .hb-ph.a .hb-dbt span { animation: hbSeq 11s infinite; animation-delay: calc(var(--k) * .8s); }
   .hb-ph.b .hb-pos span { animation: hbSeq 11s infinite; animation-delay: calc(4.2s + var(--k) * .8s); }
   .hb-ph.b .hb-buys span { animation: hbBuy4 11s infinite; animation-delay: calc(8s + var(--k) * .5s); }
-  @keyframes hbSeq { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 3%, 20% { opacity: 1; transform: none; } 24%, 100% { opacity: 0; transform: translateY(-6px); } }
-  @keyframes hbBuy4 { 0% { opacity: 0; transform: none; } 2% { opacity: 1; } 14% { opacity: 1; transform: translate(52px, -64px); } 19%, 100% { opacity: 0; transform: translate(60px, -80px); } }
   @media (prefers-reduced-motion: reduce) { .hb-ph .hb-dbt span, .hb-ph.b .hb-buys span { animation: none; } }
   /* patch-138 히어로: 말풍선 순차 등장 · 동시에 사라짐 / B안 말풍선 = 해당 요소 위치 / 구매자 프로필 = 토스페이스 일러스트 */
   .hb-ph.a .hb-dbt span:nth-child(1), .hb-ph.b .hb-pos span:nth-child(1) { animation: hbS0 11s infinite; }
   .hb-ph.a .hb-dbt span:nth-child(2), .hb-ph.b .hb-pos span:nth-child(2) { animation: hbS1 11s infinite; }
   .hb-ph.a .hb-dbt span:nth-child(3), .hb-ph.b .hb-pos span:nth-child(3) { animation: hbS2 11s infinite; }
   .hb-ph.a .hb-dbt span { animation-delay: 0s !important; } .hb-ph.b .hb-pos span { animation-delay: 4.2s !important; }
-  @keyframes hbS0 { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 2.5%, 29% { opacity: 1; transform: none; } 32%, 100% { opacity: 0; transform: none; } }
-  @keyframes hbS1 { 0%, 7.3% { opacity: 0; transform: translateY(6px) scale(.92); } 9.8%, 29% { opacity: 1; transform: none; } 32%, 100% { opacity: 0; transform: none; } }
-  @keyframes hbS2 { 0%, 14.5% { opacity: 0; transform: translateY(6px) scale(.92); } 17%, 29% { opacity: 1; transform: none; } 32%, 100% { opacity: 0; transform: none; } }
   .hb-ph.b .hb-pos span:nth-child(1) { left: 24px; right: auto; top: 228px; border-radius: 12px 12px 12px 3px; }
   .hb-ph.b .hb-pos span:nth-child(2) { left: 94px; right: auto; top: 62px; border-radius: 12px 12px 12px 3px; }
   .hb-ph.b .hb-pos span:nth-child(3) { left: auto; right: 14px; top: 276px; border-radius: 12px 12px 3px 12px; }
   .hb-buys img.av { width: 22px; height: 22px; padding: 2px; border-radius: 50%; background: #f2f4f7; object-fit: contain; }
   /* patch-139 B안 구매하기 버튼: 구매 완료 알림(8.0 · 8.5 · 9.0s) 직전에 눌림 · 11초 주기 */
   .hb-ph.b .hb-btn { animation: hbPress4 11s infinite 0s !important; }
-  @keyframes hbPress4 { 0%, 70.5%, 73.2%, 75.1%, 77.8%, 79.6%, 82.3%, 100% { transform: none; background: var(--gray-900); } 71.8%, 76.4%, 80.9% { transform: scale(.96); background: var(--primary-600); } }
   /* patch-140 B안 구매: 버튼 1회 눌림(7.9s) → 구매 완료 알림 1회(8.0s) · 11초 주기 */
   .hb-ph.b .hb-btn { animation-name: hbPress5 !important; }
-  @keyframes hbPress5 { 0%, 70.5%, 73.2%, 100% { transform: none; background: var(--gray-900); } 71.8% { transform: scale(.96); background: var(--primary-600); } }
   .hb-ph.b .hb-buys span:not(:first-child) { display: none; }
   /* patch-141 B안 흐름(스크립트 onsite-hero-flow · 14초 주기): A안 고민(0~3.5s) → B안 컬러칩 그레이→그린→버건디 → 마지막 이미지 위 "이 컬러 예쁘다!" → 후기 · 무료배송 · 할인 → 구매하기 1회 → 결제 화면 */
   .hb-ph.a .hb-dbt span { animation-iteration-count: 1 !important; }
@@ -1852,7 +1816,6 @@
   /* patch-142 ③ 6단계 화면 번호: 탭이 바뀌면 번호 순서대로 해당 '구매 전환 요소' 이름을 말풍선으로 띄움 · 왼쪽 태그도 같은 항목 강조 (스크립트 onsite-steps) */
   .os8-p { transition: transform .25s var(--ease-out), box-shadow .25s; }
   .os8-p::after { content: attr(data-l); position: absolute; z-index: 5; top: 50%; left: calc(100% + 6px); padding: 4px 8px; border-radius: 6px; background: var(--gray-900); color: var(--white); font-size: 10px; font-weight: 600; line-height: 1.3; white-space: nowrap; letter-spacing: 0; pointer-events: none; opacity: 0; transform: translate(-4px, -50%); transition: opacity .2s, transform .25s var(--ease-out); }
-  .os8-p.lf::after { left: auto; right: calc(100% + 6px); transform: translate(4px, -50%); }
   .os8-p.lbl-on { z-index: 6; transform: scale(1.18); box-shadow: 0 0 0 2px var(--white), 0 0 0 5px rgba(21,112,239,.25); }
   .os8-p.lbl-on::after { opacity: 1; transform: translate(0, -50%); }
   .jt-tags .sr-tags li { transition: background .2s, color .2s, box-shadow .2s; }
@@ -1896,7 +1859,6 @@
   /* patch-148 ④ 해결 비주얼 등장 애니메이션 (화면에 보이면 .go · 1회) */
   .os2-anim .os16 .kpi li, .os2-anim .os19 ol li, .os2-anim .os17-ft li, .os2-anim .os2-ab .v, .os2-anim .os20 .lg li, .os2-anim .os19 .nx, .os2-anim .os20 .nx { transition: opacity .45s ease-out var(--dl, 0s), transform .5s var(--ease-out) var(--dl, 0s); }
   .os2-anim:not(.go) .os16 .kpi li, .os2-anim:not(.go) .os17-ft li, .os2-anim:not(.go) .os2-ab .v, .os2-anim:not(.go) .os19 .nx, .os2-anim:not(.go) .os20 .nx { opacity: 0; transform: translateY(8px); }
-  .os2-anim:not(.go) .os19 ol li, .os2-anim:not(.go) .os20 .lg li { opacity: 0; transform: translateX(-10px); }
   .os16 .kpi li:nth-child(1) { --dl: .7s; } .os16 .kpi li:nth-child(2) { --dl: .82s; } .os16 .kpi li:nth-child(3) { --dl: .94s; }
   .os19 ol li:nth-child(1) { --dl: .15s; } .os19 ol li:nth-child(2) { --dl: .3s; } .os19 ol li:nth-child(3) { --dl: .45s; } .os19 .nx { --dl: .7s; }
   .os2-ab .v.a { --dl: .1s; } .os2-ab .v.b { --dl: .25s; } .os17-ft li:nth-child(1) { --dl: .5s; } .os17-ft li:nth-child(2) { --dl: .6s; } .os17-ft li:nth-child(3) { --dl: .7s; }
@@ -1904,7 +1866,7 @@
   .os2-anim .os2-ab .win { transition: opacity .3s ease-out .9s, transform .45s cubic-bezier(.34,1.56,.64,1) .9s; }
   .os2-anim:not(.go) .os2-ab .win { opacity: 0; transform: scale(.6); }
   .os2-anim .os19 .pr.p1 { transition: transform .4s cubic-bezier(.34,1.56,.64,1) .6s; } .os2-anim:not(.go) .os19 .pr.p1 { transform: scale(.4); }
-  .os19 .nx i, .os20 .nx i { animation: os148dot 1.6s ease-in-out infinite; } @keyframes os148dot { 50% { box-shadow: 0 0 0 4px rgba(21,112,239,.18); } }
+  .os19 .nx i, .os20 .nx i { animation: os148dot 1.6s ease-in-out infinite; } 
   @media (prefers-reduced-motion: reduce) { .os19 .nx i, .os20 .nx i { animation: none; } }
   .hp-body { gap: 4px; padding-top: 4px; overflow: hidden; } .hp-sec { padding: 6px 12px; } .hp-sec b { margin-bottom: 3px; } .hp-sec p { line-height: 1.4; } .hp-sum { gap: 2px; padding: 6px 12px; } .hp-pm span { padding: 5px 0; } .hp-btn { margin: 6px 10px 10px; }
   /* patch-169 · 170 히어로 B안 파란 테두리: 2초 뒤(.win) 나타나지 않고 처음부터 고정 (전 해상도) */
@@ -1937,8 +1899,6 @@
   /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
      - 화면 전체는 겹쳐 사라지듯 바뀌고(.22s), 히어로 탭 줄은 제자리에 고정, 선택 표시는 옆 탭으로 미끄러짐
      - 탭 전환으로 들어온 경우 히어로 등장 애니메이션은 생략 (비교가 바로 되게) */
-  @view-transition { navigation: auto; }
-  .tab-page { view-transition-name: tab-page; }
   /* patch-173 선택 탭 통째 전환(tab-on) 삭제 → 알약만 미끄러짐 (wisa.css · wisa.js tab-ind) */
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
 

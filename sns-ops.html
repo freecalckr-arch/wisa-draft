@@ -14,12 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=503">
+<link rel="stylesheet" href="assets/common/wisa.css?v=504">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 공식채널운영 (채널마케팅) 페이지 기록 (2026-11-10)
+     · 2026-11-16 patch-504: 여러 페이지 <style> 에 똑같이 복사돼 있던 규칙 정리 — 2페이지 이상에서 쓰는 규칙(단계 탭 · 단계 카드 · 해결 화면 · 채널 칩 등 184개)은 공통 wisa.css @region from-pages 로 옮기고, 이 페이지에서 쓰지 않는 다른 페이지용 복사본은 삭제 (화면 변화 없음 · 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-13 patch-476: 매체 광고 상품 페이지(media-ads.html)를 채널마케팅 4번째 탭으로 추가 · GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' = 외부 링크 → media-ads.html · 모바일 탭 4개일 때 좌우 7 · 글자 13 · 넘치면 가로 스크롤 (공통 wisa.css tab-page-4 · ?v=476)
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-414: 히어로 카피 변경 — "[채널] 광고부터 페이지까지 / 공식채널 운영을 대행합니다" → "[채널] 광고부터 페이지 운영까지 / 한 번에 대행합니다" (강조 = 한 번에 대행 · 모바일 · 태블릿 3줄: [채널] 광고부터 / 페이지 운영까지 / 한 번에 대행합니다 · patch-413 줄바꿈 고정 규칙 삭제)
@@ -88,7 +89,6 @@
   @media (max-width: 1023px) { .bt-goal { margin-top: 24px; padding-top: 16px; font-size: 15px; } }
   @media (max-width: 767px) { .bt-goal { margin-top: 20px; padding-top: 14px; font-size: 14px; gap: 8px; } .bt-goal span { font-size: 12px; } #geo-why .bt:not(.is-new) .bt-goal { margin-bottom: 14px; } }
   @media (min-width: 1024px) {
-    #geo-diagnosis .sr-vis.vw .vw-win { height: 380px; display: flex; flex-direction: column; }
     #geo-diagnosis .sr-vis.vw .vw-bd { flex: 1; min-height: 0; justify-content: space-between; gap: 16px; }
   }
 </style>
@@ -107,10 +107,6 @@
   }
 
   /* 단계(#geo-how) 3단계 카드: 카드 화면 PC 352×254 (카드 아래로 24 걸침 · 화면 칸 230) 을 비율 축소 · 넓으면 PC 크기로 가운데 */
-  @media (max-width: 1439px) {
-    #geo-how .bento.b3 .bt-vis { display: block; flex: none; position: relative; min-height: 0; height: calc(230px * var(--s, 1)); }
-    #geo-how .bento.b3 .bt-vis > .pn { position: absolute; inset: auto; top: 0; left: 50%; width: 360px; height: 250px; max-width: none; flex: none; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
-  }
 
   /* 해결(#geo-diagnosis): 줄마다 화면 PC 460×380 비율 축소 */
   @media (max-width: 1439px) {
@@ -138,20 +134,12 @@
   /* 히어로 파란 박스 태블릿 · 모바일 444 → 440 */
   @media (max-width: 1023px) { .sh-visual { height: 440px; min-height: 0; } }
   /* ③ 단계 · 카드 타입: 카드 화면 좌우 · 아래 걸침 24 → 20 → 화면 PC 352×254 → 360×250 */
-  @media (min-width: 1440px) {
-    #geo-how .bento.b3 .bt-vis { padding: 0 20px; }
-    #geo-how .bento.b3 .pn { left: 20px; right: 20px; bottom: -20px; }
-  }
-  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { width: calc(100% + 20px); margin-inline: -10px; } }
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { height: 404px; } }   /* patch-286: 모바일 히어로 창 위 여백 36 통일 (온사이트 기준 · 높이 404 · 아래 붙임) */
+  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */   /* patch-286: 모바일 히어로 창 위 여백 36 통일 (온사이트 기준 · 높이 404 · 아래 붙임) */
 </style>
 <style>
   /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
      - 화면 전체는 겹쳐 사라지듯 바뀌고(.22s), 히어로 탭 줄은 제자리에 고정, 선택 표시는 옆 탭으로 미끄러짐
      - 탭 전환으로 들어온 경우 히어로 등장 애니메이션은 생략 (비교가 바로 되게) */
-  @view-transition { navigation: auto; }
-  .tab-page { view-transition-name: tab-page; }
   /* patch-173 선택 탭 통째 전환(tab-on) 삭제 → 알약만 미끄러짐 (wisa.css · wisa.js tab-ind) */
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
 
@@ -162,8 +150,8 @@
   @media (min-width: 1024px) { #geo-diagnosis.one-panel { padding-top: 160px; padding-bottom: 0; } }
   @media (max-width: 1023px) { #geo-diagnosis.one-panel { padding-top: 0; } }
   /* @region sr-340-fit (patch-290): 해결 화면 460×340 — 줄어든 높이(본문 288 · 위아래 여백 20)에 맞춰 간격 · 행 높이 조정 */
-  #geo-diagnosis .steprow:nth-child(1) .vw-bd { gap: 14px !important; } #geo-diagnosis .vw-nx.vw-urg { margin-top: 0 !important; } #geo-diagnosis .vw-nx { padding-top: 10px !important; padding-bottom: 10px !important; }
-  #geo-diagnosis .vw-qs li { padding-top: 7px !important; padding-bottom: 7px !important; } #geo-diagnosis .vw-qs li:first-child { padding-top: 0 !important; } #geo-diagnosis .steprow:nth-child(3) .vw-bd { gap: 12px !important; }
+  #geo-diagnosis .steprow:nth-child(1) .vw-bd { gap: 14px !important; } 
+  #geo-diagnosis .steprow:nth-child(3) .vw-bd { gap: 12px !important; }
   /* @endregion */
 </style>
 <!-- patch-163 다른 시안을 미리 불러 둠 (Chrome 은 화면까지 미리 그림, 그 외 브라우저는 파일만 받아 둠) -->
@@ -189,35 +177,14 @@
 </script>
 <style>
   /* @region sns-ph (patch-294): 기획안 단계 비주얼 자리 표시 — 규격 크기 빈 박스 · 비주얼 작업 시 이 영역과 .ph-box 마크업을 실제 화면으로 교체 */
-  .ph-box { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 20px; border: 2px dashed var(--gray-300); border-radius: 16px; background: var(--gray-50); color: var(--gray-500); font-size: 16px; font-weight: 600; text-align: center; }
-  .ph-box small { display: block; max-width: 34em; font-size: 13px; font-weight: 500; color: var(--gray-400); }
-  .ph-box .sz { padding: 2px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; font-weight: 700; color: var(--gray-500); font-variant-numeric: tabular-nums; }
   #geo-hero .sh-visual.ph-hv { position: relative; }
   #geo-hero .sh-visual.ph-hv .ph-box { position: absolute; inset: 24px; width: auto; background: rgba(255, 255, 255, .6); }
-  #geo-hero .ai-roll .rl-ic { flex: none; width: .82em; height: .82em; border-radius: .24em; }
-  #geo-why .pn.ph-pn, #geo-how .pn.ph-pn { padding: 0; background: none; box-shadow: none; }
   #geo-why .pn.ph-pn { position: relative; }   /* 단계(how) .pn 은 GEO 와 같이 absolute (좌우 20) 유지 */
   #geo-why .pn.ph-pn .ph-box { position: absolute; inset: 0; margin: 0; padding-bottom: 60px; }
   #geo-why .pn.ph-pn .ows-ft { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; justify-content: center; }
-  #geo-how .pn.ph-pn .ph-box { height: 100%; }
-  @media (min-width: 1440px) { #geo-how .bento.b3 .bt-vis > .pn.ph-pn { height: 250px; } }
-  #geo-market .ph-box.mk-ph { height: 250px; margin-top: 16px; }
-  @media (max-width: 1023px) { #geo-market .ph-box.mk-ph { height: 220px; } }
-  @media (max-width: 767px) { #geo-market .ph-box.mk-ph { height: 210px; } }
   #geo-market .mk-stats .ph-st strong { color: var(--gray-300); }
   /* patch-313: 그래프 = 광고 클릭 63.7% (Gray 300) vs 광고 보고 구매 28.2% (Primary 600 · 봐야 할 1곳) · 구매 막대 위 점선 칸 = 이어지지 않은 차이 · 말풍선 −35.5%p · 막대가 아래에서 차오름 */
-  #geo-market .mk-chart .sn-agb { fill: var(--gray-300); } #geo-market .mk-chart .sn-agb.now { fill: var(--primary-600); }
-  #geo-market .mk-chart .sn-bv { font-weight: 700; font-size: 13px; fill: var(--gray-600); } #geo-market .mk-chart .sn-bv.now { fill: var(--primary-600); }
-  #geo-market .mk-chart .sn-gap { fill: var(--gray-50); stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
-  #geo-market .mk-chart .sn-gl { stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
-  #geo-market .mk-lg i.sn-gpl { width: 10px; height: 10px; border-radius: 3px; background: var(--gray-50); box-shadow: none; border: 1.5px dashed var(--gray-400); box-sizing: border-box; }
-  #geo-market .mk-chart.mk-anim .chart .sn-agb { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .9s var(--ease-out); transition-delay: calc(var(--i) * 200ms + .15s); }
-  #geo-market .mk-chart.mk-anim.on .chart .sn-agb { transform: none; }
-  #geo-market .mk-chart.mk-anim .chart .sn-bv { transition-delay: calc(var(--i) * 200ms + .8s); }
-  #geo-market .mk-chart.mk-anim .chart .sn-gap, #geo-market .mk-chart.mk-anim .chart .sn-gl { opacity: 0; transition: opacity .4s ease-out 1.2s; } #geo-market .mk-chart.mk-anim.on .chart .sn-gap, #geo-market .mk-chart.mk-anim.on .chart .sn-gl { opacity: 1; }
   #geo-diagnosis .sr-vis.rp-sr { padding: 0; background: none; box-shadow: none; border-radius: 0; }
-  #geo-report .ph-box.rp-dph { aspect-ratio: 1240 / 620; max-width: 1100px; margin: 0 auto; }
-  @media (max-width: 767px) { #geo-report .ph-box.rp-dph { aspect-ratio: auto; height: 420px; } }
   .rp-refs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .rp-refs .ph-box { aspect-ratio: 400 / 300; }
   @media (max-width: 767px) { .rp-refs { grid-template-columns: minmax(0, 1fr); } }
@@ -226,21 +193,12 @@
 <style>
   /* @region sns-vis (patch-296): 공식채널운영 비주얼 — 브랜드 = 라운드위크(assets/geo/fashion 사진) · 색 = Gray 바탕 + Primary 600 한 곳 + 증감 · 이슈 Error 600 (#d92d20 · 25 #fef3f2) · 연결 점 Success 500
      · 화면 틀은 GEO 그대로: 히어로 .ai-chat 자리 · 문제 .pn.ows 550×300 · 단계 .pn 360×250 · 해결 .vw-win 460×340 · 리포트 GEO 대시보드 */
-  .sn-av img, .sn-grid img, .sn-th img, .sn-cv img, .sn-lk img, .sn-gen img, .sn-wk img, .sn-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .sn-st, .sn-grid, .sn-rows, .sn-dir, .sn-gen, .sn-bars, .sn-k3, .sn-cr, .sn-wk, .sn-up, .sn-fn { margin: 0; padding: 0; list-style: none; }
   .sn-shop { flex: none; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 6px; background: var(--gray-200); color: var(--gray-600); font-style: normal; }
   .sn-shop svg { width: 10px; height: 10px; }
-  .sn-th { flex: none; display: block; width: 32px; height: 32px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
   .sn-swap { flex: none; display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 99px; background: #fef3f2; color: #d92d20; font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; vertical-align: 1px; }
-  .sn-ck { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-700); color: var(--white); text-decoration: none; }
 
   /* ── 히어로 가운데 창 (GEO .ai-chat 자리 · 크기 그대로) ── */
-  #geo-hero .sh-visual > .ai-chat.sn-hw { position: relative; height: 418px; min-height: 0; padding: 0; gap: 0; overflow: hidden; }
-  @media (max-width: 1023px) { #geo-hero .sh-visual > .ai-chat.sn-hw { height: 417px; } }
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat.sn-hw { height: 404px; padding: 0; } }
   /* patch-303: 화면 전환 = 앞 화면이 먼저 빠진 뒤(0.25초) 다음 화면이 들어옴 · 두 화면이 겹쳐 보이지 않게 (합계 0.6초 · 제목 키워드 전환과 같음) */
-  .sn-sc { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
-  .sn-sc.on { opacity: 1; visibility: visible; transform: none; transition: opacity .35s .25s, transform .35s .25s var(--ease-out), visibility 0s; }
   /* patch-303: 히어로 왼쪽 = AI 소재 생성 카드 + 사진 생성 연출 (6초 반복) */
   .sn-aic b { display: flex; align-items: center; gap: 6px; }
   .sn-aic .aim-av { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
@@ -255,9 +213,6 @@
   /* patch-305: 사진 나오는 연출 = 단계 STEP 2 와 같은 키프레임 · 7.2초 (snGenO · snRev · 카드 글자 snG1 · snG2 와 같은 타이머) */
   .sn-gi::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGenO 7.2s infinite; }
   .sn-gi img { animation: snRev 7.2s infinite; }
-  .sn-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 14.5px; }
-  .sn-bar > img { width: 24px; height: 24px; }
-  .sn-bar b { font-weight: 700; color: var(--gray-900); }
   .sn-fl { margin-left: auto; padding: 6px 16px; border-radius: 8px; background: var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-900); }
   .sn-pf { flex: none; display: flex; align-items: center; gap: 20px; padding: 16px 20px; }
   .sn-av { flex: none; display: block; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; background: var(--gray-100); box-shadow: 0 0 0 2px var(--white), 0 0 0 3px var(--gray-200); }
@@ -280,7 +235,6 @@
   .sn-tag { position: absolute; left: 10px; bottom: 20px; display: inline-flex; align-items: center; gap: 6px; padding: 4px 4px 4px 6px; border-radius: 99px; background: var(--white); box-shadow: 0 4px 12px rgba(16,24,40,.16); font-size: 12px; line-height: 16px; font-weight: 600; color: var(--gray-900); white-space: nowrap; }
   .sn-tag em { padding: 4px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; font-weight: 700; }
   .sn-hw .sn-tag { animation: snTag 2.4s ease-in-out infinite; }
-  @keyframes snTag { 0%, 100% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 0 rgba(21,112,239,0); } 50% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 6px rgba(21,112,239,.16); } }
   .sn-rli { position: absolute; right: 8px; top: 8px; display: grid; place-items: center; width: 20px; height: 20px; color: var(--white); font-style: normal; filter: drop-shadow(0 1px 2px rgba(16,24,40,.4)); }   /* 릴스(영상) 자리 · 영상 받으면 img → video 로 교체 */
   .sn-grid li.mo6 { display: none; }   /* patch-314: 모바일 전용 5 · 6번째 썸네일 (3칸 × 2줄) */
   .sn-grid li.full { overflow: hidden; }
@@ -290,9 +244,6 @@
   .sn-fpf > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; line-height: 18px; color: var(--gray-500); }
   .sn-fpf > div > b { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
   /* patch-328: 페이스북 = 앱 상단 줄 · 페이지 이름 20 · 좋아요 · 팔로워 수 · 좋아요 / 메시지 보내기 버튼 (블루는 샵 자사몰 보기 1곳만이라 버튼은 회색) */
-  .sn-fbar { gap: 10px; }
-  .sn-fbar > img { width: 32px; height: 32px; border-radius: 50%; }
-  .sn-srch { display: flex; align-items: center; gap: 6px; width: 200px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-100); font-size: 12.5px; color: var(--gray-500); }
   .sn-ib { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--gray-100); color: var(--gray-900); }
   .sn-srch + .sn-ib { margin-left: auto; }
   .sn-fpf > div > b { font-size: 20px; line-height: 24px; }
@@ -300,15 +251,11 @@
   @media (max-width: 1023px) { .sn-fpf > .sn-fbt .sn-fl.m2 { display: none; } }   /* 태블릿: 이름이 줄바꿈되지 않게 좋아요 버튼만 */
   .sn-fpf > .sn-fbt { flex: none; display: flex; flex-direction: row; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-900); }
   .sn-fbt .sn-fl { display: flex; align-items: center; gap: 6px; margin-left: 0; padding: 6px 12px; }
-  .sn-ftab { flex: none; display: flex; gap: 20px; height: 36px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-500); }
-  .sn-ftab span { display: flex; align-items: center; border-bottom: 2px solid transparent; }
-  .sn-ftab .on { border-color: var(--gray-900); color: var(--gray-900); }
   .sn-shp { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); gap: 12px; margin: 0; padding: 12px 20px 16px; list-style: none; }
   .sn-shp li { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: 12px; line-height: 16px; color: var(--gray-500); }
   .sn-shp i { position: relative; display: block; flex: 1; min-height: 0; margin-bottom: 6px; border-radius: 8px; overflow: hidden; background: var(--gray-100); font-style: normal; }
   .sn-shp img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
   .sn-shp b { font-size: 12.5px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sn-go { position: absolute; left: 6px; bottom: 6px; padding: 4px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; line-height: 14px; font-weight: 700; animation: snTag 2.4s ease-in-out infinite; }
   .sn-cv { flex: none; height: 110px; overflow: hidden; background: var(--gray-100); }
   .sn-cv img { object-position: 50% 6%; }
   .sn-fb .sn-pf { padding: 12px 20px; gap: 16px; }
@@ -321,16 +268,14 @@
   .sn-lk small { font-size: 11px; color: var(--gray-500); letter-spacing: .02em; }
   .sn-lk b { font-size: 14.5px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
   .sn-lk em { margin-top: 6px; padding: 6px 12px; border-radius: 6px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 12px; line-height: 16px; font-weight: 700; }
-  #geo-hero .sh-toast .sn-tl { flex: none; width: 36px; height: 36px; }
   @media (max-width: 767px) {
-    .sn-bar { padding: 0 16px; font-size: 13px; } .sn-bar > img { width: 20px; height: 20px; }
     .sn-fl { padding: 4px 12px; font-size: 12px; }
     .sn-pf { gap: 12px; padding: 12px 16px; } .sn-av { width: 56px; height: 56px; }
     .sn-pf > div { gap: 4px; font-size: 12px; } .sn-pf > div > b { font-size: 14.5px; } .sn-st { gap: 10px; }
-    .sn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); } .sn-grid li { aspect-ratio: auto; } .sn-grid .sn-tag { top: auto; } .sn-grid li.mo6 { display: block; } .sn-itab { height: 36px; } .sn-itab svg { width: 14px; height: 14px; } .sn-srch { width: auto; flex: 1; } .sn-fbar .sn-ib:last-child { display: none; } .sn-fbar > img { width: 28px; height: 28px; }   /* patch-314: 모바일 = 실제 인스타 프로필처럼 3칸 × 2줄 6개 */
+    .sn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); } .sn-grid li { aspect-ratio: auto; } .sn-grid .sn-tag { top: auto; } .sn-grid li.mo6 { display: block; } .sn-itab { height: 36px; } .sn-itab svg { width: 14px; height: 14px; } .sn-fbar .sn-ib:last-child { display: none; } 
     .sn-tag { left: 8px; bottom: 16px; font-size: 11px; }
     .sn-cv { height: 90px; } .sn-fpf { gap: 12px; min-height: 48px; padding: 6px 16px 4px 92px; } .sn-fpf .sn-av { left: 16px; top: -34px; width: 64px; height: 64px; } .sn-fpf > div > b { font-size: 14.5px; } .sn-fpf > div { font-size: 11px; } .sn-fpf > .sn-fbt { display: none; }
-    .sn-ftab { gap: 16px; padding: 0 16px; font-size: 12px; } .sn-shp { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px 16px 12px; } .sn-shp li:nth-child(4) { display: none; } .sn-shp b { font-size: 12px; } .sn-shp span { font-size: 11px; }
+    .sn-shp { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px 16px 12px; } .sn-shp li:nth-child(4) { display: none; } .sn-shp b { font-size: 12px; } .sn-shp span { font-size: 11px; }
     .sn-post { gap: 8px; padding: 12px 16px 16px; font-size: 12.5px; } .sn-lk { gap: 12px; } .sn-lk > img { width: 96px; }
   }
 
@@ -339,17 +284,14 @@
   .sn-hi { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--gray-100); color: var(--gray-500); font-style: normal; }
   .sn-hi svg { width: 12px; height: 12px; }
   .sn-ok .sn-hi { background: var(--primary-50); color: var(--primary-600); }
-  .sn-hm { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--gray-500); }
   #geo-why .pn.ows > .sn-rows { display: flex; flex-direction: column; gap: 6px; margin: 0 12px !important; padding: 0; }   /* 줄 바탕 12 · 사진 16 = 머리줄 아이콘 시작선 */
   .sn-rows li { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 8px 0 4px; border-radius: 10px; }
   .sn-cn { flex: none; width: 116px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); white-space: nowrap; }
   .sn-cn > img { flex: none; width: 16px; height: 16px; }
   .sn-cn > img[src$="meta.svg"] { border-radius: 4px; outline: 1px solid var(--gray-200); outline-offset: -1px; }   /* patch-329: 메타 = 흰 타일이라 바탕과 구분되게 테두리 (16 안쪽 · 다른 로고와 같은 크기) */
   .sn-cp { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .sn-ow { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-size: 12px; font-weight: 600; font-style: normal; }
   /* patch-302: 문제 영역 왼쪽(기존) 창 = 회색 바탕(Gray 50 + 테두리 Gray 200)으로 오른쪽(개선) 화면을 돋보이게 (GEO .pn.serp · CRM · 리포트 같음) */
   #geo-why .bento.ba .pn.sn-ch:not(.sn-ok) { --ft-bg: var(--gray-50); background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  #geo-why .pn.sn-ch:not(.sn-ok) .sn-ow { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
   /* patch-311: 개선 화면 = 자사몰 데이터 줄(블루 포인트 1곳) → 채널 4줄 같은 메시지 · 데이터 줄이 켜진 뒤 체크가 위에서부터 차례로 */
   #geo-why .pn.sn-ok > .sn-dt { display: flex; align-items: center; gap: 8px; height: 36px; margin: -4px 12px 8px; padding: 0 12px 0 8px; border-radius: 10px; background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-100); font-size: 12px; line-height: 16px; color: var(--primary-700); white-space: nowrap; animation: snDt 4.8s infinite both; }
   .sn-dt .aim-av { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
@@ -358,23 +300,10 @@
   .sn-dt b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 13px; font-weight: 700; color: var(--gray-900); }
   .sn-dt em { flex: none; font-style: normal; font-weight: 700; color: var(--primary-600); }
   #geo-why .pn.sn-ok > .sn-rows { gap: 4px; } .sn-ok .sn-rows li { height: 34px; }
-  @keyframes snDt { 0% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,.28); } 10% { box-shadow: inset 0 0 0 1px var(--primary-300), 0 0 0 4px rgba(21,112,239,.12); } 22%, 100% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,0); } }
-  .sn-ok .sn-ck { background: var(--primary-600); animation: snCk 4.8s infinite both; animation-delay: calc(.45s + var(--i, 0) * .35s); }
   .sn-ok .sn-rows li:nth-child(2) .sn-ck { --i: 1; } .sn-ok .sn-rows li:nth-child(3) .sn-ck { --i: 2; } .sn-ok .sn-rows li:nth-child(4) .sn-ck { --i: 3; }
-  @keyframes snCk { 0%, 6% { transform: scale(0); opacity: 0; } 12% { transform: scale(1.15); opacity: 1; } 16%, 86% { transform: scale(1); opacity: 1; } 94%, 100% { transform: scale(0); opacity: 0; } }
 
   /* ── 단계 3장 (360×250 · GEO .pn 틀) ── */
-  .sn-dir, .sn-bars { display: flex; flex-direction: column; gap: 8px; }
-  .sn-dir li { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 10px 0 8px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gray-200); }
-  .sn-dir li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
   .sn-di { flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--gray-100); color: var(--gray-500); font-style: normal; }
-  .sn-dir div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-  .sn-dir small { font-size: 11px; line-height: 14px; color: var(--gray-500); }
-  .sn-dir b { font-size: 13px; line-height: 16px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }
-  .sn-dir em { font-size: 11px; font-style: normal; color: var(--gray-500); white-space: nowrap; }
-  .sn-dir .sn-ck { animation: snCk 6s infinite both; animation-delay: calc(var(--i, 0) * .5s); }
-  .sn-dir li.hl .sn-ck { background: var(--primary-600); }
-  .sn-dir li:nth-child(2) .sn-ck { --i: 1; } .sn-dir li:nth-child(3) .sn-ck { --i: 2; }
   .sn-aiv { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 6px; vertical-align: -4px; border-radius: 6px; background: linear-gradient(135deg, var(--primary-600), #6172f3); color: var(--white); font-style: normal; }
   .sn-aiv svg { width: 11px; height: 11px; }
   .sn-gen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
@@ -383,7 +312,6 @@
   .sn-gen img { object-position: 50% 15%; }
   .sn-gen li.on i { box-shadow: 0 0 0 2px var(--primary-600); }
   .sn-gen li.on span { color: var(--primary-700); font-weight: 600; }
-  @keyframes snSelC { 0%, 40% { color: var(--gray-500); font-weight: 400; } 44%, 90% { color: var(--primary-700); font-weight: 600; } 94%, 100% { color: var(--gray-500); font-weight: 400; } }
   .sn-gen em { position: absolute; z-index: 1; left: 6px; top: 6px; padding: 2px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-size: 11px; line-height: 16px; font-weight: 700; font-style: normal; }
   /* patch-299: AI 생성 연출 7.2초 반복 · 생성 중(반짝 로딩) → A · B · C 순서로 흐림 → 선명 → 머리줄 3개 생성 → B 선택 */
   .sn-gen i::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(110deg, var(--gray-100) 30%, var(--primary-100) 50%, var(--gray-100) 70%) 0 0 / 300% 100%; animation: snShim 1.2s linear infinite, snGenO 7.2s infinite; animation-delay: 0s, calc(var(--i, 0) * .4s); }
@@ -394,34 +322,10 @@
   .sn-gs .g1 { color: var(--primary-700); animation: snG1 7.2s infinite; } .sn-gs .g2 { animation: snG2 7.2s infinite; }
   .sn-gs .g1 .sn-aiv svg { animation: snSpin 1.2s linear infinite; }
   .sn-dots { display: inline-flex; gap: 2px; margin-left: 4px; font-style: normal; } .sn-dots i { width: 3px; height: 3px; border-radius: 99px; background: currentColor; animation: snDot 1.2s infinite; } .sn-dots i:nth-child(2) { animation-delay: .2s; } .sn-dots i:nth-child(3) { animation-delay: .4s; }
-  @keyframes snShim { from { background-position: 100% 0; } to { background-position: 0 0; } }
-  @keyframes snGenO { 0%, 22% { opacity: 1; } 30%, 90% { opacity: 0; } 96%, 100% { opacity: 1; } }
-  @keyframes snRev { 0%, 22% { filter: blur(10px); transform: scale(1.08); } 34%, 90% { filter: blur(0); transform: none; } 96%, 100% { filter: blur(10px); transform: scale(1.08); } }
-  @keyframes snSel { 0%, 40% { box-shadow: 0 0 0 0 var(--primary-600); } 44%, 90% { box-shadow: 0 0 0 2px var(--primary-600); } 94%, 100% { box-shadow: 0 0 0 0 var(--primary-600); } }
-  @keyframes snSelO { 0%, 40% { opacity: 0; } 44%, 90% { opacity: 1; } 94%, 100% { opacity: 0; } }
-  @keyframes snG1 { 0%, 34% { opacity: 1; } 38%, 92% { opacity: 0; } 96%, 100% { opacity: 1; } }
-  @keyframes snG2 { 0%, 34% { opacity: 0; } 38%, 92% { opacity: 1; } 96%, 100% { opacity: 0; } }
-  @keyframes snSpin { to { transform: rotate(360deg); } }
-  @keyframes snDot { 0%, 60%, 100% { opacity: .3; } 30% { opacity: 1; } }
   .sn-gen li:nth-child(2) i::after { --i: 1; } .sn-gen li:nth-child(3) i::after { --i: 2; }
-  .sn-bars li { display: flex; align-items: center; gap: 10px; height: 48px; }
-  .sn-bars div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; color: var(--gray-600); }
-  .sn-bars div > i { display: block; width: calc(var(--v) * 100%); height: 8px; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: snBar 6s var(--ease-out) infinite; }
-  .sn-bars li.hl div > i { background: var(--primary-600); }
-  .sn-bars li.hl span { color: var(--gray-900); font-weight: 600; }
-  .sn-bars b { flex: none; width: 40px; text-align: right; font-size: 14.5px; font-weight: 700; color: var(--gray-500); }
-  .sn-bars li.hl b { color: var(--primary-600); }
-  @keyframes snBar { 0% { transform: scaleX(0); } 18%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
 
   /* ── 해결 3줄 (460×340 · 공통 .vw-win) ── */
-  #geo-diagnosis .vw-win.sn-d1, #geo-diagnosis .vw-win.sn-d2, #geo-diagnosis .vw-win.sn-d3 { display: flex; flex-direction: column; }
   #geo-diagnosis .vw-win[class*="sn-d"] > .vw-bd { flex: 1; min-height: 0; justify-content: center; gap: 12px; }
-  .sn-k3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .sn-k3 li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 10px; background: var(--gray-50); font-size: 11px; line-height: 14px; color: var(--gray-500); }
-  .sn-k3 strong { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
-  .sn-k3 small { margin-left: 2px; font-size: 11px; font-weight: 600; color: var(--gray-500); }
-  .sn-k3 em { font-style: normal; font-size: 11px; font-weight: 600; color: var(--gray-500); }
-  .sn-k3 em.inc { color: #d92d20; }
   .sn-cr { display: flex; flex-direction: column; gap: 4px; }
   .sn-cr li { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 12px 0 4px; border-radius: 8px; font-size: 12px; color: var(--gray-500); }
   .sn-cr .sn-th { width: 28px; height: 28px; border-radius: 6px; }
@@ -431,7 +335,6 @@
   .sn-cr li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
   .sn-cr li.hl b { color: var(--primary-600); }
   .sn-cr li.bad .sn-swap { animation: snPulse 2.4s ease-in-out infinite; }
-  @keyframes snPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(217,45,32,0); } 50% { box-shadow: 0 0 0 4px rgba(217,45,32,.14); } }
   .sn-wk { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
   .sn-wk li { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; line-height: 14px; color: var(--gray-500); }
   .sn-wk b { display: grid; place-items: center; min-width: 24px; height: 20px; margin-bottom: 4px; border-radius: 99px; font-size: 13px; font-weight: 700; color: var(--gray-900); }
@@ -447,21 +350,14 @@
   .sn-up span { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .sn-up span img { flex: none; width: 16px; height: 16px; }
   .sn-dot { flex: none; width: 6px; height: 6px; margin: 0 5px; border-radius: 50%; background: #12b76a; }
-  .sn-up em, .sn-st2 b { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); font-size: 12px; line-height: 16px; font-weight: 600; font-style: normal; text-align: center; }
   .sn-up li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
   .sn-up em.sn-st2 { display: grid; padding: 0; background: none; box-shadow: none; }
-  .sn-st2 b { grid-area: 1 / 1; animation: snStA 6s infinite; }
-  .sn-st2 b + b { background: var(--primary-600); box-shadow: none; color: var(--white); animation-name: snStB; }
-  @keyframes snStA { 0%, 44% { opacity: 1; } 50%, 94% { opacity: 0; } 100% { opacity: 1; } }
-  @keyframes snStB { 0%, 44% { opacity: 0; } 50%, 94% { opacity: 1; } 100% { opacity: 0; } }
   #geo-diagnosis .vw-win.sn-d3 > .vw-bd { flex-direction: row; align-items: center; gap: 24px; }
   #geo-diagnosis .steprow:nth-child(3) .vw-win.sn-d3 > .vw-bd { gap: 32px !important; }   /* patch-329: 휴대폰 ↔ 경로 12 → 32 (공통 3번째 단계 gap 12 !important 덮음) */
   .sn-ph { position: relative; flex: none; width: 156px; height: 236px; border-radius: 16px; overflow: hidden; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200), 0 8px 20px rgba(16,24,40,.08); }
   .sn-ph .sc { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--white); }
   .sn-ph .a { animation: snScA 6s infinite; }
   .sn-ph .b { animation: snScB 6s infinite; }
-  @keyframes snScA { 0%, 46% { opacity: 1; transform: none; } 52%, 94% { opacity: 0; transform: translateX(-16px); } 100% { opacity: 1; transform: none; } }
-  @keyframes snScB { 0%, 46% { opacity: 0; transform: translateX(16px); } 52%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(16px); } }
   .sn-pb { flex: none; display: flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; font-size: 11px; font-weight: 600; color: var(--gray-900); }
   .sn-pb img { width: 16px; height: 16px; }
   .sn-ph .im { position: relative; display: block; overflow: hidden; background: var(--gray-100); font-style: normal; }
@@ -470,7 +366,6 @@
   .sn-ph .sn-tag { left: 8px; bottom: 10px; gap: 4px; padding: 4px 8px 4px 6px; font-size: 11px; }
   .sn-ph .sn-tag em { padding: 0; background: none; color: var(--gray-500); font-size: 12px; }
   .sn-ph .tap { position: absolute; left: 28px; bottom: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(21,112,239,.28); transform: scale(0); opacity: 0; animation: snTap 6s infinite; }
-  @keyframes snTap { 0%, 32% { transform: scale(0); opacity: 0; } 38% { transform: scale(1); opacity: 1; } 46%, 100% { transform: scale(1.6); opacity: 0; } }
   .sn-pm { flex: none; display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 10px; font-size: 11px; color: var(--gray-600); }
   .sn-ph .b { padding-bottom: 12px; }
   .sn-ph .b .im { flex: none; height: 128px; }
@@ -492,11 +387,6 @@
   .sn-path .cv b { display: flex; align-items: center; gap: 2px; padding: 2px 8px 2px 6px; border-radius: 99px; background: var(--gray-100); font-size: 11px; line-height: 16px; font-weight: 700; color: var(--gray-700); }
   .sn-path .cv.on b { background: var(--primary-50); color: var(--primary-700); }
 
-  @media (prefers-reduced-motion: reduce) {
-    .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b, #geo-why .pn.sn-ok > .sn-dt { animation: none !important; transition: none !important; }
-    .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1, .sn-gi::after { opacity: 0; }
-    .sn-ck { opacity: 1; transform: none; }
-  }
   /* @endregion sns-vis */
 </style>
 

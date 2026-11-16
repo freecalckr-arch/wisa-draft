@@ -14,12 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=503">
+<link rel="stylesheet" href="assets/common/wisa.css?v=504">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] 버티컬커머스 (채널마케팅) 페이지 기록 (2026-11-11)
+     · 2026-11-16 patch-504: 여러 페이지 <style> 에 똑같이 복사돼 있던 규칙 정리 — 2페이지 이상에서 쓰는 규칙(단계 탭 · 단계 카드 · 해결 화면 · 채널 칩 등 184개)은 공통 wisa.css @region from-pages 로 옮기고, 이 페이지에서 쓰지 않는 다른 페이지용 복사본은 삭제 (화면 변화 없음 · 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-13 patch-476: 매체 광고 상품 페이지(media-ads.html)를 채널마케팅 4번째 탭으로 추가 · GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' = 외부 링크 → media-ads.html · 모바일 탭 4개일 때 좌우 7 · 글자 13 · 넘치면 가로 스크롤 (공통 wisa.css tab-page-4 · ?v=476)
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-413: 히어로 타이틀 모바일 4줄 → 3줄 (자사몰에만 머물지 않고 / [채널]에서도 / 팔리게 합니다 · PC · 태블릿 그대로)
@@ -79,7 +80,6 @@
   @media (max-width: 1023px) { .bt-goal { margin-top: 24px; padding-top: 16px; font-size: 15px; } }
   @media (max-width: 767px) { .bt-goal { margin-top: 20px; padding-top: 14px; font-size: 14px; gap: 8px; } .bt-goal span { font-size: 12px; } #geo-why .bt:not(.is-new) .bt-goal { margin-bottom: 14px; } }
   @media (min-width: 1024px) {
-    #geo-diagnosis .sr-vis.vw .vw-win { height: 380px; display: flex; flex-direction: column; }
     #geo-diagnosis .sr-vis.vw .vw-bd { flex: 1; min-height: 0; justify-content: space-between; gap: 16px; }
   }
 </style>
@@ -98,10 +98,6 @@
   }
 
   /* 단계(#geo-how) 3단계 카드: 카드 화면 PC 352×254 (카드 아래로 24 걸침 · 화면 칸 230) 을 비율 축소 · 넓으면 PC 크기로 가운데 */
-  @media (max-width: 1439px) {
-    #geo-how .bento.b3 .bt-vis { display: block; flex: none; position: relative; min-height: 0; height: calc(230px * var(--s, 1)); }
-    #geo-how .bento.b3 .bt-vis > .pn { position: absolute; inset: auto; top: 0; left: 50%; width: 360px; height: 250px; max-width: none; flex: none; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
-  }
 
   /* 해결(#geo-diagnosis): 줄마다 화면 PC 460×380 비율 축소 */
   @media (max-width: 1439px) {
@@ -129,20 +125,12 @@
   /* 히어로 파란 박스 태블릿 · 모바일 444 → 440 */
   @media (max-width: 1023px) { .sh-visual { height: 440px; min-height: 0; } }
   /* ③ 단계 · 카드 타입: 카드 화면 좌우 · 아래 걸침 24 → 20 → 화면 PC 352×254 → 360×250 */
-  @media (min-width: 1440px) {
-    #geo-how .bento.b3 .bt-vis { padding: 0 20px; }
-    #geo-how .bento.b3 .pn { left: 20px; right: 20px; bottom: -20px; }
-  }
-  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { width: calc(100% + 20px); margin-inline: -10px; } }
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { height: 404px; } }   /* patch-286: 모바일 히어로 창 위 여백 36 통일 (온사이트 기준 · 높이 404 · 아래 붙임) */
+  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */   /* patch-286: 모바일 히어로 창 위 여백 36 통일 (온사이트 기준 · 높이 404 · 아래 붙임) */
 </style>
 <style>
   /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
      - 화면 전체는 겹쳐 사라지듯 바뀌고(.22s), 히어로 탭 줄은 제자리에 고정, 선택 표시는 옆 탭으로 미끄러짐
      - 탭 전환으로 들어온 경우 히어로 등장 애니메이션은 생략 (비교가 바로 되게) */
-  @view-transition { navigation: auto; }
-  .tab-page { view-transition-name: tab-page; }
   /* patch-173 선택 탭 통째 전환(tab-on) 삭제 → 알약만 미끄러짐 (wisa.css · wisa.js tab-ind) */
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
 
@@ -150,8 +138,8 @@
   @media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
 
   /* @region sr-340-fit (patch-290): 해결 화면 460×340 — 줄어든 높이(본문 288 · 위아래 여백 20)에 맞춰 간격 · 행 높이 조정 */
-  #geo-diagnosis .steprow:nth-child(1) .vw-bd { gap: 14px !important; } #geo-diagnosis .vw-nx.vw-urg { margin-top: 0 !important; } #geo-diagnosis .vw-nx { padding-top: 10px !important; padding-bottom: 10px !important; }
-  #geo-diagnosis .vw-qs li { padding-top: 7px !important; padding-bottom: 7px !important; } #geo-diagnosis .vw-qs li:first-child { padding-top: 0 !important; } #geo-diagnosis .steprow:nth-child(3) .vw-bd { gap: 12px !important; }
+  #geo-diagnosis .steprow:nth-child(1) .vw-bd { gap: 14px !important; } 
+  #geo-diagnosis .steprow:nth-child(3) .vw-bd { gap: 12px !important; }
   /* @endregion */
 </style>
 <!-- patch-163 다른 시안을 미리 불러 둠 (Chrome 은 화면까지 미리 그림, 그 외 브라우저는 파일만 받아 둠) -->
@@ -176,27 +164,14 @@
   })();
 </script>
 <style>
-  #geo-ref .rvw-kpi em.dn { font-style: normal; font-size: .7em; vertical-align: 2px; color: var(--primary-600); }   /* patch-331: 감소 ▼ = Primary 600 블루 (증감 색 규칙) */
   /* @region sns-ph (patch-294): 기획안 단계 비주얼 자리 표시 — 규격 크기 빈 박스 · 비주얼 작업 시 이 영역과 .ph-box 마크업을 실제 화면으로 교체 */
-  .ph-box { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 20px; border: 2px dashed var(--gray-300); border-radius: 16px; background: var(--gray-50); color: var(--gray-500); font-size: 16px; font-weight: 600; text-align: center; }
-  .ph-box small { display: block; max-width: 34em; font-size: 13px; font-weight: 500; color: var(--gray-400); }
-  .ph-box .sz { padding: 2px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; font-weight: 700; color: var(--gray-500); font-variant-numeric: tabular-nums; }
   #geo-hero .sh-visual.ph-hv { position: relative; }
   #geo-hero .sh-visual.ph-hv .ph-box { position: absolute; inset: 24px; width: auto; background: rgba(255, 255, 255, .6); }
-  #geo-hero .ai-roll .rl-ic { flex: none; width: .82em; height: .82em; border-radius: .24em; }
-  #geo-why .pn.ph-pn, #geo-how .pn.ph-pn { padding: 0; background: none; box-shadow: none; }
   #geo-why .pn.ph-pn { position: relative; }   /* 단계(how) .pn 은 GEO 와 같이 absolute (좌우 20) 유지 */
   #geo-why .pn.ph-pn .ph-box { position: absolute; inset: 0; margin: 0; padding-bottom: 60px; }
   #geo-why .pn.ph-pn .ows-ft { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; justify-content: center; }
-  #geo-how .pn.ph-pn .ph-box { height: 100%; }
-  @media (min-width: 1440px) { #geo-how .bento.b3 .bt-vis > .pn.ph-pn { height: 250px; } }
-  #geo-market .ph-box.mk-ph { height: 250px; margin-top: 16px; }
-  @media (max-width: 1023px) { #geo-market .ph-box.mk-ph { height: 220px; } }
-  @media (max-width: 767px) { #geo-market .ph-box.mk-ph { height: 210px; } }
   #geo-market .mk-stats .ph-st strong { color: var(--gray-300); }
   #geo-diagnosis .sr-vis.rp-sr { padding: 0; background: none; box-shadow: none; border-radius: 0; }
-  #geo-report .ph-box.rp-dph { aspect-ratio: 1240 / 620; max-width: 1100px; margin: 0 auto; }
-  @media (max-width: 767px) { #geo-report .ph-box.rp-dph { aspect-ratio: auto; height: 420px; } }
   .rp-refs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .rp-refs .ph-box { aspect-ratio: 400 / 300; }
   @media (max-width: 767px) { .rp-refs { grid-template-columns: minmax(0, 1fr); } }
@@ -211,17 +186,8 @@
      · 공식채널운영 · 상품DB 연동 sns-vis 공통 조각(.sn-ck · .sn-hi · .sn-hm · .sn-ow · .sn-k3 · 그래프 막대 .sn-agb)을 이 페이지에 필요한 만큼만 옮겨 씀 */
   img[src*="interior/"] { object-fit: cover; object-position: 50% 50%; }
   img[src*="interior/cp-"] { filter: grayscale(.9) contrast(.85); opacity: .5; }   /* 타사 상품: 흐리게 · 색감 죽임 (우리 상품이 먼저 보이게) */
-  .sn-ck { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-700); color: var(--white); text-decoration: none; }
   .sn-hi { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--gray-100); color: var(--gray-500); font-style: normal; }
-  .sn-hm { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--gray-500); }
-  .sn-ow { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-size: 12px; font-weight: 600; font-style: normal; }
   .sn-k3 { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .sn-k3 li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 10px; background: var(--gray-50); font-size: 11px; line-height: 14px; color: var(--gray-500); }
-  .sn-k3 strong { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
-  .sn-k3 small { margin-left: 2px; font-size: 11px; font-weight: 600; color: var(--gray-500); }
-  .sn-k3 em { font-style: normal; font-size: 11px; font-weight: 600; color: var(--gray-500); }
-  .sn-k3 em.inc { color: #d92d20; }
-  @keyframes snCk { 0%, 6% { transform: scale(0); opacity: 0; } 12% { transform: scale(1.15); opacity: 1; } 16%, 86% { transform: scale(1); opacity: 1; } 94%, 100% { transform: scale(0); opacity: 0; } }
   @keyframes snTag { 0%, 100% { box-shadow: 0 0 0 0 rgba(21,112,239,0); } 50% { box-shadow: 0 0 0 5px rgba(21,112,239,.18); } }
   @keyframes vcRing { 0%, 100% { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600), 0 0 0 4px rgba(21,112,239,0); } 50% { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--primary-600), 0 0 0 9px rgba(21,112,239,.16); } }
   @keyframes vcBar { 0%, 6% { transform: scaleX(0); } 20%, 88% { transform: none; } 96%, 100% { transform: scaleX(0); } }
@@ -358,13 +324,9 @@
   .vc-mks { margin-left: 6px; font-size: 13px; font-weight: 500; color: var(--gray-500); }
   @media (max-width: 767px) { .vc-mks { display: block; margin: 2px 0 0; font-size: 12px; } }
   /* ── (patch-356 막대 · 지금 안 씀) 오늘의집 연간 매출 막대 3개 ── */
-  #geo-market .mk-chart .sn-agb { fill: var(--gray-300); } #geo-market .mk-chart .sn-agb.now { fill: var(--primary-600); }
-  #geo-market .mk-chart .sn-bv { font-size: 15px; fill: var(--gray-600); } #geo-market .mk-chart .sn-bv.now { fill: var(--primary-600); }
+  #geo-market .mk-chart .sn-bv { font-size: 15px; fill: var(--gray-600); } 
   #geo-market .mk-chart .chart-mo .sn-bv { font-size: 12px; }
   #geo-market .mk-lg i.se { background: var(--gray-300); }
-  #geo-market .mk-chart.mk-anim .chart .sn-agb { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .9s var(--ease-out); transition-delay: calc(var(--i) * 200ms + .15s); }
-  #geo-market .mk-chart.mk-anim.on .chart .sn-agb { transform: none; }
-  #geo-market .mk-chart.mk-anim .chart .sn-bv { transition-delay: calc(var(--i) * 200ms + .8s); }
 
   /* ── 단계 3장 (360×250) ── */
   .vc-fit .hd { display: grid; grid-template-columns: 92px repeat(3, minmax(0, 1fr)) 32px; align-items: center; height: 20px; margin: 0 0 6px; padding: 0 12px; font-size: 11px; color: var(--gray-500); }

@@ -46,6 +46,8 @@
     <h2 id="jt-spec">규격 <code>.jt</code></h2>
     <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC</th><th>PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
 <tr><td>탭 줄 <code>.jt-nav</code></td><td colspan="2">단계 수만큼 같은 폭 칸 · 아래 선 1 Gray 200</td><td colspan="2">왼쪽부터 글자 폭만큼 · 넘치면 가로 스크롤 (스크롤바 숨김)</td></tr>
+<tr><td>넘칠 때 화살표 <code>.jt-ar</code></td><td colspan="2">없음 (넘치지 않음)</td><td colspan="2">뒤에 탭이 더 있으면 오른쪽 <code>&gt;</code> · 앞에 있으면 왼쪽 <code>&lt;</code> · 원 없이 화살표 16 Gray 700 (호버 Primary 700) · 뒤에 폭 56 바탕색 그라데이션(55% 에서 바탕색)을 깔아 탭 글자가 화살표와 겹치지 않고 흐려짐 · 아래 선은 가리지 않음 · 바탕이 흰색이 아니면 <code>--jt-ar-bg</code></td></tr>
+<tr><td>탭 번호 · 화면 번호 원</td><td colspan="4">화면 안 번호 <code>.os8-p</code> 18 원 · 선택 칩 앞 번호 16 원 · 바탕 Primary 600 · 글자 White 10 · 700 · 줄 높이 1 · 숫자 폭 고정(tnum) · 가운데 정렬 (공통 <code>wisa.css</code> <code>num-mark</code>)</td></tr>
 <tr><td>탭 1개 <code>.tabline</code></td><td>글자 17 · 패딩 14/0/12</td><td>글자 16</td><td colspan="2">글자 15 · 패딩 12/14/10</td></tr>
 <tr><td>탭 글자</td><td colspan="4">기본 500 Gray 400 · 호버 Black · 선택 Black 600 + 아래 선 3 Black · 앞 번호(01~) 13 · 700 Gray 400 → 선택 Primary 600 · 번호와 이름 사이 8</td></tr>
 <tr><td>탭 ↔ 화면 카드 간격</td><td colspan="4">24</td></tr>
@@ -55,13 +57,15 @@
     <h2 id="jt-motion">움직임</h2>
     <div class="tbl"><table class="spec"><thead><tr><th>언제</th><th>동작</th><th>시간</th></tr></thead><tbody>
 <tr><td>탭을 누를 때</td><td>화면 칸이 바뀌며 아래에서 살짝 올라오며 나타남</td><td>0.45초 ease-out</td></tr>
+<tr><td>선택 탭이 바뀔 때 (태블릿 · 모바일 · 탭 줄이 넘칠 때)</td><td>탭 줄만 옆으로 움직여 선택 탭을 가운데로 (다음 탭이 보이게) · 페이지는 스크롤하지 않음 · 손으로 민 위치는 선택이 바뀔 때까지 그대로</td><td>부드럽게 (모션 줄이기 = 바로)</td></tr>
+<tr><td>화살표를 누를 때</td><td>탭 줄이 칸 폭의 60% 만큼 그쪽으로 움직임 · 끝에 닿으면 그쪽 화살표가 사라짐</td><td>0.2초 페이드</td></tr>
 <tr><td>화면에 보이는 동안</td><td>다음 단계로 자동 전환 (마지막 다음은 처음)</td><td>단계마다 max(3.2초, 0.4 + 번호 수 × 1.1 + 0.6초)</td></tr>
 <tr><td>탭이 열린 뒤</td><td>화면 안 번호(<code>.os8-p</code>)마다 왼쪽 선택 칩 이름 말풍선이 번호 순서대로 뜸 · 같은 칩이 블루로 강조 (오른쪽에 자리가 없으면 왼쪽 · 아래)</td><td>0.4초 뒤부터 1.1초 간격</td></tr>
 <tr><td>마우스 · 키보드 포커스가 탭 영역에 있을 때</td><td colspan="2">자동 전환 멈춤 (떠나면 다시)</td></tr>
 <tr><td>탭을 한 번이라도 누르면</td><td colspan="2">자동 전환 끝 (누른 탭 유지)</td></tr>
 <tr><td>모션 줄이기</td><td colspan="2">자동 전환 · 번호 말풍선 없음 · 탭을 눌러서만 바꿈</td></tr>
 </tbody></table></div>
-    <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트. 단계 영역이 카드 타입인 페이지(GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고)는 <a href="cards.html">카드 › 단계 (카드 타입)</a>. 코드: 각 페이지 <code>&lt;script&gt;</code> <code>onsite-steps</code> · 탭 줄 <code>wisa.css</code> <code>.tabline</code>.</p>
+    <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트. 단계 영역이 카드 타입인 페이지(GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고)는 <a href="cards.html">카드 › 단계 (카드 타입)</a>. 코드: 각 페이지 <code>&lt;script&gt;</code> <code>onsite-steps</code> · 탭 줄 <code>wisa.css</code> <code>.tabline</code> · 화살표 <code>jt-ar</code> · 번호 원 <code>num-mark</code> / <code>wisa.js</code> <code>jt-nav-mo</code> (화살표 · 선택 탭 가운데).</p>
 </section>
     <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
   </div>

@@ -3380,3 +3380,219 @@ img, video { max-width: 100%; display: block; }
 /* @region num-mark (patch-502): 단계 탭 번호 원 공통 — 화면 안 번호(.os8-p · 18) · 선택 칩 앞 번호(li::before · 16). 글자 10 · 700 · 줄 높이 1 · 숫자 폭 고정(tnum)으로 원 가운데에 정렬 (페이지마다 따로 두던 글자 크기 · 줄 높이 차이로 숫자가 쏠리던 것 정리) */
 .os8-p, #geo-how .jt-tags .sr-tags li::before { font-size: 10px; line-height: 1; font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; text-align: center; }
 /* @endregion */
+
+/* @region from-pages (patch-504): 여러 페이지에 똑같이 복사돼 있던 규칙 중 2페이지 이상에서 실제로 쓰는 것을 공통으로 옮김
+   (단계 탭 · 단계 카드 · 해결 화면 · 채널 칩 등 · 페이지 <style> 에서는 삭제 · 페이지 전용은 각 HTML 에 남김) */
+.jt-tags li::before { content: none; }
+@media (max-width:1023px) {
+  .jt-nav::-webkit-scrollbar { display: none; }
+}
+.sc .vw-ic svg { width: 15px; height: 15px; }
+@keyframes hbFloatC { from { transform: translateY(calc(-50% - 8px)); } to { transform: translateY(calc(-50% + 8px)); } }
+@keyframes hbTap { 0% { opacity: .9; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.3); } }
+@media (min-width:768px) and (max-width:1023px) {
+  #geo-market .mk-chart .chart-pc { display: none; }
+}
+@media (max-width:767px) {
+  #geo-market .mk-chart .chart-pc { display: none; }
+  #geo-market .mk-chart .chart-mo .yr { font-size: 12px; }
+  #geo-market .mk-chart .chart-mo .pv.real { font-size: 12.5px; }
+  #geo-market .mk-chart .chart-mo .tip2 text { font-size: 11.5px; }
+}
+@keyframes hbIn { from { opacity: 0; transform: translateY(-10px); } }
+@keyframes hbDbt { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 6%, 42% { opacity: 1; transform: none; } 52%, 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes hbExit { 0% { opacity: 0; transform: translateX(40px); } 10%, 40% { opacity: 1; transform: none; } 55%, 100% { opacity: 0; transform: translateX(-24px); } }
+@keyframes hbBuy { 0% { opacity: 0; transform: translateY(16px); } 12% { opacity: 1; transform: none; } 62% { opacity: 1; transform: translateY(-110px); } 76%, 100% { opacity: 0; transform: translateY(-140px); } }
+@keyframes hbBuy2 { 0% { opacity: 0; transform: none; } 8% { opacity: 1; } 55% { opacity: 1; transform: translate(52px, -64px); } 72%, 100% { opacity: 0; transform: translate(60px, -80px); } }
+@keyframes hbPress { 0%, 14%, 100% { transform: none; } 6% { transform: scale(.96); background: var(--primary-600); } }
+@keyframes hbDbt3 { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 4%, 30% { opacity: 1; transform: none; } 36%, 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes hbBuy3 { 0% { opacity: 0; transform: none; } 3% { opacity: 1; } 20% { opacity: 1; transform: translate(52px, -64px); } 27%, 100% { opacity: 0; transform: translate(60px, -80px); } }
+@keyframes hbPress3 { 0%, 2.2%, 11.1%, 13.3%, 22.2%, 24.4%, 100% { transform: none; } 1.1%, 12.2%, 23.3% { transform: scale(.96); } }
+#geo-market .mk-chart .ev-vl { stroke: var(--gray-200); }
+#geo-market .mk-chart .pv.real.ev-now { fill: var(--primary-600); }
+@media (min-width:1024px) {
+  #geo-diagnosis .sr-vis.vw .vw-win { display: flex; flex-direction: column; min-height: 340px; }
+}
+@keyframes os2Blink { 50% { opacity: .3; } }
+@keyframes os2Pin { from { opacity: 0; transform: scale(.3); } to { opacity: 1; transform: none; } }
+@keyframes os2Ring { 0% { opacity: .6; transform: scale(.9); } 70%, 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes os2Up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes os2Prog { 0% { stroke-dasharray: 0 100; } 80%, 100% { stroke-dasharray: 100 0; } }
+#geo-how .jt-tags .sr-tags li::before { content: counter(os8); display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-weight: 700; }
+@keyframes os16p { 50% { box-shadow: 0 0 0 4px rgba(46,144,250,.35); } }
+@keyframes os16p { 50% { box-shadow: 0 0 0 4px rgba(240,68,56,.3); } }
+.os20 .end { fill: var(--primary-600); }
+@keyframes hbSeq { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 3%, 20% { opacity: 1; transform: none; } 24%, 100% { opacity: 0; transform: translateY(-6px); } }
+@keyframes hbBuy4 { 0% { opacity: 0; transform: none; } 2% { opacity: 1; } 14% { opacity: 1; transform: translate(52px, -64px); } 19%, 100% { opacity: 0; transform: translate(60px, -80px); } }
+@keyframes hbS0 { 0% { opacity: 0; transform: translateY(6px) scale(.92); } 2.5%, 29% { opacity: 1; transform: none; } 32%, 100% { opacity: 0; transform: none; } }
+@keyframes hbS1 { 0%, 7.3% { opacity: 0; transform: translateY(6px) scale(.92); } 9.8%, 29% { opacity: 1; transform: none; } 32%, 100% { opacity: 0; transform: none; } }
+@keyframes hbS2 { 0%, 14.5% { opacity: 0; transform: translateY(6px) scale(.92); } 17%, 29% { opacity: 1; transform: none; } 32%, 100% { opacity: 0; transform: none; } }
+@keyframes hbPress4 { 0%, 70.5%, 73.2%, 75.1%, 77.8%, 79.6%, 82.3%, 100% { transform: none; background: var(--gray-900); } 71.8%, 76.4%, 80.9% { transform: scale(.96); background: var(--primary-600); } }
+@keyframes hbPress5 { 0%, 70.5%, 73.2%, 100% { transform: none; background: var(--gray-900); } 71.8% { transform: scale(.96); background: var(--primary-600); } }
+.os8-p.lf::after { left: auto; right: calc(100% + 6px); transform: translate(4px, -50%); }
+.os2-anim:not(.go) .os19 ol li, .os2-anim:not(.go) .os20 .lg li { opacity: 0; transform: translateX(-10px); }
+@keyframes os148dot { 50% { box-shadow: 0 0 0 4px rgba(21,112,239,.18); } }
+@view-transition { navigation: auto; }
+.tab-page { view-transition-name: tab-page; }
+@media (max-width:767px) {
+  @keyframes crSwapA { 0%, 45% { opacity: 1; } 50%, 95% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes crSwapB { 0%, 45% { opacity: 0; } 50%, 95% { opacity: 1; } 100% { opacity: 0; } }
+}
+.cr-lg { display: flex; gap: 16px; margin-left: auto; font-size: 13px; font-weight: 600; color: var(--gray-600); }
+.cr-lg > span { display: inline-flex; align-items: center; gap: 6px; }
+.cr-lg i { width: 16px; height: 3px; border-radius: 2px; background: var(--primary-600); }
+.cr-lg i.b { height: 0; border-top: 2px dashed var(--gray-400); background: none; }
+#geo-market .mk-chart .cr-ln0 { fill: none; stroke: var(--gray-400); stroke-width: 2; stroke-dasharray: 5 5; stroke-linecap: round; }
+#geo-market .mk-chart .cr-pt0 { fill: var(--white); stroke: var(--gray-400); stroke-width: 2; }
+#geo-market .mk-chart .cr-pv0 { font-size: 13px; font-weight: 600; fill: var(--gray-500); }
+@media (max-width:767px) {
+  .cr-lg { margin-left: 0; gap: 12px; font-size: 12px; }
+}
+@keyframes crSgRow { 0%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200); transform: none; } 4%, 21% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.14); transform: translateX(4px); } 26% { box-shadow: inset 0 0 0 1px var(--gray-200); transform: none; } }
+@keyframes crSgTm { 0%, 100% { color: var(--gray-600); } 4%, 21% { color: var(--primary-700); } 26% { color: var(--gray-600); } }
+@keyframes crSgPop { 0%, 100% { transform: none; } 3% { transform: scale(1.3); } 7% { transform: none; } }
+@keyframes crRrFloat { from { transform: translateY(-50%) scale(.84); } to { transform: translateY(calc(-50% - 10px)) scale(.84); } }
+@keyframes crSdFloat { from { transform: scale(.84); } to { transform: translateY(-6px) scale(.84); } }
+@keyframes crSdBar { from { transform: scaleX(0); } 85%, to { transform: scaleX(1); } }
+.os8-p.dn::after { top: calc(100% + 6px); left: auto; right: -4px; transform: translateY(-4px); }
+#geo-market .mk-chart.mk-anim .chart .cr-ar0, #geo-market .mk-chart.mk-anim .chart .cr-gap, #geo-market .mk-chart.mk-anim .chart .cr-ln0 { clip-path: inset(0 100% 0 0); transition: clip-path 1.6s cubic-bezier(.45, 0, .25, 1) .2s; }
+#geo-market .mk-chart.mk-anim.on .chart .cr-ar0, #geo-market .mk-chart.mk-anim.on .chart .cr-gap, #geo-market .mk-chart.mk-anim.on .chart .cr-ln0 { clip-path: inset(0 0 0 0); }
+#geo-market .mk-chart.mk-anim .chart .cr-pt0, #geo-market .mk-chart.mk-anim .chart .cr-pv0 { opacity: 0; transition: opacity .4s ease 1.2s; }
+#geo-market .mk-chart.mk-anim.on .chart .cr-pt0, #geo-market .mk-chart.mk-anim.on .chart .cr-pv0 { opacity: 1; }
+@keyframes crBreath { 50% { opacity: .55; } }
+@keyframes crRail { to { transform: translateX(calc(-50% - 3px)); } }
+@keyframes crDrop { 0% { opacity: 0; transform: translateY(-14px) scale(.8); } 10%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+@keyframes crWarn { 0%, 100% { box-shadow: inset 0 0 0 1.5px #f97066; } 12% { box-shadow: inset 0 0 0 1.5px #f04438, 0 0 0 4px rgba(240,68,56,.16); } }
+@keyframes crPress { 0%, 70%, 100% { transform: none; } 78% { transform: scale(.94); } 86% { transform: scale(1.03); } }
+@keyframes crStep { 0%, 25%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200); } 4%, 20% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.12); } }
+@keyframes crStepN { 0%, 25%, 100% { background: var(--gray-100); color: var(--gray-700); } 4%, 20% { background: var(--primary-600); color: var(--white); } }
+@keyframes crStepN1 { 0%, 25%, 100% { background: var(--gray-900); color: var(--white); } 4%, 20% { background: var(--primary-600); color: var(--white); } }
+@keyframes crOpt { 0%, 10%, 100% { box-shadow: none; } 3%, 8% { box-shadow: inset 0 0 0 1.5px var(--primary-600); } }
+@keyframes crOk { from { transform: scale(.7); } to { transform: none; } }
+@keyframes crIng { 50% { box-shadow: 0 0 0 4px rgba(240,68,56,.18); } }
+@keyframes crFcOn { 0%, 10% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.14); } 16%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200), 0 2px 6px rgba(16,24,40,.05); } }
+@keyframes crFcOn2 { 0%, 4%, 24%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200), 0 2px 6px rgba(16,24,40,.05); } 8%, 18% { box-shadow: inset 0 0 0 1.5px var(--primary-600), 0 6px 16px rgba(21,112,239,.14); } }
+@keyframes crFcOn3 { 0%, 18%, 36%, 100% { box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); } 22%, 30% { box-shadow: inset 0 0 0 1.5px var(--primary-600); color: var(--primary-700); } }
+@keyframes crFcOn4 { 0%, 56%, 90%, 100% { transform: none; filter: none; } 62%, 84% { transform: translateY(-2px); filter: drop-shadow(0 6px 10px rgba(21,112,239,.16)); } }
+.ph-box small { display: block; max-width: 34em; font-size: 13px; font-weight: 500; color: var(--gray-400); }
+.ph-box .sz { padding: 2px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12px; font-weight: 700; color: var(--gray-500); font-variant-numeric: tabular-nums; }
+@media (min-width:1024px) {
+  #geo-diagnosis .sr-vis.vw .vw-win { height: 380px; display: flex; flex-direction: column; }
+}
+@media (max-width:1439px) {
+  #geo-how .bento.b3 .bt-vis { display: block; flex: none; position: relative; min-height: 0; height: calc(230px * var(--s, 1)); }
+  #geo-how .bento.b3 .bt-vis > .pn { position: absolute; inset: auto; top: 0; left: 50%; width: 360px; height: 250px; max-width: none; flex: none; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
+}
+@media (min-width:1440px) {
+  #geo-how .bento.b3 .bt-vis { padding: 0 20px; }
+  #geo-how .bento.b3 .pn { left: 20px; right: 20px; bottom: -20px; }
+}
+@media (max-width:767px) {
+  #geo-hero .sh-visual > .ai-chat { width: calc(100% + 20px); margin-inline: -10px; }
+  #geo-hero .sh-visual > .ai-chat { height: 404px; }
+}
+.ph-box { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 20px; border: 2px dashed var(--gray-300); border-radius: 16px; background: var(--gray-50); color: var(--gray-500); font-size: 16px; font-weight: 600; text-align: center; }
+#geo-hero .ai-roll .rl-ic { flex: none; width: .82em; height: .82em; border-radius: .24em; }
+#geo-market .mk-chart .sn-agb { fill: var(--gray-300); }
+#geo-market .mk-chart .sn-agb.now { fill: var(--primary-600); }
+#geo-market .mk-chart .sn-bv { font-weight: 700; font-size: 13px; fill: var(--gray-600); }
+#geo-market .mk-chart .sn-bv.now { fill: var(--primary-600); }
+#geo-market .mk-chart .sn-gap { fill: var(--gray-50); stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
+#geo-market .mk-chart .sn-gl { stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 4 4; }
+#geo-market .mk-lg i.sn-gpl { width: 10px; height: 10px; border-radius: 3px; background: var(--gray-50); box-shadow: none; border: 1.5px dashed var(--gray-400); box-sizing: border-box; }
+#geo-market .mk-chart.mk-anim .chart .sn-agb { transform: scaleY(0); transform-box: fill-box; transform-origin: 50% 100%; transition: transform .9s var(--ease-out); transition-delay: calc(var(--i) * 200ms + .15s); }
+#geo-market .mk-chart.mk-anim.on .chart .sn-agb { transform: none; }
+#geo-market .mk-chart.mk-anim .chart .sn-bv { transition-delay: calc(var(--i) * 200ms + .8s); }
+#geo-market .mk-chart.mk-anim .chart .sn-gap, #geo-market .mk-chart.mk-anim .chart .sn-gl { opacity: 0; transition: opacity .4s ease-out 1.2s; }
+#geo-market .mk-chart.mk-anim.on .chart .sn-gap, #geo-market .mk-chart.mk-anim.on .chart .sn-gl { opacity: 1; }
+.sn-av img, .sn-grid img, .sn-th img, .sn-cv img, .sn-lk img, .sn-gen img, .sn-wk img, .sn-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.sn-st, .sn-grid, .sn-rows, .sn-dir, .sn-gen, .sn-bars, .sn-k3, .sn-cr, .sn-wk, .sn-up, .sn-fn { margin: 0; padding: 0; list-style: none; }
+.sn-th { flex: none; display: block; width: 32px; height: 32px; border-radius: 8px; overflow: hidden; background: var(--gray-100); }
+.sn-ck { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--gray-700); color: var(--white); text-decoration: none; }
+#geo-hero .sh-visual > .ai-chat.sn-hw { position: relative; height: 418px; min-height: 0; padding: 0; gap: 0; overflow: hidden; }
+@media (max-width:1023px) {
+  #geo-hero .sh-visual > .ai-chat.sn-hw { height: 417px; }
+}
+@media (max-width:767px) {
+  #geo-hero .sh-visual > .ai-chat.sn-hw { height: 404px; padding: 0; }
+}
+.sn-sc { position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
+.sn-sc.on { opacity: 1; visibility: visible; transform: none; transition: opacity .35s .25s, transform .35s .25s var(--ease-out), visibility 0s; }
+.sn-bar { flex: none; display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 14.5px; }
+.sn-bar > img { width: 24px; height: 24px; }
+.sn-bar b { font-weight: 700; color: var(--gray-900); }
+@keyframes snTag { 0%, 100% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 0 rgba(21,112,239,0); } 50% { box-shadow: 0 4px 12px rgba(16,24,40,.16), 0 0 0 6px rgba(21,112,239,.16); } }
+.sn-fbar { gap: 10px; }
+.sn-fbar > img { width: 32px; height: 32px; border-radius: 50%; }
+.sn-srch { display: flex; align-items: center; gap: 6px; width: 200px; height: 32px; padding: 0 12px; border-radius: 99px; background: var(--gray-100); font-size: 12.5px; color: var(--gray-500); }
+.sn-ftab { flex: none; display: flex; gap: 20px; height: 36px; padding: 0 20px; border-bottom: 1px solid var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-500); }
+.sn-ftab span { display: flex; align-items: center; border-bottom: 2px solid transparent; }
+.sn-ftab .on { border-color: var(--gray-900); color: var(--gray-900); }
+.sn-go { position: absolute; left: 6px; bottom: 6px; padding: 4px 8px; border-radius: 99px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 11px; line-height: 14px; font-weight: 700; animation: snTag 2.4s ease-in-out infinite; }
+#geo-hero .sh-toast .sn-tl { flex: none; width: 36px; height: 36px; }
+@media (max-width:767px) {
+  .sn-bar { padding: 0 16px; font-size: 13px; }
+  .sn-bar > img { width: 20px; height: 20px; }
+  .sn-srch { width: auto; flex: 1; }
+  .sn-fbar > img { width: 28px; height: 28px; }
+  .sn-ftab { gap: 16px; padding: 0 16px; font-size: 12px; }
+}
+.sn-hm { margin-left: auto; font-size: 12px; font-weight: 500; color: var(--gray-500); }
+.sn-ow { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--gray-100); color: var(--gray-700); font-size: 12px; font-weight: 600; font-style: normal; }
+#geo-why .pn.sn-ch:not(.sn-ok) .sn-ow { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+@keyframes snDt { 0% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,.28); } 10% { box-shadow: inset 0 0 0 1px var(--primary-300), 0 0 0 4px rgba(21,112,239,.12); } 22%, 100% { box-shadow: inset 0 0 0 1px var(--primary-100), 0 0 0 0 rgba(21,112,239,0); } }
+.sn-ok .sn-ck { background: var(--primary-600); animation: snCk 4.8s infinite both; animation-delay: calc(.45s + var(--i, 0) * .35s); }
+@keyframes snCk { 0%, 6% { transform: scale(0); opacity: 0; } 12% { transform: scale(1.15); opacity: 1; } 16%, 86% { transform: scale(1); opacity: 1; } 94%, 100% { transform: scale(0); opacity: 0; } }
+.sn-dir, .sn-bars { display: flex; flex-direction: column; gap: 8px; }
+.sn-dir li { display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 10px 0 8px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gray-200); }
+.sn-dir li.hl { background: #f5faff; box-shadow: inset 0 0 0 1px var(--primary-100); }
+.sn-dir div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.sn-dir small { font-size: 11px; line-height: 14px; color: var(--gray-500); }
+.sn-dir b { font-size: 13px; line-height: 16px; font-weight: 700; color: var(--gray-900); white-space: nowrap; }
+.sn-dir em { font-size: 11px; font-style: normal; color: var(--gray-500); white-space: nowrap; }
+.sn-dir .sn-ck { animation: snCk 6s infinite both; animation-delay: calc(var(--i, 0) * .5s); }
+.sn-dir li.hl .sn-ck { background: var(--primary-600); }
+.sn-dir li:nth-child(2) .sn-ck { --i: 1; }
+.sn-dir li:nth-child(3) .sn-ck { --i: 2; }
+@keyframes snSelC { 0%, 40% { color: var(--gray-500); font-weight: 400; } 44%, 90% { color: var(--primary-700); font-weight: 600; } 94%, 100% { color: var(--gray-500); font-weight: 400; } }
+@keyframes snShim { from { background-position: 100% 0; } to { background-position: 0 0; } }
+@keyframes snGenO { 0%, 22% { opacity: 1; } 30%, 90% { opacity: 0; } 96%, 100% { opacity: 1; } }
+@keyframes snRev { 0%, 22% { filter: blur(10px); transform: scale(1.08); } 34%, 90% { filter: blur(0); transform: none; } 96%, 100% { filter: blur(10px); transform: scale(1.08); } }
+@keyframes snSel { 0%, 40% { box-shadow: 0 0 0 0 var(--primary-600); } 44%, 90% { box-shadow: 0 0 0 2px var(--primary-600); } 94%, 100% { box-shadow: 0 0 0 0 var(--primary-600); } }
+@keyframes snSelO { 0%, 40% { opacity: 0; } 44%, 90% { opacity: 1; } 94%, 100% { opacity: 0; } }
+@keyframes snG1 { 0%, 34% { opacity: 1; } 38%, 92% { opacity: 0; } 96%, 100% { opacity: 1; } }
+@keyframes snG2 { 0%, 34% { opacity: 0; } 38%, 92% { opacity: 1; } 96%, 100% { opacity: 0; } }
+@keyframes snSpin { to { transform: rotate(360deg); } }
+@keyframes snDot { 0%, 60%, 100% { opacity: .3; } 30% { opacity: 1; } }
+.sn-bars li { display: flex; align-items: center; gap: 10px; height: 48px; }
+.sn-bars div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; font-size: 12px; line-height: 16px; color: var(--gray-600); }
+.sn-bars div > i { display: block; width: calc(var(--v) * 100%); height: 8px; border-radius: 99px; background: var(--gray-300); transform-origin: 0 50%; animation: snBar 6s var(--ease-out) infinite; }
+.sn-bars li.hl div > i { background: var(--primary-600); }
+.sn-bars li.hl span { color: var(--gray-900); font-weight: 600; }
+.sn-bars b { flex: none; width: 40px; text-align: right; font-size: 14.5px; font-weight: 700; color: var(--gray-500); }
+.sn-bars li.hl b { color: var(--primary-600); }
+@keyframes snBar { 0% { transform: scaleX(0); } 18%, 92% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+#geo-diagnosis .vw-win.sn-d1, #geo-diagnosis .vw-win.sn-d2, #geo-diagnosis .vw-win.sn-d3 { display: flex; flex-direction: column; }
+.sn-k3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.sn-k3 li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 10px; background: var(--gray-50); font-size: 11px; line-height: 14px; color: var(--gray-500); }
+.sn-k3 strong { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+.sn-k3 small { margin-left: 2px; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+.sn-k3 em { font-style: normal; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+.sn-k3 em.inc { color: #d92d20; }
+@keyframes snPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(217,45,32,0); } 50% { box-shadow: 0 0 0 4px rgba(217,45,32,.14); } }
+.sn-up em, .sn-st2 b { flex: none; padding: 3px 10px; border-radius: 99px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-700); font-size: 12px; line-height: 16px; font-weight: 600; font-style: normal; text-align: center; }
+.sn-st2 b { grid-area: 1 / 1; animation: snStA 6s infinite; }
+.sn-st2 b + b { background: var(--primary-600); box-shadow: none; color: var(--white); animation-name: snStB; }
+@keyframes snStA { 0%, 44% { opacity: 1; } 50%, 94% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes snStB { 0%, 44% { opacity: 0; } 50%, 94% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes snScA { 0%, 46% { opacity: 1; transform: none; } 52%, 94% { opacity: 0; transform: translateX(-16px); } 100% { opacity: 1; transform: none; } }
+@keyframes snScB { 0%, 46% { opacity: 0; transform: translateX(16px); } 52%, 94% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateX(16px); } }
+@keyframes snTap { 0%, 32% { transform: scale(0); opacity: 0; } 38% { transform: scale(1); opacity: 1; } 46%, 100% { transform: scale(1.6); opacity: 0; } }
+@media (prefers-reduced-motion:reduce) {
+  .sn-gen img, .sn-gen li.on i, .sn-gen em, .sn-gen li.on span, .sn-gs b, .sn-gs svg, .sn-dots i, .sn-gi::after, .sn-gi img, #geo-hero .sn-sc, .sn-hw .sn-tag, .sn-go, .sn-ck, .sn-gen i::after, .sn-bars div > i, .sn-swap, .sn-ph .sc, .sn-ph .tap, .sn-st2 b, #geo-why .pn.sn-ok > .sn-dt { animation: none !important; transition: none !important; }
+  .sn-ph .b, .sn-st2 b + b, .sn-ph .tap, .sn-gen i::after, .sn-gs .g1, .sn-gi::after { opacity: 0; }
+  .sn-ck { opacity: 1; transform: none; }
+}
+#geo-ref .rvw-kpi em.dn { font-style: normal; font-size: .7em; vertical-align: 2px; color: var(--primary-600); }
+#geo-hero .ai-roll .rl-ic[src$="google.svg"], #geo-hero .ai-roll .rl-ic[src$="meta.svg"] { box-shadow: 0 0 0 1px var(--gray-200); }
+/* @endregion */

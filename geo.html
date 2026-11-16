@@ -14,12 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=503">
+<link rel="stylesheet" href="assets/common/wisa.css?v=504">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-16 patch-504: 여러 페이지 <style> 에 똑같이 복사돼 있던 규칙 정리 — 2페이지 이상에서 쓰는 규칙(단계 탭 · 단계 카드 · 해결 화면 · 채널 칩 등 184개)은 공통 wisa.css @region from-pages 로 옮기고, 이 페이지에서 쓰지 않는 다른 페이지용 복사본은 삭제 (화면 변화 없음 · 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-13 patch-476: GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' = 외부 링크 → media-ads.html (채널마케팅 새 페이지) · 공통 wisa.css ?v=476
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-406: 그래프 양식 통일 (규칙 사이트 그래프 · 공통 chart.css · chart.js 연결 · wisa.css ?v=406) — 그래프 영역 가로축 13 · 말풍선 12 · 범례 선 16×3 (전망 점선) · 해결 점수 막대(.vw-bars) → 공통 가로 막대 gx-hbar (가장 시급한 1개만 블루) · 대시보드 도넛 Primary 한 계열
@@ -153,7 +154,6 @@
   @media (max-width: 1023px) { .bt-goal { margin-top: 24px; padding-top: 16px; font-size: 15px; } }
   @media (max-width: 767px) { .bt-goal { margin-top: 20px; padding-top: 14px; font-size: 14px; gap: 8px; } .bt-goal span { font-size: 12px; } #geo-why .bt:not(.is-new) .bt-goal { margin-bottom: 14px; } }
   @media (min-width: 1024px) {
-    #geo-diagnosis .sr-vis.vw .vw-win { height: 380px; display: flex; flex-direction: column; }
     #geo-diagnosis .sr-vis.vw .vw-bd { flex: 1; min-height: 0; justify-content: space-between; gap: 16px; }
   }
 </style>
@@ -172,10 +172,6 @@
   }
 
   /* 단계(#geo-how) 3단계 카드: 카드 화면 PC 352×254 (카드 아래로 24 걸침 · 화면 칸 230) 을 비율 축소 · 넓으면 PC 크기로 가운데 */
-  @media (max-width: 1439px) {
-    #geo-how .bento.b3 .bt-vis { display: block; flex: none; position: relative; min-height: 0; height: calc(230px * var(--s, 1)); }
-    #geo-how .bento.b3 .bt-vis > .pn { position: absolute; inset: auto; top: 0; left: 50%; width: 360px; height: 250px; max-width: none; flex: none; transform-origin: 50% 0; transform: translateX(-50%) scale(var(--s, 1)); }
-  }
 
   /* 해결(#geo-diagnosis): 줄마다 화면 PC 460×380 비율 축소 */
   @media (max-width: 1439px) {
@@ -203,20 +199,12 @@
   /* 히어로 파란 박스 태블릿 · 모바일 444 → 440 */
   @media (max-width: 1023px) { .sh-visual { height: 440px; min-height: 0; } }
   /* ③ 단계 · 카드 타입: 카드 화면 좌우 · 아래 걸침 24 → 20 → 화면 PC 352×254 → 360×250 */
-  @media (min-width: 1440px) {
-    #geo-how .bento.b3 .bt-vis { padding: 0 20px; }
-    #geo-how .bento.b3 .pn { left: 20px; right: 20px; bottom: -20px; }
-  }
-  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { width: calc(100% + 20px); margin-inline: -10px; } }
-  @media (max-width: 767px) { #geo-hero .sh-visual > .ai-chat { height: 404px; } }   /* patch-286: 모바일 히어로 창 위 여백 36 통일 (온사이트 기준 · 높이 404 · 아래 붙임) */
+  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */   /* patch-286: 모바일 히어로 창 위 여백 36 통일 (온사이트 기준 · 높이 404 · 아래 붙임) */
 </style>
 <style>
   /* patch-163 GEO ↔ 온사이트 탭 전환: 다른 시안을 미리 준비해 두고, 탭을 누르면 흰 화면 없이 바로 바뀜
      - 화면 전체는 겹쳐 사라지듯 바뀌고(.22s), 히어로 탭 줄은 제자리에 고정, 선택 표시는 옆 탭으로 미끄러짐
      - 탭 전환으로 들어온 경우 히어로 등장 애니메이션은 생략 (비교가 바로 되게) */
-  @view-transition { navigation: auto; }
-  .tab-page { view-transition-name: tab-page; }
   /* patch-173 선택 탭 통째 전환(tab-on) 삭제 → 알약만 미끄러짐 (wisa.css · wisa.js tab-ind) */
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .22s; }
 
