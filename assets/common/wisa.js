@@ -282,3 +282,24 @@
   new IntersectionObserver((es, io) => { if (es.some(e => e.isIntersecting)) { io.disconnect(); play(); } }, { threshold: .6 }).observe(lis[0].parentElement);
 })();
 /* @endregion */
+
+/* @region jt-nav-mo (patch-502): 단계 탭 줄이 넘칠 때(태블릿 · 모바일 가로 스크롤) — 뒤에 탭이 더 있으면 오른쪽 끝(앞에 있으면 왼쪽 끝)을 흐리게(.fd-r · .fd-l) · 선택 탭이 바뀌면 탭 줄만 움직여 선택 탭을 가운데로 (다음 탭이 보이게) */
+(() => {
+  document.querySelectorAll(".jt-nav").forEach(nav => {
+    const fade = () => {
+      const max = nav.scrollWidth - nav.clientWidth;
+      nav.classList.toggle("fd-l", max > 2 && nav.scrollLeft > 2);
+      nav.classList.toggle("fd-r", max > 2 && nav.scrollLeft < max - 2);
+    };
+    const center = () => {
+      const b = nav.querySelector(".on"); if (!b || nav.scrollWidth <= nav.clientWidth + 2) return;
+      const x = b.offsetLeft - nav.offsetLeft - (nav.clientWidth - b.offsetWidth) / 2;
+      nav.scrollTo({ left: Math.max(0, x), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    };
+    nav.addEventListener("scroll", fade, { passive: true });
+    addEventListener("resize", () => { fade(); center(); });
+    new MutationObserver(center).observe(nav, { subtree: true, attributes: true, attributeFilter: ["class"] });
+    fade();
+  });
+})();
+/* @endregion */

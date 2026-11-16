@@ -13,13 +13,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=501">
+<link rel="stylesheet" href="assets/common/wisa.css?v=502">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=406">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/toss/tossface@1.6.1/dist/tossface.css">   <!-- patch-193: 토스 이모지(Tossface) · 해결>나누기 경고 -->
 <style>
   /* =====================================================================
      [개발 전달] CRM마케팅 페이지 (crm.html · 2026-11-07)
+     · 2026-11-16 patch-502: 단계 탭 — 번호 원 글자 규격 공통으로 (wisa.css num-mark · 10 · 줄 높이 1 · 숫자 폭 고정) · 모바일 · 태블릿 탭 줄이 넘치면 끝 흐림 + 선택 탭을 가운데로 스크롤 (wisa.js jt-nav-mo)
      · 2026-11-13 patch-476: GNB · 모바일 메뉴 · 푸터 '매체 광고 상품' = 외부 링크 → media-ads.html (채널마케팅 새 페이지) · 공통 wisa.css ?v=476
      · 2026-11-13 patch-472: 뱃지 공통 컴포넌트 연결 — assets/common/badge.css (.w-badge · 피그마 WISA Badge sm · md · lg · 점 · 색) · 새 소식 목록 뱃지 = .w-badge.sm (고객사례 .success · 업데이트 기본 파랑) · 페이지별 뱃지 스타일 만들지 않음 (규칙 사이트 태그 · 뱃지)
      · 2026-11-12 patch-407: 히어로 90일 재구매율 카드 증감 색 규칙 적용 — ▲ 2%p · 스파크라인 블루 → Error 600 레드
@@ -1377,11 +1378,11 @@
   #geo-how .vw-bd.os8-bd { gap: 12px; padding: 16px 16px 14px; }
   .os8-pg { position: relative; flex: 1; min-height: 286px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); overflow: hidden; text-align: left; font-size: 12px; color: var(--gray-800); }
   .os8-pg img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .os8-p { position: absolute; top: -8px; right: -8px; z-index: 3; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 10.5px; font-weight: 700; box-shadow: 0 0 0 2px var(--white); }
+  .os8-p { position: absolute; top: -8px; right: -8px; z-index: 3; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-style: normal; font-weight: 700; box-shadow: 0 0 0 2px var(--white); }
   /* 왼쪽 태그에 같은 번호 */
   #geo-how .jt-tags .sr-tags { counter-reset: os8; }
   #geo-how .jt-tags .sr-tags li { counter-increment: os8; display: inline-flex; align-items: center; gap: 6px; }
-  #geo-how .jt-tags .sr-tags li::before { content: counter(os8); display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-size: 10px; font-weight: 700; }
+  #geo-how .jt-tags .sr-tags li::before { content: counter(os8); display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--primary-600); color: var(--white); font-weight: 700; }
   /* 공통: 쇼핑몰 GNB */
   .os8-gnb { display: flex; align-items: center; gap: 14px; height: 40px; padding: 0 14px; border-bottom: 1px solid var(--gray-100); }
   .os8-gnb b { font-size: 13px; font-weight: 800; letter-spacing: .02em; color: var(--black); }
@@ -3754,7 +3755,7 @@
 </body>
 </html>
 
-<script src="assets/common/wisa.js?v=400"></script>
+<script src="assets/common/wisa.js?v=502"></script>
 <script src="assets/common/chart.js?v=406"></script>
 <script>
 /* @region crm-count (patch-213): 해결 영역 숫자 올라가기 — .os2-anim 에 .go 가 붙으면 [data-cnt] 를 0 부터 목표값까지 (0.9초) */

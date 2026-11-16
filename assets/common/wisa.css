@@ -3362,3 +3362,14 @@ img, video { max-width: 100%; display: block; }
   .tab-page:has(> a:nth-child(4)) a { padding-inline: 7px; font-size: 13px; }
 }
 /* @endregion tab-page-4 */
+
+/* @region jt-nav-mo (patch-502): 단계 탭 줄 가로 스크롤 때 뒤 · 앞에 탭이 더 있음을 끝 흐림으로 표시 (wisa.js jt-nav-mo 가 .fd-r · .fd-l) */
+.jt-nav { position: relative; }
+.jt-nav.fd-r { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
+.jt-nav.fd-l { -webkit-mask-image: linear-gradient(90deg, transparent, #000 48px); mask-image: linear-gradient(90deg, transparent, #000 48px); }
+.jt-nav.fd-l.fd-r { -webkit-mask-image: linear-gradient(90deg, transparent, #000 48px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, transparent, #000 48px, #000 calc(100% - 48px), transparent); }
+/* @endregion */
+
+/* @region num-mark (patch-502): 단계 탭 번호 원 공통 — 화면 안 번호(.os8-p · 18) · 선택 칩 앞 번호(li::before · 16). 글자 10 · 700 · 줄 높이 1 · 숫자 폭 고정(tnum)으로 원 가운데에 정렬 (페이지마다 따로 두던 글자 크기 · 줄 높이 차이로 숫자가 쏠리던 것 정리) */
+.os8-p, #geo-how .jt-tags .sr-tags li::before { font-size: 10px; line-height: 1; font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; text-align: center; }
+/* @endregion */
