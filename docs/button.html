@@ -13,23 +13,23 @@
   <header class="ph">
     <p class="eyebrow">컴포넌트</p>
     <h1>버튼</h1>
-    <p class="lede">마케팅 · 솔루션 시안의 버튼은 두 가지 색(프라이머리 · 세컨더리)과 두 가지 크기만 씁니다. 화면에 떠 있는 버튼(상담 · 맨 위 · 맨 아래)은 플로팅 탭에 있습니다. 코드는 <code>assets/common/wisa.css</code> 입니다.</p>
+    <p class="lede">버튼은 <b>스타일</b>(프라이머리 블랙 · 화이트 · 텍스트)과 <b>크기</b>(sm · md · lg · xl · 2xl)로 구분하고, 스타일마다 기본 · 호버 · 디세이블 상태가 있습니다. 화면에 떠 있는 버튼(상담 · 맨 위 · 맨 아래)은 플로팅 탭에 있습니다. 코드는 <code>assets/common/wisa.css</code> 입니다.</p>
   </header>
   <div class="body">
 <section class="panel" data-tab="기본 버튼">
     <h2 id="btn-see">미리보기</h2>
-    <div class="demo"><iframe src="assets/demo/button.html" title="버튼 상태 보기" style="height:970px" loading="lazy"></iframe><p>마우스를 올리면 호버, Tab 키로 옮기면 포커스 상태를 볼 수 있습니다. 헤더 "무료 시작" 은 호버 때 작은 로켓이 나타납니다.</p></div>
+    <div class="demo"><iframe src="assets/demo/button.html" title="버튼 상태 보기" style="height:1450px" loading="lazy"></iframe><p>스타일별로 기본 · 호버 · 디세이블 · 체크 아이콘 · 아이콘만 버튼을 크기 sm ~ 2xl 로 보여 줍니다. 기본 줄에 마우스를 올리면 실제 호버, Tab 키로 옮기면 포커스 상태가 됩니다.</p></div>
 
-    <h2 id="btn-kind">종류</h2>
-    <div class="tbl"><table class="spec"><thead><tr><th>종류</th><th>클래스</th><th>기본</th><th>호버</th><th>포커스 (키보드)</th></tr></thead><tbody>
-<tr><td>프라이머리</td><td><code>.btn.btn-dark</code></td><td>바탕 · 테두리 Black · 글자 White</td><td>바탕 · 테두리 Primary 600</td><td>바탕 Primary 600 + 바깥 링 4 Primary 100</td></tr>
-<tr><td>세컨더리</td><td><code>.btn</code></td><td>바탕 White · 테두리 1 Gray 300 · 글자 Gray 900</td><td>테두리 Black (바탕 그대로)</td><td>테두리 Black + 바깥 링 4 Gray 100</td></tr>
-<tr><td>텍스트 링크</td><td><code>.link-u</code></td><td>16/24 · 600 · Gray 900 · 밑줄(아래 3)</td><td>글자 Primary 700 + 오른쪽 화살표 16 이 나타남 (간격 4)</td><td>공통 포커스 선 2 Primary 600 (바깥 3)</td></tr>
+    <h2 id="btn-kind">스타일 · 상태</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>스타일</th><th>클래스</th><th>기본</th><th>호버</th><th>디세이블</th><th>포커스 (키보드)</th></tr></thead><tbody>
+<tr><td>프라이머리 (블랙)</td><td><code>.btn.btn-dark</code></td><td>바탕 · 테두리 Black · 글자 White</td><td>바탕 · 테두리 Primary 600</td><td>바탕 · 테두리 Gray 100 · 글자 Gray 400</td><td>바탕 Primary 600 + 바깥 링 4 Primary 100</td></tr>
+<tr><td>화이트</td><td><code>.btn</code></td><td>바탕 White · 테두리 1 Gray 300 · 글자 Gray 900</td><td>테두리 Black (바탕 그대로)</td><td>바탕 White · 테두리 Gray 200 · 글자 Gray 400</td><td>테두리 Black + 바깥 링 4 Gray 100</td></tr>
+<tr><td>텍스트</td><td><code>.link-u</code></td><td>600 · Gray 900 · 밑줄(아래 3) · 좌우 패딩 없음</td><td>글자 Primary 700 + 오른쪽 화살표 16 이 나타남 (간격 4)</td><td>글자 Gray 400 · 밑줄 Gray 300 · 화살표 없음</td><td>공통 포커스 선 2 Primary 600 (바깥 3)</td></tr>
 </tbody></table></div>
-    <p class="note">색 · 테두리 바뀜은 0.28초 ease-out, 텍스트 링크는 0.2초입니다. 한 영역에 프라이머리는 1개만 두고, 나란히 둘 때는 프라이머리 → 세컨더리 순서입니다.</p>
+    <p class="note">색 · 테두리 바뀜은 0.28초 ease-out, 텍스트 링크는 0.2초입니다. 디세이블은 <code>disabled</code> (button) 또는 <code>aria-disabled="true"</code> (a) 로 표시하고, 마우스를 올려도 바뀌지 않으며 커서는 not-allowed 입니다. 한 영역에 프라이머리는 1개만 두고, 나란히 둘 때는 프라이머리 → 화이트 순서입니다.</p>
 
     <h2 id="btn-size">크기</h2>
-    <p>버튼 크기는 sm · md · lg · xl · 2xl 다섯 단계입니다 (피그마 WISA <code>_Button base</code> · sm 은 헤더 버튼에 맞춰 34). 높이는 테두리 1 을 포함한 값이고, 글자는 Pretendard SemiBold 600 · 모서리는 모두 8 입니다. 색은 프라이머리 · 세컨더리 모두 같은 크기를 씁니다 (미리보기는 세컨더리 = 흰 버튼).</p>
+    <p>버튼 크기는 sm · md · lg · xl · 2xl 다섯 단계입니다 (피그마 WISA <code>_Button base</code> · sm 은 헤더 버튼에 맞춰 34). 높이는 테두리 1 을 포함한 값이고, 글자는 Pretendard SemiBold 600 · 모서리는 모두 8 입니다. 세 스타일 모두 같은 크기 단계를 씁니다 (텍스트는 좌우 패딩 없음 · 체크 아이콘 · 아이콘만 버튼 없음).</p>
     <div class="tbl"><table class="spec"><thead><tr><th>크기</th><th>높이</th><th>글자</th><th>패딩 (위아래 / 좌우)</th><th>아이콘</th><th>아이콘만 (정사각)</th></tr></thead><tbody>
 <tr><td>sm</td><td>34</td><td>14 / 20</td><td>6 / 14</td><td>18</td><td>34 × 34 · 아이콘 20</td></tr>
 <tr><td>md</td><td>40</td><td>14 / 20</td><td>10 / 16</td><td>20</td><td>40 × 40 · 아이콘 20</td></tr>
@@ -41,13 +41,11 @@
     <h3 id="btn-icon">아이콘 붙은 버튼</h3>
     <div class="tbl"><table class="spec"><thead><tr><th>종류</th><th>위치</th><th>아이콘 ↔ 글자</th><th>아이콘 색</th></tr></thead><tbody>
 <tr><td>체크</td><td>글자 앞</td><td>4</td><td>글자와 같은 색</td></tr>
-<tr><td>화살표 (오른쪽)</td><td>글자 뒤</td><td>4</td><td>글자와 같은 색</td></tr>
-<tr><td>메뉴 (아래 꺾쇠)</td><td>글자 뒤</td><td>4</td><td>글자와 같은 색</td></tr>
-<tr><td>점</td><td>글자 앞</td><td>8</td><td>점 10 원 · Primary 600</td></tr>
+<!-- 숨김 (지금 쓰지 않음 · 쓰게 되면 다시 표시): 화살표(글자 뒤 · 4) · 메뉴 아래 꺾쇠(글자 뒤 · 4) · 점(글자 앞 · 8 · 10 원 Primary 600) -->
 </tbody></table></div>
     <p class="note">아이콘은 선 아이콘(선 2 · 둥근 끝)이고 크기는 위 표의 "아이콘" 값입니다. 버튼 높이 · 패딩은 아이콘이 있어도 그대로입니다.</p>
 
-    <h3 id="btn-use">쓰는 곳</h3>
+    <h3 id="btn-use">크기 쓰는 곳</h3>
     <div class="tbl"><table class="spec"><thead><tr><th>쓰는 곳</th><th>PC · PC 최소 · 태블릿</th><th>모바일</th></tr></thead><tbody>
 <tr><td>헤더 (로그인 · 무료 시작) · 영역 안 버튼</td><td>sm</td><td>sm (헤더 버튼은 모바일 메뉴 안으로 들어감)</td></tr>
 <tr><td>CTA (<code>.cta-btns .btn</code>) · 버튼 사이 10</td><td>xl</td><td>lg · 첫 번째(프라이머리) 버튼만</td></tr>
