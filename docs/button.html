@@ -18,7 +18,7 @@
   <div class="body">
 <section class="panel" data-tab="기본 버튼">
     <h2 id="btn-see">미리보기</h2>
-    <div class="demo"><iframe src="assets/demo/button.html" title="버튼 상태 보기" style="height:520px" loading="lazy"></iframe><p>마우스를 올리면 호버, Tab 키로 옮기면 포커스 상태를 볼 수 있습니다. 헤더 "무료 시작" 은 호버 때 작은 로켓이 나타납니다.</p></div>
+    <div class="demo"><iframe src="assets/demo/button.html" title="버튼 상태 보기" style="height:970px" loading="lazy"></iframe><p>마우스를 올리면 호버, Tab 키로 옮기면 포커스 상태를 볼 수 있습니다. 헤더 "무료 시작" 은 호버 때 작은 로켓이 나타납니다.</p></div>
 
     <h2 id="btn-kind">종류</h2>
     <div class="tbl"><table class="spec"><thead><tr><th>종류</th><th>클래스</th><th>기본</th><th>호버</th><th>포커스 (키보드)</th></tr></thead><tbody>
@@ -29,15 +29,23 @@
     <p class="note">색 · 테두리 바뀜은 0.28초 ease-out, 텍스트 링크는 0.2초입니다. 한 영역에 프라이머리는 1개만 두고, 나란히 둘 때는 프라이머리 → 세컨더리 순서입니다.</p>
 
     <h2 id="btn-size">크기</h2>
-    <p>버튼 크기는 sm · md · lg · xl · 2xl 다섯 단계입니다 (피그마 WISA <code>_Button base</code>). 높이는 테두리 1 을 포함한 값이고, 글자는 Pretendard SemiBold 600 · 모서리는 모두 8 입니다.</p>
-    <div class="tbl"><table class="spec"><thead><tr><th>크기</th><th>높이</th><th>글자</th><th>패딩 (위아래 / 좌우)</th><th>아이콘만 (정사각)</th></tr></thead><tbody>
-<tr><td>sm</td><td>32</td><td>14 / 20</td><td>6 / 14</td><td>32 × 32</td></tr>
-<tr><td>md</td><td>40</td><td>14 / 20</td><td>10 / 16</td><td>40 × 40</td></tr>
-<tr><td>lg</td><td>42</td><td>16 / 1</td><td>10 / 18</td><td>44 × 44</td></tr>
-<tr><td>xl</td><td>46</td><td>18 / 1</td><td>12 / 20</td><td>48 × 48</td></tr>
-<tr><td>2xl</td><td>56</td><td>20 / 1</td><td>16 / 28</td><td>56 × 56</td></tr>
+    <p>버튼 크기는 sm · md · lg · xl · 2xl 다섯 단계입니다 (피그마 WISA <code>_Button base</code> · sm 은 헤더 버튼에 맞춰 34). 높이는 테두리 1 을 포함한 값이고, 글자는 Pretendard SemiBold 600 · 모서리는 모두 8 입니다. 색은 프라이머리 · 세컨더리 모두 같은 크기를 씁니다 (미리보기는 세컨더리 = 흰 버튼).</p>
+    <div class="tbl"><table class="spec"><thead><tr><th>크기</th><th>높이</th><th>글자</th><th>패딩 (위아래 / 좌우)</th><th>아이콘</th><th>아이콘만 (정사각)</th></tr></thead><tbody>
+<tr><td>sm</td><td>34</td><td>14 / 20</td><td>6 / 14</td><td>18</td><td>34 × 34 · 아이콘 20</td></tr>
+<tr><td>md</td><td>40</td><td>14 / 20</td><td>10 / 16</td><td>20</td><td>40 × 40 · 아이콘 20</td></tr>
+<tr><td>lg</td><td>42</td><td>16 / 1</td><td>10 / 18</td><td>20</td><td>44 × 44 · 아이콘 20</td></tr>
+<tr><td>xl</td><td>46</td><td>18 / 1</td><td>12 / 20</td><td>20</td><td>48 × 48 · 아이콘 20</td></tr>
+<tr><td>2xl</td><td>56</td><td>20 / 1</td><td>16 / 28</td><td>24</td><td>56 × 56 · 아이콘 24</td></tr>
 </tbody></table></div>
-    <p class="note">아이콘이 붙은 버튼(체크 · 화살표 · 점 · 메뉴)도 같은 크기 단계를 씁니다. 아이콘과 글자 사이 간격 · 아이콘 크기는 크기별 규격 정리 후 추가합니다.</p>
+
+    <h3 id="btn-icon">아이콘 붙은 버튼</h3>
+    <div class="tbl"><table class="spec"><thead><tr><th>종류</th><th>위치</th><th>아이콘 ↔ 글자</th><th>아이콘 색</th></tr></thead><tbody>
+<tr><td>체크</td><td>글자 앞</td><td>4</td><td>글자와 같은 색</td></tr>
+<tr><td>화살표 (오른쪽)</td><td>글자 뒤</td><td>4</td><td>글자와 같은 색</td></tr>
+<tr><td>메뉴 (아래 꺾쇠)</td><td>글자 뒤</td><td>4</td><td>글자와 같은 색</td></tr>
+<tr><td>점</td><td>글자 앞</td><td>8</td><td>점 10 원 · Primary 600</td></tr>
+</tbody></table></div>
+    <p class="note">아이콘은 선 아이콘(선 2 · 둥근 끝)이고 크기는 위 표의 "아이콘" 값입니다. 버튼 높이 · 패딩은 아이콘이 있어도 그대로입니다.</p>
 
     <h3 id="btn-use">쓰는 곳</h3>
     <div class="tbl"><table class="spec"><thead><tr><th>쓰는 곳</th><th>PC · PC 최소 · 태블릿</th><th>모바일</th></tr></thead><tbody>
