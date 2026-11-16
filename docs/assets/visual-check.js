@@ -5,6 +5,7 @@
      await WISAcheck()      // 영역을 차례로 보여 준 뒤 문제 목록 (콘솔 표 + 반환값)
    점검: ① 팔레트 밖 색  ② 규격 밖 글자 크기  ③ 화면 창 안 여백 쏠림(위·아래 / 왼·오른쪽)  ④ 잘린 글자  ⑤ 한 화면 색 계열 3개 이상
          ⑥ 단계 탭: 탭을 하나씩 열어 화면 번호(.os8-p) 말풍선이 창 · 잘라 내는 칸 밖으로 잘리거나 다른 번호를 덮는지
+         ⑦ 흰 타일 로고 테두리: assets/common/brand/ 흰 바탕 로고를 40 미만으로 줄여 쓰면서 테두리(box-shadow · border Gray 200 이상)가 없는 곳 (파일 안 테두리는 줄이면 0.5px 이하로 묻힘 · 페이지 전체)
    단계 탭을 누르므로 점검 뒤에는 탭 자동 전환이 멈춥니다 (새로고침하면 원래대로).
    실제 앱 화면을 본뜬 브랜드 고유색은 감싼 요소에 data-brand 를 붙이면 ①에서 빠집니다. */
 (function () {
@@ -18,6 +19,8 @@
     ["단계", "#geo-how .vw-win", true],
     ["해결", "#geo-diagnosis .vw-win", true]
   ];
+  // 흰 바탕 타일 로고 (assets/common/brand · 파일 안 테두리 #EAECF0 1 → 작게 쓰면 묻힘)
+  var WHITE_LOGO = "chatgpt.svg gemini.svg genspark.svg google-ads.svg google.svg meta.svg mue.svg naver-smartstore.svg slack.svg youtube.svg".split(" ");
   var TOL = 12; // 여백 차이 허용 (px)
   // 색 계열 (그레이 · 블랙 · 화이트는 계열로 세지 않음)
   var FAM = {
@@ -107,6 +110,19 @@
         run(AREAS[i], boxes[j], j, issues);
       }
     }
+    // ⑦ 흰 타일 로고 테두리 (페이지 전체)
+    document.querySelectorAll("img[src*='common/brand/']").forEach(function (im) {
+      var nm = (im.getAttribute("src").split("/").pop() || "").split("?")[0];
+      if (WHITE_LOGO.indexOf(nm) < 0 || !shown(im)) return;
+      var w = im.getBoundingClientRect().width; if (!w || w >= 40) return;
+      var ok = [im, im.parentElement].some(function (e) {
+        var c = getComputedStyle(e);
+        if (e !== im && Math.abs(e.getBoundingClientRect().width - w) > 4) return false;   // 로고를 딱 감싼 요소만 인정
+        var line = /rgb\((\d+), (\d+), (\d+)\)/.exec(c.boxShadow) || (parseFloat(c.borderTopWidth) > 0 ? /rgb\((\d+), (\d+), (\d+)\)/.exec(c.borderTopColor) : null);
+        return line && (+line[1] + +line[2] + +line[3]) / 3 < 240;   // 흰색 링만 있으면 테두리 아님
+      });
+      if (!ok) issues.push({ 영역: "페이지", 항목: "흰 로고 테두리 없음", 요소: nm + " " + Math.round(w) + "px", 내용: "box-shadow: 0 0 0 1px var(--gray-200) (겹침이면 , 0 0 0 3px var(--white) 추가)" });
+    });
     st.remove();
     scrollTo(0, y);
     if (window.console && console.table) console.table(issues);

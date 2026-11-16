@@ -61,7 +61,7 @@
       <tr><td>버튼</td><td>White · 안쪽 선 Gray 200 · Gray 900 · 700 · 모서리 6 (진한 블루 버튼은 메시지인 경우 화면당 1개)</td><td><code>.rf-act</code> 등</td></tr>
       <tr><td>AI 아이콘</td><td>Primary 600 → #6172f3 그라데이션 · 흰 반짝이 62% · 모서리 = 크기의 30%</td><td><code>.aim-av</code></td></tr>
       <tr><td>AI 메시지</td><td>White · 안쪽 선 Primary 100 · 모서리 14 · 안쪽 10 × 12 · 글 12.5 Gray 700 · 강조는 Black 700</td><td><code>.aim</code></td></tr>
-      <tr><td>채널 · 매체 · AI 로고</td><td>실제 로고 파일 · 48 타일 모서리 11 · 글자 타일(N · M · G) 금지</td><td><code>assets/common/brand/</code></td></tr>
+      <tr><td>채널 · 매체 · AI 로고</td><td>실제 로고 파일 · 48 타일 모서리 11 · 글자 타일(N · M · G) 금지 · <b>흰 바탕 로고(ChatGPT · Gemini · Google · Meta · Slack · YouTube 등)는 바깥 테두리 Gray 200 1</b> — 파일 안 테두리는 줄이면 0.5px 이하라 흰 바탕에서 사라짐 · 공통 <code>wisa.css</code> <code>brand-white</code> 가 자동으로 붙임 · 겹친 묶음은 <code>0 0 0 1px var(--gray-200), 0 0 0 3px var(--white)</code> (테두리를 덮어쓰지 않게 같이 적음) · 점검 스크립트 ⑦</td><td><code>assets/common/brand/</code></td></tr>
       <tr><td>알림 카드</td><td>모서리 12 · 안쪽 10 × 12 · 오른 지표 레드 / 내린 지표 블루 · 긴급만 Warning 바탕 · 배지</td><td><code>.rx-al</code></td></tr>
       <tr><td>히어로 떠 있는 카드</td><td>White · 모서리 16 · 안쪽 16 · 그림자 0 12 32 rgba(21,112,239,.16) · 폭 160 / 220 · 공통 둥둥</td><td><code>.sh-float</code> · <code>.sh-toast</code></td></tr>
       <tr><td>증감 표기</td><td>▲ 수치 Error 600 · ▼ 수치 Primary 600 · 스파크라인도 같은 색</td><td><code>.inc</code> · <code>.dec</code></td></tr>

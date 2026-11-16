@@ -3596,3 +3596,9 @@ img, video { max-width: 100%; display: block; }
 #geo-ref .rvw-kpi em.dn { font-style: normal; font-size: .7em; vertical-align: 2px; color: var(--primary-600); }
 #geo-hero .ai-roll .rl-ic[src$="google.svg"], #geo-hero .ai-roll .rl-ic[src$="meta.svg"] { box-shadow: 0 0 0 1px var(--gray-200); }
 /* @endregion */
+
+/* @region brand-white · patch-507 · 흰 바탕 로고 테두리 (assets/common/brand)
+   흰 타일 로고는 파일 안 테두리가 48 기준 1px 라 작게 쓰면 0.5px 이하로 묻혀 흰 바탕에서 사라짐 → 모든 크기에 바깥 Gray 200 테두리 1 자동
+   새 흰 바탕 로고를 추가하면 여기 선택자 · 점검 스크립트 WHITE_LOGO · brand/index.html 에 같이 추가. 겹친 묶음은 페이지에서 ", 0 0 0 3px var(--white)" 흰 링을 덧붙임 */
+img[src*="brand/chatgpt.svg"], img[src*="brand/gemini.svg"], img[src*="brand/genspark.svg"], img[src*="brand/google-ads.svg"], img[src*="brand/google.svg"], img[src*="brand/meta.svg"], img[src*="brand/mue.svg"], img[src*="brand/naver-smartstore.svg"], img[src*="brand/slack.svg"], img[src*="brand/youtube.svg"] { border-radius: 23%; box-shadow: 0 0 0 1px var(--gray-200); }
+/* @endregion brand-white */
