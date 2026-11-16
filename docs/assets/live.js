@@ -49,5 +49,6 @@
   boxes.forEach(setup);
   var refit = function () { boxes.forEach(function (b) { b._fit && b._fit(); }); };
   addEventListener("resize", refit);
+  addEventListener("hashchange", function () { setTimeout(refit, 60); });
   document.addEventListener("click", function (e) { if (e.target.closest && e.target.closest("[role=tab]")) setTimeout(refit, 60); });
 })();

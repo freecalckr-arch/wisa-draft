@@ -13,10 +13,10 @@
   <header class="ph">
     <p class="eyebrow">컴포넌트</p>
     <h1>카드</h1>
-    <p class="lede">마케팅 페이지 영역 카드 세 가지입니다. 단계 영역의 <b>단계 카드</b>, 해결 영역의 <b>해결 카드</b>, 사례 영역의 <b>사례 카드</b>. 카드 안 화면 이미지 크기 · 축소 규칙은 <a href="image.html">이미지</a>, 요금 카드는 <a href="plan.html">요금 카드</a>에 있습니다.</p>
+    <p class="lede">마케팅 페이지 영역 카드입니다. 단계 영역은 <b>카드 타입</b>(카드 3장)과 <b>탭 타입</b>(탭 + 화면 카드 1장) 두 가지, 해결 영역의 <b>해결 카드</b>, 사례 영역의 <b>사례 카드</b>가 있습니다. 카드 안 화면 이미지 크기 · 축소 규칙은 <a href="image.html">이미지</a>, 요금 카드는 <a href="plan.html">요금 카드</a>에 있습니다.</p>
   </header>
   <div class="body">
-<section class="panel" data-tab="단계 카드">
+<section class="panel" data-tab="단계 (카드 타입)">
     <h2 id="bt-see">미리보기</h2>
     <p>GEO 단계 영역입니다 (카드 타입 · 카드 3장 + 사이 화살표).</p>
     <div class="live" data-src="../geo.html" data-sel="#geo-how .bento" data-m="24"></div>
@@ -31,7 +31,28 @@
 <tr><td>화면 칸 <code>.bt-vis</code></td><td>높이 230 · 좌우 20 · 화면 이미지 360 × 250</td><td>높이 174 · 좌우 24 (이미지 같은 비율 축소)</td><td>높이 230 · 좌우 24</td><td>높이 193 · 좌우 18</td></tr>
 <tr><td>사이 화살표 <code>.fl-ar</code></td><td colspan="2">카드 사이 가운데 · 검은 원 36 + 흰 테두리 4 · 흰 화살표</td><td colspan="2">없음</td></tr>
 </tbody></table></div>
-    <p class="note">쓰는 페이지: GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고. 단계가 4개 이상이고 단계마다 큰 화면이 필요한 페이지는 <a href="tabs.html#tab=단계 탭">단계 탭</a>을 씁니다.</p>
+    <p class="note">쓰는 페이지: GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고. 단계가 4개 이상이고 단계마다 큰 화면이 필요한 페이지는 <a href="#tab=단계 (탭 타입)">탭 타입</a>을 씁니다.</p>
+</section>
+
+<section class="panel" data-tab="단계 (탭 타입)">
+    <h2 id="dx-see">미리보기</h2>
+    <p>온사이트마케팅 단계 영역입니다. 위 탭 줄(<a href="tabs.html#tab=단계 탭">탭 › 단계 탭</a>)과 아래 화면 카드 1장의 조합이고, 이 페이지는 <b>화면 카드</b> 규격을 적습니다.</p>
+    <div class="live" data-src="../onsite.html" data-sel="#geo-how .jt" data-m="24"></div>
+
+    <h2 id="dx-spec">규격 <code>.dx-panel</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC</th><th>PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>카드</td><td>1240 × 560 · 패딩 40/50</td><td>1000 × 432 · 패딩 36/40</td><td>720 폭 · 패딩 32</td><td>칸 폭 (390 → 323) · 패딩 24/20</td></tr>
+<tr><td>카드 모양</td><td colspan="4">바탕 White · 모서리 24 · 탭 줄 아래 24</td></tr>
+<tr><td>배치</td><td>2열 (글 520 · 화면 560) · 사이 60 · 세로 가운데</td><td>2열 (글 445 · 화면 420) · 사이 40</td><td>1열 · 글 위 · 화면 아래 · 사이 28</td><td>1열 · 사이 20</td></tr>
+<tr><td>단계 글자 <code>.bt-eb</code></td><td colspan="4">14 · 500 · Gray 500 (예: STEP 1 · 첫인상)</td></tr>
+<tr><td>제목 <code>h3</code></td><td>28 · 1.4 · 700</td><td>24</td><td>22</td><td>19</td></tr>
+<tr><td>고객 말풍선 <code>.jt-say</code></td><td colspan="3">프로필 원 36 + 말풍선 (사이 10) · 말풍선 16 · 600 Gray 700 · 패딩 8/14 · 모서리 14 14 14 4 · 바탕 White · 테두리 1 Gray 200 (inset)</td><td>말풍선 글자 14</td></tr>
+<tr><td>설명 <code>.jt-d</code></td><td colspan="3">16 · 1.6 · Gray 600 · 위 10</td><td>14 · 1.6</td></tr>
+<tr><td>선택 칩 <code>.jt-tags</code></td><td colspan="3">위 30 · 라벨 13 · 700 · 칩 높이 36 · 15/20 · 500 · 패딩 8/14 · 모서리 10 · 바탕 Gray 100 · 글자 Gray 800</td><td>위 20 · 칩 높이 32 · 13</td></tr>
+<tr><td>화면 <code>.sc</code></td><td>560 × 480</td><td>같은 비율 축소 (420 × 360)</td><td>560 × 480 (칸 가운데)</td><td>칸 폭에 맞춰 같은 비율 축소</td></tr>
+<tr><td>화면 아래 수치 <code>.sc-stat</code></td><td colspan="4">위 12 · 13 · Gray 500 · 양 끝 정렬 (왼쪽 설명 · 오른쪽 수치)</td></tr>
+</tbody></table></div>
+    <p class="note">선택 칩은 공통 태그(높이 32 · 13)보다 큰 단계 탭 전용 칩입니다 (<a href="tag.html">태그 · 뱃지</a> 예외). 화면 안 번호 · 말풍선 · 자동 전환 같은 움직임은 <a href="tabs.html#tab=단계 탭">탭 › 단계 탭</a>에 있습니다. 쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트.</p>
 </section>
 
 <section class="panel" data-tab="해결 카드">

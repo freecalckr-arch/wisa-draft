@@ -40,7 +40,7 @@
 
 <section class="panel" data-tab="단계 탭">
     <h2 id="jt-see">미리보기</h2>
-    <p>온사이트마케팅 단계 영역입니다. 미리보기 안에서 탭을 누를 수 있습니다.</p>
+    <p>온사이트마케팅 단계 영역입니다. 미리보기 안에서 탭을 누를 수 있습니다. 탭 줄과 아래 화면 카드의 조합이고, 이 페이지는 <b>탭 줄 · 전환 동작</b>을 적습니다. 화면 카드 규격은 <a href="cards.html#tab=단계 (탭 타입)">카드 › 단계 (탭 타입)</a>에 있습니다.</p>
     <div class="live" data-src="../onsite.html" data-sel="#geo-how .jt" data-m="24"></div>
 
     <h2 id="jt-spec">규격 <code>.jt</code></h2>
@@ -48,9 +48,8 @@
 <tr><td>탭 줄 <code>.jt-nav</code></td><td colspan="2">단계 수만큼 같은 폭 칸 · 아래 선 1 Gray 200</td><td colspan="2">왼쪽부터 글자 폭만큼 · 넘치면 가로 스크롤 (스크롤바 숨김)</td></tr>
 <tr><td>탭 1개 <code>.tabline</code></td><td>글자 17 · 패딩 14/0/12</td><td>글자 16</td><td colspan="2">글자 15 · 패딩 12/14/10</td></tr>
 <tr><td>탭 글자</td><td colspan="4">기본 500 Gray 400 · 호버 Black · 선택 Black 600 + 아래 선 3 Black · 앞 번호(01~) 13 · 700 Gray 400 → 선택 Primary 600 · 번호와 이름 사이 8</td></tr>
-<tr><td>탭 ↔ 화면 간격</td><td colspan="4">24</td></tr>
-<tr><td>화면 칸 <code>.dx-panel</code></td><td>1240 × 560 · 패딩 40/50 · 사이 60</td><td>1000 × 432 · 패딩 36/40 · 사이 40</td><td>패딩 32 · 사이 28 · 글 위 · 화면 아래로 쌓음</td><td>패딩 24/20 · 사이 20</td></tr>
-<tr><td>화면 칸 모양</td><td colspan="4">바탕 White · 모서리 24 · 왼쪽 = 단계 설명 · 선택 칩 · 고객 말풍선 / 오른쪽 = 화면 이미지 560 × 480 (1439 이하 같은 비율 축소)</td></tr>
+<tr><td>탭 ↔ 화면 카드 간격</td><td colspan="4">24</td></tr>
+<tr><td>화면 카드 <code>.dx-panel</code></td><td colspan="4">선택한 탭의 카드 1장만 보임 · 규격은 <a href="cards.html#tab=단계 (탭 타입)">카드 › 단계 (탭 타입)</a></td></tr>
 </tbody></table></div>
 
     <h2 id="jt-motion">움직임</h2>
@@ -62,7 +61,7 @@
 <tr><td>탭을 한 번이라도 누르면</td><td colspan="2">자동 전환 끝 (누른 탭 유지)</td></tr>
 <tr><td>모션 줄이기</td><td colspan="2">자동 전환 · 번호 말풍선 없음 · 탭을 눌러서만 바꿈</td></tr>
 </tbody></table></div>
-    <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트. 단계 영역이 카드 타입인 페이지(GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고)는 <a href="cards.html">카드 › 단계 카드</a>. 코드: 각 페이지 <code>&lt;script&gt;</code> <code>onsite-steps</code> · 탭 줄 <code>wisa.css</code> <code>.tabline</code> · <code>.dx-panel</code>. 선택 칩 규격은 <a href="tag.html">태그 · 뱃지</a>.</p>
+    <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트. 단계 영역이 카드 타입인 페이지(GEO · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고)는 <a href="cards.html">카드 › 단계 (카드 타입)</a>. 코드: 각 페이지 <code>&lt;script&gt;</code> <code>onsite-steps</code> · 탭 줄 <code>wisa.css</code> <code>.tabline</code>.</p>
 </section>
     <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
   </div>

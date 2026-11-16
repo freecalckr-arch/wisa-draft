@@ -164,6 +164,12 @@
       if (owner) start = panels.indexOf(owner);
     }
     show(start, false);
+    // 같은 페이지 안 #tab= 링크를 누르면 그 탭으로 바꿈
+    addEventListener("hashchange", function () {
+      var w = decodeURIComponent((location.hash.match(/tab=([^&]+)/) || [])[1] || "");
+      var n = panels.findIndex(function (p) { return p.dataset.tab === w; });
+      if (n > -1) show(n, true);
+    });
   } else if (body) {
     anchors(panels[0] || body);
   }
