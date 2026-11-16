@@ -285,11 +285,22 @@
 
 /* @region jt-nav-mo (patch-502): 단계 탭 줄이 넘칠 때(태블릿 · 모바일 가로 스크롤) — 뒤에 탭이 더 있으면 오른쪽 끝(앞에 있으면 왼쪽 끝)을 흐리게(.fd-r · .fd-l) · 선택 탭이 바뀌면 탭 줄만 움직여 선택 탭을 가운데로 (다음 탭이 보이게) */
 (() => {
+  const ico = d => '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
   document.querySelectorAll(".jt-nav").forEach(nav => {
+    /* patch-503: 양 끝 화살표 버튼 — 탭 줄을 감싸는 .jt-navw 안에 .jt-ar.l · .jt-ar.r (넘칠 때만 보임 · 누르면 탭 줄을 칸 폭의 60% 만큼 옆으로) */
+    const wrap = document.createElement("div"); wrap.className = "jt-navw";
+    nav.parentNode.insertBefore(wrap, nav); wrap.appendChild(nav);
+    [["l", "이전 단계 탭 보기", "M10 3.5 5.5 8l4.5 4.5"], ["r", "다음 단계 탭 보기", "M6 3.5 10.5 8 6 12.5"]].forEach(([k, lb, d]) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "jt-ar " + k; b.setAttribute("aria-label", lb); b.tabIndex = -1; b.innerHTML = ico(d);
+      b.addEventListener("click", () => nav.scrollBy({ left: (k === "r" ? 1 : -1) * nav.clientWidth * .6, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }));
+      wrap.appendChild(b);
+    });
     const fade = () => {
       const max = nav.scrollWidth - nav.clientWidth;
       nav.classList.toggle("fd-l", max > 2 && nav.scrollLeft > 2);
       nav.classList.toggle("fd-r", max > 2 && nav.scrollLeft < max - 2);
+      wrap.classList.toggle("ar-l", nav.classList.contains("fd-l"));
+      wrap.classList.toggle("ar-r", nav.classList.contains("fd-r"));
     };
     const center = () => {
       const b = nav.querySelector(".on"); if (!b || nav.scrollWidth <= nav.clientWidth + 2) return;
@@ -298,7 +309,9 @@
     };
     nav.addEventListener("scroll", fade, { passive: true });
     addEventListener("resize", () => { fade(); center(); });
-    new MutationObserver(center).observe(nav, { subtree: true, attributes: true, attributeFilter: ["class"] });
+    /* 탭 버튼의 선택(.on)이 바뀔 때만 가운데로 (탭 줄 자신의 흐림 클래스 변화 · 손으로 민 스크롤은 건드리지 않음) */
+    let cur = nav.querySelector(".on");
+    new MutationObserver(() => { const on = nav.querySelector(".on"); if (on !== cur) { cur = on; center(); } }).observe(nav, { subtree: true, attributes: true, attributeFilter: ["class"] });
     fade();
   });
 })();
