@@ -74,6 +74,11 @@ img, video { max-width: 100%; display: block; }
 /* 프라이머리 호버: 파랑 (제작상담 버튼과 같은 색) */
 .btn-dark:focus-visible { outline: none; background: var(--primary-600); border-color: var(--primary-600); box-shadow: 0 0 0 4px var(--primary-100); }
 /* 프라이머리 포커스: 파랑 + 링 4px */
+/* patch-501 디세이블 (규칙 사이트 버튼 · 스타일별 기본 · 호버 · 디세이블): button 은 disabled, a 는 aria-disabled="true" · 마우스를 올려도 바뀌지 않음 */
+.btn:disabled, .btn[aria-disabled="true"], .btn:disabled:hover, .btn[aria-disabled="true"]:hover { background: var(--white); border-color: var(--gray-200); color: var(--gray-400); cursor: not-allowed; box-shadow: none; }
+.btn-dark:disabled, .btn-dark[aria-disabled="true"], .btn-dark:disabled:hover, .btn-dark[aria-disabled="true"]:hover { background: var(--gray-100); border-color: var(--gray-100); color: var(--gray-400); }
+.link-u[aria-disabled="true"], .link-u[aria-disabled="true"]:hover { color: var(--gray-400); text-decoration-color: var(--gray-300); cursor: not-allowed; }
+.link-u[aria-disabled="true"]::after { width: 0; margin-left: 0; }
 :focus-visible { outline: 2px solid var(--primary-600); outline-offset: 3px; }
 /* 공통 스크롤 페이드업 */
 .rv { opacity: 0; transform: translateY(32px); transition: opacity .9s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0ms); }

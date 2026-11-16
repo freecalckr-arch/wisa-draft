@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>버튼 · 상태 보기</title>
-<link rel="stylesheet" href="../../../assets/common/wisa.css?v=498">
+<link rel="stylesheet" href="../../../assets/common/wisa.css?v=501">
 <style>
   html, body { margin: 0; background: var(--white); }
   body { padding: 20px; box-sizing: border-box; font-size: 12px; color: var(--gray-500); }
@@ -34,11 +34,7 @@
   .btn.btn-dark.h { background: var(--primary-600); border-color: var(--primary-600); }
   .link-u.h { color: var(--primary-700); }
   .link-u.h::after { width: 16px; margin-left: 4px; opacity: 1; transform: none; }
-  /* 디세이블 */
-  .btn.dis, .btn.dis:hover { background: var(--white); border-color: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
-  .btn.btn-dark.dis, .btn.btn-dark.dis:hover { background: var(--gray-100); border-color: var(--gray-100); color: var(--gray-400); }
-  .link-u.dis, .link-u.dis:hover { color: var(--gray-400); text-decoration-color: var(--gray-300); cursor: not-allowed; }
-  .link-u.dis::after { width: 0; margin-left: 0; }
+  /* 디세이블 = 공통 wisa.css (aria-disabled="true") */
 </style>
 </head>
 <body>
