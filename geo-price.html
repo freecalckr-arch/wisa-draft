@@ -21,6 +21,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-16 patch-518: 요금제 2×2 구간 개선 (고객 피드백 · 2안 중 A안) — PC 최소(1024~1439) 카드 4장 한 줄 유지 (사이 12 · 안쪽 32/20 · 이름 24 · 가격 22 · 박스 안 라벨 위 · 수치 아래) · 태블릿(768~1023)은 모바일과 같은 라인 탭 + 무한 반복 자동 넘기기 (카드 380 고정 · 가운데 활성 · 양옆 카드 보임)
      · 2026-11-16 patch-517: 요금제별 제공 수 표현 변경 (고객 요청 · 3안 중 B안) — patch-516 블루 숫자 삭제 · 버튼 아래 회색 박스(.gp-spec)에 라벨 · 수치 4줄 (분석 브랜드 · 추적 질문 · 분석 대상 AI + 로고 · 상품 정보 정비) · Enterprise = 협의 · 협의 · 7종 + 해외 · 다국어 · 나머지 포함 기능은 체크 목록 (위 24)
      · 2026-11-16 patch-516: 요금제별로 다른 제공 수 강조 (고객 요청) — 체크 목록의 숫자(자사 · 경쟁 브랜드 · 추적 질문 · 분석 대상 AI · 상품 정보 정비)만 Primary 600 · 600 (.gp-n)
      · 2026-11-16 patch-515: 요금제 모바일 활성 카드 그림자 진하게 0 12 32 Gray 900 16% (스크롤 칸 아래 여백 44)
@@ -171,9 +172,23 @@
     #geo-diagnosis .sr-vis.vw .vw-bd { flex: 1; min-height: 0; justify-content: space-between; gap: 16px; }
   }
 
-  /* @region geo-price (patch-506): 요금제 — 공통 요금 카드 plan.css .pc · 4장 → 1439 이하 2장 → 모바일 1장 · 간격은 사례 영역과 같음 */
+  /* @region geo-price (patch-506): 요금제 — 공통 요금 카드 plan.css .pc · 4장 → 1024~1439 4장 압축 → 태블릿 · 모바일 넘기기 (patch-518) · 간격은 사례 영역과 같음 */
   .gp-list { --pc-n: 4; }
-  @media (max-width: 1439px) { .gp-list { --pc-n: 2; } }
+  /* patch-518 PC 최소(1024~1439) = 4장 한 줄 유지 (2×2 는 대각선 비교 · 빈 곳 많음 → 고객 피드백) · 사이 12 · 카드 안쪽 32/20 · 이름 24 · 설명 14 · 가격 22 · 버튼 위 24 · 박스 안 라벨 위 · 수치 아래 (왼쪽 정렬) · 체크 14 */
+  @media (min-width: 1024px) and (max-width: 1439px) {
+    .gp-list { gap: 12px; }
+    .gp-list > .pc { padding: 32px 20px; }
+    .gp-list .pc h3 { font-size: 24px; line-height: 32px; }
+    .gp-list .pc .pc-sub { font-size: 14px; line-height: 20px; }
+    .gp-list .pc-price strong { font-size: 22px; }
+    .gp-list .pc-price span { font-size: 16px; }
+    .gp-list .pc .pc-btn { margin-top: 24px; }
+    .gp-list .gp-spec { padding: 16px; }
+    .gp-list .gp-spec li { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+    .gp-list .gp-spec b { text-align: left; }
+    .gp-list .gp-spec .gp-ai { align-self: flex-start; margin-top: 6px; }
+    #geo-price .pc-checks li { font-size: 14px; }
+  }
   @media (min-width: 1024px) { #geo-price { padding-top: 160px; padding-bottom: 0; } }
   @media (min-width: 768px) and (max-width: 1023px) { #geo-price { padding-top: 0; padding-bottom: 120px; } }
   @media (max-width: 767px) { #geo-price { padding-top: 0; } #geo-price .sub-title { margin-bottom: 40px; } }
@@ -182,11 +197,11 @@
   .gp-ai { display: flex; margin-top: 8px; }
   .gp-ai img { width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 0 0 1px var(--gray-200), 0 0 0 3px var(--white); background: var(--white); }   /* patch-507: 흰 타일 로고(ChatGPT · Gemini · Google)는 파일 안 테두리가 24 에서 0.5px 로 묻힘 → 바깥 Gray 200 테두리 1 + 겹침 구분 흰 링 2 (모든 로고 같게) */
   .gp-ai img + img { margin-left: -6px; }
-  /* patch-508 모바일: 라인 탭 + 가로 스와이프 (PC · 태블릿에서는 탭 숨김) */
+  /* patch-508 모바일: 라인 탭 + 가로 스와이프 (PC 에서는 탭 숨김) · patch-518 태블릿(768~1023)도 같은 방식 (4장 한 줄이 좁음) */
   .gp-tabs, .gp-clone { display: none; }
   /* patch-512 · 513 추천 표시: 카드 위 테두리 가운데 검정 알약(plan.css is-rec) 앞에 엄지 이모지(Noto Animated Emoji 1f44d · assets/geo/emoji) · PC · 태블릿 · 모바일 같은 자리 */
   .gp-list .pc.is-rec::before { padding: 0 12px 0 28px; background: url("assets/geo/emoji/thumbs-up.webp") 8px center / 16px no-repeat, var(--gray-900); }   /* 복사본 카드(.gp-clone)는 모바일 무한 반복용 */
-  @media (max-width: 767px) {
+  @media (max-width: 1023px) {
     .gp-tabs { display: flex; justify-content: center; gap: 18px; margin-bottom: 20px; }   /* 피그마 WISA 리뉴얼-2026 tab-line 작은 크기: 가운데 정렬 · 사이 18 · 바닥선 없음 (patch-509) */
     .gp-tabs .tabline { padding: 10px 0 16px; font-size: 14px; line-height: 20px; }   /* 기본 Gray 400 500 · 선택 Black 600 + 글자 폭 밑줄 3 Black (공통 .tabline) */
     #geo-price .container { overflow: hidden; }
@@ -195,6 +210,10 @@
     .gp-list > .pc { display: flex; flex: 0 0 100%; scroll-snap-align: center; }
     .gp-list > .pc.is-rec { box-shadow: inset 0 0 0 1px var(--gray-200); }   /* patch-511 · 512: 모바일 검정 테두리 = 지금 가운데 카드(활성) 표시 · 추천은 위 알약(PC 와 같은 자리)으로 */
     .gp-list > .pc.is-on { box-shadow: inset 0 0 0 2px var(--gray-900), 0 12px 32px rgba(16, 24, 40, .16); }   /* patch-514 · 515 활성 카드 그림자 (아래 44 까지 퍼짐) */   /* patch-512 가운데 카드 = 검정 2 (넘길 때 0.3초 전환 · plan.css) */
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {   /* patch-518 태블릿: 카드 380 고정 · 가운데 + 양옆 카드가 보임 · 화면 끝까지 (컨테이너 여백 50 밖으로) */
+    .gp-list { gap: 20px; margin-inline: -50px; padding-inline: calc(50% - 190px + 50px); }
+    .gp-list > .pc { flex: 0 0 380px; }
   }
   /* patch-517 요금제별 제공 수 = 회색 박스 안 라벨 · 수치 (고객 요청 · 색 없이 정렬로 비교) — 버튼 아래 32 · Gray 50 · 모서리 12 · 안쪽 16/20 · 줄 사이 12 · 라벨 14 Gray 500 · 수치 15/600 Gray 900 오른쪽 정렬 · AI 로고는 수치 아래 오른쪽 · 포함 기능은 아래 체크 목록 */
   .gp-spec { display: flex; flex-direction: column; gap: 12px; width: 100%; margin: 32px 0 0; padding: 16px 20px; box-sizing: border-box; border-radius: 12px; background: var(--gray-50); list-style: none; text-align: left; }
@@ -1207,13 +1226,13 @@
 </script>
 <script src="assets/common/wisa.js?v=503"></script>
 <script src="assets/common/chart.js?v=406"></script>
-<!-- @region geo-price-swipe (patch-510): 모바일 요금 카드 무한 반복 스와이프 · 라인 탭 연동 · 자동 넘김(손대면 멈춤) -->
+<!-- @region geo-price-swipe (patch-510 · 518 태블릿까지): 모바일 · 태블릿 요금 카드 무한 반복 스와이프 · 라인 탭 연동 · 자동 넘김(손대면 멈춤) -->
 <script>
 (function () {
   var sec = document.getElementById('geo-price'); if (!sec) return;
   var list = sec.querySelector('.gp-list'), real = [].slice.call(list.children), tabs = [].slice.call(sec.querySelectorAll('.gp-tabs .tabline'));
   var N = real.length, C = 2, GAP = 2400, REC = 1;
-  var mq = matchMedia('(max-width: 767px)'), rm = matchMedia('(prefers-reduced-motion: reduce)');
+  var mq = matchMedia('(max-width: 1023px)'), rm = matchMedia('(prefers-reduced-motion: reduce)');
   // 앞뒤에 복사본 2장씩 (… Pro · Enterprise | Basic · Growth · Pro · Enterprise | Basic · Growth …) → 끝에 닿으면 같은 진짜 카드로 순간 이동
   function clone(c) { var k = c.cloneNode(true); k.classList.add('gp-clone'); k.setAttribute('aria-hidden', 'true'); k.inert = true; return k; }
   for (var i = 0; i < C; i++) { list.insertBefore(clone(real[N - 1 - i]), list.firstChild); list.appendChild(clone(real[i])); }

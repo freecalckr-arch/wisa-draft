@@ -111,7 +111,8 @@
     <div class="tbl"><table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody>
 <tr><td>카드</td><td>흰 바탕 · Gray 200 테두리 1 · 모서리 <b class="num">16</b> · 안쪽 PC(1024 이상) 사방 40 · 태블릿 위 30 · 좌우 30 · 아래 40 · 모바일 사방 30 · 가운데 정렬</td></tr>
 <tr><td>카드 사이</td><td><b class="num">20</b> (모바일 세로 한 줄 · 사이 12~20)</td></tr>
-<tr><td>카드 개수</td><td>목록에 <code>--pc-n</code> 으로 지정 (기본 3) · 4장 이상은 1439 이하에서 2장씩 · 모바일 1장</td></tr>
+<tr><td>카드 개수</td><td>목록에 <code>--pc-n</code> 으로 지정 (기본 3) · 4장 이상은 2장씩 두 줄(2×2)로 나누지 않음 (대각선 비교 · 빈 곳이 많아 읽기 어려움) → PC 최소(1024~1439)도 4장 한 줄 + 아래 "4장 압축" · 태블릿 · 모바일은 <a href="#swipe">넘기기</a></td></tr>
+<tr><td>4장 압축 (1024~1439)</td><td>카드 사이 12 · 안쪽 위아래 32 · 좌우 20 · 이름 24/32 · 설명 14/20 · 가격 22 (/월 16) · 버튼 위 24 · 제공 수 박스 안쪽 16 · 박스 안 라벨 위 · 수치 아래 (왼쪽 정렬 · 사이 2 · 로고 위 6) · 체크 14 · 1024 에서 카드 폭 222</td></tr>
 <tr><td>호버</td><td>그림자 없이 테두리만 Gray 900 (1) · 0.3초 · 추천 카드는 그대로 · 마우스 기기만</td></tr>
 <tr><td>방식 카드 색</td><td>서로 다른 두 방식(Cloud · Enterprise)을 나란히 비교할 때만 · Cloud = 기본 흰 카드 / <code>.pc.tone-indigo</code> Enterprise = 카드 전체 위 Indigo 100 → 가운데 Indigo 25 → 아래 흰 그라데이션 · 테두리 Indigo 100 · 이 카드 위 태그는 흰 바탕 · 두 방식 카드 뱃지도 공통 뱃지 md (Cloud 파랑 · Enterprise 퍼플)</td></tr>
 <tr><td>추천 카드</td><td><code>.pc.is-rec</code> + <code>data-rec="라벨"</code> · 테두리 Gray 900 2 · 위 가운데 라벨(높이 24 · 12/700 · 검정) · 버튼 검정 · 한 목록에 1장만</td></tr>
@@ -121,13 +122,13 @@
 <tr><td>카드 아래 공통 안내 (선택)</td><td>모든 카드에 같은 조건(VAT · 계약 기간 · 적용 기준)은 카드마다 반복하지 않고 목록 아래 한 줄 · 위 32 · 14 · 줄 20 · Gray 500 · 가운데 (모바일 위 24 · 13 · 왼쪽)</td></tr>
 </tbody></table></div>
 
-    <h2 id="swipe">모바일 넘기기 (카드 4장)</h2>
-    <p>카드가 4장인 요금제는 모바일(767 이하)에서 세로로 쌓지 않고 <b>한 장씩 옆으로 넘겨</b> 봅니다. 위 라인 탭으로 원하는 요금제로 바로 가고, 넘길 때 같은 항목이 같은 높이에 있어 숫자만 바뀌어 보입니다. PC · 태블릿은 위 목록 규칙 그대로입니다.</p>
-    <div class="live" data-src="../geo-price.html" data-sel="#geo-price .container" data-ws="390,1440" data-w="390" data-m="16"></div>
-    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>모바일 (≤767)</th></tr></thead><tbody>
-<tr><td>라인 탭 <code>.gp-tabs</code></td><td>카드 위 · 요금제 이름 4개 · 가운데 정렬 · 사이 18 · 아래 20 · 바닥선 없음 · 글자 14/20 · 패딩 10/0/16 · 기본 500 Gray 400 · 선택 600 Black + 글자 폭 밑줄 3 Black (<a href="tabs.html#tab=라인 탭">탭 › 라인 탭</a>) · PC · 태블릿 숨김</td></tr>
-<tr><td>카드 칸 <code>.gp-list</code></td><td>화면 꽉 (좌우 여백 밖까지) · 안쪽 위 14 (추천 라벨 자리) · 좌우 36 · 아래 44 (그림자 자리 · 바깥 아래 −42 로 간격 유지) · 카드 사이 12 · 가로 스크롤 스냅 · 스크롤바 숨김</td></tr>
-<tr><td>카드</td><td>칸 폭 − 72 (390 에서 318) · 지금 카드가 <b>가운데</b> · 양옆에 이전 · 다음 카드 끝 24 씩 보임 · 4장 높이 같음</td></tr>
+    <h2 id="swipe">태블릿 · 모바일 넘기기 (카드 4장)</h2>
+    <p>카드가 4장인 요금제는 태블릿 · 모바일(1023 이하)에서 세로로 쌓지 않고 <b>한 장씩 옆으로 넘겨</b> 봅니다. 위 라인 탭으로 원하는 요금제로 바로 가고, 넘길 때 같은 항목이 같은 높이에 있어 숫자만 바뀌어 보입니다. PC 는 위 목록 규칙 그대로입니다.</p>
+    <div class="live" data-src="../geo-price.html" data-sel="#geo-price .container" data-ws="390,820,1440" data-w="390" data-m="16"></div>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>모바일 (≤767) · 태블릿 (768~1023) 다른 점은 따로 적음</th></tr></thead><tbody>
+<tr><td>라인 탭 <code>.gp-tabs</code></td><td>카드 위 · 요금제 이름 4개 · 가운데 정렬 · 사이 18 · 아래 20 · 바닥선 없음 · 글자 14/20 · 패딩 10/0/16 · 기본 500 Gray 400 · 선택 600 Black + 글자 폭 밑줄 3 Black (<a href="tabs.html#tab=라인 탭">탭 › 라인 탭</a>) · 태블릿도 같은 크기 · PC 숨김</td></tr>
+<tr><td>카드 칸 <code>.gp-list</code></td><td>화면 꽉 (좌우 여백 밖까지) · 안쪽 위 14 (추천 라벨 자리) · 좌우 36 · 아래 44 (그림자 자리 · 바깥 아래 −42 로 간격 유지) · 카드 사이 12 · 가로 스크롤 스냅 · 스크롤바 숨김 · 태블릿 = 화면 꽉 · 카드 사이 20</td></tr>
+<tr><td>카드</td><td>칸 폭 − 72 (390 에서 318) · 지금 카드가 <b>가운데</b> · 양옆에 이전 · 다음 카드 끝 24 씩 보임 · 4장 높이 같음 · 태블릿 = 카드 380 고정 · 가운데 + 양옆 카드가 더 넓게 보임</td></tr>
 <tr><td>활성 카드 <code>.is-on</code></td><td>가운데 카드 = 테두리 Gray 900 2 + 그림자 0 12 32 Gray 900 16% · 넘기면 다음 카드로 이동 (0.3초) · 추천 카드도 활성이 아니면 Gray 200 테두리 (테두리 = 지금 보는 카드)</td></tr>
 <tr><td>추천</td><td>PC 와 같은 자리 · 카드 위 테두리 가운데 '👍 추천' 검정 라벨 + 검정 버튼</td></tr>
 <tr><td>무한 반복</td><td>Enterprise 다음 Basic · Basic 이전 Enterprise 로 끝없이 이어짐 (앞뒤에 복사본 카드 2장씩 <code>.gp-clone</code> · 복사본에 멈추면 같은 진짜 카드로 순간 이동 · 복사본은 읽기 · 누르기 제외)</td></tr>
@@ -140,7 +141,7 @@
 <tr><td>넘길 때</td><td colspan="2">가운데 온 카드에 맞춰 탭 선택 · 활성 테두리가 같이 바뀜</td></tr>
 <tr><td>모션 줄이기</td><td colspan="2">자동 넘김 없음 · 손으로 넘기거나 탭으로만 이동</td></tr>
 </tbody></table></div>
-    <p class="note">코드: <code>geo-price.html</code> <code>&lt;style&gt;</code> <code>@region geo-price</code> (patch-508~515) · <code>&lt;script&gt;</code> <code>@region geo-price-swipe</code>.</p>
+    <p class="note">코드: <code>geo-price.html</code> <code>&lt;style&gt;</code> <code>@region geo-price</code> (patch-508~518) · <code>&lt;script&gt;</code> <code>@region geo-price-swipe</code>.</p>
 
     <h2 id="badge">뱃지 색</h2>
     <p>한 카드에 뱃지는 1개. 모양 · 색은 공통 뱃지(<a href="tag.html#badge">태그 · 뱃지</a> · <code>badge.css</code>)를 그대로 쓰고 요금 카드에서 따로 정하지 않습니다. <b>Cloud = 파랑 · Enterprise = 퍼플</b>은 요금 카드뿐 아니라 모든 페이지의 Cloud · Enterprise 뱃지에 똑같이 씁니다.</p>
@@ -173,7 +174,7 @@
     <div class="tbl"><table><thead><tr><th>페이지</th><th>카드</th><th>개수</th></tr></thead><tbody>
 <tr><td>솔루션 &gt; Cloud</td><td>Standard · Pro(추천) · Hybrid</td><td>3</td></tr>
 <tr><td>솔루션 &gt; 라이선스 비교</td><td>Cloud · Enterprise</td><td>2</td></tr>
-<tr><td>자사몰 마케팅 &gt; GEO (요금제 · <code>#geo-price</code> 리포트 아래)</td><td>Basic · Growth(추천 👍) · Pro · Enterprise(퍼플)</td><td>4 · 1439 이하 2장 · 모바일 넘기기</td></tr>
+<tr><td>자사몰 마케팅 &gt; GEO (요금제 · <code>#geo-price</code> 리포트 아래)</td><td>Basic · Growth(추천 👍) · Pro · Enterprise(퍼플)</td><td>4 · 1024~1439 4장 압축 · 태블릿 · 모바일 넘기기</td></tr>
 </tbody></table></div>
     <p class="foot">마지막 수정 2026-11-16 · 값을 바꿀 때는 <code>assets/common/plan.css</code> 와 이 페이지를 같이 고칩니다.</p>
   </div>
