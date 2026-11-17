@@ -74,9 +74,13 @@ img, video { max-width: 100%; display: block; }
 /* 프라이머리 호버: 파랑 (제작상담 버튼과 같은 색) */
 .btn-dark:focus-visible { outline: none; background: var(--primary-600); border-color: var(--primary-600); box-shadow: 0 0 0 4px var(--primary-100); }
 /* 프라이머리 포커스: 파랑 + 링 4px */
+/* patch-588 블루 .btn.btn-blue (프라이머리 블루 · 블랙과 같은 구조): 기본 Primary 600 · 호버 Primary 700 · 포커스 Primary 700 + 링 4 Primary 100 · 디세이블은 블랙과 같음 */
+.btn-blue { background: var(--primary-600); color: var(--white); border-color: var(--primary-600); }
+.btn-blue:hover { background: var(--primary-700); border-color: var(--primary-700); }
+.btn-blue:focus-visible { outline: none; background: var(--primary-700); border-color: var(--primary-700); box-shadow: 0 0 0 4px var(--primary-100); }
 /* patch-501 디세이블 (규칙 사이트 버튼 · 스타일별 기본 · 호버 · 디세이블): button 은 disabled, a 는 aria-disabled="true" · 마우스를 올려도 바뀌지 않음 */
 .btn:disabled, .btn[aria-disabled="true"], .btn:disabled:hover, .btn[aria-disabled="true"]:hover { background: var(--white); border-color: var(--gray-200); color: var(--gray-400); cursor: not-allowed; box-shadow: none; }
-.btn-dark:disabled, .btn-dark[aria-disabled="true"], .btn-dark:disabled:hover, .btn-dark[aria-disabled="true"]:hover { background: var(--gray-100); border-color: var(--gray-100); color: var(--gray-400); }
+.btn-dark:disabled, .btn-dark[aria-disabled="true"], .btn-dark:disabled:hover, .btn-dark[aria-disabled="true"]:hover, .btn-blue:disabled, .btn-blue[aria-disabled="true"], .btn-blue:disabled:hover, .btn-blue[aria-disabled="true"]:hover { background: var(--gray-100); border-color: var(--gray-100); color: var(--gray-400); }
 .link-u[aria-disabled="true"], .link-u[aria-disabled="true"]:hover { color: var(--gray-400); text-decoration-color: var(--gray-300); cursor: not-allowed; }
 .link-u[aria-disabled="true"]::after { width: 0; margin-left: 0; }
 :focus-visible { outline: 2px solid var(--primary-600); outline-offset: 3px; }
@@ -1785,6 +1789,7 @@ img, video { max-width: 100%; display: block; }
 .mk-lg i { width: 16px; height: 3px; margin-left: 10px; border-radius: 2px; }   /* patch-406: 선 그래프 범례 = 16×3 선 (막대 그래프는 .mk-lg.bar) */
 .mk-lg.bar i { width: 10px; height: 10px; border-radius: 3px; }
 .mk-lg i.ai { background: var(--primary-600); } .mk-lg i.se { background: var(--gray-400); }
+.mk-lg i.base { background: var(--gray-300); }   /* patch-537: 막대 그래프 기본 계열(Gray 300 · .bar · .sn-agb) 범례 */
 .mk-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
 .mk-grid { stroke: var(--gray-100); }
 .mk-area { fill: url(#mkG); } .mk-ai { fill: none; stroke: var(--primary-600); stroke-width: 2.2; } .mk-se { fill: none; stroke: var(--gray-400); stroke-width: 1.5; stroke-dasharray: 5 6; }
@@ -3602,3 +3607,47 @@ img, video { max-width: 100%; display: block; }
    새 흰 바탕 로고를 추가하면 여기 선택자 · 점검 스크립트 WHITE_LOGO · brand/index.html 에 같이 추가. 겹친 묶음은 페이지에서 ", 0 0 0 3px var(--white)" 흰 링을 덧붙임 */
 img[src*="brand/chatgpt.svg"], img[src*="brand/gemini.svg"], img[src*="brand/genspark.svg"], img[src*="brand/google-ads.svg"], img[src*="brand/google.svg"], img[src*="brand/meta.svg"], img[src*="brand/mue.svg"], img[src*="brand/naver-smartstore.svg"], img[src*="brand/slack.svg"], img[src*="brand/youtube.svg"] { border-radius: 23%; box-shadow: 0 0 0 1px var(--gray-200); }
 /* @endregion brand-white */
+/* @region shell-606 (patch-606): 공통 헤더 · 푸터 변경안 내용 반영 (모든 페이지) — 기존 클래스(.depth2 · .mp-sec · .ft-*) 그대로 · 새로 생긴 요소만 추가: 푸터 5칸(브랜드 320 + 칸 150) · 태블릿 · 모바일 메뉴 옆 설명(.ft-desc) · 칸 아래 강조 링크(.ft-feature · 블랙) · 모바일 메뉴 패널 이름 + 설명 · 이벤트 태그 */
+.d2-tag.event { background: var(--error-50, #fef3f2); color: var(--error-700, #b42318); }   /* 인플루언서 구축지원 "이벤트" (변경안은 핑크 계열 → 팔레트에 없어 Error 계열) */
+/* 푸터 PC: 브랜드 320 + 메뉴 5칸(150) */
+.ft-brand { width: 320px; flex: 0 1 320px; }
+.ft-col { width: 150px; flex: 0 1 150px; }
+.ft-group li a { transition: color .2s; }
+.ft-group li:hover { color: var(--black); }   /* 블루 → 블랙 (사용자 요청) */
+.ft-desc { display: none; }
+.ft-feature { display: flex; flex-direction: column; gap: 4px; padding-top: 18px; border-top: 1px solid var(--gray-200); }
+.ft-feature b { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-size: 14px; line-height: 20px; font-weight: 700; color: var(--black); }   /* 변경안 Primary 700 → 블랙 (사용자 요청) */
+.ft-feature em { font-size: 12px; line-height: 17px; font-weight: 500; font-style: normal; color: var(--gray-500); }
+.ft-feature svg { flex-shrink: 0; transition: transform .2s; }
+.ft-feature:hover b, .ft-feature:focus-visible b { text-decoration: underline; text-underline-offset: 3px; }
+.ft-feature:hover svg, .ft-feature:focus-visible svg { transform: translateX(3px); }
+.ft-bottom .links a, .ft-bottom .info a { color: inherit; }
+@media (min-width: 1024px) and (max-width: 1239px) { .ft-brand { flex: 0 0 240px; width: 240px; } .ft-cols { gap: 12px; } }
+@media (max-width: 1023px) {
+  .ft-brand { width: auto; flex: none; }
+  .ft-col { width: 100%; flex: none; }
+  /* 태블릿 · 모바일: 메뉴 이름 옆 설명 (헤더 모바일 패널과 같은 방식) */
+  .ft-group ul { display: grid; grid-template-columns: max-content 1fr; gap: 14px 14px; }
+  .ft-group li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .ft-group li a { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; }
+  .ft-group li a > span { white-space: nowrap; }
+  .ft-group li, .ft-group li a { gap: normal; }   /* 기존 li gap 4 가 subgrid 칸 계산을 덮어 긴 이름이 설명과 겹치던 것 */
+  .ft-desc { display: block; font-size: 13px; line-height: 19px; font-weight: 400; color: var(--gray-500); }
+  .ft-col .ft-feature { display: none; margin-top: 20px; }
+  .ft-col.open .ft-feature { display: flex; }
+}
+@media (max-width: 767px) {
+  /* 헤더 모바일 패널: 메뉴 이름 + 설명 한 줄 */
+  .mp-sec ul { display: grid; grid-template-columns: max-content 1fr; gap: 16px 14px; }
+  .mp-sec li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; line-height: normal; }
+  .mp-sec li a { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; }
+  .mp-sec li b { font-size: 15px; line-height: 22px; font-weight: 500; color: var(--gray-900); white-space: nowrap; transition: color .2s; }
+  .mp-sec li span { font-size: 13px; line-height: 19px; color: var(--gray-500); }
+  .mp-sec li a:hover b, .mp-sec li a:active b { color: var(--primary-700); font-weight: 600; }
+  .mo-panel .mp-sec + .mp-sec { padding-top: 24px; }
+}
+@supports not (grid-template-columns: subgrid) {
+  .ft-group ul, .mp-sec ul { display: flex; flex-direction: column; }
+  .ft-group li a, .mp-sec li a { display: flex; gap: 12px; }
+}
+/* @endregion shell-606 */
