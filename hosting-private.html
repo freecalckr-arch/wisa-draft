@@ -14,12 +14,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=606">
+<link rel="stylesheet" href="assets/common/wisa.css?v=612">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">
 <link rel="stylesheet" href="assets/common/chart.css?v=406">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-17 patch-622: 요금 계산 = 웹호스팅과 같은 구성 — 왼쪽 묶음 결제 방식 · 예상 사용량(이번 달 전송량 + 사양 옵션 4줄 · 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량 슬라이더 · 눈금 삭제) · 결제 · 약정 조건 4칸(12개월 약정 · 설치비 무료 · 사용량 익월 후불 · 일시 증설 일할 · Gray 50 면) / 오른쪽 결제 조건 목록 삭제
+     · 2026-11-17 patch-608: 요금 · 사양 비교표 머리줄 "퍼블릭 클라우드 MSP" → "퍼블릭 클라우드" (호스팅 공통 · 모든 호스팅 페이지 같은 표)
      · 2026-11-17 patch-606: 헤더 · 푸터 내용 = 공통 헤더 · 푸터 변경안(아티팩트 UD9qYDTME4RZmhhJypyUBL) — 헤더 2depth · 모바일 패널(메뉴 + 설명 · 안내 바 삭제) · 구축 메뉴(맞춤제작 · 유지관리 / 창업패키지 · 디자인스토어 · 인플루언서 구축지원 이벤트) · 푸터 5칸(인프라 추가: 호스팅 · 클라우드 / 보안 · 가속 / 도메인) · 칸 아래 강조 링크(부스터로 이전하기 · 포트폴리오 · AI Studio) · 소개 문구 21년 · 주소 · 통신판매 번호 · 파트너안내 · SNS 주소 / 푸터 블루 글자(강조 링크 · 호버)는 블랙으로 · 기존 클래스 구조 그대로(@region shell-606)
      · 2026-11-17 patch-605: 모바일 요금 계산 입력칸 88×40 → 64×36 (숫자 15 · 단위 12) · 입력칸 · 스위치를 이름 + 설명 두 줄 세로 가운데 정렬 (전송량 입력칸도 같은 크기)
      · 2026-11-17 patch-604: 요금 계산 수량 선택 → 기획서대로 숫자 입력칸 + 칸 밖 단위(− / + 버튼 숨김 · 모든 해상도 · @region hq-input) · 이번 달 전송량 입력칸도 같은 규격 · SSD 는 입력 후 100GB 단위로 올림 · patch-603 모바일 스테퍼 축소 규칙 삭제
@@ -826,7 +828,20 @@
     .hq-row .hq-step, .hq-row .hq-sw { grid-row: 1 / span 2; align-self: center; }
     .hq-row > span:first-child small { grid-column: 1; }
   }
+  /* patch-622 옵션 항목 기획서 형식: 위 테두리 없음 · 줄 사이 점선 Gray 200 · 마지막 줄 선 없음 (웹호스팅 patch-618 과 같음) */
+  .hq-opts { border-top: 0; }
+  .hq-row { border-bottom: 1px dashed var(--gray-200); }
+  .hq-row:first-child { padding-top: 0; }
+  .hq-row:last-child { padding-bottom: 0; border-bottom: 0; }
   /* @endregion hq-input */
+  /* @region hq-cond (patch-622 · 웹호스팅 patch-620 · 621 과 같음): 결제 · 약정 조건 4칸 — Gray 50 면 · 칸 사이 짧은 세로선 Gray 200 · 큰 값 24/700 · 작은 이름 14 Gray 600 */
+  .hq-cond ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-radius: 12px; background: var(--gray-50); }
+  .hq-cond li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 8px; text-align: center; }
+  .hq-cond li + li::before { content: ""; position: absolute; left: 0; top: 24px; bottom: 24px; width: 1px; background: var(--gray-200); }
+  .hq-cond li b { font-size: 24px; line-height: 1.2; font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; }
+  .hq-cond li span { font-size: 14px; line-height: 20px; color: var(--gray-600); word-break: keep-all; }
+  @media (max-width: 767px) { .hq-cond ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hq-cond li:nth-child(3)::before { display: none; } .hq-cond li { padding: 16px 8px; } .hq-cond li b { font-size: 20px; } .hq-cond li span { font-size: 13px; line-height: 18px; } }
+  /* @endregion hq-cond */
 </style>
 </head>
 <body>
@@ -932,7 +947,7 @@
 
     <div class="hcmp rv" style="--d:100ms">   <!-- [개발 전달] patch-397: PC(≥1024) 전용 · 4개 상품 비교표 · 지금 보는 상품 열(td.cur)에 추천 카드와 같은 2px Gray 900 테두리 · 태블릿 · 모바일은 아래 .ht (이 상품만) · 다른 상세 페이지에도 같은 표를 넣고 .cur 열만 바꿈 -->
       <table><colgroup><col class="lb"><col><col><col><col></colgroup>
-        <thead><tr><th scope="col" class="corner"><span class="sr-only">항목</span></th><th scope="col"><b>웹 호스팅</b><span>월 33,000원~</span><a href="hosting-web.html">자세히 보기</a></th><th scope="col"><b>서버 호스팅</b><span>월 110,000원~</span><a href="hosting-server.html">자세히 보기</a></th><th scope="col" class="cur"><b>프라이빗 클라우드</b><span>월 260,000원~</span><em class="hcmp-now"><svg class="hcmp-ck" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>지금 보는 상품</em></th><th scope="col"><b>퍼블릭 클라우드 MSP</b><span>견적</span><a href="hosting-public.html">자세히 보기</a></th></tr></thead>
+        <thead><tr><th scope="col" class="corner"><span class="sr-only">항목</span></th><th scope="col"><b>웹 호스팅</b><span>월 33,000원~</span><a href="hosting-web.html">자세히 보기</a></th><th scope="col"><b>서버 호스팅</b><span>월 110,000원~</span><a href="hosting-server.html">자세히 보기</a></th><th scope="col" class="cur"><b>프라이빗 클라우드</b><span>월 260,000원~</span><em class="hcmp-now"><svg class="hcmp-ck" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>지금 보는 상품</em></th><th scope="col"><b>퍼블릭 클라우드</b><span>견적</span><a href="hosting-public.html">자세히 보기</a></th></tr></thead>
         <tbody><tr class="g"><th colspan="5" scope="colgroup">기본 요금</th></tr><tr><th scope="row">월 이용료</th><td>33,000원<small>12개월 결제 시 29,700원</small></td><td>110,000원<small>12개월 이상 결제 시 10% 할인</small></td><td class="cur">260,000원<small>12개월 약정 기준</small></td><td>운영 관리 견적<small>클라우드 이용료는 벤더에 직접 결제</small></td></tr><tr><th scope="row">설치비</th><td>무료</td><td>55,000원</td><td class="cur">무료</td><td>설계 · 이전 견적<small>인프라 진단 무료</small></td></tr><tr class="g"><th colspan="5" scope="colgroup">기본 제공</th></tr><tr><th scope="row">서버</th><td><i class="no" aria-label="없음">—</i></td><td>단독 물리 서버 1대<small>웹 + DB</small></td><td class="cur">전용 할당 클라우드 서버</td><td>고객 클라우드 계정<small>AWS · Azure · NAVER Cloud</small></td></tr><tr><th scope="row">CPU · 메모리</th><td><i class="no" aria-label="없음">—</i></td><td>8코어 이상 · 32GB</td><td class="cur">vCPU 8개 · 16GB</td><td>벤더 요금표 기준</td></tr><tr><th scope="row">디스크</th><td>10GB</td><td>NVMe SSD 2개 RAID1</td><td class="cur">SSD 300GB<small>3중 복제 저장</small></td><td>벤더 요금표 기준</td></tr><tr><th scope="row">전송량</th><td>월 720GB</td><td>월 2TB</td><td class="cur">월 2TB</td><td>벤더 요금표 기준</td></tr><tr><th scope="row">백업 · 장애 대응</th><td><i class="no" aria-label="없음">—</i></td><td><i class="no" aria-label="없음">—</i></td><td class="cur">일일 백업 14일 보관<small>HA 자동 복구</small></td><td><i class="no" aria-label="없음">—</i></td></tr><tr><th scope="row">보안</th><td>10G 방화벽 · DDoS 방어<small>웹방화벽</small></td><td>10G 방화벽 · DDoS 방어<small>서버 모니터링</small></td><td class="cur">10G 방화벽 · DDoS 방어<small>24시간 모니터링</small></td><td><i class="no" aria-label="없음">—</i></td></tr><tr class="g"><th colspan="5" scope="colgroup">추가 요금</th></tr><tr><th scope="row">사양 추가</th><td>디스크 10GB당 월 5,000원</td><td>메모리 · 디스크 증설 견적</td><td class="cur">vCPU 1개 월 15,000원<small>메모리 1GB 5,000원 · SSD 100GB 10,000원</small></td><td><i class="no" aria-label="없음">—</i></td></tr><tr><th scope="row">전송량 초과</th><td>1GB당 100원</td><td>1GB당 100원</td><td class="cur">1GB당 100원</td><td>벤더 요금표 기준</td></tr><tr><th scope="row">일시 증설</th><td><i class="no" aria-label="없음">—</i></td><td><i class="no" aria-label="없음">—</i></td><td class="cur">옵션 단가 일할 계산</td><td><i class="no" aria-label="없음">—</i></td></tr><tr><th scope="row">맞춤 구성</th><td><i class="no" aria-label="없음">—</i></td><td>웹 · DB 분리 · 이중화 · 부하분산 견적</td><td class="cur">고객 전용 노드 클러스터 견적</td><td>설계 · 이전 견적</td></tr></tbody>
       </table>
     </div>
@@ -1065,18 +1080,18 @@
           <p class="hq-seg-note">무약정은 월 요금이 10% 더해집니다</p>
         </div>
         <div>
-          <span class="hq-lb">사양 옵션<small>다음 달 월정액에 반영</small></span>
+          <span class="hq-lb">예상 사용량</span>   <!-- [개발 전달] patch-622 옵션 항목 = 기획서 형식 (웹호스팅과 같음): 줄마다 이름 + 설명 / 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량도 같은 줄 형식 (슬라이더 없음) -->
           <div class="hq-opts">
+            <div class="hq-row"><span><b>이번 달 전송량</b><small>기본 2TB<span class="hq-pc">(2,048GB)</span> 포함 · 초과 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="2048" data-free="2048" data-rate="100" aria-label="이번 달 전송량 (GB)"><i>GB</i></label></span></div>
             <div class="hq-row"><span><b>vCPU 추가</b><small>기본 8개<span class="hq-pc"> 포함</span> · 1개당 <span class="hq-pc">월 </span>15,000원</small></span><span class="hq-step" data-step="1" data-per="1" data-rate="15000" data-max="32"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="32" step="1" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
             <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 1GB당 <span class="hq-pc">월 </span>5,000원</small></span><span class="hq-step" data-step="4" data-per="1" data-rate="5000" data-max="256"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="256" step="4" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
             <div class="hq-row"><span><b>SSD 추가</b><small>기본 300GB<span class="hq-pc"> 포함</span> · 100GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> (100GB 단위)</span></small></span><span class="hq-step" data-step="100" data-per="100" data-rate="10000" data-max="2000"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="2000" step="100" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
             <div class="hq-row"><span><b>백업 30일 보관</b><small>기본 14일<span class="hq-pc"> 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 30일 보관"></button></div>
           </div>
         </div>
-        <div>
-          <div class="hq-tr-hd"><b>이번 달 전송량</b><span class="hq-tr-in"><label class="hq-num"><input class="hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="2048" aria-label="이번 달 전송량 (GB)"><i>GB</i></label><small class="hq-tr-s">기본 포함</small></span></div>
-          <input class="hq-range" type="range" min="0" max="6000" step="1" value="2048" data-free="2048" data-rate="100" aria-hidden="true" tabindex="-1">
-          <div class="hq-ticks" aria-hidden="true"><span style="left:0">0</span><span class="inc" style="left:34.13%">2TB 포함</span><span style="left:100%">6,000GB</span></div>
+        <div class="hq-cond">   <!-- [개발 전달] patch-622 결제 · 약정 조건 = 계산 박스 왼쪽 세 번째 묶음 (웹호스팅과 같은 규격 · 4칸 가운데 정렬 · 큰 값 + 작은 이름 · Gray 50 면 · 값은 기획문서 결제 · 약정 조건) -->
+          <span class="hq-lb">결제 · 약정 조건</span>
+          <ul><li><b>12개월</b><span>약정 기간</span></li><li><b>무료</b><span>설치비</span></li><li><b>익월</b><span>사용량 후불 청구</span></li><li><b>일할</b><span>이벤트 기간 일시 증설</span></li></ul>
         </div>
       </div>
       <div class="hq-out" aria-live="polite">
@@ -1089,11 +1104,7 @@
           <div><dt>전송량 초과<small>1GB당 100원 · 익월 후불</small></dt><dd class="hq-over">0원</dd></div>
           <div class="hq-free-row" hidden><dt>무약정 추가<small>월 요금의 10%</small></dt><dd class="hq-free">0원</dd></div>
         </dl>
-        <ul class="hq-terms">   <!-- [개발 전달] patch-520 · 522 결제 조건 = 흰 카드 · 핵심 값(무료 · 익월 자동결제)은 16/700 블랙으로 강조 · 후불 = 공통 뱃지 .w-badge.sm -->
-          <li><span>설치비</span><b class="pt fr">무료</b></li>
-          <li><span>사용량 청구</span><b class="pt">익월 자동결제</b></li>
-          <li><span>이벤트 기간 일시 증설</span><b class="pt">옵션 단가 일할 계산</b></li>
-        </ul>
+        <!-- patch-622 결제 조건 목록 → 왼쪽 결제 · 약정 조건 묶음(.hq-cond)으로 이동 -->
         <p class="hq-note">VAT 별도 · 예시 금액이며 정확한 요금은 상담 시 안내합니다.</p>
       </div>
     </div>
@@ -1121,7 +1132,7 @@
   <div class="cta-copy">
     <h2 class="rv">우리 쇼핑몰에 맞는 인프라,<br>컨설턴트와 함께 정하세요</h2>
     <p class="cta-desc rv" style="--d:60ms">현재 트래픽과 운영 방식을 알려주시면<br> 호스팅부터 퍼블릭 클라우드까지 맞는 구성을 제안해 드립니다.</p>
-    <div class="cta-btns rv" style="--d:120ms"><a class="btn btn-dark" href="#">도입 상담하기</a><a class="btn cta-sub-btn" href="#">이용 고객 문의</a></div>   <!-- [개발 전달] 도입 상담하기 = 신규 구매 상담 · 이용 고객 문의 = 이미 쓰는 고객이 운영 중 문제 · 문의를 남기는 고객센터 페이지로 이동 (patch-379 · 전화 안내 줄 삭제) -->
+    <div class="cta-btns rv" style="--d:120ms"><a class="btn cta-sub-btn" href="#">이용 고객 문의</a><a class="btn btn-dark" href="#">도입 상담하기</a></div>   <!-- patch-612 CTA 버튼 순서 공통 규칙: 흰 버튼(세컨더리) 왼쪽 · 검정 버튼(프라이머리) 오른쪽 · 모바일은 검정 버튼만 -->   <!-- [개발 전달] 도입 상담하기 = 신규 구매 상담 · 이용 고객 문의 = 이미 쓰는 고객이 운영 중 문제 · 문의를 남기는 고객센터 페이지로 이동 (patch-379 · 전화 안내 줄 삭제) -->
   </div>
 </section>
 </div>
@@ -1591,20 +1602,18 @@
   (() => {
     document.querySelectorAll('.hq').forEach(box => {
       const base = +box.dataset.base, fmt = n => Math.round(n).toLocaleString('ko-KR');
-      const tot = box.querySelector('.hq-total'), rng = box.querySelector('.hq-range'), trIn = box.querySelector('.hq-tr-v'), free = +rng.dataset.free;
+      const tot = box.querySelector('.hq-total'), trIn = box.querySelector('.hq-tr-v'), free = +trIn.dataset.free;   // patch-622 슬라이더 없음 · 제공량 · 단가는 전송량 입력칸 data-free · data-rate
       let mode = 'contract';
       const clamp = (v, mx) => Math.max(0, Math.min(mx, Math.round(+v || 0)));
-      const sync = st => { const inp = st.querySelector('input'), mx = +st.dataset.max, v = clamp(inp.value, mx); st.querySelector('.hq-minus').disabled = v <= 0; st.querySelector('.hq-plus').disabled = v >= mx; return v; };
+      const sync = st => { const inp = st.querySelector('input'), mx = +st.dataset.max, v = clamp(inp.value, mx); const mi = st.querySelector('.hq-minus'), pl = st.querySelector('.hq-plus'); if (mi) mi.disabled = v <= 0; if (pl) pl.disabled = v >= mx; return v; };
       const run = () => {
         let opt = 0;
         const items = [];   // patch-524 견적서에 보여 줄 추가 옵션 목록
         const nm = el => el.closest('.hq-row').querySelector('b').textContent.replace(/ 추가$/, '');
-        box.querySelectorAll('.hq-step').forEach(st => { const v = sync(st), won = Math.ceil(v / +st.dataset.per) * +st.dataset.rate; opt += won; if (v > 0) items.push([nm(st) + ' +' + fmt(v) + st.querySelector('.hq-num i').textContent, won]); });   // SSD 는 100GB 단위 올림
+        box.querySelectorAll('.hq-step:not(.hq-tr)').forEach(st => { const v = sync(st), won = Math.ceil(v / +st.dataset.per) * +st.dataset.rate; opt += won; if (v > 0) items.push([nm(st) + ' +' + fmt(v) + st.querySelector('.hq-num i').textContent, won]); });   // SSD 는 100GB 단위 올림
         box.querySelectorAll('.hq-sw').forEach(sw => { if (sw.getAttribute('aria-checked') === 'true') { opt += +sw.dataset.rate; items.push([nm(sw), +sw.dataset.rate]); } });
         const ol = box.querySelector('.hq-opt-list'); ol.hidden = !items.length; ol.innerHTML = items.map(([t, w]) => '<span><b>' + t + '</b><em>+' + fmt(w) + '원</em></span>').join('');
-        const tr = clamp(trIn.value, +trIn.max), over = Math.max(0, tr - free) * +rng.dataset.rate;
-        rng.style.setProperty('--p', (Math.min(tr, +rng.max) / +rng.max * 100) + '%');
-        box.querySelector('.hq-tr-s').textContent = over ? '초과 ' + fmt(tr - free) + 'GB' : '기본 포함';
+        const tr = clamp(trIn.value, +trIn.max), over = Math.max(0, tr - free) * +trIn.dataset.rate;
         const fixed = base + opt, sum = fixed + over, freeRow = box.querySelector('.hq-free-row');
         let txt;
         if (mode === 'free') {
@@ -1628,13 +1637,12 @@
         run();
       });
       // 직접 입력: 입력하는 동안 바로 계산 · 칸을 벗어나면 범위 안 정수로 정리
-      box.querySelectorAll('.hq-step input').forEach(inp => {
+      box.querySelectorAll('.hq-step:not(.hq-tr) input').forEach(inp => {
         inp.addEventListener('input', run);
         inp.addEventListener('change', () => { const per = +inp.closest('.hq-step').dataset.per || 1; inp.value = Math.min(+inp.max, Math.ceil(clamp(inp.value, +inp.max) / per) * per); run(); });   // patch-604 SSD 는 100GB 단위로 올림
       });
-      trIn.addEventListener('input', () => { rng.value = Math.min(clamp(trIn.value, +trIn.max), +rng.max); run(); });
+      trIn.addEventListener('input', run);
       trIn.addEventListener('change', () => { trIn.value = clamp(trIn.value, +trIn.max); run(); });
-      rng.addEventListener('input', () => { trIn.value = rng.value; run(); });
       box.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('.hq input[type=number]')) e.target.blur(); });
       run();
     });

@@ -27,7 +27,7 @@
 <tr><td>정렬</td><td colspan="3">가운데 정렬 · 바탕 White</td></tr>
 <tr><td>제목 <code>h2</code></td><td>40 · 52 · 700 · Black</td><td>36</td><td>26</td></tr>
 <tr><td>설명 <code>p</code></td><td>16 · 1.6 · Gray 600</td><td>16 · 1.6</td><td>15</td></tr>
-<tr><td>버튼 <code>.cta-btns</code></td><td colspan="2">큰 버튼 2개 (프라이머리 → 세컨더리) · 높이 47 · 사이 10</td><td>첫 번째(프라이머리) 버튼만 · 높이 42</td></tr>
+<tr><td>버튼 <code>.cta-btns</code></td><td colspan="2">큰 버튼 2개 · 왼쪽 흰 버튼(세컨더리 <code>.cta-sub-btn</code>) → 오른쪽 검정 버튼(프라이머리 <code>.btn-dark</code>) · 높이 47 · 사이 10</td><td>검정(프라이머리) 버튼만 · 높이 42</td></tr>
 </tbody></table></div>
     <p class="note">버튼 색 · 호버 · 포커스는 <a href="button.html">버튼</a>과 같습니다.</p>
 
@@ -41,23 +41,22 @@
 
 <section class="panel" data-tab="FAQ">
     <h2 id="faq-see">미리보기</h2>
-    <p>GEO 페이지 FAQ 입니다. 미리보기 안에서 질문을 눌러 열고 닫을 수 있습니다.</p>
+    <p>GEO 페이지 FAQ 입니다. 기존 홈페이지(부스터 Cloud 소개 페이지) FAQ 양식을 그대로 씁니다. 미리보기 안에서 질문을 눌러 열고 닫을 수 있습니다.</p>
     <div class="live" data-src="../geo.html" data-sel="#geo-faq .faq" data-m="24"></div>
 
     <h2 id="faq-spec">규격 <code>#geo-faq .faq</code></h2>
     <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC · PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
-<tr><td>목록 폭</td><td>900 · 가운데</td><td>720</td><td>칸 폭 전체</td></tr>
-<tr><td>선</td><td colspan="3">맨 위 1 Black · 질문 사이 1 Gray 200</td></tr>
-<tr><td>질문 <code>summary</code></td><td colspan="2">18 · 25.2 · 600 · 패딩 28/56/28/4</td><td>16 · 패딩 22/40/22/0</td></tr>
-<tr><td>Q 글자</td><td colspan="3">질문 앞 "Q" 700 · 오른쪽 간격 14</td></tr>
-<tr><td>열고 닫기 표시</td><td colspan="3">오른쪽 끝 꺾쇠 10 × 10 · 선 2 Gray 500 · 열리면 위로 뒤집힘</td></tr>
-<tr><td>답 <code>details p</code></td><td colspan="2">16 · 1.7 · Gray 600 · 패딩 0/56/28/36 (Q 글자 뒤에 맞춤)</td><td>15 · 패딩 0/0/22/26</td></tr>
+<tr><td>목록 폭</td><td>880 · 가운데</td><td>칸 폭 전체</td><td>칸 폭 전체</td></tr>
+<tr><td>선</td><td colspan="3">맨 위 1 Gray 900 · 질문 사이 1 Gray 200</td></tr>
+<tr><td>질문 <code>summary</code></td><td>18 · 1.2 · 600 · Gray 900 · 패딩 30/40</td><td>패딩 30</td><td>16 · 1.5 · 패딩 25/15</td></tr>
+<tr><td>열고 닫기 표시</td><td colspan="2">질문 오른쪽 끝 + 14 × 14 (선 2 Gray 900) · 열리면 − · 질문 첫 줄에 맞춤(위 2)</td><td>12 × 12 · 위 6</td></tr>
+<tr><td>열린 질문</td><td colspan="3">질문 + 답 바탕 Gray 50 (0.2초 전환)</td></tr>
+<tr><td>답 <code>details p</code></td><td>16 · 28 · Gray 600 · 최대 폭 628 · 패딩 0/0/30/40 · 위 −5</td><td>최대 폭 618 · 왼쪽 30</td><td>14 · 20 · 패딩 0/37/25/15</td></tr>
 </tbody></table></div>
 
     <h2 id="faq-motion">움직임</h2>
     <div class="tbl"><table class="spec"><thead><tr><th>언제</th><th>동작</th></tr></thead><tbody>
-<tr><td>질문을 누를 때</td><td>답이 열리고 꺾쇠가 위로 뒤집힘 · 다시 누르면 닫힘 (<code>&lt;details&gt;</code> 기본 동작 · 여러 개 함께 열 수 있음)</td></tr>
-<tr><td>꺾쇠 회전</td><td>0.3초 ease-out</td></tr>
+<tr><td>질문을 누를 때</td><td>답이 열리고 + 가 − 로 바뀜 · 바탕 Gray 50 · 다시 누르면 닫힘 (<code>&lt;details&gt;</code> 기본 동작 · 여러 개 함께 열 수 있음)</td></tr>
 </tbody></table></div>
 
     <h2 id="sec-title">영역 타이틀 (공통)</h2>
