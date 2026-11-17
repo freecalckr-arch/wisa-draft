@@ -20,7 +20,6 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
-     · 2026-11-17 patch-624: 히어로 사양 옵션 흰 카드 — 태블릿 · 모바일에도 보임 (요금 카드 아래에 세로로 · patch-581 숨김 해제)
      · 2026-11-17 patch-623: 요금 · 사양 안내 영역(#host-table) 숨김 — 히어로 다음 바로 문제 영역 (마크업 · 스크립트는 남겨 둠 · 다시 쓰려면 hidden 만 지움)
      · 2026-11-17 patch-622: 요금 계산 = 웹호스팅과 같은 구성 — 왼쪽 묶음 결제 방식 · 예상 사용량(이번 달 전송량 + 사양 옵션 4줄 · 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량 슬라이더 · 눈금 삭제) · 결제 · 약정 조건 4칸(12개월 약정 · 설치비 무료 · 사용량 익월 후불 · 일시 증설 일할 · Gray 50 면) / 오른쪽 결제 조건 목록 삭제
      · 2026-11-17 patch-608: 요금 · 사양 비교표 머리줄 "퍼블릭 클라우드 MSP" → "퍼블릭 클라우드" (호스팅 공통 · 모든 호스팅 페이지 같은 표)
@@ -767,7 +766,7 @@
   .hb-ad b { font-weight: 500; color: var(--gray-700); white-space: nowrap; }
   .hb-ad small { font-size: 13px; color: var(--gray-500); white-space: nowrap; }
   .hb-ad em { display: flex; align-items: baseline; gap: 4px; font-style: normal; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  @media (max-width: 1023px) { .hb { grid-template-columns: 1fr; margin-top: 60px; } .hb-top { min-height: 0; } }   /* patch-624 사양 옵션 흰 카드 태블릿 · 모바일에도 보임 (요금 카드 아래 · 요금 · 사양 안내 영역 숨김에 따라 · patch-581 숨김 해제) */
+  @media (max-width: 1023px) { .hb { grid-template-columns: 1fr; margin-top: 60px; } .hb-top { min-height: 0; } .hb .hb-op { display: none; } }   /* patch-581 사양 옵션 흰 카드는 PC(1024~) 만 · 태블릿 · 모바일은 요금 카드 하나 */
   @media (max-width: 767px) {
     .hb { margin-top: 40px; } .hb-c { padding: 28px 20px; }
     #geo-hero .container.hb { padding: 0 26px; }   /* patch-576 모바일 카드 좌우 = 아래 영역과 같은 26 (화면 끝에 붙던 것) */
