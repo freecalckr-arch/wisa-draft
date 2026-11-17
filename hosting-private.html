@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-17 patch-623: 요금 · 사양 안내 영역(#host-table) 숨김 — 히어로 다음 바로 문제 영역 (마크업 · 스크립트는 남겨 둠 · 다시 쓰려면 hidden 만 지움)
      · 2026-11-17 patch-622: 요금 계산 = 웹호스팅과 같은 구성 — 왼쪽 묶음 결제 방식 · 예상 사용량(이번 달 전송량 + 사양 옵션 4줄 · 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량 슬라이더 · 눈금 삭제) · 결제 · 약정 조건 4칸(12개월 약정 · 설치비 무료 · 사용량 익월 후불 · 일시 증설 일할 · Gray 50 면) / 오른쪽 결제 조건 목록 삭제
      · 2026-11-17 patch-608: 요금 · 사양 비교표 머리줄 "퍼블릭 클라우드 MSP" → "퍼블릭 클라우드" (호스팅 공통 · 모든 호스팅 페이지 같은 표)
      · 2026-11-17 patch-606: 헤더 · 푸터 내용 = 공통 헤더 · 푸터 변경안(아티팩트 UD9qYDTME4RZmhhJypyUBL) — 헤더 2depth · 모바일 패널(메뉴 + 설명 · 안내 바 삭제) · 구축 메뉴(맞춤제작 · 유지관리 / 창업패키지 · 디자인스토어 · 인플루언서 구축지원 이벤트) · 푸터 5칸(인프라 추가: 호스팅 · 클라우드 / 보안 · 가속 / 도메인) · 칸 아래 강조 링크(부스터로 이전하기 · 포트폴리오 · AI Studio) · 소개 문구 21년 · 주소 · 통신판매 번호 · 파트너안내 · SNS 주소 / 푸터 블루 글자(강조 링크 · 호버)는 블랙으로 · 기존 클래스 구조 그대로(@region shell-606)
@@ -239,6 +240,7 @@
        - 기획문서 '확정 전' · '안' · '장비 확인 전' 은 회색 작은 배지(.tbd)로 표시 · 가격 확정 시 배지만 삭제
        - 영역 간격 = 마케팅 페이지 (PC 위 160 · 태블릿 120 · 모바일 80 · 아래 0)
      ===================================================================== */
+  #host-table[hidden] { display: none; }   /* patch-623 요금 · 사양 안내 영역 숨김 */
   #host-table, #host-calc, #geo-market, #host-incl, #host-msp, #host-cloud, #host-role, #host-flow { padding-bottom: 0; }
   @media (min-width: 1024px) { #host-table, #host-calc, #geo-market, #host-incl, #host-msp, #host-cloud, #host-role, #host-flow, #host-next { padding-top: 160px; } }
   @media (min-width: 768px) and (max-width: 1023px) { #host-table, #host-calc, #geo-market, #host-incl, #host-msp, #host-cloud, #host-role, #host-flow, #host-next { padding-top: 120px; } }
@@ -941,7 +943,7 @@
 <!-- @endregion -->
 
 <!-- @region host-table : 요금 안내 표 (기획문서 표 그대로 · 묶음 제목 행 + 항목 · 값 · 확정 전 표시) -->
-<section class="sec" id="host-table">
+<section class="sec" id="host-table" hidden>   <!-- patch-623 숨김 (고객 요청 · 마크업은 남겨 둠) -->
   <div class="container">
     <div class="sub-title rv"><h2>요금 · 사양 안내</h2><p>기본 요금에 아래 사양이 포함되고, 필요한 만큼 사양을 더하거나 사용량을 후불로 정산합니다.</p></div>
 
@@ -1202,7 +1204,8 @@
 
 <!-- 시안 히스토리 (검토용): 버전을 추가하려면 아래 data-items 배열에 한 줄 추가 -->
 <div class="vh" id="vh" data-items='[
-  {"date":"2026.11.16","name":"프라이빗 클라우드 · 작업중 · PC","current":true}
+  {"date":"2026.11.16","name":"프라이빗 클라우드 · 1차 시안 · PC","url":"hosting-private-v1.html"},
+  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · PC","url":"hosting-private.html","current":true}
 ]'>   <!-- patch-519: 호스팅 시안 히스토리는 마케팅과 따로 관리 (호스팅 시안만) -->
   <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>호스팅 시안만 모아 둡니다. 지난 시안은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
