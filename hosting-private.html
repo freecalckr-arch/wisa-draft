@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-18 patch-641: 결제 · 약정 조건 — 위치 내역 다음 · VAT 안내 앞(안내는 맨 끝) · 무약정 선택 시 약정 기간 칸 12개월 → 없음 · 글자 줄임(값 18 · 모바일 16 / 이름 13 · 모바일 12 / 제목 16)
      · 2026-11-18 patch-640: 결제 · 약정 조건 = PC · 태블릿도 오른쪽 견적서(월 예상 요금) 맨 아래(VAT 안내 다음)로 · 왼쪽 세 번째 묶음 삭제 · 4칸 2×2
      · 2026-11-18 patch-638: 고객 수정 — ① 기본 포함 02 설명 두 번째 문장("이벤트 기간만 필요하면 일할 계산으로…") · 포함 내용 4 "일시 증설" 태그 · 화면 아래 계속 사용 / 일시 증설 줄(번호 4) 삭제 ② 요금 계산 결제 · 약정 조건 = 태블릿 · 모바일(≤1023)에서 견적서 맨 아래(VAT 안내 다음)로 이동 · PC 는 그대로
      · 2026-11-18 patch-633: 히어로 키워드 아이콘 1 · 2번 색 맞바꿈 → 1 Indigo 500 · 2 Error 500 · 3 Purple 500 · 4 Success 500 (비슷한 인디고 · 퍼플이 이어지지 않게)
@@ -856,7 +857,8 @@
   .hq-cond li span { font-size: 14px; line-height: 20px; color: var(--gray-600); word-break: keep-all; }
   @media (max-width: 767px) { .hq-cond ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hq-cond li:nth-child(3)::before { display: none; } .hq-cond li { padding: 16px 8px; } .hq-cond li b { font-size: 20px; } .hq-cond li span { font-size: 13px; line-height: 18px; } }
   .hq-out > .hq-cond-end { margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200); } .hq-cond-end ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hq-cond-end li:nth-child(3)::before { display: none; }   /* patch-640 전 해상도 오른쪽 견적서 맨 아래 · 2×2 */
-  @media (max-width: 767px) { .hq-out > .hq-cond-end { margin-top: 24px; padding-top: 24px; } }
+  .hq-cond-end .hq-lb { margin-bottom: 12px; font-size: 16px; line-height: 24px; } .hq-cond-end li { gap: 4px; padding: 16px 8px; } .hq-cond-end li + li::before { top: 20px; bottom: 20px; } .hq-cond-end li b { font-size: 18px; } .hq-cond-end li span { font-size: 13px; line-height: 18px; }   /* patch-641 글자 줄임 (값 24 → 18 · 이름 14 → 13 · 제목 18 → 16) */
+  @media (max-width: 767px) { .hq-out > .hq-cond-end { margin-top: 24px; padding-top: 24px; } .hq-cond-end li b { font-size: 16px; } .hq-cond-end li span { font-size: 12px; } }
   /* @endregion hq-cond */
 </style>
 </head>
@@ -1116,11 +1118,11 @@
           <div class="hq-free-row" hidden><dt>무약정 추가<small>월 요금의 10%</small></dt><dd class="hq-free">0원</dd></div>
         </dl>
         <!-- patch-622 결제 조건 목록 → 왼쪽 결제 · 약정 조건 묶음(.hq-cond)으로 이동 -->
-        <p class="hq-note">VAT 별도 · 예시 금액이며 정확한 요금은 상담 시 안내합니다.</p>
-        <div class="hq-cond hq-cond-end">   <!-- [개발 전달] patch-640 결제 · 약정 조건 = 모든 해상도에서 오른쪽 견적서(월 예상 요금) 맨 아래 · VAT 안내 다음 · 4칸은 2×2 (왼쪽 입력 영역에서는 뺌) -->
+        <div class="hq-cond hq-cond-end">   <!-- [개발 전달] patch-640 결제 · 약정 조건 = 모든 해상도에서 오른쪽 견적서(월 예상 요금) 내역 다음 · VAT 안내 앞(patch-641) · 4칸은 2×2 · 무약정을 고르면 약정 기간 칸 = 없음(스크립트 host-quote) (왼쪽 입력 영역에서는 뺌) -->
           <span class="hq-lb">결제 · 약정 조건</span>
-          <ul><li><b>12개월</b><span>약정 기간</span></li><li><b>무료</b><span>설치비</span></li><li><b>익월</b><span>사용량 후불 청구</span></li><li><b>일할</b><span>이벤트 기간 일시 증설</span></li></ul>
+          <ul><li class="hq-term"><b>12개월</b><span>약정 기간</span></li><li><b>무료</b><span>설치비</span></li><li><b>익월</b><span>사용량 후불 청구</span></li><li><b>일할</b><span>이벤트 기간 일시 증설</span></li></ul>
         </div>
+        <p class="hq-note">VAT 별도 · 예시 금액이며 정확한 요금은 상담 시 안내합니다.</p>
       </div>
     </div>
   </div>
@@ -1638,8 +1640,8 @@
           const a = fixed * .10;   // patch-522 무약정 +10% (임시)
           txt = fmt(sum + a);
           box.querySelector('.hq-free').textContent = '+' + fmt(a) + '원'; freeRow.hidden = false;
-          box.querySelector('.hq-mode').textContent = '무약정 기준';
-        } else { txt = fmt(sum); freeRow.hidden = true; box.querySelector('.hq-mode').textContent = '12개월 약정 기준'; }
+          box.querySelector('.hq-mode').textContent = '무약정 기준'; box.querySelector('.hq-term b').textContent = '없음';   // patch-641 약정 기간 칸도 결제 방식에 맞춤
+        } else { txt = fmt(sum); freeRow.hidden = true; box.querySelector('.hq-mode').textContent = '12개월 약정 기준'; box.querySelector('.hq-term b').textContent = '12개월'; }
         box.querySelector('.hq-opt').textContent = (opt ? '+' : '') + fmt(opt) + '원';
         box.querySelector('.hq-over').textContent = (over ? '+' : '') + fmt(over) + '원';
         const st = tot.querySelector('strong'); if (st.textContent !== txt) { st.textContent = txt; tot.classList.remove('bump'); void tot.offsetWidth; tot.classList.add('bump'); }
