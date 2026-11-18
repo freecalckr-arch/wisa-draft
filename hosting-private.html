@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-18 patch-633: 히어로 키워드 아이콘 1 · 2번 색 맞바꿈 → 1 Indigo 500 · 2 Error 500 · 3 Purple 500 · 4 Success 500 (비슷한 인디고 · 퍼플이 이어지지 않게)
      · 2026-11-18 patch-632: 히어로 첫 키워드 아이콘 Blue gray 500 → Error 500 (#f04438 · Indigo 와 비슷해 색이 다양해 보이지 않아서 · 리포트 히어로와 같은 값)
      · 2026-11-18 patch-631: 히어로 키워드 아이콘에서 Primary 색 뺌 — 첫 키워드 Primary 600 → Blue gray 500 (아래 요금 카드 Primary 앱 아이콘과 겹침) · 나머지 Indigo 500 · Purple 500 · Success 500 그대로
      · 2026-11-18 patch-628: 히어로 키워드 아이콘 배경 키워드마다 다르게 — 서버 Primary 600 · 스토리지 Indigo 500 · 네트워크 Purple 500 · 보안 Success 500
@@ -719,9 +720,9 @@
   /* @region hero-b (patch-576): 히어로 B안 채택 — 흰 바탕 · 탭 · 제목 · 설명 + 아래 1240 카드 2장(왼쪽 Primary 50 요금 카드 · 오른쪽 흰 카드 도입 단계) · A안 보관 = hosting-private-hero-a.html */
   #geo-hero { background: var(--white); padding-bottom: 0; overflow: visible; }   /* 카드 ~ 요금 안내 간격 = 다음 영역 위 여백(PC 160 · 태블릿 120 · 모바일 80)만 */
   /* patch-627 히어로 키워드 아이콘 타일 (리포트 .rp-ki 와 같은 크기 · 색은 Primary 600 하나) */
-  .pv-ki { flex: none; display: inline-grid; place-items: center; width: .82em; height: .82em; border-radius: .24em; background: #f04438;   /* patch-632 첫 키워드 Error 500 (리포트 히어로 키워드와 같은 값 · Blue gray 는 Indigo 와 비슷해 구분이 안 돼서) · patch-631 히어로 키워드엔 Primary 안 씀 */ color: var(--white); }
+  .pv-ki { flex: none; display: inline-grid; place-items: center; width: .82em; height: .82em; border-radius: .24em; background: #6172f3;   /* patch-633 1 · 2번 색 맞바꿈 (2 · 3번 인디고 · 퍼플이 이어져 비슷해 보여서) → 1번 Indigo 500 · patch-632 첫 키워드 Error 500 (리포트 히어로 키워드와 같은 값 · Blue gray 는 Indigo 와 비슷해 구분이 안 돼서) · patch-631 히어로 키워드엔 Primary 안 씀 */ color: var(--white); }
   .pv-ki svg { width: 62%; height: 62%; }
-  .pv-ki.k1 { background: #6172f3; } .pv-ki.k2 { background: #7a5af8; } .pv-ki.k3 { background: #12b76a; }   /* patch-628 키워드마다 다른 색 (팔레트: 서버 Primary 600 · 스토리지 Indigo 500 · 네트워크 Purple 500 · 보안 Success 500) */
+  .pv-ki.k1 { background: #f04438; }   /* patch-633 2번 = Error 500 */ .pv-ki.k2 { background: #7a5af8; } .pv-ki.k3 { background: #12b76a; }   /* patch-628 키워드마다 다른 색 (팔레트: 서버 Primary 600 · 스토리지 Indigo 500 · 네트워크 Purple 500 · 보안 Success 500) */
   .hb { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 80px; text-align: left; }   /* 아래 요금 안내 표와 같은 폭 1240 */
   .hb-c { padding: 40px; border-radius: 16px; background: var(--primary-50); }
   .hb-w { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
