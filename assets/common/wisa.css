@@ -14,6 +14,16 @@
      같은 영역이 여러 곳에 나뉘어 있는 것은 캐스케이드 순서를 지키기 위함 (순서 변경 금지)
    - 색·간격 원본 값은 :root 변수에만 둠
    ===================================================================== */
+/* @region toggle (patch-651): 공통 토글 = 피그마 WISA Toggle (node 6425:23344 · md 44×24 · 모서리 12 · 꺼짐 Gray 200 · 켜짐 Primary 600 · 흰 손잡이 20 · 안쪽 2 · 그림자 Shadow/sm · 0.2초) · 마크업 <button class="hq-sw" role="switch" aria-checked="true"> · 규칙 사이트 docs/button.html 토글 탭 */
+.hq-sw { flex: none; position: relative; width: 44px; height: 24px; padding: 0; border: 0; border-radius: 12px; background: var(--gray-200); cursor: pointer; transition: background .2s; }
+.hq-sw::after { content: ""; position: absolute; left: 2px; top: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--white); box-shadow: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.1); transition: transform .2s var(--ease-out); }
+.hq-sw:hover { background: var(--gray-300); }
+.hq-sw[aria-checked="true"] { background: var(--primary-600); }
+.hq-sw[aria-checked="true"]:hover { background: var(--primary-700); }
+.hq-sw[aria-checked="true"]::after { transform: translateX(20px); }
+.hq-sw:focus-visible { outline: none; box-shadow: 0 0 0 4px var(--primary-100); }
+.hq-sw:disabled { background: var(--gray-100); cursor: default; } .hq-sw[aria-checked="true"]:disabled { background: var(--primary-200); } .hq-sw:disabled::after { background: var(--gray-50); box-shadow: none; }
+/* @endregion toggle */
 /* @region common */
 @font-face { font-family: "Pretendard Variable"; font-weight: 45 920; font-display: swap; src: url("fonts/PretendardVariable.woff2") format("woff2"); }
 :root {

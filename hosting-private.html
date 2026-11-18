@@ -14,12 +14,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
-<link rel="stylesheet" href="assets/common/wisa.css?v=612">
+<link rel="stylesheet" href="assets/common/wisa.css?v=651">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">
 <link rel="stylesheet" href="assets/common/chart.css?v=406">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-18 patch-651: 요금 · 견적 영역 켜기/끄기 스위치(.hq-sw) = 공통 토글(wisa.css toggle · 피그마 WISA Toggle md 44×24 · 꺼짐 Gray 200 · 켜짐 Primary 600) · 페이지 안 스위치 스타일 삭제
      · 2026-11-18 patch-641: 결제 · 약정 조건 — 위치 내역 다음 · VAT 안내 앞(안내는 맨 끝) · 무약정 선택 시 약정 기간 칸 12개월 → 없음 · 글자 줄임(값 18 · 모바일 16 / 이름 13 · 모바일 12 / 제목 16)
      · 2026-11-18 patch-640: 결제 · 약정 조건 = PC · 태블릿도 오른쪽 견적서(월 예상 요금) 맨 아래(VAT 안내 다음)로 · 왼쪽 세 번째 묶음 삭제 · 4칸 2×2
      · 2026-11-18 patch-638: 고객 수정 — ① 기본 포함 02 설명 두 번째 문장("이벤트 기간만 필요하면 일할 계산으로…") · 포함 내용 4 "일시 증설" 태그 · 화면 아래 계속 사용 / 일시 증설 줄(번호 4) 삭제 ② 요금 계산 결제 · 약정 조건 = 태블릿 · 모바일(≤1023)에서 견적서 맨 아래(VAT 안내 다음)로 이동 · PC 는 그대로
@@ -566,10 +567,7 @@
   .hq-tr-in .hq-num:focus-within { border-color: var(--gray-900); }
   .hq-tr-in .hq-num input { width: 64px; }
   .hq-tr-s { font-size: 14px; font-weight: 500; color: var(--gray-700); white-space: nowrap; }
-  .hq-sw { flex: none; position: relative; width: 44px; height: 24px; border: 0; border-radius: 99px; background: var(--gray-200); cursor: pointer; transition: background .2s; }
-  .hq-sw::after { content: ""; position: absolute; left: 2px; top: 2px; width: 20px; height: 20px; border-radius: 99px; background: var(--white); box-shadow: 0 1px 3px rgba(16,24,40,.2); transition: transform .2s var(--ease-out); }
-  .hq-sw[aria-checked="true"] { background: var(--gray-900); }
-  .hq-sw[aria-checked="true"]::after { transform: translateX(20px); }
+  /* .hq-sw 토글 = 공통 wisa.css toggle (patch-651) */
   .hq-tr-hd { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
   .hq-tr-hd b { font-size: 18px; font-weight: 700; line-height: 26px; color: var(--gray-900); }
   .hq-range { --p: 34%; width: 100%; height: 24px; margin: 12px 0 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }

@@ -78,7 +78,23 @@
 </tbody></table></div>
     <p class="note">세 버튼 모두 시안 공통 파일에 있는 그대로 구현합니다. 시안 히스토리 버튼(<code>.vh</code>)은 상담 버튼과 높이를 맞춰 두었지만 구현하지 않습니다 (<a href="index.html#draft-only">구현하지 않는 시안 전용 코드</a>).</p>
 </section>
-    <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
+<section class="panel" data-tab="토글">
+    <h2 id="tg-see">미리보기</h2>
+    <div class="demo"><iframe src="assets/demo/toggle.html" title="토글 상태 보기" style="height:190px" loading="lazy"></iframe><p>눌러서 켜고 끌 수 있습니다 · 마우스를 올리면 호버, Tab 키로 옮기면 포커스 상태가 됩니다.</p></div>
+
+    <h2 id="tg-spec">토글 <code>.hq-sw</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>값 (모든 해상도 같음)</th></tr></thead><tbody>
+<tr><td>마크업</td><td><code>&lt;button type="button" class="hq-sw" role="switch" aria-checked="true" aria-label="이름"&gt;</code> · 켜고 끄는 입력은 모두 이 토글 하나만 씀</td></tr>
+<tr><td>크기</td><td>44 × 24 · 모서리 12 · 손잡이 흰 원 20 · 안쪽 2 · 손잡이 그림자 Shadow/sm</td></tr>
+<tr><td>꺼짐</td><td>바탕 Gray 200 · 호버 Gray 300</td></tr>
+<tr><td>켜짐</td><td>바탕 Primary 600 · 호버 Primary 700 · 손잡이 오른쪽으로 20 이동 (0.2초)</td></tr>
+<tr><td>포커스</td><td>Primary 100 링 4</td></tr>
+<tr><td>비활성</td><td>바탕 꺼짐 Gray 100 / 켜짐 Primary 200 · 손잡이 Gray 50 · 그림자 없음 · 누를 수 없음 (<code>disabled</code>)</td></tr>
+<tr><td>줄 배치</td><td>이름 · 설명은 왼쪽, 토글은 오른쪽 끝 세로 가운데 (요금 계산 · 견적 받아보기 <code>.hq-row</code>)</td></tr>
+</tbody></table></div>
+    <p class="note">피그마 WISA Toggle 의 md 크기입니다. 공통 파일 <code>wisa.css</code> 의 toggle 영역 그대로 구현합니다.</p>
+</section>
+    <p class="foot">마지막 수정 2026-11-18 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

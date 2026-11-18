@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>토글 · 상태 보기</title>
+<link rel="stylesheet" href="../../../assets/common/wisa.css?v=651">
+<style>
+  html, body { margin: 0; background: var(--white); }
+  body { padding: 20px; box-sizing: border-box; font-size: 12px; color: var(--gray-500); }
+  .gr { display: grid; grid-template-columns: repeat(4, max-content); gap: 10px 40px; align-items: center; }
+  .gr .hd { font-size: 11px; color: var(--gray-400); }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; max-width: 420px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--gray-100); }
+  .row b { display: block; font-size: 15px; line-height: 22px; color: var(--gray-900); } .row small { font-size: 13px; line-height: 20px; color: var(--gray-600); }
+</style>
+</head>
+<body>
+  <div class="gr">
+    <span class="hd">켜짐</span><span class="hd">꺼짐</span><span class="hd">켜짐 · 비활성</span><span class="hd">꺼짐 · 비활성</span>
+    <button type="button" class="hq-sw" role="switch" aria-checked="true" aria-label="켜짐"></button>
+    <button type="button" class="hq-sw" role="switch" aria-checked="false" aria-label="꺼짐"></button>
+    <button type="button" class="hq-sw" role="switch" aria-checked="true" aria-label="켜짐 비활성" disabled></button>
+    <button type="button" class="hq-sw" role="switch" aria-checked="false" aria-label="꺼짐 비활성" disabled></button>
+  </div>
+  <div class="row"><span><b>24시간 운영 · 보안</b><small>모니터링 · 장애 대응 · 패치 · 백업 · 매월</small></span><button type="button" class="hq-sw" role="switch" aria-checked="true" aria-label="24시간 운영 · 보안"></button></div>
+<script>
+  document.addEventListener('click', e => { const w = e.target.closest('.hq-sw'); if (w && !w.disabled) w.setAttribute('aria-checked', String(w.getAttribute('aria-checked') !== 'true')); });
+</script>
+</body>
+</html>
