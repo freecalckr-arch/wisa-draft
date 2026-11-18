@@ -19,6 +19,7 @@
 <style>
   /* =====================================================================
      [개발 전달] GEO 페이지 리뉴얼 수정 기록 (2026-11-06)
+     · 2026-11-18 patch-627: 문제 영역 결과 · 목표 줄(.bt-goal) 태블릿 · 모바일 규칙 추가 (태블릿 15 · 모바일 14 / 태그 12 · 왼쪽 카드 아래 14) — GEO · 채널마케팅 페이지와 같은 규격, 빠져 있어 모바일에서 16px 그대로 나와 화살표와 붙어 보이던 문제
      · 2026-11-17 patch-606: 헤더 · 푸터 내용 = 공통 헤더 · 푸터 변경안 — 헤더 2depth · 모바일 패널(메뉴 + 설명 · 안내 바 삭제) · 구축 메뉴(맞춤제작 · 유지관리 / 창업패키지 · 디자인스토어 · 인플루언서 구축지원) · 푸터 5칸(인프라 추가) · 칸 아래 강조 링크(블루 → 블랙) · 소개 문구 · 회사 정보 · SNS 주소 (스타일 = 공통 wisa.css shell-606 · 기존 클래스 구조 그대로)
      · 2026-11-16 patch-504: 여러 페이지 <style> 에 똑같이 복사돼 있던 규칙 정리 — 2페이지 이상에서 쓰는 규칙(단계 탭 · 단계 카드 · 해결 화면 · 채널 칩 등 184개)은 공통 wisa.css @region from-pages 로 옮기고, 이 페이지에서 쓰지 않는 다른 페이지용 복사본은 삭제 (화면 변화 없음 · 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-16 patch-503: 단계 탭 줄이 넘칠 때 양 끝 화살표 (원 없이 화살표 16 · 뒤 흰 그라데이션 56 으로 탭 글자가 흐려지며 가려짐 · 끝 마스크 흐림 대신 · 누르면 탭 줄이 칸 폭 60% 만큼 이동 · wisa.css jt-ar · wisa.js jt-nav-mo)
@@ -1220,6 +1221,9 @@
   .bt-goal span { padding: 3px 10px; border-radius: 99px; background: var(--gray-100); font-size: 13px; font-weight: 600; color: var(--gray-600); }
   .is-new .bt-goal { color: var(--black); font-weight: 700; }
   .is-new .bt-goal span { background: var(--primary-50); color: var(--primary-700); }
+  /* patch-627: 모바일 · 태블릿 결과 · 목표 줄 = 다른 마케팅 페이지와 같은 규격 (빠져 있던 규칙 · 화살표와 붙어 보이던 문제) */
+  @media (max-width: 1023px) { .bt-goal { margin-top: 24px; padding-top: 16px; font-size: 15px; } }
+  @media (max-width: 767px) { .bt-goal { margin-top: 20px; padding-top: 14px; font-size: 14px; gap: 8px; } .bt-goal span { font-size: 12px; } #geo-why .bt:not(.is-new) .bt-goal { margin-bottom: 14px; } }
   .os4-kp { margin-top: 0 !important; }
   .os4-ch { margin-top: 14px !important; }
   .bento.ba .pn.chat.os5-ab { display: block; }
