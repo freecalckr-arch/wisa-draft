@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-18 patch-627: 히어로 제목 = 마케팅처럼 키워드 교체 — "[서버 · 스토리지 · 네트워크 · 보안]까지 자체로 구축한 / 엔터프라이즈 가상화 인프라" (아이콘 타일 Primary 600 · 2.4초 · A타입만 · B타입은 patch-626 문구 그대로)
      · 2026-11-17 patch-626: 히어로 제목 첫 줄 "장애가 나도 멈추지 않는" → "자체로 구축하는 엔터프라이즈 가상화 인프라" (A · B타입 같음 · "가상화 인프라" 줄바꿈 없이 묶음 — 모바일에서 "인프라"만 혼자 떨어지지 않게)
      · 2026-11-17 patch-623: 요금 · 사양 안내 영역(#host-table) 숨김 — 히어로 다음 바로 문제 영역 (마크업 · 스크립트는 남겨 둠 · 다시 쓰려면 hidden 만 지움)
      · 2026-11-17 patch-622: 요금 계산 = 웹호스팅과 같은 구성 — 왼쪽 묶음 결제 방식 · 예상 사용량(이번 달 전송량 + 사양 옵션 4줄 · 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량 슬라이더 · 눈금 삭제) · 결제 · 약정 조건 4칸(12개월 약정 · 설치비 무료 · 사용량 익월 후불 · 일시 증설 일할 · Gray 50 면) / 오른쪽 결제 조건 목록 삭제
@@ -714,6 +715,9 @@
 <style>
   /* @region hero-b (patch-576): 히어로 B안 채택 — 흰 바탕 · 탭 · 제목 · 설명 + 아래 1240 카드 2장(왼쪽 Primary 50 요금 카드 · 오른쪽 흰 카드 도입 단계) · A안 보관 = hosting-private-hero-a.html */
   #geo-hero { background: var(--white); padding-bottom: 0; overflow: visible; }   /* 카드 ~ 요금 안내 간격 = 다음 영역 위 여백(PC 160 · 태블릿 120 · 모바일 80)만 */
+  /* patch-627 히어로 키워드 아이콘 타일 (리포트 .rp-ki 와 같은 크기 · 색은 Primary 600 하나) */
+  .pv-ki { flex: none; display: inline-grid; place-items: center; width: .82em; height: .82em; border-radius: .24em; background: var(--primary-600); color: var(--white); }
+  .pv-ki svg { width: 62%; height: 62%; }
   .hb { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 80px; text-align: left; }   /* 아래 요금 안내 표와 같은 폭 1240 */
   .hb-c { padding: 40px; border-radius: 16px; background: var(--primary-50); }
   .hb-w { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
@@ -888,7 +892,7 @@
       <a href="hosting-public.html"><span>퍼블릭<span class="tp-x"> 클라우드</span></span></a>
     </nav>
     <div class="sh-text">
-      <h1 class="rv" style="--d:80ms">자체로 구축하는 엔터프라이즈 <span style="white-space:nowrap">가상화 인프라</span><br><em class="gt">프라이빗 클라우드</em></h1>
+      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="서버 · 스토리지 · 네트워크 · 보안"><span class="ai-roll-in"><span><i class="pv-ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></i>서버</span><span><i class="pv-ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></i>스토리지</span><span><i class="pv-ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg></i>네트워크</span><span><i class="pv-ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></i>보안</span></span></span>까지<br class="mo-br"> 자체로 구축한<br><em class="gt">엔터프라이즈<br class="mo-br"> 가상화 인프라</em></h1>   <!-- [개발 전달] patch-627 키워드 교체(공통 2.4초 · 전환 0.6초 · 마케팅 히어로와 같음): 서버 → 스토리지 → 네트워크 → 보안 · 아이콘 타일 Primary 600 -->
       <p class="rv" style="--d:160ms">위사가 자체 구축·운영하는 엔터프라이즈 가상화 인프라입니다.<br class="pc-only"> 고객 전용 자원을 할당하고, 서버에 장애가 나면 다른 서버에서 자동으로 다시 올라옵니다.</p>
     </div>
   </div>
@@ -1206,8 +1210,9 @@
 <!-- 시안 히스토리 (검토용): 버전을 추가하려면 아래 data-items 배열에 한 줄 추가 -->
 <div class="vh" id="vh" data-items='[
   {"date":"2026.11.16","name":"프라이빗 클라우드 · 1차 시안 · PC","url":"hosting-private-v1.html"},
-  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · A타입 · PC","url":"hosting-private.html","current":true},
-  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · B타입 · PC","url":"hosting-private-b.html"}
+  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · A타입 · PC","url":"hosting-private-v2.html"},
+  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · B타입 · PC","url":"hosting-private-b.html"},
+  {"date":"2026.11.18","name":"프라이빗 클라우드 · 2차 수정시안 · A타입 · PC","url":"hosting-private.html","current":true}
 ]'>   <!-- patch-519: 호스팅 시안 히스토리는 마케팅과 따로 관리 (호스팅 시안만) -->
   <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>호스팅 시안만 모아 둡니다. 지난 시안은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
