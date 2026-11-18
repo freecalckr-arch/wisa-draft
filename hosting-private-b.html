@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-18 patch-638: 고객 수정 — ① 기본 포함 02 설명 두 번째 문장("이벤트 기간만 필요하면 일할 계산으로…") · 포함 내용 4 "일시 증설" 태그 · 화면 아래 계속 사용 / 일시 증설 줄(번호 4) 삭제 ② 요금 계산 결제 · 약정 조건 = 태블릿 · 모바일(≤1023)에서 견적서 맨 아래(VAT 안내 다음)로 이동 · PC 는 그대로
      · 2026-11-17 patch-626: 히어로 제목 첫 줄 "장애가 나도 멈추지 않는" → "자체로 구축하는 엔터프라이즈 가상화 인프라" (A · B타입 같음 · "가상화 인프라" 줄바꿈 없이 묶음 — 모바일에서 "인프라"만 혼자 떨어지지 않게)
      · 2026-11-17 patch-625: B타입(hosting-private-b.html) — 히어로 사양 옵션 흰 카드 숨김(모든 해상도) · 프라이빗 클라우드 요금 카드 하나만 가운데 정렬 (PC 폭 608) · 그 외는 A타입(hosting-private.html)과 같음
      · 2026-11-17 patch-623: 요금 · 사양 안내 영역(#host-table) 숨김 — 히어로 다음 바로 문제 영역 (마크업 · 스크립트는 남겨 둠 · 다시 쓰려면 hidden 만 지움)
@@ -848,6 +849,9 @@
   .hq-cond li b { font-size: 24px; line-height: 1.2; font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; }
   .hq-cond li span { font-size: 14px; line-height: 20px; color: var(--gray-600); word-break: keep-all; }
   @media (max-width: 767px) { .hq-cond ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hq-cond li:nth-child(3)::before { display: none; } .hq-cond li { padding: 16px 8px; } .hq-cond li b { font-size: 20px; } .hq-cond li span { font-size: 13px; line-height: 18px; } }
+  .hq-cond-end { display: none; }
+  @media (max-width: 1023px) { .hq-in > .hq-cond { display: none; } .hq-out > .hq-cond-end { display: block; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200); } }   /* patch-638 한 줄 배치는 결제 · 약정 조건을 맨 아래로 */
+  @media (max-width: 767px) { .hq-out > .hq-cond-end { margin-top: 24px; padding-top: 24px; } }
   /* @endregion hq-cond */
 </style>
 </head>
@@ -1023,14 +1027,13 @@
   </div><ul class="hv-st"><li class="on"><small>쇼핑몰 중단 시간</small><strong>43<span>초</span></strong></li><li><small>유실된 주문</small><strong>0<span>건</span></strong></li><li><small>데이터 손실</small><strong>없음<span></span></strong></li></ul><div class="hv-ai"><i class="aim-av"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.6 4.2 2.8 6.4 7 7-4.2.6-6.4 2.8-7 7-.6-4.2-2.8-6.4-7-7 4.2-.6 6.4-2.8 7-7z" fill="currentColor" stroke="none"/></svg></i><p><b>node-01 디스크 장애</b>로 쇼핑몰을 node-02 에서 다시 띄웠어요. 원인 점검은 엔지니어가 이어서 진행합니다.</p></div></div></div></div>
       </div>
       <div class="dx-panel it-panel" data-it="1" role="tabpanel">
-        <div class="it-txt"><span class="bt-eb">기본 포함 02 · 무중단 증설</span><h3>트래픽이 몰려도<br>멈추지 않고 사양을 올립니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="it-q">“이벤트 날에도 사이트가 안 멈췄어요”</p></div><p class="it-d">서비스를 멈추지 않고 vCPU · 메모리 · SSD를 늘립니다. 이벤트 기간만 필요하면 일할 계산으로 잠깐 증설할 수 있습니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>vCPU 추가</li><li>메모리 추가</li><li>SSD 추가</li><li>일시 증설</li></ul></div></div>
+        <div class="it-txt"><span class="bt-eb">기본 포함 02 · 무중단 증설</span><h3>트래픽이 몰려도<br>멈추지 않고 사양을 올립니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="it-q">“이벤트 날에도 사이트가 안 멈췄어요”</p></div><p class="it-d">서비스를 멈추지 않고 vCPU · 메모리 · SSD를 늘립니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>vCPU 추가</li><li>메모리 추가</li><li>SSD 추가</li></ul></div></div>
         <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw hv-t2"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><b>사양 변경</b><span class="vw-m">shop-vm · 운영 중</span><em class="vw-chip">무중단</em></div><div class="hv-tb"><div class="hv-bar"><span class="hv-dc on"><i class="dot"></i>서비스 중단 0초</span><span class="r">접속 중 <b>1,284명</b></span></div><div class="hv-2 w">
     <div class="hv-cd"><h4>변경할 사양<small>지금 사양 → 변경</small></h4><ul class="hv-sp"><li><p><b>vCPU<i class="os8-p">1</i></b><small>지금 8개</small></p><span class="hv-stp"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></i><b>12</b><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></i><em>개</em></span></li><li><p><b>메모리<i class="os8-p">2</i></b><small>지금 16GB</small></p><span class="hv-stp"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></i><b>24</b><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></i><em>GB</em></span></li><li><p><b>SSD<i class="os8-p">3</i></b><small>지금 300GB</small></p><span class="hv-stp"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></i><b>400</b><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></i><em>GB</em></span></li></ul></div>
     <div class="hv-cd hv-cpu"><h4>CPU 사용률<small>실시간</small></h4><strong>58<span>%</span></strong><p class="hv-dn">▼ 34%p<span>변경 전 92%</span></p>
       <svg class="gx-spark dn" viewBox="0 0 120 40" preserveAspectRatio="none"><path class="a" d="M0 6 L15 5 L30 4 L45 5 L60 4 L72 16 L84 22 L96 21 L108 23 L120 22 L120 40 L0 40Z"/><path class="l" d="M0 6 L15 5 L30 4 L45 5 L60 4 L72 16 L84 22 L96 21 L108 23 L120 22"/><circle cx="120" cy="22" r="2.5"/></svg>
       <p class="ax"><span>14:00</span><span>지금</span></p></div>
   </div>
-  <ul class="hv-rd"><li><i></i><b>계속 사용</b><span>매월 +110,000원</span></li><li class="on"><i></i><b>일시 증설<i class="os8-p">4</i></b><span>11.27 (금) ~ 11.29 (일) · 3일 · +11,000원</span></li></ul>
   </div></div></div>
       </div>
       <div class="dx-panel it-panel" data-it="2" role="tabpanel">
@@ -1113,6 +1116,10 @@
         </dl>
         <!-- patch-622 결제 조건 목록 → 왼쪽 결제 · 약정 조건 묶음(.hq-cond)으로 이동 -->
         <p class="hq-note">VAT 별도 · 예시 금액이며 정확한 요금은 상담 시 안내합니다.</p>
+        <div class="hq-cond hq-cond-end">   <!-- [개발 전달] patch-638 태블릿 · 모바일(≤1023 · 한 줄 배치)은 결제 · 약정 조건을 견적서 맨 아래(VAT 안내 다음)에 표시 · PC 는 왼쪽 세 번째 묶음 그대로 (내용 같음) -->
+          <span class="hq-lb">결제 · 약정 조건</span>
+          <ul><li><b>12개월</b><span>약정 기간</span></li><li><b>무료</b><span>설치비</span></li><li><b>익월</b><span>사용량 후불 청구</span></li><li><b>일할</b><span>이벤트 기간 일시 증설</span></li></ul>
+        </div>
       </div>
     </div>
   </div>
