@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-18 patch-640: 결제 · 약정 조건 = PC · 태블릿도 오른쪽 견적서(월 예상 요금) 맨 아래(VAT 안내 다음)로 · 왼쪽 세 번째 묶음 삭제 · 4칸 2×2
      · 2026-11-18 patch-638: 고객 수정 — ① 기본 포함 02 설명 두 번째 문장("이벤트 기간만 필요하면 일할 계산으로…") · 포함 내용 4 "일시 증설" 태그 · 화면 아래 계속 사용 / 일시 증설 줄(번호 4) 삭제 ② 요금 계산 결제 · 약정 조건 = 태블릿 · 모바일(≤1023)에서 견적서 맨 아래(VAT 안내 다음)로 이동 · PC 는 그대로
      · 2026-11-18 patch-633: 히어로 키워드 아이콘 1 · 2번 색 맞바꿈 → 1 Indigo 500 · 2 Error 500 · 3 Purple 500 · 4 Success 500 (비슷한 인디고 · 퍼플이 이어지지 않게)
      · 2026-11-18 patch-632: 히어로 첫 키워드 아이콘 Blue gray 500 → Error 500 (#f04438 · Indigo 와 비슷해 색이 다양해 보이지 않아서 · 리포트 히어로와 같은 값)
@@ -854,8 +855,7 @@
   .hq-cond li b { font-size: 24px; line-height: 1.2; font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; }
   .hq-cond li span { font-size: 14px; line-height: 20px; color: var(--gray-600); word-break: keep-all; }
   @media (max-width: 767px) { .hq-cond ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hq-cond li:nth-child(3)::before { display: none; } .hq-cond li { padding: 16px 8px; } .hq-cond li b { font-size: 20px; } .hq-cond li span { font-size: 13px; line-height: 18px; } }
-  .hq-cond-end { display: none; }
-  @media (max-width: 1023px) { .hq-in > .hq-cond { display: none; } .hq-out > .hq-cond-end { display: block; margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200); } }   /* patch-638 한 줄 배치는 결제 · 약정 조건을 맨 아래로 */
+  .hq-out > .hq-cond-end { margin-top: 32px; padding-top: 32px; border-top: 1px solid var(--gray-200); } .hq-cond-end ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } .hq-cond-end li:nth-child(3)::before { display: none; }   /* patch-640 전 해상도 오른쪽 견적서 맨 아래 · 2×2 */
   @media (max-width: 767px) { .hq-out > .hq-cond-end { margin-top: 24px; padding-top: 24px; } }
   /* @endregion hq-cond */
 </style>
@@ -1104,10 +1104,6 @@
             <div class="hq-row"><span><b>백업 30일 보관</b><small>기본 14일<span class="hq-pc"> 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 30일 보관"></button></div>
           </div>
         </div>
-        <div class="hq-cond">   <!-- [개발 전달] patch-622 결제 · 약정 조건 = 계산 박스 왼쪽 세 번째 묶음 (웹호스팅과 같은 규격 · 4칸 가운데 정렬 · 큰 값 + 작은 이름 · Gray 50 면 · 값은 기획문서 결제 · 약정 조건) -->
-          <span class="hq-lb">결제 · 약정 조건</span>
-          <ul><li><b>12개월</b><span>약정 기간</span></li><li><b>무료</b><span>설치비</span></li><li><b>익월</b><span>사용량 후불 청구</span></li><li><b>일할</b><span>이벤트 기간 일시 증설</span></li></ul>
-        </div>
       </div>
       <div class="hq-out" aria-live="polite">
         <small>월 예상 요금</small>
@@ -1121,7 +1117,7 @@
         </dl>
         <!-- patch-622 결제 조건 목록 → 왼쪽 결제 · 약정 조건 묶음(.hq-cond)으로 이동 -->
         <p class="hq-note">VAT 별도 · 예시 금액이며 정확한 요금은 상담 시 안내합니다.</p>
-        <div class="hq-cond hq-cond-end">   <!-- [개발 전달] patch-638 태블릿 · 모바일(≤1023 · 한 줄 배치)은 결제 · 약정 조건을 견적서 맨 아래(VAT 안내 다음)에 표시 · PC 는 왼쪽 세 번째 묶음 그대로 (내용 같음) -->
+        <div class="hq-cond hq-cond-end">   <!-- [개발 전달] patch-640 결제 · 약정 조건 = 모든 해상도에서 오른쪽 견적서(월 예상 요금) 맨 아래 · VAT 안내 다음 · 4칸은 2×2 (왼쪽 입력 영역에서는 뺌) -->
           <span class="hq-lb">결제 · 약정 조건</span>
           <ul><li><b>12개월</b><span>약정 기간</span></li><li><b>무료</b><span>설치비</span></li><li><b>익월</b><span>사용량 후불 청구</span></li><li><b>일할</b><span>이벤트 기간 일시 증설</span></li></ul>
         </div>
@@ -1676,7 +1672,7 @@
   (() => { const n = document.querySelector("#geo-hero .tab-page"), on = n && n.querySelector("a.on"); if (!on || n.scrollWidth <= n.clientWidth) return; n.scrollLeft = on.offsetLeft - (n.clientWidth - on.offsetWidth) / 2; })();
   /* @endregion host-tabs */
 </script>
-<script src="assets/common/wisa.js?v=503"></script>
+<script src="assets/common/wisa.js?v=639"></script>
 <script>
   /* @region why-elapsed (patch-569): 문제 왼쪽 칩 장애 경과 시간 — 4.2초 동안 00:00:00 → 02:48:00 으로 빠르게 늘고 1.8초 멈춘 뒤 반복 (움직임 줄이기면 02:48:00 고정) */
   (function () {

@@ -316,3 +316,28 @@
   });
 })();
 /* @endregion */
+/* @region jt-swipe (patch-639): 단계 탭 영역 손가락 넘기기 (태블릿 · 모바일 터치) — 탭 줄(.jt-nav)이 있는 영역의 화면 · 설명을 옆으로 밀면
+   왼쪽으로 밀기 = 다음 탭 · 오른쪽으로 밀기 = 이전 탭 (끝에서 멈춤 · 처음/끝을 넘어 돌지 않음). 탭 버튼을 누른 것과 같게 처리(버튼 click) → 각 페이지 자동 전환이 끝나는 것도 같음.
+   가로 이동 50px 이상 · 세로 이동의 1.5배 이상일 때만 넘김 (세로 스크롤은 그대로) · 탭 줄 자체(가로 스크롤) · 입력칸 · 버튼 위에서 시작한 터치는 제외. 페이지 전용 스크립트 수정 없이 .jt-nav 만 있으면 자동 적용 */
+(() => {
+  document.querySelectorAll(".jt-nav").forEach(nav => {
+    const area = nav.closest(".jt, .it, section"); if (!area) return;
+    const tabs = () => [...nav.querySelectorAll('[role="tab"]')];
+    let x0 = 0, y0 = 0, on = false;
+    area.addEventListener("touchstart", e => {
+      on = e.touches.length === 1 && !e.target.closest(".jt-navw, .jt-nav, input, textarea, select, button, a, [contenteditable]");
+      if (on) { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }
+    }, { passive: true });
+    area.addEventListener("touchend", e => {
+      if (!on) return; on = false;
+      const t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      const list = tabs(), cur = list.findIndex(b => b.classList.contains("on") || b.getAttribute("aria-selected") === "true");
+      const nx = cur + (dx < 0 ? 1 : -1);
+      if (cur < 0 || nx < 0 || nx >= list.length) return;
+      list[nx].click();
+    }, { passive: true });
+    area.addEventListener("touchcancel", () => { on = false; }, { passive: true });
+  });
+})();
+/* @endregion */
