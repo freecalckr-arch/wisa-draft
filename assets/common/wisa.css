@@ -3649,17 +3649,15 @@ img[src*="brand/chatgpt.svg"], img[src*="brand/gemini.svg"], img[src*="brand/gen
   .ft-col.open .ft-feature { display: flex; }
 }
 @media (max-width: 767px) {
-  /* 헤더 모바일 패널: 메뉴 이름 + 설명 한 줄 */
-  .mp-sec ul { display: grid; grid-template-columns: max-content 1fr; gap: 16px 14px; }
-  .mp-sec li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; line-height: normal; }
-  .mp-sec li a { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; }
-  .mp-sec li b { font-size: 15px; line-height: 22px; font-weight: 500; color: var(--gray-900); white-space: nowrap; transition: color .2s; }
-  .mp-sec li span { font-size: 13px; line-height: 19px; color: var(--gray-500); }
-  .mp-sec li a:hover b, .mp-sec li a:active b { color: var(--primary-700); font-weight: 600; }
+  /* patch-665: 헤더 모바일 패널 = 기존 홈페이지(wisa.co.kr)와 같은 2칸 · 메뉴 이름만 (설명 한 줄은 칸이 좁아 줄이 어긋나 뺌 · 기본 규칙 .mp-sec ul 1fr 1fr 그대로) */
+  .mp-sec li b { font-weight: inherit; white-space: nowrap; }
+  .mp-sec li span { display: none; }
   .mo-panel .mp-sec + .mp-sec { padding-top: 24px; }
+  /* patch-665: 1depth 탭 포커스 = 바깥 링(옆 탭을 덮음) 대신 열린 탭과 같은 연한 블루 면 */
+  .gnb button:focus-visible { outline: none; background: #f5faff; color: var(--primary-700); }
 }
 @supports not (grid-template-columns: subgrid) {
-  .ft-group ul, .mp-sec ul { display: flex; flex-direction: column; }
-  .ft-group li a, .mp-sec li a { display: flex; gap: 12px; }
+  .ft-group ul { display: flex; flex-direction: column; }
+  .ft-group li a { display: flex; gap: 12px; }
 }
 /* @endregion shell-606 */
