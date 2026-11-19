@@ -3638,13 +3638,7 @@ img[src*="brand/chatgpt.svg"], img[src*="brand/gemini.svg"], img[src*="brand/gen
 @media (max-width: 1023px) {
   .ft-brand { width: auto; flex: none; }
   .ft-col { width: 100%; flex: none; }
-  /* 태블릿 · 모바일: 메뉴 이름 옆 설명 (헤더 모바일 패널과 같은 방식) */
-  .ft-group ul { display: grid; grid-template-columns: max-content 1fr; gap: 14px 14px; }
-  .ft-group li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; }
-  .ft-group li a { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: baseline; }
-  .ft-group li a > span { white-space: nowrap; }
-  .ft-group li, .ft-group li a { gap: normal; }   /* 기존 li gap 4 가 subgrid 칸 계산을 덮어 긴 이름이 설명과 겹치던 것 */
-  .ft-desc { display: block; font-size: 13px; line-height: 19px; font-weight: 400; color: var(--gray-500); }
+  /* patch-673: 태블릿 · 모바일 푸터 목록 = 기존 디자인(한 줄 목록 · 메뉴 이름만)으로 되돌림 · 이름 옆 설명(.ft-desc) 2칸 배치는 줄이 어긋나 삭제 · 설명은 마크업에 남기고 숨김 */
   .ft-col .ft-feature { display: none; margin-top: 20px; }
   .ft-col.open .ft-feature { display: flex; }
 }
@@ -3655,9 +3649,5 @@ img[src*="brand/chatgpt.svg"], img[src*="brand/gemini.svg"], img[src*="brand/gen
   .mo-panel .mp-sec + .mp-sec { padding-top: 24px; }
   /* patch-665: 1depth 탭 포커스 = 바깥 링(옆 탭을 덮음) 대신 열린 탭과 같은 연한 블루 면 */
   .gnb button:focus-visible { outline: none; background: #f5faff; color: var(--primary-700); }
-}
-@supports not (grid-template-columns: subgrid) {
-  .ft-group ul { display: flex; flex-direction: column; }
-  .ft-group li a { display: flex; gap: 12px; }
 }
 /* @endregion shell-606 */
