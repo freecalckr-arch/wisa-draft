@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 웹호스팅 (호스팅 상세 · 로컬 작업 · 고객 공유 전)
+     · 2026-11-19 patch-668: 히어로 오른쪽 카드 = 맞춤 웹호스팅 · 그 상품에 맞는 맞춤 설계 견적 카드 (고객 요청 · 웹 patch-667 과 같은 틀) · 태블릿 · 모바일에서도 왼쪽 카드 아래에 노출 · 모바일 목록 설명 줄바꿈 허용
      · 2026-11-19 patch-667: 오른쪽 카드 = 맞춤 인프라(여러 상품 조합) → 맞춤 웹호스팅 (고객 의도: 페이지마다 그 상품에 맞는 맞춤 설계 · 서버 = 맞춤 서버호스팅 · 클라우드 = 맞춤 클라우드) · 목록 용량 설계 · 행사 대비 · 보안 구성 · 성장 대비 [확인 필요 · 맞춤 범위 · 견적 절차]
      · 2026-11-19 patch-666: 히어로 오른쪽 흰 카드 = 사양 옵션 단가 → 맞춤 인프라 상품 (고객 요청 · 왼쪽 = 사양 · 가격이 정해진 상품 / 오른쪽 = 쇼핑몰에 맞춰 설계해 제안하는 견적 상품 · '엔터프라이즈' 표현 안 씀) · 금액 자리 "맞춤 견적" · 버튼 맞춤 구성 상담하기(#cta) · 포함 목록 = 맞춤 웹호스팅 · 서버호스팅 · 클라우드 · 설계부터 운영까지 · 옵션 단가는 아래 요금 계산에만 [확인 필요 · 기획문서에 맞춤 상품 없음 · 견적 절차 · 최소 금액]
      · 2026-11-18 patch-664: CTA 버튼 = 왼쪽 흰 "이용 고객 문의" · 오른쪽 검정 "도입 상담하기" (호스팅 4페이지 통일 · 사용자 요청)
@@ -797,14 +798,15 @@
   .hb-app.pri { background: var(--primary-600); color: var(--white); }   /* patch-583 왼쪽(프라이빗) = Primary 600 바탕 · 흰 자물쇠(patch-586) · 오른쪽과 같은 64 · 모서리 20 */
   .hb-op .hb-bd { background: var(--gray-100); color: var(--gray-700); }
   .hb-op .hb-bt.sub { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-300); color: var(--gray-900); } .hb-op .hb-bt.sub:hover { background: var(--gray-50); }
-  .hb-cm li b { font-weight: 600; color: var(--gray-900); white-space: nowrap; }   /* patch-666 맞춤 인프라 목록: 상품 이름 굵게 + 설명 */
+  .hb-cm li b { font-weight: 600; color: var(--gray-900); white-space: nowrap; }   /* patch-666 맞춤 카드 목록: 이름 굵게 + 설명 */
+  @media (max-width: 767px) { .hb-cm li { align-items: flex-start; flex-wrap: wrap; column-gap: 8px; row-gap: 0; padding-left: 24px; position: relative; } .hb-cm li::before { position: absolute; left: 0; top: 3px; } }   /* patch-668 모바일: 설명이 길면 다음 줄로 · 체크는 첫 줄 */
   .hb-ad { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
   .hb-ad li { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 22px; font-size: 15px; line-height: 22px; }   /* 왼쪽 기본 포함 줄 높이 22 와 같게 */
   .hb-ad li > span { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
   .hb-ad b { font-weight: 500; color: var(--gray-700); white-space: nowrap; }
   .hb-ad small { font-size: 13px; color: var(--gray-500); white-space: nowrap; }
   .hb-ad em { display: flex; align-items: baseline; gap: 4px; font-style: normal; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  @media (max-width: 1023px) { .hb { grid-template-columns: 1fr; margin-top: 60px; } .hb-top { min-height: 0; } .hb .hb-op { display: none; } }   /* patch-581 사양 옵션 흰 카드는 PC(1024~) 만 · 태블릿 · 모바일은 요금 카드 하나 */
+  @media (max-width: 1023px) { .hb { grid-template-columns: 1fr; margin-top: 60px; } .hb-top { min-height: 0; }  }   /* patch-668 오른쪽 맞춤 카드도 태블릿 · 모바일에 노출 (왼쪽 카드 아래로 쌓임) */   /* patch-581 사양 옵션 흰 카드는 PC(1024~) 만 · 태블릿 · 모바일은 요금 카드 하나 */
   @media (max-width: 767px) {
     .hb { margin-top: 40px; } .hb-c { padding: 28px 20px; }
     #geo-hero .container.hb { padding: 0 26px; }   /* patch-576 모바일 카드 좌우 = 아래 영역과 같은 26 (화면 끝에 붙던 것) */

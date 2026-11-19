@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-19 patch-668: 히어로 오른쪽 카드 = 맞춤 클라우드(전용 자원 · 복구 설계) · 그 상품에 맞는 맞춤 설계 견적 카드 (고객 요청 · 웹 patch-667 과 같은 틀) · 태블릿 · 모바일에서도 왼쪽 카드 아래에 노출 · 모바일 목록 설명 줄바꿈 허용
      · 2026-11-18 patch-656: 히어로 요금 카드 오른쪽 위 아이콘 숨김 (호스팅 전 페이지 같음 · 마크업은 남겨 둠)
      · 2026-11-18 patch-651: 요금 · 견적 영역 켜기/끄기 스위치(.hq-sw) = 공통 토글(wisa.css toggle · 피그마 WISA Toggle md 44×24 · 꺼짐 Gray 200 · 켜짐 Primary 600) · 페이지 안 스위치 스타일 삭제
      · 2026-11-18 patch-641: 결제 · 약정 조건 — 위치 내역 다음 · VAT 안내 앞(안내는 맨 끝) · 무약정 선택 시 약정 기간 칸 12개월 → 없음 · 글자 줄임(값 18 · 모바일 16 / 이름 13 · 모바일 12 / 제목 16)
@@ -773,13 +774,15 @@
   .hb-app.pri { background: var(--primary-600); color: var(--white); }   /* patch-583 왼쪽(프라이빗) = Primary 600 바탕 · 흰 자물쇠(patch-586) · 오른쪽과 같은 64 · 모서리 20 */
   .hb-op .hb-bd { background: var(--gray-100); color: var(--gray-700); }
   .hb-op .hb-bt.sub { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-300); color: var(--gray-900); } .hb-op .hb-bt.sub:hover { background: var(--gray-50); }
+  .hb-cm li b { font-weight: 600; color: var(--gray-900); white-space: nowrap; }   /* patch-666 맞춤 카드 목록: 이름 굵게 + 설명 */
+  @media (max-width: 767px) { .hb-cm li { align-items: flex-start; flex-wrap: wrap; column-gap: 8px; row-gap: 0; padding-left: 24px; position: relative; } .hb-cm li::before { position: absolute; left: 0; top: 3px; } }   /* patch-668 모바일: 설명이 길면 다음 줄로 · 체크는 첫 줄 */
   .hb-ad { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
   .hb-ad li { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 22px; font-size: 15px; line-height: 22px; }   /* 왼쪽 기본 포함 줄 높이 22 와 같게 */
   .hb-ad li > span { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
   .hb-ad b { font-weight: 500; color: var(--gray-700); white-space: nowrap; }
   .hb-ad small { font-size: 13px; color: var(--gray-500); white-space: nowrap; }
   .hb-ad em { display: flex; align-items: baseline; gap: 4px; font-style: normal; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  @media (max-width: 1023px) { .hb { grid-template-columns: 1fr; margin-top: 60px; } .hb-top { min-height: 0; } .hb .hb-op { display: none; } }   /* patch-581 사양 옵션 흰 카드는 PC(1024~) 만 · 태블릿 · 모바일은 요금 카드 하나 */
+  @media (max-width: 1023px) { .hb { grid-template-columns: 1fr; margin-top: 60px; } .hb-top { min-height: 0; }  }   /* patch-668 오른쪽 맞춤 카드도 태블릿 · 모바일에 노출 (왼쪽 카드 아래로 쌓임) */   /* patch-581 사양 옵션 흰 카드는 PC(1024~) 만 · 태블릿 · 모바일은 요금 카드 하나 */
   @media (max-width: 767px) {
     .hb { margin-top: 40px; } .hb-c { padding: 28px 20px; }
     #geo-hero .container.hb { padding: 0 26px; }   /* patch-576 모바일 카드 좌우 = 아래 영역과 같은 26 (화면 끝에 붙던 것) */
@@ -922,18 +925,18 @@
           <ul class="hb-ck"><li>vCPU 8개 · 메모리 16GB</li><li>SSD 300GB · 전송량 월 2TB</li><li>HA 자동 복구</li><li>일일 백업 14일 보관</li></ul>
       </div>
     </div>
-    <div class="hb-c hb-w hb-op">   <!-- [개발 전달] patch-579 오른쪽 흰 카드 = 사양 옵션 단가 (요금 안내 표 · 요금 계산과 같은 값) · 버튼 = 아래 요금 계산(#host-calc)으로 이동 -->
+    <div class="hb-c hb-w hb-op">   <!-- [개발 전달] patch-668 오른쪽 흰 카드 = 맞춤 클라우드 (이 상품을 쇼핑몰에 맞게 설계하는 견적 상품 · 페이지마다 그 상품의 맞춤 설계 · 옵션 단가는 아래 요금 계산에만) · 버튼 = CTA 도입 상담 · 태블릿 · 모바일도 노출 [확인 필요 · 맞춤 범위 · 견적 절차] -->
       <div class="hb-top">
-        <h2 class="hb-h">필요한 만큼만<br>더해 쓰세요.</h2>
-        <span class="hb-app" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span>
+        <h2 class="hb-h">우리 쇼핑몰에 맞춘<br>전용 클라우드를 설계해 드려요.</h2>
+        <span class="hb-app" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>
       </div>
       <div class="hb-pl">
-        <p class="hb-nm">사양 옵션<span class="hb-bd">다음 달 월정액에 반영</span></p>
-        <p class="hb-pr"><b>5,000원~</b><span>/ 월</span></p>
-        <p class="hb-ds">vCPU · 메모리 · SSD · 백업을<br>쓰는 만큼 더할 수 있습니다.</p>
-        <a class="btn hb-btn" href="#host-calc">요금 계산해 보기</a>
-        <p class="hb-lt">옵션 단가:</p>
-        <ul class="hb-ad"><li><span><b>vCPU 추가</b><small>1개당</small></span><em>+15,000원<small>/ 월</small></em></li><li><span><b>메모리 추가</b><small>1GB당</small></span><em>+5,000원<small>/ 월</small></em></li><li><span><b>SSD 추가</b><small>100GB당</small></span><em>+10,000원<small>/ 월</small></em></li><li><span><b>백업 30일 보관</b><small>기본 14일 → 30일</small></span><em>+20,000원<small>/ 월</small></em></li></ul>
+        <p class="hb-nm">맞춤 클라우드<span class="hb-bd">별도 견적</span></p>
+        <p class="hb-pr"><b>맞춤 견적</b><span>쇼핑몰 규모 기준</span></p>
+        <p class="hb-ds">트래픽 · 데이터 양 · 보안 기준에 맞춰<br>전용 자원과 복구 구성을 제안합니다.</p>
+        <a class="btn hb-btn" href="#cta">맞춤 구성 상담하기</a>
+        <p class="hb-lt">이렇게 맞춰 드려요:</p>
+        <ul class="hb-ck hb-cm"><li><b>자원 설계</b>vCPU · 메모리 · SSD를 규모에</li><li><b>전용 노드</b>고객 전용 노드 클러스터 구성</li><li><b>복구 설계</b>백업 주기 · 보관 기간 · HA 맞춤</li><li><b>행사 대비</b>세일 기간 일시 증설 계획</li></ul>
       </div>
     </div>
   </div>
