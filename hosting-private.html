@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-19 patch-677: 기본 포함 탭 02 무중단 증설 — CPU 사용률 칸 그래프가 남는 세로를 채움(56 → 칸 높이에 맞춰 · 수치 아래 빈 여백 제거) · 선 모양 같고 비율만 맞춤
      · 2026-11-19 patch-675: 모바일(≤767) 히어로 요금 카드 안쪽 여백 위아래 28 → 32 · 좌우 20 → 24 (호스팅 4페이지 같음) · 맞춤 카드 목록은 모바일에서 이름 아래 설명 2줄
      · 2026-11-19 patch-674: 히어로 제목 = [서버 · 스토리지 · 네트워크 · 보안]까지 갖춘 / 전용 가상화 인프라 (자체로 구축한 · 엔터프라이즈 삭제 · 모바일 30/39 · 가장 긴 키워드에서도 360 까지 2줄 · 사용자 선택 A안)
      · 2026-11-19 patch-672: 모바일 히어로 카피 2줄 = [키워드]까지 자체로 구축한 / 엔터프라이즈 가상화 인프라 (키워드 뒤 줄바꿈 삭제 · 제목 크기는 모든 페이지 같은 30/39 라 둘째 줄이 넘쳐 엔터프라이즈 / 가상화 인프라 3줄)
@@ -459,7 +460,7 @@
   .hv-t2 .hv-sp, .hv-t3 .hv-bk, .hv-t3 .hv-dt dl, .hv-t4 .hv-hb { flex: 1; display: flex; flex-direction: column; }
   .hv-t2 .hv-sp li, .hv-t3 .hv-bk li { flex: 1; height: auto; }
   .hv-t3 .hv-dt dl { justify-content: space-around; } .hv-t4 .hv-hb .gx-hbar { flex: 1; justify-content: space-between; }
-  .hv-t2 .hv-cpu { justify-content: space-between; } .hv-t4 .hv-dk .hv-dkr { flex: 1; }
+  .hv-t2 .hv-cpu { justify-content: flex-start; } .hv-t4 .hv-dk .hv-dkr { flex: 1; }
   .hv-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; } .hv-2.w { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
   .hv-cd { position: relative; padding: 12px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); }
   .hv-cd > h4 { position: relative; display: flex; align-items: center; gap: 6px; margin: 0 0 8px; font-size: 13px; font-weight: 700; line-height: 20px; color: var(--gray-900); }
@@ -507,7 +508,7 @@
   .hv-stp b { min-width: 32px; font-size: 14.5px; font-weight: 700; text-align: center; color: var(--gray-900); font-variant-numeric: tabular-nums; } .hv-stp em { width: 20px; font-style: normal; font-size: 12px; color: var(--gray-500); }
   .hv-cpu strong { display: block; font-size: 24px; font-weight: 700; line-height: 32px; color: var(--black); font-variant-numeric: tabular-nums; } .hv-cpu strong span { margin-left: 2px; font-size: 14.5px; color: var(--gray-500); }
   .hv-cpu p.hv-dn { display: flex; gap: 6px; margin: 0 0 8px; font-size: 12px; font-weight: 700; color: var(--primary-600); } .hv-cpu p.hv-dn span { font-weight: 400; color: var(--gray-500); }
-  .hv-cpu .gx-spark { width: 100%; height: 56px; } .hv-cpu .ax { display: flex; justify-content: space-between; margin: 6px 0 0; font-size: 11px; color: var(--gray-400); }
+  .hv-cpu .gx-spark { flex: 1; width: 100%; height: auto; min-height: 56px; margin-top: 12px; }   /* patch-677 그래프가 칸 남는 세로를 채움 (수치 아래 빈 여백 제거) · viewBox 120×128 로 실제 비율에 맞춰 끝점 원이 찌그러지지 않게 */ .hv-cpu .ax { display: flex; justify-content: space-between; margin: 6px 0 0; font-size: 11px; color: var(--gray-400); }
   .hv-rd { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
   .hv-rd li { display: grid; grid-template-columns: 16px auto minmax(0, 1fr); align-items: center; gap: 8px; height: 36px; padding: 0 12px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12.5px; }
   .hv-rd li > i { width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--gray-300); } .hv-rd b { display: inline-flex; align-items: center; font-weight: 700; color: var(--gray-900); } .hv-rd span { justify-self: end; font-size: 12px; color: var(--gray-500); font-variant-numeric: tabular-nums; }
@@ -1047,7 +1048,7 @@
         <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw hv-t2"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><b>사양 변경</b><span class="vw-m">shop-vm · 운영 중</span><em class="vw-chip">무중단</em></div><div class="hv-tb"><div class="hv-bar"><span class="hv-dc on"><i class="dot"></i>서비스 중단 0초</span><span class="r">접속 중 <b>1,284명</b></span></div><div class="hv-2 w">
     <div class="hv-cd"><h4>변경할 사양<small>지금 사양 → 변경</small></h4><ul class="hv-sp"><li><p><b>vCPU<i class="os8-p">1</i></b><small>지금 8개</small></p><span class="hv-stp"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></i><b>12</b><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></i><em>개</em></span></li><li><p><b>메모리<i class="os8-p">2</i></b><small>지금 16GB</small></p><span class="hv-stp"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></i><b>24</b><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></i><em>GB</em></span></li><li><p><b>SSD<i class="os8-p">3</i></b><small>지금 300GB</small></p><span class="hv-stp"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/></svg></i><b>400</b><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12M6 12h12"/></svg></i><em>GB</em></span></li></ul></div>
     <div class="hv-cd hv-cpu"><h4>CPU 사용률<small>실시간</small></h4><strong>58<span>%</span></strong><p class="hv-dn">▼ 34%p<span>변경 전 92%</span></p>
-      <svg class="gx-spark dn" viewBox="0 0 120 40" preserveAspectRatio="none"><path class="a" d="M0 6 L15 5 L30 4 L45 5 L60 4 L72 16 L84 22 L96 21 L108 23 L120 22 L120 40 L0 40Z"/><path class="l" d="M0 6 L15 5 L30 4 L45 5 L60 4 L72 16 L84 22 L96 21 L108 23 L120 22"/><circle cx="120" cy="22" r="2.5"/></svg>
+      <svg class="gx-spark dn" viewBox="0 0 120 128" preserveAspectRatio="none"><path class="a" d="M0 28 L15 24 L30 20 L45 24 L60 20 L72 68 L84 92 L96 88 L108 96 L120 92 L120 128 L0 128Z"/><path class="l" d="M0 28 L15 24 L30 20 L45 24 L60 20 L72 68 L84 92 L96 88 L108 96 L120 92"/><circle cx="120" cy="92" r="2.5"/></svg>
       <p class="ax"><span>14:00</span><span>지금</span></p></div>
   </div>
   </div></div></div>
