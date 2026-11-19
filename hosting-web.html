@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 웹호스팅 (호스팅 상세 · 로컬 작업 · 고객 공유 전)
+     · 2026-11-19 patch-666: 히어로 오른쪽 흰 카드 = 사양 옵션 단가 → 맞춤 인프라 상품 (고객 요청 · 왼쪽 = 사양 · 가격이 정해진 상품 / 오른쪽 = 쇼핑몰에 맞춰 설계해 제안하는 견적 상품 · '엔터프라이즈' 표현 안 씀) · 금액 자리 "맞춤 견적" · 버튼 맞춤 구성 상담하기(#cta) · 포함 목록 = 맞춤 웹호스팅 · 서버호스팅 · 클라우드 · 설계부터 운영까지 · 옵션 단가는 아래 요금 계산에만 [확인 필요 · 기획문서에 맞춤 상품 없음 · 견적 절차 · 최소 금액]
      · 2026-11-18 patch-664: CTA 버튼 = 왼쪽 흰 "이용 고객 문의" · 오른쪽 검정 "도입 상담하기" (호스팅 4페이지 통일 · 사용자 요청)
      · 2026-11-18 patch-656: 히어로 요금 카드 오른쪽 위 아이콘 숨김 (호스팅 전 페이지 같음 · 마크업은 남겨 둠)
      · 2026-11-18 patch-651: 요금 · 견적 영역 켜기/끄기 스위치(.hq-sw) = 공통 토글(wisa.css toggle · 피그마 WISA Toggle md 44×24 · 꺼짐 Gray 200 · 켜짐 Primary 600) · 페이지 안 스위치 스타일 삭제
@@ -795,6 +796,7 @@
   .hb-app.pri { background: var(--primary-600); color: var(--white); }   /* patch-583 왼쪽(프라이빗) = Primary 600 바탕 · 흰 자물쇠(patch-586) · 오른쪽과 같은 64 · 모서리 20 */
   .hb-op .hb-bd { background: var(--gray-100); color: var(--gray-700); }
   .hb-op .hb-bt.sub { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-300); color: var(--gray-900); } .hb-op .hb-bt.sub:hover { background: var(--gray-50); }
+  .hb-cm li b { font-weight: 600; color: var(--gray-900); white-space: nowrap; }   /* patch-666 맞춤 인프라 목록: 상품 이름 굵게 + 설명 */
   .hb-ad { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
   .hb-ad li { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 22px; font-size: 15px; line-height: 22px; }   /* 왼쪽 기본 포함 줄 높이 22 와 같게 */
   .hb-ad li > span { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
@@ -933,18 +935,18 @@
           <ul class="hb-ck"><li>디스크 10GB · 전송량 월 720GB</li><li>초과해도 차단 없이 후불 정산</li><li>10G 방화벽 · DDoS 방어</li><li>웹방화벽</li></ul>
       </div>
     </div>
-    <div class="hb-c hb-w hb-op">   <!-- [개발 전달] patch-579 오른쪽 흰 카드 = 사양 옵션 단가 (요금 안내 표 · 요금 계산과 같은 값) · 버튼 = 아래 요금 계산(#host-calc)으로 이동 -->
+    <div class="hb-c hb-w hb-op">   <!-- [개발 전달] patch-666 오른쪽 흰 카드 = 맞춤 인프라 (견적 상품 · 호스팅 4페이지 같은 카드 예정) · 옵션 단가는 아래 요금 계산(#host-calc)에서만 · 버튼 = CTA 도입 상담으로 이동 [확인 필요 · 견적 절차 · 최소 금액] -->
       <div class="hb-top">
-        <h2 class="hb-h">필요한 만큼만<br>더해 쓰세요.</h2>
-        <span class="hb-app" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span>
+        <h2 class="hb-h">쇼핑몰에 맞춰<br>인프라를 설계해 드려요.</h2>
+        <span class="hb-app" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>
       </div>
       <div class="hb-pl">
-        <p class="hb-nm">사양 옵션<span class="hb-bd">다음 달 월정액에 반영</span></p>
-        <p class="hb-pr"><b>5,000원~</b><span>/ 월</span></p>
-        <p class="hb-ds">디스크는 10GB 단위로 더하고,<br>넘은 전송량만 다음 달에 냅니다.</p>
-        <a class="btn hb-btn" href="#host-calc">요금 계산해 보기</a>
-        <p class="hb-lt">옵션 단가:</p>
-        <ul class="hb-ad"><li><span><b>디스크 추가</b><small>10GB당</small></span><em>+5,000원<small>/ 월</small></em></li><li><span><b>전송량 초과</b><small>1GB당 · 익월 후불</small></span><em>+100원<small>/ GB</small></em></li><li><span><b>12개월 결제</b><small>월 이용료 10% 할인</small></span><em>−3,300원<small>/ 월</small></em></li></ul>
+        <p class="hb-nm">맞춤 인프라<span class="hb-bd">별도 견적</span></p>
+        <p class="hb-pr"><b>맞춤 견적</b><span>쇼핑몰 규모 기준</span></p>
+        <p class="hb-ds">웹호스팅 · 서버호스팅 · 클라우드를<br>쇼핑몰 규모에 맞게 조합해 제안합니다.</p>
+        <a class="btn hb-btn" href="#cta">맞춤 구성 상담하기</a>
+        <p class="hb-lt">이렇게 맞춰 드려요:</p>
+        <ul class="hb-ck hb-cm"><li><b>맞춤 웹호스팅</b>전송량 · 디스크를 트래픽에 맞게</li><li><b>맞춤 서버호스팅</b>웹 · DB 분리 · 이중화 구성</li><li><b>맞춤 클라우드</b>프라이빗 · 퍼블릭을 함께 쓰는 구성</li><li><b>설계부터 운영까지</b>이전 · 관제를 위사가 맡음</li></ul>
       </div>
     </div>
   </div>
