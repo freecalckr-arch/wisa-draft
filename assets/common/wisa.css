@@ -2817,6 +2817,7 @@ img, video { max-width: 100%; display: block; }
 .vh-list time { display: block; font-size: 12px; color: var(--gray-500); }
 .vh-list a, .vh-list span.vh-now { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px; padding: 8px 10px; border-radius: 10px; font-size: 13.5px; font-weight: 600; color: var(--black); text-decoration: none; background: var(--gray-50); }
 .vh-list a:hover { background: var(--gray-100); }
+.vh-list time + a, .vh-list time + span.vh-now { margin-top: 2px; } .vh-list a + a, .vh-list a + span.vh-now, .vh-list span.vh-now + a { margin-top: 6px; }   /* patch-700 같은 날짜 시안 카드 사이 6 */
 .vh-list a::after { content: "↗"; color: var(--gray-400); font-weight: 500; }
 .vh-list span.vh-now { background: var(--primary-50); color: var(--primary-700); }
 .vh-list span.vh-now i { flex: none; white-space: nowrap; padding: 1px 8px; border-radius: 99px; background: var(--primary-600); color: #fff; font-style: normal; font-size: 11px; }
