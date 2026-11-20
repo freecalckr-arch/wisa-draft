@@ -17,7 +17,7 @@
     { g: "인터랙션", items: [["인터랙션 목록", "interactions.html"]] },
     { g: "검수", items: [["개발 검수", "qa.html"]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"], ["매체 광고", "../media-ads.html"], ["라이선스 비교", "../comparison.html"]] },
-    { g: "호스팅 페이지", items: [["웹호스팅", "../hosting-web.html"], ["서버호스팅", "../hosting-server.html"], ["프라이빗 클라우드", "../hosting-private.html"], ["퍼블릭 클라우드", "../hosting-public.html"]] },
+    { g: "호스팅 페이지", items: [["웹호스팅", "../hosting-web.html"], ["서버호스팅", "../hosting-server.html"], ["프라이빗 클라우드", "../hosting-private.html"], ["퍼블릭 클라우드", "../hosting-public.html"], ["CDN", "../hosting-cdn.html"]] },
     { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
