@@ -6,6 +6,14 @@
 <title>탭 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
+<link rel="stylesheet" href="../assets/common/form.css?v=714">
+<style>
+  /* 세그먼트 탭 미리보기 칸 (이 페이지 전용 · 입력 요소 페이지와 같은 칸) · 탭 모양은 ../assets/common/form.css */
+  .pv { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 32px; margin: 16px 0 8px; padding: 30px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .pv.col { flex-direction: column; }
+  .pv-cap { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
+  @media (max-width: 767px) { .pv { padding: 20px; } }
+</style>
 </head>
 <body>
 <!-- 메뉴 · 탭 · 목차는 assets/docs.js 가 그립니다. 미리보기는 실제 시안 페이지를 잘라 보여 줍니다 (assets/live.js). -->
@@ -13,7 +21,7 @@
   <header class="ph">
     <p class="eyebrow">컴포넌트</p>
     <h1>탭</h1>
-    <p class="lede">탭은 세 가지입니다. 히어로 위에서 같은 묶음의 페이지를 오가는 <b>페이지 전환 탭</b>, 단계 영역(<code>#geo-how</code>)에서 단계마다 화면을 바꾸는 <b>단계 탭</b>, 같은 영역 안에서 보는 내용만 바꾸는 <b>라인 탭</b>입니다. 페이지 전환 탭(회색 알약)은 다른 페이지로 이동할 때만 쓰고, 한 영역 안 전환에는 쓰지 않습니다.</p>
+    <p class="lede">탭은 네 가지입니다. 히어로 위에서 같은 묶음의 페이지를 오가는 <b>페이지 전환 탭</b>, 단계 영역(<code>#geo-how</code>)에서 단계마다 화면을 바꾸는 <b>단계 탭</b>, 같은 영역 안에서 보는 내용만 바꾸는 <b>라인 탭</b>, 값을 고르는 <b>세그먼트 탭</b>(요금 계산 결제 방식 등)입니다. 페이지 전환 탭(회색 알약)은 다른 페이지로 이동할 때만 쓰고, 한 영역 안 전환에는 쓰지 않습니다.</p>
   </header>
   <div class="body">
 <section class="panel" data-tab="페이지 전환 탭">
@@ -89,9 +97,27 @@
 </tbody></table></div>
     <p class="note">코드: <code>wisa.css</code> <code>.tabline</code> (기본 · 큰 크기) · 작은 크기는 <code>geo-price.html</code> <code>@region geo-price</code> <code>.gp-tabs .tabline</code>.</p>
 </section>
-    <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
+<section class="panel" data-tab="세그먼트 탭">
+    <p>값을 고르는 탭입니다 (요금 계산 결제 방식 · 신청 범위 등). 모양은 공통 <code>assets/common/form.css</code> <code>.w-tab</code> 하나로 쓰고, 페이지에서는 칸 나누기만 정합니다. 입력칸 · 체크박스 · 라디오 · 토글은 <a href="form.html">입력 요소</a> 페이지에 있습니다.</p>
+    <h2 id="sg-spec">규격 <code>.w-tab</code></h2>
+    <p>바탕 Gray 100 · 안쪽 4 · 모서리 8 · 칸 모서리 6 · 글자 500 Gray 500 → 마우스 올림 Gray 900 · 선택 = 흰 칸 + 그림자 sm + 글자 Gray 900. md = 칸 높이 36 · 글자 16 · 좌우 12 / sm = 칸 높이 28 · 글자 14 · 좌우 10. 칸 폭은 글자만큼이고, 영역을 꽉 채울 때는 <code>.full</code> 로 같은 폭으로 나눕니다 (요금 계산 결제 방식).</p>
+    <div class="pv col" id="sg-demo">
+      <div><span class="pv-cap">sm</span><div class="w-tab sm" role="group"><button type="button" aria-pressed="true">월 결제</button><button type="button" aria-pressed="false">6개월</button><button type="button" aria-pressed="false">12개월</button></div></div>
+      <div><span class="pv-cap">md</span><div class="w-tab" role="group"><button type="button" aria-pressed="true">월 결제</button><button type="button" aria-pressed="false">6개월</button><button type="button" aria-pressed="false">12개월</button></div></div>
+      <div style="width:min(100%,520px)"><span class="pv-cap">md · full (같은 폭)</span><div class="w-tab full" role="group"><button type="button" aria-pressed="false">보안 세팅</button><button type="button" aria-pressed="true">보안 세팅 + 운영대행</button></div></div>
+    </div>
+<div class="code"><button type="button" data-copy="c-f5">복사</button><pre id="c-f5">&lt;div class="w-tab" role="group" aria-label="결제 방식"&gt;      &lt;!-- 작게: w-tab sm · 꽉 채움: w-tab full --&gt;
+  &lt;button type="button" aria-pressed="true"&gt;월 결제&lt;/button&gt;
+  &lt;button type="button" aria-pressed="false"&gt;12개월 결제&lt;/button&gt;
+&lt;/div&gt;</pre></div>
+
+</section>
+    <p class="foot">마지막 수정 2026-11-20 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
   </div>
 </main>
+<script>
+  document.querySelectorAll('#sg-demo .w-tab').forEach(g => g.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); }));
+</script>
 <script src="assets/docs.js"></script>
 <script src="assets/live.js"></script>
 </body>
