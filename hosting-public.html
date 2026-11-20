@@ -21,6 +21,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 퍼블릭 클라우드 MSP (호스팅 상세 · 로컬 작업 · 고객 공유 전)
+     · 2026-11-20 patch-717: 요금 계산 합계 금액(숫자 + 원) = Primary 600 블루 · 전 해상도 (내역 · 제목은 그대로 · 히어로 카드 가격은 검정 유지)
      · 2026-11-20 patch-716: 요금 계산 태블릿 · 모바일 = 입력 박스와 견적 박스 분리 (간격 16 · 각각 테두리 Gray 200 · 모서리 16) · 고객 피드백 "가격 부분 영역 구분" · PC 는 그대로
      · 2026-11-20 patch-713: 요금 계산 탭 · 숫자 입력칸 = WISA 디자인 시스템 공통 컴포넌트(assets/common/form.css · .w-tab · .w-input · 규칙 사이트 docs/form.html)로 교체 · 페이지 전용 모양 규칙 삭제
      · 2026-11-20 patch-711: 히어로 오른쪽 카드 제목 = 왼쪽 카드처럼 명사형 (사용하는 클라우드에 맞춰 / 설계하는 쇼핑몰 인프라.)
@@ -710,7 +711,7 @@
   .hq-ticks .inc { color: var(--gray-800); font-weight: 600; }
   .hq-out { display: flex; flex-direction: column; padding: 40px; background: var(--white); border-left: 1px solid var(--gray-200); }   /* patch-565 흰 바탕 · patch-563 Primary 50 · patch-526 Gray 50 = 결제 방식 탭 바탕(Gray 100)과 같은 Gray 계열 */
   .hq-out > small { font-size: 15px; font-weight: 600; line-height: 22px; color: var(--gray-700); }
-  .hq-total { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px; margin-top: 6px; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  .hq-total { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px; margin-top: 6px; color: var(--primary-600); font-variant-numeric: tabular-nums; }   /* patch-717 계산 결과 합계 금액 = Primary 600 (견적 박스 블루 포인트 1곳 · 고객 피드백 가격 구분) */
   .hq-total strong { font-size: 38px; font-weight: 700; line-height: 48px; }
   .hq-total span { font-size: 20px; }
   .hq-total.bump strong { animation: hqBump .35s var(--ease-out); }
