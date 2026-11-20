@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 서버호스팅 (호스팅 상세 · 2026.11.19 1차 시안 공유)
+     · 2026-11-20 patch-703: 요금 계산 공인 IP 추가 설명에서 "금액 확정 전" 표시 뺌 → 추가는 별도 요금 (확정 전 뱃지 · 문구는 시안에 쓰지 않음)
      · 2026-11-19 patch-675: 모바일(≤767) 히어로 요금 카드 안쪽 여백 위아래 28 → 32 · 좌우 20 → 24 (호스팅 4페이지 같음) · 맞춤 카드 목록은 모바일에서 이름 아래 설명 2줄
      · 2026-11-19 patch-670: 상담하기 버튼(히어로 · 맞춤 카드 · CTA 검정) · 히어로 신청하기 · 무료 인프라 진단 신청(patch-671) 링크 = https://www.wisa.co.kr/counsel (호스팅 공통 · 사용자 요청)
      · 2026-11-19 patch-669: 모바일(≤767) 히어로 요금 카드 문장 제목(.hb-top) 다시 노출 · 제목 20/28 · 상품명 22 → 16/24 (patch-601 숨김 해제 · 두 카드 구분)
@@ -1239,7 +1240,7 @@
             <div class="hq-row"><span><b>이번 달 전송량</b><small>기본 2TB<span class="hq-pc">(2,048GB)</span> 포함 · 초과 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="2300" data-free="2048" data-rate="100" aria-label="이번 달 전송량 (GB)"><i>GB</i></label></span></div>
             <div class="hq-row"><span><b>메모리 · 디스크 증설</b><small>기본 8코어 · 32GB · NVMe SSD 2개 RAID1 · 필요한 만큼 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="mem" aria-checked="false" aria-label="메모리 · 디스크 증설"></button></div>
             <div class="hq-row"><span><b>웹 · DB 분리 · 이중화</b><small>서버를 늘려 구성 · 부하분산 포함 · 쇼핑몰 규모에 맞춰 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="scale" aria-checked="false" aria-label="웹 · DB 분리 · 이중화"></button></div>
-            <div class="hq-row"><span><b>공인 IP 추가</b><small>기본 1개 포함 · 추가 1개당 · 금액 확정 전</small></span><button type="button" class="hq-sw" role="switch" data-quote="ip" aria-checked="false" aria-label="공인 IP 추가"></button></div>   <!-- [개발 전달] patch-662 공인 IP 추가 토글 · 금액 확정 전이라 견적으로 표시 [확인 필요] 확정되면 data-rate 금액 토글로 바꿈 -->   <!-- [개발 전달] patch-659 기획문서 "맞춤 견적" 2항목 = 토글 · 켜면 오른쪽 견적서에 "견적" 줄 추가 (금액 계산 없음 · 공인 IP 추가는 금액 확정 전이라 뺌) -->
+            <div class="hq-row"><span><b>공인 IP 추가</b><small>기본 1개 포함 · 추가는 별도 요금</small></span><button type="button" class="hq-sw" role="switch" data-quote="ip" aria-checked="false" aria-label="공인 IP 추가"></button></div>   <!-- [개발 전달] patch-662 공인 IP 추가 토글 · 금액 확정 전이라 견적으로 표시 [확인 필요] 확정되면 data-rate 금액 토글로 바꿈 -->   <!-- [개발 전달] patch-659 기획문서 "맞춤 견적" 2항목 = 토글 · 켜면 오른쪽 견적서에 "견적" 줄 추가 (금액 계산 없음 · 공인 IP 추가는 금액 확정 전이라 뺌) -->
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 퍼블릭 클라우드 MSP (호스팅 상세 · 로컬 작업 · 고객 공유 전)
+     · 2026-11-20 patch-703: 지원 클라우드 아래 한 줄에 리전(AWS 서울 · Azure 한국 · NAVER Cloud 국내) 추가 (기획문서 지원 클라우드 설명)
      · 2026-11-19 patch-675: 모바일(≤767) 히어로 요금 카드 안쪽 여백 위아래 28 → 32 · 좌우 20 → 24 (호스팅 4페이지 같음) · 맞춤 카드 목록은 모바일에서 이름 아래 설명 2줄
      · 2026-11-19 patch-670: 상담하기 버튼(히어로 · 맞춤 카드 · CTA 검정) · 히어로 신청하기 · 무료 인프라 진단 신청(patch-671) 링크 = https://www.wisa.co.kr/counsel (호스팅 공통 · 사용자 요청)
      · 2026-11-19 patch-669: 모바일(≤767) 히어로 요금 카드 문장 제목(.hb-top) 다시 노출 · 제목 20/28 · 상품명 22 → 16/24 (patch-601 숨김 해제 · 두 카드 구분)
@@ -27,6 +28,7 @@
      · 2026-11-18 patch-664: CTA 버튼 = 왼쪽 흰 "이용 고객 문의" · 오른쪽 검정 "도입 상담하기" (호스팅 4페이지 통일 · 사용자 요청)
      · 2026-11-18 patch-661: 태블릿 · 모바일 #geo-how 위 간격 0 · 아래 간격 두 배이던 것 수정 (다른 영역과 같게 위 120 / 80 · 아래 0)
      · 2026-11-18 patch-660: AWS 카드 트래픽 선 그리기를 clip-path 로 (가로로 늘어나는 그래프에서 선 끝이 잘리던 문제 · 서버 patch-660 과 같음)
+     · 2026-11-20 patch-702: 견적 받아보기 고른 칩 = 체크 블루(Primary 700) · 테두리 2 → 1px
      · 2026-11-19 patch-699: 히어로 태블릿 · 모바일 줄바꿈 = [키워드] 그대로, / 관리만 맡기는 / 퍼블릭 클라우드 (그대로, 를 키워드 줄로)
      · 2026-11-19 patch-695: 히어로 키워드 NAVER Cloud → Cloud (앞 네이버 로고가 NAVER 를 대신 · 읽기용 aria-label 은 NAVER Cloud 그대로)
      · 2026-11-19 patch-692: 히어로 제목 다시 = "[키워드] 그대로, 관리만 맡기는 퍼블릭 클라우드" (patch-691 문장 대신 · 상품명 넣고 짧게)
@@ -753,8 +755,8 @@
   .pu-ch button:hover { box-shadow: inset 0 0 0 1px var(--gray-500); color: var(--gray-900); }
   .pu-ch button:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--primary-700), 0 0 0 4px var(--primary-100); }
   .pu-ch button img { width: 20px; height: 20px; border-radius: 5px; }
-  .pu-ck-i { display: none; flex: none; color: var(--gray-900); }
-  .pu-ch button[aria-checked="true"] { box-shadow: inset 0 0 0 2px var(--primary-700); background: var(--primary-50); font-weight: 700; color: var(--primary-700); }   /* patch-652 고른 칩 = 테두리 Primary 700 2 + 바탕 Primary 50 */
+  .pu-ck-i { display: none; flex: none; color: var(--primary-700); }   /* patch-702 체크 = 블루 (고른 칩 글자와 같은 Primary 700) */
+  .pu-ch button[aria-checked="true"] { box-shadow: inset 0 0 0 1px var(--primary-700); background: var(--primary-50); font-weight: 700; color: var(--primary-700); }   /* patch-652 고른 칩 = 테두리 Primary 700 + 바탕 Primary 50 · patch-702 테두리 2 → 1 */
   .pu-ch button[aria-checked="true"] .pu-ck-i { display: block; }
   .pu-q .hq-total strong { font-size: 32px; line-height: 44px; }
   .pu-bk-h { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--gray-200); font-size: 15px; line-height: 22px; }
@@ -1409,7 +1411,7 @@
           </div>
         </div></div></li>
     </ol>
-    <p class="pb-more rv">GCP · NHN Cloud · KT Cloud 등 그 외 클라우드는 상담 후 협의합니다.</p>
+    <p class="pb-more rv">AWS 서울 리전 · Azure 한국 리전 · NAVER Cloud 국내 리전 기반으로 구성합니다.<br class="pc-only"> GCP · NHN Cloud · KT Cloud 등 그 외 클라우드는 상담 후 협의합니다.</p>
   </div>
 </section>
 <!-- @endregion -->
