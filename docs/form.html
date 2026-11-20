@@ -25,6 +25,15 @@
   .hq-sw:disabled { background: var(--gray-100); cursor: default; } .hq-sw[aria-checked="true"]:disabled { background: var(--primary-200); } .hq-sw:disabled::after { background: var(--gray-50); box-shadow: none; }
   .hq-sw.sm { width: 36px; height: 20px; border-radius: 10px; } .hq-sw.sm::after { width: 16px; height: 16px; } .hq-sw.sm[aria-checked="true"]::after { transform: translateX(16px); }
   .body li code { white-space: normal; overflow-wrap: anywhere; }
+  /* 크기 × 구성 · 상태 표 (가로 = 구성 또는 상태 · 세로 = 크기) */
+  .mx { display: grid; gap: 20px 24px; align-items: start; }
+  .mx3 { grid-template-columns: 56px repeat(3, minmax(0, 1fr)); }
+  .mx6 { grid-template-columns: 56px repeat(6, minmax(0, 1fr)); }
+  .mx .pv-cap { margin: 0; }
+  .mx-r { padding-top: 2px; }
+  .mx-c { display: flex; gap: 12px; }
+  .mx-h { margin: 24px 0 0; font-size: 15px; }
+  @media (max-width: 767px) { .mx3, .mx6 { grid-template-columns: 40px repeat(3, max-content); overflow-x: auto; } .mx6 { grid-template-columns: 40px repeat(6, max-content); } .pv.mx { display: grid; overflow-x: auto; } }
   @media (max-width: 767px) { .pv { padding: 20px; } .pv-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -66,12 +75,15 @@
 
     <h2 id="checkbox">체크박스</h2>
     <p>칸 md 20(모서리 6) · sm 16(모서리 4) · 테두리 Gray 300 · 마우스 올림 · 포커스 = 테두리 Primary 600 + 바탕 Primary 50 · 선택 = Primary 600 채움 + 흰 체크 · 글자 = 제목만 500 Gray 700 / 제목 + 설명이면 제목 600 Gray 900 · 설명 400 Gray 600 · 설명은 제목보다 2 작게(md 14 · sm 12) · 칸과 글자 사이 md 12 · sm 8.</p>
-    <div class="pv pv-grid">
-      <div><span class="pv-cap">칸만</span><label class="w-check sm"><input type="checkbox" aria-label="선택"></label> &nbsp; <label class="w-check sm"><input type="checkbox" checked aria-label="선택"></label> &nbsp; <label class="w-check"><input type="checkbox" aria-label="선택"></label> &nbsp; <label class="w-check"><input type="checkbox" checked aria-label="선택"></label></div>
-      <div><span class="pv-cap">sm · 제목</span><label class="w-check sm"><input type="checkbox" checked><span><b>로그인 상태 유지</b></span></label></div>
-      <div><span class="pv-cap">md · 제목 + 설명</span><label class="w-check"><input type="checkbox"><span><b>로그인 상태 유지</b><small>다음 접속 때 로그인 정보를 기억합니다.</small></span></label></div>
-      <div><span class="pv-cap">비활성</span><label class="w-check"><input type="checkbox" disabled><span><b>로그인 상태 유지</b></span></label></div>
-      <div><span class="pv-cap">비활성 · 선택</span><label class="w-check"><input type="checkbox" checked disabled><span><b>로그인 상태 유지</b></span></label></div>
+    <h3 class="mx-h">크기 × 구성</h3>
+    <div class="pv mx mx3"><span></span><span class="pv-cap">칸만</span><span class="pv-cap">제목</span><span class="pv-cap">제목 + 설명</span>
+      <span class="pv-cap mx-r">sm</span><div class="mx-c"><label class="w-check sm"><input type="checkbox"  aria-label="예시"></label><label class="w-check sm"><input type="checkbox"  checked  aria-label="예시"></label></div><div><label class="w-check sm"><input type="checkbox" checked><span><b>로그인 상태 유지</b></span></label></div><div><label class="w-check sm"><input type="checkbox" checked><span><b>로그인 상태 유지</b><small>다음 접속 때 로그인 정보를 기억합니다.</small></span></label></div>
+      <span class="pv-cap mx-r">md</span><div class="mx-c"><label class="w-check"><input type="checkbox"  aria-label="예시"></label><label class="w-check"><input type="checkbox"  checked  aria-label="예시"></label></div><div><label class="w-check"><input type="checkbox" checked><span><b>로그인 상태 유지</b></span></label></div><div><label class="w-check"><input type="checkbox" checked><span><b>로그인 상태 유지</b><small>다음 접속 때 로그인 정보를 기억합니다.</small></span></label></div>
+    </div>
+    <h3 class="mx-h">상태</h3>
+    <div class="pv mx mx6"><span></span><span class="pv-cap">기본</span><span class="pv-cap">마우스 올림</span><span class="pv-cap">포커스</span><span class="pv-cap">선택</span><span class="pv-cap">비활성</span><span class="pv-cap">비활성 · 선택</span>
+      <span class="pv-cap mx-r">sm</span><div><label class="w-check sm"><input type="checkbox"  aria-label="예시"></label></div><div><label class="w-check sm"><input type="checkbox" style="border-color:var(--primary-600);background-color:var(--primary-50)" aria-label="예시"></label></div><div><label class="w-check sm"><input type="checkbox" style="border-color:var(--primary-600);background-color:var(--primary-50);box-shadow:0 0 0 4px var(--primary-100)" aria-label="예시"></label></div><div><label class="w-check sm"><input type="checkbox" checked  aria-label="예시"></label></div><div><label class="w-check sm"><input type="checkbox" disabled  aria-label="예시"></label></div><div><label class="w-check sm"><input type="checkbox" checked disabled  aria-label="예시"></label></div>
+      <span class="pv-cap mx-r">md</span><div><label class="w-check"><input type="checkbox"  aria-label="예시"></label></div><div><label class="w-check"><input type="checkbox" style="border-color:var(--primary-600);background-color:var(--primary-50)" aria-label="예시"></label></div><div><label class="w-check"><input type="checkbox" style="border-color:var(--primary-600);background-color:var(--primary-50);box-shadow:0 0 0 4px var(--primary-100)" aria-label="예시"></label></div><div><label class="w-check"><input type="checkbox" checked  aria-label="예시"></label></div><div><label class="w-check"><input type="checkbox" disabled  aria-label="예시"></label></div><div><label class="w-check"><input type="checkbox" checked disabled  aria-label="예시"></label></div>
     </div>
 <div class="code"><button type="button" data-copy="c-f2">복사</button><pre id="c-f2">&lt;label class="w-check"&gt;            &lt;!-- 작게: class="w-check sm" --&gt;
   &lt;input type="checkbox"&gt;
@@ -80,10 +92,15 @@
 
     <h2 id="radio">라디오</h2>
     <p>체크박스와 같은 크기 · 색 · 글자 규격이고 칸만 원형입니다. 선택 = Primary 600 채움 + 가운데 흰 점(칸의 40%).</p>
-    <div class="pv pv-grid">
-      <div><span class="pv-cap">sm</span><label class="w-radio sm"><input type="radio" name="r1" checked><span><b>월 결제</b></span></label><br><br><label class="w-radio sm"><input type="radio" name="r1"><span><b>12개월 결제</b></span></label></div>
-      <div><span class="pv-cap">md · 제목 + 설명</span><label class="w-radio"><input type="radio" name="r2" checked><span><b>월 결제</b><small>약정 없이 매월 결제합니다.</small></span></label><br><br><label class="w-radio"><input type="radio" name="r2"><span><b>12개월 결제</b><small>월 요금이 10% 할인됩니다.</small></span></label></div>
-      <div><span class="pv-cap">비활성</span><label class="w-radio"><input type="radio" name="r3" disabled><span><b>준비 중</b></span></label></div>
+    <h3 class="mx-h">크기 × 구성</h3>
+    <div class="pv mx mx3"><span></span><span class="pv-cap">칸만</span><span class="pv-cap">제목</span><span class="pv-cap">제목 + 설명</span>
+      <span class="pv-cap mx-r">sm</span><div class="mx-c"><label class="w-radio sm"><input type="radio" name="radio1"  aria-label="예시"></label><label class="w-radio sm"><input type="radio" name="radio2"  checked  aria-label="예시"></label></div><div><label class="w-radio sm"><input type="radio" name="radio3" checked><span><b>월 결제</b></span></label></div><div><label class="w-radio sm"><input type="radio" name="radio4" checked><span><b>월 결제</b><small>약정 없이 매월 결제합니다.</small></span></label></div>
+      <span class="pv-cap mx-r">md</span><div class="mx-c"><label class="w-radio"><input type="radio" name="radio5"  aria-label="예시"></label><label class="w-radio"><input type="radio" name="radio6"  checked  aria-label="예시"></label></div><div><label class="w-radio"><input type="radio" name="radio7" checked><span><b>월 결제</b></span></label></div><div><label class="w-radio"><input type="radio" name="radio8" checked><span><b>월 결제</b><small>약정 없이 매월 결제합니다.</small></span></label></div>
+    </div>
+    <h3 class="mx-h">상태</h3>
+    <div class="pv mx mx6"><span></span><span class="pv-cap">기본</span><span class="pv-cap">마우스 올림</span><span class="pv-cap">포커스</span><span class="pv-cap">선택</span><span class="pv-cap">비활성</span><span class="pv-cap">비활성 · 선택</span>
+      <span class="pv-cap mx-r">sm</span><div><label class="w-radio sm"><input type="radio" name="radio9"  aria-label="예시"></label></div><div><label class="w-radio sm"><input type="radio" name="radio10" style="border-color:var(--primary-600);background-color:var(--primary-50)" aria-label="예시"></label></div><div><label class="w-radio sm"><input type="radio" name="radio11" style="border-color:var(--primary-600);background-color:var(--primary-50);box-shadow:0 0 0 4px var(--primary-100)" aria-label="예시"></label></div><div><label class="w-radio sm"><input type="radio" name="radio12" checked  aria-label="예시"></label></div><div><label class="w-radio sm"><input type="radio" name="radio13" disabled  aria-label="예시"></label></div><div><label class="w-radio sm"><input type="radio" name="radio14" checked disabled  aria-label="예시"></label></div>
+      <span class="pv-cap mx-r">md</span><div><label class="w-radio"><input type="radio" name="radio15"  aria-label="예시"></label></div><div><label class="w-radio"><input type="radio" name="radio16" style="border-color:var(--primary-600);background-color:var(--primary-50)" aria-label="예시"></label></div><div><label class="w-radio"><input type="radio" name="radio17" style="border-color:var(--primary-600);background-color:var(--primary-50);box-shadow:0 0 0 4px var(--primary-100)" aria-label="예시"></label></div><div><label class="w-radio"><input type="radio" name="radio18" checked  aria-label="예시"></label></div><div><label class="w-radio"><input type="radio" name="radio19" disabled  aria-label="예시"></label></div><div><label class="w-radio"><input type="radio" name="radio20" checked disabled  aria-label="예시"></label></div>
     </div>
 <div class="code"><button type="button" data-copy="c-f3">복사</button><pre id="c-f3">&lt;label class="w-radio"&gt;&lt;input type="radio" name="pay"&gt;&lt;span&gt;&lt;b&gt;월 결제&lt;/b&gt;&lt;/span&gt;&lt;/label&gt;</pre></div>
 
