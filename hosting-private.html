@@ -20,6 +20,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-20 patch-710: 요금 계산 전송량 = 기본 전송량(월 2TB · 입력 없이 오른쪽에 값 표시) + 아래 추가 전송량 입력(기본 초과분 GB · 1GB당 100원) · 견적서 줄 이름 전송량 초과 → 추가 전송량 (입력한 GB 표시)
      · 2026-11-20 patch-708: 히어로 요금 카드 버튼 = 신청하기 (금액이 정해진 카드는 신청하기 · 견적 카드만 상담 · 웹 · 서버 · CDN 과 통일)
      · 2026-11-20 patch-705: 히어로 맞춤 카드 가격 옆 "쇼핑몰 규모 기준" 삭제 (맞춤 견적만 · 호스팅 맞춤 카드 공통)
      · 2026-11-20 patch-703: 기획문서 확정 전 내용도 시안에 넣음 — 일일 백업 탭 태그에 SSD 3중 복제 저장 · 요금 계산 무약정 안내 = 월 요금 10~15% (계산은 10% 기준) [확인 필요 · 무약정 비율]
@@ -584,6 +585,7 @@
   .hq-tr-in .hq-num input { width: 64px; }
   .hq-tr-s { font-size: 14px; font-weight: 500; color: var(--gray-700); white-space: nowrap; }
   /* .hq-sw 토글 = 공통 wisa.css toggle (patch-651) */
+  .hq-inc { flex: none; font-size: 16px; font-weight: 700; line-height: 24px; color: var(--black); white-space: nowrap; font-variant-numeric: tabular-nums; }   /* patch-710 기본 전송량 = 입력칸 대신 값만 표시 */
   .hq-tr-hd { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
   .hq-tr-hd b { font-size: 18px; font-weight: 700; line-height: 26px; color: var(--gray-900); }
   .hq-range { --p: 34%; width: 100%; height: 24px; margin: 12px 0 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
@@ -834,7 +836,7 @@
     .hq-row > span:first-child { display: contents; }
     .hq-row > span:first-child b { grid-column: 1; grid-row: 1; }
     .hq-row > span:first-child small { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
-    .hq-row .hq-step, .hq-row .hq-sw { grid-column: 2; grid-row: 1; margin-left: 0; }
+    .hq-row .hq-step, .hq-row .hq-sw, .hq-row .hq-inc { grid-column: 2; grid-row: 1; margin-left: 0; }
       /* 단위(개 · GB) 길이와 상관없이 입력칸 폭 같게 (36 + 84 + 36) */
     .hq-pc { display: none; }
   }
@@ -858,7 +860,7 @@
     .hq-num input, .hq-tr-in .hq-num input { width: 64px; height: 36px; padding: 0 10px; font-size: 15px; }
     .hq-step .hq-num, .hq-tr-in .hq-num { gap: 6px; }
     .hq-num i { width: 18px; font-size: 12px; }
-    .hq-row .hq-step, .hq-row .hq-sw { grid-row: 1 / span 2; align-self: center; }
+    .hq-row .hq-step, .hq-row .hq-sw, .hq-row .hq-inc { grid-row: 1 / span 2; align-self: center; }
     .hq-row > span:first-child small { grid-column: 1; }
   }
   /* patch-622 옵션 항목 기획서 형식: 위 테두리 없음 · 줄 사이 점선 Gray 200 · 마지막 줄 선 없음 (웹호스팅 patch-618 과 같음) */
@@ -1117,7 +1119,8 @@
         <div>
           <span class="hq-lb">예상 사용량</span>   <!-- [개발 전달] patch-622 옵션 항목 = 기획서 형식 (웹호스팅과 같음): 줄마다 이름 + 설명 / 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량도 같은 줄 형식 (슬라이더 없음) -->
           <div class="hq-opts">
-            <div class="hq-row"><span><b>이번 달 전송량</b><small>기본 2TB<span class="hq-pc">(2,048GB)</span> 포함 · 초과 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="2048" data-free="2048" data-rate="100" aria-label="이번 달 전송량 (GB)"><i>GB</i></label></span></div>
+            <div class="hq-row"><span><b>기본 전송량</b><small>2,048GB · 월 요금에 포함 · 넘어도 차단 없음</small></span><span class="hq-inc">월 2TB</span></div>   <!-- [개발 전달] patch-710 기본 제공량은 입력 없이 오른쪽에 표시 · 아래 줄에 기본을 넘는 추가 전송량만 입력 -->
+            <div class="hq-row"><span><b>추가 전송량</b><small>기본 2TB 초과분 · 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="100" data-free="0" data-rate="100" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
             <div class="hq-row"><span><b>vCPU 추가</b><small>기본 8개<span class="hq-pc"> 포함</span> · 1개당 <span class="hq-pc">월 </span>15,000원</small></span><span class="hq-step" data-step="1" data-per="1" data-rate="15000" data-max="32"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="32" step="1" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
             <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 1GB당 <span class="hq-pc">월 </span>5,000원</small></span><span class="hq-step" data-step="4" data-per="1" data-rate="5000" data-max="256"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="256" step="4" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
             <div class="hq-row"><span><b>SSD 추가</b><small>기본 300GB<span class="hq-pc"> 포함</span> · 100GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> (100GB 단위)</span></small></span><span class="hq-step" data-step="100" data-per="100" data-rate="10000" data-max="2000"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="2000" step="100" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
@@ -1132,7 +1135,7 @@
         <dl class="hq-break">
           <div><dt>기본 요금</dt><dd>260,000원</dd></div>
           <div><dt>사양 옵션<small>다음 달 월정액에 반영</small></dt><dd class="hq-opt">+40,000원</dd><dd class="hq-opt-list"><span><b>메모리 +8GB</b><em>+40,000원</em></span></dd></div>   <!-- [개발 전달] patch-524 추가한 사양 옵션 목록 (스크립트 host-quote 가 입력값으로 채움 · 없으면 숨김) -->
-          <div><dt>전송량 초과<small>1GB당 100원 · 익월 후불</small></dt><dd class="hq-over">0원</dd></div>
+          <div><dt>추가 전송량<small>100GB · 1GB당 100원 · 익월 후불</small></dt><dd class="hq-over">0원</dd></div>
           <div class="hq-free-row" hidden><dt>무약정 추가<small>월 요금의 10%</small></dt><dd class="hq-free">0원</dd></div>
         </dl>
         <!-- patch-622 결제 조건 목록 → 왼쪽 결제 · 약정 조건 묶음(.hq-cond)으로 이동 -->
@@ -1665,6 +1668,7 @@
         } else { txt = fmt(sum); freeRow.hidden = true; box.querySelector('.hq-mode').textContent = '12개월 약정 기준'; box.querySelector('.hq-term b').textContent = '12개월'; }
         box.querySelector('.hq-opt').textContent = (opt ? '+' : '') + fmt(opt) + '원';
         box.querySelector('.hq-over').textContent = (over ? '+' : '') + fmt(over) + '원';
+        box.querySelector('.hq-over').parentNode.querySelector('dt small').textContent = fmt(tr) + 'GB · 1GB당 ' + fmt(+trIn.dataset.rate) + '원 · 익월 후불';   // patch-710 입력한 추가 전송량 표시
         const st = tot.querySelector('strong'); if (st.textContent !== txt) { st.textContent = txt; tot.classList.remove('bump'); void tot.offsetWidth; tot.classList.add('bump'); }
       };
       box.addEventListener('click', e => {
