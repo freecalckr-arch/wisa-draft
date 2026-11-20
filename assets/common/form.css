@@ -41,7 +41,9 @@
 .w-check > input:checked:disabled, .w-radio > input:checked:disabled { border-color: var(--primary-200); background-color: var(--primary-200); }
 .w-check > span, .w-radio > span { display: flex; flex-direction: column; }
 .w-check b, .w-radio b { font-weight: 500; color: var(--gray-700); }
-.w-check small, .w-radio small { font-size: inherit; font-weight: 400; color: var(--gray-600); }
+.w-check > span:has(small) b, .w-radio > span:has(small) b { font-weight: 600; color: var(--gray-900); }   /* 제목 + 설명 = 제목 600 Gray 900 · 설명 400 */
+.w-check small, .w-radio small { margin-top: 2px; font-size: 14px; font-weight: 400; line-height: 20px; color: var(--gray-600); }   /* 설명 = 제목보다 2 작게 (md 14 · sm 12) */
+.w-check.sm small, .w-radio.sm small { margin-top: 0; font-size: 12px; line-height: 18px; }
 .w-check:has(input:disabled), .w-radio:has(input:disabled) { cursor: not-allowed; }
 .w-check:has(input:disabled) > span, .w-radio:has(input:disabled) > span { opacity: .5; }
 /* @endregion w-check-radio */

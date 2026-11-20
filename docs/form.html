@@ -6,13 +6,13 @@
 <title>입력 요소 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
-<link rel="stylesheet" href="../assets/common/form.css?v=713">
+<link rel="stylesheet" href="../assets/common/form.css?v=714">
 <style>
   /* 미리보기 칸 (이 페이지 전용) · 컴포넌트 모양은 전부 ../assets/common/form.css (+ 토글 md = wisa.css .hq-sw 와 같은 값) */
   .pv { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 32px; margin: 16px 0 8px; padding: 30px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); font-family: inherit; }
   .pv.col { flex-direction: column; }
-  .pv .w-field { width: 320px; max-width: 100%; }
-  .pv-grid { display: grid; grid-template-columns: repeat(3, max-content); gap: 20px 40px; align-items: start; }
+  .pv .w-field { width: 100%; min-width: 0; }
+  .pv-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 40px; align-items: start; }
   .pv-cap { display: block; margin-bottom: 8px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
   /* 토글 md — wisa.css toggle 영역과 같은 값 (규칙 사이트는 wisa.css 를 불러오지 않아 여기 복사) */
   .hq-sw { flex: none; position: relative; width: 44px; height: 24px; padding: 0; border: 0; border-radius: 12px; background: var(--gray-200); cursor: pointer; transition: background .2s; }
@@ -66,7 +66,7 @@
 &lt;/div&gt;</pre></div>
 
     <h2 id="checkbox">체크박스</h2>
-    <p>칸 md 20(모서리 6) · sm 16(모서리 4) · 테두리 Gray 300 · 마우스 올림 · 포커스 = 테두리 Primary 600 + 바탕 Primary 50 · 선택 = Primary 600 채움 + 흰 체크 · 글자 제목 500 Gray 700 / 설명 400 Gray 600 · 칸과 글자 사이 md 12 · sm 8.</p>
+    <p>칸 md 20(모서리 6) · sm 16(모서리 4) · 테두리 Gray 300 · 마우스 올림 · 포커스 = 테두리 Primary 600 + 바탕 Primary 50 · 선택 = Primary 600 채움 + 흰 체크 · 글자 = 제목만 500 Gray 700 / 제목 + 설명이면 제목 600 Gray 900 · 설명 400 Gray 600 · 설명은 제목보다 2 작게(md 14 · sm 12) · 칸과 글자 사이 md 12 · sm 8.</p>
     <div class="pv pv-grid">
       <div><span class="pv-cap">칸만</span><label class="w-check sm"><input type="checkbox" aria-label="선택"></label> &nbsp; <label class="w-check sm"><input type="checkbox" checked aria-label="선택"></label> &nbsp; <label class="w-check"><input type="checkbox" aria-label="선택"></label> &nbsp; <label class="w-check"><input type="checkbox" checked aria-label="선택"></label></div>
       <div><span class="pv-cap">sm · 제목</span><label class="w-check sm"><input type="checkbox" checked><span><b>로그인 상태 유지</b></span></label></div>
@@ -111,7 +111,7 @@
 
     <h2 id="rule">쓰는 규칙</h2>
     <ul>
-      <li>새 페이지는 <code>wisa.css</code> 다음 줄에 <code>&lt;link rel="stylesheet" href="assets/common/form.css?v=713"&gt;</code> 를 연결하고 위 마크업을 그대로 씁니다.</li>
+      <li>새 페이지는 <code>wisa.css</code> 다음 줄에 <code>&lt;link rel="stylesheet" href="assets/common/form.css?v=714"&gt;</code> 를 연결하고 위 마크업을 그대로 씁니다.</li>
       <li>페이지에서는 배치(폭 · 정렬 · 칸 나누기)만 정하고 높이 · 모서리 · 테두리 · 색 · 글자 크기는 덮어쓰지 않습니다.</li>
       <li>필요한 모양이 없으면 페이지에서 새로 만들지 않고 <code>form.css</code> 에 먼저 추가하고 이 페이지에 적은 뒤 씁니다.</li>
       <li>화면 이미지(목업) 안에 그린 작은 입력칸 · 탭은 이미지 비율에 맞춘 그림이라 이 규격 대상이 아닙니다.</li>
