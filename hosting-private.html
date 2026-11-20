@@ -15,11 +15,13 @@
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=700">
+<link rel="stylesheet" href="assets/common/form.css?v=713">   <!-- patch-713 입력 요소 공통 컴포넌트 (입력칸 · 체크박스 · 라디오 · 탭 · 토글 sm) -->
 <link rel="stylesheet" href="assets/common/badge.css?v=472">
 <link rel="stylesheet" href="assets/common/chart.css?v=406">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-20 patch-713: 요금 계산 탭 · 숫자 입력칸 = WISA 디자인 시스템 공통 컴포넌트(assets/common/form.css · .w-tab · .w-input · 규칙 사이트 docs/form.html)로 교체 · 페이지 전용 모양 규칙 삭제
      · 2026-11-20 patch-711: 히어로 오른쪽 카드 제목 = 왼쪽 카드처럼 명사형 (우리 쇼핑몰에 맞춰 / 설계하는 맞춤 전용 클라우드.)
      · 2026-11-20 patch-710: 요금 계산 전송량 = 기본 전송량(월 2TB · 입력 없이 오른쪽에 값 표시) + 아래 추가 전송량 입력(기본 초과분 GB · 1GB당 100원) · 견적서 줄 이름 전송량 초과 → 추가 전송량 (입력한 GB 표시)
      · 2026-11-20 patch-708: 히어로 요금 카드 버튼 = 신청하기 (금액이 정해진 카드는 신청하기 · 견적 카드만 상담 · 웹 · 서버 · CDN 과 통일)
@@ -559,10 +561,7 @@
   .hq-lb { display: block; margin-bottom: 16px; font-size: 18px; font-weight: 700; line-height: 26px; color: var(--gray-900); }   /* patch-398 묶음 제목 = 가장 강하게 (항목 16/600 보다 위) */
   .hq-lb small { margin-left: 6px; font-size: 14px; font-weight: 500; color: var(--gray-600); }
   /* patch-399: 결제 방식 탭 = 기존 홈페이지 탭(.tab_basic.large) 규격 — 바탕 Gray 100 · 안쪽 여백 5 · 모서리 8 / 탭 높이 44 · 모서리 5 · 16/500 · 기본 Gray 400 · 선택 흰 바탕 검정 + 그림자 0 0 6 rgba(0,0,0,.1) */
-  .hq-seg { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 5px; border-radius: 8px; background: var(--gray-100); }
-  .hq-seg button { display: flex; align-items: center; justify-content: center; height: 44px; padding: 0 10px; border: 0; border-radius: 5px; background: transparent; font: inherit; font-size: 16px; font-weight: 500; line-height: 22px; color: var(--gray-600); word-break: keep-all; cursor: pointer; transition: color .2s, background .2s, box-shadow .2s; }
-  .hq-seg button:hover, .hq-seg button:focus-visible { color: var(--black); }
-  .hq-seg button[aria-pressed="true"] { background: var(--white); color: var(--black); font-weight: 700; box-shadow: 0 0 6px rgba(0,0,0,.1); }
+  .hq-seg { grid-template-columns: 1fr 1fr; }   /* patch-713 탭 모양 = 공통 form.css .w-tab (md · 칸 높이 36 · 바탕 Gray 100) · 여기선 칸 나누기만 */
   .hq-seg-note { margin: 10px 0 0; font-size: 14px; line-height: 20px; color: var(--gray-600); }
   .hq-opts { display: flex; flex-direction: column; border-top: 1px solid var(--gray-200); }
   .hq-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 72px; padding: 12px 0; border-bottom: 1px solid var(--gray-200); }
@@ -575,9 +574,8 @@
   .hq-step button:hover:not(:disabled) { background: var(--gray-50); }
   .hq-step button:disabled { color: var(--gray-300); cursor: default; }
   .hq-num { display: flex; align-items: center; justify-content: center; gap: 4px; cursor: text; }
-  .hq-num input { width: 56px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 16px; font-weight: 600; line-height: 24px; text-align: right; color: var(--gray-900); font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
+  .hq-num input:not(.w-input) { width: 56px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 16px; font-weight: 600; line-height: 24px; text-align: right; color: var(--gray-900); font-variant-numeric: tabular-nums; -moz-appearance: textfield; appearance: textfield; }
   .hq-num input::-webkit-outer-spin-button, .hq-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-  .hq-num input:focus { outline: 0; }
   .hq-num i { font-style: normal; font-size: 14px; color: var(--gray-600); }
   .hq-step .hq-num { min-width: 96px; height: 100%; padding: 0 8px; border-inline: 1px solid var(--gray-200); }
   .hq-tr-in { display: flex; align-items: center; gap: 8px; }
@@ -832,7 +830,6 @@
     .ht-g.on h3 { background: var(--primary-50); color: var(--primary-700); }
     .ht-g.on::after { opacity: 1; }
     /* 5. 요금 계산: 결제 방식 탭 44 → 40 · 사양 옵션 = 이름 | 입력칸 한 줄 + 설명은 아래 전체 폭 (입력칸이 혼자 아래 줄로 떨어져 줄이 길던 것) */
-    .hq-seg { padding: 4px; } .hq-seg button { height: 40px; font-size: 15px; }
     .hq-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 4px 12px; min-height: 0; padding: 16px 0; }
     .hq-row > span:first-child { display: contents; }
     .hq-row > span:first-child b { grid-column: 1; grid-row: 1; }
@@ -854,11 +851,10 @@
   .hq-step { height: auto; border: 0; border-radius: 0; background: none; overflow: visible; }
   .hq-step .hq-minus, .hq-step .hq-plus { display: none; }
   .hq-step .hq-num, .hq-tr-in .hq-num { width: auto; min-width: 0; height: auto; gap: 8px; padding: 0; border: 0; border-radius: 0; }
-  .hq-num input, .hq-tr-in .hq-num input { box-sizing: border-box; width: 88px; height: 40px; padding: 0 12px; border: 1px solid var(--gray-300); border-radius: 10px; background: var(--white); font-size: 16px; transition: border-color .2s; }
-  .hq-num input:focus { border-color: var(--gray-900); }
+  .hq-num input.w-input { width: 88px; text-align: right; font-variant-numeric: tabular-nums; }   /* patch-713 입력칸 모양 = 공통 form.css .w-input (높이 40 · 모서리 8 · 포커스 Primary 600 + 링) · 여기선 폭 · 오른쪽 정렬만 */
   .hq-num i { width: 20px; font-size: 14px; color: var(--gray-600); }
   @media (max-width: 767px) {   /* patch-605 모바일: 입력칸 88×40 → 64×36 · 숫자 15 · 단위 12 (폭 18) · 입력칸 · 스위치를 이름 + 설명 두 줄의 세로 가운데에 */
-    .hq-num input, .hq-tr-in .hq-num input { width: 64px; height: 36px; padding: 0 10px; font-size: 15px; }
+    .hq-num input.w-input { width: 80px; }   /* patch-713 모바일: 안쪽 여백 14 기준 다섯 자리(20000)까지 보이게 */
     .hq-step .hq-num, .hq-tr-in .hq-num { gap: 6px; }
     .hq-num i { width: 18px; font-size: 12px; }
     .hq-row .hq-step, .hq-row .hq-sw, .hq-row .hq-inc { grid-row: 1 / span 2; align-self: center; }
@@ -1114,17 +1110,17 @@
       <div class="hq-in">
         <div>
           <span class="hq-lb" id="hq-mode-lb">결제 방식</span>
-          <div class="hq-seg" role="group" aria-labelledby="hq-mode-lb"><button type="button" data-mode="contract" aria-pressed="true">12개월 약정</button><button type="button" data-mode="free" aria-pressed="false">무약정</button></div>
+          <div class="hq-seg w-tab full" role="group" aria-labelledby="hq-mode-lb"><button type="button" data-mode="contract" aria-pressed="true">12개월 약정</button><button type="button" data-mode="free" aria-pressed="false">무약정</button></div>
           <p class="hq-seg-note">무약정은 월 요금이 10~15% 더해집니다 · 예상 요금은 10% 기준</p>
         </div>
         <div>
           <span class="hq-lb">예상 사용량</span>   <!-- [개발 전달] patch-622 옵션 항목 = 기획서 형식 (웹호스팅과 같음): 줄마다 이름 + 설명 / 숫자 입력칸 + 단위 · 줄 사이 점선 · 전송량도 같은 줄 형식 (슬라이더 없음) -->
           <div class="hq-opts">
             <div class="hq-row"><span><b>기본 전송량</b><small>2,048GB · 월 요금에 포함 · 넘어도 차단 없음</small></span><span class="hq-inc">월 2TB</span></div>   <!-- [개발 전달] patch-710 기본 제공량은 입력 없이 오른쪽에 표시 · 아래 줄에 기본을 넘는 추가 전송량만 입력 -->
-            <div class="hq-row"><span><b>추가 전송량</b><small>기본 2TB 초과분 · 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="100" data-free="0" data-rate="100" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
-            <div class="hq-row"><span><b>vCPU 추가</b><small>기본 8개<span class="hq-pc"> 포함</span> · 1개당 <span class="hq-pc">월 </span>15,000원</small></span><span class="hq-step" data-step="1" data-per="1" data-rate="15000" data-max="32"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="32" step="1" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
-            <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 1GB당 <span class="hq-pc">월 </span>5,000원</small></span><span class="hq-step" data-step="4" data-per="1" data-rate="5000" data-max="256"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="256" step="4" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
-            <div class="hq-row"><span><b>SSD 추가</b><small>기본 300GB<span class="hq-pc"> 포함</span> · 100GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> (100GB 단위)</span></small></span><span class="hq-step" data-step="100" data-per="100" data-rate="10000" data-max="2000"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input type="number" inputmode="numeric" min="0" max="2000" step="100" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>추가 전송량</b><small>기본 2TB 초과분 · 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="w-input hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="100" data-free="0" data-rate="100" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
+            <div class="hq-row"><span><b>vCPU 추가</b><small>기본 8개<span class="hq-pc"> 포함</span> · 1개당 <span class="hq-pc">월 </span>15,000원</small></span><span class="hq-step" data-step="1" data-per="1" data-rate="15000" data-max="32"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="32" step="1" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 1GB당 <span class="hq-pc">월 </span>5,000원</small></span><span class="hq-step" data-step="4" data-per="1" data-rate="5000" data-max="256"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="256" step="4" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>SSD 추가</b><small>기본 300GB<span class="hq-pc"> 포함</span> · 100GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> (100GB 단위)</span></small></span><span class="hq-step" data-step="100" data-per="100" data-rate="10000" data-max="2000"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="2000" step="100" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
             <div class="hq-row"><span><b>백업 30일 보관</b><small>기본 14일<span class="hq-pc"> 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 30일 보관"></button></div>
           </div>
         </div>

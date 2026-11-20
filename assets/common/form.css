@@ -1,0 +1,66 @@
+/* =====================================================================
+   WISA 입력 요소 공통 컴포넌트 (patch-713 · 2026-11-20 · 규칙 사이트 docs/form.html)
+   · WISA 디자인 시스템(Input · Checkbox · Radio · Toggle · Tab) 규격 그대로. 페이지에서 새로 디자인하지 않고 이 클래스를 씀
+   · 입력칸 .w-input (+ .w-field · .w-label · .w-hint · .w-err) · 체크박스 .w-check · 라디오 .w-radio · 탭(세그먼트) .w-tab · 토글은 wisa.css .hq-sw (sm 추가)
+   · 크기: sm · md (클래스 없으면 md) · 상태: 기본 · hover · 포커스 · 선택 · 오류 · 비활성
+   · wisa.css 다음 줄에 연결. 고치면 이 파일을 쓰는 모든 페이지의 ?v= 를 새 patch 번호로 올림
+   ===================================================================== */
+:root { --primary-25: #f5faff; --primary-200: #b2ddff; --primary-300: #84caff; --error-50: #fef3f2; --error-100: #fee4e2; --error-300: #fda29b; --error-600: #d92d20; --shadow-xs: 0 1px 2px rgba(16,24,40,.05); --shadow-sm: 0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.1); }   /* 규칙 사이트 컬러 팔레트 값 (wisa.css 에 없는 단계) */
+
+/* @region w-input : 입력칸 — 높이 40(md) / 36(sm) · 모서리 8 · 테두리 Gray 300 · 글자 16 Gray 900 · 안내 Gray 500
+   hover = 바탕 Primary 25 · 포커스 = 테두리 Primary 600 + 바깥 링 4 Primary 100 · 오류 = 테두리 Error 300 + 링 Error 100 · 비활성 = 바탕 Gray 50 · 글자 Gray 500 */
+.w-field { display: flex; flex-direction: column; gap: 6px; }
+.w-label { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--gray-700); }
+.w-input { box-sizing: border-box; width: 100%; height: 40px; margin: 0; padding: 0 14px; border: 1px solid var(--gray-300); border-radius: 8px; background: var(--white); box-shadow: var(--shadow-xs); font: inherit; font-size: 16px; font-weight: 400; line-height: 24px; color: var(--gray-900); outline: 0; transition: border-color .2s, box-shadow .2s, background .2s; -moz-appearance: textfield; appearance: textfield; }
+.w-input.sm { height: 36px; padding: 0 12px; font-size: 14px; line-height: 20px; }
+.w-input::placeholder { color: var(--gray-500); opacity: 1; }
+.w-input::-webkit-outer-spin-button, .w-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.w-input:hover:not(:disabled):not(:focus) { background: var(--primary-25); }
+.w-input:focus { border-color: var(--primary-600); box-shadow: var(--shadow-xs), 0 0 0 4px var(--primary-100); }
+.w-input.is-error, .w-input[aria-invalid="true"] { border-color: var(--error-300); }
+.w-input.is-error:focus, .w-input[aria-invalid="true"]:focus, .w-input.is-error:hover, .w-input[aria-invalid="true"]:hover { background: var(--white); border-color: var(--error-300); box-shadow: var(--shadow-xs), 0 0 0 4px var(--error-100); }
+.w-input:disabled { background: var(--gray-50); color: var(--gray-500); box-shadow: var(--shadow-xs); cursor: not-allowed; }
+.w-hint { margin: 0; font-size: 14px; line-height: 20px; color: var(--gray-600); }
+.w-err { margin: 0; font-size: 14px; line-height: 20px; color: var(--error-600); }
+/* @endregion w-input */
+
+/* @region w-check-radio : 체크박스 · 라디오 — 칸 sm 16 / md 20 · 테두리 Gray 300 · 흰 바탕
+   hover · 포커스 = 테두리 Primary 600 + 바탕 Primary 50 (포커스는 링 4 Primary 100) · 선택 = Primary 600 채움 + 흰 체크 / 흰 점 · 비활성 = Gray 100 바탕 · Gray 200 테두리
+   마크업: <label class="w-check md"><input type="checkbox"><span><b>제목</b><small>설명</small></span></label> (라디오는 .w-radio + type="radio") */
+.w-check, .w-radio { --bx: 20px; position: relative; display: inline-flex; align-items: flex-start; gap: 12px; font-size: 16px; line-height: 24px; color: var(--gray-700); cursor: pointer; }
+.w-check.sm, .w-radio.sm { --bx: 16px; gap: 8px; font-size: 14px; line-height: 20px; }
+.w-check > input, .w-radio > input { flex: none; position: relative; width: var(--bx); height: var(--bx); margin: calc((1lh - var(--bx)) / 2) 0 0; border: 1px solid var(--gray-300); border-radius: 6px; background: var(--white) center / 100% no-repeat; -webkit-appearance: none; appearance: none; cursor: pointer; transition: border-color .15s, background-color .15s, box-shadow .15s; }
+.w-check.sm > input { border-radius: 4px; }
+.w-radio > input { border-radius: 99px; }
+.w-check > input:hover:not(:disabled), .w-radio > input:hover:not(:disabled), .w-check:hover > input:not(:disabled), .w-radio:hover > input:not(:disabled) { border-color: var(--primary-600); background-color: var(--primary-50); }
+.w-check > input:focus-visible, .w-radio > input:focus-visible { outline: 0; border-color: var(--primary-600); background-color: var(--primary-50); box-shadow: 0 0 0 4px var(--primary-100); }
+.w-check > input:checked { border-color: var(--primary-600); background-color: var(--primary-600); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M14.67 6.5 8.25 12.92 5.33 10' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.w-radio > input:checked { border-color: var(--primary-600); background-color: var(--primary-600); background-image: radial-gradient(circle, var(--white) 0 calc(var(--bx) * .2), transparent calc(var(--bx) * .2 + .5px)); }
+.w-check:hover > input:checked:not(:disabled), .w-radio:hover > input:checked:not(:disabled), .w-check > input:checked:hover, .w-radio > input:checked:hover { border-color: var(--primary-700); background-color: var(--primary-700); }
+.w-check > input:disabled, .w-radio > input:disabled { border-color: var(--gray-200); background-color: var(--gray-100); cursor: not-allowed; }
+.w-check > input:checked:disabled, .w-radio > input:checked:disabled { border-color: var(--primary-200); background-color: var(--primary-200); }
+.w-check > span, .w-radio > span { display: flex; flex-direction: column; }
+.w-check b, .w-radio b { font-weight: 500; color: var(--gray-700); }
+.w-check small, .w-radio small { font-size: inherit; font-weight: 400; color: var(--gray-600); }
+.w-check:has(input:disabled), .w-radio:has(input:disabled) { cursor: not-allowed; }
+.w-check:has(input:disabled) > span, .w-radio:has(input:disabled) > span { opacity: .5; }
+/* @endregion w-check-radio */
+
+/* @region w-tab : 탭(세그먼트) — 바탕 Gray 100 · 안쪽 4 · 모서리 8 / 칸 모서리 6 · 글자 Gray 500 500
+   hover = 글자 Gray 900 · 선택(aria-pressed · aria-selected · .on) = 흰 칸 + Shadow sm + 글자 Gray 900
+   sm = 칸 높이 28 · 글자 14 · 좌우 10 / md = 칸 높이 36 · 글자 16 · 좌우 12 (클래스 없으면 md) · 칸 폭은 내용만큼 (꽉 채울 때 .full = 같은 폭 나눔) */
+.w-tab { display: inline-flex; align-items: center; gap: 4px; padding: 4px; border-radius: 8px; background: var(--gray-100); }
+.w-tab.full { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; }
+.w-tab > button, .w-tab > a { display: inline-flex; align-items: center; justify-content: center; height: 36px; margin: 0; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-size: 16px; font-weight: 500; line-height: 24px; color: var(--gray-500); white-space: nowrap; text-decoration: none; cursor: pointer; transition: color .2s, background .2s, box-shadow .2s; }
+.w-tab.sm > button, .w-tab.sm > a { height: 28px; padding: 0 10px; font-size: 14px; line-height: 20px; }
+.w-tab > :hover { color: var(--gray-900); }
+.w-tab > :focus-visible { outline: 0; box-shadow: 0 0 0 4px var(--primary-100); }
+.w-tab > [aria-pressed="true"], .w-tab > [aria-selected="true"], .w-tab > .on { background: var(--white); color: var(--gray-900); box-shadow: var(--shadow-sm); }
+.w-tab > :disabled { color: var(--gray-300); cursor: not-allowed; }
+/* @endregion w-tab */
+
+/* @region w-toggle-sm : 토글 sm (36×20 · 손잡이 16) — md(44×24) 는 wisa.css .hq-sw 그대로 */
+.hq-sw.sm { width: 36px; height: 20px; border-radius: 10px; }
+.hq-sw.sm::after { width: 16px; height: 16px; }
+.hq-sw.sm[aria-checked="true"]::after { transform: translateX(16px); }
+/* @endregion w-toggle-sm */
