@@ -17,6 +17,7 @@
     { g: "인터랙션", items: [["인터랙션 목록", "interactions.html"]] },
     { g: "검수", items: [["개발 검수", "qa.html"]] },
     { g: "페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"], ["매체 광고", "../media-ads.html"], ["라이선스 비교", "../comparison.html"]] },
+    { g: "호스팅 페이지", items: [["웹호스팅", "../hosting-web.html"], ["서버호스팅", "../hosting-server.html"], ["프라이빗 클라우드", "../hosting-private.html"], ["퍼블릭 클라우드", "../hosting-public.html"]] },
     { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
@@ -32,7 +33,7 @@
     '<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14"/></svg></button>' +
     '<a class="brand" href="index.html"><img src="../assets/common/logo.svg" alt="WISA 디자인 규칙"></a>' +
     '<span class="sp"></span>' +
-    '<a class="lnk" href="../index.html">시안 목록</a>';
+    '<a class="lnk" href="../index.html" target="_blank" rel="noopener">시안 목록</a>';
 
   // 왼쪽 메뉴
   var side = document.createElement("nav");
@@ -71,7 +72,7 @@
       var out = it[1].indexOf("../") === 0;
       var cur = !out && it[1] === here ? ' aria-current="page"' : "";
       var badge = it[2] ? '<em class="badge">' + it[2] + "</em>" : "";
-      return '<li><a href="' + it[1] + '"' + cur + ">" + it[0] + (out ? ext : badge) + "</a></li>";
+      return '<li><a href="' + it[1] + '"' + cur + (out ? ' target="_blank" rel="noopener"' : "") + ">" + it[0] + (out ? ext : badge) + "</a></li>";
     }).join("") + "</ul></div>";
   }
   /* 잠긴 덩어리(lock): 작업자 공인 IP(SHA-256 값만 저장 · IP 원문은 파일에 없음) 또는 로컬 서버에서만 펼쳐 보임.
