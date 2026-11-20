@@ -6,7 +6,7 @@
 <title>탭 · WISA 디자인 규칙</title>
 <link rel="icon" href="../assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/docs.css">
-<link rel="stylesheet" href="../assets/common/form.css?v=714">
+<link rel="stylesheet" href="../assets/common/form.css?v=715">
 <style>
   /* 세그먼트 탭 미리보기 칸 (이 페이지 전용 · 입력 요소 페이지와 같은 칸) · 탭 모양은 ../assets/common/form.css */
   .pv { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 32px; margin: 16px 0 8px; padding: 30px; border-radius: 16px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
@@ -100,7 +100,7 @@
 <section class="panel" data-tab="세그먼트 탭">
     <p>값을 고르는 탭입니다 (요금 계산 결제 방식 · 신청 범위 등). 모양은 공통 <code>assets/common/form.css</code> <code>.w-tab</code> 하나로 쓰고, 페이지에서는 칸 나누기만 정합니다. 입력칸 · 체크박스 · 라디오 · 토글은 <a href="form.html">입력 요소</a> 페이지에 있습니다.</p>
     <h2 id="sg-spec">규격 <code>.w-tab</code></h2>
-    <p>바탕 Gray 100 · 안쪽 4 · 모서리 8 · 칸 모서리 6 · 글자 500 Gray 500 → 마우스 올림 Gray 900 · 선택 = 흰 칸 + 그림자 sm + 글자 Gray 900. md = 칸 높이 36 · 글자 16 · 좌우 12 / sm = 칸 높이 28 · 글자 14 · 좌우 10. 칸 폭은 글자만큼이고, 영역을 꽉 채울 때는 <code>.full</code> 로 같은 폭으로 나눕니다 (요금 계산 결제 방식).</p>
+    <p>바탕 Gray 100 · 안쪽 4 · 모서리 8 · 칸 모서리 6 · 글자 500 Gray 500 → 마우스 올림 Gray 900 · 선택 = 흰 칸 + 그림자 sm + 글자 600 Gray 900. md = 칸 높이 36 · 글자 16 · 좌우 12 / sm = 칸 높이 28 · 글자 14 · 좌우 10. 칸 폭은 글자만큼이고, 영역을 꽉 채울 때는 <code>.full</code> 로 같은 폭으로 나눕니다 (요금 계산 결제 방식).</p>
     <div class="pv col" id="sg-demo">
       <div><span class="pv-cap">sm</span><div class="w-tab sm" role="group"><button type="button" aria-pressed="true">월 결제</button><button type="button" aria-pressed="false">6개월</button><button type="button" aria-pressed="false">12개월</button></div></div>
       <div><span class="pv-cap">md</span><div class="w-tab" role="group"><button type="button" aria-pressed="true">월 결제</button><button type="button" aria-pressed="false">6개월</button><button type="button" aria-pressed="false">12개월</button></div></div>
