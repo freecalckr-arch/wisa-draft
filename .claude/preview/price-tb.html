@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>요금 카드 2×2 구간 개선안</title>
+<link rel="stylesheet" href="../../assets/common/wisa.css?v=725">
+<style>
+  /* 로컬 비교용 (커밋 안 함) — GEO 요금제 1024~1439 · 태블릿 구간 카드 배치 비교 · 실제 geo-price.html 을 iframe 으로 불러와 안별 CSS 만 덧씌움 */
+  body { margin: 0; background: var(--gray-100); font-family: 'Pretendard Variable', Pretendard, sans-serif; color: var(--gray-900); }
+  .pv { padding: 48px 40px 120px; }
+  .pv > h1 { margin: 0; font-size: 28px; line-height: 38px; }
+  .pv > p { margin: 8px 0 0; color: var(--gray-600); font-size: 15px; line-height: 24px; }
+  .pv-sec { margin-top: 64px; }
+  .pv-sec > h2 { display: flex; align-items: center; gap: 10px; margin: 0; font-size: 22px; line-height: 30px; }
+  .pv-sec > h2 b { display: grid; place-items: center; min-width: 30px; height: 30px; padding: 0 8px; box-sizing: border-box; border-radius: 99px; background: var(--gray-900); color: var(--white); font-size: 14px; }
+  .pv-sec > p { margin: 6px 0 20px; color: var(--gray-600); font-size: 15px; line-height: 24px; }
+  .pv-row { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+  .pv-fr { display: flex; flex-direction: column; gap: 8px; }
+  .pv-fr span { color: var(--gray-500); font-size: 13px; }
+  .pv-fr iframe { display: block; border: 0; border-radius: 12px; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200); }
+</style>
+</head>
+<body>
+<div class="pv">
+  <h1>요금 카드 · 2×2 구간 개선안</h1>
+  <p>지금은 1439 이하에서 카드가 2장씩 두 줄(2×2)이라 Basic ↔ Pro 를 대각선으로 비교해야 하고, 넓은 카드 가운데 정렬이라 빈 곳이 많습니다. 실제 시안 페이지에 안별 배치만 바꿔 보여 줍니다.</p>
+
+  <section class="pv-sec"><h2><b>지금</b>2장 × 2줄</h2><p>카드 폭 480 · 영역 높이 약 1,750 · 네 장이 한 화면에 안 들어옴.</p>
+    <div class="pv-row"><div class="pv-fr"><span>1100</span><iframe data-v="now" width="1100"></iframe></div></div></section>
+
+  <section class="pv-sec"><h2><b>A</b>4장 한 줄 (1024~1439) · 태블릿은 모바일 넘기기</h2><p>PC 와 같은 4열을 유지하고 카드 안쪽 · 글자만 한 단계 줄임. 박스 안은 라벨 위 · 수치 아래로 세움. 네 장이 나란히라 같은 줄끼리 바로 비교됨. 태블릿(768~1023)은 4열이 좁아 모바일과 같은 탭 + 넘기기.</p>
+    <div class="pv-row"><div class="pv-fr"><span>1100</span><iframe data-v="a" width="1100"></iframe></div><div class="pv-fr"><span>1024</span><iframe data-v="a" width="1024"></iframe></div></div></section>
+
+  <section class="pv-sec"><h2><b>B</b>가로형 카드 4줄 (768~1439)</h2><p>카드를 가로로 눕혀 왼쪽 이름 · 가격 · 버튼 / 가운데 제공 수 박스 / 오른쪽 포함 기능. 네 줄이 위아래로 쌓여 박스 수치가 세로로 맞춰져 표처럼 비교됨. 태블릿까지 같은 배치.</p>
+    <div class="pv-row"><div class="pv-fr"><span>1100</span><iframe data-v="b" width="1100"></iframe></div><div class="pv-fr"><span>820</span><iframe data-v="b" width="820"></iframe></div></div></section>
+</div>
+<script>
+(function () {
+  var CSS = {
+    now: '',
+    a: '@media (min-width:1024px) and (max-width:1439px){' +
+       '.gp-list{--pc-n:4;gap:12px}' +
+       '.gp-list>.pc{padding:32px 20px}' +
+       '.gp-list .pc h3{font-size:24px;line-height:32px}' +
+       '.gp-list .pc .pc-sub{font-size:14px;line-height:20px}' +
+       '.gp-list .pc-price strong{font-size:22px}.gp-list .pc-price span{font-size:16px}' +
+       '.gp-list .pc .pc-btn{margin-top:24px}' +
+       '.gp-spec{padding:16px;gap:12px}' +
+       '.gp-spec li{display:flex;flex-direction:column;align-items:flex-start;gap:2px}' +
+       '.gp-spec b{text-align:left}' +
+       '.gp-spec .gp-ai{align-self:flex-start;margin-top:6px}' +
+       '#geo-price .pc-checks li{font-size:14px}' +
+       '}',
+    b: '@media (min-width:768px) and (max-width:1439px){' +
+       '.gp-list{--pc-n:1;gap:16px}' +
+       '.gp-list>.pc:not(.gp-clone){display:grid;grid-template-columns:220px minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto auto 1fr;column-gap:40px;align-items:start;padding:36px 40px;text-align:left}' +
+       '.gp-list>.pc>.pc-pop{grid-area:1/1;justify-self:start}' +
+       '.gp-list>.pc>h3{grid-area:2/1}' +
+       '.gp-list>.pc>.pc-sub{grid-area:3/1}' +
+       '.gp-list>.pc>.pc-price{grid-area:4/1;justify-content:flex-start}' +
+       '.gp-list>.pc>.pc-btn{grid-area:5/1;align-self:end;margin-top:24px}' +
+       '.gp-list>.pc>.gp-spec{grid-column:2;grid-row:1/-1;align-self:center;margin:0}' +
+       '#geo-price .gp-list>.pc>.pc-checks{grid-column:3;grid-row:1/-1;align-self:center;padding-top:0}' +
+       '.gp-list .pc.is-rec::before{left:40px;transform:none}' +
+       '}' +
+       '@media (min-width:768px) and (max-width:1023px){' +
+       '.gp-list>.pc{grid-template-columns:180px minmax(0,1fr) minmax(0,1fr);column-gap:24px;padding:30px}' +
+       '.gp-list .pc.is-rec::before{left:30px}' +
+       '.gp-spec{padding:16px}' +
+       '#geo-price .pc-checks li{font-size:14px}' +
+       '}'
+  };
+  [].forEach.call(document.querySelectorAll('iframe[data-v]'), function (f) {
+    f.height = 900;
+    f.addEventListener('load', function () {
+      var d = f.contentDocument, s = d.createElement('style');
+      s.textContent = CSS[f.dataset.v] + '.rv{opacity:1!important;transform:none!important;transition:none!important}';
+      d.head.appendChild(s);
+      setTimeout(function () {
+        var sec = d.getElementById('geo-price');
+        f.height = Math.ceil(sec.getBoundingClientRect().height) + 40;
+        f.contentWindow.scrollTo(0, sec.getBoundingClientRect().top + f.contentWindow.scrollY - (f.dataset.v === 'now' ? 0 : 0));
+        [].forEach.call(d.querySelectorAll('header, .vh-fab, .vh, [class*="float"], .chat-fab'), function (e) { e.style.display = 'none'; });
+      }, 600);
+    });
+    f.src = '../../geo-price.html';
+  });
+})();
+</script>
+</body>
+</html>

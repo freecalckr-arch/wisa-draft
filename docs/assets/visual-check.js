@@ -20,7 +20,7 @@
     ["해결", "#geo-diagnosis .vw-win", true]
   ];
   // 흰 바탕 타일 로고 (assets/common/brand · 파일 안 테두리 #EAECF0 1 → 작게 쓰면 묻힘)
-  var WHITE_LOGO = "chatgpt.svg gemini.svg genspark.svg google-ads.svg google.svg meta.svg mue.svg naver-smartstore.svg slack.svg youtube.svg".split(" ");
+  var WHITE_LOGO = "chatgpt.svg gemini.svg genspark.svg google-ads.svg google.svg meta.svg mue.svg naver-smartstore.svg slack.svg youtube.svg azure.svg ncloud.svg".split(" ");
   var TOL = 12; // 여백 차이 허용 (px)
   // 색 계열 (그레이 · 블랙 · 화이트는 계열로 세지 않음)
   var FAM = {
