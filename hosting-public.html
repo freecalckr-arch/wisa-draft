@@ -21,7 +21,8 @@
 <style>
   /* =====================================================================
      [개발 전달] 퍼블릭 클라우드 MSP (호스팅 상세 · 로컬 작업 · 고객 공유 전)
-     · 2026-11-23 patch-725: 클라우드 로고 4개 실제 로고로 교체 (AWS · Azure = 공식 로고 SVG · NAVER Cloud = 공식 심볼 네모 + 원 · NHN Cloud = 공식 앱 아이콘 · assets/common/brand) · 새 로고엔 NAVER · NHN 글자가 없어 히어로 키워드 Cloud → NAVER Cloud · NHN Cloud (patch-695 되돌림) · 모바일 3줄 = 키워드 / 그대로, 관리만 맡기는 / 퍼블릭 클라우드 (360 에서 NAVER Cloud 가 길어 줄 수가 바뀌지 않게) · 태블릿 3줄 · PC 2줄은 그대로 · Azure · NAVER Cloud 는 흰 타일이라 공통 brand-white 테두리
+     · 2026-11-23 patch-726: 히어로 키워드 = 로고 + AWS · Azure · NAVER · NHN (Cloud 글자 빼서 짧게 · 줄바꿈은 patch-645 그대로) · 로고 정방형 테두리 잘림 수정 (.pu-ki overflow 해제 · 로고 모서리 23%)
+     · 2026-11-23 patch-725: 클라우드 로고 4개 실제 로고로 교체 (AWS · Azure = 공식 로고 SVG · NAVER Cloud = 공식 심볼 네모 + 원 · NHN Cloud = 공식 앱 아이콘 · assets/common/brand) · 새 로고엔 NAVER · NHN 글자가 없어 히어로 키워드는 로고 + AWS · Azure · NAVER · NHN (Cloud 글자 없음 · 길어져서 · patch-726) · Azure · NAVER Cloud 는 흰 타일이라 공통 brand-white 테두리
      · 2026-11-23 patch-724: 지원 클라우드에 NHN Cloud 추가 (히어로 키워드 4개째 · 견적 칩 · 클라우드 선택 · 리전 안내 · FAQ · 로고 assets/common/brand/nhn.svg 브랜드 고유색) · 지원 클라우드 카드(#geo-how)는 3개 그대로
      · 2026-11-20 patch-717: 요금 계산 합계 금액(숫자 + 원) = Primary 600 블루 · 전 해상도 (내역 · 제목은 그대로 · 히어로 카드 가격은 검정 유지)
      · 2026-11-20 patch-716: 요금 계산 태블릿 · 모바일 = 입력 박스와 견적 박스 분리 (간격 16 · 각각 테두리 Gray 200 · 모서리 16) · 고객 피드백 "가격 부분 영역 구분" · PC 는 그대로
@@ -776,7 +777,7 @@
   /* @endregion pub-q */
   /* @region pub-vis (patch-646): 퍼블릭 클라우드 비주얼 — 문제 2(새벽 장애 · 직접 운영 콘솔 vs 위사 관제) · 기본 포함 탭 4 · 지원 클라우드 카드 3 (공통 .vw-win · .hv-* · .wh-* · .sv-* · gx-hbar 그대로 + 퍼블릭 전용 .pu-*) */
   #geo-hero .ai-roll-in > span { padding-right: .03em; }   /* patch-647 키워드 바로 뒤 조사 '를' 이 떨어져 보이지 않게 (공통 .12em → 이 페이지만 .03em · 글자 끝 잘림 방지분만 남김) */
-  .pu-ki { background: none; overflow: hidden; } .pu-ki img { display: block; width: 100%; height: 100%; }
+  .pu-ki { background: none; overflow: visible; margin-left: 1px; } .pu-ki img { display: block; width: 100%; height: 100%; border-radius: 23%; }   /* patch-726 로고 정방형 테두리가 잘리지 않게: 칸 overflow 풀고 로고 자체 모서리(23% = 48 기준 11) · 롤링 칸 왼쪽 끝에서 흰 로고 테두리 1px 이 잘려 1px 띄움 */
   /* patch-655 문제 왼쪽: 휴대폰 잠금 화면 (시계 + 알림 카드 4장) */
   .pu-ph { flex-direction: row; align-items: center; gap: 24px; }
   .pu-ph .pu-nt { min-height: 178px; justify-content: flex-start; }   /* patch-687 알림 4장 높이(40×4 + 6×3)를 미리 잡아 두고 위에서부터 채움 · 알림이 늘 때 목록 전체가 위아래로 움직이지 않게 */
@@ -1233,7 +1234,7 @@
       <a href="hosting-public.html" class="on" aria-current="page"><i aria-hidden="true"></i><span>퍼블릭<span class="tp-x"> 클라우드</span></span></a>
     </nav>
     <div class="sh-text">
-      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="AWS · Azure · NAVER Cloud · NHN Cloud"><span class="ai-roll-in"><span><i class="pv-ki pu-ki"><img src="assets/common/brand/aws.svg" alt=""></i>AWS</span><span><i class="pv-ki pu-ki"><img src="assets/common/brand/azure.svg" alt=""></i>Azure</span><span><i class="pv-ki pu-ki"><img src="assets/common/brand/ncloud.svg" alt=""></i>NAVER Cloud</span><span><i class="pv-ki pu-ki"><img src="assets/common/brand/nhn.svg" alt=""></i>NHN Cloud</span></span></span><br class="mo-br"> 그대로,<br class="tb-br"> 관리만 맡기는<br> <em class="gt">퍼블릭 클라우드</em></h1>   <!-- [개발 전달] patch-645 키워드 교체(공통 2.4초 · 전환 0.6초): AWS → Azure → NAVER Cloud (patch-691 문장 줄임 = [키워드] 쓰면서 / 관리는 위사가, 퍼블릭 클라우드 · 고객이 고른 클라우드는 그대로 쓰고 관리만 맡김 · PC · 태블릿 2줄("쓰면서" 뒤 줄바꿈) · 모바일 3줄 고정 = 키워드 / 쓰면서 관리는 위사가, / 퍼블릭 클라우드 (NAVER Cloud 가 길어 줄 수가 바뀌지 않게)) · 키워드 3개 · 모바일은 키워드만 첫 줄 · 태블릿은 3줄 고정(NAVER Cloud 가 길어 줄 수가 바뀌지 않게) · 아이콘 = 각 클라우드 로고(공통 brand aws · azure · ncloud 타일 · patch-646) -->
+      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="AWS · Azure · NAVER Cloud · NHN Cloud"><span class="ai-roll-in"><span><i class="pv-ki pu-ki"><img src="assets/common/brand/aws.svg" alt=""></i>AWS</span><span><i class="pv-ki pu-ki"><img src="assets/common/brand/azure.svg" alt=""></i>Azure</span><span><i class="pv-ki pu-ki"><img src="assets/common/brand/ncloud.svg" alt=""></i>NAVER</span><span><i class="pv-ki pu-ki"><img src="assets/common/brand/nhn.svg" alt=""></i>NHN</span></span></span> 그대로,<br class="tb-br mo-br"> 관리만 맡기는<br> <em class="gt">퍼블릭 클라우드</em></h1>   <!-- [개발 전달] patch-645 키워드 교체(공통 2.4초 · 전환 0.6초): AWS → Azure → NAVER Cloud (patch-691 문장 줄임 = [키워드] 쓰면서 / 관리는 위사가, 퍼블릭 클라우드 · 고객이 고른 클라우드는 그대로 쓰고 관리만 맡김 · PC · 태블릿 2줄("쓰면서" 뒤 줄바꿈) · 모바일 3줄 고정 = 키워드 / 쓰면서 관리는 위사가, / 퍼블릭 클라우드 (NAVER Cloud 가 길어 줄 수가 바뀌지 않게)) · 키워드 3개 · 모바일은 키워드만 첫 줄 · 태블릿은 3줄 고정(NAVER Cloud 가 길어 줄 수가 바뀌지 않게) · 아이콘 = 각 클라우드 로고(공통 brand aws · azure · ncloud 타일 · patch-646) -->
       <p class="rv" style="--d:160ms">쓰고 계신 클라우드에 맞게 설계 · 이전 · 운영 · 비용 관리까지, 쇼핑몰 솔루션을 만든 위사가 맡습니다.</p>
     </div>
   </div>
