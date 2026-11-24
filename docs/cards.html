@@ -13,7 +13,7 @@
   <header class="ph">
     <p class="eyebrow">컴포넌트</p>
     <h1>카드</h1>
-    <p class="lede">마케팅 페이지 영역 카드입니다. 단계 영역은 <b>카드 타입</b>(카드 3장)과 <b>탭 타입</b>(탭 + 화면 카드 1장) 두 가지, 해결 영역의 <b>해결 카드</b>, 사례 영역의 <b>사례 카드</b>가 있습니다. 카드 안 화면 이미지 크기 · 축소 규칙은 <a href="image.html">이미지</a>, 요금 카드는 <a href="plan.html">요금 카드</a>에 있습니다.</p>
+    <p class="lede">마케팅 · 호스팅 페이지 영역 카드입니다. 단계 영역은 <b>카드 타입</b>(카드 3장)과 <b>탭 타입</b>(탭 + 화면 카드 1장) 두 가지, 해결 영역의 <b>해결 카드</b>, 사례 영역의 <b>사례 카드</b>, 호스팅의 <b>요금 계산</b>이 있습니다. 카드 안 화면 이미지 크기 · 축소 규칙은 <a href="image.html">이미지</a>, 요금 카드는 <a href="plan.html">요금 카드</a>에 있습니다.</p>
   </header>
   <div class="body">
 <section class="panel" data-tab="단계 (카드 타입)">
@@ -52,7 +52,7 @@
 <tr><td>화면 <code>.sc</code></td><td>560 × 480</td><td>같은 비율 축소 (420 × 360)</td><td>560 × 480 (칸 가운데)</td><td>칸 폭에 맞춰 같은 비율 축소</td></tr>
 <tr><td>화면 아래 수치 <code>.sc-stat</code></td><td colspan="4">위 12 · 13 · Gray 500 · 양 끝 정렬 (왼쪽 설명 · 오른쪽 수치)</td></tr>
 </tbody></table></div>
-    <p class="note">선택 칩은 공통 태그(높이 32 · 13)보다 큰 단계 탭 전용 칩입니다 (<a href="tag.html">태그 · 뱃지</a> 예외). 화면 안 번호 · 말풍선 · 자동 전환 같은 움직임은 <a href="tabs.html#tab=단계 탭">탭 › 단계 탭</a>에 있습니다. 쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트.</p>
+    <p class="note">선택 칩은 공통 태그(높이 32 · 13)보다 큰 단계 탭 전용 칩입니다 (<a href="tag.html">태그 · 뱃지</a> 예외). 화면 안 번호 · 말풍선 · 자동 전환 같은 움직임은 <a href="tabs.html#tab=단계 탭">탭 › 단계 탭</a>에 있습니다. 쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트. 호스팅 기본 포함 서비스(<code>#host-incl</code>)도 같은 규격입니다 (클래스 이름만 <code>.it-txt</code> · <code>.it-sc</code> · <code>.it-say</code> · <code>.it-d</code> · <code>.it-tags</code> · 오른쪽 번호 칩은 <a href="tag.html">태그 · 뱃지</a>).</p>
 </section>
 
 <section class="panel" data-tab="해결 카드">
@@ -99,7 +99,45 @@
 </tbody></table></div>
     <p class="note">쓰는 페이지: 온사이트마케팅 · CRM마케팅 · 리포트 · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고. GEO 사례는 AI 답변 화면이 들어간 사례 카드(<code>.case-ft</code>)로 GEO 페이지 HTML 에 있습니다.</p>
 </section>
-    <p class="foot">마지막 수정 2026-11-16 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
+
+<section class="panel" data-tab="요금 계산">
+    <h2 id="hq-see">미리보기</h2>
+    <p>호스팅 요금 계산 영역(<code>#host-calc</code>)입니다. 왼쪽에서 결제 방식 · 사용량을 바꾸면 오른쪽 예상 요금이 바로 바뀝니다. 미리보기 안에서 직접 입력해 볼 수 있습니다.</p>
+    <div class="live" data-src="../hosting-web.html" data-sel="#host-calc .hq" data-m="24"></div>
+
+    <h2 id="hq-spec">규격 <code>.hq</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC</th><th>PC 최소</th><th>태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>배치</td><td>한 박스 · 2열 (입력 1fr · 예상 요금 440)</td><td>한 박스 · 2열 (입력 1fr · 예상 요금 380)</td><td colspan="2">박스 2개로 나눔 · 입력 위 · 예상 요금 아래 · 사이 16</td></tr>
+<tr><td>박스</td><td colspan="2">1240 · 1000 폭 · 바탕 White · 테두리 1 Gray 200 · 모서리 16 · 두 칸 사이 세로선 1 Gray 200</td><td colspan="2">박스마다 바탕 White · 테두리 1 Gray 200 · 모서리 16</td></tr>
+<tr><td>안쪽 여백</td><td colspan="3">40</td><td>24/20</td></tr>
+<tr><td>입력 묶음 사이 <code>.hq-in</code></td><td colspan="3">32</td><td>28</td></tr>
+<tr><td>묶음 이름 <code>.hq-lb</code></td><td colspan="3">18/26 · 700 · Gray 900 · 아래 16</td><td>17/24</td></tr>
+<tr><td>입력 줄 <code>.hq-row</code></td><td colspan="3">높이 72 이상 · 위아래 12 · 아래 줄 1 Gray 200 · 왼쪽 이름 16/600 + 설명 14 Gray 600 · 오른쪽 입력 (사이 20)</td><td>높이 64 이상 · 이름 · 설명 한 줄 → 입력칸은 아래 오른쪽</td></tr>
+<tr><td>합계 금액 <code>.hq-total</code></td><td colspan="3">38/48 · 700 · <b>Primary 600</b> (예상 요금 박스의 블루 포인트 1곳) · 단위 20</td><td>30/40</td></tr>
+<tr><td>결제 기준 <code>.hq-mode</code></td><td colspan="4">14/20 · 500 · Gray 600 · 위 4</td></tr>
+<tr><td>내역 <code>.hq-break</code></td><td colspan="4">위 24 · 윗줄 1 Gray 200 · 위 20 · 줄 사이 16 · 15/22 (이름 500 Gray 900 · 금액 700 Black 오른쪽)</td></tr>
+<tr><td>조건 칸 <code>.hq-cond</code></td><td colspan="4">2 × 2 칸 · 바탕 Gray 50 · 모서리 12 · 칸 사이 짧은 세로선 Gray 200 · 값 18/700 (모바일 16) · 이름 13 Gray 600 (모바일 12)</td></tr>
+<tr><td>안내 <code>.hq-note</code></td><td colspan="4">박스 맨 아래 · 13/20 · Gray 600 (VAT 등)</td></tr>
+</tbody></table></div>
+
+    <h2 id="hq-parts">입력 부품</h2>
+    <p>입력 요소는 공통 컴포넌트를 그대로 씁니다. 페이지에서는 자리(폭 · 정렬)만 정하고 높이 · 모서리 · 색은 바꾸지 않습니다.</p>
+    <div class="tbl"><table class="spec"><thead><tr><th>쓰는 곳</th><th>부품</th><th>규격</th></tr></thead><tbody>
+<tr><td>결제 방식 (월 · 6개월 · 12개월 등)</td><td>세그먼트 탭 <code>.w-tab.full</code></td><td><a href="tabs.html">탭</a> · 높이 44 · 아래 안내 14 Gray 600 (위 10)</td></tr>
+<tr><td>사용량 · 개수 입력</td><td>입력칸 <code>.w-input</code> + 단위</td><td><a href="form.html">입력 요소</a> · 높이 40 · 숫자 오른쪽 정렬 · 단위 14 Gray 600</td></tr>
+<tr><td>옵션 켜기 · 끄기</td><td>토글 <code>.hq-sw</code> (md)</td><td><a href="form.html">입력 요소</a> · 줄 오른쪽 끝</td></tr>
+<tr><td>기본 제공량 (입력 없음)</td><td>글자 <code>.hq-inc</code></td><td>줄 오른쪽에 값만 표시</td></tr>
+</tbody></table></div>
+
+    <h2 id="hq-motion">동작</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>언제</th><th>동작</th></tr></thead><tbody>
+<tr><td>탭 · 토글을 바꿀 때</td><td>예상 요금 · 결제 기준 · 내역 줄을 바로 다시 계산</td></tr>
+<tr><td>숫자를 입력하는 동안</td><td>입력할 때마다 바로 계산 · 칸을 벗어나면 허용 범위 안 정수로 정리</td></tr>
+<tr><td>합계 금액이 바뀔 때</td><td>숫자가 살짝 위로 떴다 돌아옴 (0.35초 · 모션 줄이기 시 없음)</td></tr>
+</tbody></table></div>
+    <p class="note">계산식 · 단가는 각 페이지 HTML 의 입력칸 <code>data-*</code> 값과 [개발 전달] 주석에 있습니다. 퍼블릭 클라우드는 금액 없이 고른 항목만 오른쪽 요약에 보여 주는 <b>견적 받아보기</b>(<code>.hq.pu-q</code>)로, 배치 · 박스 규격은 같습니다.</p>
+</section>
+    <p class="foot">마지막 수정 2026-11-24 · 값은 시안 페이지를 1440 · 1100 · 820 · 390 에서 잰 값입니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

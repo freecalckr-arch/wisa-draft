@@ -43,16 +43,32 @@
     </section>
 
     <section class="panel" data-tab="호스팅">
-    <h2 id="hosting">호스팅 페이지 영역</h2>
-    <div class="call warn"><p>준비 중입니다. 호스팅 페이지 시안을 시작할 때 흐름 순서대로 영역 이름과 코드 id 를 정해 이 탭에 표로 추가합니다.</p></div>
-    <h3>정할 때 지킬 것</h3>
-    <ul class="list">
-      <li>마케팅 탭과 같은 역할의 영역은 같은 이름을 씁니다 (예: 히어로 · CTA).</li>
-      <li>코드 id 는 페이지 묶음 접두어로 시작합니다 (예: <code>#host-…</code>).</li>
-      <li>이미지 · 그래프 크기는 <a href="image.html">이미지</a> · <a href="graph.html">그래프</a> 규칙을 그대로 따르고, 새 영역의 PC 기준 크기는 이미지 페이지 표에 추가합니다.</li>
-    </ul>
+    <p>웹호스팅 · 서버호스팅 · 프라이빗 클라우드 · 퍼블릭 클라우드 · CDN · 클라우드플레어 6페이지에 씁니다. 마케팅과 같은 역할의 영역은 같은 이름 · 같은 id(<code>#geo-…</code>)를 쓰고, 호스팅에만 있는 영역은 <code>#host-…</code> 로 씁니다.</p>
+    <h2 id="hosting">영역 (흐름 순서)</h2>
+    <div class="tbl"><table><thead><tr><th>#</th><th>영역</th><th>코드 id</th><th>담는 내용</th></tr></thead><tbody>
+<tr><td><span class="num">1</span></td><td><b>히어로</b></td><td><code>#geo-hero</code></td><td>페이지 탭 · 카피 · 요금 카드 2장 (<a href="hero.html#tab=호스팅">히어로 › 호스팅</a>)</td></tr>
+<tr><td><span class="num">2</span></td><td><b>요금 · 사양 안내</b></td><td><code>#host-table</code></td><td>요금 · 사양 표 (지금은 숨김 · <code>hidden</code>)</td></tr>
+<tr><td><span class="num">3</span></td><td><b>문제</b></td><td><code>#geo-why</code></td><td>기존 방식 vs 위사 화면 비교 (마케팅 문제 영역과 같은 구조)</td></tr>
+<tr><td><span class="num">4</span></td><td><b>기본 포함 서비스</b></td><td><code>#host-incl</code></td><td>탭 4개 · 탭마다 글 + 화면 이미지 560×480 (<a href="cards.html#tab=단계 (탭 타입)">카드 › 단계 (탭 타입)</a> 과 같은 규격)</td></tr>
+<tr><td><span class="num">5</span></td><td><b>그래프</b> 또는 <b>단계</b></td><td><code>#geo-market</code> · <code>#geo-how</code></td><td>페이지마다 다름 (아래 표) · 없는 페이지도 있음</td></tr>
+<tr><td><span class="num">6</span></td><td><b>요금 계산</b></td><td><code>#host-calc</code></td><td>입력 + 예상 요금 견적 (<a href="cards.html#tab=요금 계산">카드 › 요금 계산</a>)</td></tr>
+<tr><td><span class="num">7</span></td><td><b>FAQ</b></td><td><code>#geo-faq</code></td><td>자주 묻는 질문</td></tr>
+<tr><td><span class="num">8</span></td><td><b>CTA</b></td><td><code>#cta</code></td><td>하단 상담 신청</td></tr>
+</tbody></table></div>
+
+    <h2 id="hosting-pages">페이지별 구성</h2>
+    <p>● = 있음 · ○ = 마크업은 있고 숨김 · — = 없음. 순서는 위 표와 같습니다.</p>
+    <div class="tbl"><table><thead><tr><th>페이지</th><th>요금 · 사양 <code>#host-table</code></th><th>그래프 · 단계 (5번)</th><th>요금 계산 <code>#host-calc</code></th></tr></thead><tbody>
+<tr><td>웹호스팅 <code>hosting-web.html</code></td><td>○</td><td>—</td><td>● 요금 계산해 보기</td></tr>
+<tr><td>서버호스팅 <code>hosting-server.html</code></td><td>○</td><td>단계 <code>#geo-how</code> · 카드 3장 (구성 넓히기)</td><td>● 요금 계산해 보기</td></tr>
+<tr><td>프라이빗 클라우드 <code>hosting-private.html</code></td><td>○</td><td>그래프 <code>#geo-market</code> (이벤트 기간 증설)</td><td>● 요금 계산해 보기</td></tr>
+<tr><td>퍼블릭 클라우드 <code>hosting-public.html</code></td><td>○</td><td>단계 <code>#geo-how</code> · 카드 (클라우드 고르기)</td><td>● 견적 받아보기 (금액 계산 없음)</td></tr>
+<tr><td>CDN <code>hosting-cdn.html</code></td><td>—</td><td>—</td><td>● 요금 계산해 보기</td></tr>
+<tr><td>클라우드플레어 <code>hosting-cloudflare.html</code></td><td>—</td><td>단계 <code>#geo-how</code> · 카드 3장 (운영대행)</td><td>● 요금 계산해 보기</td></tr>
+</tbody></table></div>
+    <div class="call"><p>CDN · 클라우드플레어는 부가서비스라 요금 · 사양 표 영역이 없습니다. 숨긴 <code>#host-table</code> 은 마크업만 남겨 둔 것이라 구현하지 않아도 화면은 같습니다.</p></div>
     </section>
-    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+    <p class="foot">마지막 수정 2026-11-24 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

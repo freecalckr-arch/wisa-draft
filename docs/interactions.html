@@ -13,7 +13,7 @@
   <header class="ph">
     <p class="eyebrow">인터랙션</p>
     <h1>인터랙션 목록</h1>
-    <p class="lede">시안에 들어간 움직임 전체 목록입니다. <b>공통</b>은 <code>wisa.css</code> · <code>wisa.js</code> 에 있어 마크업만 두면 모든 페이지에 같이 적용되고, <b>페이지별</b>은 각 HTML 의 <code>&lt;style&gt;</code> · <code>&lt;script&gt;</code> 에 있습니다. 시간 · 순서는 시안 코드 값 그대로 구현합니다.</p>
+    <p class="lede">시안에 들어간 움직임 전체 목록입니다. <b>공통</b>은 <code>wisa.css</code> · <code>wisa.js</code> 에 있어 마크업만 두면 모든 페이지에 같이 적용되고, <b>페이지별</b>은 각 HTML(호스팅은 공통 <code>hosting.css</code> · <code>hosting.js</code> 포함)의 <code>&lt;style&gt;</code> · <code>&lt;script&gt;</code> 에 있습니다. 시간 · 순서는 시안 코드 값 그대로 구현합니다.</p>
   </header>
   <div class="body">
 <section class="panel" data-tab="원칙">
@@ -151,8 +151,56 @@
 <tr><td>성장 경로</td><td>③ 언어 탭 교체 · ④ 데이터 이전 행 순서대로 · 번호 라인 (<code>sr-line</code>)</td><td>2.4초</td></tr>
 <tr><td>상세 비교표 (모바일)</td><td>화면 가운데에 가장 가까운 항목 강조 · 표 가로 스크롤</td><td>스크롤</td></tr>
 </tbody></table></div>
+    <h2 id="pg-host">호스팅 공통 (6페이지)</h2>
+    <p>호스팅 6페이지에 똑같이 들어간 움직임입니다. 스타일은 공통 <code>hosting.css</code>, 스크립트는 <code>hosting.js</code> 와 각 페이지 HTML 에 같은 코드로 있습니다.</p>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>코드</th><th>주기</th></tr></thead><tbody>
+<tr><td>히어로</td><td>요금 카드에 마우스를 올리면 테두리 1 Black · 모바일 페이지 탭은 지금 페이지 탭이 보이게 가로 위치 맞춤</td><td><code>.hb-c:hover</code> · <code>host-tabs</code></td><td>0.2초</td></tr>
+<tr><td>기본 포함 서비스 <code>#host-incl</code></td><td>보이는 동안 다음 탭으로 자동 전환 · 마우스 · 포커스가 있으면 멈춤 · 탭을 누르면 자동 전환 끝 · 탭이 열리면 화면 번호마다 항목 이름 말풍선이 번호 순서대로 뜸 (<a href="tabs.html#tab=단계 탭">단계 탭</a>과 같은 동작)</td><td>페이지 <code>host-incl-tab</code></td><td>3.2초마다</td></tr>
+<tr><td>기본 포함 서비스 화면</td><td>탭이 열릴 때 화면 안 요소 등장 · 게이지 · 그래프 차오름 (탭마다 1개)</td><td>탭 패널 <code>.on</code></td><td>탭 열릴 때</td></tr>
+<tr><td>요금 계산 <code>#host-calc</code></td><td>입력을 바꾸면 예상 요금 · 내역을 바로 다시 계산 · 합계 숫자가 살짝 떴다 돌아옴 (<a href="cards.html#tab=요금 계산">카드 › 요금 계산</a>)</td><td>페이지 <code>host-quote</code> · <code>hqBump</code></td><td>0.35초</td></tr>
+<tr><td>요금 · 사양 표 (모바일)</td><td>화면 가운데에 가장 가까운 묶음을 강조 (묶음 띠 Primary 50 / 700 + 라인 1.5 Primary 600) · 표가 화면 밖이면 모두 끔 · 지금은 표 영역 숨김</td><td><code>hosting.js</code> <code>ht-scroll</code></td><td>스크롤 · 0.3초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-host-web">웹호스팅 <code>hosting-web.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>문제</td><td>왼쪽 차단 화면 경과 시간이 00:00:00 → 09:12:00 으로 빠르게 늘어남 · 오른쪽 "보는 중" 인원이 1,284 → 4,826 으로 늘고 전송량 게이지가 100% 를 넘어도 그대로 운영</td><td>4.2초 + 멈춤 1.8초 · 6초</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-host-server">서버호스팅 <code>hosting-server.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>문제</td><td>왼쪽 응답 대기 시간이 0.0초 → 8.2초로 늘어남 · 오른쪽 "보는 중" 인원 증가 · 응답 0.4초 유지</td><td>4.2초 + 멈춤 1.8초 · 6초</td></tr>
+<tr><td>기본 포함 서비스</td><td>두 디스크에 같이 쓰기 · 전송량 게이지가 기본 제공량(회색)을 넘은 부분만 블루로 차오름</td><td>탭 열릴 때</td></tr>
+<tr><td>단계 (카드)</td><td>CPU 도넛 · 응답 속도 선 그리기 · 웹 서버 2대 요청 막대 (카드마다 1개)</td><td>화면에 들어올 때</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-host-private">프라이빗 클라우드 <code>hosting-private.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>문제</td><td>왼쪽 장애 경과 시간이 00:00:00 → 02:48:00 으로 빠르게 늘어남 · 오른쪽 서버 2로 자동 전환 · 새 주문 알림</td><td>4.2초 + 멈춤 1.8초</td></tr>
+<tr><td>그래프</td><td>공통 그래프 등장 (<code>mk-anim</code> · 수치 카운트업)</td><td>1회</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-host-public">퍼블릭 클라우드 <code>hosting-public.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>문제</td><td>왼쪽 잠금 화면에 새 경보가 맨 위로 들어오며 아래 알림을 밀어 내림 · 오른쪽 관제 화면에서 같은 경보가 차례로 "처리 완료"</td><td>같은 타이밍 · 반복</td></tr>
+<tr><td>기본 포함 서비스</td><td>4번 탭(비용 관리)이 열릴 때 절감액 0 → 386,000 카운트업</td><td>1.2초</td></tr>
+<tr><td>단계 (카드)</td><td>AWS 서버 자동 증설 · 로그인 입력 · 인증서 칸 (카드마다 1개)</td><td>화면에 들어올 때</td></tr>
+<tr><td>견적 받아보기</td><td>클라우드 · 규모 탭은 하나만 선택 · 맡길 범위 토글은 최소 1개 · 고른 항목이 오른쪽 요약 줄에 바로 반영 (금액 계산 없음)</td><td>—</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-host-cdn">CDN <code>hosting-cdn.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>문제</td><td>왼쪽 상세 이미지 로딩 지연 (6.8초) · 오른쪽 캐시 서버 전달로 바로 열림 (0.8초)</td><td>반복</td></tr>
+<tr><td>기본 포함 서비스</td><td>캐시 · 원본 서버 연결선 그리기 · 설정 토글 켜짐</td><td>탭 열릴 때</td></tr>
+</tbody></table></div>
+
+    <h2 id="pg-host-cf">클라우드플레어 <code>hosting-cloudflare.html</code></h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>움직임</th><th>주기</th></tr></thead><tbody>
+<tr><td>문제</td><td>왼쪽 결제 요청 차단(403) · 오른쪽 악성 봇만 차단되고 결제 완료</td><td>반복</td></tr>
+<tr><td>기본 포함 서비스</td><td>세팅 단계 완료 체크 · 보안 규칙 토글 켜짐</td><td>탭 열릴 때</td></tr>
+<tr><td>단계 (카드)</td><td>차단 규칙 강화 · 규칙 식 추가 줄 · 월간 리포트 막대 (카드마다 1개)</td><td>화면에 들어올 때</td></tr>
+</tbody></table></div>
 </section>
-    <p class="foot">마지막 수정 2026-11-16 · 시간 값은 시안 코드(<code>@keyframes</code> · 스크립트 타이머) 값입니다.</p>
+    <p class="foot">마지막 수정 2026-11-24 · 시간 값은 시안 코드(<code>@keyframes</code> · 스크립트 타이머) 값입니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>

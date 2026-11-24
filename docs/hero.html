@@ -13,7 +13,7 @@
   <header class="ph">
     <p class="eyebrow">영역 규격</p>
     <h1>히어로</h1>
-    <p class="lede">히어로는 페이지 묶음(마케팅 · 솔루션 · 메인 등)마다 형태가 다릅니다. 묶음별로 탭을 나눠 박스 규격을 정하고, 안의 구성은 그 박스에 맞춥니다.</p>
+    <p class="lede">히어로는 페이지 묶음(마케팅 · 호스팅 · 솔루션 · 메인 등)마다 형태가 다릅니다. 묶음별로 탭을 나눠 박스 규격을 정하고, 안의 구성은 그 박스에 맞춥니다.</p>
   </header>
   <div class="body">
     <section class="panel" data-tab="마케팅">
@@ -43,6 +43,44 @@
 @media (max-width: 767px)  { .sh-visual { margin-inline: 0; border-radius: 0; padding: 40px 40px 0; } }</pre></div>
     </section>
 
+    <section class="panel" data-tab="호스팅">
+    <p>호스팅 6페이지(웹호스팅 · 서버호스팅 · 프라이빗 클라우드 · 퍼블릭 클라우드 · CDN · 클라우드플레어) 히어로입니다. 마케팅 히어로의 파란 박스 대신, 흰 바탕 위에 카피와 <b>요금 카드 2장</b>을 둡니다. 6페이지 모두 같은 구조이고 글자 · 금액 · 목록만 다릅니다 (공통 <code>hosting.css</code>).</p>
+    <h2 id="host-see">미리보기</h2>
+    <div class="live" data-src="../hosting-web.html" data-sel="#geo-hero" data-m="0"></div>
+
+    <h2 id="host-box">구성 · 크기</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>PC 1440</th><th>PC 최소 1100</th><th>태블릿 820</th><th>모바일 390</th></tr></thead><tbody>
+<tr><td>영역 바탕</td><td colspan="4">White (파란 박스 없음) · 아래 여백 0 → 바로 다음 영역</td></tr>
+<tr><td>페이지 탭 · 제목 · 설명</td><td colspan="2">마케팅 히어로 글 영역과 같음 (가운데 정렬 · 제목 50 · 설명 18)</td><td>제목 46 · 설명 18</td><td>제목 30 · 설명 15</td></tr>
+<tr><td>설명 → 카드 사이</td><td colspan="2"><span class="num">80</span></td><td><span class="num">60</span></td><td><span class="num">40</span></td></tr>
+<tr><td>카드 묶음 <code>.hb</code></td><td>1340 폭 · 좌우 50 · 2열 · 사이 24 (카드 608)</td><td>화면 폭 · 좌우 50 · 2열 · 사이 24 (1100 → 카드 488 · 가로만 줄어듦)</td><td>1열 · 좌우 50 · 사이 24 (카드 720)</td><td>1열 · 좌우 26 · 사이 24 (카드 338)</td></tr>
+<tr><td>카드 <code>.hb-c</code></td><td colspan="3">패딩 40 · 모서리 16 · 두 카드 같은 높이</td><td>패딩 32/24 · 모서리 16</td></tr>
+<tr><td>왼쪽 카드 (기본 상품)</td><td colspan="4">바탕 Primary 50 · 버튼 Primary 600 (흰 글자)</td></tr>
+<tr><td>오른쪽 카드 (맞춤 · 견적) <code>.hb-w</code> · <code>.hb-op</code></td><td colspan="4">바탕 White · 테두리 1 Gray 200 (inset) · 뱃지 Gray 100 / Gray 700 · 버튼 흰 바탕 + 테두리 1 Gray 300</td></tr>
+<tr><td>카드 호버 (PC)</td><td colspan="4">테두리 1 Black (0.2초)</td></tr>
+</tbody></table></div>
+
+    <h2 id="host-card">카드 안</h2>
+    <div class="tbl"><table class="spec"><thead><tr><th>요소</th><th>PC · PC 최소 · 태블릿</th><th>모바일</th></tr></thead><tbody>
+<tr><td>문장 제목 <code>.hb-h</code></td><td>32/42 · 700 · Gray 900 · 두 줄 · 아래 40</td><td>20/28 · 아래 20</td></tr>
+<tr><td>상품명 <code>.hb-nm</code> + 뱃지 <code>.hb-bd</code></td><td>22/30 · 700 + 뱃지 24 높이 · 12/600 · 사이 8</td><td>16/24 + 뱃지 같음</td></tr>
+<tr><td>금액 <code>.hb-pr</code></td><td>28/36 · 700 · 숫자 고정폭 · 단위 15 Gray 700 · 위 8</td><td>26/34</td></tr>
+<tr><td>설명 <code>.hb-ds</code></td><td>16/24 · Gray 700 · 위 8</td><td>같음</td></tr>
+<tr><td>버튼 <code>.hb-btn</code></td><td colspan="2">버튼 lg (<a href="button.html">버튼</a> · 높이 42 · 10/18 · 16) · 카드 폭 가득 · 위 24</td></tr>
+<tr><td>목록 제목 <code>.hb-lt</code></td><td>15/22 · 700 · 위 24 · 아래 12</td><td>같음</td></tr>
+<tr><td>체크 목록 <code>.hb-ck</code></td><td>15/22 · Gray 700 · 체크 16 · 줄 사이 10</td><td>14/22</td></tr>
+<tr><td>오른쪽 카드 목록 <code>.hb-cm</code></td><td>이름 15 · 600 Gray 900 + 설명 14/20 Gray 600 (두 줄) · 줄 사이 14</td><td>같음</td></tr>
+</tbody></table></div>
+
+    <h2 id="host-rules">배치 규칙</h2>
+    <ol class="rules">
+      <li><div><b>PC 최소(1024~1439)는 줄이지 않고 가로만 줄어든다</b><span>마케팅 히어로처럼 <code>s</code> 배 축소(hero-fit)를 쓰지 않습니다. 카드 2장이 칸 폭을 나눠 가지고, 글자 · 여백 · 높이는 PC 값 그대로입니다.</span></div></li>
+      <li><div><b>태블릿 · 모바일은 카드를 위아래로 쌓는다</b><span>왼쪽(기본 상품) 카드가 위, 오른쪽(맞춤 · 견적) 카드가 아래입니다. 두 카드 모두 보입니다.</span></div></li>
+      <li><div><b>요금은 카드 안에만</b><span>히어로에 떠 있는 카드 · 토스트 · 그래프는 두지 않습니다. 금액 · 포함 사항은 카드 안 목록으로 보여 줍니다.</span></div></li>
+      <li><div><b>모바일 페이지 탭은 가로 스크롤</b><span>탭이 칸보다 길면 옆으로 넘기고, 지금 페이지 탭이 탭 줄 안에 보이도록 위치를 맞춥니다 (<code>hosting.js</code> host-tabs).</span></div></li>
+    </ol>
+    </section>
+
     <section class="panel" data-tab="솔루션">
     <h2 id="solution">솔루션 페이지 히어로</h2>
     <div class="call warn"><p>준비 중입니다. 솔루션 페이지 시안을 정리할 때 히어로 박스 크기 (구간별 가로 · 세로 · 여백 · 모서리)를 이 탭에 표로 추가합니다.</p></div>
@@ -53,13 +91,14 @@
     <div class="call warn"><p>준비 중입니다. 메인 페이지 시안을 정리할 때 히어로 크기를 이 탭에 표로 추가합니다.</p></div>
     <h3>탭 추가 · 작성 기준</h3>
     <ul class="list">
-      <li>새 묶음(예: 호스팅)은 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 하나를 추가하면 탭이 생깁니다.</li>
+      <li>새 묶음은 <code>&lt;section class="panel" data-tab="이름"&gt;</code> 하나를 추가하면 탭이 생깁니다.</li>
       <li>구간(PC · PC 최소 · 태블릿 · 모바일)별 가로 · 세로 · 바깥 여백 · 모서리 · 안쪽 여백을 표로 적고, 크기 · 여백은 10 단위로 끝냅니다.</li>
     </ul>
     </section>
-    <p class="foot">마지막 수정 2026-11-07 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
+    <p class="foot">마지막 수정 2026-11-24 · 규칙이 바뀌면 이 페이지를 먼저 고치고, 각 시안 HTML 맨 위 [개발 전달] 주석도 같이 맞춥니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>
+<script src="assets/live.js"></script>
 </body>
 </html>
