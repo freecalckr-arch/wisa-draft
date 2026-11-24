@@ -17,7 +17,9 @@
     ["히어로", "#geo-hero .sh-visual", false],
     ["문제", "#geo-why .pn", true],
     ["단계", "#geo-how .vw-win", true],
-    ["해결", "#geo-diagnosis .vw-win", true]
+    ["해결", "#geo-diagnosis .vw-win", true],
+    ["포함 서비스", "#host-incl .vw-win", true],   // patch-732 호스팅 기본 포함 서비스 탭 (단계 탭처럼 하나씩 열어 점검)
+    ["요금 계산", "#host-calc .vw-win", true]
   ];
   // 흰 바탕 타일 로고 (assets/common/brand · 파일 안 테두리 #EAECF0 1 → 작게 쓰면 묻힘)
   var WHITE_LOGO = "chatgpt.svg gemini.svg genspark.svg google-ads.svg google.svg meta.svg mue.svg naver-smartstore.svg slack.svg youtube.svg azure.svg ncloud.svg".split(" ");
@@ -73,8 +75,8 @@
   // 스크롤 등장 애니메이션이 끝나도록 각 영역을 한 번씩 화면에 보여 준 뒤 점검
   window.WISAcheck = async function () {
     var y = scrollY, issues = [];
-    var jt = document.querySelector("#geo-how .jt");
-    var tabBtns = jt ? [].slice.call(jt.querySelectorAll(".jt-nav [data-jt]")) : [];
+    var jt = document.querySelector("#geo-how .jt") || document.querySelector("#host-incl .it");   // patch-732 호스팅 기본 포함 서비스 탭도 단계 탭처럼 하나씩 열어 점검 (페이지당 탭 영역 1개)
+    var tabBtns = jt ? [].slice.call(jt.querySelectorAll(".jt-nav [data-jt], .it-nav [data-it]")) : [];
     // 등장 효과(transition)를 끄고 최종 상태로 점검
     var st = document.createElement("style");
     st.textContent = "*{transition-duration:0s!important;transition-delay:0s!important}";
@@ -92,14 +94,15 @@
     };
     for (var i = 0; i < AREAS.length; i++) {
       // 단계 탭 타입: 탭을 하나씩 열어 화면 + 번호 말풍선 점검
-      if (AREAS[i][0] === "단계" && tabBtns.length) {
+      var tabArea = AREAS[i][0] === "단계" ? "#geo-how .jt" : AREAS[i][0] === "포함 서비스" ? "#host-incl .it" : "";
+      if (tabArea && tabBtns.length && jt.matches(tabArea)) {
         jt.scrollIntoView({ block: "center", behavior: "instant" });
         for (var k = 0; k < tabBtns.length; k++) {
           tabBtns[k].click();
           await settle();
-          var pan = jt.querySelectorAll(".jt-panel")[k];
+          var pan = jt.querySelectorAll(".jt-panel, .it-panel")[k];
           var win = pan && pan.querySelector(".vw-win");
-          if (win) { run(["단계 " + (k + 1), AREAS[i][1], AREAS[i][2]], win, 0, issues); pins(win, "단계 " + (k + 1), issues); }
+          if (win) { run([AREAS[i][0] + " " + (k + 1), AREAS[i][1], AREAS[i][2]], win, 0, issues); pins(win, AREAS[i][0] + " " + (k + 1), issues); }
         }
         continue;
       }

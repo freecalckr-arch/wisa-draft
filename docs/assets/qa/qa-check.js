@@ -14,7 +14,7 @@
   var W = window.WISAqa = window.WISAqa || function (page, opt) { return W.run(page, opt); };
   W.spec = W.spec || {};
   W.WIDTHS = [1440, 1100, 820, 390];
-  var AREA = /^(geo-|cmp-|ads-|cta$)/;
+  var AREA = /^(geo-|cmp-|ads-|host-|cta$)/;   // patch-732 호스팅 영역(host-table · host-incl · host-calc) 추가
   var STATE = /^(on|go|in|res|rst|play|open|show|active|done|fill|is-[\w-]+|h|fd-[lr]|ar-[lr]|lf|dn|up|cur|sel|hot|now|t1|launch|ready|seen|vis|run|anim|pause|paused|stop|end|first|last|out|off|prev|next|enter|leave|lit|glow|swap|flip|tick|pulse|rv|reveal|revealed|visible|loaded|inview)$/;
   var TYPO = ["font-family", "font-size", "font-weight", "line-height", "letter-spacing", "color", "text-align", "font-variant-numeric"];
   var BOX = ["display", "position", "padding", "border-top", "border-right", "border-bottom", "border-left", "border-radius", "background-color", "background-image", "box-shadow", "gap", "flex-direction", "justify-content", "align-items", "object-fit", "overflow", "transform", "filter"];
@@ -22,7 +22,7 @@
   var HOLD = 7200;   // 맨 위에서 가만히 지켜보는 시간 (키워드 교체 2.4초 × 3)
   var sleep = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
 
-  function areas() { return [].slice.call(document.querySelectorAll("[id]")).filter(function (e) { return AREA.test(e.id) && !e.parentElement.closest("[id^='geo-'],[id^='cmp-'],[id^='ads-'],#cta"); }); }
+  function areas() { return [].slice.call(document.querySelectorAll("[id]")).filter(function (e) { return AREA.test(e.id) && !e.parentElement.closest("[id^='geo-'],[id^='cmp-'],[id^='ads-'],[id^='host-'],#cta"); }); }
   function sig(e) { var c = [].slice.call(e.classList).filter(function (x) { return !STATE.test(x); }).sort(); return e.tagName.toLowerCase() + (c.length ? "." + c.join(".") : ""); }
   function hasText(e) { for (var n = e.firstChild; n; n = n.nextSibling) if (n.nodeType === 3 && n.nodeValue.trim()) return true; return false; }
   function fam(v) { return v.split(",")[0].replace(/["']/g, "").replace(/ Variable$/, "").trim(); }   // Pretendard Variable = Pretendard (같은 글꼴)
@@ -43,16 +43,18 @@
   // 스크립트 움직임: 맨 위에서 잠시 지켜본 뒤(바뀌는 횟수 = 간격) 천천히 끝까지 내리며 클래스 · 스타일 · 글자가 바뀌는 요소 기록
   async function watchDyn() {
     var keyOf = new Map(); walk(function (e, k) { keyOf.set(e, k); });
-    var dyn = new Set(), hold = true, last = {}, tick = {};
+    var dyn = new Set(), tdyn = new Set(), hold = true, last = {}, tick = {}, topA = new Set();
     var mo = new MutationObserver(function (list) {
       var now = performance.now();
       list.forEach(function (m) {
         var t = m.target.nodeType === 1 ? m.target : m.target.parentElement; while (t && !keyOf.has(t)) t = t.parentElement; if (!t) return;
-        var k = keyOf.get(t); dyn.add(k);
-        if (hold) { var ar = k.split("|")[0]; if (!(ar in last) || now - last[ar] > 400) tick[ar] = (tick[ar] || 0) + 1; last[ar] = now; }   // 영역마다 · 0.4초 안에 이어진 변화는 한 번으로
+        var k = keyOf.get(t); dyn.add(k); if (m.type !== "attributes") tdyn.add(k);   // patch-732 글자 · 자식이 바뀐 요소 (문구 비교에서 뺌)
+        if (hold) { var ar = k.split("|")[0]; if (topA.has(ar)) { if (!(ar in last) || now - last[ar] > 400) tick[ar] = (tick[ar] || 0) + 1; last[ar] = now; } }   // 영역마다 · 0.4초 안에 이어진 변화는 한 번으로
       });
     });
     scrollTo(0, 0); await sleep(600);
+    // patch-732 간격은 맨 위에서 화면 위쪽 절반 안에 시작하는 영역(히어로)만 셈 · 화면 끝에 살짝 걸린 영역은 재는 때마다 0 ↔ 여러 번으로 흔들림
+    areas().forEach(function (a) { var r = a.getBoundingClientRect(); if (r.height && r.top < innerHeight / 2 && r.bottom > 0) topA.add(a.id); });
     mo.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["class", "style"], childList: true, characterData: true });
     await sleep(HOLD); hold = false;
     var H = document.documentElement.scrollHeight, step = Math.round(innerHeight * 0.7);
@@ -61,7 +63,7 @@
     mo.disconnect();
     scrollTo(0, 0); await sleep(900);
     var tk = {}; Object.keys(tick).forEach(function (a) { if (tick[a] >= 3) tk[a] = tick[a]; });
-    return { dyn: Array.from(dyn).filter(function (k) { return !/\|@\|/.test(k); }), tick: tk };
+    return { dyn: Array.from(dyn).filter(function (k) { return !/\|@\|/.test(k); }), tick: tk, tdyn: Array.from(tdyn) };
   }
   // 스타일시트에서 조건에 맞는 선택자를 모아, 그 선택자에 걸리는 요소 key 목록
   function ruleKeys(pick) {
@@ -83,12 +85,13 @@
   // 동작 줄이기: @media (prefers-reduced-motion: reduce) 안 규칙이 걸리는 요소
   var wide = function (s) { return /(^|[\s>+~])\*$|^(html|body|\*)$/.test(s); };   // 모든 요소에 걸리는 규칙(*) 은 빼고 요소별 규칙만
   function rmKeys() { return ruleKeys(function (p, rm) { if (!rm) return ""; var b = bare(p); return wide(b) ? "" : b; }); }
-  function styles(dyn) {
+  function styles(dyn, tdyn) {
+    var tset = new Set(tdyn || []), tEls = [], cand = [];
     var dset = new Set(dyn || []), flag = new Map(), flagS = new Map(), keyOfEl = new Map();
     // 전환(transition)은 끝난 값으로 읽음 · 숫자는 소수 1자리로 맞춤 (기기마다 소수점 끝자리 차이)
     var off = document.createElement("style"); off.textContent = "*,*::before,*::after{transition-duration:0s!important;transition-delay:0s!important}"; document.head.appendChild(off); document.body.offsetHeight;
     var rnd = function (v) { return v.replace(/-?\d+\.\d+/g, function (n) { return (+(+n).toFixed(1)).toString(); }); };
-    var tT = [], tI = {}, bT = [], bI = {}, el = {}, anim = {}, at = {};
+    var tT = [], tI = {}, bT = [], bI = {}, el = {}, anim = {}, at = {}, vis = [], txt = {};
     var idx = function (T, I, s) { if (!(s in I)) { I[s] = T.length; T.push(s); } return I[s]; };
     walk(function (e, k, cs, hidden, a) {
       if (hidden) { el[k] = "x"; return; }
@@ -102,18 +105,27 @@
       el[k] = [t, b, Math.round(r.width), Math.round(r.height), Math.round(r.left - ar.left), mv, "", sc ? 1 : ""].join(",");
       if (me) for (var p = e.parentElement; p && p !== a.parentElement; p = p.parentElement) { var pk = keyOfEl.get(p); if (pk && el[pk] && el[pk] !== "x") { var f = el[pk].split(","); if (f[6] === "1") break; f[6] = "1"; el[pk] = f.join(","); } }
       keyOfEl.set(e, k);
+      // patch-732 (1차 검수 보완) 안 보임: visibility hidden 은 자리는 있고 안 보여 크기 비교로 못 잡음 (기존 소스 .ani 이름 충돌 사례)
+      if (cs.visibility === "hidden" && !(e.parentElement && getComputedStyle(e.parentElement).visibility === "hidden")) vis.push(k);
+      // patch-732 문구: 버튼 · 링크 · 제목 · 질문 글자 (CTA 버튼 문구 미반영 사례) · 스크립트로 바뀌는 글자는 뺌
+      if (tset.has(k)) tEls.push(e);
+      if (/^(a|button|h[1-6]|summary|dt|label)$/i.test(e.tagName)) { var tx = (e.textContent || "").replace(/\s+/g, " ").trim(); if (tx) cand.push([e, k, tx.slice(0, 80)]); }
       var an = cs.animationName; if (an && an !== "none") { anim[k] = an; at[k] = cs.animationDuration + " · " + cs.animationDelay + " · " + cs.animationIterationCount; }
       ["::before", "::after"].forEach(function (ps) {   // 가상 요소 애니메이션 (CTA 뒤 빛 등)
         var pc = getComputedStyle(e, ps); if (pc.content === "none" || !pc.animationName || pc.animationName === "none") return;
         anim[k + ps] = pc.animationName; at[k + ps] = pc.animationDuration + " · " + pc.animationDelay + " · " + pc.animationIterationCount;
       });
     });
+    cand.forEach(function (c) { if (!tEls.some(function (t) { return c[0].contains(t); })) txt[c[1]] = c[2]; });   // 글자가 바뀌는 요소를 품은 것(키워드 교체 등)은 뺌
     off.remove();
-    return { typo: tT, box: bT, el: el, anim: anim, at: at };
+    // patch-732 영역 사이 간격: 앞 영역 아래 끝 ~ 이 영역 위 끝 (FAQ 아래 여백 + CTA 위 여백이 겹친 사례)
+    var gap = {}, AR = areas(); for (var gi = 1; gi < AR.length; gi++) { var pr = AR[gi - 1].getBoundingClientRect(), nr = AR[gi].getBoundingClientRect(); if (pr.height && nr.height) gap[AR[gi].id] = Math.round(nr.top - pr.bottom); }
+    return { typo: tT, box: bT, el: el, anim: anim, at: at, vis: vis, txt: txt, gap: gap };
   }
+  W.compare = function (A, B, tol) { return compare(A, B, tol == null ? 2 : tol); };   // patch-732 시안끼리 비교(정리 전후 확인)용
   W.collect = async function () {
     var d = await watchDyn();
-    var s = styles(d.dyn); s.dyn = d.dyn; s.tick = d.tick; s.hover = hoverKeys(); s.rm = rmKeys(); s.w = innerWidth;
+    var s = styles(d.dyn, d.tdyn); s.dyn = d.dyn; s.tick = d.tick; s.hover = hoverKeys(); s.rm = rmKeys(); s.w = innerWidth;
     return s;
   };
 
@@ -169,7 +181,7 @@
     console.log("[WISA 검수] " + page + " @" + w, res.sum, bs); return res;
   };
   function compare(A, B, tol) {
-    var out = { miss: [], hide: [], typo: [], box: [], size: [], anim: [], rm: [], hover: [], dyn: [], extra: 0 };
+    var out = { miss: [], hide: [], txt: [], typo: [], box: [], size: [], anim: [], rm: [], hover: [], dyn: [], extra: 0 };
     var dynSet = new Set(A.dyn), bDyn = new Set(B.dyn);
     var moving = function (k) { return dynSet.has(k); };
     var live = function (k) { return B.el[k] != null && B.el[k] !== "x"; };
@@ -198,9 +210,13 @@
     var hv = new Set(B.hover); A.hover.forEach(function (k) { if (live(k) && !hv.has(k)) out.hover.push({ k: k, d: "호버 스타일 없음" }); });
     var dy = new Set(B.dyn); A.dyn.forEach(function (k) { if (B.el[k] != null && !dy.has(k)) out.dyn.push({ k: k, d: "스크롤 · 시간에 따라 바뀌는 움직임이 없음 (스크립트 빠짐 의심)" }); });
     if (A.tick) Object.keys(A.tick).forEach(function (a) { var x = A.tick[a], y = (B.tick || {})[a] || 0; if (Math.abs(x - y) > Math.max(1, Math.round(x * 0.3))) out.dyn.push({ k: a + "|@|1", d: "바뀌는 간격 다름 · 맨 위에서 " + HOLD / 1000 + "초 동안 이 영역이 바뀐 횟수 시안 " + x + "번 → 구현 " + y + "번 (키워드 교체 · 자동 넘김 시간 확인)" }); });
+    // patch-732 (기준값에 있을 때만 비교 · 예전 spec 파일도 그대로 씀) · 문구 · visibility 는 등장 효과가 있어도 그대로 비교 (바뀌는 글자는 기준값에서 이미 뺌)
+    if (A.vis && B.vis) { var bv = new Set(B.vis), av = new Set(A.vis); B.vis.forEach(function (k) { if (!av.has(k) && A.el[k] != null && A.el[k] !== "x") out.hide.push({ k: k, d: "시안은 보임 · 구현은 visibility hidden (자리만 있고 안 보임 · 기존 CSS 클래스 이름 충돌 확인)" }); }); A.vis.forEach(function (k) { if (!bv.has(k) && live(k)) out.hide.push({ k: k, d: "시안은 visibility hidden · 구현은 보임" }); }); }
+    if (A.txt && B.txt) Object.keys(A.txt).forEach(function (k) { if (B.txt[k] != null && B.txt[k] !== A.txt[k]) out.txt.push({ k: k, d: "“" + A.txt[k] + "” → “" + B.txt[k] + "”" }); });
+    if (A.gap && B.gap) Object.keys(A.gap).forEach(function (id) { if (B.gap[id] != null && Math.abs(A.gap[id] - B.gap[id]) > tol) out.size.push({ k: id + "|@|1", d: "위 영역과 사이 간격 " + A.gap[id] + " → " + B.gap[id] + " (앞 영역 아래 여백 · 이 영역 위 여백 확인)" }); });
     out.extra = Object.keys(B.el).filter(function (k) { return A.el[k] == null; }).length;
-    var n = function (L) { return L.filter(function (x) { return !x.mv; }).length; }, nr = 0; ["miss", "hide", "typo", "box", "size", "anim", "rm", "hover", "dyn"].forEach(function (g) { nr += out[g].length - n(out[g]); });
-    out.sum = { "시안에 있는데 없는 요소": n(out.miss), "숨김 차이": n(out.hide), "글자": n(out.typo), "모양": n(out.box), "크기 · 위치": n(out.size), "애니메이션": n(out.anim), "동작 줄이기": n(out.rm), "호버": n(out.hover), "스크립트 움직임": n(out.dyn), "움직이는 요소 참고": nr, "시안에 없는 요소": out.extra };
+    var n = function (L) { return L.filter(function (x) { return !x.mv; }).length; }, nr = 0; ["miss", "hide", "txt", "typo", "box", "size", "anim", "rm", "hover", "dyn"].forEach(function (g) { nr += out[g].length - n(out[g]); });
+    out.sum = { "시안에 있는데 없는 요소": n(out.miss), "숨김 차이": n(out.hide), "문구": n(out.txt), "글자": n(out.typo), "모양": n(out.box), "크기 · 위치": n(out.size), "애니메이션": n(out.anim), "동작 줄이기": n(out.rm), "호버": n(out.hover), "스크립트 움직임": n(out.dyn), "움직이는 요소 참고": nr, "시안에 없는 요소": out.extra };
     return out;
   }
   function diffRow(P, x, y) { if (x === y) return ""; x = (x || "").split("|"); y = (y || "").split("|"); return P.map(function (p, i) { return x[i] !== y[i] ? NAME[p] + " " + short(x[i]) + " → " + short(y[i]) : ""; }).filter(Boolean).join(" · "); }
@@ -221,7 +237,7 @@
       o.setAttribute("style", "position:fixed;pointer-events:none;z-index:2147483646;border:2px solid #d92d20;border-radius:4px;left:" + (r2.left - 3) + "px;top:" + (r2.top - 3) + "px;width:" + (r2.width + 6) + "px;height:" + (r2.height + 6) + "px"); }, 300);
   }
   function show(page, w, r, bs) {
-    var G = [["miss", "시안에 있는데 구현에 없는 요소"], ["hide", "해상도별 숨김 차이"], ["typo", "글자 (폰트 · 크기 · 굵기 · 줄 높이 · 자간 · 색 · 숫자 폭)"], ["box", "모양 (여백 · 테두리 · 모서리 · 바탕 · 그림자 · 정렬 · 축소)"], ["size", "크기 · 위치 (±2px 넘는 것)"], ["anim", "애니메이션 (이름 · 시간 · 반복)"], ["rm", "동작 줄이기"], ["hover", "호버"], ["dyn", "스크립트 움직임 (스크롤 · 시간 · 간격)"]];
+    var G = [["miss", "시안에 있는데 구현에 없는 요소"], ["hide", "숨김 차이 (해상도별 · visibility)"], ["txt", "문구 (버튼 · 링크 · 제목 · 질문)"], ["typo", "글자 (폰트 · 크기 · 굵기 · 줄 높이 · 자간 · 색 · 숫자 폭)"], ["box", "모양 (여백 · 테두리 · 모서리 · 바탕 · 그림자 · 정렬 · 축소)"], ["size", "크기 · 위치 (±2px 넘는 것)"], ["anim", "애니메이션 (이름 · 시간 · 반복)"], ["rm", "동작 줄이기"], ["hover", "호버"], ["dyn", "스크립트 움직임 (스크롤 · 시간 · 간격)"]];
     var real = function (L) { return L.filter(function (x) { return !x.mv; }); }, ref = function (L) { return L.filter(function (x) { return x.mv; }); };
     var total = bs.length + (r ? G.reduce(function (s, g) { return s + real(r[g[0]]).length; }, 0) : 0), totalRef = r ? G.reduce(function (s, g) { return s + ref(r[g[0]]).length; }, 0) : 0;
     var esc = function (s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };

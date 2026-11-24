@@ -67,7 +67,19 @@
 
     <section class="panel" data-tab="호스팅">
     <h2 id="scope-hosting">호스팅 페이지</h2>
-    <div class="call warn"><p>준비 중입니다. 호스팅 페이지 작업을 시작하면 작업 범위 · 보는 순서을 이 탭에 같은 형식으로 추가합니다.</p></div>
+    <div class="tbl"><table><thead><tr><th>묶음</th><th>페이지</th><th>파일</th></tr></thead><tbody>
+<tr><td>호스팅</td><td>웹호스팅 · 서버호스팅</td><td><code>hosting-web.html</code> · <code>hosting-server.html</code></td></tr>
+<tr><td>클라우드</td><td>프라이빗 클라우드 · 퍼블릭 클라우드</td><td><code>hosting-private.html</code> · <code>hosting-public.html</code></td></tr>
+<tr><td>부가서비스</td><td>CDN · 클라우드플레어</td><td><code>hosting-cdn.html</code> · <code>hosting-cloudflare.html</code></td></tr>
+</tbody></table></div>
+    <p>호스팅 6페이지는 마케팅과 같은 공통 파일 위에 호스팅 공통 파일을 하나 더 씁니다. 페이지 <code>&lt;style&gt;</code> 에는 그 페이지에만 있는 규칙(히어로 문구 · 화면 이미지 등)만 남아 있습니다.</p>
+    <div class="tbl"><table><thead><tr><th>순서</th><th>파일</th><th>내용</th></tr></thead><tbody>
+<tr><td>1</td><td><code>assets/common/wisa.css</code> · <code>form.css</code> · <code>badge.css</code> · <code>chart.css</code></td><td>모든 신규 페이지 공통 (레이아웃 · 입력 요소 · 뱃지 · 화면 안 그래프 부품)</td></tr>
+<tr><td>2</td><td><code>assets/common/hosting.css</code></td><td>호스팅 6페이지 공통: 요금표 · 문제 비교 화면 · 기본 포함 서비스 탭(번호 칩 <code>.it-tags</code>) · 요금 계산 · 히어로 요금 카드 · 화면 이미지 공통 부품(<code>.hv-*</code>)</td></tr>
+<tr><td>3</td><td>페이지 <code>&lt;style&gt;</code></td><td>페이지 전용 규칙</td></tr>
+<tr><td>스크립트</td><td><code>assets/common/hosting.js</code> → <code>wisa.js</code></td><td><code>hosting.js</code> 는 푸터 · 상담 레이어 다음에 불러옵니다 (헤더 · 등장 효과 · 탭 줄 위치 · 모바일 표 스크롤). 페이지 전용 움직임은 페이지 아래 <code>&lt;script&gt;</code> 의 @region 에 있습니다.</td></tr>
+</tbody></table></div>
+    <p class="note">화면 안 그래프 부품(<code>gx-hbar</code> · <code>gx-vbar</code> · <code>gx-donut</code> · <code>gx-spark</code>)은 기본 포함 서비스 탭이 열릴 때 페이지 스크립트가 차오르게 하므로 <code>chart.js</code> 는 쓰지 않습니다. 영역 이름은 <a href="sections.html#tab=호스팅">영역 이름 · 호스팅 탭</a>, 검수는 <a href="qa.html">개발 검수</a>(페이지 이름 <code>hosting-web</code> 등)를 봅니다.</p>
     </section>
 
     <section class="panel" data-tab="솔루션">

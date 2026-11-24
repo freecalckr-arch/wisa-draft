@@ -35,6 +35,7 @@
 <tr><td>태그</td><td>사양 · 포함 항목 · 키워드 나열 (누르지 않음)</td><td>사각 · 회색</td><td><code>.sr-tags li</code> · <code>.pc-tags li</code></td></tr>
 <tr><td>뱃지</td><td>상품 계열 · 분류 · 상태 표시 (한 덩어리에 1개)</td><td>알약 · 색</td><td><code>.w-badge</code> (assets/common/badge.css)</td></tr>
 <tr><td>선택 칩</td><td>단계 탭에서 누르면 화면이 바뀌는 칩 (번호 + 선택 블루)</td><td>사각 · 회색 → 선택 시 Primary 600</td><td><code>#geo-how .jt-tags li</code></td></tr>
+<tr><td>번호 칩 (호스팅)</td><td>기본 포함 서비스 탭 오른쪽 화면의 번호(1 · 2 · 3)와 짝인 항목 칩 (누르지 않음 · 번호 말풍선이 뜰 때 같이 켜짐)</td><td>사각 · 회색 → 켜지면 Primary 50 바탕 + Primary 700 글자</td><td><code>#host-incl .it-tags li</code> (assets/common/hosting.css)</td></tr>
 </tbody></table></div>
 
     <h2 id="tag">태그</h2>
@@ -80,6 +81,7 @@
 
     <h2 id="chip">선택 칩</h2>
     <p>단계 탭(<code>#geo-how .jt-tags</code>)의 칩은 눌러서 화면을 바꾸는 버튼이라 태그와 따로 둡니다. 번호 원 16 · 15/500 · 위아래 8 · 좌우 14 · 모서리 10, 선택되면 Primary 600 바탕 + 흰 글자. 번호 말풍선 위치가 이 크기에 맞춰져 있어 크기를 바꾸지 않습니다.</p>
+    <p>호스팅 기본 포함 서비스 탭의 번호 칩(<code>.it-tags</code>)은 선택 칩과 같은 크기(번호 원 16 · 15/500 · 위아래 8 · 좌우 14 · 모서리 10 · 모바일 13 · 6/10)를 쓰고, 누르는 칩이 아니라서 켜졌을 때 Primary 50 바탕 + Primary 700 글자로 표시합니다. 규칙은 <code>assets/common/hosting.css</code> 에 있습니다.</p>
 
     <h2 id="use">마크업</h2>
     <div class="code"><button type="button" data-copy="c-tag">복사</button><pre id="c-tag">&lt;!-- 마케팅 해결 영역 --&gt;

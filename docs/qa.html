@@ -52,17 +52,19 @@
 
 <section class="panel" data-tab="자동 점검">
     <h2 id="auto-what">무엇을 비교하나</h2>
-    <p>시안 페이지에서 미리 잰 값(<code>docs/assets/qa/spec-페이지.js</code>)과 구현 페이지를 그 자리에서 재서 비교합니다. 영역(<code>#geo-hero</code> ~ <code>#cta</code>) 안 모든 요소가 대상입니다. 기본 확인은 시안 값 없이 페이지 전체를 봅니다.</p>
+    <p>시안 페이지에서 미리 잰 값(<code>docs/assets/qa/spec-페이지.js</code>)과 구현 페이지를 그 자리에서 재서 비교합니다. 영역(<code>#geo-hero</code> ~ <code>#cta</code> · 호스팅은 <code>#host-table</code> · <code>#host-incl</code> · <code>#host-calc</code> 포함) 안 모든 요소가 대상입니다. 기본 확인은 시안 값 없이 페이지 전체를 봅니다.</p>
     <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>비교 내용</th></tr></thead><tbody>
 <tr><td>기본 확인 (모든 폭)</td><td>페이지가 화면보다 넓어 옆으로 밀리는지(넘치는 요소 표시) · 깨진 이미지 · 로고 · 불러오지 못한 폰트 · 남아 있는 시안 전용 코드(시안 히스토리 버튼 · 시안 점검 스크립트)</td></tr>
 <tr><td>글자</td><td>폰트 · 크기 · 굵기 · 줄 높이 · 자간 · 글자색 · 정렬 · 숫자 고정폭(바뀌는 숫자가 흔들리지 않게)</td></tr>
 <tr><td>모양</td><td>표시 방식 · 안쪽 여백 · 테두리 · 모서리 · 바탕색 · 그라데이션 · 그림자 · 간격 · 정렬 · 화면 이미지 축소 비율</td></tr>
 <tr><td>크기 · 위치</td><td>가로 · 세로 · 영역 안 가로 위치 (±2px 넘으면 표시)</td></tr>
-<tr><td>숨김</td><td>해상도별로 숨기는 · 보이는 요소가 시안과 같은지</td></tr>
+<tr><td>숨김</td><td>해상도별로 숨기는 · 보이는 요소가 시안과 같은지 · 자리는 있는데 안 보이는 요소(<code>visibility: hidden</code> · 기존 CSS 와 클래스 이름이 겹칠 때 생김)</td></tr>
+<tr><td>문구</td><td>버튼 · 링크 · 제목 · FAQ 질문 글자가 시안과 같은지 (스크립트로 바뀌는 글자는 제외)</td></tr>
+<tr><td>영역 사이 간격</td><td>앞 영역 아래 끝 ~ 다음 영역 위 끝 거리 (±2px 넘으면 표시 · 기존 영역 아래 여백과 새 영역 위 여백이 겹칠 때 생김)</td></tr>
 <tr><td>애니메이션</td><td>시안에서 애니메이션이 도는 요소에 구현도 애니메이션이 있는지 · 이름 · 시간 · 지연 · 반복 횟수가 같은지 · <code>::before</code> · <code>::after</code> 포함 (예: CTA 뒤 빛 10초 · 13초)</td></tr>
 <tr><td>동작 줄이기</td><td>시안에서 기기 '동작 줄이기' 설정(<code>prefers-reduced-motion</code>) 규칙이 걸리는 요소에 구현도 같은 규칙이 있는지</td></tr>
 <tr><td>호버</td><td>시안에서 마우스를 올리면 바뀌는 요소에 구현도 호버 스타일이 있는지</td></tr>
-<tr><td>스크립트 움직임</td><td>페이지를 끝까지 내리는 동안 시안에서 바뀌는 요소(등장 효과 · 키워드 교체 · 자동 탭 · 숫자 올라가기 등)가 구현에서도 바뀌는지 · 맨 위에서 7.2초 동안 바뀐 횟수로 키워드 교체 간격(2.4초)이 같은지</td></tr>
+<tr><td>스크립트 움직임</td><td>페이지를 끝까지 내리는 동안 시안에서 바뀌는 요소(등장 효과 · 키워드 교체 · 자동 탭 · 숫자 올라가기 등)가 구현에서도 바뀌는지 · 맨 위에서 7.2초 동안 바뀐 횟수로 키워드 교체 간격(2.4초)이 같은지 (맨 위 화면 위쪽 절반에 보이는 영역 = 히어로만 셈)</td></tr>
 </tbody></table></div>
 
     <h2 id="auto-how">쓰는 법</h2>
@@ -72,12 +74,15 @@
       <li><div><b>실행</b><span>콘솔에서 <code>await WISAqa("geo-price")</code> (페이지 이름) 를 실행합니다. 맨 위에서 7초 지켜본 뒤 페이지를 끝까지 천천히 내리며 재므로 20~40초 동안 화면을 건드리지 않습니다.</span></div></li>
       <li><div><b>결과 보기</b><span>화면 오른쪽 결과 창에 항목별로 다른 곳이 나옵니다. 항목을 누르면 그 요소로 이동해 빨간 테두리로 표시합니다. 같은 결과가 콘솔에도 남습니다.</span></div></li>
     </ol>
-    <div class="code"><pre id="qa-snip">&lt;script src="/qa/spec-geo-price.js"&gt;&lt;/script&gt;   &lt;!-- 페이지 이름: geo-price(GEO) · onsite · crm · report · sns-ops · shopping-feed · vertical-commerce · media-ads · comparison --&gt;
+    <div class="code"><pre id="qa-snip">&lt;script src="/qa/spec-geo-price.js"&gt;&lt;/script&gt;   &lt;!-- 페이지 이름: geo-price(GEO) · onsite · crm · report · sns-ops · shopping-feed · vertical-commerce · media-ads · comparison · hosting-web · hosting-server · hosting-private · hosting-public · hosting-cdn · hosting-cloudflare --&gt;
 &lt;script src="/qa/qa-check.js"&gt;&lt;/script&gt;</pre><button type="button" data-copy="#qa-snip">복사</button></div>
 
     <h2 id="auto-read">결과 읽는 법</h2>
     <div class="tbl"><table class="spec"><thead><tr><th>표시</th><th>뜻 · 할 일</th></tr></thead><tbody>
 <tr><td>기본 확인</td><td>가로 넘침은 화면 밖으로 나간 가장 바깥 요소를 표시합니다 (누를 때마다 다음 요소). 깨진 이미지는 경로 · 파일 이름을, 시안 전용 코드는 지울 곳을 알려 줍니다.</td></tr>
+<tr><td>문구 다름</td><td>"시안 문구 → 구현 문구" 로 나옵니다. 버튼 · 제목 글자를 시안 최신 문구로 바꿉니다.</td></tr>
+<tr><td>visibility hidden</td><td>요소 자리는 있는데 보이지 않습니다. 기존 홈페이지 CSS 에 같은 이름의 클래스(예: <code>.ani</code>)가 있는지 확인하고, 겹치면 클래스 이름을 바꿉니다.</td></tr>
+<tr><td>위 영역과 사이 간격</td><td>앞 영역의 아래 여백(<code>padding-bottom</code> · <code>margin-bottom</code>)과 이 영역의 위 여백을 확인합니다 (예: FAQ 아래 여백 0 + CTA 위 여백).</td></tr>
 <tr><td>시안에 있는데 없는 요소</td><td>마크업이 빠졌거나 클래스 이름이 바뀜. 요소는 "영역 id + 태그 + 클래스 + 같은 이름 중 몇 번째"로 짝을 짓습니다. 기존 홈페이지 구조에 맞춰 클래스 이름을 바꿨다면 그 요소는 여기 나오므로, 바꾼 곳은 시안과 나란히 놓고 눈으로 확인합니다.</td></tr>
 <tr><td>글자 · 모양 · 크기</td><td>"시안 값 → 구현 값" 으로 나옵니다. 페이지 <code>&lt;style&gt;</code> 일부가 빠졌거나 공통 파일 순서가 다를 때 주로 생깁니다.</td></tr>
 <tr><td>애니메이션 · 스크립트 움직임 없음</td><td>페이지 아래쪽 <code>&lt;script&gt;</code> 의 해당 @region 이 빠졌거나, 스크립트가 찾는 클래스 · id 가 바뀐 경우입니다.</td></tr>
@@ -102,14 +107,24 @@
     <div id="qa-list"></div>
 </section>
 
-    <p class="foot">마지막 수정 2026-11-16 · 자동 점검 기준값은 전달하는 시안에서 잰 값입니다. 시안이 바뀌면 다음 전달 때 기준값 파일도 같이 바뀝니다.</p>
+    <p class="foot">마지막 수정 2026-11-24 · 자동 점검 기준값은 전달하는 시안에서 잰 값입니다. 시안이 바뀌면 다음 전달 때 기준값 파일도 같이 바뀝니다.</p>
   </div>
 </main>
 <script>
 (function () {
-  var PAGES = [["geo-price", "GEO"], ["onsite", "온사이트마케팅"], ["crm", "CRM마케팅"], ["report", "리포트"], ["sns-ops", "공식채널운영"], ["shopping-feed", "상품DB 연동"], ["vertical-commerce", "버티컬커머스"], ["media-ads", "매체 광고"], ["comparison", "라이선스 비교"]];
-  // [분류, 질문, 설명, 해상도(없으면 전체)]
+  var PAGES = [["geo-price", "GEO"], ["onsite", "온사이트마케팅"], ["crm", "CRM마케팅"], ["report", "리포트"], ["sns-ops", "공식채널운영"], ["shopping-feed", "상품DB 연동"], ["vertical-commerce", "버티컬커머스"], ["media-ads", "매체 광고"], ["comparison", "라이선스 비교"], ["hosting-web", "웹호스팅"], ["hosting-server", "서버호스팅"], ["hosting-private", "프라이빗 클라우드"], ["hosting-public", "퍼블릭 클라우드"], ["hosting-cdn", "CDN"], ["hosting-cloudflare", "클라우드플레어"]];
+  // [분류, 질문, 설명, 해상도(없으면 전체), 페이지 이름 앞부분(없으면 전체 · 예: hosting)]
   var Q = [
+    ["기존 홈페이지와 합칠 때", [
+      ["기존 CSS 와 클래스 이름이 겹쳐 안 보이거나 모양이 바뀐 요소가 없나요?", "자동 점검의 visibility hidden 항목 · 문제 영역 오른쪽처럼 비어 보이는 화면을 시안과 나란히 확인합니다."],
+      ["FAQ 와 CTA 사이 등 영역 사이 여백이 시안과 같나요?", "기존 영역 아래 여백이 남아 있으면 간격이 두 배로 벌어집니다 (자동 점검 \"위 영역과 사이 간격\")."],
+      ["버튼 · 제목 문구가 시안 최신 문구인가요?", "CTA 버튼처럼 기존 문구를 그대로 두기 쉬운 곳을 확인합니다 (자동 점검 \"문구\")."]
+    ]],
+    ["호스팅", [
+      ["요금 계산에서 탭 · 숫자 입력(＋ −) · 토글을 바꾸면 견적 금액이 바로 바뀌나요?", "입력칸은 공통 form.css(.w-input · .w-tab) 그대로 · 숫자를 지우거나 범위 밖 값을 넣어도 깨지지 않는지 봅니다.", "", "hosting"],
+      ["기본 포함 서비스 탭이 자동으로 넘어가고, 마우스 · 포커스 · 손을 대면 멈추나요?", "탭을 누르면 그 탭부터 다시 시작하고, 번호 말풍선이 순서대로 뜹니다.", "", "hosting"],
+      ["공통 파일 hosting.css · hosting.js 를 6페이지 모두 연결했나요?", "연결 순서: wisa.css → form.css → badge.css → chart.css → hosting.css → 페이지 스타일. hosting.js 는 푸터 · 상담 레이어 다음, wisa.js 앞.", "1440", "hosting"]
+    ]],
     ["터치 · 키보드", [
       ["터치 기기에서 누른 뒤 호버 모양이 남아 있지 않나요?", "실제 폰 · 태블릿에서 탭 · 버튼 · 카드를 눌러 봅니다. 개발자 도구 기기 화면으로는 확인되지 않습니다.", "820,390"],
       ["가로로 민 위치가 되돌아가지 않나요?", "단계 탭 줄 · 요금 카드 넘기기처럼 옆으로 미는 곳. 손을 떼도 그 자리에 있고, 손을 대면 자동 넘김이 멈춥니다.", "820,390"],
@@ -131,7 +146,7 @@
   function draw() {
     var k = pSel.value + "@" + wSel.value, done = st[k] || {}, w = wSel.value, n = 0, d = 0, h = "";
     Q.forEach(function (g, gi) {
-      var on = function (q) { return !q[2] || q[2].split(",").indexOf(w) > -1; }, items = g[1].filter(on); if (!items.length) return;
+      var on = function (q) { return (!q[2] || q[2].split(",").indexOf(w) > -1) && (!q[3] || pSel.value.indexOf(q[3]) === 0); }, items = g[1].filter(on); if (!items.length) return;
       h += "<h2 id=\"q" + gi + "\">" + g[0] + "</h2><ul class=\"qa\">";
       g[1].forEach(function (q, qi) { if (!on(q)) return; var id = gi + "-" + qi; n++; if (done[id]) d++;
         h += "<li><label><input type=\"checkbox\" data-id=\"" + id + "\"" + (done[id] ? " checked" : "") + "><div><b>" + q[0] + (q[2] ? "<em class=\"w\">" + q[2].split(",").map(function (x) { return ({ "1440": "PC", "1100": "PC 최소", "820": "태블릿", "390": "모바일" })[x]; }).join(" · ") + "</em>" : "") + "</b><span>" + q[1] + "</span></div></label></li>"; });
