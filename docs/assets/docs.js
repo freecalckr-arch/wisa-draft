@@ -9,15 +9,15 @@
      - 디자인: 시안을 그릴 때만 쓰는 작업 규칙 (구현 대상 아님 · badge = 이름 옆 표시) */
   var NAV = [
     { part: "개발 전달", icon: "code" },
-    { g: "시작하기", items: [["프로젝트 안내", "index.html", "NEW"], ["산출물", "deliverables.html", "NEW"], ["기획서", "plans.html", "NEW"]] },
-    { g: "기존 소스 수정", items: [["기존 수정 목록", "changes.html", "NEW"]] },
-    { g: "공통 규격", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html", "NEW"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
-    { g: "영역 규격", items: [["히어로", "hero.html", "NEW"], ["이미지", "image.html"], ["그래프", "graph.html", "NEW"]] },
-    { g: "컴포넌트", items: [["버튼", "button.html", "NEW"], ["탭", "tabs.html", "NEW"], ["카드", "cards.html", "NEW"], ["요금 카드", "plan.html"], ["태그 · 뱃지", "tag.html", "NEW"], ["입력 요소", "form.html", "NEW"], ["CTA · FAQ", "cta.html", "NEW"]] },
-    { g: "인터랙션", items: [["인터랙션 목록", "interactions.html", "NEW"]] },
-    { g: "검수", items: [["개발 검수", "qa.html", "NEW"]] },
+    { g: "시작하기", items: [["프로젝트 안내", "index.html", "N"], ["산출물", "deliverables.html", "N"], ["기획서", "plans.html"]] },
+    { g: "기존 소스 수정", items: [["기존 수정 목록", "changes.html", "N"]] },
+    { g: "공통 규격", items: [["해상도 구간", "breakpoints.html"], ["영역 이름", "sections.html", "N"], ["그리드 · 여백", "grid.html"], ["컬러", "color.html"], ["타이포", "type.html"]] },
+    { g: "영역 규격", items: [["히어로", "hero.html", "N"], ["이미지", "image.html"], ["그래프", "graph.html"]] },
+    { g: "컴포넌트", items: [["버튼", "button.html", "N"], ["탭", "tabs.html", "N"], ["카드", "cards.html", "N"], ["요금 카드", "plan.html"], ["태그 · 뱃지", "tag.html", "N"], ["입력 요소", "form.html", "N"], ["CTA · FAQ", "cta.html", "N"]] },
+    { g: "인터랙션", items: [["인터랙션 목록", "interactions.html", "N"]] },
+    { g: "검수", items: [["개발 검수", "qa.html", "N"]] },
     { g: "마케팅 페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"], ["매체 광고", "../media-ads.html"], ["라이선스 비교", "../comparison.html"]] },
-    { g: "호스팅 페이지", items: [["웹호스팅", "../hosting-web.html", "NEW"], ["서버호스팅", "../hosting-server.html", "NEW"], ["프라이빗 클라우드", "../hosting-private.html", "NEW"], ["퍼블릭 클라우드", "../hosting-public.html", "NEW"], ["CDN", "../hosting-cdn.html", "NEW"], ["클라우드플레어", "../hosting-cloudflare.html", "NEW"]] },
+    { g: "호스팅 페이지", items: [["웹호스팅", "../hosting-web.html", "N"], ["서버호스팅", "../hosting-server.html", "N"], ["프라이빗 클라우드", "../hosting-private.html", "N"], ["퍼블릭 클라우드", "../hosting-public.html", "N"], ["CDN", "../hosting-cdn.html", "N"], ["클라우드플레어", "../hosting-cloudflare.html", "N"]] },
     { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
@@ -71,7 +71,7 @@
       if (!it[1]) return '<li><span class="off">' + it[0] + "<small>준비 중</small></span></li>";
       var out = it[1].indexOf("../") === 0;
       var cur = !out && it[1] === here ? ' aria-current="page"' : "";
-      var badge = it[2] ? '<em class="badge' + (it[2] === "NEW" ? " new" : "") + '">' + it[2] + "</em>" : "";   // NEW = 2차 전달(11-16) 이후 새로 생기거나 바뀐 페이지 (다음 전달 때 지움)
+      var badge = it[2] ? '<em class="badge' + (it[2] === "N" ? " new" : "") + '">' + it[2] + "</em>" : "";   // N = 2차 전달(11-16) 이후 개발자가 새로 보거나 고쳐야 하는 페이지 (다음 전달 때 지움)
       return '<li><a href="' + it[1] + '"' + cur + (out ? ' target="_blank" rel="noopener"' : "") + ">" + it[0] + (out ? (badge ? '<span class="r">' + badge + ext + '</span>' : ext) : badge) + "</a></li>";
     }).join("") + "</ul></div>";
   }
