@@ -245,5 +245,5 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 .live-f iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; }
 .spec td:first-child { white-space: nowrap; }
 @media (max-width: 767px) { .live-bar a { margin-left: 0; width: 100%; } }
-.side a .badge.new { display: grid; place-items: center; width: 18px; height: 18px; padding: 0; border-radius: 99px; background: var(--primary-600); color: #fff; font-size: 10px; font-weight: 700; line-height: 1; }   /* 메뉴 N 뱃지 (2차 전달 이후 개발자가 새로 보거나 고쳐야 하는 페이지) */
-.side a .r { display: flex; align-items: center; gap: 6px; flex: none; }
+.side .badge.new { flex: none; padding: 2px 7px; border-radius: 99px; background: var(--primary-50); color: var(--primary-700); font-style: normal; font-size: 11px; font-weight: 700; line-height: 16px; }   /* 메뉴 N 뱃지 (2차 전달 이후 개발자가 새로 보거나 고쳐야 하는 페이지 · 분류 이름 옆에 달면 그 아래 페이지 전체) */
+.side a .r, .side .grp-t .r { display: flex; align-items: center; gap: 6px; flex: none; }

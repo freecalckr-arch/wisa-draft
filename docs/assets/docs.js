@@ -17,7 +17,7 @@
     { g: "인터랙션", items: [["인터랙션 목록", "interactions.html", "N"]] },
     { g: "검수", items: [["개발 검수", "qa.html", "N"]] },
     { g: "마케팅 페이지", items: [["GEO", "../geo.html"], ["온사이트마케팅", "../onsite.html"], ["CRM마케팅", "../crm.html"], ["리포트", "../report.html"], ["공식채널운영", "../sns-ops.html"], ["상품DB 연동", "../shopping-feed.html"], ["버티컬커머스", "../vertical-commerce.html"], ["매체 광고", "../media-ads.html"], ["라이선스 비교", "../comparison.html"]] },
-    { g: "호스팅 페이지", items: [["웹호스팅", "../hosting-web.html", "N"], ["서버호스팅", "../hosting-server.html", "N"], ["프라이빗 클라우드", "../hosting-private.html", "N"], ["퍼블릭 클라우드", "../hosting-public.html", "N"], ["CDN", "../hosting-cdn.html", "N"], ["클라우드플레어", "../hosting-cloudflare.html", "N"]] },
+    { g: "호스팅 페이지", badge: "N", items: [["웹호스팅", "../hosting-web.html"], ["서버호스팅", "../hosting-server.html"], ["프라이빗 클라우드", "../hosting-private.html"], ["퍼블릭 클라우드", "../hosting-public.html"], ["CDN", "../hosting-cdn.html"], ["클라우드플레어", "../hosting-cloudflare.html"]] },
     { part: "디자인", icon: "pen", badge: "클로드용", lock: true },   // lock: 작업자 IP 에서만 보임 (아래 OWNER)
     { g: "작업 규칙", items: [["작업 방법", "workflow.html"], ["비주얼 공통", "visual.html"]] }
   ];
@@ -67,7 +67,7 @@
   function grpHtml(grp, gi) {
     var hasHere = grp.items.some(function (it) { return it[1] === here; });
     var open = hasHere || !shut[grp.g];
-    return '<div class="grp' + (open ? "" : " shut") + '"><h4><button type="button" class="grp-t" aria-expanded="' + open + '" aria-controls="nav-g' + gi + '">' + grp.g + chev + "</button></h4><ul id=\"nav-g" + gi + "\">" + grp.items.map(function (it) {
+    return '<div class="grp' + (open ? "" : " shut") + '"><h4><button type="button" class="grp-t" aria-expanded="' + open + '" aria-controls="nav-g' + gi + '">' + grp.g + (grp.badge ? '<span class="r"><em class="badge new">' + grp.badge + "</em>" + chev + "</span>" : chev) + "</button></h4><ul id=\"nav-g" + gi + "\">" + grp.items.map(function (it) {
       if (!it[1]) return '<li><span class="off">' + it[0] + "<small>준비 중</small></span></li>";
       var out = it[1].indexOf("../") === 0;
       var cur = !out && it[1] === here ? ' aria-current="page"' : "";
