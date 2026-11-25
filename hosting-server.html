@@ -22,6 +22,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 서버호스팅 (호스팅 상세 · 2026.11.19 1차 시안 공유)
+     · 2026-11-25 patch-742: 요금 계산 회선 줄 → "대역폭 추가" 셀렉트(추가 없음 · +10Mbps · +20Mbps · +50Mbps · +1Gbps · 기본 10Mbps · 회선 1Gbps) · 금액 없어 고르면 견적서에 견적 줄
      · 2026-11-25 patch-741: 고객 확인 — 전용 서버 표(CPU 10코어 · SAS RAID1 · 10Mbps · 임대형 약정 2년)가 서버호스팅 사양 (patch-734 ~ 736 은 가상화 서버 표를 잘못 넣음) → 히어로 = 24개월 임대형 약정 · CPU 10코어 · 메모리 16GB / SAS 146GB × 2 · RAID1 / 대역폭 10Mbps · 회선 1Gbps / 백업 일 1회 · 7일 보관 / 보안 서비스 선택 · 요금 계산 = 결제 방식 탭 · 전송량 입력 삭제(24개월 약정 고정) · 메모리 +16GB(월 40,000원) · SSD 250GB × 2(월 40,000원) · 500GB × 2(월 60,000원) 셀렉트 · 백업 일 4회 월 20,000원 · CPU 16코어 · 카이퍼넷 · 클라우드플레어 견적 토글 · 결제 조건 24개월 · 설치비 55,000원 · 탭 1 CPU 10코어 · SAS 146GB × 2 · 탭 4 전송량 후불은 1차 시안(기획문서 2TB · 1GB당 100원)으로 되돌림 [확인 필요 · 표는 대역폭 10Mbps]
      · 2026-11-25 patch-736: 요금 계산 vCPU · 메모리 · SSD 추가 = 숫자 입력칸 → 공통 셀렉트(form.css .w-select 새로 추가 · 폭 PC 140 · 모바일 128) · 항목 = 추가 없음 + 단위별 수량(vCPU +2 · +4개 / 메모리 +8 · +16GB / SSD +20 · +40GB) · 최대값 밖은 고를 수 없음 · form.css ?v=736
      · 2026-11-25 patch-735: 시안 히스토리에 "2026.11.25 서버호스팅 · 수정시안 · PC" 추가 (지금 버전) · 1차 시안은 사본 hosting-server-v1.html 로 보관 (구현하지 않음)
@@ -632,7 +633,7 @@
         <div>   <!-- [개발 전달] patch-618 옵션 항목 = 기획서 형식: 줄마다 이름 + 설명 / 숫자 입력칸 + 단위 · 줄 사이 점선 (슬라이더 · − + 버튼 없음) -->
           <span class="hq-lb">예상 사용량</span>
           <div class="hq-opts">
-            <div class="hq-row"><span><b>회선</b><small>대역폭 10Mbps<span class="hq-pc"> · 월 요금에 포함</span></small></span><span class="hq-inc">1Gbps</span></div>   <!-- [개발 전달] patch-741 옵션 = 고객 확정 전용 서버 표: RAM 16GB당 월 40,000원 · 최대 32GB(+16) / SSD 250GB × 2 월 40,000원 · 500GB × 2 월 60,000원 (RAID1 · 기본 SAS 에 더함) / 백업 일 4회 · 7일 보관 월 20,000원 / CPU 16코어(2.5GHz 이상) · 카이퍼넷 · 클라우드플레어 = 금액 없음 → 견적 토글 · 전송량 과금 없음(회선 1Gbps · 대역폭 10Mbps) → 전송량 입력 삭제 · 결제 방식 탭 삭제(24개월 약정만) -->
+            <div class="hq-row"><span><b>대역폭 추가</b><small>기본 10Mbps<span class="hq-pc"> 포함 · 회선 1Gbps</span> · 별도 견적</small></span><span class="hq-step hq-sel" data-max="99999"><select class="w-select" aria-label="대역폭 추가"><option value="0" data-won="0" selected>추가 없음</option><option value="10" data-q="bw" data-lb="대역폭 +10Mbps">+10Mbps</option><option value="20" data-q="bw" data-lb="대역폭 +20Mbps">+20Mbps</option><option value="50" data-q="bw" data-lb="대역폭 +50Mbps">+50Mbps</option><option value="1000" data-q="bw" data-lb="대역폭 +1Gbps">+1Gbps</option></select></span></div>   <!-- [개발 전달] patch-742 대역폭 추가 = 셀렉트 (추가 없음 · +10 · +20 · +50Mbps · +1Gbps) · 금액 없음 → 고르면 견적서에 "대역폭 +N · 견적" 줄 (data-q="bw") -->   <!-- [개발 전달] patch-741 옵션 = 고객 확정 전용 서버 표: RAM 16GB당 월 40,000원 · 최대 32GB(+16) / SSD 250GB × 2 월 40,000원 · 500GB × 2 월 60,000원 (RAID1 · 기본 SAS 에 더함) / 백업 일 4회 · 7일 보관 월 20,000원 / CPU 16코어(2.5GHz 이상) · 카이퍼넷 · 클라우드플레어 = 금액 없음 → 견적 토글 · 전송량 과금 없음(회선 1Gbps · 대역폭 10Mbps) → 전송량 입력 삭제 · 결제 방식 탭 삭제(24개월 약정만) -->
             <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 16GB당 <span class="hq-pc">월 </span>40,000원<span class="hq-pc"> · 최대 32GB</span></small></span><span class="hq-step hq-sel" data-max="99999"><select class="w-select" aria-label="메모리 추가"><option value="0" data-won="0">추가 없음</option><option value="16" data-won="40000" data-lb="메모리 +16GB" selected>+16GB</option></select></span></div>
             <div class="hq-row"><span><b>SSD 추가</b><small>RAID1 구성<span class="hq-pc"> · 250GB × 2 월 40,000원 · 500GB × 2 월 60,000원</span></small></span><span class="hq-step hq-sel" data-max="99999"><select class="w-select" aria-label="SSD 추가"><option value="0" data-won="0">추가 없음</option><option value="250" data-won="40000" data-lb="SSD 250GB × 2">250GB × 2</option><option value="500" data-won="60000" data-lb="SSD 500GB × 2">500GB × 2</option></select></span></div>
             <div class="hq-row"><span><b>백업 일 4회</b><small>기본 일 1회<span class="hq-pc"> · 7일 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 일 4회"></button></div>
@@ -649,6 +650,7 @@
         <dl class="hq-break">
           <div><dt>기본 요금</dt><dd>110,000원</dd></div>
           <div><dt>사양 옵션<small>다음 달 월정액에 반영</small></dt><dd class="hq-opt">+40,000원</dd><dd class="hq-opt-list"><span><b>메모리 +16GB</b><em>+40,000원</em></span></dd></div>
+          <div data-q="bw" hidden><dt>대역폭 추가<small>회선 사용량 확인 후 안내</small></dt><dd>견적</dd></div>
           <div data-q="cpu" hidden><dt>CPU 16코어<small>사양 확인 후 안내</small></dt><dd>견적</dd></div>
           <div data-q="kai" hidden><dt>카이퍼넷<small>설치 범위 확인 후 안내</small></dt><dd>견적</dd></div>
           <div data-q="cf" hidden><dt>클라우드플레어<small>보안 세팅 상담 후 안내</small></dt><dd>견적</dd></div>
@@ -826,6 +828,7 @@
         box.querySelectorAll('.hq-sw:not([data-quote])').forEach(sw => { if (sw.getAttribute('aria-checked') === 'true') { opt += +sw.dataset.rate; items.push([nm(sw), +sw.dataset.rate]); } });
         const ol = box.querySelector('.hq-opt-list'); ol.hidden = !items.length; ol.innerHTML = items.map(([t, w]) => '<span><b>' + t + '</b><em>+' + fmt(w) + '원</em></span>').join('');
         let qn = 0; box.querySelectorAll('.hq-sw[data-quote]').forEach(sw => { const on = sw.getAttribute('aria-checked') === 'true', r = box.querySelector('[data-q="' + sw.dataset.quote + '"]'); if (r) r.hidden = !on; if (on) qn++; });
+        box.querySelectorAll('.hq-sel select').forEach(se => { const o = se.selectedOptions[0]; box.querySelectorAll('dl [data-q]').forEach(r => { if (se.querySelector('[data-q="' + r.dataset.q + '"]')) { r.hidden = !o.dataset.q; if (o.dataset.q) { r.querySelector('dt').firstChild.textContent = o.dataset.lb; qn++; } } }); });   // patch-742 금액 없는 셀렉트 항목(대역폭) → 견적 줄
         box.querySelector('.hq-mode').textContent = '24개월 약정 기준' + (qn ? ' · 견적 항목 별도' : '');
         box.querySelector('.hq-opt').textContent = (opt ? '+' : '') + fmt(opt) + '원';
         const txt = fmt(base + opt), st = tot.querySelector('strong'); if (st.textContent !== txt) { st.textContent = txt; tot.classList.remove('bump'); void tot.offsetWidth; tot.classList.add('bump'); }
