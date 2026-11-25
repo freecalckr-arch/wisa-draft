@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>호스팅 수정시안 확인 요청</title>
 <!-- [개발 전달] 구현하지 않음 · 고객 확인용 페이지 (서버호스팅 · 프라이빗 클라우드 사양표 반영 중 임시로 정한 항목을 고객이 고름)
+     · 2026-11-25 patch-740: 서버호스팅 · 프라이빗 클라우드 전환 탭(공통 .w-tab full · 탭에 고른 개수) · 첫 탭 끝 "다음" 버튼 · 주소 #tab-sv · #tab-pv
      · 2026-11-25 patch-739: 새로 만듦 · 요금 계산 비교 탭(기존 시안 ↔ 수정시안 · 공통 .w-tab) · hosting-server-v1.html 이 수정 후 사양으로 잘못 보관돼 1차(b98db48 이전) 원본으로 다시 만듦 · 공통 form.css 라디오(.w-radio) · 입력칸(.w-input) · 버튼(.btn-dark) 사용 · 답변은 '답변 복사'로 텍스트 복사 (이 브라우저에만 임시 저장) -->
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=727">
@@ -17,7 +18,14 @@
   .cfm-hd p { margin: 12px 0 0; font-size: 16px; line-height: 26px; color: var(--gray-600); }
   .cfm-how { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
   .cfm-how span { display: inline-flex; align-items: center; height: 32px; padding: 6px 12px; border-radius: 8px; background: var(--gray-200); font-size: 13px; font-weight: 500; color: var(--gray-700); }
-  .cf-sec { margin-top: 56px; }
+  .cf-tabs { margin-top: 40px; }
+  .cf-tabs .w-tab > button { gap: 8px; }
+  .cf-tn { font-size: 13px; font-weight: 600; color: var(--gray-500); }
+  .cf-tn.full { color: var(--primary-600); }
+  .cf-sec { margin-top: 32px; }
+  .cf-sec[hidden] { display: none; }
+  .cf-next { display: flex; justify-content: flex-end; margin-top: 24px; }
+  .cf-next .btn { height: 42px; padding: 10px 18px; font-size: 16px; }
   .cf-sec-hd { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .cf-sec-hd h2 { margin: 0; font-size: 24px; line-height: 32px; font-weight: 700; }
   .cf-sec-hd a { font-size: 14px; font-weight: 600; color: var(--primary-700); text-decoration: none; }
@@ -98,6 +106,7 @@
     <p>보내 주신 사양표를 서버호스팅 · 프라이빗 클라우드 시안에 반영했습니다. 표만으로 정하기 어려운 부분은 시안에 임시로 넣어 두었어요. 항목마다 맞는 답을 골라 주시면 그대로 시안에 반영하겠습니다.</p>
     <div class="cfm-how"><span>① 항목마다 하나 고르기</span><span>② 없으면 '직접 입력'</span><span>③ 아래 '답변 복사' 후 전달</span></div>
   </div>
+  <div class="cf-tabs"><div class="w-tab full" id="cf-tabs" role="tablist" aria-label="확인할 시안"></div></div>
   <div id="cf-list"></div>
   <section class="cf-out">
     <h2>답변 정리</h2>
@@ -174,7 +183,10 @@
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const list = document.getElementById('cf-list');
   let total = 0;
-  list.innerHTML = DATA.map(sec => `<section class="cf-sec" id="${sec.id}">
+  /* patch-740: 서버호스팅 · 프라이빗 탭으로 나눔 (탭에 고른 개수 · 첫 탭 끝에 다음 탭 버튼) */
+  const tabs = document.getElementById('cf-tabs');
+  tabs.innerHTML = DATA.map((sec, i) => `<button type="button" role="tab" aria-selected="${i === 0}" aria-controls="${sec.id}" data-sec="${sec.id}">${sec.title}<span class="cf-tn" data-n="${sec.id}"></span></button>`).join('');
+  list.innerHTML = DATA.map((sec, si) => `<section class="cf-sec" id="${sec.id}" role="tabpanel"${si ? ' hidden' : ''}>
     <div class="cf-sec-hd"><h2>${sec.title}</h2><a href="${sec.url}" target="_blank" rel="noopener">시안 보기 ↗</a></div>
     <p class="cf-ok"><b>사양표대로 반영한 내용</b> · ${esc(sec.ok)}</p>
     ${cmp(sec)}
@@ -184,12 +196,22 @@
       <p class="cq-ask">${q.ask}</p>
       <div class="cq-ops" role="radiogroup" aria-label="${esc(q.ask)}">${ops.map((o, j) => `<label class="cq-op"><span class="w-radio"><input type="radio" name="${k}" value="${j}"><span><b>${j === 0 ? NOW : esc(o)}</b>${j === 0 ? '<small>' + esc(q.now) + '</small>' : ''}</span></span></label>`).join('')}</div>
       <div class="cq-etc" hidden><input class="w-input" type="text" placeholder="내용을 적어 주세요" aria-label="${esc(q.t)} 직접 입력"></div></div>`; }).join('')}
+    ${DATA[si + 1] ? `<div class="cf-next"><button type="button" class="btn btn-dark" data-go="${DATA[si + 1].id}">다음 · ${DATA[si + 1].title} 확인하기</button></div>` : ''}
   </section>`).join('');
+  const show = id => {
+    tabs.querySelectorAll('[data-sec]').forEach(b => b.setAttribute('aria-selected', b.dataset.sec === id));
+    list.querySelectorAll('.cf-sec').forEach(s => { s.hidden = s.id !== id; });
+    try { history.replaceState(null, '', '#tab-' + id); } catch (e) {}
+  };
+  const toTabs = () => { const y = tabs.getBoundingClientRect().top + scrollY - 16; if (scrollY > y) requestAnimationFrame(() => scrollTo(0, y)); };   /* 다음 버튼 · 아래에서 탭 누르면 탭 줄로 올림 */
+  tabs.addEventListener('click', e => { const b = e.target.closest('[data-sec]'); if (b) { show(b.dataset.sec); toTabs(); } });
+  list.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) { show(b.dataset.go); toTabs(); } });
+  if (DATA.some(s => '#tab-' + s.id === location.hash)) show(location.hash.slice(5));
 
   const out = document.getElementById('cf-text'), cnt = document.getElementById('cf-cnt'), fill = document.getElementById('cf-fill');
   const run = () => {
     let n = 0; const lines = ['[호스팅 수정시안 확인 답변 · 2026.11.25]'];
-    DATA.forEach(sec => { lines.push('', '■ ' + sec.title);
+    DATA.forEach(sec => { lines.push('', '■ ' + sec.title); const n0 = n;
       sec.qs.forEach((q, i) => { const k = sec.id + i, box = list.querySelector(`.cq[data-k="${k}"]`), r = box.querySelector('input:checked'), etc = box.querySelector('.cq-etc'), tx = etc.querySelector('input');
         const ops = [NOW].concat(q.ops, ['직접 입력']), j = r ? +r.value : -1, last = ops.length - 1;
         etc.hidden = j !== last && !(j > 0 && /직접 입력/.test(ops[j]));
@@ -199,7 +221,8 @@
         else if (!etc.hidden && tx.value.trim()) a += ' → ' + tx.value.trim();
         lines.push(`${i + 1}. ${q.t}: ${a}`);
         saved[k] = { j, tx: tx.value };
-      }); });
+      });
+      const tn = tabs.querySelector(`[data-n="${sec.id}"]`); tn.textContent = `${n - n0}/${sec.qs.length}`; tn.classList.toggle('full', n - n0 === sec.qs.length); });
     out.value = lines.join('\n');
     cnt.textContent = `${n} / ${total} 선택`; fill.style.width = (n / total * 100) + '%';
     try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
