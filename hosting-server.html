@@ -15,13 +15,14 @@
 <meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=727">
-<link rel="stylesheet" href="assets/common/form.css?v=730">   <!-- patch-713 입력 요소 공통 컴포넌트 (입력칸 · 체크박스 · 라디오 · 탭 · 토글 sm) -->
+<link rel="stylesheet" href="assets/common/form.css?v=736">   <!-- patch-713 입력 요소 공통 컴포넌트 (입력칸 · 체크박스 · 라디오 · 탭 · 토글 sm) -->
 <link rel="stylesheet" href="assets/common/badge.css?v=472">
 <link rel="stylesheet" href="assets/common/chart.css?v=730">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
 <link rel="stylesheet" href="assets/common/hosting.css?v=733">   <!-- patch-731: 호스팅 6페이지 공통 스타일 (페이지 <style> 에는 페이지 전용 규칙만) -->
 <style>
   /* =====================================================================
      [개발 전달] 서버호스팅 (호스팅 상세 · 2026.11.19 1차 시안 공유)
+     · 2026-11-25 patch-736: 요금 계산 vCPU · 메모리 · SSD 추가 = 숫자 입력칸 → 공통 셀렉트(form.css .w-select 새로 추가 · 폭 PC 140 · 모바일 128) · 항목 = 추가 없음 + 단위별 수량(vCPU +2 · +4개 / 메모리 +8 · +16GB / SSD +20 · +40GB) · 최대값 밖은 고를 수 없음 · form.css ?v=736
      · 2026-11-25 patch-735: 시안 히스토리에 "2026.11.25 서버호스팅 · 수정시안 · PC" 추가 (지금 버전) · 1차 시안은 사본 hosting-server-v1.html 로 보관 (구현하지 않음)
      · 2026-11-25 patch-734: 고객 확정 사양 반영 — 히어로 요금 카드 기본 포함 = 4 vCPU · 메모리 16GB · SSD 100GB / 전송량 월 1TB / 백업 일 1회 · 7일 보관 / 보안 서비스 선택 · 요금 계산 = 기본 전송량 1TB · 추가 전송량 1GB당 80원(최대 1TB) · vCPU 2개당 20,000원(최대 +4) · 메모리 8GB당 30,000원(최대 +16) · SSD 20GB당 10,000원(최대 +40) · 백업 일 4회 월 20,000원 · 카이퍼넷 · 클라우드플레어 견적 토글 (메모리 · 디스크 증설 · 웹 DB 분리 · 공인 IP 견적 토글 삭제) · 기본 포함 탭 1 서버 사양 · 탭 4 전송량(1,150 / 1,024GB · 126GB × 80원 = 10,080원)도 같은 기준으로
      · 2026-11-25 patch-733: 호스팅 공통 스타일에서 6페이지 어디에도 없는 옛 규칙(옛 히어로 요금 바 · 알림 카드 · 전송량 슬라이더 등) 삭제 · 화면 변화 없음
@@ -393,6 +394,10 @@
     .hq-row .hq-step, .hq-row .hq-sw, .hq-row .hq-inc { grid-column: 2; grid-row: 1; margin-left: 0; }
   }
   /* @endregion mo-598 */
+  /* @region hq-sel (patch-736): 단위 · 최대값이 정해진 수량(vCPU · 메모리 · SSD) = 공통 셀렉트 .w-select · 여기선 폭만 (PC 140 · 모바일 128) */
+  .hq-sel .w-select { width: 140px; }
+  @media (max-width: 767px) { .hq-sel .w-select { width: 128px; } }
+  /* @endregion hq-sel */
   /* @region hq-input (patch-604): 수량 입력 = 기획서대로 숫자 입력칸 + 칸 밖 단위 (− / + 버튼 없음 · 모든 해상도) — 사양 옵션 3개 · 이번 달 전송량 같은 규격
      입력칸 88×40 · 테두리 1 Gray 300 · 모서리 10 · 숫자 16/600 오른쪽 정렬 · 포커스 테두리 Gray 900 / 단위 14 Gray 600 · 칸 사이 8 · 단위 폭 20 고정(개 · GB 달라도 입력칸 세로 줄 맞춤)
      [개발 전달] − / + 버튼 마크업은 계산 스크립트 호환용으로 남기고 숨김 · SSD 는 칸을 벗어나면 100GB 단위로 올림 */
@@ -633,9 +638,9 @@
           <div class="hq-opts">
             <div class="hq-row"><span><b>기본 전송량</b><small>1,024GB · 월 요금에 포함</small></span><span class="hq-inc">월 1TB</span></div>   <!-- [개발 전달] patch-734 사양 옵션 = 고객 확정 표 (월 추가 비용 · 스펙업 = 최대 범위): vCPU 2개당 20,000원 · 최대 8 vCPU(+4) / 메모리 8GB당 30,000원 · 최대 32GB(+16 · 고객 확인) / SSD 20GB당 10,000원 · 최대 140GB(+40 · 스펙업 150 안쪽) / 전송량 1GB당 80원 · 최대 2TB(+1,024GB) / 백업 일 4회 · 7일 보관 월 20,000원 / 보안 서비스(카이퍼넷 · 클라우드플레어) = 금액 없음 → 견적 토글 -->
             <div class="hq-row"><span><b>추가 전송량</b><small>기본 1TB 초과분 · 1GB당 80원 · 최대 1TB (후불)</small></span><span class="hq-step hq-tr" data-max="1024"><label class="hq-num"><input class="w-input hq-tr-v" type="number" inputmode="numeric" min="0" max="1024" step="1" value="200" data-free="0" data-rate="80" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
-            <div class="hq-row"><span><b>vCPU 추가</b><small>기본 4개<span class="hq-pc"> 포함</span> · 2개당 <span class="hq-pc">월 </span>20,000원<span class="hq-pc"> · 최대 8개</span></small></span><span class="hq-step" data-step="2" data-per="2" data-rate="20000" data-max="4"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="4" step="2" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
-            <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 8GB당 <span class="hq-pc">월 </span>30,000원<span class="hq-pc"> · 최대 32GB</span></small></span><span class="hq-step" data-step="8" data-per="8" data-rate="30000" data-max="16"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="16" step="8" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
-            <div class="hq-row"><span><b>SSD 추가</b><small>기본 100GB<span class="hq-pc"> 포함</span> · 20GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> · 최대 140GB</span></small></span><span class="hq-step" data-step="20" data-per="20" data-rate="10000" data-max="40"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="40" step="20" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>vCPU 추가</b><small>기본 4개<span class="hq-pc"> 포함</span> · 2개당 <span class="hq-pc">월 </span>20,000원<span class="hq-pc"> · 최대 8개</span></small></span><span class="hq-step hq-sel" data-step="2" data-per="2" data-rate="20000" data-max="4" data-unit="개"><select class="w-select" aria-label="vCPU 추가"><option value="0" selected>추가 없음</option><option value="2">+2개</option><option value="4">+4개</option></select></span></div>
+            <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 8GB당 <span class="hq-pc">월 </span>30,000원<span class="hq-pc"> · 최대 32GB</span></small></span><span class="hq-step hq-sel" data-step="8" data-per="8" data-rate="30000" data-max="16" data-unit="GB"><select class="w-select" aria-label="메모리 추가"><option value="0">추가 없음</option><option value="8" selected>+8GB</option><option value="16">+16GB</option></select></span></div>
+            <div class="hq-row"><span><b>SSD 추가</b><small>기본 100GB<span class="hq-pc"> 포함</span> · 20GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> · 최대 140GB</span></small></span><span class="hq-step hq-sel" data-step="20" data-per="20" data-rate="10000" data-max="40" data-unit="GB"><select class="w-select" aria-label="SSD 추가"><option value="0" selected>추가 없음</option><option value="20">+20GB</option><option value="40">+40GB</option></select></span></div>
             <div class="hq-row"><span><b>백업 일 4회</b><small>기본 일 1회<span class="hq-pc"> · 7일 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 일 4회"></button></div>
             <div class="hq-row"><span><b>카이퍼넷</b><small>웹서비스 설치형 보안 · 별도 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="kai" aria-checked="false" aria-label="카이퍼넷"></button></div>
             <div class="hq-row"><span><b>클라우드플레어</b><small>DDoS · 봇 차단 보안 세팅 · 별도 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="cf" aria-checked="false" aria-label="클라우드플레어"></button></div>
@@ -820,12 +825,12 @@
       const tot = box.querySelector('.hq-total'), trIn = box.querySelector('.hq-tr-v'), free = +trIn.dataset.free;   // patch-618 슬라이더 없음 · 제공량 · 단가는 전송량 입력칸 data-free · data-rate
       let rate = 0, label = '월 결제 기준';
       const clamp = (v, mx) => Math.max(0, Math.min(mx, Math.round(+v || 0)));
-      const sync = st => { const inp = st.querySelector('input'), mx = +st.dataset.max, v = clamp(inp.value, mx); const mi = st.querySelector('.hq-minus'), pl = st.querySelector('.hq-plus'); if (mi) mi.disabled = v <= 0; if (pl) pl.disabled = v >= mx; return v; };
+      const sync = st => { const inp = st.querySelector('input, select'), mx = +st.dataset.max, v = clamp(inp.value, mx); const mi = st.querySelector('.hq-minus'), pl = st.querySelector('.hq-plus'); if (mi) mi.disabled = v <= 0; if (pl) pl.disabled = v >= mx; return v; };
       const run = () => {
         let opt = 0;
         const items = [];   // patch-524 견적서에 보여 줄 추가 옵션 목록
         const nm = el => el.closest('.hq-row').querySelector('b').textContent.replace(/ 추가$/, '');
-        box.querySelectorAll('.hq-step:not(.hq-tr)').forEach(st => { const v = sync(st), won = Math.ceil(v / +st.dataset.per) * +st.dataset.rate; opt += won; if (v > 0) items.push([nm(st) + ' +' + (st.dataset.gb ? fmt(v * +st.dataset.gb) + 'GB' : fmt(v) + st.querySelector('.hq-num i').textContent), won]); });   // patch-618 디스크는 개수 × 10GB 로 표시   // SSD 는 100GB 단위 올림
+        box.querySelectorAll('.hq-step:not(.hq-tr)').forEach(st => { const v = sync(st), won = Math.ceil(v / +st.dataset.per) * +st.dataset.rate; opt += won; if (v > 0) items.push([nm(st) + ' +' + (st.dataset.gb ? fmt(v * +st.dataset.gb) + 'GB' : fmt(v) + (st.dataset.unit || st.querySelector('.hq-num i').textContent)), won]); });   // patch-618 디스크는 개수 × 10GB 로 표시   // SSD 는 100GB 단위 올림
         box.querySelectorAll('.hq-sw:not([data-quote])').forEach(sw => { if (sw.getAttribute('aria-checked') === 'true') { opt += +sw.dataset.rate; items.push([nm(sw), +sw.dataset.rate]); } });
         const ol = box.querySelector('.hq-opt-list'); ol.hidden = !items.length; ol.innerHTML = items.map(([t, w]) => '<span><b>' + t + '</b><em>+' + fmt(w) + '원</em></span>').join('');
         const tr = clamp(trIn.value, +trIn.max), over = Math.max(0, tr - free) * +trIn.dataset.rate;
@@ -858,6 +863,7 @@
         inp.addEventListener('input', run);
         inp.addEventListener('change', () => { const per = +inp.closest('.hq-step').dataset.per || 1; inp.value = Math.min(+inp.max, Math.ceil(clamp(inp.value, +inp.max) / per) * per); run(); });   // patch-604 SSD 는 100GB 단위로 올림
       });
+      box.querySelectorAll('.hq-sel select').forEach(se => se.addEventListener('change', run));   // patch-736 셀렉트 수량
       trIn.addEventListener('input', run);
       trIn.addEventListener('change', () => { trIn.value = clamp(trIn.value, +trIn.max); run(); });
       box.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('.hq input[type=number]')) e.target.blur(); });

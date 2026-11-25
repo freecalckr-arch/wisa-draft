@@ -1,7 +1,7 @@
 /* =====================================================================
    WISA 입력 요소 공통 컴포넌트 (patch-713 · 2026-11-20 · 규칙 사이트 docs/form.html)
    · WISA 디자인 시스템(Input · Checkbox · Radio · Toggle · Tab) 규격 그대로. 페이지에서 새로 디자인하지 않고 이 클래스를 씀
-   · 입력칸 .w-input (+ .w-field · .w-label · .w-hint · .w-err) · 체크박스 .w-check · 라디오 .w-radio · 탭(세그먼트) .w-tab · 토글은 wisa.css .hq-sw (sm 추가)
+   · 입력칸 .w-input (+ .w-field · .w-label · .w-hint · .w-err) · 셀렉트 .w-select (patch-736) · 체크박스 .w-check · 라디오 .w-radio · 탭(세그먼트) .w-tab · 토글은 wisa.css .hq-sw (sm 추가)
    · 크기: sm · md (클래스 없으면 md) · 상태: 기본 · hover · 포커스 · 선택 · 오류 · 비활성
    · wisa.css 다음 줄에 연결. 고치면 이 파일을 쓰는 모든 페이지의 ?v= 를 새 patch 번호로 올림
    ===================================================================== */
@@ -23,6 +23,15 @@
 .w-hint { margin: 0; font-size: 14px; line-height: 20px; color: var(--gray-600); }
 .w-err { margin: 0; font-size: 14px; line-height: 20px; color: var(--error-600); }
 /* @endregion w-input */
+
+/* @region w-select (patch-736) : 셀렉트 — 입력칸(.w-input)과 같은 규격 + 오른쪽 꺾쇠(Gray 500 · 20) · 오른쪽 여백 40
+   최대값 · 단위가 정해진 수량(예: vCPU 2개 단위 · 최대 +4)은 숫자 입력칸 대신 셀렉트로 고름 · 폭은 페이지에서 정함 */
+.w-select { box-sizing: border-box; width: 100%; height: 40px; margin: 0; padding: 0 40px 0 14px; border: 1px solid var(--gray-300); border-radius: 8px; background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 7.5 5 5 5-5' fill='none' stroke='%23667085' stroke-width='1.67' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 12px center / 20px no-repeat; box-shadow: var(--shadow-xs); font: inherit; font-size: 16px; font-weight: 400; line-height: 24px; color: var(--gray-900); outline: 0; cursor: pointer; -webkit-appearance: none; appearance: none; transition: border-color .2s, box-shadow .2s, background-color .2s; }
+.w-select.sm { height: 36px; padding: 0 36px 0 12px; background-position: right 10px center; font-size: 14px; line-height: 20px; }
+.w-select:hover:not(:disabled):not(:focus) { background-color: var(--primary-25); }
+.w-select:focus { border-color: var(--primary-600); box-shadow: var(--shadow-xs), 0 0 0 4px var(--primary-100); }
+.w-select:disabled { background-color: var(--gray-50); color: var(--gray-500); cursor: not-allowed; }
+/* @endregion w-select */
 
 /* @region w-check-radio : 체크박스 · 라디오 — 칸 sm 16 / md 20 · 테두리 Gray 300 · 흰 바탕
    hover · 포커스 = 테두리 Primary 600 + 바탕 Primary 50 (포커스는 링 4 Primary 100) · 선택 = Primary 600 채움 + 흰 체크 / 흰 점 · 비활성 = Gray 100 바탕 · Gray 200 테두리
