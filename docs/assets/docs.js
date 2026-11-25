@@ -144,6 +144,7 @@
       b.setAttribute("role", "tab");
       b.id = "tab-" + i;
       b.textContent = name;
+      if (p.dataset.badge) b.insertAdjacentHTML("beforeend", '<em class="badge new">' + p.dataset.badge + "</em>");   // 탭 N 뱃지 (패널 data-badge)
       p.setAttribute("role", "tabpanel");
       p.setAttribute("aria-labelledby", b.id);
       b.addEventListener("click", function () { show(i, true); });

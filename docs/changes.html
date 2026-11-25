@@ -24,7 +24,7 @@
 <tr><td><b>모바일 콘텐츠 타이틀</b></td><td><a class="thumb" href="#tab=모바일 타이틀"><span class="tf"><iframe src="assets/changes/demo-title.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>모바일(≤767) 28 → 26px</td><td>PC 34 · 태블릿 36 · 히어로 h1</td><td>영역 타이틀 h2 · CTA 타이틀 (28 인 페이지만)</td></tr>
 <tr><td><b>탑버튼</b></td><td><a class="thumb" href="#tab=탑버튼"><span class="tf"><iframe src="assets/changes/demo-top.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>오른쪽 아래 로켓 탑버튼 → 오른쪽 가운데 맨 위 · 맨 아래 이동 버튼 (위 · 아래 2개)</td><td>스크롤하면 나타남 · 부드럽게 이동</td><td>모든 서브페이지 <code>#scroll_top</code></td></tr>
 </tbody></table></div>
-    <div class="call"><p>이미 구현한 마케팅 페이지에 2차 전달 이후 더할 공통 수정(단계 탭 손가락 넘기기 · CTA 버튼 순서 · FAQ 양식 · 단계 카드 화살표 · 헤더 · 푸터 내용)은 <a href="#tab=마케팅 공통 수정">마케팅 공통 수정</a> 탭에 있습니다.</p></div>
+    <div class="call"><p>이미 구현한 마케팅 페이지에 2차 전달 이후 더할 공통 수정(단계 탭 손가락 넘기기 · 단계 카드 사이 화살표)은 <a href="#tab=마케팅 공통 수정">마케팅 공통 수정</a> 탭에 있습니다.</p></div>
     <p class="note">미리보기를 누르면 해당 탭으로 이동합니다. 미리보기는 신규 시안 공통 파일(wisa.css)을 그대로 불러온 화면이라, 시안 값이 바뀌면 함께 바뀝니다.</p>
     <div class="call"><p>신규 시안 코드는 공통 파일 <code>assets/common/wisa.css</code> · <code>wisa.js</code> 에 있습니다. 각 탭의 "시안 코드 위치"에서 찾을 수 있습니다.</p></div>
 </section>
@@ -197,17 +197,13 @@ if (pnav) {
     <p class="note">시안 코드 위치: <code>assets/common/wisa.css</code> 맨 아래 "우측 가운데 플로팅" (<code>.page-nav</code>) / 각 페이지 HTML <code>@region page-nav</code> 마크업 · 스크립트 "우측 플로팅".</p>
 </section>
 
-<section class="panel" data-tab="마케팅 공통 수정">
-    <p>2차 전달(2026.11.16) 이후 바뀐 내용입니다. 이미 구현한 마케팅 페이지(GEO · GEO 요금제 · 온사이트 · CRM · 리포트 · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고 · 라이선스 비교)는 페이지를 새로 받지 않고 아래 항목만 고치면 됩니다. 1 ~ 5 는 모든 페이지에 같은 공통 수정, 6 은 세 페이지만 해당합니다.</p>
+<section class="panel" data-tab="마케팅 공통 수정" data-badge="N">
+    <p>2차 전달(2026.11.16) 이후 바뀐 내용입니다. 이미 구현한 마케팅 페이지(GEO · GEO 요금제 · 온사이트 · CRM · 리포트 · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고 · 라이선스 비교)는 페이지를 새로 받지 않고 아래 2가지만 고치면 됩니다.</p>
 
     <h2 id="mk-list">한눈에 보기</h2>
     <div class="tbl"><table><thead><tr><th>#</th><th>항목</th><th>바뀌는 것</th><th>대상 페이지</th><th>시안 코드 위치</th></tr></thead><tbody>
 <tr><td><span class="num">1</span></td><td><b>단계 탭 손가락 넘기기</b></td><td>태블릿 · 모바일에서 단계 탭 화면을 옆으로 밀면 이전 · 다음 탭</td><td>온사이트 · CRM · 리포트 (+ 호스팅 6)</td><td><code>wisa.js</code> <code>@region jt-swipe</code></td></tr>
-<tr><td><span class="num">2</span></td><td><b>CTA 버튼 순서</b></td><td>검정 → 흰 버튼 순서를 <b>흰 버튼 왼쪽 · 검정 버튼 오른쪽</b>으로</td><td>10페이지 모두</td><td>각 HTML <code>.cta-btns</code> 마크업 순서</td></tr>
-<tr><td><span class="num">3</span></td><td><b>FAQ 양식</b></td><td>기존 홈페이지(solution/cloud) FAQ 양식으로: Q 글자 없음 · 오른쪽 + / − · 열린 질문 바탕 Gray 50 · 목록 880</td><td>10페이지 모두</td><td><code>wisa.css</code> <code>.faq</code></td></tr>
-<tr><td><span class="num">4</span></td><td><b>단계 카드 사이 화살표</b></td><td>원 안 화살표 1개 → 꺾쇠 세 개(›››)가 차례로 켜지는 물결 (문제 영역 화살표와 같음)</td><td>GEO · GEO 요금제 · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고</td><td><code>wisa.css</code> <code>.fl-ar</code> · 마크업 <code>&lt;i&gt;&lt;/i&gt;</code></td></tr>
-<tr><td><span class="num">5</span></td><td><b>헤더 · 푸터 내용</b></td><td>공통 헤더 · 푸터 변경안의 메뉴 구성 · 이름 · 링크 반영 (배치는 기존 홈페이지 그대로)</td><td>모든 페이지 (기존 홈페이지 포함)</td><td><code>wisa.css</code> <code>@region shell-606</code> · 각 HTML 헤더 · 푸터 마크업</td></tr>
-<tr><td><span class="num">6</span></td><td><b>문제 영역 결과 · 목표 줄</b></td><td>태블릿 · 모바일 글자 · 여백 규칙 추가 (다른 마케팅 페이지와 같은 값)</td><td>온사이트 · CRM · 리포트</td><td>각 HTML <code>&lt;style&gt;</code> <code>.bt-goal</code></td></tr>
+<tr><td><span class="num">2</span></td><td><b>단계 카드 사이 화살표</b></td><td>원 안 화살표 1개 → 꺾쇠 세 개(›››)가 차례로 켜지는 물결 (문제 영역 화살표와 같음)</td><td>GEO · GEO 요금제 · 공식채널운영 · 상품DB 연동 · 버티컬커머스 · 매체 광고</td><td><code>wisa.css</code> <code>.fl-ar</code> · 마크업 <code>&lt;i&gt;&lt;/i&gt;</code></td></tr>
 </tbody></table></div>
     <p class="note">이 기간에 함께 바뀐 시안 히스토리 묶음 표시(<code>#vh</code>)는 시안 확인용이라 구현하지 않습니다. 공통 파일에 새로 생긴 토글 · 블루 버튼 · 입력 요소(<code>form.css</code>)는 호스팅 페이지에서만 쓰고 마케팅 페이지 화면은 바뀌지 않습니다.</p>
 
@@ -221,52 +217,13 @@ if (pnav) {
 </tbody></table></div>
     <p class="note">PC 마우스 드래그에는 반응하지 않습니다 (터치 이벤트만). 시안 코드는 공통 <code>wisa.js</code> 에만 있어 페이지 HTML 은 바뀌지 않았습니다.</p>
 
-    <h2 id="mk-cta">2. CTA 버튼 순서</h2>
-    <p>CTA 큰 버튼 두 개의 순서를 바꿉니다. 모양 · 크기는 그대로입니다. 모바일은 지금처럼 검정 버튼 하나만 보입니다.</p>
-    <div class="code"><button type="button" data-copy="c-mk-cta">복사</button><pre id="c-mk-cta">&lt;!-- 기존 --&gt;
-&lt;div class="cta-btns"&gt;&lt;a class="btn btn-dark"&gt;마케팅 상담 신청&lt;/a&gt;&lt;a class="btn cta-sub-btn"&gt;CRM마케팅 보기&lt;/a&gt;&lt;/div&gt;
-&lt;!-- 신규: 흰 버튼(세컨더리) 왼쪽 · 검정 버튼(프라이머리) 오른쪽 --&gt;
-&lt;div class="cta-btns"&gt;&lt;a class="btn cta-sub-btn"&gt;CRM마케팅 보기&lt;/a&gt;&lt;a class="btn btn-dark"&gt;마케팅 상담 신청&lt;/a&gt;&lt;/div&gt;</pre></div>
-    <p class="note">규격: <a href="cta.html">CTA · FAQ</a></p>
-
-    <h2 id="mk-faq">3. FAQ 양식</h2>
-    <div class="live" data-src="../geo.html" data-sel="#geo-faq .faq" data-m="24"></div>
-    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>기존 (2차 전달)</th><th>신규</th></tr></thead><tbody>
-<tr><td>목록 폭</td><td>900</td><td><b>880</b></td></tr>
-<tr><td>맨 위 선</td><td>1 Black</td><td>1 Gray 900</td></tr>
-<tr><td>질문</td><td>앞에 "Q" · 20 / 600 · 패딩 28/56/28/4</td><td><b>"Q" 없음</b> · 18 / 600 · 줄 높이 1.2 · 패딩 30/40 (태블릿 30 · 모바일 25/15 · 16 / 1.5)</td></tr>
-<tr><td>열고 닫기 표시</td><td>오른쪽 꺾쇠(⌄) 회전</td><td><b>오른쪽 + / −</b> 14 (모바일 12) · 굵기 2 · Gray 900</td></tr>
-<tr><td>열린 질문</td><td>바탕 없음</td><td><b>바탕 Gray 50</b> (0.2초)</td></tr>
-<tr><td>답변</td><td>16 · 1.7 · 왼쪽 36</td><td>16 / 28 · 왼쪽 40 · 최대 628 (태블릿 왼쪽 30 · 618 / 모바일 14 / 20 · 15 · 오른쪽 37)</td></tr>
-</tbody></table></div>
-    <p class="note">기존 홈페이지 <a href="https://www.wisa.co.kr/solution/cloud">solution/cloud</a> 의 FAQ(<code>.rn-cp-faq-list</code>)와 같은 양식입니다. 그 소스를 그대로 써도 됩니다.</p>
-
-    <h2 id="mk-arrow">4. 단계 카드 사이 화살표</h2>
+    <h2 id="mk-arrow">2. 단계 카드 사이 화살표</h2>
     <div class="live" data-src="../geo.html" data-sel="#geo-how .bento" data-m="24" data-ws="1440,1100"></div>
     <p>검은 원 36 · 흰 테두리 4 · 위치는 그대로이고, 원 안 그림만 바뀝니다. 흰 꺾쇠 세 개(18)가 왼쪽부터 차례로 켜지는 물결입니다 (1.2초 · 0.2초 엇갈림 · 모션 줄이기면 세 개 모두 켜진 채 멈춤). 문제 영역 카드 사이 화살표(<code>.bt-arrow</code>)와 같은 규칙을 같이 씁니다.</p>
     <div class="code"><button type="button" data-copy="c-mk-ar">복사</button><pre id="c-mk-ar">&lt;!-- 기존 --&gt; &lt;li class="fl-ar a1" aria-hidden="true"&gt;&lt;/li&gt;
 &lt;!-- 신규 --&gt; &lt;li class="fl-ar a1" aria-hidden="true"&gt;&lt;i&gt;&lt;/i&gt;&lt;/li&gt;   /* ::before · &lt;i&gt; · ::after = 꺾쇠 세 개 */</pre></div>
     <p class="note">태블릿 · 모바일은 지금처럼 화살표가 없습니다. 규격: <a href="cards.html#tab=단계 (카드 타입)">카드 › 단계 (카드 타입)</a></p>
 
-    <h2 id="mk-shell">5. 헤더 · 푸터 내용</h2>
-    <p>공통 헤더 · 푸터 변경안의 <b>내용</b>(메뉴 구성 · 이름 · 설명 · 링크)을 반영합니다. 기존 홈페이지의 클래스 · 배치는 그대로 두고, 새로 생긴 요소만 더합니다. 메뉴 이름 · 순서 · 링크는 시안 HTML 의 헤더(<code>.depth2</code> · <code>.mo-panel</code>) · 푸터(<code>.ft-cols</code> · <code>.ft-bottom</code>) 마크업을 기준으로 합니다.</p>
-    <div class="tbl"><table class="spec"><thead><tr><th>위치</th><th>바뀌는 것</th></tr></thead><tbody>
-<tr><td>헤더 PC 2depth</td><td>메뉴 구성 · 이름 변경 (예: 구축 › 맞춤서비스 · 창업서비스) · 메뉴 이름 아래 설명 한 줄 · "이벤트" 태그 (Error 50 바탕 · Error 700 글자)</td></tr>
-<tr><td>헤더 모바일 패널</td><td>메뉴 구성 · 이름만 변경 · 배치는 기존과 같은 2칸 · 메뉴 이름만 (설명 숨김) · 1depth 탭 포커스 = 연한 블루 면</td></tr>
-<tr><td>푸터 PC</td><td>메뉴 4칸 → <b>5칸</b> (솔루션 · <b>인프라</b> · 구축 · 마케팅 · 고객지원) · 브랜드 320 + 칸 150 (1024~1239 는 브랜드 240) · 칸 아래 바로가기 링크 (<code>.ft-feature</code> · 14 / 700 + 설명 12 · 호버 밑줄 + 화살표 3px 이동) · 메뉴 호버 = Black</td></tr>
-<tr><td>푸터 태블릿 · 모바일</td><td>메뉴 구성 · 이름만 변경 · 배치는 기존 아코디언 목록 그대로 (바로가기 링크는 칸을 열었을 때만)</td></tr>
-<tr><td>푸터 아래</td><td>회사소개 · 채용안내 · 파트너안내 · SNS 4개 · 개인정보책임자 메일에 실제 링크 · 회사 소개 문구 "21년간 지속하고 있는 커머스 성장 솔루션 기업입니다"</td></tr>
-</tbody></table></div>
-    <p class="note">마케팅 페이지뿐 아니라 기존 홈페이지 모든 페이지의 헤더 · 푸터가 같이 바뀝니다.</p>
-
-    <h2 id="mk-goal">6. 문제 영역 결과 · 목표 줄 (온사이트 · CRM · 리포트)</h2>
-    <p>세 페이지는 태블릿 · 모바일 규칙이 빠져 있어 PC 크기 그대로 보였습니다. 다른 마케팅 페이지와 같은 값으로 맞춥니다.</p>
-    <div class="code"><button type="button" data-copy="c-mk-goal">복사</button><pre id="c-mk-goal">@media (max-width: 1023px) { .bt-goal { margin-top: 24px; padding-top: 16px; font-size: 15px; } }
-@media (max-width: 767px) {
-  .bt-goal { margin-top: 20px; padding-top: 14px; font-size: 14px; gap: 8px; }
-  .bt-goal span { font-size: 12px; }
-  #geo-why .bt:not(.is-new) .bt-goal { margin-bottom: 14px; }
-}</pre></div>
 </section>
     <p class="foot">마지막 수정 2026-11-25 · 기존 값은 wisa.co.kr 화면에서 잰 값입니다. 신규 값이 바뀌면 이 페이지와 각 시안 HTML 맨 위 [개발 전달] 주석을 같이 고칩니다.</p>
   </div>
