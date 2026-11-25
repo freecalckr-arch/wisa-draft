@@ -22,6 +22,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 서버호스팅 (호스팅 상세 · 2026.11.19 1차 시안 공유)
+     · 2026-11-25 patch-735: 시안 히스토리에 "2026.11.25 서버호스팅 · 수정시안 · PC" 추가 (지금 버전) · 1차 시안은 사본 hosting-server-v1.html 로 보관 (구현하지 않음)
      · 2026-11-25 patch-734: 고객 확정 사양 반영 — 히어로 요금 카드 기본 포함 = 4 vCPU · 메모리 16GB · SSD 100GB / 전송량 월 1TB / 백업 일 1회 · 7일 보관 / 보안 서비스 선택 · 요금 계산 = 기본 전송량 1TB · 추가 전송량 1GB당 80원(최대 1TB) · vCPU 2개당 20,000원(최대 +4) · 메모리 8GB당 30,000원(최대 +16) · SSD 20GB당 10,000원(최대 +40) · 백업 일 4회 월 20,000원 · 카이퍼넷 · 클라우드플레어 견적 토글 (메모리 · 디스크 증설 · 웹 DB 분리 · 공인 IP 견적 토글 삭제) · 기본 포함 탭 1 서버 사양 · 탭 4 전송량(1,150 / 1,024GB · 126GB × 80원 = 10,080원)도 같은 기준으로
      · 2026-11-25 patch-733: 호스팅 공통 스타일에서 6페이지 어디에도 없는 옛 규칙(옛 히어로 요금 바 · 알림 카드 · 전송량 슬라이더 등) 삭제 · 화면 변화 없음
      · 2026-11-24 patch-731: 호스팅 6페이지 공통 파일 정리 — 6페이지가 똑같이 쓰던 스타일 628개 → assets/common/hosting.css · 공통 스크립트(메인 · host-tabs · ht-scroll) → assets/common/hosting.js · wisa.css 와 똑같은 규칙 6개 삭제 · 페이지 <style> 에는 페이지 전용 규칙만 (화면 변화 없음 · 6페이지 × 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
@@ -760,10 +761,11 @@
   {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · B타입 · PC","url":"hosting-private-b.html"},
   {"date":"2026.11.18","name":"프라이빗 클라우드 · 2차 수정시안 · A타입 · PC","url":"hosting-private.html"},
   {"date":"2026.11.19","name":"웹호스팅 · 1차 시안 · PC","url":"hosting-web.html"},
-  {"date":"2026.11.19","name":"서버호스팅 · 1차 시안 · PC","url":"hosting-server.html","current":true},
+  {"date":"2026.11.19","name":"서버호스팅 · 1차 시안 · PC","url":"hosting-server-v1.html"},
   {"date":"2026.11.20","name":"퍼블릭 클라우드 · 1차 시안 · PC","url":"hosting-public.html"},
   {"date":"2026.11.20","name":"CDN · 1차 시안 · PC","url":"hosting-cdn.html"},
-  {"date":"2026.11.21","name":"클라우드플레어 · 1차 시안 · PC","url":"hosting-cloudflare.html"}
+  {"date":"2026.11.21","name":"클라우드플레어 · 1차 시안 · PC","url":"hosting-cloudflare.html"},
+  {"date":"2026.11.25","name":"서버호스팅 · 수정시안 · PC","url":"hosting-server.html","current":true}
 ]'>   <!-- patch-519: 호스팅 시안 히스토리는 마케팅과 따로 관리 (호스팅 시안만) -->
   <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>호스팅 시안만 모아 둡니다. 지난 시안은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>

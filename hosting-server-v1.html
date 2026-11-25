@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>서버호스팅 · 호스팅 | WISA</title>
+<meta property="og:type" content="website">   <!-- patch-252: 링크 공유 OG 이미지 (흰 배경 · 검정 WISA 로고) -->
+<meta property="og:title" content="서버호스팅 · 호스팅 | WISA">
+<meta property="og:description" content="WISA 호스팅 서버호스팅 페이지 시안">
+<meta property="og:url" content="https://freecalckr-arch.github.io/wisa-draft/hosting-server.html">
+<meta property="og:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
+<link rel="icon" href="assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/common/wisa.css?v=727">
+<link rel="stylesheet" href="assets/common/form.css?v=730">   <!-- patch-713 입력 요소 공통 컴포넌트 (입력칸 · 체크박스 · 라디오 · 탭 · 토글 sm) -->
+<link rel="stylesheet" href="assets/common/badge.css?v=472">
+<link rel="stylesheet" href="assets/common/chart.css?v=730">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
+<link rel="stylesheet" href="assets/common/hosting.css?v=733">   <!-- patch-731: 호스팅 6페이지 공통 스타일 (페이지 <style> 에는 페이지 전용 규칙만) -->
+<style>
+  /* =====================================================================
+     [개발 전달] 서버호스팅 (호스팅 상세 · 2026.11.19 1차 시안 공유)
+     · 2026-11-25 patch-734: 고객 확정 사양 반영 — 히어로 요금 카드 기본 포함 = 4 vCPU · 메모리 16GB · SSD 100GB / 전송량 월 1TB / 백업 일 1회 · 7일 보관 / 보안 서비스 선택 · 요금 계산 = 기본 전송량 1TB · 추가 전송량 1GB당 80원(최대 1TB) · vCPU 2개당 20,000원(최대 +4) · 메모리 8GB당 30,000원(최대 +16) · SSD 20GB당 10,000원(최대 +40) · 백업 일 4회 월 20,000원 · 카이퍼넷 · 클라우드플레어 견적 토글 (메모리 · 디스크 증설 · 웹 DB 분리 · 공인 IP 견적 토글 삭제) · 기본 포함 탭 1 서버 사양 · 탭 4 전송량(1,150 / 1,024GB · 126GB × 80원 = 10,080원)도 같은 기준으로
+     · 2026-11-25 patch-733: 호스팅 공통 스타일에서 6페이지 어디에도 없는 옛 규칙(옛 히어로 요금 바 · 알림 카드 · 전송량 슬라이더 등) 삭제 · 화면 변화 없음
+     · 2026-11-24 patch-731: 호스팅 6페이지 공통 파일 정리 — 6페이지가 똑같이 쓰던 스타일 628개 → assets/common/hosting.css · 공통 스크립트(메인 · host-tabs · ht-scroll) → assets/common/hosting.js · wisa.css 와 똑같은 규칙 6개 삭제 · 페이지 <style> 에는 페이지 전용 규칙만 (화면 변화 없음 · 6페이지 × 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
+     · 2026-11-24 patch-730: 색 헥스 → 공통 변수(var(--error-*) 등 · form.css 에 Error 25 · 200 · 500 · 700 추가) · Primary 200 대체값 오타(#b2ccff) 삭제 · 도넛 가운데 숫자 · % 글자를 화면 안 글자 크기 단계로 (chart.css) · 그래프 부품은 chart.js 없이 탭 스크립트로 차오름 (hosting.css 머리 주석)
+     · 2026-11-23 patch-723: 히어로 카피 수정안 반영 (롤링 키워드 4개 · 고정 카피 · 서브 카피 교체 · 키워드 아이콘 교체 · 위치 = #geo-hero h1 옆 주석)
+     · 2026-11-20 patch-717: 요금 계산 합계 금액(숫자 + 원) = Primary 600 블루 · 전 해상도 (내역 · 제목은 그대로 · 히어로 카드 가격은 검정 유지)
+     · 2026-11-20 patch-716: 요금 계산 태블릿 · 모바일 = 입력 박스와 견적 박스 분리 (간격 16 · 각각 테두리 Gray 200 · 모서리 16) · 고객 피드백 "가격 부분 영역 구분" · PC 는 그대로
+     · 2026-11-20 patch-713: 요금 계산 탭 · 숫자 입력칸 = WISA 디자인 시스템 공통 컴포넌트(assets/common/form.css · .w-tab · .w-input · 규칙 사이트 docs/form.html)로 교체 · 페이지 전용 모양 규칙 삭제
+     · 2026-11-20 patch-711: 히어로 오른쪽 카드 제목 = 왼쪽 카드처럼 명사형 (우리 쇼핑몰에 맞춰 / 설계하는 맞춤 서버 구성.)
+     · 2026-11-20 patch-710: 요금 계산 전송량 = 기본 전송량(월 2TB · 입력 없이 오른쪽에 값 표시) + 아래 추가 전송량 입력(기본 초과분 GB · 1GB당 100원) · 견적서 줄 이름 전송량 초과 → 추가 전송량 (입력한 GB 표시)
+     · 2026-11-20 patch-705: 히어로 맞춤 카드 가격 옆 "쇼핑몰 규모 기준" 삭제 (맞춤 견적만 · 호스팅 맞춤 카드 공통)
+     · 2026-11-20 patch-703: 요금 계산 공인 IP 추가 설명에서 "금액 확정 전" 표시 뺌 → 추가는 별도 요금 (확정 전 뱃지 · 문구는 시안에 쓰지 않음)
+     · 2026-11-19 patch-675: 모바일(≤767) 히어로 요금 카드 안쪽 여백 위아래 28 → 32 · 좌우 20 → 24 (호스팅 4페이지 같음) · 맞춤 카드 목록은 모바일에서 이름 아래 설명 2줄
+     · 2026-11-19 patch-670: 상담하기 버튼(히어로 · 맞춤 카드 · CTA 검정) · 히어로 신청하기 · 무료 인프라 진단 신청(patch-671) 링크 = https://www.wisa.co.kr/counsel (호스팅 공통 · 사용자 요청)
+     · 2026-11-19 patch-669: 모바일(≤767) 히어로 요금 카드 문장 제목(.hb-top) 다시 노출 · 제목 20/28 · 상품명 22 → 16/24 (patch-601 숨김 해제 · 두 카드 구분)
+     · 2026-11-19 patch-668: 히어로 오른쪽 카드 = 맞춤 서버호스팅 · 그 상품에 맞는 맞춤 설계 견적 카드 (고객 요청 · 웹 patch-667 과 같은 틀) · 태블릿 · 모바일에서도 왼쪽 카드 아래에 노출 · 모바일 목록 설명 줄바꿈 허용
+     · 2026-11-18 patch-664: CTA 버튼 = 왼쪽 흰 "이용 고객 문의" · 오른쪽 검정 "도입 상담하기" (호스팅 4페이지 통일 · 사용자 요청)
+     · 2026-11-18 patch-661: 태블릿 · 모바일 #geo-how 위 간격 0 · 아래 간격 두 배이던 것 수정 (다른 영역과 같게 위 120 / 80 · 아래 0)
+     · 2026-11-18 patch-660: 확장 카드 2 응답 속도 선이 중간에 끊겨 보이던 문제 수정 (선 그리기를 clip-path 로 · 회색 선이 DB 분리 점선까지 이어지고 블루 선이 끝까지 그려짐)
+     · 2026-11-18 patch-662: 요금 계산 견적 항목에 공인 IP 추가 토글 1줄 추가 (기본 1개 포함 · 추가 1개당) · 금액 확정 전이라 켜면 견적서에 "견적" 줄 · [확인 필요] 금액 확정되면 금액 토글로 바꿈
+     · 2026-11-18 patch-659: 요금 계산 예상 사용량 아래 견적 항목 토글 2줄 추가 (기획문서 맞춤 견적: 메모리 · 디스크 증설 / 웹 · DB 분리 · 이중화) · 켜면 오른쪽 견적서에 "견적" 줄 · 기준 줄에 "견적 항목 별도" · 월 예상 금액에는 더하지 않음 · 공인 IP 추가는 금액 확정 전이라 뺌
+     · 2026-11-18 patch-657: 확장 구성 카드 3개를 카드마다 다른 화면으로 · 기본형 = 서버 1대 CPU 사용량 도넛(웹 38% + DB 24% · 여유 38%) · 웹 · DB 분리 = 평균 응답 속도 꺾은선(DB 분리 점선 뒤 1.8초 → 0.4초 · 블루 선) · 이중화 + 부하분산 = 부하분산 콘솔(평소 910 / 910 → WEB-02 점검 중이면 WEB-01 이 1,820 다 받음 → 다시 반반 · 쇼핑몰 접속 정상 · 멈춤 없음)
+     · 2026-11-18 patch-656: 히어로 요금 카드 오른쪽 위 아이콘 숨김 (호스팅 전 페이지 같음 · 마크업은 남겨 둠)
+     · 2026-11-18 patch-651: 요금 · 견적 영역 켜기/끄기 스위치(.hq-sw) = 공통 토글(wisa.css toggle · 피그마 WISA Toggle md 44×24 · 꺼짐 Gray 200 · 켜짐 Primary 600) · 페이지 안 스위치 스타일 삭제
+     · 2026-11-18 patch-644: 서버호스팅 비주얼 9칸 (빈 박스 → 화면 · @region srv-vis): 문제 = 인테리어 쇼핑몰(woodroom) 상품 상세 · 왼쪽 공유 서버 로딩(칩 기다린 시간 0.0 → 8.2초 · 태그 응답 8.2초) / 오른쪽 단독 서버(보는 중 인원 증가 · 칩 응답 0.4초 그대로) · 기본 포함 탭 4 = ① 서버 정보(단독 서버 SV-0142 · 사양 예시 [확인 필요] · 웹 + DB · 디스크 미러링 블루) ② 방화벽 관제 차단 기록 5줄(DDoS 블루) ③ 서버 모니터링(CPU 24시간 선 블루 · 디스크 85% 알림 레드 · 모니터링 항목 · 알림 방식 [확인 필요]) ④ 전송량 2,300 / 2,048GB · 넘은 252GB × 100원 = 25,200원 다음 달 청구 · 80% · 100% 알림 · 확장 카드 3 = 서버 1대 / 웹 · DB 2대 + 사설망 / L4 부하분산 웹 2대 50 : 50
+     · 2026-11-18 patch-643: 서버호스팅 1차 재구성 — 웹호스팅(patch-642)을 복사해 기획문서 #panel-server 문장 · 단가로 교체 · 비주얼 자리(문제 2 · 기본 포함 탭 4 · 확장 구성 카드 3)는 규격 빈 박스(.ph-box) · 확인 후 비주얼 · 아래 patch-642 이전 기록은 복사해 온 웹호스팅 기록
+     · 2026-11-18 patch-642: 결제 · 약정 조건 = 전 해상도 오른쪽 견적서(월 예상 요금) 내역 다음 · VAT 안내 앞으로 이동(왼쪽 묶음 삭제) · 4칸 2×2 · 글자 줄임(값 18 · 모바일 16 / 이름 13 · 모바일 12 / 제목 16) — 프라이빗 patch-640 · 641 과 같음 · 단계 탭 스와이프는 공통 wisa.js patch-639 로 적용
+     · 2026-11-18 patch-633: 히어로 키워드 아이콘 1 · 2번 색 맞바꿈 → 1 Indigo 500 · 2 Error 500 · 3 Purple 500 · 4 Success 500 (비슷한 인디고 · 퍼플이 이어지지 않게)
+     · 2026-11-18 patch-632: 히어로 첫 키워드 아이콘 Blue gray 500 → Error 500 (#f04438 · Indigo 와 비슷해 색이 다양해 보이지 않아서 · 리포트 히어로와 같은 값)
+     · 2026-11-18 patch-637: 기본 포함 탭 3 · 4 보완 — ③ 기간 버튼 · 오늘 차단 줄 삭제(머리줄 "차단 기록 · 오늘") · 결과(전부 차단) 칸 → 시도 횟수(/admin/login 128회 블루) · 관리자 줄 아래 "허용한 IP 외 접속 차단" ④ 하루 방문 18,200명(탭 2 정상 접속과 맞춤) · 옮길 상품 라디오 삭제 → 서버호스팅 "이전 중"(블루 배지) · 프라이빗 클라우드 "상담 가능"(회색) · 3번 말풍선 아래(.dn)
+     · 2026-11-18 patch-636: 기본 포함 탭 1 · 2 보완 — ① 디스크 카드 · 알림 목록 삭제 → 실제로 받는 카카오 알림톡(80% 도달 · 576GB · 남은 144GB) 1개가 뜨는 애니메이션 · 블루는 전송량 게이지만 · 눈금 Gray 400 ② 아래 칩 줄 삭제(날짜는 머리줄) · 위 2칸 = 오늘 막은 공격 3,482건 · 쇼핑몰 정상 접속 18,240명(응답 0.3초) · 10G 방화벽 = 들어온 3.1Gbps 를 걸러 냄(Gray 300) · 쇼핑몰 도착(Gray 900) 나눈 막대 · 블루는 DDoS 막대 하나
+     · 2026-11-18 patch-634: 기본 포함 탭 4 비주얼 (빈 박스 → 화면 · @region host-vis-web): ① 사용량 = 전송량 게이지 612 / 720GB(85% · 80% · 100% 눈금) + 디스크 + 80% 도달 알림 · 100% 대기 + 후불 상한 ② 방화벽 관제 = 차단 · 접속 · 응답 3칸 + 공격 종류 막대(DDoS 블루) + 10G 방화벽 트래픽 ③ 웹방화벽 차단 기록 5줄(/admin/login 블루 · 공격 유형 표기는 [개발 전달] 확인 필요: 무차별 로그인 · SQL 삽입 · 스크립트 삽입 · 자동 가입 봇 · 경로 조작) + 규칙 자동 업데이트 ④ 상품 이전 = 지금 웹호스팅 · 옮길 상품(서버호스팅 블루 · 프라이빗) + 데이터 이전 체크 4줄 · 전체 92%
+     · 2026-11-18 patch-631: 히어로 키워드 아이콘에서 Primary 색 뺌 — 첫 키워드 Primary 600 → Blue gray 500 (아래 요금 카드 Primary 앱 아이콘과 겹침) · 나머지 Indigo 500 · Purple 500 · Success 500 그대로
+     · 2026-11-17 patch-617: 결제 · 약정 조건 카드에 선 아이콘 (24 · Gray 700 · 모바일 20)
+     · 2026-11-17 patch-616: 그래프 영역(#geo-market · 세일 전송량) 삭제 — 기획문서에 그래프 없는 호스팅 페이지는 그래프를 넣지 않음
+     · 2026-11-18 patch-630: 요금 · 사양 안내(비교표 · #host-table) 숨김 — 히어로 다음 바로 문제 영역 (프라이빗 patch-623 과 같음)
+     · 2026-11-18 patch-629: 히어로 제목 = 키워드 교체 "[타임 세일 · 라이브 방송 · 광고 유입 · 이벤트 오픈]에도 닫히지 않는 / 웹호스팅" (아이콘 색 프라이빗과 같음 · 2.4초)
+     · 2026-11-17 patch-621: 결제 · 약정 조건 4칸 — 흰 테두리 박스 → Gray 50 면 + 칸 사이 짧은 세로선 (박스 안 박스 느낌 제거)
+     · 2026-11-17 patch-620: 결제 · 약정 조건을 계산 박스 왼쪽 안 세 번째 묶음으로 이동 (제목 = 결제 방식 · 예상 사용량과 같은 형식 · 4칸 가운데 정렬 · 큰 값 24 · 모바일 2×2)
+     · 2026-11-17 patch-619: 결제 · 약정 조건 = 그래프 수치 카드와 같은 형식 (한 박스 4칸 · 가운데 정렬 · 큰 값 없음 / 10% / 무료 / 익월 + 작은 이름 · 아이콘 삭제 · 태블릿 · 모바일 2×2)
+     · 2026-11-17 patch-618: 요금 계산 옵션 항목 = 기획서 형식 (예상 사용량: 이번 달 전송량 GB · 디스크 추가 10GB 단위 개수 · 숫자 입력칸 + 단위 · 줄 사이 점선) · 전송량 슬라이더 · 눈금 삭제 · 제공량 · 단가는 입력칸 data-free · data-rate
+     · 2026-11-17 patch-615: 요금 계산 — 견적서 안 결제 조건 목록 삭제 → 계산 박스 아래 결제 · 약정 조건 카드 4개(약정 · 할인 · 설치비 · 후불 청구 · @region hq-cond) · 페이지마다 같은 4칸
+     · 2026-11-17 patch-614: 문제 영역 오른쪽 배너 글자 = 흰색 · 아래 그라데이션 = 블랙 (왼쪽 차단 화면은 그대로)
+     · 2026-11-17 patch-613: 문제 영역 쇼핑몰 = 라운드위크(roundweek.co.kr) · 배너 = 모델 사진(polo-navy-m) 위에 기간 · 제목 · 남은 시간(아래 흰 그라데이션) · 보는 중 칩 왼쪽 위 · 상품 = 맨투맨(p-sweat-grey · 와인 프린트 누끼 받으면 교체) · 볼캡(p-cap-green) · 에코백(p-tote)
+     · 2026-11-17 patch-611: 문제 영역 화면 배치 = 왼쪽 배너(사진 위 · 기간 · 제목 · 남은 시간) / 오른쪽 기획전 상품 목록 3줄 (@region why-sale)
+     · 2026-11-17 patch-610: 문제 영역 오른쪽 새 주문 알림(.hv-od) 삭제 — 보는 중 인원 증가 + 머리줄 칩 전환만
+     · 2026-11-17 patch-609: 문제 영역 화면 = 세일 기획전(배너 · 남은 시간 · 기획전 상품 3) · 오른쪽 보는 중 인원 증가 + 주문 알림 (페이지마다 쇼핑몰 화면 구성 다르게 · @region why-sale · why-live)
+     · 2026-11-17 patch-608: 요금 · 사양 비교표 머리줄 "퍼블릭 클라우드 MSP" → "퍼블릭 클라우드" (호스팅 공통)
+     · 2026-11-17 patch-607: 프라이빗 클라우드(hosting-private.html · 디자인 확정본)를 복사해 웹호스팅으로 1차 재구성
+       - 구성 · 공통 요소 · 해상도 규칙은 프라이빗과 같음 (히어로 카드 2장 · 요금 · 사양 비교표 · 문제 비교 · 기본 포함 탭 4 · 그래프 · 요금 계산 · FAQ · CTA)
+       - 문장 · 단가 · 조건 = 기획문서 웹호스팅 탭(#panel-web) 그대로: 월 33,000원 · 12개월 결제 시 월 29,700원(10% 할인) · 설치비 무료 · 약정 없음
+         · 디스크 10GB · 전송량 월 720GB · 10G 하드웨어 방화벽 · DDoS 방어 · 웹방화벽 · 디스크 추가 10GB당 월 5,000원 · 전송량 초과 1GB당 100원(익월 후불)
+       - 기획문서에 따로 없는 영역은 기획문서 문장으로 재구성: 문제(#geo-why) = "초과해도 차단되지 않습니다" · 그래프(#geo-market) = "세일 기간처럼 트래픽이 몰린 달에도"
+         · 기본 포함(#host-incl) = 사용량 알림(FAQ) · 보안 2종(기본 제공 표) · 상위 상품 이전(FAQ)
+       - 확정 전(기획문서 표기): DB MySQL 제공 용량 · 무료 SSL 인증서 → 표에는 넣지 않음 · 확정되면 요금 · 사양 표(.ht 기본 제공)에 한 줄씩 추가
+       - 기본 포함 탭 4 화면은 규격 빈 박스(.ph-box 560×480) · 확인 후 비주얼로 교체
+       - 요금 계산 결제 방식 = 월 결제 / 12개월 결제(−10%) · 스크립트 host-quote 는 버튼 data-rate(월 요금에 곱할 비율) · data-label 로 계산 (프라이빗 무약정 +10% 와 같은 스크립트)
+     ===================================================================== */
+  /* @region host-price (patch-368): 요금 카드 — 기존 .rn-cl-pricing / .rn-cl-plan 값 그대로 옮김 */
+  /* @endregion host-price */
+  /* @region host-finder (patch-368): 호스팅 찾기 — 왼쪽 질문 3개(알약 선택) · 오른쪽 추천 상품 (선택 = 검정 알약 · 블루 없음) */
+  /* @endregion host-finder */
+</style>
+
+
+<style>   /* 테두리 1 포함 40 */
+  /* 사례(#geo-ref) 카드 간격 30 → 20 → 사진 PC 393×210 → 400×210 */
+  /* 리포트(#geo-report) 대시보드: 본문 위 · 아래 여백 22 · 26 → 20 · 24, AI 요약 줄 높이 44 고정 → 대시보드 PC 1240×624 → 1240×620 */
+  /* 히어로 파란 박스 태블릿 · 모바일 444 → 440 */
+  /* ③ 단계 · 카드 타입: 카드 화면 좌우 · 아래 걸침 24 → 20 → 화면 PC 352×254 → 360×250 */
+  /* patch-198: 히어로 답변 창(.ai-chat) 모바일 가로 +20px (291 → 311 · 좌우 10씩 · 가운데 유지) */
+</style>
+<style>
+
+  /* @region sr-340-fit (patch-290): 해결 화면 460×340 — 줄어든 높이(본문 288 · 위아래 여백 20)에 맞춰 간격 · 행 높이 조정 */
+  /* @endregion */
+</style>
+<script>
+  /* patch-163 탭 전환으로 들어오면 히어로 등장 애니메이션 생략 */
+  addEventListener("pagereveal", e => { if (e.viewTransition) document.documentElement.classList.add("sw"); });
+</script>
+<script>
+  /* patch-168 새 버전 자동 반영: GitHub Pages 는 브라우저가 페이지를 10분간 저장해 두고 씀 (탭 전환 · 링크 이동 시 이전 버전이 보일 수 있음)
+     → 서버 파일이 지금 보는 것보다 새로우면 새로 받아 한 번만 다시 엶 */
+  (() => {
+    if (!/^https?:$/.test(location.protocol)) return;
+    const k = "fresh:" + location.pathname;
+    fetch(location.href, { method: "HEAD", cache: "no-store" }).then(r => {
+      const lm = r.headers.get("last-modified"); if (!lm) return;
+      if (new Date(lm) - new Date(document.lastModified) < 2000) return;
+      try { if (sessionStorage.getItem(k) === lm) return; sessionStorage.setItem(k, lm); } catch (e) { return; }
+      fetch(location.href, { cache: "reload" }).then(() => location.reload(), () => location.reload());
+    }).catch(() => {});
+  })();
+</script>
+<style>
+  /* @region sns-ph (patch-294): 기획안 단계 비주얼 자리 표시 — 규격 크기 빈 박스 · 비주얼 작업 시 이 영역과 .ph-box 마크업을 실제 화면으로 교체 */
+  /* @endregion sns-ph */
+</style>
+
+<style>
+  /* =====================================================================
+     [개발 전달] 호스팅 상세 페이지 공통 (웹호스팅 · 서버호스팅 · 프라이빗 클라우드 · 퍼블릭 클라우드) — 2026-11-11 · 로컬 작업 · 고객 공유 전
+     · 2026-11-11 patch-376: 상세 4페이지 레이아웃 1차 (문장 = 기획문서 · 비주얼 = 규격 크기 빈 박스)
+       - 통일 흐름: 히어로(사양 칩 + 기본 요금 줄) → 요금 안내 표(#host-table) → [페이지 전용 영역] → 요금 계산 + 결제 · 약정(#host-calc · patch-392) → FAQ → CTA (다음 상품 안내는 요금 표 아래 한 줄 링크 · patch-395)
+       - 페이지 전용: 서버 = 확장 구성 3카드(#geo-how) / 프라이빗 = 장애 대응 비교(#geo-why) · 일시 증설(#geo-market · 그래프 영역) · 기본 포함 서비스(#host-incl) / 퍼블릭 = MSP 업무(#host-msp) · 직접 운영 vs MSP(#geo-why) · 지원 클라우드(#host-cloud) · 누가 무엇을(#host-role) · 도입 4단계(#host-flow) (요금 계산 · 결제 조건 없음)
+       - 기획문서 '확정 전' · '안' · '장비 확인 전' 은 회색 작은 배지(.tbd)로 표시 · 가격 확정 시 배지만 삭제
+       - 영역 간격 = 마케팅 페이지 (PC 위 160 · 태블릿 120 · 모바일 80 · 아래 0)
+     ===================================================================== */
+  @media (min-width: 1024px) { #host-table, #host-calc, #geo-market, #host-incl, #host-msp, #host-cloud, #host-role, #host-flow, #host-next, #geo-how { padding-top: 160px; } }
+  @media (min-width: 768px) and (max-width: 1023px) { #host-table, #host-calc, #geo-market, #host-incl, #host-msp, #host-cloud, #host-role, #host-flow, #host-next, #geo-how { padding-top: 120px; } }
+  @media (max-width: 767px) { #host-table, #host-calc, #geo-market, #host-incl, #host-msp, #host-cloud, #host-role, #host-flow, #host-next, #geo-how { padding-top: 80px; } }
+  #geo-how { padding-bottom: 0; }
+  /* @region host-cmp (patch-397): 요금 안내 PC 비교표 — 기존 홈페이지 solution/cloud 플랜 비교표 규격(머리줄 #f8f9fc · 항목 14 Gray 500 · 값 15/500 가운데 · 선 Gray 100) · 지금 보는 상품 열 = 2px Gray 900 테두리(허브 추천 카드와 같음) · 태블릿 · 모바일은 .ht */
+  @media (min-width: 1024px) {
+    @media (hover: hover) { .hcmp tbody tr:not(.g) > * { transition: background-color .2s; } .hcmp tbody tr:not(.g):hover > * { background: var(--primary-25); } }
+  }
+  /* @endregion host-cmp */
+  /* @region host-incl-tab (patch-393): 기본 포함 서비스 — 마케팅 단계(탭 타입) UI 그대로 (리포트 #geo-how .jt 계산값 기준 · 패널 테두리는 실제 border) */
+  /* @endregion host-incl-tab */
+  /* @region why-shop (patch-564 · 566): 문제 영역 = 같은 쇼핑몰 메인 화면 · 같은 장애 — 왼쪽 멈춤(오류 창) / 오른쪽 서버 상태 칩만 장애 → 자동 전환, 화면은 계속 주문 */
+  /* @region why-sale (patch-609): 웹호스팅 문제 영역 = 세일 기획전 화면 (프라이빗 메인 상품 4칸과 다른 구성) — 배너(기간 · 제목 · 남은 시간 · 사진) + 기획전 상품 3 (사진 44 · 이름 · 할인율 · 가격) · 오른쪽만 보는 중 인원 칩 */
+  .ev-pg { display: grid; grid-template-columns: 236px 1fr; gap: 16px; }   /* patch-611 왼쪽 배너(세로 카드) · 오른쪽 기획전 상품 목록 3줄 */
+  .ev-bn { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 168px; border-radius: 10px; background: var(--gray-100); overflow: hidden; }   /* patch-613 모델 사진을 배너 전체에 깔고 글자를 아래에 올림 */
+  .ev-tx { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 32px 12px 12px; min-width: 0; }
+  .ev-bn:has(img) .ev-tx { background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 55%, rgba(0,0,0,0) 100%); }   /* patch-614 사진 위 글자 가독성: 아래 블랙 그라데이션 + 흰 글자 */
+  .ev-bn:has(img) .ev-eb, .ev-bn:has(img) .ev-tx b, .ev-bn:has(img) .ev-tx small, .ev-bn:has(img) .ev-tx small em { color: var(--white); }
+  .ev-bn:has(img) .ev-eb, .ev-bn:has(img) .ev-tx small { opacity: .8; }
+  .ev-eb { font-size: 11px; line-height: 14px; font-weight: 500; color: var(--gray-500); }
+  .ev-tx b { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .ev-tx small { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 11px; line-height: 14px; color: var(--gray-600); }
+  .ev-tx small em { font-style: normal; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--gray-900); }
+  .ev-im { position: absolute; inset: 0; background: var(--gray-100); }
+  .ev-im img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+  .ev-lv { position: absolute; top: 8px; left: 8px; display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; border-radius: 99px; background: var(--white); box-shadow: 0 0 0 1px var(--gray-200); font-size: 11px; line-height: 14px; color: var(--gray-600); }
+  .ev-lv i { width: 6px; height: 6px; margin-right: 2px; border-radius: 99px; background: var(--primary-600); animation: evPulse 1.2s ease-in-out infinite; }
+  .ev-lv b { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--primary-600); }   /* 블루 포인트 1곳 */
+  @keyframes evPulse { 50% { opacity: .35; } }
+  .ev-gd { display: grid; grid-template-rows: repeat(3, 1fr); margin: 0; padding: 0; list-style: none; }
+  .ev-gd li { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .ev-gd li + li { border-top: 1px solid var(--gray-100); }
+  .ev-gd .hv-sh-im { flex: none; width: 48px; }
+  .ev-gd p { display: flex; flex-direction: column; gap: 2px; min-width: 0; margin: 0; }
+  .ev-gd p b { font-size: 12.5px; line-height: 16px; font-weight: 600; color: var(--gray-800); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ev-gd p span { display: flex; gap: 4px; font-size: 13px; line-height: 16px; }
+  .ev-gd p em { font-style: normal; font-weight: 700; color: var(--gray-500); }
+  .ev-gd p strong { font-weight: 700; color: var(--gray-900); }
+  .hv-ld .ev-bn, .hv-ld .ev-im { background: var(--gray-100); }
+  @media (prefers-reduced-motion: reduce) { .ev-lv i { animation: none; } }
+  /* @endregion why-sale */
+  /* @region host-vis (patch-533 · 534): 확정 영역 비주얼 — 문제 비교 2 · 일시 증설 그래프 · 기본 포함 탭 4 (공통 .vw-win · .vw-hd · .vw-ic · .vw-chip · .win-hd · .ows-ft · chart.css 그대로) */
+  .hv-t2 .hv-cpu { justify-content: space-between; } .hv-tw .os8-p.dn::after { top: calc(100% + 6px); left: auto; right: -4px; transform: translateY(-4px); } .hv-tw .os8-p.dn.lbl-on::after { transform: none; }
+  .hv-cpu .gx-spark { width: 100%; height: 56px; }
+  /* @endregion host-vis */
+  /* @region host-vis-web (patch-634): 웹호스팅 기본 포함 탭 4 화면 (공통 .vw-win · .hv-* 그대로 + 웹 전용 .wh-* · 공통 wisa.css 에 .wh-th · .wh-ck 가 있어 hw- 접두어는 쓰지 않음) */
+  .wh-in .os8-p { position: relative; top: auto; right: auto; margin-left: 4px; }
+  .wh-t1 .hv-tb, .wh-t2 .hv-tb, .wh-t3 .hv-tb, .wh-t4 .hv-tb { padding: 24px 20px; }
+  .wh-gg > h4 { margin-bottom: 4px; }
+  .wh-gv { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 10px; }
+  .wh-gv strong { font-size: 24px; font-weight: 700; line-height: 32px; color: var(--black); font-variant-numeric: tabular-nums; } .wh-gv strong span { margin-left: 4px; font-size: 12.5px; font-weight: 600; color: var(--gray-500); }
+  .wh-gv em { font-style: normal; font-size: 16px; font-weight: 700; color: var(--primary-600); font-variant-numeric: tabular-nums; }
+  .wh-gg.s .wh-gv { margin-bottom: 8px; } .wh-gg.s .wh-gv strong { font-size: 16px; line-height: 24px; } .wh-gg.s .wh-gv em { font-size: 13px; color: var(--gray-500); }
+  .wh-gb { position: relative; height: 10px; border-radius: 99px; background: var(--gray-100); }
+  .wh-gb > i { position: absolute; inset: 0 auto 0 0; width: calc(var(--v) * 100%); border-radius: 99px; background: var(--primary-600); }
+  .wh-gb.g > i { background: var(--gray-400); }
+  .wh-gg:not(.s) .wh-gb { margin-bottom: 16px; }
+  .wh-t1 .hv-tb { gap: 12px; }
+  /* patch-636 탭 1 알림 = 실제로 받는 카카오 알림톡 (브랜드 로고 · 바탕은 그레이) */
+  .wh-kt { flex: 1 1 auto; display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 12px; background: var(--gray-50); }
+  .wh-kt-h { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 12px; color: var(--gray-500); }
+  .wh-kt-h img { width: 24px; height: 24px; border-radius: 6px; } .wh-kt-h b { font-size: 13px; font-weight: 700; color: var(--gray-900); } .wh-kt-h time { margin-left: auto; font-variant-numeric: tabular-nums; }
+  .wh-kt-b { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 16px; border-radius: 12px; background: var(--white); box-shadow: 0 1px 2px rgba(16,24,40,.06), inset 0 0 0 1px var(--gray-200); }
+  .wh-kt-b > b { display: inline-flex; align-items: center; font-size: 14.5px; font-weight: 700; color: var(--gray-900); }
+  .wh-kt-b p { display: flex; align-items: center; flex-wrap: wrap; margin: 0; font-size: 12.5px; line-height: 20px; color: var(--gray-700); word-break: keep-all; } .wh-kt-b p.sm { font-size: 12px; color: var(--gray-500); }
+  .it-panel.on .wh-kt-b { animation: whPop .6s cubic-bezier(.22, 1, .36, 1) .5s both; } @keyframes whPop { from { opacity: 0; transform: translateY(10px); } }
+  .wh-gb > span { position: absolute; top: 14px; font-size: 11px; font-weight: 600; color: var(--gray-500); transform: translateX(-50%); }
+  .wh-gb > span::before { content: ""; position: absolute; left: 50%; top: -16px; width: 2px; height: 12px; border-radius: 1px; background: var(--gray-400); transform: translateX(-50%); }   /* patch-636 눈금 Gray 400 */
+  .wh-gb > .t8 { left: 80%; } .wh-gb > .t10 { left: auto; right: 0; transform: none; } .wh-gb > .t10::before { display: none; }   /* 100% = 게이지 끝 · 글자는 안쪽 오른쪽 정렬 */
+  .it-panel.on .wh-t4 .wh-gb > i { animation: whFill 1.2s cubic-bezier(.22, 1, .36, 1) .3s both; } @keyframes whFill { from { width: 0; } }   /* patch-636 탭 1 은 알림 등장 1개만 */
+  .wh-al { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .wh-al li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .wh-al li > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--gray-100); color: var(--gray-500); }
+  .wh-al p { display: flex; flex-direction: column; margin: 0; } .wh-al b { display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; color: var(--gray-900); } .wh-al span { font-size: 12px; color: var(--gray-500); }
+  .wh-al time { font-size: 12px; color: var(--gray-500); font-variant-numeric: tabular-nums; }
+  .wh-al li.on { background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-200); } .wh-al li.on > i { background: var(--primary-600); color: var(--white); } .wh-al li.on time { font-weight: 600; color: var(--primary-700); }
+
+  .hv-op .sw.on { background: var(--gray-900); } .hv-op .sw.on::after { left: 14px; }
+  /* 02 — patch-636 위 2칸(막은 공격 · 정상 접속)으로 '공격만 막고 손님은 그대로' · 블루는 DDoS 막대 하나 */
+  .wh-kp { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .wh-kp > div { display: flex; flex-direction: column; gap: 2px; padding: 16px; border-radius: 12px; background: var(--gray-50); }
+  .wh-kp small { font-size: 12px; font-weight: 600; color: var(--gray-500); } .wh-kp p { margin: 2px 0 0; font-size: 12px; color: var(--gray-500); }
+  .wh-kp strong { font-size: 28px; font-weight: 700; line-height: 36px; color: var(--black); font-variant-numeric: tabular-nums; } .wh-kp strong span { margin-left: 2px; font-size: 14.5px; font-weight: 600; color: var(--gray-500); }
+  .wh-fl-t { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 8px; font-size: 12.5px; color: var(--gray-600); } .wh-fl-t b { font-size: 20px; font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; } .wh-fl-t b small { margin-left: 2px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
+  .wh-fb { display: flex; gap: 2px; height: 12px; margin-bottom: 12px; } .wh-fb i { flex: var(--v) 0 0; border-radius: 4px; } .wh-fb i.x, .wh-fl li i.x { background: var(--gray-300); } .wh-fb i.ok, .wh-fl li i.ok { background: var(--gray-900); }
+  .wh-fl li > i { flex: none; width: 8px; height: 8px; margin-right: 6px; border-radius: 2px; } .wh-fl li > span { flex: 1; }
+  .wh-t2 .hv-2 { flex: 1 1 auto; min-height: 0; } .wh-t2 .hv-2 > .hv-cd { display: flex; flex-direction: column; }
+  .wh-atk .gx-hbar b { display: inline-flex; align-items: center; } .wh-atk .gx-hbar { flex: 1; justify-content: space-around; }
+  .wh-atk .hv-hb { flex: 1; display: flex; flex-direction: column; } .wh-atk .gx-hbar { flex: 1; justify-content: space-around; }
+  .wh-fl ul { display: flex; flex-direction: column; gap: 8px; margin: 0 0 auto; padding: 0; list-style: none; } .wh-fl .wh-fl-t { margin-top: auto; }   /* 제목 아래 남는 높이에 막대 · 두 줄을 세로 가운데 */
+  .wh-fl li { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--gray-600); } .wh-fl li span { display: inline-flex; align-items: center; }
+  .wh-fl li b { font-size: 16px; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; } .wh-fl li b small { margin-left: 2px; font-size: 11px; font-weight: 600; color: var(--gray-500); }
+  .wh-fl li + li { padding-top: 8px; border-top: 1px solid var(--gray-100); } .wh-fl li b { font-size: 14.5px; }
+  /* 03 */
+  .wh-tb { flex: 1 1 auto; display: flex; flex-direction: column; padding: 4px 0; }
+  .wh-th, .wh-tb li { display: grid; grid-template-columns: 70px minmax(0, 1.25fr) minmax(0, 1fr) 48px; align-items: center; gap: 8px; padding: 0 12px; }
+  .wh-th { height: 36px; border-bottom: 1px solid var(--gray-100); font-size: 11px; font-weight: 600; color: var(--gray-500); }
+  .wh-tb ul { flex: 1; display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+  .wh-tb li { flex: 1; min-height: 40px; font-size: 12.5px; color: var(--gray-700); } .wh-tb li + li { border-top: 1px solid var(--gray-100); }
+  .wh-tb li > span:first-child { font-size: 12px; color: var(--gray-500); font-variant-numeric: tabular-nums; }
+  .wh-tb li > b { display: inline-flex; align-items: center; font-weight: 600; color: var(--gray-900); } .wh-tb li > span { display: inline-flex; align-items: center; }
+  .wh-th > span:last-child { justify-self: end; }
+  .wh-tb li > em { justify-self: end; font-style: normal; font-size: 12.5px; font-weight: 600; color: var(--gray-700); font-variant-numeric: tabular-nums; }   /* patch-637 결과(전부 차단) → 시도 횟수 */
+  .wh-tb li > b > span { display: inline-flex; align-items: center; } .wh-tb li.on > b { flex-direction: column; align-items: flex-start; gap: 2px; } .wh-tb li.on > b small { font-size: 11px; font-weight: 500; color: var(--primary-600); }
+  .wh-tb li.on { margin: 0 4px; padding: 0 8px; border-radius: 8px; background: var(--primary-50); } .wh-tb li.on > b { color: var(--primary-700); } .wh-tb li.on > em { font-weight: 700; color: var(--primary-700); }
+  .wh-tb li.on + li { border-top-color: transparent; }
+  .it-panel.on .wh-tb li.on { animation: whIn .6s cubic-bezier(.22, 1, .36, 1) .4s both; } @keyframes whIn { from { opacity: 0; transform: translateY(-8px); background: var(--white); } }
+  /* 04 */
+  .wh-now { display: flex; flex-direction: column; background: var(--gray-50); box-shadow: none; } .wh-now > b { font-size: 16px; font-weight: 700; line-height: 24px; color: var(--gray-900); } .wh-now > span { font-size: 12px; color: var(--gray-500); }
+  .wh-now dl { display: flex; flex-direction: column; gap: 6px; margin: 12px 0 0; } .wh-now dl div { display: flex; justify-content: space-between; font-size: 12.5px; } .wh-now dt { color: var(--gray-500); } .wh-now dd { margin: 0; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  .wh-t4 .hv-rd { gap: 8px; } .wh-t4 .hv-rd li { height: 44px; }
+  /* patch-637 옮길 상품 = 고르는 라디오가 아니라 정해진 곳(이전 중) + 다른 선택지(상담 가능) */
+  .wh-to li { grid-template-columns: minmax(0, 1fr) auto; } .wh-to li > span { padding: 2px 8px; border-radius: 99px; background: var(--white); font-size: 11px; font-weight: 600; }
+  .wh-to li.on > span { background: var(--primary-600); color: var(--white); } .wh-to li:not(.on) { background: var(--gray-50); box-shadow: none; } .wh-to li:not(.on) b { font-weight: 600; color: var(--gray-600); } .wh-to li:not(.on) > span { color: var(--gray-500); box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .wh-mv { flex: 1 1 auto; display: flex; flex-direction: column; }
+  .wh-ck { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin: 0; padding: 0; list-style: none; }
+  .wh-ck li { display: grid; grid-template-columns: 16px 96px minmax(0, 1fr) auto; align-items: center; gap: 8px; font-size: 12.5px; }
+  .wh-ck li > i { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: var(--gray-900); color: var(--white); }
+  .wh-ck b { font-weight: 600; color: var(--gray-900); } .wh-ck span { font-size: 12px; color: var(--gray-500); font-variant-numeric: tabular-nums; } .wh-ck em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--gray-700); }
+  .wh-ck li.ing > i { background: var(--white); box-shadow: inset 0 0 0 2px var(--gray-300); } .wh-ck li.ing em { color: var(--gray-500); }
+  .it-panel.on .wh-ck li { animation: hvRow .45s var(--ease-out, ease-out) both; animation-delay: calc(.3s + var(--i) * .3s); }
+  .wh-pg { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-500); }
+  .wh-pg .wh-gb { height: 8px; } .wh-pg .wh-gb > i { background: var(--gray-900); } .wh-pg b { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+  @media (prefers-reduced-motion: reduce) { .it-panel.on .wh-gb > i, .it-panel.on .wh-kt-b, .it-panel.on .wh-tb li.on, .it-panel.on .wh-ck li { animation: none; } }
+  /* @endregion host-vis-web */
+  /* @region srv-vis (patch-644): 서버호스팅 비주얼 — 문제 2(인테리어 쇼핑몰 상품 상세 · 공유 서버 로딩 vs 단독 서버) · 기본 포함 탭 4 · 확장 구성 카드 3 (공통 .vw-win · .hv-* · .wh-* 그대로 + 서버 전용 .sd-* · .sv-*) */
+  /* 문제: 상품 상세 = 왼쪽 사진 168 · 오른쪽 브랜드 · 이름 · 가격 · 옵션 · 버튼 2 */
+  .sd-pg { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 16px; align-items: center; }
+  .sd-im { width: 168px; } .sd-im img { object-fit: cover; }
+  .sd-im .ev-lv { z-index: 1; }
+  .sd-tx { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .sd-br { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: .04em; color: var(--gray-500); }
+  .sd-tx > b { font-size: 16px; line-height: 20px; font-weight: 700; color: var(--gray-900); }
+  .sd-pr { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; } .sd-pr em { font-style: normal; font-size: 14.5px; font-weight: 700; color: var(--gray-500); } .sd-pr strong { font-size: 20px; line-height: 28px; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  .sd-rv { font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sd-op { display: flex; align-items: center; height: 32px; margin-top: 4px; padding: 0 10px; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12.5px; color: var(--gray-700); }
+  .sd-bt { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 4px; }
+  .sd-bt .hv-btn.k { background: var(--gray-900); box-shadow: none; color: var(--white); }   /* 쇼핑몰 구매 버튼 (실제 화면 표현) */
+  /* 왼쪽 로딩: 가격 · 옵션 · 버튼 자리 회색 막대 + 불러오는 중 창 */
+  .sd-sk { display: block; width: var(--w, 100%); height: 12px; margin-top: 8px; border-radius: 6px; background: var(--gray-200); }
+  .sd-sk.o, .sd-sk.b { height: 32px; border-radius: 8px; } .sd-bt .sd-sk.b { margin-top: 0; }
+  .sd-ld i { box-sizing: border-box; width: 32px; height: 32px; background: none; border: 3px solid var(--gray-200); border-top-color: var(--gray-500); animation: hvSpin .9s linear infinite; }
+  .sd-ok > i { background: var(--primary-600); }
+  @media (prefers-reduced-motion: reduce) { .sd-ld i { animation: none; } }
+  /* 기본 포함 탭 공통: 창 안 위 · 아래 24 */
+  .sv-t1 .hv-tb, .sv-t2 .hv-tb, .sv-t3 .hv-tb, .sv-t4 .hv-tb { padding: 24px 20px; }
+  /* 01 단독 서버 */
+  .sv-me-n { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; } .sv-me-n b { font-size: 20px; line-height: 28px; font-weight: 700; color: var(--black); } .sv-me-n span { font-size: 12px; color: var(--gray-500); }
+  .sv-t1 .hv-2 { flex: 1 1 auto; min-height: 0; } .sv-t1 .hv-2 > .hv-cd { display: flex; flex-direction: column; }
+  .sv-svc ul, .sv-mr ul { flex: 1; display: flex; flex-direction: column; justify-content: space-around; margin: 0; padding: 0; list-style: none; }
+  .sv-svc li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 0; }
+  .sv-svc li + li { border-top: 1px solid var(--gray-100); }
+  .sv-svc li > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--gray-100); color: var(--gray-500); }
+  .sv-svc p, .sv-mr p { display: flex; flex-direction: column; margin: 0; } .sv-svc b, .sv-mr li b { font-size: 13px; line-height: 20px; font-weight: 700; color: var(--gray-900); } .sv-svc p span, .sv-mr li span { font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sv-svc em { padding: 2px 8px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--gray-200); font-style: normal; font-size: 11px; font-weight: 600; color: var(--gray-600); }
+  .sv-mr { background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-200); }   /* Primary 200 · 블루 1곳 */
+  .sv-mr > h4 small { font-weight: 600; color: var(--primary-700); }
+  .sv-mr ul { gap: 8px; justify-content: center; }
+  .sv-mr li { display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; background: var(--white); }
+  .sv-mr li > i { width: 8px; height: 8px; border-radius: 50%; background: var(--primary-600); animation: svWr 1.6s ease-in-out infinite; }   /* 두 디스크에 같이 쓰기 */
+  .sv-mr li em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--primary-700); }
+  .sv-mr-f { margin: 10px 0 0; font-size: 12px; line-height: 16px; font-weight: 600; color: var(--primary-700); }
+  @keyframes svWr { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+  /* 02 방화벽 관제 */
+  .sv-lg .wh-th, .sv-lg li { grid-template-columns: 64px minmax(0, 1.4fr) minmax(0, 1fr) 40px; }
+  .sv-lg li > b { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .sv-fw > i { display: grid; place-items: center; width: 20px; height: 20px; color: var(--gray-600); }
+  /* 03 서버 모니터링 */
+  .sv-ch { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+  .sv-ch-g { flex: 1; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 8px; min-height: 0; }
+  .sv-ch-y { display: flex; flex-direction: column; justify-content: space-between; } .sv-ch-y i { font-style: normal; font-size: 10px; line-height: 12px; color: var(--gray-400); font-variant-numeric: tabular-nums; }
+  .sv-ch-g svg { width: 100%; height: 100%; margin-top: 6px; height: calc(100% - 12px); background: linear-gradient(var(--gray-100), var(--gray-100)) 0 0 / 100% 1px no-repeat, linear-gradient(var(--gray-100), var(--gray-100)) 0 50% / 100% 1px no-repeat, linear-gradient(var(--gray-200), var(--gray-200)) 0 100% / 100% 1px no-repeat; }
+  .sv-ch-x { display: flex; justify-content: space-between; margin: 6px 0 0 40px; font-size: 10px; line-height: 12px; color: var(--gray-400); font-variant-numeric: tabular-nums; }
+  .it-panel.on .sv-ch svg { animation: svDraw 1.4s cubic-bezier(.22, 1, .36, 1) .3s both; } @keyframes svDraw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 -4px 0 0); } }
+  .sv-al { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--error-50); box-shadow: inset 0 0 0 1px var(--error-200); }   /* Error 50 · 200 · 이슈 1곳 */
+  .sv-al > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--white); color: var(--error-600); }
+  .sv-al p { display: flex; flex-direction: column; margin: 0; } .sv-al b { display: inline-flex; align-items: center; font-size: 13px; line-height: 20px; font-weight: 700; color: var(--gray-900); } .sv-al span { font-size: 12px; line-height: 16px; color: var(--gray-600); }
+  .sv-al time { font-size: 12px; font-weight: 600; color: var(--error-600); font-variant-numeric: tabular-nums; }
+  /* 04 전송량 후불: 게이지 = 1,150GB 기준 · 1,024GB(100%)까지 회색 · 넘은 부분만 블루 */
+  .sv-gb > i { width: 89%; background: var(--gray-400); border-radius: 99px 0 0 99px; }
+  .sv-gb > b { position: absolute; top: 0; bottom: 0; left: calc(89% + 2px); right: 0; border-radius: 0 99px 99px 0; background: var(--primary-600); transform-origin: 0 50%; }
+  .sv-gb > .t8 { left: 71.2%; } .sv-gb > .t10 { left: 89%; right: auto; transform: translateX(-50%); } .sv-gb > .t10::before { display: block; }
+  .it-panel.on .sv-gb > b { animation: svGrow .8s cubic-bezier(.22, 1, .36, 1) .5s both; } @keyframes svGrow { from { transform: scaleX(0); } }
+  .sv-bill dl { margin: 0; } .sv-bill dl div { display: flex; justify-content: space-between; font-size: 12.5px; line-height: 20px; } .sv-bill dt { color: var(--gray-500); } .sv-bill dd { margin: 0; font-weight: 600; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  .sv-bill-t { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--gray-100); font-size: 12.5px; color: var(--gray-600); }
+  .sv-bill-t strong { font-size: 20px; line-height: 28px; font-weight: 700; color: var(--black); font-variant-numeric: tabular-nums; } .sv-bill-t strong small { margin-left: 2px; font-size: 12.5px; font-weight: 600; color: var(--gray-500); }
+  .sv-t4 .wh-al li { padding: 12px; }   /* 알림 줄을 키워 창 안 위 · 아래 여백 24 로 맞춤 */
+  /* 확장 구성 카드 360×250 */
+  .sv-c .pn-t { margin-bottom: 12px; }
+  .sv-sl { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .sv-sl li { display: grid; grid-template-columns: 32px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gray-200); }
+  .sv-sv { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 8px; background: var(--gray-100); color: var(--gray-500); }
+  .sv-sl p { display: flex; flex-direction: column; margin: 0; min-width: 0; } .sv-sl p b { font-size: 13px; line-height: 20px; font-weight: 700; color: var(--gray-900); } .sv-sl p span { font-size: 12px; line-height: 16px; color: var(--gray-500); }
+  .sv-sl em { display: inline-flex; align-items: center; gap: 4px; font-style: normal; font-size: 12px; font-weight: 600; color: var(--gray-600); } .sv-sl em i { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-400); }
+  .sv-sl li.on { background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-200); } .sv-sl li.on .sv-sv { background: var(--primary-600); color: var(--white); } .sv-sl li.on em { color: var(--primary-700); } .sv-sl li.on em i { background: var(--primary-600); }
+  .sv-sl li.sv-net { display: flex; align-items: center; gap: 8px; padding: 0 12px; box-shadow: none; font-size: 11px; line-height: 14px; font-weight: 600; color: var(--gray-500); }
+  .sv-sl li.sv-net::before, .sv-sl li.sv-net::after { content: ""; flex: 1; border-top: 1px dashed var(--gray-300); }
+  /* patch-657 확장 카드 3개 = 카드마다 다른 화면 (도넛 · 응답 속도 선 · 부하분산 콘솔) */
+  .sx-dn { display: flex; align-items: center; gap: 24px; padding: 0 8px; }
+  .sx-dn .gx-donut .s.sx-db { stroke: var(--primary-300); }
+  .rv:not(.in) .sx-dn .gx-donut .s { stroke-dasharray: 0 400; }
+  .sx-lg { flex: 1; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; } .sx-lg li { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--gray-600); } .sx-lg li i { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-100); box-shadow: inset 0 0 0 1px var(--gray-300); } .sx-lg li.w i { background: var(--primary-600); box-shadow: none; } .sx-lg li.d i { background: var(--primary-300); box-shadow: none; } .sx-lg b { margin-left: auto; font-size: 13px; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  .sx-nt { margin: 16px 0 0; padding: 10px 12px; border-radius: 10px; background: var(--gray-50); font-size: 12px; line-height: 16px; color: var(--gray-600); text-align: center; }
+  .sx-kp { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--gray-400); } .sx-kp s { font-size: 14.5px; font-weight: 600; color: var(--gray-400); } .sx-kp b { font-size: 24px; line-height: 28px; font-weight: 700; color: var(--primary-700); } .sx-kp small { margin-left: auto; font-size: 11px; color: var(--gray-500); }
+  .sx-ch { position: relative; margin-top: 12px; } .sx-ch svg { display: block; width: 100%; height: 104px; overflow: visible; }
+  .sx-ch .gd { stroke: var(--gray-200); fill: none; vector-effect: non-scaling-stroke; } .sx-ch .sp { stroke: var(--gray-300); stroke-dasharray: 3 3; fill: none; vector-effect: non-scaling-stroke; }
+  .sx-ch .g, .sx-ch .bl { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; } .sx-ch .g { stroke: var(--gray-400); animation: sxG 6s linear infinite; } .sx-ch .bl { stroke: var(--primary-600); animation: sxB 6s linear infinite; }
+  /* patch-660 선 그리기 = clip-path 로 왼쪽부터 드러냄 (가로로 늘어나는 그래프라 점선 길이 방식은 선 끝이 잘림) */
+  @keyframes sxG { 0% { clip-path: inset(-4px 100% -4px -4px); } 36%, 94% { clip-path: inset(-4px -4px -4px -4px); opacity: 1; } 100% { clip-path: inset(-4px -4px -4px -4px); opacity: 0; } }
+  @keyframes sxB { 0%, 36% { clip-path: inset(-4px 100% -4px -4px); } 64%, 94% { clip-path: inset(-4px -4px -4px -4px); opacity: 1; } 100% { clip-path: inset(-4px -4px -4px -4px); opacity: 0; } }
+  .sx-tg { position: absolute; left: 54.3%; top: -2px; margin-left: 6px; font-size: 11px; line-height: 14px; font-weight: 600; color: var(--gray-500); }
+  .sx-ax { display: flex; justify-content: space-between; margin: 6px 0 0; font-size: 11px; line-height: 14px; color: var(--gray-500); }
+  .sx-lb { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .sx-lb li { display: grid; grid-template-columns: 56px minmax(0, 1fr) 60px; align-items: center; gap: 10px; height: 50px; padding: 0 12px; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--gray-200); font-size: 12.5px; font-weight: 600; color: var(--gray-700); }
+  .sx-lb li > i { position: relative; height: 8px; border-radius: 99px; background: var(--gray-100); overflow: hidden; } .sx-lb li > i::after { content: ""; position: absolute; inset: 0; border-radius: 99px; transform-origin: left; transform: scaleX(.5); }
+  .sx-lb .w1 > i::after { background: var(--primary-600); animation: sxW1 6s ease-in-out infinite; } .sx-lb .w2 > i::after { background: var(--gray-400); animation: sxW2 6s ease-in-out infinite; }
+  .sx-lb b { display: grid; justify-items: end; font-size: 13px; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; } .sx-lb .w1 b { color: var(--primary-700); } .sx-lb s { grid-area: 1 / 1; text-decoration: none; white-space: nowrap; } .sx-lb .w2 .v2 { font-size: 12px; font-weight: 600; color: var(--gray-500); }
+  .sx-lb .v1 { animation: sxV1 6s ease-in-out infinite; } .sx-lb .v2 { opacity: 0; animation: sxV2 6s ease-in-out infinite; }
+  @keyframes sxW1 { 0%, 30% { transform: scaleX(.5); } 38%, 72% { transform: scaleX(1); } 80%, 100% { transform: scaleX(.5); } }
+  @keyframes sxW2 { 0%, 30% { transform: scaleX(.5); } 38%, 72% { transform: scaleX(0); } 80%, 100% { transform: scaleX(.5); } }
+  @keyframes sxV1 { 0%, 32% { opacity: 1; } 36%, 74% { opacity: 0; } 78%, 100% { opacity: 1; } }
+  @keyframes sxV2 { 0%, 32% { opacity: 0; } 36%, 74% { opacity: 1; } 78%, 100% { opacity: 0; } }
+  .sx-ok { display: flex; align-items: center; justify-content: space-between; height: 40px; margin: 16px 0 0; padding: 0 12px; border-radius: 10px; background: var(--gray-50); font-size: 12px; color: var(--gray-600); } .sx-ok em { display: inline-flex; align-items: center; gap: 6px; font-style: normal; font-weight: 600; color: var(--gray-700); } .sx-ok em i { width: 6px; height: 6px; border-radius: 50%; background: var(--success-500); }
+  @media (prefers-reduced-motion: reduce) { .sx-ch .g, .sx-ch .bl, .sx-lb li > i::after, .sx-lb s { animation: none !important; } .sx-ch .g, .sx-ch .bl { clip-path: none; } .sx-lb .v2 { opacity: 0; } .sx-lb .v1 { opacity: 1; } }
+  .sv-us, .sv-lb { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+  .sv-us { gap: 12px; margin-top: 16px; padding: 0 4px; }
+  .sv-us li, .sv-lb li { display: grid; grid-template-columns: 44px minmax(0, 1fr) 36px; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-500); }
+  .sv-us li > i, .sv-lb li > i { position: relative; height: 8px; border-radius: 99px; background: var(--gray-100); overflow: hidden; }
+  .sv-us li > i::after, .sv-lb li > i::after { content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--v) * 100%); border-radius: 99px; background: var(--gray-400); }
+  .sv-us li b, .sv-lb li b { justify-self: end; font-size: 12.5px; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  .sv-lb { gap: 8px; margin-bottom: 12px; }
+  .sv-lb li { grid-template-columns: 52px minmax(0, 1fr) 36px; height: 44px; padding: 0 12px; border-radius: 10px; background: var(--primary-50); font-weight: 600; color: var(--gray-700); }
+  .sv-lb li > i { background: var(--white); } .sv-lb li > i::after { background: var(--primary-600); } .sv-lb li b { color: var(--primary-700); }
+  .rv.in .sv-us li > i::after, .rv.in .sv-lb li > i::after { animation: svFill 1s cubic-bezier(.22, 1, .36, 1) .3s both; } @keyframes svFill { from { width: 0; } }
+  .rv.in .sv-lb li + li > i::after { animation-delay: .45s; }
+  @media (prefers-reduced-motion: reduce) { .sv-mr li > i, .it-panel.on .sv-ch svg, .it-panel.on .sv-gb > b, .rv.in .sv-us li > i::after, .rv.in .sv-lb li > i::after { animation: none; } }
+  /* @endregion srv-vis */
+  /* @region host-quote (patch-392): 요금 계산 + 결제 · 약정 조건 한 덩어리 — 왼쪽 결제 방식 토글 · 사양 스테퍼 · 전송량 슬라이더 / 오른쪽 견적서(월 예상 요금 · 내역 · 청구 조건)
+     참고: 월/연 결제 토글 + 실시간 합계 카드(SaaS 요금 계산 블록), 스테퍼 수량 입력(모듈형 요금 계산기), 슬라이더 사용량 입력(클라우드 요금 계산기)
+     색: 대부분 Gray · 블루 포인트 = 전송량 슬라이더 1곳 · 테두리는 실제 border (회색 견적서 칸에 묻히지 않게) */
+  /* .hq-sw 토글 = 공통 wisa.css toggle (patch-651) */
+  .hq-inc { flex: none; font-size: 16px; font-weight: 700; line-height: 24px; color: var(--black); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  /* @region hq-cond (patch-615): 결제 · 약정 조건 카드 4개 — 계산 박스 아래 · 칸 이름 14 Gray 600 · 값 20/700 Black · 흰 카드 Gray 200 테두리 모서리 16 */
+  /* @endregion hq-cond */
+  /* @region srv-ph (patch-643): 기획안 단계 비주얼 자리 = 규격 빈 박스 (문제 550×300 · 탭 560×480 · 확장 카드 360×250) · 비주얼 작업 시 .ph-box 를 실제 화면으로 교체 */ #geo-why .pn.ph-pn .ph-box { position: absolute; inset: 0; margin: 0; }
+  #geo-how .pn.ph-pn .ph-box, #host-incl .it-sc > .ph-box { height: 100%; }
+  #host-incl .it-sc:has(> .ph-box) { height: 480px; } @media (max-width: 767px) { #host-incl .it-sc:has(> .ph-box) { height: 360px; } }
+  .hq-seg3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* @endregion srv-ph */
+  /* @endregion host-quote */
+</style>
+
+<style>
+  /* @region hero-b (patch-576): 히어로 B안 채택 — 흰 바탕 · 탭 · 제목 · 설명 + 아래 1240 카드 2장(왼쪽 Primary 50 요금 카드 · 오른쪽 흰 카드 도입 단계) · A안 보관 = hosting-private-hero-a.html */
+</style>
+<style>
+  /* @region mo-598 (patch-598): 모바일(≤767) 다듬기 — 영역 간격 · 탭 문구 · 요금 카드 아이콘 · 요금 표 스크롤 활성화 · 요금 계산 입력 줄 · 모바일 글자 규격 */
+  @media (max-width: 767px) {
+    .hq-row .hq-step, .hq-row .hq-sw, .hq-row .hq-inc { grid-column: 2; grid-row: 1; margin-left: 0; }
+  }
+  /* @endregion mo-598 */
+  /* @region hq-input (patch-604): 수량 입력 = 기획서대로 숫자 입력칸 + 칸 밖 단위 (− / + 버튼 없음 · 모든 해상도) — 사양 옵션 3개 · 이번 달 전송량 같은 규격
+     입력칸 88×40 · 테두리 1 Gray 300 · 모서리 10 · 숫자 16/600 오른쪽 정렬 · 포커스 테두리 Gray 900 / 단위 14 Gray 600 · 칸 사이 8 · 단위 폭 20 고정(개 · GB 달라도 입력칸 세로 줄 맞춤)
+     [개발 전달] − / + 버튼 마크업은 계산 스크립트 호환용으로 남기고 숨김 · SSD 는 칸을 벗어나면 100GB 단위로 올림 */
+  @media (max-width: 767px) {
+    .hq-row .hq-step, .hq-row .hq-sw, .hq-row .hq-inc { grid-row: 1 / span 2; align-self: center; }
+  }
+  /* @endregion hq-input */
+</style>
+</head>
+<body>
+
+
+<!-- @region header : GNB · PC 한 줄 / 모바일 2단(메뉴 줄만 고정) -->
+<header class="header">
+  <div class="mo-banner" id="moBanner"><p>창업패키지 200만원 이상 할인 중</p><button type="button" id="moBannerClose" aria-label="배너 닫기"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M13.5 4.5L4.5 13.5M4.5 4.5L13.5 13.5" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  <div class="header-in">
+    <div><a class="logo" href="#top" aria-label="WISA 홈"><img src="assets/common/logo.svg" alt="WISA"></a></div>
+    <!-- [수정] C1 1depth 순서: 솔루션 · 구축 · 마케팅 · 고객지원 · 포트폴리오 (현재 홈페이지와 동일) -->
+    <nav class="gnb" aria-label="주요 메뉴">
+      <button type="button" data-menu="solution" aria-expanded="false" aria-controls="d2-solution" data-label="솔루션">솔루션</button><button type="button" data-menu="build" aria-expanded="false" aria-controls="d2-build" data-label="구축">구축</button><button type="button" data-menu="marketing" aria-expanded="false" aria-controls="d2-marketing" data-label="마케팅">마케팅</button><button type="button" data-menu="support" aria-expanded="false" aria-controls="d2-support" data-label="고객지원">고객지원</button><a href="#portfolio" data-label="포트폴리오">포트폴리오</a>
+    </nav>
+    <div class="header-act"><a class="btn" href="#top">로그인</a><a class="btn btn-dark btn-start" href="#solution">무료 시작<span class="hb-rocket" aria-hidden="true"><svg width="48" height="58" viewBox="0 0 101 122" fill="none"><g class="hb-flame"><g transform="rotate(30.6 31 81)"><g class="hb-len"><g class="hb-wid"><path transform="rotate(-30.6 31 81)" d="M22.6226 108.324C24.9155 109.648 35.725 104.56 40.0968 97.1866C43.4885 91.4634 45.0595 85.5463 38.0947 81.5252L38.0783 81.5157C31.1136 77.4946 26.7747 81.8137 23.5141 87.6125C19.3142 95.0855 20.3133 106.99 22.6062 108.314L22.6226 108.324Z" fill="url(#hbG2)"/></g></g></g></g><g class="hb-body"><path d="M71.3957 61.0075C72.3287 67.0602 72.4621 77.7884 67.5794 81.4987C63.0074 84.9735 55.9688 79.3593 50.6645 74.8829C58.5217 75.363 65.7274 69.7946 71.3933 61.0116L71.3957 61.0075Z" fill="url(#hbG0)"/><path d="M39.1934 42.4149C33.4852 44.6332 24.1276 49.8818 23.3557 55.9655C22.6325 61.6624 31.0138 64.9509 37.5426 67.3064C33.1982 60.7418 34.4177 51.7174 39.1911 42.419L39.1934 42.4149Z" fill="url(#hbG1)"/><path d="M77.6125 13.0561C87.038 18.498 80.8994 45.6025 73.2756 58.8073C65.6518 72.0121 54.7984 79.3124 43.2151 72.6247L43.2315 72.6342C31.6481 65.9465 32.5413 52.9012 40.1674 39.6923C47.7936 26.4834 68.1828 7.61191 77.6125 13.0561Z" fill="url(#hbG3)"/><path d="M56.1384 50.2336C61.0206 53.0524 67.291 51.3319 70.1437 46.3909C72.9964 41.4499 71.3512 35.1594 66.4689 32.3406C61.5867 29.5219 55.3163 31.2423 52.4636 36.1833C49.6109 41.1243 51.2562 47.4149 56.1384 50.2336Z" fill="#fff"/><path d="M52.4453 56.6294C48.6496 54.438 43.8091 59.5976 40.7719 64.8866C37.7142 70.1637 35.662 76.9332 39.4576 79.1246C43.2532 81.316 48.0938 76.1564 51.131 70.8674C54.1887 65.5902 56.2409 58.8208 52.4453 56.6294Z" fill="url(#hbG4)"/></g><defs><linearGradient id="hbG0" x1="68.81" y1="61.99" x2="58.73" y2="79.44" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient><linearGradient id="hbG1" x1="36" y1="43" x2="28" y2="64" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient><linearGradient id="hbG2" x1="38.19" y1="81.34" x2="22.72" y2="108.14" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#FA6696"/><stop offset="1" stop-color="#FF6352"/></linearGradient><linearGradient id="hbG3" x1="77.48" y1="13.28" x2="43.52" y2="72.1" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#3BB9F1"/><stop offset="1" stop-color="#1A6DE2"/></linearGradient><linearGradient id="hbG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient></defs></svg></span></a></div>
+  </div>
+  <!-- 2depth (PC·태블릿): 1depth에 마우스를 올리면 열림 · [수정] C1 메뉴 4개 모두 기획안 구성 (매체 광고 상품은 외부 링크) · T6 -->
+  <div class="depth2" id="d2-solution" data-menu="solution"><div class="d2-col"><div class="d2-title">요금 · 라이선스</div><a class="d2-item" href="wisa_cloud_page.html"><b>부스터 Cloud <i class="d2-tag blue">구독형</i></b><span>스탠다드 · 프로 · 하이브리드</span></a><a class="d2-item" href="wisa_enterprise_page.html"><b>부스터 Enterprise <i class="d2-tag indigo">소유형</i></b><span>소스코드 · 독립서버</span></a><a class="d2-item" href="wisa_comparison_page.html"><b>라이선스 비교</b><span>요금 · 기능 · 조건을 한눈에</span></a></div><div class="d2-col"><div class="d2-title">쇼핑몰 타입</div><a class="d2-item" href="wisa_type_brand.html"><b>브랜드형</b><span>단일 브랜드 표준형 쇼핑몰 구축</span></a><a class="d2-item" href="wisa_type_shopinshop.html"><b>입점형</b><span>다수 브랜드 입점 플랫폼 구축</span></a><a class="d2-item" href="wisa_type_contents.html"><b>콘텐츠</b><span>음원 · 파일 · 티켓 등 디지털 콘텐츠</span></a><a class="d2-item" href="wisa_type_global.html"><b>글로벌</b><span>다국어 · 다통화 · 해외 결제</span></a><a class="d2-item" href="wisa_type_b2b.html"><b>B2B</b><span>기업간 거래 · 회원사별 가격 관리</span></a><a class="d2-item" href="wisa_type_o2o.html"><b>O2O</b><span>온·오프라인 연동 커머스</span></a><a class="d2-item" href="wisa_type_subscription.html"><b>정기배송</b><span>구독 커머스 · 자동 결제 관리</span></a><a class="d2-item" href="wisa_type_inapp.html"><b>모바일인앱</b><span>네이티브 앱 기반 쇼핑몰</span></a></div><div class="d2-col"><div class="d2-title">도구 · 리소스</div><a class="d2-item" href="#"><b>관리자 앱</b><span>운영자용 어드민 관리 앱</span></a><a class="d2-item" href="#"><b>쇼핑몰 앱</b><span>소비자용 쇼핑 다운로드 앱</span></a><a class="d2-item" href="#"><b>앱스토어</b><span>확장 앱 · 플러그인 마켓</span></a></div></div>
+  <div class="depth2" id="d2-build" data-menu="build"><div class="d2-col"><div class="d2-title">맞춤서비스</div><a class="d2-item" href="wisa_custom_page.html"><b>맞춤제작</b><span>디자인 · 개발 · 솔루션 커스터마이징</span></a><a class="d2-item" href="wisa_build_page.html#maintenance"><b>유지관리</b><span>패치 · 고도화 · 정기 관리 · 유지보수</span></a></div><div class="d2-col"><div class="d2-title">창업서비스</div><a class="d2-item" href="#"><b>창업패키지 <i class="d2-tag warn">인기</i></b><span>구축 + Cloud 번들 특가</span></a><a class="d2-item" href="#"><b>디자인스토어</b><span>쇼핑몰 · 홈페이지 디자인 스킨</span></a><a class="d2-item" href="#"><b>인플루언서 구축지원 <i class="d2-tag event">이벤트</i></b><span>인플루언서 · 셀러 쇼핑몰 오픈</span></a></div></div>
+  <div class="depth2" id="d2-marketing" data-menu="marketing"><div class="d2-col"><div class="d2-title">자사몰 마케팅</div><a class="d2-item" href="geo.html"><b>GEO / AI 검색 <i class="d2-tag blue">신규</i></b><span>AI 답변 속 브랜드 노출</span></a><a class="d2-item" href="onsite.html"><b>온사이트마케팅</b><span>자사몰 안 구매전환 최적화</span></a><a class="d2-item" href="crm.html"><b>CRM마케팅</b><span>재구매 · 리텐션 · LTV 향상</span></a><a class="d2-item" href="report.html"><b>리포트 <i class="d2-tag blue">신규</i></b><span>성과 대시보드 · AI 보고</span></a></div><div class="d2-col"><div class="d2-title">채널마케팅</div><a class="d2-item" href="sns-ops.html"><b>공식채널운영</b><span>인스타그램 · 페이스북 운영대행</span></a><a class="d2-item" href="shopping-feed.html"><b>상품DB 연동 <i class="d2-tag blue">신규</i></b><span>네이버·카카오·구글 쇼핑 연동</span></a><a class="d2-item" href="vertical-commerce.html"><b>버티컬커머스</b><span>쿠팡 · 무신사 입점 · 광고</span></a><a class="d2-item" href="media-ads.html"><b>매체 광고 상품</b><span>쇼핑 · 검색 · 디스플레이 · SNS 광고</span></a></div></div>
+  <div class="depth2" id="d2-support" data-menu="support"><div class="d2-col"><div class="d2-title">안내 · 소식</div><a class="d2-item" href="#"><b>공지사항</b><span>서비스 · 정책 변경 안내</span></a><a class="d2-item" href="#"><b>교육안내</b><span>운영 노하우 교육 프로그램</span></a><a class="d2-item" href="https://developers.wisa.co.kr/" target="_blank" rel="noopener"><b>개발자센터</b><span>API 가이드 · 개발 문서</span></a></div><div class="d2-col"><div class="d2-title">상담 · 문의</div><a class="d2-item" href="wisa_support_page.html"><b>상담센터</b><span>제작 · 도입 전문 상담</span></a><a class="d2-item" href="wisa_customer_page.html"><b>고객센터 <i class="d2-tag err">24시간</i></b><span>이용 중 오류 · 장애 기술지원</span></a><a class="d2-item" href="#"><b>긴급접수</b><span>장애 · 서비스 중단 긴급 신고</span></a></div></div>
+  <!-- 2depth (모바일): 1depth를 탭하면 헤더 아래 전체 패널 · [수정] C1 기획안 메뉴 구성 + 현재 홈페이지 하단 안내 바 유지 · M11 -->
+  <div class="mo-panel" id="moPanel">
+    <div class="mp-body" data-menu="solution"><div class="mp-sec"><h4>요금 · 라이선스</h4><ul><li><a href="wisa_cloud_page.html"><b>부스터 Cloud</b><span>스탠다드 · 프로 · 하이브리드</span></a></li><li><a href="wisa_enterprise_page.html"><b>부스터 Enterprise</b><span>소스코드 · 독립서버</span></a></li><li><a href="wisa_comparison_page.html"><b>라이선스 비교</b><span>요금 · 기능 · 조건을 한눈에</span></a></li></ul></div><div class="mp-sec"><h4>쇼핑몰 타입</h4><ul><li><a href="wisa_type_brand.html"><b>브랜드형</b><span>단일 브랜드 표준형 쇼핑몰 구축</span></a></li><li><a href="wisa_type_shopinshop.html"><b>입점형</b><span>다수 브랜드 입점 플랫폼 구축</span></a></li><li><a href="wisa_type_contents.html"><b>콘텐츠</b><span>음원 · 파일 · 티켓 등 디지털 콘텐츠</span></a></li><li><a href="wisa_type_global.html"><b>글로벌</b><span>다국어 · 다통화 · 해외 결제</span></a></li><li><a href="wisa_type_b2b.html"><b>B2B</b><span>기업간 거래 · 회원사별 가격 관리</span></a></li><li><a href="wisa_type_o2o.html"><b>O2O</b><span>온·오프라인 연동 커머스</span></a></li><li><a href="wisa_type_subscription.html"><b>정기배송</b><span>구독 커머스 · 자동 결제 관리</span></a></li><li><a href="wisa_type_inapp.html"><b>모바일인앱</b><span>네이티브 앱 기반 쇼핑몰</span></a></li></ul></div><div class="mp-sec"><h4>도구 · 리소스</h4><ul><li><a href="#"><b>관리자 앱</b><span>운영자용 어드민 관리 앱</span></a></li><li><a href="#"><b>쇼핑몰 앱</b><span>소비자용 쇼핑 다운로드 앱</span></a></li><li><a href="#"><b>앱스토어</b><span>확장 앱 · 플러그인 마켓</span></a></li></ul></div></div>
+    <div class="mp-body" data-menu="build"><div class="mp-sec"><h4>맞춤서비스</h4><ul><li><a href="wisa_custom_page.html"><b>맞춤제작</b><span>디자인 · 개발 · 솔루션 커스터마이징</span></a></li><li><a href="wisa_build_page.html#maintenance"><b>유지관리</b><span>패치 · 고도화 · 정기 관리 · 유지보수</span></a></li></ul></div><div class="mp-sec"><h4>창업서비스</h4><ul><li><a href="#"><b>창업패키지</b><span>구축 + Cloud 번들 특가</span></a></li><li><a href="#"><b>디자인스토어</b><span>쇼핑몰 · 홈페이지 디자인 스킨</span></a></li><li><a href="#"><b>인플루언서 구축지원</b><span>인플루언서 · 셀러 쇼핑몰 오픈</span></a></li></ul></div></div>
+    <div class="mp-body" data-menu="marketing"><div class="mp-sec"><h4>자사몰 마케팅</h4><ul><li><a href="geo.html"><b>GEO / AI 검색</b><span>AI 답변 속 브랜드 노출</span></a></li><li><a href="onsite.html"><b>온사이트마케팅</b><span>자사몰 안 구매전환 최적화</span></a></li><li><a href="crm.html"><b>CRM마케팅</b><span>재구매 · 리텐션 · LTV 향상</span></a></li><li><a href="report.html"><b>리포트</b><span>성과 대시보드 · AI 보고</span></a></li></ul></div><div class="mp-sec"><h4>채널마케팅</h4><ul><li><a href="sns-ops.html"><b>공식채널운영</b><span>인스타그램 · 페이스북 운영대행</span></a></li><li><a href="shopping-feed.html"><b>상품DB 연동</b><span>네이버·카카오·구글 쇼핑 연동</span></a></li><li><a href="vertical-commerce.html"><b>버티컬커머스</b><span>쿠팡 · 무신사 입점 · 광고</span></a></li><li><a href="media-ads.html"><b>매체 광고 상품</b><span>쇼핑 · 검색 · 디스플레이 · SNS 광고</span></a></li></ul></div></div>
+    <div class="mp-body" data-menu="support"><div class="mp-sec"><h4>안내 · 소식</h4><ul><li><a href="#"><b>공지사항</b><span>서비스 · 정책 변경 안내</span></a></li><li><a href="#"><b>교육안내</b><span>운영 노하우 교육 프로그램</span></a></li><li><a href="https://developers.wisa.co.kr/" target="_blank" rel="noopener"><b>개발자센터</b><span>API 가이드 · 개발 문서</span></a></li></ul></div><div class="mp-sec"><h4>상담 · 문의</h4><ul><li><a href="wisa_support_page.html"><b>상담센터</b><span>제작 · 도입 전문 상담</span></a></li><li><a href="wisa_customer_page.html"><b>고객센터</b><span>이용 중 오류 · 장애 기술지원</span></a></li><li><a href="#"><b>긴급접수</b><span>장애 · 서비스 중단 긴급 신고</span></a></li></ul></div></div>
+  </div>
+</header>
+<!-- @endregion -->
+
+
+<main id="top" class="sub">
+<!-- @region sub-hero : 탭 · 타이틀 · 설명 · 요금 바 .dh-buy + 포함 사항 .dh-incl (patch-519 · 521 · 529) -->
+<section class="sh" id="geo-hero">
+  <div class="container sh-copy">
+    <nav class="tab-page rv" aria-label="호스팅">
+      <a href="hosting-web.html">웹호스팅</a>
+      <a href="hosting-server.html" class="on" aria-current="page"><i aria-hidden="true"></i><span>서버호스팅</span></a>
+      <a href="hosting-private.html"><span>프라이빗<span class="tp-x"> 클라우드</span></span></a>
+      <a href="hosting-public.html"><span>퍼블릭<span class="tp-x"> 클라우드</span></span></a>
+    </nav>
+    <div class="sh-text">
+      <h1 class="rv" style="--d:80ms"><span class="ai-roll" aria-label="옆 쇼핑몰 세일 · 옆 사이트 트래픽 · 공유 서버 과부하 · 다른 고객 작업"><span class="ai-roll-in"><span><i class="pv-ki k0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><path d="M7.5 7.5h.01"/></svg></i>옆 쇼핑몰 세일</span><span><i class="pv-ki k1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></i>옆 사이트 트래픽</span><span><i class="pv-ki k2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></i>공유 서버 과부하</span><span><i class="pv-ki k3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14a6.5 6.5 0 0 1 3 6"/></svg></i>다른 고객 작업</span></span></span>에<br class="mo-br"> 영향받지 않는<br><em class="gt">단독 서버호스팅</em></h1>   <!-- [개발 전달] patch-723 히어로 카피 수정안 반영: [키워드]에 영향받지 않는 / 단독 서버호스팅 · 키워드 교체(공통 2.4초 · 전환 0.6초): 옆 쇼핑몰 세일 → 옆 사이트 트래픽 → 공유 서버 과부하 → 다른 고객 작업 · 아이콘 = 태그 · 트래픽 파형 · 서버 · 사람 (색은 이전과 같음) -->
+      <p class="rv" style="--d:160ms">물리 서버 1대를 단독으로 사용하며 웹과 DB를 함께 구성합니다.<br class="pc-only"> 웹 · DB 분리, 이중화, 부하분산이 필요하면 쇼핑몰 규모에 맞게 구성해 드립니다.</p>
+    </div>
+  </div>
+  <div class="container hb rv" style="--d:240ms">   <!-- [개발 전달] patch-576 히어로 요금 카드 2장 · 1240 (아래 요금 안내 표와 같은 폭) — 왼쪽 블루 = 웹호스팅(제목 + 아이콘 · 금액 · 버튼 · 기본 포함) / 오른쪽 흰 카드 = 사양 옵션 · 사용량 단가(요금 계산으로 이동) · 모바일은 왼쪽 카드만 (patch-607) · 레퍼런스: 노션 요금 카드 — 이름 + 뱃지 · 금액 · 설명 · 버튼 · 포함 목록 -->
+    <div class="hb-c">
+      <div class="hb-top">
+        <h2 class="hb-h">다른 쇼핑몰과 나누지 않는<br>단독 서버 호스팅.</h2>
+        <span class="hb-app pri" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9h18"/><path d="M6.5 6.8h.01M9 6.8h.01"/><path d="M8 13.5h8M8 16h5"/></svg></span>
+      </div>
+      <div class="hb-pl">
+          <p class="hb-nm">서버호스팅<span class="hb-bd">단독 서버</span></p>
+          <p class="hb-pr"><b>110,000원</b><span>/ 월</span></p>
+          <p class="hb-ds">12개월 이상 결제 시 10% 할인 ·<br>설치비 55,000원</p>
+          <a class="btn btn-blue hb-btn" href="https://www.wisa.co.kr/counsel">신청하기</a>
+          <p class="hb-lt">기본 포함:</p>
+          <ul class="hb-ck"><li>4 vCPU · 메모리 16GB · SSD 100GB</li><li>전송량 월 1TB</li><li>백업 일 1회 · 7일 보관</li><li>보안 서비스 선택</li></ul>   <!-- [개발 전달] patch-734 기본 포함 = 고객 확정 기본 스펙 (4 vCPU · 16GB · SSD 100GB · 전송량 1TB · 백업 일 1회 7일 보관 · 보안 서비스 선택) -->
+      </div>
+    </div>
+    <div class="hb-c hb-w hb-op">   <!-- [개발 전달] patch-668 오른쪽 흰 카드 = 맞춤 서버호스팅 (이 상품을 쇼핑몰에 맞게 설계하는 견적 상품 · 페이지마다 그 상품의 맞춤 설계 · 옵션 단가는 아래 요금 계산에만) · 버튼 = CTA 도입 상담 · 태블릿 · 모바일도 노출 [확인 필요 · 맞춤 범위 · 견적 절차] · 공인 IP 추가 · 증설 단가는 요금 계산 견적 토글 -->
+      <div class="hb-top">
+        <h2 class="hb-h">우리 쇼핑몰에 맞춰<br>설계하는 맞춤 서버 구성.</h2>
+        <span class="hb-app" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>
+      </div>
+      <div class="hb-pl">
+        <p class="hb-nm">맞춤 서버호스팅<span class="hb-bd">별도 견적</span></p>
+        <p class="hb-pr"><b>맞춤 견적</b></p>
+        <p class="hb-ds">주문량 · 상품 수 · 정산 일정에 맞춰<br>서버 사양과 구성을 제안합니다.</p>
+        <a class="btn hb-btn" href="https://www.wisa.co.kr/counsel">맞춤 구성 상담하기</a>
+        <p class="hb-lt">이렇게 맞춰 드려요:</p>
+        <ul class="hb-ck hb-cm"><li><b>사양 설계</b><span>CPU · 메모리 · 디스크를 주문량에</span></li><li><b>분리 구성</b><span>웹 · DB 서버 분리 · 사설망 연결</span></li><li><b>이중화</b><span>부하분산 · 장애 시 자동 전환</span></li><li><b>보안 구성</b><span>방화벽 정책 · 접근 제어 맞춤 설정</span></li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @endregion -->
+
+<!-- @region host-table : 요금 안내 표 (기획문서 표 그대로 · 묶음 제목 행 + 항목 · 값 · 확정 전 표시) -->
+<section class="sec" id="host-table" hidden>   <!-- patch-630 숨김 (프라이빗 patch-623 과 같음 · 마크업은 남겨 둠) -->
+  <div class="container">
+    <div class="sub-title rv"><h2>요금 · 사양 안내</h2><p>기본 요금에 아래 사양이 포함되고, 넘는 만큼만 추가 요금이 붙습니다. 초과해도 차단되지 않습니다.</p></div>
+
+    <div class="hcmp rv" style="--d:100ms;--cur:0">   <!-- [개발 전달] patch-397: PC(≥1024) 전용 · 4개 상품 비교표 · 지금 보는 상품 열(td.cur)에 추천 카드와 같은 2px Gray 900 테두리 · 태블릿 · 모바일은 아래 .ht (이 상품만) · 다른 상세 페이지에도 같은 표를 넣고 .cur 열만 바꿈 -->
+      <table><colgroup><col class="lb"><col><col><col><col></colgroup>
+        <thead><tr><th scope="col" class="corner"><span class="sr-only">항목</span></th><th scope="col" class="cur"><b>웹 호스팅</b><span>월 33,000원~</span><em class="hcmp-now"><svg class="hcmp-ck" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>지금 보는 상품</em></th><th scope="col"><b>서버 호스팅</b><span>월 110,000원~</span><a href="hosting-server.html">자세히 보기</a></th><th scope="col"><b>프라이빗 클라우드</b><span>월 260,000원~</span><a href="hosting-private.html">자세히 보기</a></th><th scope="col"><b>퍼블릭 클라우드</b><span>견적</span><a href="hosting-public.html">자세히 보기</a></th></tr></thead>
+        <tbody><tr class="g"><th colspan="5" scope="colgroup">기본 요금</th></tr><tr><th scope="row">월 이용료</th><td class="cur">33,000원<small>12개월 결제 시 29,700원</small></td><td>110,000원<small>12개월 이상 결제 시 10% 할인</small></td><td>260,000원<small>12개월 약정 기준</small></td><td>운영 관리 견적<small>클라우드 이용료는 벤더에 직접 결제</small></td></tr><tr><th scope="row">설치비</th><td class="cur">무료</td><td>55,000원</td><td>무료</td><td>설계 · 이전 견적<small>인프라 진단 무료</small></td></tr><tr class="g"><th colspan="5" scope="colgroup">기본 제공</th></tr><tr><th scope="row">서버</th><td class="cur"><i class="no" aria-label="없음">—</i></td><td>단독 물리 서버 1대<small>웹 + DB</small></td><td>전용 할당 클라우드 서버</td><td>고객 클라우드 계정<small>AWS · Azure · NAVER Cloud</small></td></tr><tr><th scope="row">CPU · 메모리</th><td class="cur"><i class="no" aria-label="없음">—</i></td><td>8코어 이상 · 32GB</td><td>vCPU 8개 · 16GB</td><td>벤더 요금표 기준</td></tr><tr><th scope="row">디스크</th><td class="cur">10GB</td><td>NVMe SSD 2개 RAID1</td><td>SSD 300GB<small>3중 복제 저장</small></td><td>벤더 요금표 기준</td></tr><tr><th scope="row">전송량</th><td class="cur">월 720GB</td><td>월 2TB</td><td>월 2TB</td><td>벤더 요금표 기준</td></tr><tr><th scope="row">백업 · 장애 대응</th><td class="cur"><i class="no" aria-label="없음">—</i></td><td><i class="no" aria-label="없음">—</i></td><td>일일 백업 14일 보관<small>HA 자동 복구</small></td><td><i class="no" aria-label="없음">—</i></td></tr><tr><th scope="row">보안</th><td class="cur">10G 방화벽 · DDoS 방어<small>웹방화벽</small></td><td>10G 방화벽 · DDoS 방어<small>서버 모니터링</small></td><td>10G 방화벽 · DDoS 방어<small>24시간 모니터링</small></td><td><i class="no" aria-label="없음">—</i></td></tr><tr class="g"><th colspan="5" scope="colgroup">추가 요금</th></tr><tr><th scope="row">사양 추가</th><td class="cur">디스크 10GB당 월 5,000원</td><td>메모리 · 디스크 증설 견적</td><td>vCPU 1개 월 15,000원<small>메모리 1GB 5,000원 · SSD 100GB 10,000원</small></td><td><i class="no" aria-label="없음">—</i></td></tr><tr><th scope="row">전송량 초과</th><td class="cur">1GB당 100원</td><td>1GB당 100원</td><td>1GB당 100원</td><td>벤더 요금표 기준</td></tr><tr><th scope="row">일시 증설</th><td class="cur"><i class="no" aria-label="없음">—</i></td><td><i class="no" aria-label="없음">—</i></td><td>옵션 단가 일할 계산</td><td><i class="no" aria-label="없음">—</i></td></tr><tr><th scope="row">맞춤 구성</th><td class="cur"><i class="no" aria-label="없음">—</i></td><td>웹 · DB 분리 · 이중화 · 부하분산 견적</td><td>고객 전용 노드 클러스터 견적</td><td>설계 · 이전 견적</td></tr></tbody>
+      </table>
+    </div>
+    <div class="ht rv" style="--d:100ms">   <!-- [개발 전달] patch-643 영역 숨김 상태 · PC 비교표(.hcmp)는 웹호스팅 열(cur)이 선택된 그대로 — 다시 보일 때 서버 열로 옮김 -->
+      <div class="ht-g"><h3>기본 요금</h3><dl><div><dt>월 이용료</dt><dd>월 110,000원 <small>12개월 이상 결제 시 10% 할인 · 설치비 55,000원</small></dd></div></dl></div>
+      <div class="ht-g"><h3>기본 제공</h3><dl><div><dt>서버</dt><dd>단독 물리 서버 1대 (웹 + DB)</dd></div><div><dt>CPU · 메모리</dt><dd>8코어 이상 · 32GB <small>[확인 필요] 장비 확인 전</small></dd></div><div><dt>디스크</dt><dd>NVMe SSD 2개 RAID1 미러링 <small>[확인 필요] 장비 확인 전</small></dd></div><div><dt>전송량</dt><dd>월 2TB <small>[확인 필요] 확정 전</small></dd></div><div><dt>공인 IP</dt><dd>1개</dd></div><div><dt>보안 · 운영</dt><dd>10G 하드웨어 방화벽 · DDoS 방어 · 서버 모니터링</dd></div></dl></div>
+      <div class="ht-g"><h3>추가 요금 · 사용량<small>익월 후불</small></h3><dl><div><dt>전송량 초과</dt><dd>1GB당 100원</dd></div><div><dt>공인 IP 추가</dt><dd>별도 <small>[확인 필요] 확정 전</small></dd></div></dl></div>
+      <div class="ht-g"><h3>맞춤 견적</h3><dl><div><dt>메모리 · 디스크 증설</dt><dd>견적</dd></div><div><dt>웹 · DB 분리 · 이중화 · 부하분산</dt><dd>견적</dd></div></dl></div>
+    </div>
+  </div>
+</section>
+<!-- @endregion -->
+
+
+<!-- @region why : 서버호스팅 · 공유 서버 vs 단독 서버 (마케팅 문제 영역 비교 마크업 · 화면 550×300 · 지금은 빈 박스) -->
+<section class="sec" id="geo-why">   <!-- [개발 전달] patch-643 기획문서에 문제 영역 없음 → 기획문서 상품 설명(물리 서버 1대 단독 사용)과 웹호스팅 FAQ(공유 서버가 부담되면 서버호스팅)로 구성 · 웹 · 프라이빗과 같은 흐름 -->
+  <div class="container">
+    <div class="sub-title rv"><h2>서버를 다른 쇼핑몰과 나눠 쓰면<br class="mo-br"> 어떻게 되나요</h2><p>주문이 몰리는 날, 여러 쇼핑몰이 함께 쓰는 공유 서버와 혼자 쓰는 위사 서버호스팅은 이렇게 다릅니다.</p></div>
+    <div class="bento b2 ba">
+      <span class="bt-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      <div class="bt rv">
+        <div class="bt-hd"><span class="bt-eb">공유 서버 호스팅</span><h3>옆 쇼핑몰이 붐비면 같이 느려짐</h3></div>
+        <div class="bt-vis" aria-hidden="true">
+          <div class="pn ows hv-p hv-ld">   <!-- [개발 전달] patch-644 문제 왼쪽(회색 창): 인테리어 쇼핑몰 상품 상세가 흐리게 로딩 중(사진 · 가격 · 버튼 자리 회색 막대) · 가운데 불러오는 중 창 · 머리줄 칩 = 서버 응답 지연 + 기다린 시간이 0.0초 → 8.2초로 늘어남(스크립트 why-elapsed · 6초 반복) -->
+            <div class="win-hd"><i class="hv-hi"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></i>woodroom.co.kr<span class="vw-chip gray hv-sv x"><i></i>서버 응답 지연<em class="hv-el">8.2초</em></span></div>
+            <div class="hv-bd hv-sh"><div class="hv-sh-pg sd-pg">
+              <span class="hv-sh-im sd-im"></span>
+              <div class="sd-tx"><span class="sd-br">WOODROOM</span><b>오크 라운지 체어</b><span class="sd-sk" style="--w:56%"></span><span class="sd-sk" style="--w:72%"></span><span class="sd-sk o"></span><span class="sd-bt"><span class="sd-sk b"></span><span class="sd-sk b"></span></span></div>
+            </div><div class="hv-dlg sd-ld"><i aria-hidden="true"></i><b>페이지를 불러오는 중</b><small>같은 서버 쇼핑몰 트래픽 급증</small></div></div>
+            <div class="ows-ft"><i class="me-tag">상품 페이지 응답 8.2초</i></div>
+          </div>
+        </div>
+        <p class="bt-goal"><span>결과</span>다른 쇼핑몰 트래픽에 속도가 좌우됨</p>
+      </div>
+      <div class="bt is-new rv" style="--d:100ms">
+        <div class="bt-hd"><span class="bt-eb">위사 서버호스팅</span><h3>서버 1대를 혼자 사용</h3></div>
+        <div class="bt-vis" aria-hidden="true">
+          <div class="pn ows hv-p hv-cl">   <!-- [개발 전달] patch-644 문제 오른쪽(흰 창): 같은 상품 상세가 바로 열린 상태 · 사진 위 "보는 중" 인원이 6초 동안 1,284 → 4,826명으로 늘어나도(스크립트 why-live) 머리줄 칩 응답 0.4초 그대로 · 웹 · 프라이빗 문제 오른쪽과 같은 동작 -->
+            <div class="win-hd"><i class="hv-hi"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></i>woodroom.co.kr<span class="vw-chip hv-sv sd-ok"><i></i>단독 서버 · 응답 0.4초</span></div>
+            <div class="hv-bd hv-sh"><div class="hv-sh-pg sd-pg">
+              <span class="hv-sh-im sd-im"><img src="assets/geo/interior/wr-chair.webp" alt=""><span class="ev-lv"><i></i><b class="ev-n">1,284</b>명 보는 중</span></span>
+              <div class="sd-tx"><span class="sd-br">WOODROOM</span><b>오크 라운지 체어</b><span class="sd-pr"><em>18%</em><strong>289,000원</strong></span><span class="sd-rv">리뷰 1,248 · 무료 배송</span><span class="sd-op">색상 · 내추럴 오크</span><span class="sd-bt"><i class="hv-btn">장바구니</i><i class="hv-btn k">구매하기</i></span></div>
+            </div></div>
+            <div class="ows-ft"><i class="hit-tag">주문이 몰려도 응답 0.4초 유지</i></div>
+          </div>
+        </div>
+        <p class="bt-goal"><span>결과</span>내 쇼핑몰 트래픽만큼만 서버를 씀</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @endregion -->
+
+<!-- @region host-incl : 서버호스팅 · 기본 포함 서비스 — 마케팅 단계(탭 타입) UI (웹 · 프라이빗과 같은 구성 · 화면 560×480 빈 박스 · 스크립트 host-incl-tab) -->
+<section class="sec" id="host-incl">   <!-- [개발 전달] patch-643 기획문서 서버호스팅 탭의 기본 제공 · 보안 · 운영 · FAQ 내용으로 재구성 · 화면은 빈 박스(확인 후 비주얼) -->
+  <div class="container">
+    <div class="sub-title rv"><h2>혼자 쓰는 서버를<br> 보안 · 모니터링까지<br class="mo-br"> 함께 지킵니다</h2><p>추가 비용 없이 서버호스팅에 기본으로 들어 있는 네 가지입니다.</p></div>
+    <div class="it rv" style="--d:100ms">
+      <div class="it-nav jt-nav" role="tablist" aria-label="기본 포함 서비스 4개"><button type="button" class="tabline on" role="tab" data-it="0" aria-selected="true"><span>01</span>단독 서버</button><button type="button" class="tabline" role="tab" data-it="1" aria-selected="false"><span>02</span>방화벽 · DDoS 방어</button><button type="button" class="tabline" role="tab" data-it="2" aria-selected="false"><span>03</span>서버 모니터링</button><button type="button" class="tabline" role="tab" data-it="3" aria-selected="false"><span>04</span>전송량 후불</button></div>
+      <div class="dx-panel it-panel on" data-it="0" role="tabpanel">
+        <div class="it-txt"><span class="bt-eb">기본 포함 01 · 단독 서버</span><h3>웹과 DB를<br>서버 1대에서 함께 운영합니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="it-q">“다른 쇼핑몰 영향 없이 빨라요”</p></div><p class="it-d">물리 서버 1대를 혼자 사용하고 웹과 DB를 함께 구성합니다. 디스크는 SSD 2개를 미러링해 한쪽이 고장 나도 데이터가 남습니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>단독 물리 서버 1대</li><li>웹 + DB 통합</li><li>디스크 미러링</li></ul></div></div>
+        <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw wh-in sv-t1"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span><b>서버 정보</b><span class="vw-m">woodroom.co.kr · SV-0142</span><em class="vw-chip gray">정상 운영</em></div><div class="hv-tb">
+          <!-- [개발 전달] patch-644 탭 1 서버 정보: 4 vCPU · 메모리 16GB · SSD 100GB = 기본 스펙 (patch-734) · 블루 = 디스크 미러링(두 디스크 같은 내용 · 쓰기 표시 점이 함께 깜빡임) -->
+          <div class="hv-cd sv-me"><h4>단독 물리 서버<i class="os8-p">1</i><small>이 서버를 쓰는 쇼핑몰 1곳</small></h4><p class="sv-me-n"><b>SV-0142</b><span>woodroom.co.kr 전용 · 다른 쇼핑몰 없음</span></p><ul class="hv-st"><li><small>CPU</small><strong>4<span>vCPU</span></strong></li><li><small>메모리</small><strong>16<span>GB</span></strong></li><li><small>SSD</small><strong>100<span>GB × 2</span></strong></li></ul></div>
+          <div class="hv-2">
+            <div class="hv-cd sv-svc"><h4>서비스 구성<i class="os8-p">2</i></h4><ul><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></i><p><b>웹</b><span>쇼핑몰 화면 · 주문</span></p><em>SV-0142</em></li><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></i><p><b>DB</b><span>상품 · 주문 · 회원</span></p><em>SV-0142</em></li></ul></div>
+            <div class="hv-cd sv-mr"><h4>디스크 미러링<i class="os8-p dn">3</i><small>동기화 100%</small></h4><ul><li><i></i><p><b>SSD 1</b><span>100GB · 사용 41GB</span></p><em>정상</em></li><li><i></i><p><b>SSD 2</b><span>100GB · 사용 41GB</span></p><em>정상</em></li></ul><p class="sv-mr-f">한쪽이 고장 나도 데이터 유지</p></div>
+          </div>
+        </div></div></div>
+      </div>
+      <div class="dx-panel it-panel" data-it="1" role="tabpanel">
+        <div class="it-txt"><span class="bt-eb">기본 포함 02 · 방화벽 · DDoS 방어</span><h3>외부 공격은<br>쇼핑몰에 닿기 전에 막습니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-02.jpg" data-pf="2" data-g="m" alt=""></i><p class="it-q">“공격이 와도 쇼핑몰은 그대로였어요”</p></div><p class="it-d">10G 하드웨어 방화벽과 DDoS 방어가 서버 앞단에서 비정상 트래픽을 걸러 냅니다. 손님 접속은 그대로 두고 공격만 막습니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>10G 하드웨어 방화벽</li><li>DDoS 방어</li><li>비정상 트래픽 차단</li></ul></div></div>
+        <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw wh-in sv-t2"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg></span><b>방화벽 관제</b><span class="vw-m">SV-0142 앞단 · 11.27 (금)</span><em class="vw-chip">정상 접속 유지</em></div><div class="hv-tb">
+          <!-- [개발 전달] patch-644 탭 2 방화벽 관제: 서버 앞단 차단 기록 5줄(출발지 IP 는 뒷자리 가림) · 블루 = 방금 막은 DDoS 1줄(탭이 열리면 위에서 내려옴) · 아래 줄 = 쇼핑몰 응답은 그대로 -->
+          <div class="hv-cd wh-tb sv-lg"><div class="wh-th"><span>시간</span><span>출발지</span><span>유형</span><span>조치</span></div><ul><li class="on"><span>14:32:08</span><b><span>해외 IP 1,204개</span><small>UDP 대량 접속 · 2.4Gbps</small></b><span>DDoS<i class="os8-p">2</i></span><em>차단</em></li><li><span>14:31:40</span><b>185.220.xx.xx</b><span>포트 스캔<i class="os8-p">3</i></span><em>차단</em></li><li><span>14:30:12</span><b>45.95.xx.xx</b><span>비정상 접속</span><em>차단</em></li><li><span>14:28:51</span><b>103.77.xx.xx</b><span>포트 스캔</span><em>차단</em></li><li><span>14:27:03</span><b>91.240.xx.xx</b><span>비정상 접속</span><em>차단</em></li></ul></div>
+          <p class="hv-op sv-fw"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg></i><b>10G 하드웨어 방화벽<i class="os8-p">1</i></b><span>쇼핑몰 응답 0.4초 · 평소와 같음</span></p>
+        </div></div></div>
+      </div>
+      <div class="dx-panel it-panel" data-it="2" role="tabpanel">
+        <div class="it-txt"><span class="bt-eb">기본 포함 03 · 서버 모니터링</span><h3>서버 상태를<br>위사가 함께 지켜봅니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-03.jpg" data-pf="3" data-g="f" alt=""></i><p class="it-q">“이상이 생기면 먼저 연락이 와요”</p></div><p class="it-d">CPU · 메모리 · 디스크 사용량과 서버 응답을 위사가 모니터링합니다. 이상이 보이면 담당자에게 바로 알립니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>CPU · 메모리 사용률</li><li>디스크 사용량</li><li>이상 알림</li></ul></div></div>
+        <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw wh-in sv-t3"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></span><b>서버 모니터링</b><span class="vw-m">SV-0142 · 최근 24시간</span><em class="vw-chip gray">위사 관제 중</em></div><div class="hv-tb">
+          <!-- [개발 전달] patch-644 탭 3 서버 모니터링: 모니터링 항목 · 알림 방식(문자 · 알림톡 등)은 기획문서에 "서버 모니터링"만 있음 [확인 필요] · 블루 = CPU 24시간 선(탭이 열리면 그려짐) · 레드 = 디스크 85% 알림 1곳 -->
+          <ul class="hv-st"><li class="on"><small>CPU<i class="os8-p">1</i></small><strong>42<span>%</span></strong></li><li><small>메모리</small><strong>58<span>%</span></strong></li><li><small>디스크<i class="os8-p">2</i></small><strong>85<span>%</span></strong></li></ul>
+          <div class="hv-cd sv-ch"><h4>CPU 사용률<small>11.26 (목) 15:00 – 11.27 (금) 15:00</small></h4><div class="sv-ch-g"><span class="sv-ch-y"><i>100%</i><i>50%</i><i>0%</i></span><svg class="gx-spark dn" viewBox="0 0 240 80" preserveAspectRatio="none"><path class="a" d="M0 60 L20 62 L40 64 L60 66 L80 68 L100 66 L120 58 L140 50 L160 46 L180 40 L200 34 L220 38 L240 46 L240 80 L0 80Z"/><path class="l" pathLength="1" d="M0 60 L20 62 L40 64 L60 66 L80 68 L100 66 L120 58 L140 50 L160 46 L180 40 L200 34 L220 38 L240 46"/><circle cx="240" cy="46" r="2.5"/></svg></div><p class="sv-ch-x"><span>15:00</span><span>21:00</span><span>03:00</span><span>09:00</span><span>15:00</span></p></div>
+          <div class="sv-al"><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 7v6M12 17h.01"/></svg></i><p><b>디스크 사용량 85% 도달<i class="os8-p">3</i></b><span>담당자에게 알림을 보냈습니다 · 정리 안내 포함</span></p><time>14:52</time></div>
+        </div></div></div>
+      </div>
+      <div class="dx-panel it-panel" data-it="3" role="tabpanel">
+        <div class="it-txt"><span class="bt-eb">기본 포함 04 · 전송량 후불</span><h3>전송량을 넘어도<br>회선은 막히지 않습니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="m" alt=""></i><p class="it-q">“세일 날에도 회선 걱정이 없었어요”</p></div><p class="it-d">월 1TB를 넘은 전송량만 1GB당 80원으로 다음 달에 청구합니다. 제공량의 80%, 100%에 닿으면 담당자에게 알림을 보냅니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>월 1TB 기본 제공</li><li>초과분 익월 후불</li><li>80% · 100% 알림</li></ul></div></div>
+        <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw wh-in sv-t4"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span><b>전송량 · 청구</b><span class="vw-m">woodroom.co.kr · 11월</span><em class="vw-chip">회선 정상</em></div><div class="hv-tb">
+          <!-- [개발 전달] patch-644 탭 4 전송량 후불: 1,150GB 사용 = 기본 1,024GB(1TB) + 넘은 126GB × 1GB당 80원 = 10,080원 다음 달 청구 (patch-734 고객 확정 단가) · 게이지 눈금 80% · 100% · 넘은 부분만 블루(탭이 열리면 채워짐) -->
+          <div class="hv-cd wh-gg sv-gg"><h4>이번 달 전송량<i class="os8-p">1</i><small>11.27 (금) 14:20 기준</small></h4><p class="wh-gv"><strong>1,150<span>/ 1,024GB</span></strong><em>112%</em></p><div class="wh-gb sv-gb"><i></i><b></b><span class="t8">80%</span><span class="t10">100%</span></div></div>
+          <div class="hv-cd sv-bill"><h4>다음 달 청구<i class="os8-p">2</i><small>12월 청구서에 포함</small></h4><dl><div><dt>넘은 전송량</dt><dd>126GB × 1GB당 80원</dd></div></dl><p class="sv-bill-t"><span>추가 청구</span><strong>10,080<small>원</small></strong></p></div>
+          <ul class="wh-al"><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></i><p><b>100% 도달 알림<i class="os8-p">3</i></b><span>회선은 그대로 · 넘은 만큼 후불</span></p><time>11.26 (목)</time></li><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></i><p><b>80% 도달 알림</b><span>남은 전송량 205GB</span></p><time>11.21 (토)</time></li></ul>
+        </div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @endregion -->
+<!-- 그래프 영역(#geo-market) 없음 — 기획문서 서버호스팅 탭에 그래프 없음 (호스팅은 기획서에 그래프가 있는 페이지만 넣음) -->
+
+<!-- @region scale : 서버호스팅 전용 · 규모별 확장 구성 3 (단계 · 카드 타입 #geo-how · 화면 360×250 · 지금은 빈 박스) -->
+<section class="sec sec-tight" id="geo-how">   <!-- [개발 전달] patch-643 기획문서 "규모가 커지면 이렇게 구성합니다" 3구성 그대로 · 구성별 견적 -->
+  <div class="container">
+    <div class="sub-title rv"><h2>쇼핑몰이 커지면<br class="mo-br"> 이렇게 구성을 넓힙니다</h2><p>기본형은 서버 1대입니다. 트래픽과 안정성 요구에 따라 아래처럼 확장하며,<br class="pc-only"> 구성별로 견적을 드립니다.</p></div>
+    <ol class="bento b3 howflow"><li class="fl-ar a1" aria-hidden="true"><i></i></li><li class="fl-ar a2" aria-hidden="true"><i></i></li>
+      <li class="bt rv"><div class="bt-hd"><span class="bt-eb">기본형</span><h3>웹과 DB를<br>서버 1대에 함께 운영</h3></div><div class="bt-vis" aria-hidden="true"><div class="pn sv-c sx-1">   <!-- [개발 전달] patch-657 확장 카드 1 기본형 = 서버 1대 CPU 사용량 도넛(공통 gx-donut) · 웹 38%(Primary 600) + DB 24%(Primary 300) + 여유 · 화면에 들어오면 도넛이 차오름 -->
+        <p class="pn-t">SV-0142 · CPU 사용량 <span>웹 + DB · 1대</span></p>
+        <div class="sx-dn"><div class="gx-donut" style="--gx-d:112px"><svg viewBox="0 0 120 120"><circle class="t" cx="60" cy="60" r="52"/><circle class="s on" cx="60" cy="60" r="52" style="--a:0;--p:38;--k:0"/><circle class="s sx-db" cx="60" cy="60" r="52" style="--a:38;--p:24;--k:1"/></svg><p><strong>62<small>%</small></strong><span>CPU 사용</span></p></div>
+          <ul class="sx-lg"><li class="w"><i></i>웹<b>38%</b></li><li class="d"><i></i>DB<b>24%</b></li><li><i></i>여유<b>38%</b></li></ul></div>
+        <p class="sx-nt">웹과 DB가 CPU · 메모리를 함께 씁니다</p>
+      </div></div></li>
+      <li class="bt rv" style="--d:100ms"><div class="bt-hd"><span class="bt-eb">웹 · DB 분리</span><h3>DB 부하를 분리해<br>응답 속도를 확보</h3></div><div class="bt-vis" aria-hidden="true"><div class="pn sv-c sx-2">   <!-- [개발 전달] patch-657 확장 카드 2 웹 · DB 분리 = 평균 응답 속도 꺾은선 · DB 분리 시점(점선) 뒤로 1.8초 → 0.4초로 떨어짐 · 블루 = 0.4초 수치 + 분리 뒤 선 · 선이 왼쪽부터 그려짐(6초 반복) · 수치는 예시 -->
+        <p class="pn-t">평균 응답 속도 <span>최근 7일</span></p>
+        <p class="sx-kp"><s>1.8초</s><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><b>0.4초</b><small>DB 분리 후</small></p>
+        <div class="sx-ch"><svg viewBox="0 0 324 84" preserveAspectRatio="none"><path class="gd" d="M0 83.5H324"/><path class="sp" d="M176 0V84"/><path class="g" pathLength="100" d="M0 34 L18 28 L34 40 L52 22 L70 36 L88 18 L106 32 L124 20 L142 34 L160 24 L176 30"/><path class="bl" pathLength="100" d="M176 30 L190 62 L206 66 L222 62 L240 68 L258 64 L276 67 L294 63 L312 66 L324 64"/></svg><span class="sx-tg">DB 분리</span></div>
+        <p class="sx-ax"><span>11.12</span><span>오늘</span></p>
+      </div></div></li>
+      <li class="bt rv" style="--d:200ms"><div class="bt-hd"><span class="bt-eb">웹 이중화 + 부하분산</span><h3>웹 서버 2대로<br>트래픽을 나누는 대형 쇼핑몰용</h3></div><div class="bt-vis" aria-hidden="true"><div class="pn sv-c sx-3">   <!-- [개발 전달] patch-657 확장 카드 3 이중화 + 부하분산 = 부하분산 콘솔 · 평소 WEB-01 · 02 가 910 씩 나눠 받다가 WEB-02 점검 중이 되면 WEB-01 이 1,820 을 다 받고 다시 반반으로 (6초 반복) · 블루 = WEB-01 막대 · 아래 쇼핑몰 접속 정상 유지 -->
+        <p class="pn-t">부하분산 · L4 <span>초당 요청 1,820</span></p>
+        <ul class="sx-lb"><li class="w1"><span>WEB-01</span><i></i><b><s class="v1">910</s><s class="v2">1,820</s></b></li><li class="w2"><span>WEB-02</span><i></i><b><s class="v1">910</s><s class="v2">점검 중</s></b></li></ul>
+        <p class="sx-ok"><span>쇼핑몰 접속 · 주문</span><em><i></i>정상 · 멈춤 없음</em></p>
+      </div></div></li>
+    </ol>
+  </div>
+</section>
+<!-- @endregion -->
+
+<!-- @region host-calc : 요금 계산 + 결제 · 약정 조건 한 덩어리 (patch-392 · 왼쪽 입력 · 오른쪽 견적서 · 스크립트 host-quote · 단가 · 조건은 기획문서 그대로) -->
+<section class="sec" id="host-calc">
+  <div class="container">
+    <div class="sub-title rv"><h2>요금 계산해 보기</h2><p>기본 요금에 사양 옵션과 추가 전송량이 더해집니다. 결제 방식과 필요한 사양을 넣으면 월 예상 요금과 청구 조건을 함께 보여 드립니다.</p></div>
+    <div class="hq rv" style="--d:100ms" data-base="110000">
+      <div class="hq-in">
+        <div>
+          <span class="hq-lb" id="hq-mode-lb">결제 방식</span>
+          <div class="hq-seg hq-seg3 w-tab full" role="group" aria-labelledby="hq-mode-lb"><button type="button" data-mode="month" data-rate="0" data-label="월 결제 기준" aria-pressed="true">월 결제</button><button type="button" data-mode="half" data-rate="-0.05" data-label="6개월 결제 기준" aria-pressed="false">6개월 결제</button><button type="button" data-mode="year" data-rate="-0.1" data-label="12개월 결제 기준" aria-pressed="false">12개월 결제</button></div>   <!-- [개발 전달] patch-643 결제 방식 3개 = 기획문서 할인(6개월 5% · 12개월 이상 10%) -->
+          <p class="hq-seg-note">6개월 결제 시 5%, 12개월 이상 결제 시 월 요금이 10% 할인됩니다</p>
+        </div>
+        <div>   <!-- [개발 전달] patch-618 옵션 항목 = 기획서 형식: 줄마다 이름 + 설명 / 숫자 입력칸 + 단위 · 줄 사이 점선 (슬라이더 · − + 버튼 없음) -->
+          <span class="hq-lb">예상 사용량</span>
+          <div class="hq-opts">
+            <div class="hq-row"><span><b>기본 전송량</b><small>1,024GB · 월 요금에 포함</small></span><span class="hq-inc">월 1TB</span></div>   <!-- [개발 전달] patch-734 사양 옵션 = 고객 확정 표 (월 추가 비용 · 스펙업 = 최대 범위): vCPU 2개당 20,000원 · 최대 8 vCPU(+4) / 메모리 8GB당 30,000원 · 최대 32GB(+16 · 고객 확인) / SSD 20GB당 10,000원 · 최대 140GB(+40 · 스펙업 150 안쪽) / 전송량 1GB당 80원 · 최대 2TB(+1,024GB) / 백업 일 4회 · 7일 보관 월 20,000원 / 보안 서비스(카이퍼넷 · 클라우드플레어) = 금액 없음 → 견적 토글 -->
+            <div class="hq-row"><span><b>추가 전송량</b><small>기본 1TB 초과분 · 1GB당 80원 · 최대 1TB (후불)</small></span><span class="hq-step hq-tr" data-max="1024"><label class="hq-num"><input class="w-input hq-tr-v" type="number" inputmode="numeric" min="0" max="1024" step="1" value="200" data-free="0" data-rate="80" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
+            <div class="hq-row"><span><b>vCPU 추가</b><small>기본 4개<span class="hq-pc"> 포함</span> · 2개당 <span class="hq-pc">월 </span>20,000원<span class="hq-pc"> · 최대 8개</span></small></span><span class="hq-step" data-step="2" data-per="2" data-rate="20000" data-max="4"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="4" step="2" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 8GB당 <span class="hq-pc">월 </span>30,000원<span class="hq-pc"> · 최대 32GB</span></small></span><span class="hq-step" data-step="8" data-per="8" data-rate="30000" data-max="16"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="16" step="8" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>SSD 추가</b><small>기본 100GB<span class="hq-pc"> 포함</span> · 20GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> · 최대 140GB</span></small></span><span class="hq-step" data-step="20" data-per="20" data-rate="10000" data-max="40"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="40" step="20" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>백업 일 4회</b><small>기본 일 1회<span class="hq-pc"> · 7일 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 일 4회"></button></div>
+            <div class="hq-row"><span><b>카이퍼넷</b><small>웹서비스 설치형 보안 · 별도 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="kai" aria-checked="false" aria-label="카이퍼넷"></button></div>
+            <div class="hq-row"><span><b>클라우드플레어</b><small>DDoS · 봇 차단 보안 세팅 · 별도 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="cf" aria-checked="false" aria-label="클라우드플레어"></button></div>
+          </div>
+        </div>
+      </div>
+      <div class="hq-out" aria-live="polite">
+        <small>월 예상 요금</small>
+        <div class="hq-total"><strong>156,000</strong><span>원</span></div>
+        <p class="hq-mode">월 결제 기준</p>
+        <dl class="hq-break">
+          <div><dt>기본 요금</dt><dd>110,000원</dd></div>
+          <div><dt>사양 옵션<small>다음 달 월정액에 반영</small></dt><dd class="hq-opt">+30,000원</dd><dd class="hq-opt-list"><span><b>메모리 +8GB</b><em>+30,000원</em></span></dd></div>   <!-- [개발 전달] patch-734 사양 옵션 줄 보임 (프라이빗과 같은 목록) -->
+          <div><dt>추가 전송량<small>200GB · 1GB당 80원 · 익월 후불</small></dt><dd class="hq-over">+16,000원</dd></div>
+          <div data-q="kai" hidden><dt>카이퍼넷<small>설치 범위 확인 후 안내</small></dt><dd>견적</dd></div>
+          <div data-q="cf" hidden><dt>클라우드플레어<small>보안 세팅 상담 후 안내</small></dt><dd>견적</dd></div>
+          <div class="hq-free-row" hidden><dt>결제 할인<small>6개월 5% · 12개월 10%</small></dt><dd class="hq-free">0원</dd></div>
+        </dl>
+        <!-- patch-615 결제 조건 목록 → 계산 박스 아래 카드 4개(.hq-cond)로 이동 -->
+        <div class="hq-cond hq-cond-end">   <!-- [개발 전달] patch-642 결제 · 약정 조건 = 모든 해상도에서 오른쪽 견적서(월 예상 요금) 내역 다음 · VAT 안내 앞 · 4칸은 2×2 (왼쪽 입력 영역에서는 뺌 · 프라이빗 patch-640 · 641 과 같음) -->
+          <span class="hq-lb">결제 · 약정 조건</span>
+          <ul><li><b>12개월</b><span>약정 기간</span></li><li><b>최대 10%</b><span>6개월 5% · 12개월 10%</span></li><li><b>55,000원</b><span>설치비</span></li><li><b>익월</b><span>후불 청구 · 자동결제</span></li></ul>   <!-- [개발 전달] patch-643 약정 = 기획문서 "12개월 (현행 24개월)" [확인 필요] 월 결제 선택과 약정 12개월이 같이 있어도 되는지 -->
+        </div>
+        <p class="hq-note">VAT · 설치비 별도 · 예시 금액이며 정확한 요금은 상담 시 안내합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- @endregion -->
+
+<div class="faq-cta">   <!-- FAQ + CTA 한 영역: CTA 배경 빛이 경계에서 잘리지 않게 -->
+<!-- @region faq -->
+<section class="sec sec-tight" id="geo-faq">
+  <div class="container">
+    <div class="sub-title center rv"><h2>자주 묻는 질문</h2></div>
+    <div class="faq rv">
+      <details open><summary>웹과 DB를 서버 1대에 같이 두어도 괜찮나요?</summary><p>일정 규모까지는 충분합니다. 다만 서버 1대가 멈추면 쇼핑몰 전체가 멈춥니다. 매출 중단이 곧 손실로 이어지는 규모라면 장애 시 자동 복구되는 프라이빗 클라우드를 함께 검토해 보세요.</p></details>
+      <details><summary>기존 S220 · S550 구성은 어떻게 되나요?</summary><p>기존 이용 고객은 현재 조건이 그대로 유지됩니다. 신규 고객의 다중 서버 구성은 쇼핑몰 규모에 맞춰 견적으로 안내합니다.</p></details>
+      <details><summary>전송량을 넘으면 회선이 막히나요?</summary><p>막히지 않습니다. 월 기본 제공량을 넘은 전송량만 다음 달에 후불로 청구합니다.</p></details>
+      <details><summary>서버 관리는 누가 하나요?</summary><p>방화벽, DDoS 방어, 서버 모니터링은 위사가 기본 제공합니다. 엔터프라이즈 솔루션 설치와 운영 범위는 상담 시 함께 정합니다.</p></details>
+    </div>
+  </div>
+</section>
+<!-- @endregion -->
+
+<!-- @region cta : 공통 CTA · 문장 · 버튼 · 전화 안내 기획문서 그대로 -->
+<section class="cta sub-cta" id="cta">
+  <div class="cta-copy">
+    <h2 class="rv">우리 쇼핑몰에 맞는 인프라,<br>컨설턴트와 함께 정하세요</h2>
+    <p class="cta-desc rv" style="--d:60ms">현재 트래픽과 운영 방식을 알려주시면<br> 호스팅부터 퍼블릭 클라우드까지 맞는 구성을 제안해 드립니다.</p>
+    <div class="cta-btns rv" style="--d:120ms"><a class="btn cta-sub-btn" href="#">이용 고객 문의</a><a class="btn btn-dark" href="https://www.wisa.co.kr/counsel">도입 상담하기</a></div>   <!-- patch-612 CTA 버튼 순서 공통 규칙: 흰 버튼(세컨더리) 왼쪽 · 검정 버튼(프라이머리) 오른쪽 · 모바일은 검정 버튼만 -->   <!-- [개발 전달] 도입 상담하기 = 신규 구매 상담 · 이용 고객 문의 = 이미 쓰는 고객이 운영 중 문제 · 문의를 남기는 고객센터 페이지로 이동 (patch-379 · 전화 안내 줄 삭제) -->
+  </div>
+</section>
+</div>
+<!-- @endregion -->
+
+</main>
+
+
+<div class="container ft-news rv-mo">
+  <div class="fn-box">
+        <ul class="fn-list">
+      <li><a href="#top"><span class="fn-bdg w-badge sm success">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
+      <li class="fn-2"><a href="#top"><span class="fn-bdg w-badge sm">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
+    </ul>
+  </div>
+</div>
+<!-- @region footer : PC 4단 / 태블릿·모바일 아코디언 -->
+<footer class="footer">
+  <div class="container ft-top">
+    <div class="ft-brand rv-mo">
+      <img src="assets/common/logo.svg" alt="WISA" width="75" height="20">
+      <!-- [수정] P4 br 뒤 공백 추가 (PC 최소 폭에서 br 숨기면 "마케팅을 20년간" 으로 이어지게) -->
+      <p>위사는 쇼핑몰 솔루션 개발, 구축, 광고, 마케팅을<br> 21년간 지속하고 있는 커머스 성장 솔루션 기업입니다</p>
+      <div class="ft-tel"><div class="ft-tel-row"><div><span>상담센터</span><a href="tel:025454479">02-545-4479</a></div><div><span>고객센터</span><a href="tel:15994435">1599-4435</a></div></div><em>평일 09:30 – 17:30 (점심시간 12:00 – 13:00)</em></div>
+      <div class="social">
+        <a href="//www.instagram.com/wisa.co.kr/" target="_blank" rel="noopener" aria-label="인스타그램"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="//www.facebook.com/wisa.co.kr" target="_blank" rel="noopener" aria-label="페이스북"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6.5c0-.8.2-1.5 1.5-1.5H17V2h-2.6C11.6 2 11 4 11 5.9V8H9v3h2v11h3V11h2.6l.4-3H14Z"/></svg></a>
+        <a href="//www.youtube.com/@wisa_official" target="_blank" rel="noopener" aria-label="유튜브"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8ZM10 15.1V8.9l5.2 3.1L10 15.1Z"/></svg></a>
+        <a href="//blog.naver.com/wisacorp" target="_blank" rel="noopener" aria-label="네이버 블로그"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 3v9.3L8.3 3H3v18h5v-9.3L15.7 21H21V3h-5Z"/></svg></a>
+      </div>
+      <a class="btn" href="#contact">Enterprise 도입 상담 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <!-- [수정] C1 푸터 메뉴 = 기획안 구성 · P4 PC 최소 폭 배치 -->
+    <div class="ft-cols">   <!-- patch-606 푸터 메뉴 5칸(솔루션 · 인프라 · 구축 · 마케팅 · 고객지원) = 공통 헤더 · 푸터 변경안 · 태블릿 · 모바일은 메뉴 옆 설명(.ft-desc) · 칸 아래 강조 링크(.ft-feature) -->
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">솔루션</button><div class="ft-group"><span>라이선스</span><ul><li><a href="wisa_cloud_page.html"><span>부스터 Cloud</span><small class="ft-desc">스탠다드 · 프로 · 하이브리드</small></a></li><li><a href="wisa_enterprise_page.html"><span>부스터 Enterprise</span><small class="ft-desc">소스코드 · 독립서버</small></a></li><li><a href="wisa_comparison_page.html"><span>라이선스 비교</span><small class="ft-desc">요금 · 기능 · 조건을 한눈에</small></a></li></ul></div><div class="ft-group"><span>쇼핑몰 타입</span><ul><li><a href="wisa_type_brand.html"><span>브랜드형</span><small class="ft-desc">단일 브랜드 표준형 쇼핑몰 구축</small></a></li><li><a href="wisa_type_shopinshop.html"><span>입점형</span><small class="ft-desc">다수 브랜드 입점 플랫폼 구축</small></a></li><li><a href="wisa_type_contents.html"><span>콘텐츠</span><small class="ft-desc">음원 · 파일 · 티켓 등 디지털 콘텐츠</small></a></li><li><a href="wisa_type_global.html"><span>글로벌</span><small class="ft-desc">다국어 · 다통화 · 해외 결제</small></a></li><li><a href="wisa_type_b2b.html"><span>B2B</span><small class="ft-desc">기업간 거래 · 회원사별 가격 관리</small></a></li><li><a href="wisa_type_o2o.html"><span>O2O</span><small class="ft-desc">온·오프라인 연동 커머스</small></a></li><li><a href="wisa_type_subscription.html"><span>정기배송</span><small class="ft-desc">구독 커머스 · 자동 결제 관리</small></a></li><li><a href="wisa_type_inapp.html"><span>모바일인앱</span><small class="ft-desc">네이티브 앱 기반 쇼핑몰</small></a></li></ul></div><div class="ft-group"><span>도구</span><ul><li><a href="#"><span>관리자 앱</span><small class="ft-desc">운영자용 어드민 관리 앱</small></a></li><li><a href="#"><span>쇼핑몰 앱</span><small class="ft-desc">소비자용 쇼핑 다운로드 앱</small></a></li><li><a href="#"><span>앱스토어</span><small class="ft-desc">확장 앱 · 플러그인 마켓</small></a></li></ul></div><a class="ft-feature" href="#"><b>부스터로 이전하기<svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></b><em>다른 솔루션에서 갈아타기</em></a></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">인프라</button><div class="ft-group"><span>호스팅 · 클라우드</span><ul><li><a href="hosting-web.html"><span>웹호스팅</span><small class="ft-desc">월 33,000원부터 · 초과분 후불</small></a></li><li><a href="hosting-server.html"><span>서버호스팅</span><small class="ft-desc">단독 서버 1대 · 웹+DB</small></a></li><li><a href="hosting-private.html" aria-current="page"><span>프라이빗 클라우드</span><small class="ft-desc">장애 자동 복구 가상화 서버</small></a></li><li><a href="hosting-public.html"><span>퍼블릭 클라우드</span><small class="ft-desc">AWS · Azure · NAVER Cloud 관리</small></a></li></ul></div><div class="ft-group"><span>보안 · 가속</span><ul><li><a href="wisa_hosting_addon_page.html#cdn"><span>CDN</span><small class="ft-desc">이미지 · 파일 전송 가속</small></a></li><li><a href="wisa_hosting_addon_page.html#cloudflare"><span>클라우드플레어</span><small class="ft-desc">보안 세팅 · 운영대행</small></a></li></ul></div><div class="ft-group"><span>도메인</span><ul><li><a href="#"><span>도메인 등록</span><small class="ft-desc">새 도메인 신청</small></a></li><li><a href="#"><span>도메인 연장</span><small class="ft-desc">만료 전 기간 연장</small></a></li><li><a href="#"><span>도메인 관리</span><small class="ft-desc">네임서버 · 정보 변경</small></a></li></ul></div></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">구축</button><div class="ft-group"><span>맞춤서비스</span><ul><li><a href="wisa_custom_page.html"><span>맞춤제작</span><small class="ft-desc">디자인 · 개발 · 솔루션 커스터마이징</small></a></li><li><a href="wisa_build_page.html#maintenance"><span>유지관리</span><small class="ft-desc">패치 · 고도화 · 정기 관리 · 유지보수</small></a></li></ul></div><div class="ft-group"><span>패키지</span><ul><li><a href="#"><span>창업패키지</span><small class="ft-desc">구축 + Cloud 번들 특가</small></a></li><li><a href="#"><span>인플루언서 구축지원</span><small class="ft-desc">인플루언서 · 셀러 쇼핑몰 오픈</small></a></li></ul></div><div class="ft-group"><span>디자인스토어</span><ul><li><a href="#"><span>쇼핑몰</span><small class="ft-desc">업종별 쇼핑몰 디자인 스킨</small></a></li><li><a href="#"><span>홈페이지</span><small class="ft-desc">기업 · 브랜드 홈페이지 디자인</small></a></li><li><a href="#"><span>콘텐츠</span><small class="ft-desc">배너 · 상세페이지 디자인 소스</small></a></li><li><a href="#"><span>앱스토어</span><small class="ft-desc">확장 앱 · 플러그인 마켓</small></a></li></ul></div><a class="ft-feature" href="#"><b>포트폴리오<svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></b><em>구축 레퍼런스 1,200+</em></a></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">마케팅</button><div class="ft-group"><span>자사몰 마케팅</span><ul><li><a href="geo.html"><span>GEO / AI 검색</span><small class="ft-desc">AI 답변 속 브랜드 노출</small></a></li><li><a href="onsite.html"><span>온사이트마케팅</span><small class="ft-desc">자사몰 안 구매전환 최적화</small></a></li><li><a href="crm.html"><span>CRM마케팅</span><small class="ft-desc">재구매 · 리텐션 · LTV 향상</small></a></li><li><a href="report.html"><span>리포트</span><small class="ft-desc">성과 대시보드 · AI 보고</small></a></li></ul></div><div class="ft-group"><span>채널마케팅</span><ul><li><a href="sns-ops.html"><span>공식채널운영</span><small class="ft-desc">인스타그램 · 페이스북 운영대행</small></a></li><li><a href="shopping-feed.html"><span>상품DB 연동</span><small class="ft-desc">네이버·카카오·구글 쇼핑 연동</small></a></li><li><a href="vertical-commerce.html"><span>버티컬커머스</span><small class="ft-desc">쿠팡 · 무신사 입점 · 광고</small></a></li></ul></div><div class="ft-group"><span>매체 광고 상품</span><ul><li><a href="media-ads.html"><span>쇼핑광고</span><small class="ft-desc">네이버 · 카카오 · 다음 쇼핑 지면</small></a></li><li><a href="media-ads.html"><span>검색광고</span><small class="ft-desc">파워링크 · 브랜드검색 · 구글</small></a></li><li><a href="media-ads.html"><span>디스플레이광고</span><small class="ft-desc">GDN · 비즈보드 · 크리테오</small></a></li><li><a href="media-ads.html"><span>SNS/콘텐츠 광고</span><small class="ft-desc">페이스북 · 인스타 · 유튜브</small></a></li></ul></div><a class="ft-feature" href="wisa_build_page.html#ai-studio"><b>AI Studio<svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></b><em>모델·촬영·상세디자인까지 AI로</em></a></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">고객지원</button><div class="ft-group"><span>상담 · 문의</span><ul><li><a href="wisa_support_page.html"><span>상담센터</span><small class="ft-desc">제작 · 도입 전문 상담</small></a></li><li><a href="wisa_customer_page.html"><span>고객센터</span><small class="ft-desc">이용 중 오류 · 장애 기술지원</small></a></li><li><a href="#"><span>긴급접수</span><small class="ft-desc">장애 · 서비스 중단 긴급 신고</small></a></li></ul></div><div class="ft-group"><span>안내 · 소식</span><ul><li><a href="#"><span>공지사항</span><small class="ft-desc">서비스 · 정책 변경 안내</small></a></li><li><a href="#"><span>교육안내</span><small class="ft-desc">운영 노하우 교육 프로그램</small></a></li><li><a href="https://developers.wisa.co.kr/" target="_blank" rel="noopener"><span>개발자센터</span><small class="ft-desc">API 가이드 · 개발 문서</small></a></li></ul></div></div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="container">
+      <div class="links rv-mo"><a href="https://team.wisa.co.kr/" target="_blank" rel="noopener">회사소개</a><a href="https://team.wisa.co.kr/joinus" target="_blank" rel="noopener">채용안내</a><a href="#">파트너안내</a><a href="#"><b>개인정보처리방침</b></a><a href="#">이용약관</a></div>
+      <div class="info rv-mo"><span>㈜위사</span><span>대표이사 강윤성</span><span>개인정보책임자 <a href="mailto:privacy@wisa.co.kr">진성용</a></span><span>서울 영등포구 영등포로 13길 21 BH메타플렉스 1114~1116호</span><span>사업자등록번호 <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1108177203" target="_blank" rel="noopener">110-81-77203</a></span><span>통신판매업 신고번호 2025서울영등포1216</span></div>
+      <p class="copy rv-mo">©2026 WISA Corp. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<!-- @endregion -->
+
+<!-- @region page-nav : 우측 가운데 맨 위 · 맨 아래 이동 -->
+<nav class="page-nav" aria-label="페이지 이동"><button type="button" data-go="top" aria-label="맨 위로"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><i></i><button type="button" data-go="bottom" aria-label="맨 아래로"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4.5 6.75 9 11.25l4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></nav>
+<!-- @endregion -->
+
+<!-- @region consult : 제작상담 플로팅 버튼 -->
+<a class="consult" href="#cta" role="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="consultLayer"><svg class="consult-ic" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path transform="scale(.9816 1)" d="M8.15 0C12.651 0 16.3 3.2665 16.3 7.2957C16.3 8.9043 15.7135 10.3876 14.7267 11.5928C14.3653 12.0343 14.1999 12.6039 14.3089 13.1636L14.7537 15.4442C14.8282 15.827 14.4277 16.1264 14.0816 15.9462L11.3745 14.537C10.9922 14.3381 10.5521 14.2734 10.1315 14.3689C9.4972 14.5128 8.8341 14.5915 8.15 14.5915C3.6489 14.5915 0 11.325 0 7.2957C0 3.2665 3.6489 0 8.15 0Z" fill="#fff"/><g fill="#333D4B"><circle class="td" cx="5" cy="7" r="1"/><circle class="td" cx="8" cy="7" r="1"/><circle class="td" cx="11" cy="7" r="1"/></g></svg><span class="consult-txt">호스팅상담</span></a>
+<!-- @endregion -->
+<div class="consult-layer" id="consultLayer" role="dialog" aria-modal="true" aria-label="호스팅상담 채널 선택">
+  <div class="cl-stack">
+    <a class="cl-item" href="#">상담센터 <span class="cl-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span></a>
+    <a class="cl-item" href="#">채팅상담 <span class="cl-circle"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.875 11.078V11M11 11.078V11M15.124 11.078V11M19.248 11c0 1.186-.25 2.314-.7 3.333l.702 4.916-4.213-1.053A8.25 8.25 0 0 1 11 19.25 8.25 8.25 0 0 1 2.75 11 8.25 8.25 0 0 1 11 2.75 8.25 8.25 0 0 1 19.248 11Z"/></svg></span></a>
+    <button class="cl-close" type="button" id="consultClose" aria-label="닫기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+</div>
+
+
+<!-- 시안 히스토리 (검토용): 버전을 추가하려면 아래 data-items 배열에 한 줄 추가 -->
+<div class="vh" id="vh" data-items='[
+  {"date":"2026.11.16","name":"프라이빗 클라우드 · 1차 시안 · PC","url":"hosting-private-v1.html"},
+  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · A타입 · PC","url":"hosting-private-v2.html"},
+  {"date":"2026.11.17","name":"프라이빗 클라우드 · 수정시안 · B타입 · PC","url":"hosting-private-b.html"},
+  {"date":"2026.11.18","name":"프라이빗 클라우드 · 2차 수정시안 · A타입 · PC","url":"hosting-private.html"},
+  {"date":"2026.11.19","name":"웹호스팅 · 1차 시안 · PC","url":"hosting-web.html"},
+  {"date":"2026.11.19","name":"서버호스팅 · 1차 시안 · PC","url":"hosting-server-v1.html","current":true},
+  {"date":"2026.11.20","name":"퍼블릭 클라우드 · 1차 시안 · PC","url":"hosting-public.html"},
+  {"date":"2026.11.20","name":"CDN · 1차 시안 · PC","url":"hosting-cdn.html"},
+  {"date":"2026.11.21","name":"클라우드플레어 · 1차 시안 · PC","url":"hosting-cloudflare.html"},
+  {"date":"2026.11.25","name":"서버호스팅 · 수정시안 · PC","url":"hosting-server.html"}
+]'>   <!-- patch-519: 호스팅 시안 히스토리는 마케팅과 따로 관리 (호스팅 시안만) -->
+  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>호스팅 시안만 모아 둡니다. 지난 시안은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
+  <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
+</div>
+<script src="assets/common/hosting.js?v=731"></script>   <!-- patch-731 호스팅 공통 스크립트 (메인 · host-tabs · ht-scroll) -->
+
+<script>
+/* report-zoom → assets/common/wisa.js (patch-172) */
+</script>
+<script>
+  /* @region host-incl-tab (patch-393): 기본 포함 서비스 탭 — 보이는 동안 3.2초마다 다음 탭 · 마우스/포커스 있으면 멈춤 · 탭을 누르면 자동 전환 끝 (마케팅 onsite-steps 와 같은 동작) */
+  (() => {
+    const box = document.querySelector('#host-incl .it'); if (!box) return;
+    const btns = [...box.querySelectorAll('.it-nav [data-it]')], pans = [...box.querySelectorAll('.it-panel')];
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0, auto = !reduced, hold = false, seen = false, tk = 0, mt = [];
+    // patch-534 화면 번호(.os8-p) = 왼쪽 '포함 내용' 태그 순서 → 탭이 열리면 번호 순서대로 태그 이름 말풍선 (마케팅 onsite-steps 와 같은 동작)
+    const STEP = 1100, LEAD = 400;
+    const marks = pans.map(p => { const lis = [...p.querySelectorAll('.it-tags li')];
+      return [...p.querySelectorAll('.os8-p')].map(m => { const n = +m.textContent.trim(); m.dataset.l = lis[n - 1] ? lis[n - 1].textContent : ''; return { m, n, li: lis[n - 1] }; }).sort((a, b) => a.n - b.n); });
+    const clearMarks = () => { mt.forEach(clearTimeout); mt = []; box.querySelectorAll('.os8-p.lbl-on').forEach(e => e.classList.remove('lbl-on')); box.querySelectorAll('.it-tags li.hl').forEach(e => e.classList.remove('hl')); };
+    const tw = document.createElement('canvas').getContext('2d'); tw.font = '600 10px Pretendard, sans-serif';
+    const playMarks = k => { clearMarks(); if (reduced) return;
+      marks[k].forEach((o, i) => mt.push(setTimeout(() => {
+        marks[k].forEach(x => { x.m.classList.remove('lbl-on'); if (x.li) x.li.classList.remove('hl'); });
+        const win = o.m.closest('.vw-win'), wr = win.getBoundingClientRect(), r = o.m.getBoundingClientRect(), sc = wr.width / win.offsetWidth;
+        o.m.classList.toggle('lf', r.right + (6 + tw.measureText(o.m.dataset.l).width + 16) * sc > wr.right - 4);
+        o.m.classList.add('lbl-on'); if (o.li) o.li.classList.add('hl');
+      }, LEAD + i * STEP)));
+    };
+    const dwell = k => Math.max(3200, LEAD + marks[k].length * STEP + 600);
+    const show = k => { cur = k; btns.forEach((b, i) => { b.classList.toggle('on', i === k); b.setAttribute('aria-selected', String(i === k)); }); pans.forEach((p, i) => p.classList.toggle('on', i === k)); if (seen) playMarks(k); };
+    const tick = () => { clearTimeout(tk); tk = setTimeout(() => { if (auto && seen && !hold && !document.hidden) show((cur + 1) % btns.length); tick(); }, dwell(cur)); };
+    box.querySelector('.it-nav').addEventListener('click', e => { const b = e.target.closest('[data-it]'); if (!b) return; auto = false; show(+b.dataset.it); tick(); });
+    box.addEventListener('mouseenter', () => hold = true); box.addEventListener('mouseleave', () => hold = false);
+    box.addEventListener('focusin', () => hold = true); box.addEventListener('focusout', () => hold = false);
+    new IntersectionObserver(es => es.forEach(en => { const was = seen; seen = en.isIntersecting; if (seen && !was) { playMarks(cur); tick(); } if (!seen) clearMarks(); }), { threshold: .35 }).observe(box);
+  })();
+  /* patch-533: 탭 화면 560×480 은 칸 폭 ÷ 560 배로 축소 (최대 1 · 숨은 탭은 열릴 때 다시 계산) */
+  (() => {
+    const scs = [...document.querySelectorAll('#host-incl .it-sc')]; if (!scs.length) return;
+    const set = el => { const w = el.clientWidth; if (w > 0) el.style.setProperty('--ts', Math.min(1, w / 560).toFixed(4)); };
+    const ro = new ResizeObserver(es => es.forEach(e => set(e.target)));
+    scs.forEach(el => { set(el); ro.observe(el); });
+  })();
+  /* @endregion host-incl-tab */
+  /* @region host-quote (patch-392): 요금 계산 — 스테퍼 · 스위치 · 슬라이더 값으로 견적서 갱신
+     월 예상 = 기본 + 사양 옵션 + 전송량 초과 + (기본 + 옵션) × 결제 방식 비율 (버튼 data-rate · 웹호스팅 12개월 결제 −10% · patch-607) */
+  (() => {
+    document.querySelectorAll('.hq').forEach(box => {
+      const base = +box.dataset.base, fmt = n => Math.round(n).toLocaleString('ko-KR');
+      const tot = box.querySelector('.hq-total'), trIn = box.querySelector('.hq-tr-v'), free = +trIn.dataset.free;   // patch-618 슬라이더 없음 · 제공량 · 단가는 전송량 입력칸 data-free · data-rate
+      let rate = 0, label = '월 결제 기준';
+      const clamp = (v, mx) => Math.max(0, Math.min(mx, Math.round(+v || 0)));
+      const sync = st => { const inp = st.querySelector('input'), mx = +st.dataset.max, v = clamp(inp.value, mx); const mi = st.querySelector('.hq-minus'), pl = st.querySelector('.hq-plus'); if (mi) mi.disabled = v <= 0; if (pl) pl.disabled = v >= mx; return v; };
+      const run = () => {
+        let opt = 0;
+        const items = [];   // patch-524 견적서에 보여 줄 추가 옵션 목록
+        const nm = el => el.closest('.hq-row').querySelector('b').textContent.replace(/ 추가$/, '');
+        box.querySelectorAll('.hq-step:not(.hq-tr)').forEach(st => { const v = sync(st), won = Math.ceil(v / +st.dataset.per) * +st.dataset.rate; opt += won; if (v > 0) items.push([nm(st) + ' +' + (st.dataset.gb ? fmt(v * +st.dataset.gb) + 'GB' : fmt(v) + st.querySelector('.hq-num i').textContent), won]); });   // patch-618 디스크는 개수 × 10GB 로 표시   // SSD 는 100GB 단위 올림
+        box.querySelectorAll('.hq-sw:not([data-quote])').forEach(sw => { if (sw.getAttribute('aria-checked') === 'true') { opt += +sw.dataset.rate; items.push([nm(sw), +sw.dataset.rate]); } });
+        const ol = box.querySelector('.hq-opt-list'); ol.hidden = !items.length; ol.innerHTML = items.map(([t, w]) => '<span><b>' + t + '</b><em>+' + fmt(w) + '원</em></span>').join('');
+        const tr = clamp(trIn.value, +trIn.max), over = Math.max(0, tr - free) * +trIn.dataset.rate;
+        const fixed = base + opt, sum = fixed + over, freeRow = box.querySelector('.hq-free-row');
+        let txt;
+        if (rate) {
+          const a = fixed * rate;   // patch-607 12개월 결제 −10%
+          txt = fmt(sum + a);
+          box.querySelector('.hq-free').textContent = (a > 0 ? '+' : '−') + fmt(Math.abs(a)) + '원'; freeRow.hidden = false;
+        } else { txt = fmt(sum); freeRow.hidden = true; }
+        let qn = 0; box.querySelectorAll('.hq-sw[data-quote]').forEach(sw => { const on = sw.getAttribute('aria-checked') === 'true', r = box.querySelector('[data-q="' + sw.dataset.quote + '"]'); if (r) r.hidden = !on; if (on) qn++; });   // patch-659 견적 항목 토글 → 견적서 줄 보이기 · 금액은 더하지 않음
+        box.querySelector('.hq-mode').textContent = label + (qn ? ' · 견적 항목 별도' : '');
+        box.querySelector('.hq-opt').textContent = (opt ? '+' : '') + fmt(opt) + '원';
+        box.querySelector('.hq-over').textContent = (over ? '+' : '') + fmt(over) + '원';
+        box.querySelector('.hq-over').parentNode.querySelector('dt small').textContent = fmt(tr) + 'GB · 1GB당 ' + fmt(+trIn.dataset.rate) + '원 · 익월 후불';   // patch-710 입력한 추가 전송량 표시
+        const st = tot.querySelector('strong'); if (st.textContent !== txt) { st.textContent = txt; tot.classList.remove('bump'); void tot.offsetWidth; tot.classList.add('bump'); }
+      };
+      box.addEventListener('click', e => {
+        const m = e.target.closest('.hq-seg button');
+        if (m) { rate = +m.dataset.rate || 0; label = m.dataset.label; m.parentNode.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === m ? 'true' : 'false')); run(); return; }
+        const sw = e.target.closest('.hq-sw');
+        if (sw) { sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); run(); return; }
+        const b = e.target.closest('.hq-minus, .hq-plus'); if (!b) return;
+        const st = b.parentNode, inp = st.querySelector('input'), by = +st.dataset.step, mx = +st.dataset.max, v = clamp(inp.value, mx);
+        inp.value = b.classList.contains('hq-plus') ? Math.min(mx, Math.floor(v / by) * by + by) : Math.max(0, Math.ceil(v / by) * by - by);
+        run();
+      });
+      // 직접 입력: 입력하는 동안 바로 계산 · 칸을 벗어나면 범위 안 정수로 정리
+      box.querySelectorAll('.hq-step:not(.hq-tr) input').forEach(inp => {
+        inp.addEventListener('input', run);
+        inp.addEventListener('change', () => { const per = +inp.closest('.hq-step').dataset.per || 1; inp.value = Math.min(+inp.max, Math.ceil(clamp(inp.value, +inp.max) / per) * per); run(); });   // patch-604 SSD 는 100GB 단위로 올림
+      });
+      trIn.addEventListener('input', run);
+      trIn.addEventListener('change', () => { trIn.value = clamp(trIn.value, +trIn.max); run(); });
+      box.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('.hq input[type=number]')) e.target.blur(); });
+      run();
+    });
+  })();
+  /* @endregion host-quote */
+</script>
+
+<script src="assets/common/wisa.js?v=700"></script>
+<script>
+  /* @region why-live (patch-609): 문제 오른쪽 배너 "보는 중" 인원 — 6초 동안 1,284 → 4,826 으로 늘었다가 처음부터 반복 (움직임 줄이기면 4,826 고정) */
+  (function () {
+    var el = document.querySelector(".ev-n"); if (!el) return;
+    var A = 1284, B = 4826, LOOP = 6000;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = B.toLocaleString("en-US"); return; }
+    var t0 = performance.now();
+    setInterval(function () { var k = Math.min(1, ((performance.now() - t0) % LOOP) / 5200); el.textContent = Math.round(A + (B - A) * (1 - Math.pow(1 - k, 2))).toLocaleString("en-US"); }, 80);
+  })();
+</script>
+<script>
+  /* @region why-elapsed (patch-644 · 서버호스팅): 문제 왼쪽 칩 기다린 시간 — 4.2초 동안 0.0초 → 8.2초로 늘고 1.8초 멈춘 뒤 반복 (움직임 줄이기면 8.2초 고정 · 아래 태그 8.2초와 같은 값) */
+  (function () {
+    var el = document.querySelector(".hv-el"); if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var END = 8.2, RUN = 4200, LOOP = 6000, t0 = performance.now();
+    setInterval(function () { var k = Math.min(1, ((performance.now() - t0) % LOOP) / RUN); el.textContent = (END * k).toFixed(1) + "초"; }, 50);
+  })();
+</script>
+
+</body>
+</html>
+
