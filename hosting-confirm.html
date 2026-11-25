@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>호스팅 수정시안 확인 요청</title>
+<!-- [개발 전달] 구현하지 않음 · 고객 확인용 페이지 (서버호스팅 · 프라이빗 클라우드 사양표 반영 중 임시로 정한 항목을 고객이 고름)
+     · 2026-11-25 patch-739: 새로 만듦 · 요금 계산 비교 탭(기존 시안 ↔ 수정시안 · 공통 .w-tab) · hosting-server-v1.html 이 수정 후 사양으로 잘못 보관돼 1차(b98db48 이전) 원본으로 다시 만듦 · 공통 form.css 라디오(.w-radio) · 입력칸(.w-input) · 버튼(.btn-dark) 사용 · 답변은 '답변 복사'로 텍스트 복사 (이 브라우저에만 임시 저장) -->
+<link rel="icon" href="assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/common/wisa.css?v=727">
+<link rel="stylesheet" href="assets/common/badge.css?v=472">
+<link rel="stylesheet" href="assets/common/form.css?v=736">
+<style>
+  body { background: var(--gray-50); color: var(--gray-900); }
+  .cf { max-width: 880px; margin: 0 auto; padding: 56px 20px 140px; }
+  .cfm-hd h1 { margin: 12px 0 0; font-size: 32px; line-height: 42px; font-weight: 700; letter-spacing: -0.02em; }
+  .cfm-hd p { margin: 12px 0 0; font-size: 16px; line-height: 26px; color: var(--gray-600); }
+  .cfm-how { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .cfm-how span { display: inline-flex; align-items: center; height: 32px; padding: 6px 12px; border-radius: 8px; background: var(--gray-200); font-size: 13px; font-weight: 500; color: var(--gray-700); }
+  .cf-sec { margin-top: 56px; }
+  .cf-sec-hd { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .cf-sec-hd h2 { margin: 0; font-size: 24px; line-height: 32px; font-weight: 700; }
+  .cf-sec-hd a { font-size: 14px; font-weight: 600; color: var(--primary-700); text-decoration: none; }
+  .cf-sec-hd a:hover { text-decoration: underline; }
+  .cf-ok { margin-top: 12px; padding: 16px 20px; border-radius: 12px; background: var(--white); border: 1px solid var(--gray-200); font-size: 14px; line-height: 22px; color: var(--gray-600); }
+  .cf-ok b { color: var(--gray-900); }
+  .cq { margin-top: 16px; padding: 24px; border-radius: 16px; background: var(--white); border: 1px solid var(--gray-200); transition: border-color .2s; }
+  .cq.done { border-color: var(--primary-600); }
+  .cq-hd { display: flex; align-items: flex-start; gap: 12px; }
+  .cq-no { flex: none; width: 30px; height: 30px; border-radius: 99px; background: var(--gray-200); color: var(--gray-700); font-size: 14px; font-weight: 700; display: grid; place-items: center; transition: background .2s, color .2s; }
+  .cq.done .cq-no { background: var(--primary-600); color: var(--white); }
+  .cq-hd h3 { margin: 3px 0 0; font-size: 18px; line-height: 24px; font-weight: 700; }
+  .cq-hd small { display: block; margin-top: 4px; font-size: 14px; line-height: 20px; color: var(--gray-500); }
+  .cq-ctx { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 0 42px; }
+  .cq-ctx div { padding: 12px 16px; border-radius: 10px; background: var(--gray-50); font-size: 14px; line-height: 22px; color: var(--gray-700); }
+  .cq-ctx div.now { background: var(--primary-50); }
+  .cq-ctx em { display: block; margin-bottom: 2px; font-style: normal; font-size: 12px; line-height: 18px; font-weight: 600; color: var(--gray-500); }
+  .cq-ctx .now em { color: var(--primary-700); }
+  .cq-ask { margin: 20px 0 0 42px; font-size: 16px; line-height: 24px; font-weight: 600; }
+  .cq-ops { display: grid; gap: 8px; margin: 12px 0 0 42px; }
+  .cq-op { display: flex; padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: 10px; cursor: pointer; transition: border-color .2s, background .2s; }
+  .cq-op:hover { border-color: var(--gray-300); }
+  .cq-op:has(input:checked) { border-color: var(--primary-600); background: var(--primary-25); }
+  .cq-op .w-radio { width: 100%; cursor: pointer; }
+  .cq-op .w-radio small { display: block; margin-top: 2px; font-size: 14px; line-height: 20px; color: var(--gray-500); }
+  .cq-etc { margin: 8px 0 0 42px; }
+  .cq-etc[hidden] { display: none; }
+  .cp { margin-top: 16px; padding: 24px; border-radius: 16px; background: var(--white); border: 1px solid var(--gray-200); }
+  .cp-hd { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .cp-hd h3 { margin: 0; font-size: 18px; line-height: 24px; font-weight: 700; }
+  .cp-pn { margin-top: 16px; }
+  .cp-pn[hidden] { display: none; }
+  .cp-row { display: grid; grid-template-columns: 180px 1fr 96px; gap: 16px; align-items: center; padding: 12px 0; border-top: 1px solid var(--gray-200); font-size: 14.5px; line-height: 22px; color: var(--gray-700); }
+  .cp-row:first-child { border-top: 0; }
+  .cp-row b { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14.5px; font-weight: 600; color: var(--gray-900); }
+  .cp-row.del { color: var(--gray-500); }
+  .cp-row.del b, .cp-row.del span:not(.w-badge) { text-decoration: line-through; text-decoration-color: var(--gray-400); }
+  .cp-row.del b { color: var(--gray-500); }
+  .cp-row.new { margin: 0 -12px; padding: 12px; border-top-color: transparent; border-radius: 10px; background: var(--primary-25); }
+  .cp-row.new + .cp-row { border-top-color: transparent; }
+  .cp-how { justify-self: end; font-size: 13px; color: var(--gray-500); }
+  .cp-ft { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--gray-200); font-size: 14px; line-height: 20px; color: var(--gray-600); }
+  .cp-ft a { font-weight: 600; color: var(--primary-700); text-decoration: none; }
+  .cp-ft a:hover { text-decoration: underline; }
+  .cf-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; background: var(--white); border-top: 1px solid var(--gray-200); box-shadow: 0 -4px 16px rgba(16,24,40,.06); }
+  .cf-bar-in { max-width: 880px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
+  .cf-prog { flex: 1; min-width: 0; }
+  .cf-prog b { font-size: 16px; line-height: 24px; }
+  .cf-prog small { display: block; font-size: 13px; line-height: 20px; color: var(--gray-500); }
+  .cf-track { height: 6px; margin-top: 8px; border-radius: 99px; background: var(--gray-200); overflow: hidden; }
+  .cf-track i { display: block; height: 100%; width: 0; background: var(--primary-600); border-radius: 99px; transition: width .3s; }
+  .cf-bar .btn { height: 42px; padding: 10px 18px; font-size: 16px; }
+  .cf-out { margin-top: 56px; }
+  .cf-out h2 { margin: 0; font-size: 24px; line-height: 32px; font-weight: 700; }
+  .cf-out p { margin: 8px 0 0; font-size: 14px; line-height: 22px; color: var(--gray-600); }
+  .cf-out textarea { box-sizing: border-box; width: 100%; min-height: 240px; margin-top: 16px; padding: 16px; border: 1px solid var(--gray-300); border-radius: 12px; background: var(--white); font: inherit; font-size: 14px; line-height: 22px; color: var(--gray-900); resize: vertical; }
+  .cf-toast { position: fixed; left: 50%; bottom: 96px; transform: translate(-50%, 8px); padding: 10px 16px; border-radius: 10px; background: var(--gray-900); color: var(--white); font-size: 14px; font-weight: 500; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 60; }
+  .cf-toast.on { opacity: 1; transform: translate(-50%, 0); }
+  @media (max-width: 767px) {
+    .cf { padding: 40px 16px 140px; }
+    .cfm-hd h1 { font-size: 24px; line-height: 32px; }
+    .cf-sec-hd h2, .cf-out h2 { font-size: 20px; line-height: 28px; }
+    .cq, .cp { padding: 20px 16px; }
+    .cp-row { grid-template-columns: 1fr auto; gap: 4px 12px; }
+    .cp-row > span:not(.cp-how) { grid-column: 1 / -1; grid-row: 2; }
+    .cp-row.new { margin: 0 -8px; padding: 12px 8px; }
+    .cq-ctx { grid-template-columns: 1fr; margin-left: 0; }
+    .cq-ask, .cq-ops, .cq-etc { margin-left: 0; }
+    .cf-bar-in { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+<main class="cf">
+  <div class="cfm-hd">
+    <span class="w-badge md">2026.11.25 수정시안</span>
+    <h1>호스팅 수정시안 확인 요청</h1>
+    <p>보내 주신 사양표를 서버호스팅 · 프라이빗 클라우드 시안에 반영했습니다. 표만으로 정하기 어려운 부분은 시안에 임시로 넣어 두었어요. 항목마다 맞는 답을 골라 주시면 그대로 시안에 반영하겠습니다.</p>
+    <div class="cfm-how"><span>① 항목마다 하나 고르기</span><span>② 없으면 '직접 입력'</span><span>③ 아래 '답변 복사' 후 전달</span></div>
+  </div>
+  <div id="cf-list"></div>
+  <section class="cf-out">
+    <h2>답변 정리</h2>
+    <p>고른 답이 아래에 자동으로 정리됩니다. '답변 복사'를 누른 뒤 메일이나 메신저에 붙여 넣어 보내 주세요.</p>
+    <textarea id="cf-text" readonly aria-label="답변 정리"></textarea>
+  </section>
+</main>
+<div class="cf-bar"><div class="cf-bar-in">
+  <div class="cf-prog"><b id="cf-cnt">0 / 0 선택</b><small>고르지 않은 항목은 '지금 시안대로'로 정리돼요</small><div class="cf-track"><i id="cf-fill"></i></div></div>
+  <button type="button" class="btn btn-dark" id="cf-copy">답변 복사</button>
+</div></div>
+<div class="cf-toast" id="cf-toast" role="status">답변을 복사했어요</div>
+<script>
+/* @region hosting-confirm (patch-739): 확인 항목 데이터 → 카드 · 답변 텍스트 (고르지 않은 항목은 지금 시안 기준) */
+(() => {
+  const NOW = '지금 시안대로';
+  const DATA = [
+    { id: 'sv', title: '서버호스팅', url: 'hosting-server.html', ok: '기본 포함 4 vCPU · 메모리 16GB · SSD 100GB · 전송량 월 1TB · 백업 일 1회(7일 보관) / 옵션 vCPU 2개당 월 20,000원 · 메모리 8GB당 30,000원 · SSD 20GB당 10,000원 · 백업 일 4회 20,000원',
+      qs: [
+        { t: '메모리 최대', s: '요금 계산 · 메모리 추가', src: '기본 16GB · 스펙업 16GB(같은 값) · 8GB당 월 30,000원', now: '최대 32GB로 보고 +8GB · +16GB 선택', ask: '메모리는 최대 얼마까지 추가할 수 있나요?',
+          ops: ['최대 32GB 맞음 (+8GB · +16GB)', '기본 16GB만 · 메모리 추가 없음', '최대 24GB (+8GB만)'] },
+        { t: 'SSD 최대', s: '요금 계산 · SSD 추가', src: '기본 100GB → 스펙업 150GB · 20GB당 월 10,000원', now: '20GB 단위로 150GB가 안 맞아 최대 140GB (+20 · +40GB)', ask: 'SSD 최대 · 추가 단위를 어떻게 할까요?',
+          ops: ['최대 140GB · 20GB 단위 유지', '최대 160GB까지 허용 (+20 · +40 · +60GB)', '10GB 단위로 바꿔 최대 150GB'] },
+        { t: '추가 전송량 단가', s: '요금 계산 · 전송량', src: '업계 평균 1GB당 80~100원', now: '1GB당 80원 · 최대 1,024GB 추가', ask: '추가 전송량 1GB당 단가는 얼마인가요?',
+          ops: ['1GB당 80원', '1GB당 100원'] },
+        { t: '2TB(스펙업)를 넘을 때', s: '요금 계산 · FAQ', src: '스펙업 2TB · 넘을 때 처리 내용 없음', now: '추가 최대 1,024GB · FAQ "넘어도 회선이 막히지 않아요"', ask: '전송량이 2TB를 넘으면 어떻게 되나요?',
+          ops: ['막지 않고 넘은 만큼 다음 달 청구 (후불)', '2TB에서 회선 속도 제한', '2TB에서 차단 · 상담 후 증설'] },
+        { t: '보안 서비스 금액', s: '카이퍼넷 · 클라우드플레어', src: '항목만 있고 금액 없음', now: "요금 계산에 '별도 견적'으로 표시", ask: '보안 서비스 금액을 요금 계산에 넣을까요?',
+          ops: ["'별도 견적' 유지", '월 금액 있음 (직접 입력에 금액 적기)'] },
+        { t: '기존 견적 옵션', s: '요금 계산', src: '사양표에 없음', now: '디스크 증설 · 웹/DB 분리 · 이중화 · 공인 IP 추가 제외', ask: '사양표에 없는 기존 옵션을 다시 넣을까요?',
+          ops: ['모두 빼기', '공인 IP 추가만 다시 넣기', '모두 다시 넣기 (별도 견적)'] },
+        { t: '기본 요금 · 설치비 · 할인', s: '히어로 · 요금 계산', src: '사양표에 없음', now: '월 110,000원 · 설치비 55,000원 · 6개월 5% · 12개월 10% 할인', ask: '금액과 할인율이 맞나요?',
+          ops: ['모두 맞음', '설치비 없음 (무료)', '할인 없음'] },
+      ] },
+    { id: 'pv', title: '프라이빗 클라우드', url: 'hosting-private.html', ok: '기본 포함 CPU 10코어 · 메모리 16GB · SAS 146GB × 2(RAID1) · 대역폭 10Mbps / 회선 1Gbps · 백업 일 1회(7일 보관) / 옵션 메모리 16GB당 월 40,000원 · SSD 250GB × 2 40,000원 · 500GB × 2 60,000원 · 백업 일 4회 20,000원',
+      qs: [
+        { t: '약정 기간', s: '히어로 · 요금 계산', src: '임대형 약정 2년', now: '24개월 약정만 표시 (12개월 · 무약정 선택 삭제)', ask: '고를 수 있는 약정 기간은 무엇인가요?',
+          ops: ['24개월만', '12개월 · 24개월', '무약정 · 12개월 · 24개월'] },
+        { t: 'CPU 16코어 금액', s: '요금 계산', src: '스펙업에만 있고 금액 없음', now: "'별도 견적'으로 표시", ask: 'CPU 16코어 업그레이드 금액을 넣을까요?',
+          ops: ["'별도 견적' 유지", '월 금액 있음 (직접 입력에 금액 적기)'] },
+        { t: 'SSD 500GB × 2', s: '요금 계산 · SSD 추가', src: '옵션에는 있으나 스펙업은 250GB × 2까지', now: '250GB × 2 · 500GB × 2 둘 다 선택 · 기본 SAS 디스크에 추가', ask: 'SSD 옵션은 어떻게 신청하나요?',
+          ops: ['둘 다 신청 가능 · 기본 디스크에 추가', '250GB × 2까지만 · 500GB × 2 빼기', '둘 다 가능 · 기본 디스크를 SSD로 교체'] },
+        { t: '메모리 최대', s: '요금 계산 · 메모리 추가', src: '16GB당 월 40,000원', now: '최대 32GB (+16GB 한 단계)', ask: '메모리는 최대 얼마까지 추가할 수 있나요?',
+          ops: ['최대 32GB 맞음 (+16GB)', '최대 48GB (+16 · +32GB)', '최대 64GB (+16 · +32 · +48GB)'] },
+        { t: '10Mbps를 넘을 때', s: '요금 계산', src: '대역폭 10Mbps · 회선 1Gbps · 전송량 항목 없음', now: '전송량 과금 · 추가 전송량 입력 삭제', ask: '대역폭 10Mbps를 넘으면 어떻게 되나요?',
+          ops: ['추가 요금 없음 (회선 1Gbps 안에서 사용)', '넘은 만큼 다음 달 청구 (금액은 직접 입력)', '대역폭 상향 옵션으로 신청'] },
+        { t: '보안 서비스 금액', s: '카이퍼넷 · 클라우드플레어', src: '항목만 있고 금액 없음', now: "요금 계산에 '별도 견적'으로 표시", ask: '보안 서비스 금액을 요금 계산에 넣을까요?',
+          ops: ["'별도 견적' 유지", '월 금액 있음 (직접 입력에 금액 적기)'] },
+        { t: '기본 요금 · 설치비', s: '히어로 · 요금 계산', src: '사양표에 없음', now: '월 260,000원 · 설치비 무료', ask: '금액이 맞나요?',
+          ops: ['모두 맞음', '설치비 있음 (직접 입력에 금액 적기)'] },
+        { t: 'HA 자동 복구', s: '기본 포함 탭 01', src: '기본 스펙에 없음', now: '히어로 기본 포함에서는 빼고 아래 탭 설명은 유지', ask: 'HA 자동 복구를 제공하나요?',
+          ops: ['기본 제공 · 히어로에 다시 표시', '제공 안 함 · 탭에서도 빼기', '유료 옵션 (금액은 직접 입력)'] },
+        { t: '이벤트 기간 일시 증설', s: '그래프 영역', src: '사양표에 없음', now: '기존 예시(필요한 날만 증설 · 일할 계산) 유지', ask: '임대형 약정에서도 일시 증설이 가능한가요?',
+          ops: ['가능 · 그래프 유지', '불가 · 그래프 영역 빼기'] },
+      ] },
+  ];
+  /* 요금 계산 비교: [항목, 내용, 입력 방식, 표시(add 추가 · chg 변경 · del 삭제)] */
+  const CMP = {
+    sv: { old: ['1차 시안', 'hosting-server-v1.html'], ex: ['월 135,200원 (추가 전송량 200GB 예시)', '월 156,000원 (메모리 +8GB · 추가 전송량 200GB 예시)'],
+      before: [['결제 방식', '월 결제 · 6개월 5% 할인 · 12개월 10% 할인', '탭'], ['기본 요금', '월 110,000원 · 설치비 55,000원', '고정'], ['기본 전송량', '월 2TB 포함 · 넘어도 차단 없음', '고정', 'del'], ['추가 전송량', '2TB 초과분 · 1GB당 100원 (후불)', '숫자 입력', 'del'], ['메모리 · 디스크 증설', '필요한 만큼 견적', '토글', 'del'], ['웹 · DB 분리 · 이중화', '쇼핑몰 규모에 맞춰 견적', '토글', 'del'], ['공인 IP 추가', '기본 1개 · 추가는 별도 요금', '토글', 'del']],
+      after: [['결제 방식', '월 결제 · 6개월 5% 할인 · 12개월 10% 할인', '탭'], ['기본 요금', '월 110,000원 · 설치비 55,000원', '고정'], ['기본 전송량', '월 1TB 포함', '고정', 'chg'], ['추가 전송량', '1TB 초과분 · 1GB당 80원 · 최대 1TB (후불)', '숫자 입력', 'chg'], ['vCPU 추가', '기본 4개 · 2개당 월 20,000원 · 최대 8개', '셀렉트', 'add'], ['메모리 추가', '기본 16GB · 8GB당 월 30,000원 · 최대 32GB', '셀렉트', 'add'], ['SSD 추가', '기본 100GB · 20GB당 월 10,000원 · 최대 140GB', '셀렉트', 'add'], ['백업 일 4회', '기본 일 1회 · 7일 보관 · 월 20,000원', '토글', 'add'], ['카이퍼넷', '웹서비스 설치형 보안 · 별도 견적', '토글', 'add'], ['클라우드플레어', 'DDoS · 봇 차단 보안 세팅 · 별도 견적', '토글', 'add']] },
+    pv: { old: ['2차 수정시안', 'hosting-private-v3.html'], ex: ['월 300,000원 (12개월 약정 · 메모리 +8GB 예시)', '월 300,000원 (24개월 약정 · 메모리 +16GB 예시)'],
+      before: [['결제 방식', '12개월 약정 · 무약정 (+10%)', '탭', 'del'], ['기본 요금', '월 260,000원 · 설치비 무료', '고정'], ['기본 전송량', '월 2TB 포함 · 넘어도 차단 없음', '고정', 'del'], ['추가 전송량', '2TB 초과분 · 1GB당 100원 (후불)', '숫자 입력', 'del'], ['vCPU 추가', '기본 8개 · 1개당 월 15,000원', '숫자 입력', 'del'], ['메모리 추가', '기본 16GB · 1GB당 월 5,000원', '숫자 입력'], ['SSD 추가', '기본 300GB · 100GB당 월 10,000원', '숫자 입력'], ['백업 30일 보관', '기본 14일 보관 · 월 20,000원', '토글', 'del']],
+      after: [['약정', '24개월 임대형 약정만', '고정', 'chg'], ['기본 요금', '월 260,000원 · 설치비 무료', '고정'], ['회선', '대역폭 10Mbps · 회선 1Gbps 포함', '고정', 'chg'], ['메모리 추가', '기본 16GB · 16GB당 월 40,000원 · 최대 32GB', '셀렉트', 'chg'], ['SSD 추가', 'RAID1 · 250GB × 2 월 40,000원 · 500GB × 2 월 60,000원', '셀렉트', 'chg'], ['백업 일 4회', '기본 일 1회 · 7일 보관 · 월 20,000원', '토글', 'chg'], ['CPU 16코어', '2.5GHz 이상으로 업그레이드 · 별도 견적', '토글', 'add'], ['카이퍼넷', '웹서비스 설치형 보안 · 별도 견적', '토글', 'add'], ['클라우드플레어', 'DDoS · 봇 차단 보안 세팅 · 별도 견적', '토글', 'add']] },
+  };
+  const BD = { add: '<span class="w-badge sm">추가</span>', chg: '<span class="w-badge sm">변경</span>', del: '<span class="w-badge sm gray">빠짐</span>' };
+  const rows = arr => arr.map(([n, d, h, f]) => `<div class="cp-row${f === 'del' ? ' del' : f ? ' new' : ''}"><b>${n}${f ? BD[f] : ''}</b><span>${esc(d)}</span><span class="cp-how">${h}</span></div>`).join('');
+  const cmp = sec => { const c = CMP[sec.id]; return `<div class="cp"><div class="cp-hd"><h3>요금 계산 비교</h3>
+    <div class="w-tab" role="tablist"><button type="button" role="tab" aria-selected="false" data-cp="0">기존 시안</button><button type="button" role="tab" aria-selected="true" data-cp="1">수정시안</button></div></div>
+    <div class="cp-pn" hidden>${rows(c.before)}<div class="cp-ft"><span>예시 합계 ${c.ex[0]}</span><a href="${c.old[1]}#host-calc" target="_blank" rel="noopener">${c.old[0]} 요금 계산 화면 ↗</a></div></div>
+    <div class="cp-pn">${rows(c.after)}<div class="cp-ft"><span>예시 합계 ${c.ex[1]}</span><a href="${sec.url}#host-calc" target="_blank" rel="noopener">수정 요금 계산 화면 ↗</a></div></div></div>`; };
+  const KEY = 'wisa-hosting-confirm-1125';
+  let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const list = document.getElementById('cf-list');
+  let total = 0;
+  list.innerHTML = DATA.map(sec => `<section class="cf-sec" id="${sec.id}">
+    <div class="cf-sec-hd"><h2>${sec.title}</h2><a href="${sec.url}" target="_blank" rel="noopener">시안 보기 ↗</a></div>
+    <p class="cf-ok"><b>사양표대로 반영한 내용</b> · ${esc(sec.ok)}</p>
+    ${cmp(sec)}
+    ${sec.qs.map((q, i) => { total++; const k = sec.id + i, ops = [NOW + ' · ' + q.now].concat(q.ops, ['직접 입력']);
+      return `<div class="cq" data-k="${k}"><div class="cq-hd"><span class="cq-no">${i + 1}</span><div><h3>${q.t}</h3><small>${q.s}</small></div></div>
+      <div class="cq-ctx"><div><em>받은 사양표</em>${esc(q.src)}</div><div class="now"><em>시안에 임시 반영</em>${esc(q.now)}</div></div>
+      <p class="cq-ask">${q.ask}</p>
+      <div class="cq-ops" role="radiogroup" aria-label="${esc(q.ask)}">${ops.map((o, j) => `<label class="cq-op"><span class="w-radio"><input type="radio" name="${k}" value="${j}"><span><b>${j === 0 ? NOW : esc(o)}</b>${j === 0 ? '<small>' + esc(q.now) + '</small>' : ''}</span></span></label>`).join('')}</div>
+      <div class="cq-etc" hidden><input class="w-input" type="text" placeholder="내용을 적어 주세요" aria-label="${esc(q.t)} 직접 입력"></div></div>`; }).join('')}
+  </section>`).join('');
+
+  const out = document.getElementById('cf-text'), cnt = document.getElementById('cf-cnt'), fill = document.getElementById('cf-fill');
+  const run = () => {
+    let n = 0; const lines = ['[호스팅 수정시안 확인 답변 · 2026.11.25]'];
+    DATA.forEach(sec => { lines.push('', '■ ' + sec.title);
+      sec.qs.forEach((q, i) => { const k = sec.id + i, box = list.querySelector(`.cq[data-k="${k}"]`), r = box.querySelector('input:checked'), etc = box.querySelector('.cq-etc'), tx = etc.querySelector('input');
+        const ops = [NOW].concat(q.ops, ['직접 입력']), j = r ? +r.value : -1, last = ops.length - 1;
+        etc.hidden = j !== last && !(j > 0 && /직접 입력/.test(ops[j]));
+        box.classList.toggle('done', j >= 0); if (j >= 0) n++;
+        let a = j < 0 ? NOW + ' (선택 안 함)' : j === 0 ? NOW + ' · ' + q.now : ops[j];
+        if (j === last) a = tx.value.trim() || '직접 입력 (내용 없음)';
+        else if (!etc.hidden && tx.value.trim()) a += ' → ' + tx.value.trim();
+        lines.push(`${i + 1}. ${q.t}: ${a}`);
+        saved[k] = { j, tx: tx.value };
+      }); });
+    out.value = lines.join('\n');
+    cnt.textContent = `${n} / ${total} 선택`; fill.style.width = (n / total * 100) + '%';
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+  };
+  list.querySelectorAll('.cq').forEach(box => { const s = saved[box.dataset.k]; if (!s) return;
+    if (s.j >= 0) { const r = box.querySelector(`input[value="${s.j}"]`); if (r) r.checked = true; }
+    box.querySelector('.cq-etc input').value = s.tx || ''; });
+  list.querySelectorAll('.cp').forEach(cp => cp.addEventListener('click', e => { const b = e.target.closest('[data-cp]'); if (!b) return;
+    cp.querySelectorAll('[data-cp]').forEach(x => x.setAttribute('aria-selected', x === b));
+    cp.querySelectorAll('.cp-pn').forEach((p, i) => { p.hidden = i !== +b.dataset.cp; }); }));
+  list.addEventListener('change', run); list.addEventListener('input', run); run();
+
+  const toast = document.getElementById('cf-toast');
+  document.getElementById('cf-copy').addEventListener('click', async () => {
+    run(); let ok = false;
+    try { await navigator.clipboard.writeText(out.value); ok = true; } catch (e) { out.select(); try { ok = document.execCommand('copy'); } catch (e2) {} }
+    toast.textContent = ok ? '답변을 복사했어요 · 메일이나 메신저에 붙여 넣어 주세요' : '아래 답변 정리 칸을 길게 눌러 복사해 주세요';
+    toast.classList.add('on'); setTimeout(() => toast.classList.remove('on'), 2400);
+  });
+})();
+/* @endregion hosting-confirm */
+</script>
+</body>
+</html>
