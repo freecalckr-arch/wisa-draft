@@ -18,10 +18,11 @@
 <link rel="stylesheet" href="assets/common/form.css?v=730">   <!-- patch-713 입력 요소 공통 컴포넌트 (입력칸 · 체크박스 · 라디오 · 탭 · 토글 sm) -->
 <link rel="stylesheet" href="assets/common/badge.css?v=472">
 <link rel="stylesheet" href="assets/common/chart.css?v=730">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
-<link rel="stylesheet" href="assets/common/hosting.css?v=731">   <!-- patch-731: 호스팅 6페이지 공통 스타일 (페이지 <style> 에는 페이지 전용 규칙만) -->
+<link rel="stylesheet" href="assets/common/hosting.css?v=733">   <!-- patch-731: 호스팅 6페이지 공통 스타일 (페이지 <style> 에는 페이지 전용 규칙만) -->
 <style>
   /* =====================================================================
      [개발 전달] 프라이빗 클라우드 (호스팅 상세 기준 페이지) 기록 (로컬 작업 · 고객 공유 전)
+     · 2026-11-25 patch-733: 호스팅 공통 스타일에서 6페이지 어디에도 없는 옛 규칙(옛 히어로 요금 바 · 알림 카드 · 전송량 슬라이더 등) 삭제 · 이 페이지에서 화면 요소 없이 남은 스크립트(hf-swap · dh-countup) 삭제 · 화면 변화 없음
      · 2026-11-24 patch-731: 호스팅 6페이지 공통 파일 정리 — 6페이지가 똑같이 쓰던 스타일 628개 → assets/common/hosting.css · 공통 스크립트(메인 · host-tabs · ht-scroll) → assets/common/hosting.js · wisa.css 와 똑같은 규칙 6개 삭제 · 페이지 <style> 에는 페이지 전용 규칙만 (화면 변화 없음 · 6페이지 × 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-24 patch-730: 색 헥스 → 공통 변수(var(--error-*) 등 · form.css 에 Error 25 · 200 · 500 · 700 추가) · Primary 200 대체값 오타(#b2ccff) 삭제 · 도넛 가운데 숫자 · % 글자를 화면 안 글자 크기 단계로 (chart.css) · 그래프 부품은 chart.js 없이 탭 스크립트로 차오름 (hosting.css 머리 주석)
      · 2026-11-23 patch-729: 히어로 모바일 제목 3줄 = [키워드]에도 / 멈추지 않는 / 프라이빗 클라우드 (제품명이 두 줄로 갈라지지 않게 줄바꿈 + 제품명 nowrap)
@@ -350,24 +351,6 @@
     </div>
   </div>
 </section>
-<script>
-  /* @region hf-swap (patch-562): 히어로 왼쪽 알림 — 장애 감지 ↔ 자동 복구 완료 3초마다 전환 (움직임 줄이기면 복구 완료로 고정) */
-  (function () {
-    var t = document.querySelector(".hf-l"); if (!t || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var b = t.querySelector("b"), m = t.querySelector("small"), ng = false;
-    var S = [["자동 복구 완료", "43초"], ["장애 감지", "node-01"]];
-    setInterval(function () { t.classList.add("swap"); setTimeout(function () { ng = !ng; var v = S[ng ? 1 : 0]; b.textContent = v[0]; m.textContent = v[1]; t.classList.toggle("ng", ng); t.classList.remove("swap"); }, 300); }, 3000);
-  })();
-</script>
-<script>
-  /* @region dh-countup (patch-552): 히어로 금액이 0 → 260,000 으로 올라옴 (1.2초 · 움직임 줄이기면 바로 표시) */
-  (function () {
-    var el = document.querySelector('.dh-price strong'); if (!el) return;
-    var to = 260000, t0 = null; if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    function f(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1200), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e).toLocaleString('en-US') + '원'; if (p < 1) requestAnimationFrame(f); }
-    el.textContent = '0원'; requestAnimationFrame(f);
-  })();
-</script>
 <!-- @endregion -->
 
 <!-- @region host-table : 요금 안내 표 (기획문서 표 그대로 · 묶음 제목 행 + 항목 · 값 · 확정 전 표시) -->

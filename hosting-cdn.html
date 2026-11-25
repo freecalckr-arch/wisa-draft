@@ -18,10 +18,11 @@
 <link rel="stylesheet" href="assets/common/form.css?v=730">   <!-- patch-713 입력 요소 공통 컴포넌트 (입력칸 · 체크박스 · 라디오 · 탭 · 토글 sm) -->
 <link rel="stylesheet" href="assets/common/badge.css?v=472">
 <link rel="stylesheet" href="assets/common/chart.css?v=730">   <!-- patch-534: 화면 안 그래프 공통 부품 (gx-spark · gx-hbar · gx-donut) -->   <!-- patch-472: 공통 뱃지 -->
-<link rel="stylesheet" href="assets/common/hosting.css?v=731">   <!-- patch-731: 호스팅 6페이지 공통 스타일 (페이지 <style> 에는 페이지 전용 규칙만) -->
+<link rel="stylesheet" href="assets/common/hosting.css?v=733">   <!-- patch-731: 호스팅 6페이지 공통 스타일 (페이지 <style> 에는 페이지 전용 규칙만) -->
 <style>
   /* =====================================================================
      [개발 전달] CDN (호스팅 부가서비스 · 로컬 작업 · 고객 공유 전)
+     · 2026-11-25 patch-733: 호스팅 공통 스타일에서 6페이지 어디에도 없는 옛 규칙(옛 히어로 요금 바 · 알림 카드 · 전송량 슬라이더 등) 삭제 · 이 페이지에서 화면 요소 없이 남은 스크립트(why-live · why-elapsed) 삭제 · 화면 변화 없음
      · 2026-11-24 patch-731: 호스팅 6페이지 공통 파일 정리 — 6페이지가 똑같이 쓰던 스타일 628개 → assets/common/hosting.css · 공통 스크립트(메인 · host-tabs · ht-scroll) → assets/common/hosting.js · wisa.css 와 똑같은 규칙 6개 삭제 · 페이지 <style> 에는 페이지 전용 규칙만 (화면 변화 없음 · 6페이지 × 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-24 patch-730: 색 헥스 → 공통 변수(var(--error-*) 등 · form.css 에 Error 25 · 200 · 500 · 700 추가) · Primary 200 대체값 오타(#b2ccff) 삭제 · 도넛 가운데 숫자 · % 글자를 화면 안 글자 크기 단계로 (chart.css) · 그래프 부품은 chart.js 없이 탭 스크립트로 차오름 (hosting.css 머리 주석)
      · 2026-11-20 patch-722: 인증서 타임라인 마지막 줄 이름 만료 → 만료 예정
@@ -702,29 +703,6 @@
 </script>
 
 <script src="assets/common/wisa.js?v=700"></script>
-<script>
-  /* @region why-live (patch-609): 문제 오른쪽 배너 "보는 중" 인원 — 6초 동안 1,284 → 4,826 으로 늘었다가 처음부터 반복 (움직임 줄이기면 4,826 고정) */
-  (function () {
-    var el = document.querySelector(".ev-n"); if (!el) return;
-    var A = 1284, B = 4826, LOOP = 6000;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = B.toLocaleString("en-US"); return; }
-    var t0 = performance.now();
-    setInterval(function () { var k = Math.min(1, ((performance.now() - t0) % LOOP) / 5200); el.textContent = Math.round(A + (B - A) * (1 - Math.pow(1 - k, 2))).toLocaleString("en-US"); }, 80);
-  })();
-</script>
-<script>
-  /* @region why-elapsed (patch-569 · 607): 문제 왼쪽 칩 차단 경과 시간 — 4.2초 동안 00:00:00 → 09:12:00 으로 빠르게 늘고 1.8초 멈춘 뒤 반복 (움직임 줄이기면 09:12:00 고정) */
-  (function () {
-    var el = document.querySelector(".hv-el"); if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    var END = 552 * 60, RUN = 4200, LOOP = 6000, t0 = performance.now();
-    function f(n) { return (n < 10 ? "0" : "") + n; }
-    function tick(now) {
-      var t = (now - t0) % LOOP, k = Math.min(1, t / RUN), v = Math.round(END * (1 - Math.pow(1 - k, 2)));
-      el.textContent = f(Math.floor(v / 3600)) + ":" + f(Math.floor(v / 60) % 60) + ":" + f(k < 1 ? Math.floor(now / 37) % 60 : 0);
-    }
-    setInterval(function () { tick(performance.now()); }, 50);
-  })();
-</script>
 
 </body>
 </html>

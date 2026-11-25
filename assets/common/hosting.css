@@ -1,17 +1,7 @@
-/* WISA 호스팅 상세 공통 스타일 (patch-731)
-   웹호스팅 · 서버호스팅 · 프라이빗 클라우드 · 퍼블릭 클라우드 · CDN · 클라우드플레어 6페이지가 똑같이 쓰는 규칙을 한 곳에 모음.
-   연결 순서: wisa.css → form.css → badge.css → chart.css → hosting.css → 페이지 <style> (페이지 전용 규칙만).
-   요금표 #host-table · 문제 #geo-why · 포함 서비스 탭 #host-incl · 요금 계산 #host-calc · 히어로 기본 요금 카드 · 화면 이미지 공통 부품(.hv-*) 등.
-   6페이지 모두에 들어갈 수정은 여기서 하고, 이 파일을 쓰는 6페이지의 ?v= 숫자를 새 patch 번호로 올림.
-   화면 안 그래프 부품(gx-hbar · gx-vbar · gx-donut · gx-spark · chart.css)은 기본 포함 서비스 탭이 열릴 때(.it-panel.on) 페이지 스크립트로 차오르므로 chart.js 는 연결하지 않음.
-   색은 공통 변수(var(--gray-*) · var(--primary-*) · var(--error-*))로 씀 (patch-730) · 브랜드 고유색만 헥스. */
+
   /* @region host-price (patch-368): 요금 카드 — 기존 .rn-cl-pricing / .rn-cl-plan 값 그대로 옮김 */
-  /* patch-374: 블루 바탕 없이 흰 바탕 · 카드는 Gray 200 테두리로 구분 · 히어로 아래 간격은 마케팅 페이지 첫 영역과 같게 (위 160) */
-  /* 마케팅 페이지와 같은 간격 (글자 · 카드 끝 기준): 히어로 → 요금 → 호스팅 찾기 → CTA = PC 160 · 160 · 160 / 태블릿 120 · 120 · 140 / 모바일 80 · 80 · 80 */
-  /* 요금 카드 사양 줄 · 할인 칩 카드 아래 (기획문서 순서: 가격 → 사양 → 버튼 → 체크 → 할인) */
   /* @endregion host-price */
   /* @region host-finder (patch-368): 호스팅 찾기 — 왼쪽 질문 3개(알약 선택) · 오른쪽 추천 상품 (선택 = 검정 알약 · 블루 없음) */
-  @keyframes hfIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   /* =====================================================================
      patch-164 사이즈 규칙 적용 (규칙 사이트 docs/ · 2026-11-07)
      ===================================================================== */
@@ -234,50 +224,9 @@
   .hv-hi { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--gray-200); color: var(--gray-600); }
   .hv-cl .hv-hi { background: var(--primary-50); color: var(--primary-600); }
   .hv-bd { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
-  .hv-upw { padding: 10px 12px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  .hv-up-hd { display: flex; align-items: center; margin: 0 0 8px; font-size: 12px; }
-  .hv-up-hd b { font-weight: 700; color: var(--gray-900); }
-  .hv-up-hd em { margin-left: auto; font-style: normal; font-weight: 700; }
-  .hv-up-hd em.x { color: var(--error-600); }
-  .hv-up-hd em.b { color: var(--primary-600); }
-  .hv-up { display: flex; gap: 2px; height: 16px; }
-  .hv-up i { flex: 1; border-radius: 2px; background: var(--gray-300); }
-  .hv-up i.f { background: var(--gray-100); }
-  .hv-up i.x { background: var(--error-600); }
-  .hv-up i.b { background: var(--primary-600); box-shadow: 0 0 0 2px var(--primary-100); }
-  .hv-up-ax { display: flex; justify-content: space-between; margin: 6px 0 0; font-size: 11px; line-height: 14px; color: var(--gray-400); font-variant-numeric: tabular-nums; }
   .hv-oc { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 12px 16px; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  /* patch-540 문제 영역 주문 카드: 큰 수치 하나 (왼쪽 Gray 900 · 오른쪽 Primary 600) */
-  .hv-oc-k { font-size: 12px; font-weight: 700; color: var(--gray-500); }
-  .hv-oc-n { font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -.02em; color: var(--gray-900); }
-  .hv-oc-n small { margin-left: 8px; font-size: 14.5px; font-weight: 600; letter-spacing: 0; color: var(--gray-500); }
-  .hv-oc.b .hv-oc-n { color: var(--primary-600); }
-  .hv-oc.b .hv-oc-n small { color: var(--gray-600); }
-  .hv-oc-s { font-size: 12px; color: var(--gray-500); }
   .hv-oc.b { animation: hvOc 4.8s ease-in-out infinite; }
   @keyframes hvOc { 0%, 12% { box-shadow: inset 0 0 0 1px var(--gray-200); } 20%, 60% { box-shadow: inset 0 0 0 1px var(--primary-200), 0 0 0 3px var(--primary-50); } 100% { box-shadow: inset 0 0 0 1px var(--gray-200); } }
-  .hv-up i.b { animation: hvBlip 4.8s ease-in-out infinite; }
-  @keyframes hvBlip { 0%, 12% { background: var(--gray-300); box-shadow: none; } 20%, 100% { background: var(--primary-600); box-shadow: 0 0 0 2px var(--primary-100); } }
-  .hv-lg { margin: 0; padding: 0 12px; list-style: none; border-radius: 10px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  .hv-lg li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 8px; height: 36px; font-size: 12.5px; }
-  .hv-lg li + li { border-top: 1px solid var(--gray-100); }
-  .hv-lg span { color: var(--gray-500); font-variant-numeric: tabular-nums; }
-  .hv-lg b { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-weight: 600; color: var(--gray-700); }
-  .hv-lg em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--gray-600); }
-  .hv-nodes { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-  .hv-nd { display: flex; flex-direction: column; gap: 4px; padding: 10px; border-radius: 12px; background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); }
-  .hv-nd p { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 13px; font-weight: 700; color: var(--gray-900); }
-  .hv-nd p svg { flex: none; color: var(--gray-400); }
-  .hv-nd small { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--gray-500); }
-  .hv-nd small i { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-300); }
-  .hv-nd.x { background: var(--error-25); box-shadow: inset 0 0 0 1px var(--error-200); }
-  /* Error 25 · 200 — 장애 노드 1곳 */
-  .hv-nd.x small { color: var(--error-600); }
-  .hv-nd.x small i { background: var(--error-600); }
-  .hv-nd span { height: 32px; margin-top: 4px; border: 1px dashed var(--gray-300); border-radius: 8px; }
-  .hv-nd.x span { border-color: var(--error-200); }
-  .hv-vm { --slot: calc((100% - 20px) / 3 + 20px); position: absolute; left: var(--slot); bottom: 10px; width: calc((100% - 20px) / 3 - 20px); height: 32px; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 8px; background: var(--primary-600); color: var(--white); font-style: normal; font-size: 12.5px; font-weight: 700; box-shadow: 0 6px 16px rgba(21,112,239,.24); animation: hvMove 4.8s ease-in-out infinite; }
-  @keyframes hvMove { 0%, 20% { left: 10px; background: var(--gray-300); box-shadow: none; opacity: 1; } 30% { left: 10px; background: var(--primary-600); box-shadow: 0 6px 16px rgba(21,112,239,.24); } 46%, 88% { left: var(--slot); opacity: 1; } 96% { left: var(--slot); opacity: 0; } 100% { left: 10px; opacity: 0; background: var(--gray-300); } }
   @media (min-width: 768px) and (max-width: 1023px) {
   #geo-market .mk-chart .chart-tb { width: 100%; height: 220px; }
   }
@@ -395,8 +344,6 @@
   .hv-rd li.on { background: var(--primary-50); box-shadow: inset 0 0 0 1px var(--primary-200); }
   .hv-rd li.on > i { box-shadow: inset 0 0 0 5px var(--primary-600); }
   .hv-rd li.on span { font-weight: 600; color: var(--primary-700); }
-  /* Primary 200 */
-  .hv-act { display: flex; align-items: center; justify-content: space-between; margin: 0; font-size: 12px; color: var(--gray-500); }
   /* 03 백업 */
   .hv-ds { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 4px; }
   .hv-ds span { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 0; border-radius: 8px; font-size: 11px; font-weight: 600; color: var(--gray-600); font-variant-numeric: tabular-nums; }
@@ -442,7 +389,7 @@
   .hv-snt { display: flex; align-items: center; gap: 6px; margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--gray-100); font-size: 12px; color: var(--gray-600); }
   .hv-snt svg { color: var(--gray-500); }
   @media (prefers-reduced-motion: reduce) {
-  .hv-vm, .hv-oc.b, .hv-up i.b { animation: none; }
+  .hv-oc.b{ animation: none; }
   .it-panel.on .hv-tl li, .it-panel.on .hv-bk li.on, .it-panel.on .hv-chip, .hv-dc .dot { animation: none; }
   }
   /* @endregion host-vis */
@@ -473,26 +420,6 @@
   .hq-num input::-webkit-outer-spin-button, .hq-num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .hq-num i { font-style: normal; font-size: 14px; color: var(--gray-600); }
   .hq-step .hq-num { min-width: 96px; height: 100%; padding: 0 8px; border-inline: 1px solid var(--gray-200); }
-  .hq-tr-in { display: flex; align-items: center; gap: 8px; }
-  .hq-tr-in .hq-num { height: 40px; padding: 0 12px; border: 1px solid var(--gray-300); border-radius: 10px; }
-  .hq-tr-in .hq-num:focus-within { border-color: var(--gray-900); }
-  .hq-tr-in .hq-num input { width: 64px; }
-  .hq-tr-s { font-size: 14px; font-weight: 500; color: var(--gray-700); white-space: nowrap; }
-  /* patch-710 기본 전송량 = 입력칸 대신 값만 표시 */
-  .hq-tr-hd { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
-  .hq-tr-hd b { font-size: 18px; font-weight: 700; line-height: 26px; color: var(--gray-900); }
-  .hq-range { --p: 34%; width: 100%; height: 24px; margin: 12px 0 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
-  .hq-range::-webkit-slider-runnable-track { height: 6px; border-radius: 99px; background: linear-gradient(to right, var(--primary-600) var(--p), var(--gray-200) var(--p)); }
-  .hq-range::-moz-range-track { height: 6px; border-radius: 99px; background: linear-gradient(to right, var(--primary-600) var(--p), var(--gray-200) var(--p)); }
-  .hq-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8px; border-radius: 99px; background: var(--white); box-shadow: 0 0 0 2px var(--gray-300), 0 2px 6px rgba(16,24,40,.2); }
-  /* patch-537 손잡이 테두리 블루 → Gray 300 */
-  .hq-range::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 99px; background: var(--white); box-shadow: 0 0 0 2px var(--gray-300), 0 2px 6px rgba(16,24,40,.2); }
-  /* patch-537 손잡이 테두리 블루 → Gray 300 */
-  .hq-ticks { position: relative; height: 18px; margin-top: 6px; font-size: 13px; line-height: 18px; color: var(--gray-500); }
-  .hq-ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
-  .hq-ticks span:first-child { transform: none; }
-  .hq-ticks span:last-child { transform: translateX(-100%); }
-  .hq-ticks .inc { color: var(--gray-800); font-weight: 600; }
   .hq-out { display: flex; flex-direction: column; padding: 40px; background: var(--white); border-left: 1px solid var(--gray-200); }
   /* patch-565 흰 바탕 · patch-563 Primary 50 · patch-526 Gray 50 = 결제 방식 탭 바탕(Gray 100)과 같은 Gray 계열 */
   .hq-out > small { font-size: 15px; font-weight: 600; line-height: 22px; color: var(--gray-700); }
@@ -543,7 +470,7 @@
   @media (max-width: 767px) {
   .hq-in, .hq-out { padding: 24px 20px; }
   .hq-in { gap: 28px; }
-  .hq-lb, .hq-tr-hd b { font-size: 17px; line-height: 24px; }
+  .hq-lb{ font-size: 17px; line-height: 24px; }
   .hq-row { min-height: 64px; gap: 12px; }
   .hq-row { flex-wrap: wrap; row-gap: 8px; }
   .hq-row > span:first-child { flex: 1 1 100%; }
@@ -560,66 +487,12 @@
   /* patch-389: 기본 요금 카드 — 히어로 비주얼 안 (PC = 공통 .sh-float.f1 자리 · 태블릿 · 모바일 = 왼쪽 위 20 · 공통 규칙상 숨겨지는 떠 있는 카드지만 요금은 꼭 보여야 해서 예외로 표시) */
   /* patch-521 히어로 요금 바 (레퍼런스: 시작가를 한 덩어리 숫자로 크게 · 사양은 콘솔처럼 라벨/값 · 포함 사항은 체크 줄) */
   #geo-hero { background: var(--primary-100); padding-bottom: 0; overflow: hidden; }
-  /* patch-554 그라데이션 없이 Primary 100 */
-  @keyframes dhChip { from { opacity: 0; transform: translateY(8px); } }
-  .dh-chips li { animation: dhChip .5s var(--ease-out, ease-out) both; animation-delay: calc(.15s + var(--i, 0) * .08s); }
-  @media (prefers-reduced-motion: reduce) {
-  .dh-chips li { animation: none; }
-  }
-  /* patch-553: 탭 · 제목 · 설명 · 칩 간격은 마케팅 히어로(.sh-text)와 같음 · 칩 → 카드 80 */
-  /* patch-549 히어로 = Primary 100 면 · 요금 카드가 아래에서 올라오다 잘림 → 아래 요금 안내(흰 바탕)와 구분 */
-  .dh-wrap { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; position: relative; max-width: 840px; margin: 0 auto -56px; padding: 60px 40px 116px; /* patch-558 위 · 보이는 아래 40 → 60 */ border-radius: 32px 32px 0 0; background: var(--white); box-shadow: 0 -16px 48px rgba(21,112,239,.10); }
-  /* patch-549 요금 카드: 아래 72 잘림 */
-  .hf-to { z-index: 0; width: max-content; }
-  /* patch-553 카드 좌우 알림 카드(공통 .sh-toast · 둥둥) */
-  .hf-l { right: calc(100% + 24px); top: 20px; left: auto; }
-  .hf-r { left: calc(100% + 24px); right: auto; top: auto; bottom: 76px; }
-  .hf-ic { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; background: var(--primary-600); color: var(--white); }
-  .hf-to small { color: var(--primary-600); font-size: 14px; font-weight: 700; }
-  .hf-r small { color: var(--gray-500); font-weight: 500; }
-  /* patch-562 왼쪽 알림: 장애 감지(레드 · node-01) ↔ 자동 복구 완료(블루 · 43초) 3초마다 제자리 페이드 전환 (공통 .sh-toast.swap) / 오른쪽 = 전용 서버 · 회색 아이콘 */
-  .hf-ic { transition: opacity .3s; }
-  .hf-ic .ng { display: none; }
-  .hf-l.swap .hf-ic { opacity: 0; }
-  .hf-l { min-width: 170px; }
-  /* 두 문구 길이가 달라도 카드 폭이 바뀌지 않게 (긴 문구 162 기준 · 10 단위) */
-  .hf-l.ng .hf-ic { background: var(--error-600, #d92d20); }
-  .hf-l.ng .hf-ic .ok { display: none; }
-  .hf-l.ng .hf-ic .ng { display: block; }
-  .hf-l.ng small { color: var(--gray-500); font-weight: 500; }
-  .hf-ic.gray { background: var(--gray-100); color: var(--gray-700); }
-  @media (max-width: 1439px) {
-  .hf-to { display: none; }
-  }
-  .dh-plan { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 20px; line-height: 28px; font-weight: 700; color: var(--gray-900); }
-  /* patch-551 요금제 이름 · patch-557 18 → 20 */
-  .dh-chips { justify-content: center; margin: 24px 0 0; }
-  /* patch-557 칩 = 카드 맨 아래 · 조건 문구와 사이 8 + 24 = 32 */
-  .dh-chips li { color: var(--gray-600); }
-  /* patch-556 칩은 한 단계 연하게 · 금액이 주인공 */
-  .dh-wrap > .dh-buy { margin-top: 0; }
-  /* patch-557 이름 → 금액 8 */
-  .dh-cond { word-break: keep-all; margin: 8px 0 0; font-size: 14px; line-height: 20px; color: var(--gray-600); }
   .dh-buy { display: flex; flex-direction: column; align-items: center; gap: 24px; width: 100%; text-align: center; }
-  /* patch-542 기획서처럼 카드 없이 가운데 쌓기: 기본 요금 → 큰 금액 → 조건 → 상담하기 */
-  .dh-pr { padding: 0; }
-  .dh-lb { display: block; font-size: 14px; font-weight: 600; line-height: 20px; color: var(--gray-600); }
-  .dh-price { display: flex; align-items: baseline; justify-content: center; gap: 2px; margin: 4px 0 0; color: var(--gray-900); white-space: nowrap; }
-  .dh-price strong { font-size: 64px; font-weight: 700; line-height: 72px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-  .dh-price span { font-size: 20px; font-weight: 600; }
-  .dh-spec { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0 24px; list-style: none; }
-  .dh-spec li { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-  .dh-spec li + li { border-left: 1px solid var(--gray-100); }
-  .dh-spec small { font-size: 14px; font-weight: 500; line-height: 20px; color: var(--gray-600); }
-  .dh-spec b { font-size: 20px; font-weight: 700; line-height: 28px; color: var(--gray-900); }
   .dh-buy .btn { height: 52px; padding: 0 28px; font-size: 16px; }
   .dh-incl { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin: 0; padding: 0; list-style: none; }
   .dh-incl li { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 500; line-height: 22px; color: var(--gray-800); }
   .dh-incl svg { flex: none; color: var(--primary-600); }
   .dh-incl .off { color: var(--gray-500); }
-  @media (max-width: 1023px) {
-  .dh-price strong { font-size: 56px; line-height: 64px; }
-  }
   /* 요금 안내 표: 묶음마다 제목 + 항목 · 값 줄 */
   /* patch-390: 요금 안내 표 = 기존 solution/cloud 아래 비교 표(.rn-cl-table) 규격 응용 — 바깥 테두리는 실제 border(1 · Gray 200 · 모서리 16 · 묶음 줄 배경에 가려지지 않게), 묶음 제목 = 전체 폭 Gray 50 줄(14/600), 항목 = 왼쪽 라벨 14 Gray 500 · 오른쪽 값 15/500 · 행 구분선 Gray 100 · 라벨/값 사이 세로선 Gray 100 */
   .ht { display: flex; flex-direction: column; border: 1px solid var(--gray-200); border-radius: 16px; background: var(--white); overflow: hidden; }
@@ -643,12 +516,7 @@
   .ht-g dl > div { grid-template-columns: 180px minmax(0, 1fr); }
   }
   @media (max-width: 767px) {
-  .dh-price strong { font-size: 40px; line-height: 48px; }
   .dh-buy .btn { width: 100%; max-width: 320px; }
-  .dh-price { justify-content: center; }
-  .dh-spec { padding: 0; }
-  .dh-spec b { font-size: 16px; line-height: 24px; }
-  .dh-spec small { font-size: 13px; }
   .dh-incl { gap: 8px 16px; }
   .dh-incl li { font-size: 14px; }
   .ht-g dl > div { grid-template-columns: 120px minmax(0, 1fr); }
@@ -684,22 +552,12 @@
   .hb-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 84px; margin-bottom: 40px; }
   /* 두 카드 제목 줄 높이를 아이콘(80)에 맞춰 아래 이름 · 금액 · 버튼 줄이 나란히 */
   .hb-h { margin: 0; font-size: 32px; line-height: 42px; font-weight: 700; letter-spacing: -.02em; color: var(--gray-900); word-break: keep-all; }
-  .hb-art { flex: none; display: flex; align-items: center; }
-  .hb-ln { color: var(--primary-600); }
-  /* patch-580 아이콘 = 방패 라인 아이콘 1개 · 배경 · 원 없음 (Primary 600 · 64) */
-  .hb-art i { display: grid; place-items: center; width: 64px; height: 64px; border: 2px solid var(--gray-900); border-radius: 99px; background: var(--white); color: var(--gray-900); }
-  .hb-art i + i { margin-left: -14px; }
-  .hb-art .a1 { background: var(--gray-100); }
-  .hb-art .a2 { position: relative; z-index: 1; width: 80px; height: 80px; background: var(--primary-600); color: var(--white); }
-  .hb-art .a2 svg { width: 36px; height: 36px; }
-  .hb-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   .hb-nm { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 22px; line-height: 30px; font-weight: 700; color: var(--gray-900); }
   .hb-bd { display: inline-flex; align-items: center; height: 24px; padding: 0 8px; border-radius: 99px; background: var(--white); font-size: 12px; font-weight: 600; color: var(--primary-700); }
   /* 레퍼런스 Recommended 칩 */
   .hb-pr { display: flex; align-items: baseline; gap: 6px; min-height: 36px; margin: 8px 0 0; }
   .hb-pr b { font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -.02em; color: var(--gray-900); font-variant-numeric: tabular-nums; }
   .hb-pr span { font-size: 15px; color: var(--gray-700); }
-  .hb-pr .hb-cu { align-self: center; font-size: 15px; color: var(--gray-700); }
   .hb-ds { margin: 8px 0 0; font-size: 16px; line-height: 24px; color: var(--gray-700); word-break: keep-all; }
   .hb-bt { display: flex; align-items: center; justify-content: center; height: 44px; margin-top: 24px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background-color .2s; }
   .hb-bt.pri { background: var(--primary-600); color: var(--white); }
@@ -723,7 +581,6 @@
   .hb-fl div { display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
   .hb-fl b { font-size: 16px; line-height: 24px; font-weight: 700; color: var(--gray-900); }
   .hb-fl span { font-size: 15px; line-height: 22px; color: var(--gray-600); }
-  .hb-ft { margin: auto 0 0; padding-top: 20px; border-top: 1px solid var(--gray-200); font-size: 15px; line-height: 22px; font-weight: 600; color: var(--gray-900); }
   /* patch-579 · 580 오른쪽 카드 = 사양 옵션 — 왼쪽 카드와 같은 순서(이름 · 금액 · 설명 · 버튼 · 목록)라 버튼 높이가 같음 · 흰 버튼(공통 .btn 값: 흰 바탕 · Gray 300 테두리 · Gray 900) */
   /* patch-587 히어로 카드 버튼 = 위사 공통 버튼(.btn) · 크기 lg (높이 42 · 16/600 · 패딩 10/18 · 모서리 8 · 가로 꽉) — 오른쪽 = 화이트(.btn) / 왼쪽 = 블루(.btn-blue · 공통 wisa.css patch-588) */
   .hb-btn { display: flex; width: 100%; height: 42px; margin-top: 24px; padding: 10px 18px; font-size: 16px; line-height: 20px; text-decoration: none; }   /* 버튼 크기 lg (docs/button.html · 높이 42 · 10/18 · 16) · 카드 폭 가득 */
@@ -746,14 +603,6 @@
   .hb-cm li::before { position: absolute; left: 0; top: 3px; }
   .hb-cm li span { font-size: 14px; line-height: 20px; color: var(--gray-600); }
   }
-  /* patch-675 모바일: 이름 아래 설명 (360 에서 줄 수가 들쭉날쭉하지 않게 항목마다 2줄) */
-  .hb-ad { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
-  .hb-ad li { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 22px; font-size: 15px; line-height: 22px; }
-  /* 왼쪽 기본 포함 줄 높이 22 와 같게 */
-  .hb-ad li > span { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
-  .hb-ad b { font-weight: 500; color: var(--gray-700); white-space: nowrap; }
-  .hb-ad small { font-size: 13px; color: var(--gray-500); white-space: nowrap; }
-  .hb-ad em { display: flex; align-items: baseline; gap: 4px; font-style: normal; font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; white-space: nowrap; }
   @media (max-width: 1023px) {
   .hb { grid-template-columns: 1fr; margin-top: 60px; }
   .hb-top { min-height: 0; }
@@ -768,11 +617,6 @@
   /* patch-576 모바일 카드 좌우 = 아래 영역과 같은 26 (화면 끝에 붙던 것) */
   .hb-top { flex-direction: column-reverse; align-items: flex-start; gap: 20px; margin-bottom: 28px; }
   .hb-h { font-size: 24px; line-height: 32px; }
-  .hb-art i { width: 48px; height: 48px; }
-  .hb-art .a2 { width: 60px; height: 60px; }
-  .hb-art svg { width: 22px; height: 22px; }
-  .hb-art .a2 svg { width: 28px; height: 28px; }
-  .hb-cols { grid-template-columns: 1fr; gap: 32px; }
   }
   /* @region mo-598 (patch-598): 모바일(≤767) 다듬기 — 영역 간격 · 탭 문구 · 요금 카드 아이콘 · 요금 표 스크롤 활성화 · 요금 계산 입력 줄 · 모바일 글자 규격 */
   @media (max-width: 767px) {
@@ -821,7 +665,7 @@
   /* @endregion mo-598 */
   .hq-step { height: auto; border: 0; border-radius: 0; background: none; overflow: visible; }
   .hq-step .hq-minus, .hq-step .hq-plus { display: none; }
-  .hq-step .hq-num, .hq-tr-in .hq-num { width: auto; min-width: 0; height: auto; gap: 8px; padding: 0; border: 0; border-radius: 0; }
+  .hq-step .hq-num{ width: auto; min-width: 0; height: auto; gap: 8px; padding: 0; border: 0; border-radius: 0; }
   .hq-num input.w-input { width: 88px; text-align: right; font-variant-numeric: tabular-nums; }
   /* patch-713 입력칸 모양 = 공통 form.css .w-input (높이 40 · 모서리 8 · 포커스 Primary 600 + 링) · 여기선 폭 · 오른쪽 정렬만 */
   .hq-num i { width: 20px; font-size: 14px; color: var(--gray-600); }
@@ -829,7 +673,7 @@
   /* patch-605 모바일: 입력칸 88×40 → 64×36 · 숫자 15 · 단위 12 (폭 18) · 입력칸 · 스위치를 이름 + 설명 두 줄의 세로 가운데에 */
   .hq-num input.w-input { width: 80px; }
   /* patch-713 모바일: 안쪽 여백 14 기준 다섯 자리(20000)까지 보이게 */
-  .hq-step .hq-num, .hq-tr-in .hq-num { gap: 6px; }
+  .hq-step .hq-num{ gap: 6px; }
   .hq-num i { width: 18px; font-size: 12px; }
   .hq-row > span:first-child small { grid-column: 1; }
   }
