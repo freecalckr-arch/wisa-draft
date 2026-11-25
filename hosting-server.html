@@ -22,6 +22,7 @@
 <style>
   /* =====================================================================
      [개발 전달] 서버호스팅 (호스팅 상세 · 2026.11.19 1차 시안 공유)
+     · 2026-11-25 patch-734: 고객 확정 사양 반영 — 히어로 요금 카드 기본 포함 = 4 vCPU · 메모리 16GB · SSD 100GB / 전송량 월 1TB / 백업 일 1회 · 7일 보관 / 보안 서비스 선택 · 요금 계산 = 기본 전송량 1TB · 추가 전송량 1GB당 80원(최대 1TB) · vCPU 2개당 20,000원(최대 +4) · 메모리 8GB당 30,000원(최대 +16) · SSD 20GB당 10,000원(최대 +40) · 백업 일 4회 월 20,000원 · 카이퍼넷 · 클라우드플레어 견적 토글 (메모리 · 디스크 증설 · 웹 DB 분리 · 공인 IP 견적 토글 삭제) · 기본 포함 탭 1 서버 사양 · 탭 4 전송량(1,150 / 1,024GB · 126GB × 80원 = 10,080원)도 같은 기준으로
      · 2026-11-25 patch-733: 호스팅 공통 스타일에서 6페이지 어디에도 없는 옛 규칙(옛 히어로 요금 바 · 알림 카드 · 전송량 슬라이더 등) 삭제 · 화면 변화 없음
      · 2026-11-24 patch-731: 호스팅 6페이지 공통 파일 정리 — 6페이지가 똑같이 쓰던 스타일 628개 → assets/common/hosting.css · 공통 스크립트(메인 · host-tabs · ht-scroll) → assets/common/hosting.js · wisa.css 와 똑같은 규칙 6개 삭제 · 페이지 <style> 에는 페이지 전용 규칙만 (화면 변화 없음 · 6페이지 × 1440 · 1100 · 820 · 390 계산 스타일 비교로 확인)
      · 2026-11-24 patch-730: 색 헥스 → 공통 변수(var(--error-*) 등 · form.css 에 Error 25 · 200 · 500 · 700 추가) · Primary 200 대체값 오타(#b2ccff) 삭제 · 도넛 가운데 숫자 · % 글자를 화면 안 글자 크기 단계로 (chart.css) · 그래프 부품은 chart.js 없이 탭 스크립트로 차오름 (hosting.css 머리 주석)
@@ -308,7 +309,7 @@
   .sv-al > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--white); color: var(--error-600); }
   .sv-al p { display: flex; flex-direction: column; margin: 0; } .sv-al b { display: inline-flex; align-items: center; font-size: 13px; line-height: 20px; font-weight: 700; color: var(--gray-900); } .sv-al span { font-size: 12px; line-height: 16px; color: var(--gray-600); }
   .sv-al time { font-size: 12px; font-weight: 600; color: var(--error-600); font-variant-numeric: tabular-nums; }
-  /* 04 전송량 후불: 게이지 = 2,300GB 기준 · 2,048GB(100%)까지 회색 · 넘은 부분만 블루 */
+  /* 04 전송량 후불: 게이지 = 1,150GB 기준 · 1,024GB(100%)까지 회색 · 넘은 부분만 블루 */
   .sv-gb > i { width: 89%; background: var(--gray-400); border-radius: 99px 0 0 99px; }
   .sv-gb > b { position: absolute; top: 0; bottom: 0; left: calc(89% + 2px); right: 0; border-radius: 0 99px 99px 0; background: var(--primary-600); transform-origin: 0 50%; }
   .sv-gb > .t8 { left: 71.2%; } .sv-gb > .t10 { left: 89%; right: auto; transform: translateX(-50%); } .sv-gb > .t10::before { display: block; }
@@ -457,7 +458,7 @@
           <p class="hb-ds">12개월 이상 결제 시 10% 할인 ·<br>설치비 55,000원</p>
           <a class="btn btn-blue hb-btn" href="https://www.wisa.co.kr/counsel">신청하기</a>
           <p class="hb-lt">기본 포함:</p>
-          <ul class="hb-ck"><li>단독 물리 서버 1대 · 웹 + DB</li><li>전송량 월 2TB · 공인 IP 1개</li><li>10G 방화벽 · DDoS 방어</li><li>서버 모니터링</li></ul>
+          <ul class="hb-ck"><li>4 vCPU · 메모리 16GB · SSD 100GB</li><li>전송량 월 1TB</li><li>백업 일 1회 · 7일 보관</li><li>보안 서비스 선택</li></ul>   <!-- [개발 전달] patch-734 기본 포함 = 고객 확정 기본 스펙 (4 vCPU · 16GB · SSD 100GB · 전송량 1TB · 백업 일 1회 7일 보관 · 보안 서비스 선택) -->
       </div>
     </div>
     <div class="hb-c hb-w hb-op">   <!-- [개발 전달] patch-668 오른쪽 흰 카드 = 맞춤 서버호스팅 (이 상품을 쇼핑몰에 맞게 설계하는 견적 상품 · 페이지마다 그 상품의 맞춤 설계 · 옵션 단가는 아래 요금 계산에만) · 버튼 = CTA 도입 상담 · 태블릿 · 모바일도 노출 [확인 필요 · 맞춤 범위 · 견적 절차] · 공인 IP 추가 · 증설 단가는 요금 계산 견적 토글 -->
@@ -548,11 +549,11 @@
       <div class="dx-panel it-panel on" data-it="0" role="tabpanel">
         <div class="it-txt"><span class="bt-eb">기본 포함 01 · 단독 서버</span><h3>웹과 DB를<br>서버 1대에서 함께 운영합니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-01.jpg" data-pf="1" data-g="f" alt=""></i><p class="it-q">“다른 쇼핑몰 영향 없이 빨라요”</p></div><p class="it-d">물리 서버 1대를 혼자 사용하고 웹과 DB를 함께 구성합니다. 디스크는 SSD 2개를 미러링해 한쪽이 고장 나도 데이터가 남습니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>단독 물리 서버 1대</li><li>웹 + DB 통합</li><li>디스크 미러링</li></ul></div></div>
         <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw wh-in sv-t1"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg></span><b>서버 정보</b><span class="vw-m">woodroom.co.kr · SV-0142</span><em class="vw-chip gray">정상 운영</em></div><div class="hv-tb">
-          <!-- [개발 전달] patch-644 탭 1 서버 정보: CPU 8코어 · 메모리 32GB · SSD 1TB 는 예시 사양 [확인 필요 · 장비 확정 전] · 블루 = 디스크 미러링(두 디스크 같은 내용 · 쓰기 표시 점이 함께 깜빡임) -->
-          <div class="hv-cd sv-me"><h4>단독 물리 서버<i class="os8-p">1</i><small>이 서버를 쓰는 쇼핑몰 1곳</small></h4><p class="sv-me-n"><b>SV-0142</b><span>woodroom.co.kr 전용 · 다른 쇼핑몰 없음</span></p><ul class="hv-st"><li><small>CPU</small><strong>8<span>코어</span></strong></li><li><small>메모리</small><strong>32<span>GB</span></strong></li><li><small>SSD</small><strong>1<span>TB × 2</span></strong></li></ul></div>
+          <!-- [개발 전달] patch-644 탭 1 서버 정보: 4 vCPU · 메모리 16GB · SSD 100GB = 기본 스펙 (patch-734) · 블루 = 디스크 미러링(두 디스크 같은 내용 · 쓰기 표시 점이 함께 깜빡임) -->
+          <div class="hv-cd sv-me"><h4>단독 물리 서버<i class="os8-p">1</i><small>이 서버를 쓰는 쇼핑몰 1곳</small></h4><p class="sv-me-n"><b>SV-0142</b><span>woodroom.co.kr 전용 · 다른 쇼핑몰 없음</span></p><ul class="hv-st"><li><small>CPU</small><strong>4<span>vCPU</span></strong></li><li><small>메모리</small><strong>16<span>GB</span></strong></li><li><small>SSD</small><strong>100<span>GB × 2</span></strong></li></ul></div>
           <div class="hv-2">
             <div class="hv-cd sv-svc"><h4>서비스 구성<i class="os8-p">2</i></h4><ul><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></i><p><b>웹</b><span>쇼핑몰 화면 · 주문</span></p><em>SV-0142</em></li><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></i><p><b>DB</b><span>상품 · 주문 · 회원</span></p><em>SV-0142</em></li></ul></div>
-            <div class="hv-cd sv-mr"><h4>디스크 미러링<i class="os8-p dn">3</i><small>동기화 100%</small></h4><ul><li><i></i><p><b>SSD 1</b><span>1TB · 사용 412GB</span></p><em>정상</em></li><li><i></i><p><b>SSD 2</b><span>1TB · 사용 412GB</span></p><em>정상</em></li></ul><p class="sv-mr-f">한쪽이 고장 나도 데이터 유지</p></div>
+            <div class="hv-cd sv-mr"><h4>디스크 미러링<i class="os8-p dn">3</i><small>동기화 100%</small></h4><ul><li><i></i><p><b>SSD 1</b><span>100GB · 사용 41GB</span></p><em>정상</em></li><li><i></i><p><b>SSD 2</b><span>100GB · 사용 41GB</span></p><em>정상</em></li></ul><p class="sv-mr-f">한쪽이 고장 나도 데이터 유지</p></div>
           </div>
         </div></div></div>
       </div>
@@ -574,12 +575,12 @@
         </div></div></div>
       </div>
       <div class="dx-panel it-panel" data-it="3" role="tabpanel">
-        <div class="it-txt"><span class="bt-eb">기본 포함 04 · 전송량 후불</span><h3>전송량을 넘어도<br>회선은 막히지 않습니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="m" alt=""></i><p class="it-q">“세일 날에도 회선 걱정이 없었어요”</p></div><p class="it-d">월 2TB를 넘은 전송량만 1GB당 100원으로 다음 달에 청구합니다. 제공량의 80%, 100%에 닿으면 담당자에게 알림을 보냅니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>월 2TB 기본 제공</li><li>초과분 익월 후불</li><li>80% · 100% 알림</li></ul></div></div>
+        <div class="it-txt"><span class="bt-eb">기본 포함 04 · 전송량 후불</span><h3>전송량을 넘어도<br>회선은 막히지 않습니다</h3><div class="it-say"><i class="it-pf"><img src="assets/geo/profile/pt-04.jpg" data-pf="4" data-g="m" alt=""></i><p class="it-q">“세일 날에도 회선 걱정이 없었어요”</p></div><p class="it-d">월 1TB를 넘은 전송량만 1GB당 80원으로 다음 달에 청구합니다. 제공량의 80%, 100%에 닿으면 담당자에게 알림을 보냅니다.</p><div class="it-tags"><b>포함 내용</b><ul><li>월 1TB 기본 제공</li><li>초과분 익월 후불</li><li>80% · 100% 알림</li></ul></div></div>
         <div class="it-sc" aria-hidden="true"><div class="vw-win hv-tw wh-in sv-t4"><div class="vw-hd"><span class="vw-ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></span><b>전송량 · 청구</b><span class="vw-m">woodroom.co.kr · 11월</span><em class="vw-chip">회선 정상</em></div><div class="hv-tb">
-          <!-- [개발 전달] patch-644 탭 4 전송량 후불: 2,300GB 사용 = 기본 2,048GB(2TB) + 넘은 252GB × 1GB당 100원 = 25,200원 다음 달 청구 (기획문서 단가) · 게이지 눈금 80% · 100% · 넘은 부분만 블루(탭이 열리면 채워짐) -->
-          <div class="hv-cd wh-gg sv-gg"><h4>이번 달 전송량<i class="os8-p">1</i><small>11.27 (금) 14:20 기준</small></h4><p class="wh-gv"><strong>2,300<span>/ 2,048GB</span></strong><em>112%</em></p><div class="wh-gb sv-gb"><i></i><b></b><span class="t8">80%</span><span class="t10">100%</span></div></div>
-          <div class="hv-cd sv-bill"><h4>다음 달 청구<i class="os8-p">2</i><small>12월 청구서에 포함</small></h4><dl><div><dt>넘은 전송량</dt><dd>252GB × 1GB당 100원</dd></div></dl><p class="sv-bill-t"><span>추가 청구</span><strong>25,200<small>원</small></strong></p></div>
-          <ul class="wh-al"><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></i><p><b>100% 도달 알림<i class="os8-p">3</i></b><span>회선은 그대로 · 넘은 만큼 후불</span></p><time>11.26 (목)</time></li><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></i><p><b>80% 도달 알림</b><span>남은 전송량 410GB</span></p><time>11.21 (토)</time></li></ul>
+          <!-- [개발 전달] patch-644 탭 4 전송량 후불: 1,150GB 사용 = 기본 1,024GB(1TB) + 넘은 126GB × 1GB당 80원 = 10,080원 다음 달 청구 (patch-734 고객 확정 단가) · 게이지 눈금 80% · 100% · 넘은 부분만 블루(탭이 열리면 채워짐) -->
+          <div class="hv-cd wh-gg sv-gg"><h4>이번 달 전송량<i class="os8-p">1</i><small>11.27 (금) 14:20 기준</small></h4><p class="wh-gv"><strong>1,150<span>/ 1,024GB</span></strong><em>112%</em></p><div class="wh-gb sv-gb"><i></i><b></b><span class="t8">80%</span><span class="t10">100%</span></div></div>
+          <div class="hv-cd sv-bill"><h4>다음 달 청구<i class="os8-p">2</i><small>12월 청구서에 포함</small></h4><dl><div><dt>넘은 전송량</dt><dd>126GB × 1GB당 80원</dd></div></dl><p class="sv-bill-t"><span>추가 청구</span><strong>10,080<small>원</small></strong></p></div>
+          <ul class="wh-al"><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></i><p><b>100% 도달 알림<i class="os8-p">3</i></b><span>회선은 그대로 · 넘은 만큼 후불</span></p><time>11.26 (목)</time></li><li><i><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg></i><p><b>80% 도달 알림</b><span>남은 전송량 205GB</span></p><time>11.21 (토)</time></li></ul>
         </div></div></div>
       </div>
     </div>
@@ -618,7 +619,7 @@
 <!-- @region host-calc : 요금 계산 + 결제 · 약정 조건 한 덩어리 (patch-392 · 왼쪽 입력 · 오른쪽 견적서 · 스크립트 host-quote · 단가 · 조건은 기획문서 그대로) -->
 <section class="sec" id="host-calc">
   <div class="container">
-    <div class="sub-title rv"><h2>요금 계산해 보기</h2><p>기본 요금에 초과 전송량만 더해집니다. 결제 방식과 이번 달 전송량을 넣으면 월 예상 요금과 청구 조건을 함께 보여 드립니다.</p></div>
+    <div class="sub-title rv"><h2>요금 계산해 보기</h2><p>기본 요금에 사양 옵션과 추가 전송량이 더해집니다. 결제 방식과 필요한 사양을 넣으면 월 예상 요금과 청구 조건을 함께 보여 드립니다.</p></div>
     <div class="hq rv" style="--d:100ms" data-base="110000">
       <div class="hq-in">
         <div>
@@ -629,25 +630,27 @@
         <div>   <!-- [개발 전달] patch-618 옵션 항목 = 기획서 형식: 줄마다 이름 + 설명 / 숫자 입력칸 + 단위 · 줄 사이 점선 (슬라이더 · − + 버튼 없음) -->
           <span class="hq-lb">예상 사용량</span>
           <div class="hq-opts">
-            <div class="hq-row"><span><b>기본 전송량</b><small>2,048GB · 월 요금에 포함 · 넘어도 차단 없음</small></span><span class="hq-inc">월 2TB</span></div>   <!-- [개발 전달] patch-710 기본 제공량은 입력 없이 오른쪽에 표시 · 아래 줄에 기본을 넘는 추가 전송량만 입력 -->
-            <div class="hq-row"><span><b>추가 전송량</b><small>기본 2TB 초과분 · 1GB당 100원 (후불)</small></span><span class="hq-step hq-tr" data-max="20000"><label class="hq-num"><input class="w-input hq-tr-v" type="number" inputmode="numeric" min="0" max="20000" step="1" value="252" data-free="0" data-rate="100" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
-            <div class="hq-row"><span><b>메모리 · 디스크 증설</b><small>기본 8코어 · 32GB · NVMe SSD 2개 RAID1 · 필요한 만큼 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="mem" aria-checked="false" aria-label="메모리 · 디스크 증설"></button></div>
-            <div class="hq-row"><span><b>웹 · DB 분리 · 이중화</b><small>서버를 늘려 구성 · 부하분산 포함 · 쇼핑몰 규모에 맞춰 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="scale" aria-checked="false" aria-label="웹 · DB 분리 · 이중화"></button></div>
-            <div class="hq-row"><span><b>공인 IP 추가</b><small>기본 1개 포함 · 추가는 별도 요금</small></span><button type="button" class="hq-sw" role="switch" data-quote="ip" aria-checked="false" aria-label="공인 IP 추가"></button></div>   <!-- [개발 전달] patch-662 공인 IP 추가 토글 · 금액 확정 전이라 견적으로 표시 [확인 필요] 확정되면 data-rate 금액 토글로 바꿈 -->   <!-- [개발 전달] patch-659 기획문서 "맞춤 견적" 2항목 = 토글 · 켜면 오른쪽 견적서에 "견적" 줄 추가 (금액 계산 없음 · 공인 IP 추가는 금액 확정 전이라 뺌) -->
+            <div class="hq-row"><span><b>기본 전송량</b><small>1,024GB · 월 요금에 포함</small></span><span class="hq-inc">월 1TB</span></div>   <!-- [개발 전달] patch-734 사양 옵션 = 고객 확정 표 (월 추가 비용 · 스펙업 = 최대 범위): vCPU 2개당 20,000원 · 최대 8 vCPU(+4) / 메모리 8GB당 30,000원 · 최대 32GB(+16 · 고객 확인) / SSD 20GB당 10,000원 · 최대 140GB(+40 · 스펙업 150 안쪽) / 전송량 1GB당 80원 · 최대 2TB(+1,024GB) / 백업 일 4회 · 7일 보관 월 20,000원 / 보안 서비스(카이퍼넷 · 클라우드플레어) = 금액 없음 → 견적 토글 -->
+            <div class="hq-row"><span><b>추가 전송량</b><small>기본 1TB 초과분 · 1GB당 80원 · 최대 1TB (후불)</small></span><span class="hq-step hq-tr" data-max="1024"><label class="hq-num"><input class="w-input hq-tr-v" type="number" inputmode="numeric" min="0" max="1024" step="1" value="200" data-free="0" data-rate="80" aria-label="추가 전송량 (GB)"><i>GB</i></label></span></div>
+            <div class="hq-row"><span><b>vCPU 추가</b><small>기본 4개<span class="hq-pc"> 포함</span> · 2개당 <span class="hq-pc">월 </span>20,000원<span class="hq-pc"> · 최대 8개</span></small></span><span class="hq-step" data-step="2" data-per="2" data-rate="20000" data-max="4"><button type="button" class="hq-minus" aria-label="vCPU 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="4" step="2" value="0" aria-label="vCPU 추가 (개)"><i>개</i></label><button type="button" class="hq-plus" aria-label="vCPU 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>메모리 추가</b><small>기본 16GB<span class="hq-pc"> 포함</span> · 8GB당 <span class="hq-pc">월 </span>30,000원<span class="hq-pc"> · 최대 32GB</span></small></span><span class="hq-step" data-step="8" data-per="8" data-rate="30000" data-max="16"><button type="button" class="hq-minus" aria-label="메모리 추가 줄이기">−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="16" step="8" value="8" aria-label="메모리 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="메모리 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>SSD 추가</b><small>기본 100GB<span class="hq-pc"> 포함</span> · 20GB당 <span class="hq-pc">월 </span>10,000원<span class="hq-pc"> · 최대 140GB</span></small></span><span class="hq-step" data-step="20" data-per="20" data-rate="10000" data-max="40"><button type="button" class="hq-minus" aria-label="SSD 추가 줄이기" disabled>−</button><label class="hq-num"><input class="w-input" type="number" inputmode="numeric" min="0" max="40" step="20" value="0" aria-label="SSD 추가 (GB)"><i>GB</i></label><button type="button" class="hq-plus" aria-label="SSD 추가 늘리기">+</button></span></div>
+            <div class="hq-row"><span><b>백업 일 4회</b><small>기본 일 1회<span class="hq-pc"> · 7일 보관</span> · 월 20,000원</small></span><button type="button" class="hq-sw" role="switch" aria-checked="false" data-rate="20000" aria-label="백업 일 4회"></button></div>
+            <div class="hq-row"><span><b>카이퍼넷</b><small>웹서비스 설치형 보안 · 별도 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="kai" aria-checked="false" aria-label="카이퍼넷"></button></div>
+            <div class="hq-row"><span><b>클라우드플레어</b><small>DDoS · 봇 차단 보안 세팅 · 별도 견적</small></span><button type="button" class="hq-sw" role="switch" data-quote="cf" aria-checked="false" aria-label="클라우드플레어"></button></div>
           </div>
         </div>
       </div>
       <div class="hq-out" aria-live="polite">
         <small>월 예상 요금</small>
-        <div class="hq-total"><strong>135,200</strong><span>원</span></div>
+        <div class="hq-total"><strong>156,000</strong><span>원</span></div>
         <p class="hq-mode">월 결제 기준</p>
         <dl class="hq-break">
           <div><dt>기본 요금</dt><dd>110,000원</dd></div>
-          <div hidden><dt>사양 옵션</dt><dd class="hq-opt">0원</dd><dd class="hq-opt-list"></dd></div>   <!-- [개발 전달] patch-643 서버호스팅은 사양 옵션 없음(증설은 견적) → 줄 숨김 (스크립트 공통 구조 유지용) -->
-          <div><dt>추가 전송량<small>252GB · 1GB당 100원 · 익월 후불</small></dt><dd class="hq-over">+25,200원</dd></div>
-          <div data-q="mem" hidden><dt>메모리 · 디스크 증설<small>사양 확인 후 안내</small></dt><dd>견적</dd></div>
-          <div data-q="scale" hidden><dt>웹 · DB 분리 · 이중화<small>구성 상담 후 안내</small></dt><dd>견적</dd></div>
-          <div data-q="ip" hidden><dt>공인 IP 추가<small>1개당 · 금액 확정 후 안내</small></dt><dd>견적</dd></div>
+          <div><dt>사양 옵션<small>다음 달 월정액에 반영</small></dt><dd class="hq-opt">+30,000원</dd><dd class="hq-opt-list"><span><b>메모리 +8GB</b><em>+30,000원</em></span></dd></div>   <!-- [개발 전달] patch-734 사양 옵션 줄 보임 (프라이빗과 같은 목록) -->
+          <div><dt>추가 전송량<small>200GB · 1GB당 80원 · 익월 후불</small></dt><dd class="hq-over">+16,000원</dd></div>
+          <div data-q="kai" hidden><dt>카이퍼넷<small>설치 범위 확인 후 안내</small></dt><dd>견적</dd></div>
+          <div data-q="cf" hidden><dt>클라우드플레어<small>보안 세팅 상담 후 안내</small></dt><dd>견적</dd></div>
           <div class="hq-free-row" hidden><dt>결제 할인<small>6개월 5% · 12개월 10%</small></dt><dd class="hq-free">0원</dd></div>
         </dl>
         <!-- patch-615 결제 조건 목록 → 계산 박스 아래 카드 4개(.hq-cond)로 이동 -->
