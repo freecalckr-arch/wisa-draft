@@ -245,3 +245,5 @@ td:first-child, th:first-child { padding-left: 16px; min-width: 128px; }
 .live-f iframe { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; }
 .spec td:first-child { white-space: nowrap; }
 @media (max-width: 767px) { .live-bar a { margin-left: 0; width: 100%; } }
+.side a .badge.new { background: var(--primary-50); color: var(--primary-700); letter-spacing: .02em; }   /* 메뉴 NEW 뱃지 (2차 전달 이후 새로 생기거나 바뀐 페이지) */
+.side a .r { display: flex; align-items: center; gap: 6px; flex: none; }
