@@ -36,7 +36,7 @@
      ===================================================================== */
   /* @region cl-hero : 기존 홈페이지 히어로 재현 (탭 · 타이틀 · 설명 · 버튼) */
   #cl-hero { padding-bottom: 100px; }
-  @media (min-width: 768px) { #cl-hero .sh-text { margin-top: 32px; } }   /* 기존 홈페이지: 탭 아래 ~ 타이틀 72 (PC · 태블릿) */
+  /* patch-758: 탭 아래 ~ 타이틀 = 기존 홈페이지와 같게 (PC 40 · 태블릿 31 · 모바일 26 · 공통 간격 그대로) */
   #cl-hero .cl-btns { display: flex; justify-content: center; gap: 8px; }
   #cl-hero .cl-btns .btn { height: 48px; padding: 12px 20px; border-radius: 8px; font-size: 18px; font-weight: 600; }
   #cl-hero .cl-vis { position: relative; width: calc(100% - 100px); max-width: 1400px; margin: 69px auto 0; container-type: inline-size; }
