@@ -19,53 +19,123 @@
 <style>
   /* =====================================================================
      [개발 전달] 부스터 Cloud (솔루션 · /solution/cloud) 히어로 비주얼 반응형 표현 시안 — 2026-11-26
-     · 2026-11-26 patch-744: 히어로 영상(.rn-cl-hero-img) 위에 모바일 관리자 화면을 겹침 → PC · 태블릿에서
-       PC 관리자 화면 + 모바일 관리자 화면을 함께 보여 줌 (솔루션이 반응형). 새 영상 · 이미지 없음 · 마크업 1개(.cl-ph · HTML 화면) + CSS 만 추가.
-       - 히어로 문구 · 버튼 · 탭 · 영상 2개(PC · 모바일)와 그 크기는 기존 홈페이지 그대로 (이 시안의 히어로 위 부분은 확인용 재현).
-       - 모바일 화면(patch-745 · 영상 캡처 대신 HTML 로 그림 · 검정 프레임 · 상태줄 없음): PC 1324×435 영상 기준 폭 280 · 보이는 높이 308 · 영상 오른쪽 끝에서 140 · 아래 끝에 붙임 (아래는 잘린 채 올라온 모양)
-         흰 화면 · 테두리 1 Gray 200 · 위 모서리 16 · 그림자 0 20 50 rgba(16,24,40,.18) · 바탕 Gray 100
-         머리줄 52 (메뉴 · 부스터 16/700 · 내 사이트 13 Gray 500 · W 프로필 24) → 카드 2개(방문 · 가입 · 흰 바탕 · 모서리 12 · 안 여백 16 · 사이 10 · 바깥 여백 12)
-         카드 = 이름 14.5/600 + 오늘 12 Gray 500 / 수치 28/700 / 지난 7일 평균 대비 12 Gray 500 + 증가 ▲ Error 600 · 감소 ▼ Primary 600 (기존 PC 대시보드 카드와 같은 내용)
-       - 1439 이하: 영상과 같은 비율로 축소 (크기 · 위치 모두 영상 폭 기준 cqw · 1324 = 100cqw)
-       - 모바일(≤767): 기존처럼 모바일 영상만 · 휴대폰 겹침 숨김
-       - 동작 줄이기: 두 영상 모두 정지 (기존 스크립트와 같음)
+     · 2026-11-26 patch-746: 히어로 영상 2개(cloud-hero-pc.mp4 · cloud-hero-mo.mp4)를 HTML 화면으로 바꿈 (.cl-art)
+       → PC · 태블릿 = PC 관리자 대시보드 + 오른쪽 아래 모바일 관리자 화면 겹침 / 모바일 = 모바일 관리자 화면 (솔루션이 반응형임을 보여 줌)
+       - 히어로 문구 · 버튼 · 탭은 기존 홈페이지 그대로 (이 시안의 히어로 위 부분은 확인용 재현)
+       - 화면 내용 · 색 · 이모지(토스 이모지 Tossface)는 기존 영상과 같게 그림. 색은 기존 관리자 화면 고유색 (팔레트 예외):
+         바탕 #d2e9ff · 대시보드 바탕 #eef0f4 · 막대 보라 #8c74e0 · 파랑 #769ddf · 하늘 #76bedf · 꺾은선 #d9d9d9 · 증가 ▲ #e75055 · 감소 ▼ #749edd
+       - 크기: PC = 1400×460 기준(--u = 칸 폭 ÷ 1400)으로 그려 칸 폭에 맞춰 같은 비율로 축소 · 모바일(≤767) = 900×720 기준(가로 꽉 채움)
+       - 모바일 화면(.cl-ph): 흰 화면 · 검정 프레임 · 상태줄 없음 · PC 에서는 1324 기준 오른쪽 끝에서 140 · 폭 280 · 아래 끝에 붙여 잘린 채 올라온 모양
+         바깥 칸(.cl-art)이 overflow hidden 이라 휴대폰 그림자는 파란 박스 아래로 나가지 않음
+       - 동작: 화면에 들어오면 ① 휴대폰이 아래에서 올라옴 ② 숫자 카운트 업 ③ 막대가 아래에서 차오르고 꺾은선이 그려짐
+         이후 반복 = 날개 돈 이모지 둥둥(2.4초) · 방문 수가 3초마다 1~3 씩 오름(PC 카드 · 휴대폰 같이)
+       - 동작 줄이기(prefers-reduced-motion): 모든 동작 없이 마지막 화면만
      ===================================================================== */
-  /* @region cl-hero : 기존 홈페이지 히어로 재현 (탭 · 타이틀 · 설명 · 버튼 · 영상) */
+  /* @region cl-hero : 기존 홈페이지 히어로 재현 (탭 · 타이틀 · 설명 · 버튼) */
   #cl-hero { padding-bottom: 100px; }
   @media (min-width: 768px) { #cl-hero .sh-text { margin-top: 32px; } }   /* 기존 홈페이지: 탭 아래 ~ 타이틀 72 (PC · 태블릿) */
   #cl-hero .cl-btns { display: flex; justify-content: center; gap: 8px; }
   #cl-hero .cl-btns .btn { height: 48px; padding: 12px 20px; border-radius: 8px; font-size: 18px; font-weight: 600; }
   #cl-hero .cl-vis { position: relative; width: calc(100% - 100px); max-width: 1400px; margin: 69px auto 0; container-type: inline-size; }
-  #cl-hero .cl-vis > video { display: block; width: 100%; height: auto; aspect-ratio: 1400 / 460; }
   @media (max-width: 1023px) { #cl-hero .cl-vis { margin-top: 50px; } }
   @media (max-width: 767px) {
     #cl-hero .cl-btns .btn { height: 42px; padding: 10px 16px; font-size: 16px; }
     #cl-hero .cl-vis { width: 100%; margin-top: 50px; }
-    #cl-hero .cl-vis > video { aspect-ratio: 900 / 720; }
   }
   /* @endregion cl-hero */
 
-  /* @region cl-ph (patch-744 · 745) : PC 영상 위 모바일 화면 (HTML) — 크기 = PC 영상 폭 1324 기준 px × --u (영상과 같이 축소) */
-  #cl-hero .cl-ph { --u: calc(100cqw / 1324); position: absolute; right: calc(var(--u) * 140); bottom: 0; width: calc(var(--u) * 280); height: calc(var(--u) * 308); overflow: hidden; z-index: 1;
-    border: 1px solid var(--gray-200); border-bottom: 0; border-radius: calc(var(--u) * 16) calc(var(--u) * 16) 0 0; background: var(--gray-100);
-    box-shadow: 0 calc(var(--u) * 20) calc(var(--u) * 50) rgba(16, 24, 40, .18); text-align: left; letter-spacing: -.01em; }
-  #cl-hero .cl-ph-hd { display: flex; align-items: center; gap: calc(var(--u) * 10); height: calc(var(--u) * 52); padding: 0 calc(var(--u) * 16); background: var(--white); border-bottom: 1px solid var(--gray-200); }
-  #cl-hero .cl-ph-hd svg { width: calc(var(--u) * 20); height: calc(var(--u) * 20); color: var(--gray-900); flex: none; }
-  #cl-hero .cl-ph-hd b { flex: 1; font-size: calc(var(--u) * 16); line-height: calc(var(--u) * 24); font-weight: 700; color: var(--gray-900); }
-  #cl-hero .cl-ph-hd span { font-size: calc(var(--u) * 13); line-height: calc(var(--u) * 20); color: var(--gray-500); }
-  #cl-hero .cl-ph-hd i { display: grid; place-items: center; width: calc(var(--u) * 24); height: calc(var(--u) * 24); border-radius: 50%; background: var(--gray-900); color: var(--white); font-style: normal; font-size: calc(var(--u) * 10); font-weight: 800; }
-  #cl-hero .cl-ph-bd { display: grid; gap: calc(var(--u) * 10); padding: calc(var(--u) * 12); }
-  #cl-hero .cl-ph-cd { padding: calc(var(--u) * 16); border-radius: calc(var(--u) * 12); background: var(--white); text-align: center; }
-  #cl-hero .cl-ph-cd p { display: flex; align-items: center; gap: calc(var(--u) * 6); margin: 0; font-size: calc(var(--u) * 14.5); line-height: calc(var(--u) * 20); font-weight: 600; color: var(--gray-900); }
-  #cl-hero .cl-ph-cd p svg { width: calc(var(--u) * 16); height: calc(var(--u) * 16); color: var(--gray-400); }
-  #cl-hero .cl-ph-cd p small { margin-left: auto; font-size: calc(var(--u) * 12); font-weight: 400; color: var(--gray-500); }
-  #cl-hero .cl-ph-cd strong { display: block; margin: calc(var(--u) * 8) 0 calc(var(--u) * 4); font-size: calc(var(--u) * 28); line-height: calc(var(--u) * 36); font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
-  #cl-hero .cl-ph-cd > span { font-size: calc(var(--u) * 12); line-height: calc(var(--u) * 18); color: var(--gray-500); }
-  #cl-hero .cl-ph-cd em { margin-left: calc(var(--u) * 4); font-style: normal; font-weight: 600; }
-  #cl-hero .cl-ph-cd .inc { color: var(--error-600); }
-  #cl-hero .cl-ph-cd .dec { color: var(--primary-600); }
-  @media (max-width: 767px) { #cl-hero .cl-ph { display: none; } }
-  /* @endregion cl-ph */
+  /* @region cl-art (patch-746) : 히어로 비주얼 HTML — PC 1400×460 기준 · --u = 칸 폭 ÷ 1400 */
+  #cl-hero .cl-art { --u: calc(100cqw / 1400); --p: calc(100cqw / 1324); --red: #e75055; --dn: #749edd;
+    position: relative; aspect-ratio: 1400 / 460; overflow: hidden; border-radius: calc(var(--u) * 34); background: #d2e9ff; text-align: left; letter-spacing: -.01em; color: #222; }
+  #cl-hero .cl-art .em { font-family: "Tossface", sans-serif; font-style: normal; line-height: 1; }
+  #cl-hero .cl-money { position: absolute; left: calc(var(--u) * 44); top: calc(var(--u) * 18); z-index: 3; font-size: calc(var(--u) * 100); font-family: "Tossface", sans-serif; font-style: normal; line-height: 1; animation: cl-money 2.4s ease-in-out infinite; }
+  @keyframes cl-money { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(calc(var(--u) * -8)) rotate(4deg); } }
+
+  /* PC 대시보드 */
+  #cl-hero .cl-pc { position: absolute; left: calc(var(--u) * 95); top: calc(var(--u) * 64); width: calc(var(--u) * 1209); height: calc(var(--u) * 430); display: flex; overflow: hidden; border-radius: calc(var(--u) * 4) calc(var(--u) * 24) 0 0; background: #eef0f4; }
+  #cl-hero .cl-sd { flex: none; width: calc(var(--u) * 209); background: #fff; }
+  #cl-hero .cl-sd-hd { display: flex; align-items: center; justify-content: space-between; height: calc(var(--u) * 49); padding: 0 calc(var(--u) * 16) 0 calc(var(--u) * 50); border-bottom: 1px solid #f0f1f3; font-size: calc(var(--u) * 13); font-weight: 700; }
+  #cl-hero .cl-sd-hd span::after { content: ""; display: inline-block; width: calc(var(--u) * 5); height: calc(var(--u) * 5); margin: 0 0 calc(var(--u) * 3) calc(var(--u) * 7); border: solid #222; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+  #cl-hero .cl-sd-hd i { font-style: normal; font-size: calc(var(--u) * 16); font-weight: 400; color: #c4c7cc; }
+  #cl-hero .cl-sd-bd { display: flex; }
+  #cl-hero .cl-sd ul { margin: 0; padding: 0; list-style: none; }
+  #cl-hero .cl-sd-m { width: calc(var(--u) * 92); padding: calc(var(--u) * 10) 0 0 calc(var(--u) * 16); }
+  #cl-hero .cl-sd-m li { display: flex; align-items: center; gap: calc(var(--u) * 8); height: calc(var(--u) * 44); font-size: calc(var(--u) * 12); color: #666; }
+  #cl-hero .cl-sd-m li .em { font-size: calc(var(--u) * 12); }
+  #cl-hero .cl-sd-m li.on { color: #111; font-weight: 700; }
+  #cl-hero .cl-sd-m li.on b { background: linear-gradient(transparent 60%, #fdf6a8 60%); }
+  #cl-hero .cl-sd-m li.on::after { content: "›"; margin-left: auto; margin-right: calc(var(--u) * 4); color: #c4c7cc; font-weight: 400; }
+  #cl-hero .cl-sd-s { flex: 1; padding: calc(var(--u) * 13) calc(var(--u) * 10) 0 0; }
+  #cl-hero .cl-sd-s li { display: flex; align-items: center; height: calc(var(--u) * 30); padding-left: calc(var(--u) * 10); font-size: calc(var(--u) * 11); font-weight: 600; color: #222; }
+  #cl-hero .cl-sd-s li.g { color: #9a9ea6; font-weight: 400; padding-left: 0; margin-bottom: calc(var(--u) * 3); }
+  #cl-hero .cl-sd-s li.g::before { content: ""; width: calc(var(--u) * 5); height: calc(var(--u) * 5); margin: 0 calc(var(--u) * 8) calc(var(--u) * 3) calc(var(--u) * 2); border: solid #9a9ea6; border-width: 0 1.2px 1.2px 0; transform: rotate(45deg); }
+  #cl-hero .cl-sd-s li.g2 { margin-top: calc(var(--u) * 23); }
+  #cl-hero .cl-sd-s li.on { border-radius: calc(var(--u) * 6); background: #ebf7fd; color: #3a9bd9; }
+  #cl-hero .cl-mn { flex: 1; display: grid; grid-template-columns: repeat(6, 1fr); gap: calc(var(--u) * 10); align-content: start; padding: calc(var(--u) * 21) calc(var(--u) * 18) 0 calc(var(--u) * 20); }
+  #cl-hero .cl-kp { height: calc(var(--u) * 121); padding: calc(var(--u) * 14) calc(var(--u) * 14) 0; border-radius: calc(var(--u) * 10); background: #fff; text-align: center; }
+  #cl-hero .cl-kp p, #cl-hero .cl-ph-cd p { display: flex; align-items: center; gap: calc(var(--u) * 6); margin: 0; height: calc(var(--u) * 20); font-size: calc(var(--u) * 12); font-weight: 600; white-space: nowrap; }
+  #cl-hero .cl-kp p .em { font-size: calc(var(--u) * 11); }
+  #cl-hero .cl-kp p small, #cl-hero .cl-ph-cd p small { margin-left: auto; font-size: calc(var(--u) * 10); font-weight: 400; color: #444; }
+  #cl-hero .cl-kp strong { display: block; margin: calc(var(--u) * 16) 0 calc(var(--u) * 13); font-size: calc(var(--u) * 20); line-height: calc(var(--u) * 24); font-weight: 700; color: #0d0d0d; font-variant-numeric: tabular-nums; }
+  #cl-hero .cl-kp > span { font-size: calc(var(--u) * 10); color: #888; white-space: nowrap; }
+  #cl-hero .cl-art em.up, #cl-hero .cl-art em.dn, #cl-hero .cl-kp > span b { margin-left: calc(var(--u) * 6); font-style: normal; color: var(--red); }
+  #cl-hero .cl-art em.dn { color: var(--dn); }
+  #cl-hero .cl-kp > span b { color: #222; }
+  #cl-hero .cl-cd { position: relative; grid-column: span 2; height: calc(var(--u) * 300); border-radius: calc(var(--u) * 10); background: #fff; }
+  #cl-hero .cl-cd-hd { display: flex; align-items: center; justify-content: space-between; height: calc(var(--u) * 64); padding: 0 calc(var(--u) * 20); font-size: calc(var(--u) * 13); font-weight: 700; }
+  #cl-hero .cl-tg { display: flex; padding: calc(var(--u) * 2); border-radius: calc(var(--u) * 6); background: #f5f7f9; }
+  #cl-hero .cl-tg i { width: calc(var(--u) * 44); height: calc(var(--u) * 22); display: grid; place-items: center; border-radius: calc(var(--u) * 5); font-style: normal; font-size: calc(var(--u) * 10); font-weight: 400; color: #999; }
+  #cl-hero .cl-tg i:first-child { background: #fff; color: #222; font-weight: 700; box-shadow: 0 1px 2px rgba(16, 24, 40, .1); }
+  #cl-hero .cl-cd svg { position: absolute; left: 0; top: 0; width: 100%; height: calc(var(--u) * 260); overflow: visible; }
+  #cl-hero .cl-cd svg text { font-size: 10px; fill: #a3a6ab; }
+  #cl-hero .cl-cd svg .gl { stroke: #f1f2f4; stroke-width: 1; }
+  #cl-hero .cl-cd svg rect { transform-box: fill-box; transform-origin: 50% 100%; }
+  #cl-hero .cl-cd svg .ln { fill: none; stroke: #d9d9d9; stroke-width: 1.6; stroke-linejoin: round; stroke-dasharray: 1; }
+  #cl-hero .cl-rk { margin: 0; padding: calc(var(--u) * 4) calc(var(--u) * 20) 0; list-style: none; }
+  #cl-hero .cl-rk li { display: flex; align-items: center; gap: calc(var(--u) * 15); height: calc(var(--u) * 42); font-size: calc(var(--u) * 12); color: #222; }
+  #cl-hero .cl-rk img { width: calc(var(--u) * 33); height: calc(var(--u) * 33); border-radius: calc(var(--u) * 4); object-fit: cover; background: #f2f3f5; }
+  #cl-hero .cl-rk b { margin-left: auto; font-weight: 700; }
+
+  /* 모바일 관리자 화면 (PC 에서는 오른쪽 아래 겹침) — --p = PC 1324 기준 1px */
+  #cl-hero .cl-ph { position: absolute; right: calc(var(--p) * 140); bottom: 0; z-index: 2; width: calc(var(--p) * 280); height: calc(var(--p) * 308); overflow: hidden;
+    border-radius: calc(var(--p) * 16) calc(var(--p) * 16) 0 0; background: #eef0f4; box-shadow: 0 calc(var(--p) * 16) calc(var(--p) * 44) rgba(16, 24, 40, .16); }
+  #cl-hero .cl-ph-hd { display: flex; align-items: center; gap: calc(var(--p) * 10); height: calc(var(--p) * 52); padding: 0 calc(var(--p) * 16); background: #fff; }
+  #cl-hero .cl-ph-hd svg { width: calc(var(--p) * 20); height: calc(var(--p) * 20); color: #222; flex: none; }
+  #cl-hero .cl-ph-hd b { flex: 1; font-size: calc(var(--p) * 16); line-height: calc(var(--p) * 24); font-weight: 700; }
+  #cl-hero .cl-ph-hd span { font-size: calc(var(--p) * 13); color: #888; }
+  #cl-hero .cl-ph-hd i { display: grid; place-items: center; width: calc(var(--p) * 24); height: calc(var(--p) * 24); border-radius: 50%; background: #111; color: #fff; font-style: normal; font-size: calc(var(--p) * 10); font-weight: 800; }
+  #cl-hero .cl-ph-bd { display: grid; gap: calc(var(--p) * 10); padding: calc(var(--p) * 16); }
+  #cl-hero .cl-ph-cd { padding: calc(var(--p) * 16); border-radius: calc(var(--p) * 12); background: #fff; text-align: center; }
+  #cl-hero .cl-ph-cd p { gap: calc(var(--p) * 8); height: calc(var(--p) * 20); font-size: calc(var(--p) * 13); }
+  #cl-hero .cl-ph-cd p .em { font-size: calc(var(--p) * 12); }
+  #cl-hero .cl-ph-cd p small { font-size: calc(var(--p) * 12); color: #222; }
+  #cl-hero .cl-ph-cd strong { display: block; margin: calc(var(--p) * 8) 0 calc(var(--p) * 6); font-size: calc(var(--p) * 28); line-height: calc(var(--p) * 36); font-weight: 700; color: #0d0d0d; font-variant-numeric: tabular-nums; }
+  #cl-hero .cl-ph-cd > span { font-size: calc(var(--p) * 12); color: #888; }
+  #cl-hero .cl-ph-cd em.up, #cl-hero .cl-ph-cd em.dn { margin-left: calc(var(--p) * 8); }
+
+  /* 모바일(≤767): 900×720 기준 · 파란 박스 좌우 60 · 모바일 화면만 */
+  @media (max-width: 767px) {
+    #cl-hero .cl-art { --p: calc(100cqw * 625 / 900 / 280); aspect-ratio: 900 / 720; border-radius: 0; background: none; }
+    #cl-hero .cl-art::before { content: ""; position: absolute; inset: 0 calc(100cqw * 60 / 900) calc(100cqw * -60 / 900); border-radius: calc(100cqw * 50 / 900); background: #d2e9ff; }
+    #cl-hero .cl-pc { display: none; }
+    #cl-hero .cl-ph { left: calc(100cqw * 138 / 900); right: auto; top: calc(100cqw * 74 / 900); bottom: auto; height: calc(100cqw * 700 / 900); border-radius: calc(var(--p) * 14) calc(var(--p) * 14) 0 0; box-shadow: none; }
+    #cl-hero .cl-money { left: calc(100cqw * 12 / 900); top: calc(100cqw * 16 / 900); font-size: calc(100cqw * 150 / 900); }
+  }
+
+  /* 동작: .cl-art.go 가 붙으면 시작 (화면에 들어올 때 · 스크립트 cl-art) */
+  #cl-hero .cl-art:not(.go) .cl-ph { transform: translateY(40%); opacity: 0; }
+  #cl-hero .cl-ph { transition: transform .9s cubic-bezier(.2, .8, .2, 1) .25s, opacity .6s ease .25s; }
+  #cl-hero .cl-art:not(.go) .cl-cd svg rect { transform: scaleY(0); }
+  #cl-hero .cl-cd svg rect { transition: transform .7s cubic-bezier(.3, .8, .3, 1) calc(var(--i) * 60ms + .2s); }
+  #cl-hero .cl-art:not(.go) .cl-cd svg .ln { stroke-dashoffset: 1; }
+  #cl-hero .cl-cd svg .ln { stroke-dashoffset: 0; transition: stroke-dashoffset 1s ease .9s; }
+  #cl-hero .cl-art .tick { animation: cl-tick .6s ease; }
+  @keyframes cl-tick { 0% { color: #3a9bd9; } 100% { color: #0d0d0d; } }
+  @media (prefers-reduced-motion: reduce) {
+    #cl-hero .cl-money, #cl-hero .cl-art .tick { animation: none; }
+    #cl-hero .cl-art .cl-ph, #cl-hero .cl-art .cl-cd svg rect, #cl-hero .cl-art .cl-cd svg .ln { transform: none !important; opacity: 1 !important; stroke-dashoffset: 0 !important; transition: none; }
+  }
+  /* @endregion cl-art */
 </style>
 <style>
   #cl-hero .tab-page .tp-short { display: none; }
@@ -137,22 +207,56 @@
     </div>
     <div class="cl-btns rv" style="--d:240ms"><a class="btn" href="https://iambooster.mywisa.com" target="_blank" rel="noopener">쇼핑몰 데모</a><a class="btn btn-dark" href="#top">무료로 시작</a></div>
   </div>
-  <div class="cl-vis rv" style="--d:320ms">
-    <video autoplay muted loop playsinline width="1400" height="460" role="img" aria-label="WISA 관리자 대시보드 화면 (PC · 모바일)">
-      <source src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-pc.mp4" type="video/mp4" media="(min-width: 768px)">
-      <source src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-mo.mp4" type="video/mp4">
-    </video>
-    <!-- [개발 전달] patch-744 · 745 모바일 관리자 화면 (PC · 태블릿만) · 영상 캡처가 아니라 HTML 로 그림 -->
-    <div class="cl-ph" aria-hidden="true">
-      <div class="cl-ph-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b>부스터</b><span>내 사이트</span><i>W.</i></div>
-      <div class="cl-ph-bd">
-        <div class="cl-ph-cd"><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>방문<small>오늘</small></p><strong>2,096</strong><span>지난 7일 평균 대비<em class="inc">▲ 22%</em></span></div>
-        <div class="cl-ph-cd"><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>가입<small>오늘</small></p><strong>98</strong><span>지난 7일 평균 대비<em class="dec">▼ 10%</em></span></div>
+  <div class="cl-vis">
+    <!-- [개발 전달] patch-746 히어로 비주얼 = HTML (기존 영상 2개 대신) · PC 대시보드 + 모바일 화면 · 모바일(≤767)은 모바일 화면만 -->
+    <div class="cl-art" role="img" aria-label="WISA 관리자 대시보드 화면 (PC · 모바일)">
+      <i class="cl-money" aria-hidden="true">💸</i>
+      <div class="cl-pc" aria-hidden="true">
+        <aside class="cl-sd">
+          <div class="cl-sd-hd"><span>부스터</span><i>«</i></div>
+          <div class="cl-sd-bd">
+            <ul class="cl-sd-m"><li class="on"><i class="em">🏠</i><b>홈</b></li><li><i class="em">🛍️</i>상품</li><li><i class="em">📦</i>주문</li><li><i class="em">👤</i>회원</li><li><i class="em">📝</i>게시판</li><li><i class="em">🎨</i>디자인</li><li><i class="em">🎁</i>이벤트</li><li><i class="em">🤍</i>마케팅</li></ul>
+            <ul class="cl-sd-s"><li class="g">홈</li><li class="on">대시보드</li><li>내 사이트</li><li>위사 홈페이지</li><li class="g g2">즐겨찾기</li><li>상품등록</li><li>이벤트 현황</li><li>매출분석</li></ul>
+          </div>
+        </aside>
+        <div class="cl-mn">
+          <div class="cl-kp"><p><i class="em">👀</i>방문<small>오늘</small></p><strong data-n="2096">2,096</strong><span>지난 7일 평균 대비<em class="up">▲ 22%</em></span></div>
+          <div class="cl-kp"><p><i class="em">👤</i>가입<small>오늘</small></p><strong data-n="98">98</strong><span>지난 7일 평균 대비<em class="dn">▼ 10%</em></span></div>
+          <div class="cl-kp"><p><i class="em">📦</i>주문<small>오늘</small></p><strong data-n="540">540</strong><span>지난 7일 평균 대비<em class="up">▲ 10%</em></span></div>
+          <div class="cl-kp"><p><i class="em">💵</i>매출<small>오늘</small></p><strong data-n="5318200">5,318,200</strong><span>지난 7일 평균 대비<em class="up">▲ 10%</em></span></div>
+          <div class="cl-kp"><p><i class="em">⚠️</i>미처리 클레임<small>현재</small></p><strong data-n="2">2</strong><span>지난 7일 접수 클레임<b>11</b></span></div>
+          <div class="cl-kp"><p><i class="em">💬</i>답변대기<small>현재</small></p><strong data-n="3">3</strong><span>지난 7일 평균 답변시간<b>5분</b></span></div>
+          <div class="cl-cd"><div class="cl-cd-hd">방문 현황<span class="cl-tg"><i>7일</i><i>30일</i></span></div><svg viewBox="0 0 314 260" aria-hidden="true"><line class="gl" x1="46" x2="293" y1="73" y2="73"/><text x="22" y="76.5">200</text><line class="gl" x1="46" x2="293" y1="107" y2="107"/><text x="22" y="110.5">150</text><line class="gl" x1="46" x2="293" y1="141" y2="141"/><text x="22" y="144.5">100</text><line class="gl" x1="46" x2="293" y1="175" y2="175"/><text x="22" y="178.5">50</text><line class="gl" x1="46" x2="293" y1="209" y2="209"/><text x="22" y="212.5">0</text><rect x="75.5" y="170.9" width="9" height="38.1" rx="0" fill="#8c74e0" style="--i:0"/><rect x="75.5" y="130.1" width="9" height="40.8" rx="0" fill="#769ddf" style="--i:0"/><rect x="75.5" y="93.4" width="9" height="36.7" rx="2" fill="#76bedf" style="--i:0"/><text x="80" y="228" text-anchor="middle">1일</text><rect x="106" y="190" width="9" height="19" rx="0" fill="#8c74e0" style="--i:1"/><rect x="106" y="150.5" width="9" height="39.4" rx="0" fill="#769ddf" style="--i:1"/><rect x="106" y="113.8" width="9" height="36.7" rx="2" fill="#76bedf" style="--i:1"/><text x="110.5" y="228" text-anchor="middle">2일</text><rect x="136.5" y="170.9" width="9" height="38.1" rx="0" fill="#8c74e0" style="--i:2"/><rect x="136.5" y="150.5" width="9" height="20.4" rx="0" fill="#769ddf" style="--i:2"/><rect x="136.5" y="112.4" width="9" height="38.1" rx="2" fill="#76bedf" style="--i:2"/><text x="141" y="228" text-anchor="middle">3일</text><rect x="167" y="170.9" width="9" height="38.1" rx="0" fill="#8c74e0" style="--i:3"/><rect x="167" y="130.1" width="9" height="40.8" rx="0" fill="#769ddf" style="--i:3"/><rect x="167" y="93.4" width="9" height="36.7" rx="2" fill="#76bedf" style="--i:3"/><text x="171.5" y="228" text-anchor="middle">4일</text><rect x="197.5" y="179.1" width="9" height="29.9" rx="0" fill="#8c74e0" style="--i:4"/><rect x="197.5" y="141" width="9" height="38.1" rx="0" fill="#769ddf" style="--i:4"/><rect x="197.5" y="113.8" width="9" height="27.2" rx="2" fill="#76bedf" style="--i:4"/><text x="202" y="228" text-anchor="middle">5일</text><rect x="228" y="170.9" width="9" height="38.1" rx="0" fill="#8c74e0" style="--i:5"/><rect x="228" y="130.1" width="9" height="40.8" rx="0" fill="#769ddf" style="--i:5"/><rect x="228" y="93.4" width="9" height="36.7" rx="2" fill="#76bedf" style="--i:5"/><text x="232.5" y="228" text-anchor="middle">6일</text><rect x="258.5" y="170.9" width="9" height="38.1" rx="0" fill="#8c74e0" style="--i:6"/><rect x="258.5" y="134.2" width="9" height="36.7" rx="0" fill="#769ddf" style="--i:6"/><rect x="258.5" y="102.2" width="9" height="32" rx="2" fill="#76bedf" style="--i:6"/><text x="263" y="228" text-anchor="middle">7일</text><path class="ln" pathLength="1" d="M80,121.3 L110.5,131.5 L141,124 L171.5,134.2 L202,130.8 L232.5,136.2 L263,132.8"/></svg></div>
+          <div class="cl-cd"><div class="cl-cd-hd">주문 현황<span class="cl-tg"><i>7일</i><i>30일</i></span></div><svg viewBox="0 0 314 260" aria-hidden="true"><line class="gl" x1="46" x2="293" y1="73" y2="73"/><text x="22" y="76.5">200</text><line class="gl" x1="46" x2="293" y1="107" y2="107"/><text x="22" y="110.5">150</text><line class="gl" x1="46" x2="293" y1="141" y2="141"/><text x="22" y="144.5">100</text><line class="gl" x1="46" x2="293" y1="175" y2="175"/><text x="22" y="178.5">50</text><line class="gl" x1="46" x2="293" y1="209" y2="209"/><text x="22" y="212.5">0</text><rect x="75.5" y="150.5" width="9" height="58.5" rx="0" fill="#769ddf" style="--i:0"/><rect x="75.5" y="93.4" width="9" height="57.1" rx="2" fill="#76bedf" style="--i:0"/><text x="80" y="228" text-anchor="middle">1일</text><rect x="106" y="170.2" width="9" height="38.8" rx="0" fill="#769ddf" style="--i:1"/><rect x="106" y="132.2" width="9" height="38.1" rx="2" fill="#76bedf" style="--i:1"/><text x="110.5" y="228" text-anchor="middle">2일</text><rect x="136.5" y="187.9" width="9" height="21.1" rx="0" fill="#769ddf" style="--i:2"/><rect x="136.5" y="151.2" width="9" height="36.7" rx="2" fill="#76bedf" style="--i:2"/><text x="141" y="228" text-anchor="middle">3일</text><rect x="167" y="150.5" width="9" height="58.5" rx="0" fill="#769ddf" style="--i:3"/><rect x="167" y="93.4" width="9" height="57.1" rx="2" fill="#76bedf" style="--i:3"/><text x="171.5" y="228" text-anchor="middle">4일</text><rect x="197.5" y="170.2" width="9" height="38.8" rx="0" fill="#769ddf" style="--i:4"/><rect x="197.5" y="142.4" width="9" height="27.9" rx="2" fill="#76bedf" style="--i:4"/><text x="202" y="228" text-anchor="middle">5일</text><rect x="228" y="150.5" width="9" height="58.5" rx="0" fill="#769ddf" style="--i:5"/><rect x="228" y="93.4" width="9" height="57.1" rx="2" fill="#76bedf" style="--i:5"/><text x="232.5" y="228" text-anchor="middle">6일</text><rect x="258.5" y="170.2" width="9" height="38.8" rx="0" fill="#769ddf" style="--i:6"/><rect x="258.5" y="141" width="9" height="29.2" rx="2" fill="#76bedf" style="--i:6"/><text x="263" y="228" text-anchor="middle">7일</text><path class="ln" pathLength="1" d="M80,150.5 L110.5,162.1 L141,154.6 L171.5,165.5 L202,161.4 L232.5,167.5 L263,165.5"/></svg></div>
+          <div class="cl-cd"><div class="cl-cd-hd">판매 순위<span class="cl-tg"><i>오늘</i><i>한달</i></span></div><ul class="cl-rk"><li><img src="assets/geo/fashion/sweat-grey-w.webp" alt="">top grey<b>126</b></li><li><img src="assets/geo/fashion/knit-navy-w.webp" alt="">Mock neck knit_Navy<b>43</b></li><li><img src="assets/geo/fashion/p-tote.webp" alt="">Leo bag latte<b>36</b></li><li><img src="assets/geo/fashion/p-cap.webp" alt="">Ball cap ivory<b>27</b></li></ul></div>
+        </div>
+      </div>
+      <div class="cl-ph" aria-hidden="true">
+        <div class="cl-ph-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b>부스터</b><span>내 사이트</span><i>W.</i></div>
+        <div class="cl-ph-bd">
+          <div class="cl-ph-cd"><p><i class="em">👀</i>방문<small>오늘</small></p><strong data-n="2096">2,096</strong><span>지난 7일 평균 대비<em class="up">▲ 22%</em></span></div>
+          <div class="cl-ph-cd"><p><i class="em">👤</i>가입<small>오늘</small></p><strong data-n="98">98</strong><span>지난 7일 평균 대비<em class="dn">▼ 10%</em></span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-<script>if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('#cl-hero video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });</script>
+<script>
+/* @region cl-art (patch-746) : 화면에 들어오면 .go → 휴대폰 올라옴 · 숫자 카운트 업 · 막대 · 꺾은선 / 이후 방문 수 3초마다 오름 */
+(() => {
+  const art = document.querySelector('#cl-hero .cl-art'); if (!art) return;
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nums = [...art.querySelectorAll('[data-n]')], fmt = n => Math.round(n).toLocaleString('en-US');
+  const count = () => { const t0 = performance.now(); const step = t => { const k = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - k, 3); nums.forEach(el => el.textContent = fmt(el.dataset.n * e)); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
+  const visits = nums.filter(el => el.dataset.n === '2096');
+  const live = () => setInterval(() => { if (document.hidden) return; const n = +visits[0].dataset.n + 1 + Math.floor(Math.random() * 3); visits.forEach(el => { el.dataset.n = n; el.textContent = fmt(n); el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }); }, 3000);
+  if (still) { art.classList.add('go'); return; }
+  nums.forEach(el => el.textContent = '0');
+  const io = new IntersectionObserver(es => { if (!es[0].isIntersecting) return; io.disconnect(); art.classList.add('go'); count(); setTimeout(live, 1800); }, { threshold: .35 });
+  io.observe(art);
+})();
+/* @endregion cl-art */
+</script>
 <!-- @endregion -->
 
 </main>
