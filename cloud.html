@@ -22,7 +22,7 @@
      · 2026-11-26 patch-746: 히어로 영상 2개(cloud-hero-pc.mp4 · cloud-hero-mo.mp4)를 HTML 화면으로 바꿈 (.cl-art)
        → PC · 태블릿 = PC 관리자 대시보드 + 오른쪽 아래 모바일 관리자 화면 겹침 / 모바일 = 모바일 관리자 화면 (솔루션이 반응형임을 보여 줌)
        - 히어로 문구 · 버튼 · 탭은 기존 홈페이지 그대로 (이 시안의 히어로 위 부분은 확인용 재현)
-       - 화면 내용 · 색 · 이모지(토스 이모지 Tossface · 날개 돈은 노토 애니메이션 이모지 GIF assets/geo/cloud/money-wings.gif · patch-747)는 기존 영상과 같게 그림. 색은 기존 관리자 화면 고유색 (팔레트 예외):
+       - 화면 내용 · 색 · 이모지(토스 이모지 Tossface · 날개 돈은 노토 애니메이션 이모지 assets/geo/cloud/money-wings.webp (GIF 대체) · patch-747)는 기존 영상과 같게 그림. 색은 기존 관리자 화면 고유색 (팔레트 예외):
          바탕 #d2e9ff · 대시보드 바탕 #eef0f4 · 막대 보라 #8c74e0 · 파랑 #769ddf · 하늘 #76bedf · 꺾은선 #d9d9d9 · 증가 ▲ #e75055 · 감소 ▼ #749edd
        - 크기: PC = 1400×460 기준(--u = 칸 폭 ÷ 1400)으로 그려 칸 폭에 맞춰 같은 비율로 축소 · 모바일(≤767) = 900×720 기준(가로 꽉 채움)
        - 모바일 화면(.cl-ph): 흰 화면 · 검정 프레임 · 상태줄 없음 · PC 에서는 1324 기준 오른쪽 끝에서 140 · 폭 280 · 아래 끝에 붙여 잘린 채 올라온 모양
@@ -209,7 +209,7 @@
   <div class="cl-vis">
     <!-- [개발 전달] patch-746 히어로 비주얼 = HTML (기존 영상 2개 대신) · PC 대시보드 + 모바일 화면 · 모바일(≤767)은 모바일 화면만 -->
     <div class="cl-art" role="img" aria-label="WISA 관리자 대시보드 화면 (PC · 모바일)">
-      <img class="cl-money" src="assets/geo/cloud/money-wings.gif" alt="" width="512" height="512">
+      <picture><source srcset="assets/geo/cloud/money-wings.webp" type="image/webp"><img class="cl-money" src="assets/geo/cloud/money-wings.gif" alt="" width="512" height="512"></picture>   <!-- 노토 애니메이션 이모지 1f4b8 (fonts.gstatic.com/s/e/notoemoji/latest/1f4b8/512.webp · .gif) -->
       <div class="cl-pc" aria-hidden="true">
         <aside class="cl-sd">
           <div class="cl-sd-hd"><span>부스터</span><i>«</i></div>
