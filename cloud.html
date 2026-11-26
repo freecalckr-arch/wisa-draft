@@ -19,12 +19,13 @@
 <style>
   /* =====================================================================
      [개발 전달] 부스터 Cloud (솔루션 · /solution/cloud) 히어로 비주얼 반응형 표현 시안 — 2026-11-26
-     · 2026-11-26 patch-744: 히어로 영상(.rn-cl-hero-img) 위에 기존 모바일 영상(cloud-hero-mo.mp4)을 휴대폰 화면으로 잘라 겹침 → PC · 태블릿에서
-       PC 관리자 화면 + 모바일 관리자 화면을 함께 보여 줌 (솔루션이 반응형). 새 영상 · 이미지 없음 · 마크업 1개(.cl-ph) + CSS 만 추가.
+     · 2026-11-26 patch-744: 히어로 영상(.rn-cl-hero-img) 위에 모바일 관리자 화면을 겹침 → PC · 태블릿에서
+       PC 관리자 화면 + 모바일 관리자 화면을 함께 보여 줌 (솔루션이 반응형). 새 영상 · 이미지 없음 · 마크업 1개(.cl-ph · HTML 화면) + CSS 만 추가.
        - 히어로 문구 · 버튼 · 탭 · 영상 2개(PC · 모바일)와 그 크기는 기존 홈페이지 그대로 (이 시안의 히어로 위 부분은 확인용 재현).
-       - 휴대폰: PC 1324×435 영상 기준 폭 291(테두리 포함) · 보이는 높이 308 · 영상 오른쪽 끝에서 134 · 아래 끝에 붙임 (아래는 잘린 채 올라온 모양)
-         테두리 8 Gray 800 · 위 모서리 36 · 상태줄 높이 28(시간 · 노치) · 그림자 0 20 50 rgba(16,24,40,.25)
-         안의 모바일 영상 = 900×720 영상을 0.44 배(396×317) · 왼쪽 −70 · 위 −21 (영상 속 휴대폰 화면만 보이게 자름)
+       - 모바일 화면(patch-745 · 영상 캡처 대신 HTML 로 그림 · 검정 프레임 · 상태줄 없음): PC 1324×435 영상 기준 폭 280 · 보이는 높이 308 · 영상 오른쪽 끝에서 140 · 아래 끝에 붙임 (아래는 잘린 채 올라온 모양)
+         흰 화면 · 테두리 1 Gray 200 · 위 모서리 16 · 그림자 0 20 50 rgba(16,24,40,.18) · 바탕 Gray 100
+         머리줄 52 (메뉴 · 부스터 16/700 · 내 사이트 13 Gray 500 · W 프로필 24) → 카드 2개(방문 · 가입 · 흰 바탕 · 모서리 12 · 안 여백 16 · 사이 10 · 바깥 여백 12)
+         카드 = 이름 14.5/600 + 오늘 12 Gray 500 / 수치 28/700 / 지난 7일 평균 대비 12 Gray 500 + 증가 ▲ Error 600 · 감소 ▼ Primary 600 (기존 PC 대시보드 카드와 같은 내용)
        - 1439 이하: 영상과 같은 비율로 축소 (크기 · 위치 모두 영상 폭 기준 cqw · 1324 = 100cqw)
        - 모바일(≤767): 기존처럼 모바일 영상만 · 휴대폰 겹침 숨김
        - 동작 줄이기: 두 영상 모두 정지 (기존 스크립트와 같음)
@@ -44,15 +45,25 @@
   }
   /* @endregion cl-hero */
 
-  /* @region cl-ph (patch-744) : PC 영상 위 휴대폰 — 크기 · 위치 = PC 영상 폭 1324 기준 px ÷ 13.24 = cqw */
-  #cl-hero .cl-ph { position: absolute; right: 10.12cqw; bottom: 0; width: 21.98cqw; height: 23.26cqw; overflow: hidden; z-index: 1;
-    border: .6cqw solid var(--gray-800); border-bottom: 0; border-radius: 2.72cqw 2.72cqw 0 0; background: var(--white);
-    box-shadow: 0 1.51cqw 3.78cqw rgba(16, 24, 40, .25); }
-  #cl-hero .cl-ph video { position: absolute; left: -5.25cqw; top: -1.6cqw; width: 29.91cqw; height: 23.93cqw; max-width: none; }
-  #cl-hero .cl-ph-bar { position: absolute; inset: 0 0 auto; z-index: 1; display: flex; justify-content: space-between; align-items: center; height: 2.11cqw; padding: 0 1.66cqw; background: var(--white);
-    font-size: .83cqw; font-weight: 600; color: var(--gray-900); font-variant-numeric: tabular-nums; }
-  #cl-hero .cl-ph-bar i { position: absolute; left: 50%; top: .3cqw; width: 5.29cqw; height: 1.36cqw; border-radius: 99px; background: var(--gray-800); transform: translateX(-50%); }
-  #cl-hero .cl-ph-bar svg { width: 2.6cqw; height: auto; color: var(--gray-900); }
+  /* @region cl-ph (patch-744 · 745) : PC 영상 위 모바일 화면 (HTML) — 크기 = PC 영상 폭 1324 기준 px × --u (영상과 같이 축소) */
+  #cl-hero .cl-ph { --u: calc(100cqw / 1324); position: absolute; right: calc(var(--u) * 140); bottom: 0; width: calc(var(--u) * 280); height: calc(var(--u) * 308); overflow: hidden; z-index: 1;
+    border: 1px solid var(--gray-200); border-bottom: 0; border-radius: calc(var(--u) * 16) calc(var(--u) * 16) 0 0; background: var(--gray-100);
+    box-shadow: 0 calc(var(--u) * 20) calc(var(--u) * 50) rgba(16, 24, 40, .18); text-align: left; letter-spacing: -.01em; }
+  #cl-hero .cl-ph-hd { display: flex; align-items: center; gap: calc(var(--u) * 10); height: calc(var(--u) * 52); padding: 0 calc(var(--u) * 16); background: var(--white); border-bottom: 1px solid var(--gray-200); }
+  #cl-hero .cl-ph-hd svg { width: calc(var(--u) * 20); height: calc(var(--u) * 20); color: var(--gray-900); flex: none; }
+  #cl-hero .cl-ph-hd b { flex: 1; font-size: calc(var(--u) * 16); line-height: calc(var(--u) * 24); font-weight: 700; color: var(--gray-900); }
+  #cl-hero .cl-ph-hd span { font-size: calc(var(--u) * 13); line-height: calc(var(--u) * 20); color: var(--gray-500); }
+  #cl-hero .cl-ph-hd i { display: grid; place-items: center; width: calc(var(--u) * 24); height: calc(var(--u) * 24); border-radius: 50%; background: var(--gray-900); color: var(--white); font-style: normal; font-size: calc(var(--u) * 10); font-weight: 800; }
+  #cl-hero .cl-ph-bd { display: grid; gap: calc(var(--u) * 10); padding: calc(var(--u) * 12); }
+  #cl-hero .cl-ph-cd { padding: calc(var(--u) * 16); border-radius: calc(var(--u) * 12); background: var(--white); text-align: center; }
+  #cl-hero .cl-ph-cd p { display: flex; align-items: center; gap: calc(var(--u) * 6); margin: 0; font-size: calc(var(--u) * 14.5); line-height: calc(var(--u) * 20); font-weight: 600; color: var(--gray-900); }
+  #cl-hero .cl-ph-cd p svg { width: calc(var(--u) * 16); height: calc(var(--u) * 16); color: var(--gray-400); }
+  #cl-hero .cl-ph-cd p small { margin-left: auto; font-size: calc(var(--u) * 12); font-weight: 400; color: var(--gray-500); }
+  #cl-hero .cl-ph-cd strong { display: block; margin: calc(var(--u) * 8) 0 calc(var(--u) * 4); font-size: calc(var(--u) * 28); line-height: calc(var(--u) * 36); font-weight: 700; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  #cl-hero .cl-ph-cd > span { font-size: calc(var(--u) * 12); line-height: calc(var(--u) * 18); color: var(--gray-500); }
+  #cl-hero .cl-ph-cd em { margin-left: calc(var(--u) * 4); font-style: normal; font-weight: 600; }
+  #cl-hero .cl-ph-cd .inc { color: var(--error-600); }
+  #cl-hero .cl-ph-cd .dec { color: var(--primary-600); }
   @media (max-width: 767px) { #cl-hero .cl-ph { display: none; } }
   /* @endregion cl-ph */
 </style>
@@ -131,10 +142,13 @@
       <source src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-pc.mp4" type="video/mp4" media="(min-width: 768px)">
       <source src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-mo.mp4" type="video/mp4">
     </video>
-    <!-- [개발 전달] patch-744 휴대폰 화면 (PC · 태블릿만) · 안의 영상은 기존 모바일 영상 그대로 -->
+    <!-- [개발 전달] patch-744 · 745 모바일 관리자 화면 (PC · 태블릿만) · 영상 캡처가 아니라 HTML 로 그림 -->
     <div class="cl-ph" aria-hidden="true">
-      <div class="cl-ph-bar"><span>9:41</span><i></i><svg viewBox="0 0 34 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="19" y="1" width="13" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="21" y="3" width="8" height="6" rx="1.2"/></svg></div>
-      <video autoplay muted loop playsinline src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-mo.mp4"></video>
+      <div class="cl-ph-hd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b>부스터</b><span>내 사이트</span><i>W.</i></div>
+      <div class="cl-ph-bd">
+        <div class="cl-ph-cd"><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>방문<small>오늘</small></p><strong>2,096</strong><span>지난 7일 평균 대비<em class="inc">▲ 22%</em></span></div>
+        <div class="cl-ph-cd"><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>가입<small>오늘</small></p><strong>98</strong><span>지난 7일 평균 대비<em class="dec">▼ 10%</em></span></div>
+      </div>
     </div>
   </div>
 </section>
