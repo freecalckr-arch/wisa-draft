@@ -25,7 +25,7 @@
        - 화면 내용 · 색 · 이모지(토스 이모지 Tossface · 날개 돈은 노토 애니메이션 이모지 assets/geo/cloud/money-wings.webp (GIF 대체) · patch-747)는 기존 영상과 같게 그림. 색은 기존 관리자 화면 고유색 (팔레트 예외):
          바탕 #d2e9ff · 대시보드 바탕 #eef0f4 · 막대 보라 #8c74e0 · 파랑 #769ddf · 하늘 #76bedf · 꺾은선 #d9d9d9 · 증가 ▲ #e75055 · 감소 ▼ #749edd
        - 크기: PC = 1400×460 기준(--u = 칸 폭 ÷ 1400)으로 그려 칸 폭에 맞춰 같은 비율로 축소 · 모바일(≤767) = 900×720 기준(가로 꽉 채움) · 모바일 화면은 폭 560(900 기준) · 안 글자 · 요소는 --p = 칸 폭 ÷ 480 (390 에서 0.81 배 · patch-751)
-       - 모바일 화면(.cl-ph): 흰 화면 · 검정 프레임 · 상태줄 없음 · PC 에서는 1324 기준 오른쪽 끝에서 155 · 폭 250 (patch-748 · 30 줄임 · 모바일 폭에서도 같이 줄고 가운데 정렬) · 아래 끝에 붙여 잘린 채 올라온 모양
+       - 모바일 화면(.cl-ph): 흰 화면 · 검정 프레임 · 상태줄 없음 · PC 에서는 1324 기준 오른쪽 끝에서 135 (patch-752 · 오른쪽으로 20) · 폭 250 (patch-748 · 30 줄임 · 모바일 폭에서도 같이 줄고 가운데 정렬) · 아래 끝에 붙여 잘린 채 올라온 모양
          바깥 칸(.cl-art)이 overflow hidden 이라 휴대폰 그림자는 파란 박스 아래로 나가지 않음
        - 휴대폰 화면 = 판매 순위 카드 (patch-750 · 실제 모바일 앱 레이아웃: 제목 + 어제 · 오늘(선택) · 한달 · 4줄 = 썸네일 28 · 상품명 12 · 판매 수 12.5/700 · 증감 없음 · 줄 높이 40 · 구분선 없음)
        - patch-751: 휴대폰 머리줄 44 (메뉴 18 · 부스터 14.5 · 내 사이트 12 · W 22) · 판매 순위 제목 13 · 탭 30×20 / 10 · 카드 안 여백 18/16/12 · 제목 ~ 목록 12 · 줄 40 · 썸네일 30 · 썸네일 ~ 상품명 14 (실제 모바일 앱 간격) · 판매 순위 아래 가입 현황 카드(사이 10 · 12일 막대 · 아래는 잘림) · 선택 테두리 안쪽 1 · PC 세 번째 카드 = 판매 순위 (기존 영상과 같음)
@@ -98,7 +98,7 @@
   #cl-hero .cl-cd svg .ln { fill: none; stroke: #d9d9d9; stroke-width: 1.6; stroke-linejoin: round; stroke-dasharray: 1; }
 
   /* 모바일 관리자 화면 (PC 에서는 오른쪽 아래 겹침) — --p = PC 1324 기준 1px */
-  #cl-hero .cl-ph { position: absolute; right: calc(var(--p) * 155); bottom: 0; z-index: 2; width: calc(var(--p) * 250); height: calc(var(--p) * 308); overflow: hidden;
+  #cl-hero .cl-ph { position: absolute; right: calc(var(--p) * 135); bottom: 0; z-index: 2; width: calc(var(--p) * 250); height: calc(var(--p) * 308); overflow: hidden;
     border-radius: calc(var(--p) * 16) calc(var(--p) * 16) 0 0; background: #eef0f4; box-shadow: 0 calc(var(--p) * 16) calc(var(--p) * 44) rgba(16, 24, 40, .16); }
   #cl-hero .cl-ph-hd { display: flex; align-items: center; gap: calc(var(--p) * 8); height: calc(var(--p) * 44); padding: 0 calc(var(--p) * 14); background: #fff; }   /* patch-751: 머리줄 52 → 44 */
   #cl-hero .cl-ph-hd svg { width: calc(var(--p) * 18); height: calc(var(--p) * 18); color: #222; flex: none; }
