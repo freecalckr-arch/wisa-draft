@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>부스터 Cloud · 솔루션 | WISA</title>
+<meta property="og:type" content="website">   <!-- patch-252: 링크 공유 OG 이미지 (흰 배경 · 검정 WISA 로고) -->
+<meta property="og:title" content="부스터 Cloud · 솔루션 | WISA">
+<meta property="og:description" content="WISA 부스터 Cloud 히어로 비주얼 반응형 표현 시안">
+<meta property="og:url" content="https://freecalckr-arch.github.io/wisa-draft/cloud.html">
+<meta property="og:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://freecalckr-arch.github.io/wisa-draft/assets/common/og.png">
+<link rel="icon" href="assets/common/favicon.ico">
+<link rel="stylesheet" href="assets/common/wisa.css?v=727">
+<link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
+<style>
+  /* =====================================================================
+     [개발 전달] 부스터 Cloud (솔루션 · /solution/cloud) 히어로 비주얼 반응형 표현 시안 — 2026-11-26
+     · 2026-11-26 patch-744: 히어로 영상(.rn-cl-hero-img) 위에 기존 모바일 영상(cloud-hero-mo.mp4)을 휴대폰 화면으로 잘라 겹침 → PC · 태블릿에서
+       PC 관리자 화면 + 모바일 관리자 화면을 함께 보여 줌 (솔루션이 반응형). 새 영상 · 이미지 없음 · 마크업 1개(.cl-ph) + CSS 만 추가.
+       - 히어로 문구 · 버튼 · 탭 · 영상 2개(PC · 모바일)와 그 크기는 기존 홈페이지 그대로 (이 시안의 히어로 위 부분은 확인용 재현).
+       - 휴대폰: PC 1324×435 영상 기준 폭 291(테두리 포함) · 보이는 높이 308 · 영상 오른쪽 끝에서 134 · 아래 끝에 붙임 (아래는 잘린 채 올라온 모양)
+         테두리 8 Gray 800 · 위 모서리 36 · 상태줄 높이 28(시간 · 노치) · 그림자 0 20 50 rgba(16,24,40,.25)
+         안의 모바일 영상 = 900×720 영상을 0.44 배(396×317) · 왼쪽 −70 · 위 −21 (영상 속 휴대폰 화면만 보이게 자름)
+       - 1439 이하: 영상과 같은 비율로 축소 (크기 · 위치 모두 영상 폭 기준 cqw · 1324 = 100cqw)
+       - 모바일(≤767): 기존처럼 모바일 영상만 · 휴대폰 겹침 숨김
+       - 동작 줄이기: 두 영상 모두 정지 (기존 스크립트와 같음)
+     ===================================================================== */
+  /* @region cl-hero : 기존 홈페이지 히어로 재현 (탭 · 타이틀 · 설명 · 버튼 · 영상) */
+  #cl-hero { padding-bottom: 100px; }
+  @media (min-width: 768px) { #cl-hero .sh-text { margin-top: 32px; } }   /* 기존 홈페이지: 탭 아래 ~ 타이틀 72 (PC · 태블릿) */
+  #cl-hero .cl-btns { display: flex; justify-content: center; gap: 8px; }
+  #cl-hero .cl-btns .btn { height: 48px; padding: 12px 20px; border-radius: 8px; font-size: 18px; font-weight: 600; }
+  #cl-hero .cl-vis { position: relative; width: calc(100% - 100px); max-width: 1400px; margin: 69px auto 0; container-type: inline-size; }
+  #cl-hero .cl-vis > video { display: block; width: 100%; height: auto; aspect-ratio: 1400 / 460; }
+  @media (max-width: 1023px) { #cl-hero .cl-vis { margin-top: 50px; } }
+  @media (max-width: 767px) {
+    #cl-hero .cl-btns .btn { height: 42px; padding: 10px 16px; font-size: 16px; }
+    #cl-hero .cl-vis { width: 100%; margin-top: 50px; }
+    #cl-hero .cl-vis > video { aspect-ratio: 900 / 720; }
+  }
+  /* @endregion cl-hero */
+
+  /* @region cl-ph (patch-744) : PC 영상 위 휴대폰 — 크기 · 위치 = PC 영상 폭 1324 기준 px ÷ 13.24 = cqw */
+  #cl-hero .cl-ph { position: absolute; right: 10.12cqw; bottom: 0; width: 21.98cqw; height: 23.26cqw; overflow: hidden; z-index: 1;
+    border: .6cqw solid var(--gray-800); border-bottom: 0; border-radius: 2.72cqw 2.72cqw 0 0; background: var(--white);
+    box-shadow: 0 1.51cqw 3.78cqw rgba(16, 24, 40, .25); }
+  #cl-hero .cl-ph video { position: absolute; left: -5.25cqw; top: -1.6cqw; width: 29.91cqw; height: 23.93cqw; max-width: none; }
+  #cl-hero .cl-ph-bar { position: absolute; inset: 0 0 auto; z-index: 1; display: flex; justify-content: space-between; align-items: center; height: 2.11cqw; padding: 0 1.66cqw; background: var(--white);
+    font-size: .83cqw; font-weight: 600; color: var(--gray-900); font-variant-numeric: tabular-nums; }
+  #cl-hero .cl-ph-bar i { position: absolute; left: 50%; top: .3cqw; width: 5.29cqw; height: 1.36cqw; border-radius: 99px; background: var(--gray-800); transform: translateX(-50%); }
+  #cl-hero .cl-ph-bar svg { width: 2.6cqw; height: auto; color: var(--gray-900); }
+  @media (max-width: 767px) { #cl-hero .cl-ph { display: none; } }
+  /* @endregion cl-ph */
+</style>
+<style>
+  #cl-hero .tab-page .tp-short { display: none; }
+  @media (max-width: 767px) { #cl-hero .tab-page .tp-short { display: inline-flex; } }
+  /* patch-377: 탭 3개 — 모바일(≤767)에서 탭 줄이 화면 밖으로 밀리지 않게 칸 안에서 옆으로 넘김 */
+  @media (max-width: 767px) {
+    #cl-hero .tab-page { max-width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    #cl-hero .tab-page::-webkit-scrollbar { display: none; }
+    #cl-hero .tab-page a { flex: none; }
+    #cl-hero .tab-page .tp-full { display: none; }   /* patch-425: 모바일은 "부스터" 빼고 한 줄에 다 보이게 (Cloud · Enterprise · 라이선스 비교) */
+  }
+</style>
+<script>
+  /* patch-168 새 버전 자동 반영: GitHub Pages 는 브라우저가 페이지를 10분간 저장해 두고 씀 (탭 전환 · 링크 이동 시 이전 버전이 보일 수 있음)
+     → 서버 파일이 지금 보는 것보다 새로우면 새로 받아 한 번만 다시 엶 */
+  (() => {
+    if (!/^https?:$/.test(location.protocol)) return;
+    const k = "fresh:" + location.pathname;
+    fetch(location.href, { method: "HEAD", cache: "no-store" }).then(r => {
+      const lm = r.headers.get("last-modified"); if (!lm) return;
+      if (new Date(lm) - new Date(document.lastModified) < 2000) return;
+      try { if (sessionStorage.getItem(k) === lm) return; sessionStorage.setItem(k, lm); } catch (e) { return; }
+      fetch(location.href, { cache: "reload" }).then(() => location.reload(), () => location.reload());
+    }).catch(() => {});
+  })();
+</script>
+</head>
+<body>
+
+<!-- @region header : GNB · PC 한 줄 / 모바일 2단(메뉴 줄만 고정) -->
+<header class="header">
+  <div class="mo-banner" id="moBanner"><p>창업패키지 200만원 이상 할인 중</p><button type="button" id="moBannerClose" aria-label="배너 닫기"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M13.5 4.5L4.5 13.5M4.5 4.5L13.5 13.5" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+  <div class="header-in">
+    <div><a class="logo" href="#top" aria-label="WISA 홈"><img src="assets/common/logo.svg" alt="WISA"></a></div>
+    <!-- [수정] C1 1depth 순서: 솔루션 · 구축 · 마케팅 · 고객지원 · 포트폴리오 (현재 홈페이지와 동일) -->
+    <nav class="gnb" aria-label="주요 메뉴">
+      <button type="button" data-menu="solution" aria-expanded="false" aria-controls="d2-solution" data-label="솔루션">솔루션</button><button type="button" data-menu="build" aria-expanded="false" aria-controls="d2-build" data-label="구축">구축</button><button type="button" data-menu="marketing" aria-expanded="false" aria-controls="d2-marketing" data-label="마케팅">마케팅</button><button type="button" data-menu="support" aria-expanded="false" aria-controls="d2-support" data-label="고객지원">고객지원</button><a href="#portfolio" data-label="포트폴리오">포트폴리오</a>
+    </nav>
+    <div class="header-act"><a class="btn" href="#top">로그인</a><a class="btn btn-dark btn-start" href="#solution">무료 시작<span class="hb-rocket" aria-hidden="true"><svg width="48" height="58" viewBox="0 0 101 122" fill="none"><g class="hb-flame"><g transform="rotate(30.6 31 81)"><g class="hb-len"><g class="hb-wid"><path transform="rotate(-30.6 31 81)" d="M22.6226 108.324C24.9155 109.648 35.725 104.56 40.0968 97.1866C43.4885 91.4634 45.0595 85.5463 38.0947 81.5252L38.0783 81.5157C31.1136 77.4946 26.7747 81.8137 23.5141 87.6125C19.3142 95.0855 20.3133 106.99 22.6062 108.314L22.6226 108.324Z" fill="url(#hbG2)"/></g></g></g></g><g class="hb-body"><path d="M71.3957 61.0075C72.3287 67.0602 72.4621 77.7884 67.5794 81.4987C63.0074 84.9735 55.9688 79.3593 50.6645 74.8829C58.5217 75.363 65.7274 69.7946 71.3933 61.0116L71.3957 61.0075Z" fill="url(#hbG0)"/><path d="M39.1934 42.4149C33.4852 44.6332 24.1276 49.8818 23.3557 55.9655C22.6325 61.6624 31.0138 64.9509 37.5426 67.3064C33.1982 60.7418 34.4177 51.7174 39.1911 42.419L39.1934 42.4149Z" fill="url(#hbG1)"/><path d="M77.6125 13.0561C87.038 18.498 80.8994 45.6025 73.2756 58.8073C65.6518 72.0121 54.7984 79.3124 43.2151 72.6247L43.2315 72.6342C31.6481 65.9465 32.5413 52.9012 40.1674 39.6923C47.7936 26.4834 68.1828 7.61191 77.6125 13.0561Z" fill="url(#hbG3)"/><path d="M56.1384 50.2336C61.0206 53.0524 67.291 51.3319 70.1437 46.3909C72.9964 41.4499 71.3512 35.1594 66.4689 32.3406C61.5867 29.5219 55.3163 31.2423 52.4636 36.1833C49.6109 41.1243 51.2562 47.4149 56.1384 50.2336Z" fill="#fff"/><path d="M52.4453 56.6294C48.6496 54.438 43.8091 59.5976 40.7719 64.8866C37.7142 70.1637 35.662 76.9332 39.4576 79.1246C43.2532 81.316 48.0938 76.1564 51.131 70.8674C54.1887 65.5902 56.2409 58.8208 52.4453 56.6294Z" fill="url(#hbG4)"/></g><defs><linearGradient id="hbG0" x1="68.81" y1="61.99" x2="58.73" y2="79.44" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient><linearGradient id="hbG1" x1="36" y1="43" x2="28" y2="64" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient><linearGradient id="hbG2" x1="38.19" y1="81.34" x2="22.72" y2="108.14" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#FA6696"/><stop offset="1" stop-color="#FF6352"/></linearGradient><linearGradient id="hbG3" x1="77.48" y1="13.28" x2="43.52" y2="72.1" gradientUnits="userSpaceOnUse"><stop offset=".3" stop-color="#3BB9F1"/><stop offset="1" stop-color="#1A6DE2"/></linearGradient><linearGradient id="hbG4" x1="52.11" y1="57.2" x2="39.35" y2="79.3" gradientUnits="userSpaceOnUse"><stop stop-color="#90D7EC"/><stop offset="1" stop-color="#00BFDF"/></linearGradient></defs></svg></span></a></div>
+  </div>
+  <!-- 2depth (PC·태블릿): 1depth에 마우스를 올리면 열림 · [수정] C1 메뉴 4개 모두 기획안 구성 (매체 광고 상품은 외부 링크) · T6 -->
+  <div class="depth2" id="d2-solution" data-menu="solution"><div class="d2-col"><div class="d2-title">요금 · 라이선스</div><a class="d2-item" href="wisa_cloud_page.html"><b>부스터 Cloud <i class="d2-tag blue">구독형</i></b><span>스탠다드 · 프로 · 하이브리드</span></a><a class="d2-item" href="wisa_enterprise_page.html"><b>부스터 Enterprise <i class="d2-tag indigo">소유형</i></b><span>소스코드 · 독립서버</span></a><a class="d2-item" href="comparison.html"><b>라이선스 비교</b><span>요금 · 기능 · 조건을 한눈에</span></a></div><div class="d2-col"><div class="d2-title">쇼핑몰 타입</div><a class="d2-item" href="wisa_type_brand.html"><b>브랜드형</b><span>단일 브랜드 표준형 쇼핑몰 구축</span></a><a class="d2-item" href="wisa_type_shopinshop.html"><b>입점형</b><span>다수 브랜드 입점 플랫폼 구축</span></a><a class="d2-item" href="wisa_type_contents.html"><b>콘텐츠</b><span>음원 · 파일 · 티켓 등 디지털 콘텐츠</span></a><a class="d2-item" href="wisa_type_global.html"><b>글로벌</b><span>다국어 · 다통화 · 해외 결제</span></a><a class="d2-item" href="wisa_type_b2b.html"><b>B2B</b><span>기업간 거래 · 회원사별 가격 관리</span></a><a class="d2-item" href="wisa_type_o2o.html"><b>O2O</b><span>온·오프라인 연동 커머스</span></a><a class="d2-item" href="wisa_type_subscription.html"><b>정기배송</b><span>구독 커머스 · 자동 결제 관리</span></a><a class="d2-item" href="wisa_type_inapp.html"><b>모바일인앱</b><span>네이티브 앱 기반 쇼핑몰</span></a></div><div class="d2-col"><div class="d2-title">도구 · 리소스</div><a class="d2-item" href="#"><b>관리자 앱</b><span>운영자용 어드민 관리 앱</span></a><a class="d2-item" href="#"><b>쇼핑몰 앱</b><span>소비자용 쇼핑 다운로드 앱</span></a><a class="d2-item" href="#"><b>앱스토어</b><span>확장 앱 · 플러그인 마켓</span></a></div></div>
+  <div class="depth2" id="d2-build" data-menu="build"><div class="d2-col"><div class="d2-title">맞춤서비스</div><a class="d2-item" href="wisa_custom_page.html"><b>맞춤제작</b><span>디자인 · 개발 · 솔루션 커스터마이징</span></a><a class="d2-item" href="wisa_build_page.html#maintenance"><b>유지관리</b><span>패치 · 고도화 · 정기 관리 · 유지보수</span></a></div><div class="d2-col"><div class="d2-title">창업서비스</div><a class="d2-item" href="#"><b>창업패키지 <i class="d2-tag warn">인기</i></b><span>구축 + Cloud 번들 특가</span></a><a class="d2-item" href="#"><b>디자인스토어</b><span>쇼핑몰 · 홈페이지 디자인 스킨</span></a><a class="d2-item" href="#"><b>인플루언서 구축지원 <i class="d2-tag event">이벤트</i></b><span>인플루언서 · 셀러 쇼핑몰 오픈</span></a></div></div>
+  <div class="depth2" id="d2-marketing" data-menu="marketing"><div class="d2-col"><div class="d2-title">자사몰 마케팅</div><a class="d2-item" href="geo.html"><b>GEO / AI 검색 <i class="d2-tag blue">신규</i></b><span>AI 답변 속 브랜드 노출</span></a><a class="d2-item" href="onsite.html"><b>온사이트마케팅</b><span>자사몰 안 구매전환 최적화</span></a><a class="d2-item" href="crm.html"><b>CRM마케팅</b><span>재구매 · 리텐션 · LTV 향상</span></a><a class="d2-item" href="report.html"><b>리포트 <i class="d2-tag blue">신규</i></b><span>성과 대시보드 · AI 보고</span></a></div><div class="d2-col"><div class="d2-title">채널마케팅</div><a class="d2-item" href="sns-ops.html"><b>공식채널운영</b><span>인스타그램 · 페이스북 운영대행</span></a><a class="d2-item" href="shopping-feed.html"><b>상품DB 연동 <i class="d2-tag blue">신규</i></b><span>네이버·카카오·구글 쇼핑 연동</span></a><a class="d2-item" href="vertical-commerce.html"><b>버티컬커머스</b><span>쿠팡 · 무신사 입점 · 광고</span></a><a class="d2-item" href="media-ads.html"><b>매체 광고 상품</b><span>쇼핑 · 검색 · 디스플레이 · SNS 광고</span></a></div></div>
+  <div class="depth2" id="d2-support" data-menu="support"><div class="d2-col"><div class="d2-title">안내 · 소식</div><a class="d2-item" href="#"><b>공지사항</b><span>서비스 · 정책 변경 안내</span></a><a class="d2-item" href="#"><b>교육안내</b><span>운영 노하우 교육 프로그램</span></a><a class="d2-item" href="https://developers.wisa.co.kr/" target="_blank" rel="noopener"><b>개발자센터</b><span>API 가이드 · 개발 문서</span></a></div><div class="d2-col"><div class="d2-title">상담 · 문의</div><a class="d2-item" href="wisa_support_page.html"><b>상담센터</b><span>제작 · 도입 전문 상담</span></a><a class="d2-item" href="wisa_customer_page.html"><b>고객센터 <i class="d2-tag err">24시간</i></b><span>이용 중 오류 · 장애 기술지원</span></a><a class="d2-item" href="#"><b>긴급접수</b><span>장애 · 서비스 중단 긴급 신고</span></a></div></div>
+  <!-- 2depth (모바일): 1depth를 탭하면 헤더 아래 전체 패널 · [수정] C1 기획안 메뉴 구성 + 현재 홈페이지 하단 안내 바 유지 · M11 -->
+  <div class="mo-panel" id="moPanel">
+    <div class="mp-body" data-menu="solution"><div class="mp-sec"><h4>요금 · 라이선스</h4><ul><li><a href="wisa_cloud_page.html"><b>부스터 Cloud</b><span>스탠다드 · 프로 · 하이브리드</span></a></li><li><a href="wisa_enterprise_page.html"><b>부스터 Enterprise</b><span>소스코드 · 독립서버</span></a></li><li><a href="comparison.html"><b>라이선스 비교</b><span>요금 · 기능 · 조건을 한눈에</span></a></li></ul></div><div class="mp-sec"><h4>쇼핑몰 타입</h4><ul><li><a href="wisa_type_brand.html"><b>브랜드형</b><span>단일 브랜드 표준형 쇼핑몰 구축</span></a></li><li><a href="wisa_type_shopinshop.html"><b>입점형</b><span>다수 브랜드 입점 플랫폼 구축</span></a></li><li><a href="wisa_type_contents.html"><b>콘텐츠</b><span>음원 · 파일 · 티켓 등 디지털 콘텐츠</span></a></li><li><a href="wisa_type_global.html"><b>글로벌</b><span>다국어 · 다통화 · 해외 결제</span></a></li><li><a href="wisa_type_b2b.html"><b>B2B</b><span>기업간 거래 · 회원사별 가격 관리</span></a></li><li><a href="wisa_type_o2o.html"><b>O2O</b><span>온·오프라인 연동 커머스</span></a></li><li><a href="wisa_type_subscription.html"><b>정기배송</b><span>구독 커머스 · 자동 결제 관리</span></a></li><li><a href="wisa_type_inapp.html"><b>모바일인앱</b><span>네이티브 앱 기반 쇼핑몰</span></a></li></ul></div><div class="mp-sec"><h4>도구 · 리소스</h4><ul><li><a href="#"><b>관리자 앱</b><span>운영자용 어드민 관리 앱</span></a></li><li><a href="#"><b>쇼핑몰 앱</b><span>소비자용 쇼핑 다운로드 앱</span></a></li><li><a href="#"><b>앱스토어</b><span>확장 앱 · 플러그인 마켓</span></a></li></ul></div></div>
+    <div class="mp-body" data-menu="build"><div class="mp-sec"><h4>맞춤서비스</h4><ul><li><a href="wisa_custom_page.html"><b>맞춤제작</b><span>디자인 · 개발 · 솔루션 커스터마이징</span></a></li><li><a href="wisa_build_page.html#maintenance"><b>유지관리</b><span>패치 · 고도화 · 정기 관리 · 유지보수</span></a></li></ul></div><div class="mp-sec"><h4>창업서비스</h4><ul><li><a href="#"><b>창업패키지</b><span>구축 + Cloud 번들 특가</span></a></li><li><a href="#"><b>디자인스토어</b><span>쇼핑몰 · 홈페이지 디자인 스킨</span></a></li><li><a href="#"><b>인플루언서 구축지원</b><span>인플루언서 · 셀러 쇼핑몰 오픈</span></a></li></ul></div></div>
+    <div class="mp-body" data-menu="marketing"><div class="mp-sec"><h4>자사몰 마케팅</h4><ul><li><a href="geo.html"><b>GEO / AI 검색</b><span>AI 답변 속 브랜드 노출</span></a></li><li><a href="onsite.html"><b>온사이트마케팅</b><span>자사몰 안 구매전환 최적화</span></a></li><li><a href="crm.html"><b>CRM마케팅</b><span>재구매 · 리텐션 · LTV 향상</span></a></li><li><a href="report.html"><b>리포트</b><span>성과 대시보드 · AI 보고</span></a></li></ul></div><div class="mp-sec"><h4>채널마케팅</h4><ul><li><a href="sns-ops.html"><b>공식채널운영</b><span>인스타그램 · 페이스북 운영대행</span></a></li><li><a href="shopping-feed.html"><b>상품DB 연동</b><span>네이버·카카오·구글 쇼핑 연동</span></a></li><li><a href="vertical-commerce.html"><b>버티컬커머스</b><span>쿠팡 · 무신사 입점 · 광고</span></a></li><li><a href="media-ads.html"><b>매체 광고 상품</b><span>쇼핑 · 검색 · 디스플레이 · SNS 광고</span></a></li></ul></div></div>
+    <div class="mp-body" data-menu="support"><div class="mp-sec"><h4>안내 · 소식</h4><ul><li><a href="#"><b>공지사항</b><span>서비스 · 정책 변경 안내</span></a></li><li><a href="#"><b>교육안내</b><span>운영 노하우 교육 프로그램</span></a></li><li><a href="https://developers.wisa.co.kr/" target="_blank" rel="noopener"><b>개발자센터</b><span>API 가이드 · 개발 문서</span></a></li></ul></div><div class="mp-sec"><h4>상담 · 문의</h4><ul><li><a href="wisa_support_page.html"><b>상담센터</b><span>제작 · 도입 전문 상담</span></a></li><li><a href="wisa_customer_page.html"><b>고객센터</b><span>이용 중 오류 · 장애 기술지원</span></a></li><li><a href="#"><b>긴급접수</b><span>장애 · 서비스 중단 긴급 신고</span></a></li></ul></div></div>
+  </div>
+</header>
+<!-- @endregion -->
+
+<main id="top" class="sub">
+
+<!-- @region cl-hero : 기존 홈페이지 히어로 (탭 · 타이틀 · 설명 · 버튼 그대로) + 비주얼 PC · 모바일 함께 (patch-744) -->
+<section class="sh" id="cl-hero">
+  <div class="container sh-copy">
+    <nav class="tab-page rv" aria-label="요금 · 라이선스">
+      <a href="cloud.html" class="on" aria-current="page"><i aria-hidden="true"></i><span class="tp-t tp-full">부스터 Cloud</span><span class="tp-t tp-short">Cloud</span></a>
+      <a href="https://www.wisa.co.kr/solution/enterprise"><span class="tp-t tp-full" data-t="부스터 Enterprise">부스터 Enterprise</span><span class="tp-t tp-short" data-t="Enterprise">Enterprise</span></a>
+      <a href="comparison.html"><span class="tp-t" data-t="라이선스 비교">라이선스 비교</span></a>
+    </nav>
+    <div class="sh-text">
+      <h1 class="rv" style="--d:80ms">빠른 시작, 쉬운 운영</h1>
+      <p class="rv" style="--d:160ms">서버 설치 없이 바로 시작하세요. <br>자동 업데이트로 최신 환경을 유지하며 사업에만 집중할 수 있습니다.</p>
+    </div>
+    <div class="cl-btns rv" style="--d:240ms"><a class="btn" href="https://iambooster.mywisa.com" target="_blank" rel="noopener">쇼핑몰 데모</a><a class="btn btn-dark" href="#top">무료로 시작</a></div>
+  </div>
+  <div class="cl-vis rv" style="--d:320ms">
+    <video autoplay muted loop playsinline width="1400" height="460" role="img" aria-label="WISA 관리자 대시보드 화면 (PC · 모바일)">
+      <source src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-pc.mp4" type="video/mp4" media="(min-width: 768px)">
+      <source src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-mo.mp4" type="video/mp4">
+    </video>
+    <!-- [개발 전달] patch-744 휴대폰 화면 (PC · 태블릿만) · 안의 영상은 기존 모바일 영상 그대로 -->
+    <div class="cl-ph" aria-hidden="true">
+      <div class="cl-ph-bar"><span>9:41</span><i></i><svg viewBox="0 0 34 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="19" y="1" width="13" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="21" y="3" width="8" height="6" rx="1.2"/></svg></div>
+      <video autoplay muted loop playsinline src="https://www.wisa.co.kr/assets/img/cloud/cloud-hero-mo.mp4"></video>
+    </div>
+  </div>
+</section>
+<script>if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('#cl-hero video').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });</script>
+<!-- @endregion -->
+
+</main>
+
+
+
+<div class="container ft-news rv-mo">
+  <div class="fn-box">
+        <ul class="fn-list">
+      <li><a href="#top"><span class="fn-bdg w-badge sm success">고객사례</span><span class="fn-t">콘텐츠 판매를 만들면서 우리가 확신하지 못했던 3개월</span><span class="fn-d">2025. 06. 05</span></a></li>
+      <li class="fn-2"><a href="#top"><span class="fn-bdg w-badge sm">업데이트</span><span class="fn-t">해외 배송도 이제 위사에서, 글로벌 판매 기능 오픈</span><span class="fn-d">2025. 05. 08</span></a></li>
+    </ul>
+  </div>
+</div>
+<!-- @region footer : PC 4단 / 태블릿·모바일 아코디언 -->
+<footer class="footer">
+  <div class="container ft-top">
+    <div class="ft-brand rv-mo">
+      <img src="assets/common/logo.svg" alt="WISA" width="75" height="20">
+      <!-- [수정] P4 br 뒤 공백 추가 (PC 최소 폭에서 br 숨기면 "마케팅을 20년간" 으로 이어지게) -->
+      <p>위사는 쇼핑몰 솔루션 개발, 구축, 광고, 마케팅을<br> 21년간 지속하고 있는 커머스 성장 솔루션 기업입니다</p>
+      <div class="ft-tel"><div class="ft-tel-row"><div><span>상담센터</span><a href="tel:025454479">02-545-4479</a></div><div><span>고객센터</span><a href="tel:15994435">1599-4435</a></div></div><em>평일 09:30 – 17:30 (점심시간 12:00 – 13:00)</em></div>
+      <div class="social">
+        <a href="//www.instagram.com/wisa.co.kr/" target="_blank" rel="noopener" aria-label="인스타그램"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="//www.facebook.com/wisa.co.kr" target="_blank" rel="noopener" aria-label="페이스북"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6.5c0-.8.2-1.5 1.5-1.5H17V2h-2.6C11.6 2 11 4 11 5.9V8H9v3h2v11h3V11h2.6l.4-3H14Z"/></svg></a>
+        <a href="//www.youtube.com/@wisa_official" target="_blank" rel="noopener" aria-label="유튜브"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8ZM10 15.1V8.9l5.2 3.1L10 15.1Z"/></svg></a>
+        <a href="//blog.naver.com/wisacorp" target="_blank" rel="noopener" aria-label="네이버 블로그"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 3v9.3L8.3 3H3v18h5v-9.3L15.7 21H21V3h-5Z"/></svg></a>
+      </div>
+      <a class="btn" href="#contact">Enterprise 도입 상담 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="#344054" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <!-- [수정] C1 푸터 메뉴 = 기획안 구성 · P4 PC 최소 폭 배치 -->
+    <div class="ft-cols">   <!-- patch-606 푸터 메뉴 5칸 = 공통 헤더 · 푸터 변경안 -->
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">솔루션</button><div class="ft-group"><span>라이선스</span><ul><li><a href="wisa_cloud_page.html"><span>부스터 Cloud</span><small class="ft-desc">스탠다드 · 프로 · 하이브리드</small></a></li><li><a href="wisa_enterprise_page.html"><span>부스터 Enterprise</span><small class="ft-desc">소스코드 · 독립서버</small></a></li><li><a href="comparison.html" aria-current="page"><span>라이선스 비교</span><small class="ft-desc">요금 · 기능 · 조건을 한눈에</small></a></li></ul></div><div class="ft-group"><span>쇼핑몰 타입</span><ul><li><a href="wisa_type_brand.html"><span>브랜드형</span><small class="ft-desc">단일 브랜드 표준형 쇼핑몰 구축</small></a></li><li><a href="wisa_type_shopinshop.html"><span>입점형</span><small class="ft-desc">다수 브랜드 입점 플랫폼 구축</small></a></li><li><a href="wisa_type_contents.html"><span>콘텐츠</span><small class="ft-desc">음원 · 파일 · 티켓 등 디지털 콘텐츠</small></a></li><li><a href="wisa_type_global.html"><span>글로벌</span><small class="ft-desc">다국어 · 다통화 · 해외 결제</small></a></li><li><a href="wisa_type_b2b.html"><span>B2B</span><small class="ft-desc">기업간 거래 · 회원사별 가격 관리</small></a></li><li><a href="wisa_type_o2o.html"><span>O2O</span><small class="ft-desc">온·오프라인 연동 커머스</small></a></li><li><a href="wisa_type_subscription.html"><span>정기배송</span><small class="ft-desc">구독 커머스 · 자동 결제 관리</small></a></li><li><a href="wisa_type_inapp.html"><span>모바일인앱</span><small class="ft-desc">네이티브 앱 기반 쇼핑몰</small></a></li></ul></div><div class="ft-group"><span>도구</span><ul><li><a href="#"><span>관리자 앱</span><small class="ft-desc">운영자용 어드민 관리 앱</small></a></li><li><a href="#"><span>쇼핑몰 앱</span><small class="ft-desc">소비자용 쇼핑 다운로드 앱</small></a></li><li><a href="#"><span>앱스토어</span><small class="ft-desc">확장 앱 · 플러그인 마켓</small></a></li></ul></div><a class="ft-feature" href="#"><b>부스터로 이전하기<svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></b><em>다른 솔루션에서 갈아타기</em></a></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">인프라</button><div class="ft-group"><span>호스팅 · 클라우드</span><ul><li><a href="hosting-web.html"><span>웹호스팅</span><small class="ft-desc">월 33,000원부터 · 초과분 후불</small></a></li><li><a href="hosting-server.html"><span>서버호스팅</span><small class="ft-desc">단독 서버 1대 · 웹+DB</small></a></li><li><a href="hosting-private.html"><span>프라이빗 클라우드</span><small class="ft-desc">장애 자동 복구 가상화 서버</small></a></li><li><a href="hosting-public.html"><span>퍼블릭 클라우드</span><small class="ft-desc">AWS · Azure · NAVER Cloud 관리</small></a></li></ul></div><div class="ft-group"><span>보안 · 가속</span><ul><li><a href="wisa_hosting_addon_page.html#cdn"><span>CDN</span><small class="ft-desc">이미지 · 파일 전송 가속</small></a></li><li><a href="wisa_hosting_addon_page.html#cloudflare"><span>클라우드플레어</span><small class="ft-desc">보안 세팅 · 운영대행</small></a></li></ul></div><div class="ft-group"><span>도메인</span><ul><li><a href="#"><span>도메인 등록</span><small class="ft-desc">새 도메인 신청</small></a></li><li><a href="#"><span>도메인 연장</span><small class="ft-desc">만료 전 기간 연장</small></a></li><li><a href="#"><span>도메인 관리</span><small class="ft-desc">네임서버 · 정보 변경</small></a></li></ul></div></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">구축</button><div class="ft-group"><span>맞춤서비스</span><ul><li><a href="wisa_custom_page.html"><span>맞춤제작</span><small class="ft-desc">디자인 · 개발 · 솔루션 커스터마이징</small></a></li><li><a href="wisa_build_page.html#maintenance"><span>유지관리</span><small class="ft-desc">패치 · 고도화 · 정기 관리 · 유지보수</small></a></li></ul></div><div class="ft-group"><span>패키지</span><ul><li><a href="#"><span>창업패키지</span><small class="ft-desc">구축 + Cloud 번들 특가</small></a></li><li><a href="#"><span>인플루언서 구축지원</span><small class="ft-desc">인플루언서 · 셀러 쇼핑몰 오픈</small></a></li></ul></div><div class="ft-group"><span>디자인스토어</span><ul><li><a href="#"><span>쇼핑몰</span><small class="ft-desc">업종별 쇼핑몰 디자인 스킨</small></a></li><li><a href="#"><span>홈페이지</span><small class="ft-desc">기업 · 브랜드 홈페이지 디자인</small></a></li><li><a href="#"><span>콘텐츠</span><small class="ft-desc">배너 · 상세페이지 디자인 소스</small></a></li><li><a href="#"><span>앱스토어</span><small class="ft-desc">확장 앱 · 플러그인 마켓</small></a></li></ul></div><a class="ft-feature" href="#"><b>포트폴리오<svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></b><em>구축 레퍼런스 1,200+</em></a></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">마케팅</button><div class="ft-group"><span>자사몰 마케팅</span><ul><li><a href="geo.html"><span>GEO / AI 검색</span><small class="ft-desc">AI 답변 속 브랜드 노출</small></a></li><li><a href="onsite.html"><span>온사이트마케팅</span><small class="ft-desc">자사몰 안 구매전환 최적화</small></a></li><li><a href="crm.html"><span>CRM마케팅</span><small class="ft-desc">재구매 · 리텐션 · LTV 향상</small></a></li><li><a href="report.html"><span>리포트</span><small class="ft-desc">성과 대시보드 · AI 보고</small></a></li></ul></div><div class="ft-group"><span>채널마케팅</span><ul><li><a href="sns-ops.html"><span>공식채널운영</span><small class="ft-desc">인스타그램 · 페이스북 운영대행</small></a></li><li><a href="shopping-feed.html"><span>상품DB 연동</span><small class="ft-desc">네이버·카카오·구글 쇼핑 연동</small></a></li><li><a href="vertical-commerce.html"><span>버티컬커머스</span><small class="ft-desc">쿠팡 · 무신사 입점 · 광고</small></a></li></ul></div><div class="ft-group"><span>매체 광고 상품</span><ul><li><a href="media-ads.html"><span>쇼핑광고</span><small class="ft-desc">네이버 · 카카오 · 다음 쇼핑 지면</small></a></li><li><a href="media-ads.html"><span>검색광고</span><small class="ft-desc">파워링크 · 브랜드검색 · 구글</small></a></li><li><a href="media-ads.html"><span>디스플레이광고</span><small class="ft-desc">GDN · 비즈보드 · 크리테오</small></a></li><li><a href="media-ads.html"><span>SNS/콘텐츠 광고</span><small class="ft-desc">페이스북 · 인스타 · 유튜브</small></a></li></ul></div><a class="ft-feature" href="wisa_build_page.html#ai-studio"><b>AI Studio<svg width="14" height="14" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3.75 9h10.5M9 14.25 14.25 9 9 3.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></b><em>모델·촬영·상세디자인까지 AI로</em></a></div>
+      <div class="ft-col rv-mo"><button type="button" class="ft-toggle" aria-expanded="false">고객지원</button><div class="ft-group"><span>상담 · 문의</span><ul><li><a href="wisa_support_page.html"><span>상담센터</span><small class="ft-desc">제작 · 도입 전문 상담</small></a></li><li><a href="wisa_customer_page.html"><span>고객센터</span><small class="ft-desc">이용 중 오류 · 장애 기술지원</small></a></li><li><a href="#"><span>긴급접수</span><small class="ft-desc">장애 · 서비스 중단 긴급 신고</small></a></li></ul></div><div class="ft-group"><span>안내 · 소식</span><ul><li><a href="#"><span>공지사항</span><small class="ft-desc">서비스 · 정책 변경 안내</small></a></li><li><a href="#"><span>교육안내</span><small class="ft-desc">운영 노하우 교육 프로그램</small></a></li><li><a href="https://developers.wisa.co.kr/" target="_blank" rel="noopener"><span>개발자센터</span><small class="ft-desc">API 가이드 · 개발 문서</small></a></li></ul></div></div>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <div class="container">
+      <div class="links rv-mo"><a href="https://team.wisa.co.kr/" target="_blank" rel="noopener">회사소개</a><a href="https://team.wisa.co.kr/joinus" target="_blank" rel="noopener">채용안내</a><a href="#">파트너안내</a><a href="#"><b>개인정보처리방침</b></a><a href="#">이용약관</a></div>
+      <div class="info rv-mo"><span>㈜위사</span><span>대표이사 강윤성</span><span>개인정보책임자 <a href="mailto:privacy@wisa.co.kr">진성용</a></span><span>서울 영등포구 영등포로 13길 21 BH메타플렉스 1114~1116호</span><span>사업자등록번호 <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=1108177203" target="_blank" rel="noopener">110-81-77203</a></span><span>통신판매업 신고번호 2025서울영등포1216</span></div>
+      <p class="copy rv-mo">©2026 WISA Corp. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+<!-- @endregion -->
+
+<!-- @region page-nav : 우측 가운데 맨 위 · 맨 아래 이동 -->
+<nav class="page-nav" aria-label="페이지 이동"><button type="button" data-go="top" aria-label="맨 위로"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4.5 11.25 9 6.75l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><i></i><button type="button" data-go="bottom" aria-label="맨 아래로"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M4.5 6.75 9 11.25l4.5-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></nav>
+<!-- @endregion -->
+
+<!-- @region consult : 제작상담 플로팅 버튼 -->
+<a class="consult" href="#cta" role="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="consultLayer"><svg class="consult-ic" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path transform="scale(.9816 1)" d="M8.15 0C12.651 0 16.3 3.2665 16.3 7.2957C16.3 8.9043 15.7135 10.3876 14.7267 11.5928C14.3653 12.0343 14.1999 12.6039 14.3089 13.1636L14.7537 15.4442C14.8282 15.827 14.4277 16.1264 14.0816 15.9462L11.3745 14.537C10.9922 14.3381 10.5521 14.2734 10.1315 14.3689C9.4972 14.5128 8.8341 14.5915 8.15 14.5915C3.6489 14.5915 0 11.325 0 7.2957C0 3.2665 3.6489 0 8.15 0Z" fill="#fff"/><g fill="#333D4B"><circle class="td" cx="5" cy="7" r="1"/><circle class="td" cx="8" cy="7" r="1"/><circle class="td" cx="11" cy="7" r="1"/></g></svg><span class="consult-txt">제작상담</span></a>
+<!-- @endregion -->
+<div class="consult-layer" id="consultLayer" role="dialog" aria-modal="true" aria-label="제작상담 채널 선택">
+  <div class="cl-stack">
+    <a class="cl-item" href="#">상담센터 <span class="cl-circle"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></span></a>
+    <a class="cl-item" href="#">채팅상담 <span class="cl-circle"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.875 11.078V11M11 11.078V11M15.124 11.078V11M19.248 11c0 1.186-.25 2.314-.7 3.333l.702 4.916-4.213-1.053A8.25 8.25 0 0 1 11 19.25 8.25 8.25 0 0 1 2.75 11 8.25 8.25 0 0 1 11 2.75 8.25 8.25 0 0 1 19.248 11Z"/></svg></span></a>
+    <button class="cl-close" type="button" id="consultClose" aria-label="닫기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+</div>
+
+
+<!-- 시안 히스토리 (검토용): 버전을 추가하려면 아래 data-items 배열에 한 줄 추가 -->
+<div class="vh" id="vh" data-items='[
+  {"date":"2026.11.05","name":"GEO · 1차 시안 · A타입 · PC","url":"https://claude.ai/artifact/4LZUmy9ApoWSMSFLUcUsDy"},
+  {"date":"2026.11.05","name":"GEO · 1차 시안 · B타입 · PC","url":"https://claude.ai/artifact/3sfjKYuEzi7qtqyaKGBFQr"},
+  {"date":"2026.11.05","name":"GEO · 수정시안 · PC","url":"https://claude.ai/artifact/6TNu6nhnpLqjw4D3UHjFCb"},
+  {"date":"2026.11.06","name":"GEO · 반응형 시안(PC/TB/MO)","url":"geo.html"},
+  {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안 · PC","url":"onsite.html"},
+  {"date":"2026.11.08","name":"CRM마케팅 · 1차 시안 · PC","url":"crm.html"},
+  {"date":"2026.11.09","name":"리포트 · 1차 시안 · PC","url":"report.html"},
+  {"date":"2026.11.10","name":"공식채널운영 · 1차 시안 · PC","url":"sns-ops.html"},
+  {"date":"2026.11.11","name":"상품DB 연동 · 1차 시안 · PC","url":"shopping-feed-v1.html"},
+  {"date":"2026.11.11","name":"상품DB 연동 · 수정시안 · PC","url":"shopping-feed.html"},
+  {"date":"2026.11.12","name":"버티컬커머스 · 1차 시안 · PC","url":"vertical-commerce.html"},
+  {"date":"2026.11.13","name":"솔루션 비교 · 수정시안 · PC","url":"comparison.html"},
+  {"date":"2026.11.13","name":"매체 광고 · 1차 시안 · PC","url":"media-ads.html"},
+  {"date":"2026.11.16","name":"GEO · 요금제 추가 시안(PC/TB/MO)","url":"geo-price.html"},
+  {"date":"2026.11.26","name":"Cloud 비주얼 · 1차 시안(PC/TB/MO)","url":"cloud.html","current":true}
+]'>
+  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>GEO · 온사이트 · CRM 최신 시안은 이 창에서 바로 전환되고, 지난 시안(아티팩트)은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
+  <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
+</div>
+<script>
+/* =====================================================================
+   WISA 리뉴얼 2026 · 메인 (v2 최종) — 스크립트
+   하나의 즉시 실행 함수 안에서 영역별로 나뉘어 있음 (@region ~ @endregion)
+   실행 순서: common → hero → malltype → reveal → portfolio → solution → header → snap → footer
+   영역 사이에 공유하는 값: ASSET · reduced · finePointer · isMo(히어로) · HDR · pcMode(reveal) · brMo(포트폴리오) · revealCheck
+   섹션 이벤트: 각 섹션 요소에 'sec:on' / 'sec:off' (reveal이 보냄)
+   ===================================================================== */
+(() => {
+  /* @region common
+     공통 값
+     - reduced: 동작 줄이기 설정이면 움직임을 끔 / finePointer: 마우스 사용 기기(패럴랙스·원스크롤 조건)
+     - px(): 1920 시안 x좌표 → 화면 가운데 기준 위치
+  */
+  // 에셋 경로 (납품 폴더 assets/ 구조 그대로)
+  const ASSET = { hero: 'assets/main/hero/', logo: 'assets/main/trust-logo/', mall: 'assets/main/malltype/', pf: 'assets/main/portfolio/' };
+  const PF_FILE = {"a1":"main-portfolio-a1-tandy.jpg","a2":"main-portfolio-a2-krlee.jpg","a3":"main-portfolio-a3-pureal.jpg","a4":"main-portfolio-a4-esthermall.jpg","a5":"main-portfolio-a5-giordano.jpg","a6":"main-portfolio-a6-klairs.jpg","a7":"main-portfolio-a7-alyac.jpg","b0":"main-portfolio-b0.jpg","b1":"main-portfolio-b1-hemeko.jpg","b2":"main-portfolio-b2-ananti.jpg","b3":"main-portfolio-b3-blackyak.jpg","b4":"main-portfolio-b4-saengong.jpg","b5":"main-portfolio-b5-list-shesmiss.jpg","b6":"main-portfolio-b6-andar.jpg","b7":"main-portfolio-b7-kora.jpg","c1":"main-portfolio-c1.jpg","c2":"main-portfolio-c2.jpg","c3":"main-portfolio-c3-xexymix.jpg","c4":"main-portfolio-c4-naaamyuuu.jpg","c5":"main-portfolio-c5-mycoach.jpg","c6":"main-portfolio-c6.jpg","c7":"main-portfolio-c7.jpg"};
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const px = (x) => `calc(50% + ${x - 960}px)`; // 1920 시안 좌표 → 중앙 기준
+  /* @endregion */
+
+
+
+
+
+/* @region reveal
+     서브 페이지 스크롤 페이드업 (원스크롤 없음)
+     - 모든 기기 요소 단위: 화면 아래 10% 안쪽에 들어오면 .rv 등장, 화면 아래로 완전히 내려가면 초기화 (위로 지나간 요소는 유지)
+     - .rv-mo: 모바일 전용 페이드업 (푸터 등)
+     의존: 없음 (pcMode · revealCheck를 여기서 정의)
+  */
+  const pcMode = matchMedia('(min-width: 1024px)');
+  const rvEls = [...document.querySelectorAll('main .rv')];
+  const rvMo = [...document.querySelectorAll('.rv-mo')];
+  var revealCheck = function () {
+    rvEls.forEach(el => {
+      const b = el.getBoundingClientRect();
+      if (b.top >= innerHeight) el.classList.remove('in');
+      else if (b.top < innerHeight * .9) el.classList.add('in');
+    });
+    if (pcMode.matches) return;
+    const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 2;
+    rvMo.forEach(el => {
+      const b = el.getBoundingClientRect();
+      if (b.bottom <= 0 || b.top >= innerHeight) el.classList.remove('in');
+      else if (atEnd || (b.top < innerHeight * .92 && b.bottom > innerHeight * .08)) el.classList.add('in');
+    });
+  };
+  addEventListener('scroll', revealCheck, { passive: true });
+  addEventListener('resize', revealCheck);
+  requestAnimationFrame(revealCheck);
+  /* @endregion */
+
+  /* @region geo-url
+     URL 진단 신청: 비었거나 주소 형식이 아니면 안내 · 맞으면 상담 페이지로 (시안: 안내 문구만 표시)
+     - http(s):// 없이 입력해도 받아줌
+  */
+  const urlForm = document.getElementById('geoUrlForm');
+  if (urlForm) {
+    const input = urlForm.querySelector('input'), msg = document.getElementById('geoUrlMsg');
+    const setMsg = (t, err) => { msg.textContent = t; msg.style.color = err ? '' : 'var(--gray-700)'; urlForm.classList.toggle('err', !!err); };
+    input.addEventListener('input', () => { if (urlForm.classList.contains('err')) setMsg(''); });
+    urlForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const v = input.value.trim();
+      if (!v) { setMsg('진단할 쇼핑몰 주소를 입력해 주세요.', true); input.focus(); return; }
+      let ok = false;
+      try { const u = new URL(/^https?:\/\//i.test(v) ? v : 'https://' + v); ok = /\.[a-z가-힣]{2,}$/i.test(u.hostname); } catch (_) {}
+      if (!ok) { setMsg('주소 형식을 확인해 주세요. 예) https://내쇼핑몰.co.kr', true); input.focus(); return; }
+      setMsg('상담 신청 페이지로 이동합니다. (입력한 주소가 함께 전달됩니다)');
+    });
+  }
+  /* @endregion */
+
+  /* @region geo-tabs
+     진단 · 해결 · 점검 탭 (탭 라인)
+     - 누르면 제목 · 설명 · 카드를 같은 키(data-dx)로 전환 · 제목은 아래에서 올라오며 교체(이전 제목은 위로 빠짐)
+     - 화면에 보이는 동안 2초마다 자동 전환 · 마우스를 올리거나 포커스가 있으면 멈춤 · 탭을 직접 누르면 자동 전환 끝
+  */
+  const dx = document.getElementById('geo-diagnosis');
+  if (dx && dx.querySelector('.dx-nav')) {   // 탭 구조일 때만 (세로 배열이면 건너뜀)
+    const keys = [...dx.querySelectorAll('.dx-nav [data-dx]')].map(b => b.dataset.dx);
+    let cur = keys[0], auto = !reduced, hold = false, seen = false;
+    const show = k => {
+      if (k === cur) return;
+      const prev = dx.querySelector('.dx-titles .on'), next = dx.querySelector('.dx-titles [data-dx="' + k + '"]');
+      // 다음 제목을 아래 위치로 되돌린 뒤 들어오게
+      next.style.transition = 'none'; next.classList.remove('out'); void next.offsetWidth; next.style.transition = '';
+      prev.classList.remove('on'); prev.classList.add('out'); next.classList.add('on');
+      dx.querySelectorAll('.dx-nav [data-dx], .dx-panel').forEach(el => {
+        const on = el.dataset.dx === k; el.classList.toggle('on', on);
+        if (el.tagName === 'BUTTON') el.setAttribute('aria-selected', String(on));
+      });
+      cur = k;
+    };
+    dx.querySelector('.dx-nav').addEventListener('click', e => { const b = e.target.closest('[data-dx]'); if (!b) return; auto = false; show(b.dataset.dx); });
+    dx.addEventListener('mouseenter', () => hold = true); dx.addEventListener('mouseleave', () => hold = false);
+    dx.addEventListener('focusin', () => hold = true); dx.addEventListener('focusout', () => hold = false);
+    new IntersectionObserver(es => es.forEach(en => seen = en.isIntersecting), { threshold: .35 }).observe(dx);
+    setInterval(() => { if (auto && seen && !hold && !document.hidden) show(keys[(keys.indexOf(cur) + 1) % keys.length]); }, 2000);
+  }
+  /* @endregion */
+
+  /* @region geo-hero-ai
+     히어로 — 제목 속 AI 이름 롤링(2.4초) · 뷰티 답변 첫 진입 시 1회 타이핑
+  */
+  const roll = document.querySelector('.ai-roll');
+  if (roll) {
+    // 항상 아래에서 위로 올라오도록: 첫 항목 복제본을 끝에 붙이고, 복제본까지 올라간 뒤 순간 처음으로 되돌림
+    const inn = roll.querySelector('.ai-roll-in'), n = inn.children.length;
+    const clone = inn.children[0].cloneNode(true); clone.setAttribute('aria-hidden', 'true'); inn.appendChild(clone);
+    const items = [...inn.children]; let ri = 0;
+    const fit = () => { roll.style.width = items[ri].scrollWidth + 'px'; inn.style.transform = 'translateY(' + (-ri * 1.3) + 'em)'; };
+    fit(); if (document.fonts) document.fonts.ready.then(fit);
+    if (!reduced) setInterval(() => {
+      ri += 1; fit();
+      if (ri === n) setTimeout(() => { inn.style.transition = 'none'; ri = 0; fit(); void inn.offsetHeight; inn.style.transition = ''; }, 650);
+    }, 2400);
+  }
+  // 시장 변화 그래프: 화면에 들어오면 선이 왼쪽에서 오른쪽으로 그려지고 교차 시점이 나타남 (1회)
+  const mkChart = document.querySelector('.mk-chart');
+  if (mkChart && !reduced && 'IntersectionObserver' in window) {
+    mkChart.classList.add('mk-anim');
+    const io2 = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io2.disconnect(); mkChart.classList.add('on'); } }, { threshold: .45 });
+    io2.observe(mkChart);
+  }
+  // 시장 변화 수치: 화면에 들어오면 0부터 카운트 업 (1회)
+  const mkStats = document.querySelector('.mk-stats');
+  if (mkStats && !reduced && 'IntersectionObserver' in window) {
+    const nums = [...mkStats.querySelectorAll('strong[data-to]')];
+    const setN = (el, v) => { el.firstChild.nodeValue = String(v); };
+    nums.forEach(el => setN(el, (0).toFixed((el.dataset.to.split('.')[1] || '').length)));
+    const io = new IntersectionObserver(es => {
+      if (!es.some(e => e.isIntersecting)) return;
+      io.disconnect();
+      const t0 = performance.now(), dur = 1400;
+      const step = t => {
+        const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        nums.forEach(el => { const d = (el.dataset.to.split('.')[1] || '').length; setN(el, (+el.dataset.to * e).toFixed(d)); });   /* patch-312: 소수점 자리 유지 */
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }, { threshold: .4 });
+    io.observe(mkStats);
+  }
+  // sf-hero (patch-333): 제목 롤링 채널(네이버쇼핑 · 카카오쇼핑 · 구글쇼핑)에 맞춰 가운데 검색 결과 화면 · 알림 아이콘 교체 (롤링 2.4초와 같은 박자)
+  const sfRoll = document.querySelector('#geo-hero .ai-roll-in'), sfSc = [...document.querySelectorAll('#geo-hero .sn-sc')], sfTl = document.querySelector('#geo-hero .sn-tl');
+  if (sfRoll && sfSc.length) {
+    const LG = ['naver', 'kakao', 'google'];
+    const sync = () => { const m = /translateY\((-?[\d.]+)em\)/.exec(sfRoll.style.transform || ''); const i = m ? Math.round(-parseFloat(m[1]) / 1.3) % sfSc.length : 0; sfSc.forEach((e, k) => e.classList.toggle('on', k === i)); if (sfTl) sfTl.src = 'assets/common/brand/' + LG[i] + '.svg'; };
+    new MutationObserver(sync).observe(sfRoll, { attributes: true, attributeFilter: ['style'] }); sync();
+  }
+  // 리포트: 화면에 들어오면 그래프 등장 + 카드 숫자 카운트업 (1회)
+  const rpEl = document.querySelector('#geo-report .rp');
+  if (rpEl) {
+    const nums = [...rpEl.querySelectorAll('.np-kpi strong, .db-top strong, .dn-v')].map(el => {
+      const tn = [...el.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.nodeValue));
+      return tn ? { tn, to: +tn.nodeValue.replace(/[^\d.]/g, ''), comma: tn.nodeValue.includes(',') } : null;
+    }).filter(Boolean);
+    const fmt = (v, c) => c ? Math.round(v).toLocaleString('ko-KR') : String(Math.round(v));
+    if (reduced || !('IntersectionObserver' in window)) rpEl.classList.add('go');
+    else {
+      nums.forEach(n => n.tn.nodeValue = fmt(0, n.comma));
+      const io3 = new IntersectionObserver(es => {
+        if (!es.some(e => e.isIntersecting)) return;
+        io3.disconnect(); rpEl.classList.add('go');
+        const t0 = performance.now(), dur = 1300;
+        const tick = t => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); nums.forEach(n => n.tn.nodeValue = fmt(n.to * e, n.comma)); if (k < 1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      }, { threshold: .25 });
+      io3.observe(rpEl);
+    }
+  }
+  /* @endregion */
+
+
+
+
+
+  /* @region header
+     GNB
+     - 모바일: 로고 줄은 스크롤로 올라가고 메뉴 줄만 상단 고정 → 메뉴 줄 위치(--gnb-offset)를 계산
+     - 스크롤 이벤트 누락 대비로 rAF에서 스크롤 변화를 감지해 reveal 판정 실행
+  */
+  const header = document.querySelector('.header');
+  let gnbTarget = null; // 스냅 이동 중 도착 위치(scrollY)
+  // 모바일·태블릿 메뉴 고정 위치: 헤더 안에서 메뉴 줄이 시작하는 지점만큼 위로 올림
+  const gnbEl = header.querySelector('.gnb');
+  const setGnbOffset = () => header.style.setProperty('--gnb-offset', (matchMedia('(max-width: 767px)').matches ? gnbEl.offsetTop : 0) + 'px');
+  // 모바일 상단 배너: 높이를 --banner-h로 알려 첫 화면 높이를 맞추고, 닫으면 제거
+  const moBanner = document.getElementById('moBanner');
+  const setBannerH = () => document.documentElement.style.setProperty('--banner-h', (moBanner && moBanner.isConnected && moBanner.offsetHeight) ? moBanner.offsetHeight + 'px' : '0px');
+  setBannerH(); addEventListener('resize', setBannerH);
+  document.getElementById('moBannerClose').addEventListener('click', () => { moBanner.remove(); setBannerH(); setGnbOffset(); dispatchEvent(new Event('resize')); });
+  setGnbOffset(); addEventListener('resize', setGnbOffset);
+  if (document.fonts) document.fonts.ready.then(setGnbOffset);
+  function gnbTone() { header.classList.remove('dark'); } // v2: 검정 배경 섹션 없음
+  // GNB 2depth: PC·태블릿은 마우스 올림/포커스로 열고 헤더를 벗어나면 닫음 · 모바일은 탭으로 열고 닫음
+  const d2Btns = [...header.querySelectorAll('.gnb button[data-menu]')];
+  const d2Panels = [...header.querySelectorAll('.depth2')];
+  const moPanel = header.querySelector('.mo-panel');
+  const moMenu = matchMedia('(max-width: 767px)');
+  let d2Close = 0;
+  const openMenu = key => {
+    clearTimeout(d2Close);
+    d2Btns.forEach(b => b.setAttribute('aria-expanded', String(b.dataset.menu === key)));
+    d2Panels.forEach(p => p.classList.toggle('open', !moMenu.matches && p.dataset.menu === key));
+    moPanel.querySelectorAll('.mp-body').forEach(b => b.classList.toggle('on', b.dataset.menu === key));
+    moPanel.classList.toggle('open', moMenu.matches && !!key);
+    document.body.classList.toggle('mo-menu-open', moMenu.matches && !!key); // 모바일 메뉴가 열려 있는 동안 제작상담 버튼 숨김
+  };
+  d2Btns.forEach(b => {
+    b.addEventListener('mouseenter', () => { if (!moMenu.matches) openMenu(b.dataset.menu); });
+    b.addEventListener('focus', () => { if (!moMenu.matches) openMenu(b.dataset.menu); });
+    b.addEventListener('click', () => openMenu(b.getAttribute('aria-expanded') === 'true' ? null : b.dataset.menu));
+  });
+  header.querySelectorAll('.gnb a').forEach(a => a.addEventListener('mouseenter', () => { if (!moMenu.matches) openMenu(null); }));
+  header.addEventListener('mouseleave', () => { if (!moMenu.matches) d2Close = setTimeout(() => openMenu(null), 120); });
+  header.addEventListener('mouseenter', () => clearTimeout(d2Close));
+  header.addEventListener('focusout', e => { if (!header.contains(e.relatedTarget)) openMenu(null); });
+  moPanel.addEventListener('click', e => { if (e.target === moPanel) openMenu(null); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') openMenu(null); });
+  addEventListener('scroll', () => { if (!moMenu.matches) openMenu(null); }, { passive: true }); // PC: 스크롤하면 닫음
+  moMenu.addEventListener('change', () => openMenu(null));
+  let lastScrollY = -1;
+  (function tick() {
+    if (scrollY !== lastScrollY) { lastScrollY = scrollY; revealCheck(); } // 스크롤 이벤트 누락 대비
+    requestAnimationFrame(tick);
+  })();
+  /* @endregion */
+
+
+
+  // 우측 플로팅: 맨 위 · 맨 아래 이동 (조금 스크롤하면 나타남 · 끝에서는 해당 버튼 비활성)
+  const pnav = document.querySelector('.page-nav');
+  if (pnav) {
+    const [bUp, bDn] = pnav.querySelectorAll('button');
+    const upd = () => { const y = scrollY, max = document.documentElement.scrollHeight - innerHeight; pnav.classList.toggle('on', y > 200); bUp.disabled = y < 4; bDn.disabled = y > max - 4; };
+    pnav.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (!b) return; scrollTo({ top: b.dataset.go === 'top' ? 0 : document.documentElement.scrollHeight, behavior: reduced ? 'auto' : 'smooth' }); });
+    addEventListener('scroll', upd, { passive: true }); addEventListener('resize', upd); upd();
+  }
+  // 진단·해결·점검 진행 라인: 화면 55% 지점을 기준으로 라인이 차오르고, 지나간 번호 원이 켜짐 (위로 스크롤하면 되돌아감)
+  const srRows = [];   // patch-290: 해결 번호 · 라인은 공통 wisa.js sr-line 에서
+  if (srRows.length) {
+    const srUpd = () => {
+      const th = reduced ? Infinity : innerHeight * .55;
+      srRows.forEach(row => {
+        const r = row.getBoundingClientRect(), no = row.querySelector('.sr-no');
+        no.classList.toggle('on', r.top + no.offsetHeight / 2 < th);
+        const nh = no.offsetHeight, t = r.top + nh + 12, h = Math.max(1, r.height - nh - 24);
+        row.style.setProperty('--p', Math.min(1, Math.max(0, (th - t) / h)).toFixed(3));
+      });
+    };
+    addEventListener('scroll', srUpd, { passive: true }); addEventListener('resize', srUpd); srUpd();
+  }
+  /* @region geo-report-loop
+     리포트 대시보드: 시작 애니메이션이 끝난 뒤 은은하게 반복
+     ① 지표 숫자(크롤러 방문 · AI 검색 유입)가 몇 초마다 1~3씩 오르고 '+n' 표시
+     ② 그래프 최신 지점(일별 막대 마지막 · 월별 추이 마지막 점)에 파동 링
+     ③ 도넛 조각을 차례로 강조 (범례 함께)
+     움직임 줄이기 설정이면 실행하지 않음
+  */
+  const rpLoop = document.querySelector('#geo-report .rp');
+  if (rpLoop && !reduced && 'IntersectionObserver' in window) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const startLoops = () => {
+      // ① 지표 숫자
+      const kpis = [...rpLoop.querySelectorAll('.np-kpi.db6 li')].filter(li => /크롤러 방문|AI 검색 유입/.test(li.textContent));
+      let ki = 0;
+      setInterval(() => {
+        if (document.hidden || !kpis.length) return;
+        const li = kpis[ki++ % kpis.length], st = li.querySelector('strong');
+        const tn = [...st.childNodes].find(n => n.nodeType === 3 && /\d/.test(n.nodeValue)); if (!tn) return;
+        const add = 1 + Math.floor(Math.random() * 3), v = +tn.nodeValue.replace(/[^\d]/g, '') + add;
+        tn.nodeValue = v.toLocaleString('ko-KR');
+        const t = document.createElement('span'); t.className = 'rp-tick'; t.textContent = '+' + add; li.appendChild(t);
+        st.classList.remove('rp-bump'); void st.offsetWidth; st.classList.add('rp-bump');
+        setTimeout(() => t.remove(), 1400);
+      }, 3200);
+      // ② 최신 지점 파동 링
+      rpLoop.querySelectorAll('.db-svg').forEach(svg => {
+        const bars = svg.querySelectorAll('.bar');
+        if (bars.length) { bars[bars.length - 1].classList.add('rp-live-bar'); return; }
+        const pt = svg.querySelector('.pt.last'); if (!pt) return;
+        const ring = document.createElementNS(NS, 'circle');
+        ring.setAttribute('cx', pt.getAttribute('cx')); ring.setAttribute('cy', pt.getAttribute('cy')); ring.setAttribute('r', '5'); ring.setAttribute('class', 'rp-ring');
+        pt.parentNode.insertBefore(ring, pt);
+      });
+      // ③ 도넛 조각 차례로 강조
+      const segs = [...rpLoop.querySelectorAll('.dn circle')], legs = [...rpLoop.querySelectorAll('.dn-lg li')];
+      let di = 0;
+      if (segs.length) setInterval(() => {
+        if (document.hidden) return;
+        segs.forEach((c, i) => c.classList.toggle('rp-hot', i === di)); legs.forEach((l, i) => l.classList.toggle('rp-hot', i === di));
+        di = (di + 1) % segs.length;
+      }, 2000);
+    };
+    const ioLoop = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { ioLoop.disconnect(); setTimeout(startLoops, 2600); } }, { threshold: .25 });
+    ioLoop.observe(rpLoop);
+  }
+  /* @endregion */
+
+  /* @region footer
+     푸터 메뉴 아코디언
+     - 태블릿·모바일에서만 동작 (PC는 4단 펼침) · 여러 개 동시에 열림
+     의존: reveal(pcMode)
+  */
+  // 푸터 메뉴 아코디언 (모바일·태블릿)
+  document.querySelectorAll('.ft-toggle').forEach(btn => btn.addEventListener('click', () => {
+    if (pcMode.matches) return;
+    const col = btn.closest('.ft-col'), open = !col.classList.contains('open');
+    col.classList.toggle('open', open); btn.setAttribute('aria-expanded', String(open));
+  }));
+  /* @endregion */
+
+})();
+
+/* vw-enter → assets/common/wisa.js (patch-172) */
+
+
+
+/* st2-code → assets/common/wisa.js (patch-172) */
+
+/* geo-chat-typing → assets/common/wisa.js (patch-172) */
+
+/* @region geo-scale (patch-164) 문제 · 단계 · 해결 화면 이미지: 칸 안쪽 폭 ÷ PC 가로 = 배율 --s (최대 1 · 확대 없음) */
+(() => {
+  const vs = [...document.querySelectorAll('#geo-why .bt-vis')].map(v => [v, 550])
+    .concat([...document.querySelectorAll('#geo-how .bento.b3 .bt-vis')].map(v => [v, 360]))
+    .concat([...document.querySelectorAll('#geo-diagnosis .sr-vis')].map(v => [v, 460]));
+  if (!vs.length) return;
+  const W = new Map(vs);
+  const mq = matchMedia('(max-width: 1439px)');
+  const set = v => {
+    if (!mq.matches) { v.style.removeProperty('--s'); v.style.removeProperty('--cx'); return; }
+    const cs = getComputedStyle(v), inner = v.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    if (inner <= 0) return;
+    const sc = Math.min(1, inner / W.get(v));
+    v.style.setProperty('--s', sc.toFixed(4));
+    v.style.setProperty('--cx', Math.max(0, (v.clientWidth - W.get(v) * sc) / 2).toFixed(1) + 'px');   // 문제: 칸이 넓으면 가운데
+  };
+  const ro = new ResizeObserver(es => es.forEach(e => set(e.target)));
+  vs.forEach(([v]) => { set(v); ro.observe(v); });
+  mq.addEventListener('change', () => vs.forEach(([v]) => set(v)));
+})();
+/* @endregion geo-scale */
+
+/* version-history → assets/common/wisa.js (patch-172) */
+</script>
+<script>
+/* report-zoom → assets/common/wisa.js (patch-172) */
+</script>
+<script>
+  /* @region host-tabs (patch-377): 모바일에서 현재 탭이 탭 줄 안에 보이게 가로 위치 맞춤 */
+  (() => { const n = document.querySelector("#cl-hero .tab-page"), on = n && n.querySelector("a.on"); if (!on || n.scrollWidth <= n.clientWidth) return; n.scrollLeft = on.offsetLeft - (n.clientWidth - on.offsetWidth) / 2; })();
+  /* @endregion host-tabs */
+</script>
+/* vw-enter → assets/common/wisa.js (patch-172) */
+</body>
+</html>
