@@ -31,6 +31,10 @@
 .pc-note.plain { background: none; color: var(--gray-500); }
 .pc-note.off { visibility: hidden; }
 
+/* 정가 취소선 (patch-795 · 할인 상품 · 창업 패키지) — 가격 바로 아래 · 위 4 · 14/20 · Gray 400 · 취소선 → 그 아래 가격 메모(.pc-note)에 할인 금액 · 비율 */
+.pc-was { margin: 4px 0 0; color: var(--gray-400); font-size: 14px; line-height: 20px; text-decoration: line-through; }
+.pc-was + .pc-note { margin-top: 8px; }
+
 /* 태그 (사양 · 포함 요금제) · 가격 바로 아래면 20 (patch-417) */
 .pc-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
 .pc-price + .pc-tags { margin-top: 20px; }

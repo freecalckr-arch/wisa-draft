@@ -24,6 +24,7 @@
 <tr><td><b>모바일 콘텐츠 타이틀</b></td><td><a class="thumb" href="#tab=모바일 타이틀"><span class="tf"><iframe src="assets/changes/demo-title.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>모바일(≤767) 28 → 26px</td><td>PC 34 · 태블릿 36 · 히어로 h1</td><td>영역 타이틀 h2 · CTA 타이틀 (28 인 페이지만)</td></tr>
 <tr><td><b>탑버튼</b></td><td><a class="thumb" href="#tab=탑버튼"><span class="tf"><iframe src="assets/changes/demo-top.html" title="미리보기" tabindex="-1" aria-hidden="true" loading="lazy"></iframe></span></a></td><td>오른쪽 아래 로켓 탑버튼 → 오른쪽 가운데 맨 위 · 맨 아래 이동 버튼 (위 · 아래 2개)</td><td>스크롤하면 나타남 · 부드럽게 이동</td><td>모든 서브페이지 <code>#scroll_top</code></td></tr>
 </tbody></table></div>
+    <div class="call"><p>창업 · 맞춤 패키지 · 푸터 도메인 아이콘 · 메인 쇼핑몰 타입 이미지 개선은 <a href="#tab=부분 개선 3건">부분 개선 3건</a> 탭에 있습니다.</p></div>
     <div class="call"><p>이미 구현한 마케팅 페이지에 2차 전달 이후 더할 공통 수정(단계 탭 손가락 넘기기 · 단계 카드 사이 화살표)은 <a href="#tab=마케팅 공통 수정">마케팅 공통 수정</a> 탭에 있습니다.</p></div>
     <p class="note">미리보기를 누르면 해당 탭으로 이동합니다. 미리보기는 신규 시안 공통 파일(wisa.css)을 그대로 불러온 화면이라, 시안 값이 바뀌면 함께 바뀝니다.</p>
     <div class="call"><p>신규 시안 코드는 공통 파일 <code>assets/common/wisa.css</code> · <code>wisa.js</code> 에 있습니다. 각 탭의 "시안 코드 위치"에서 찾을 수 있습니다.</p></div>
@@ -225,7 +226,51 @@ if (pnav) {
     <p class="note">태블릿 · 모바일은 지금처럼 화살표가 없습니다. 규격: <a href="cards.html#tab=단계 (카드 타입)">카드 › 단계 (카드 타입)</a></p>
 
 </section>
-    <p class="foot">마지막 수정 2026-11-25 · 기존 값은 wisa.co.kr 화면에서 잰 값입니다. 신규 값이 바뀌면 이 페이지와 각 시안 HTML 맨 위 [개발 전달] 주석을 같이 고칩니다.</p>
+<section class="panel" data-tab="부분 개선 3건" data-badge="N">
+    <h2 id="fix-list">한눈에 보기</h2>
+    <div class="tbl"><table><thead><tr><th></th><th>항목</th><th>바뀌는 것</th><th>대상</th></tr></thead><tbody>
+<tr><td><span class="num">1</span></td><td><b>창업 · 맞춤 패키지</b></td><td>히어로 = 마케팅 · 호스팅 공통 히어로 (페이지 전환 탭 · 키워드 교체 카피) · 창업 패키지 카드 = 요금 카드 공통 부품 · 맞춤 패키지 선택 요소 = 공통 체크박스 · 라디오</td><td><a href="https://www.wisa.co.kr/build/package">build/package</a></td></tr>
+<tr><td><span class="num">2</span></td><td><b>푸터 도메인 메뉴 아이콘</b></td><td>도메인 등록 · 연장 · 관리 이름 옆에 바깥 이동 아이콘(↗)</td><td>모든 페이지 푸터</td></tr>
+<tr><td><span class="num">3</span></td><td><b>메인 쇼핑몰 타입 이미지</b></td><td>“어떤 쇼핑몰이든, 부스터 하나로” 카드 이미지 8장을 2배 크기로 다시 내보냄</td><td>메인 <code>.rn-mt-pic</code></td></tr>
+</tbody></table></div>
+
+    <h2 id="fix-package">1. 창업 · 맞춤 패키지</h2>
+    <div class="live" data-src="../package.html" data-sel="#pk-start .pc-list" data-m="24" data-ws="1440,820,390"></div>
+    <p>시안: <a href="../package.html">창업 패키지</a> · <a href="../package.html#custom">맞춤 패키지</a> (각 HTML 맨 위 [개발 전달] 주석에 전체 규격)</p>
+    <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>신규</th></tr></thead><tbody>
+<tr><td>히어로</td><td>흰 바탕 · 페이지 전환 탭(<a href="#tab=페이지 전환 탭">페이지 전환 탭</a>과 같음) · 타이틀 “[키워드]부터 운영까지 / 한 번에 준비하는 창업 패키지” · 키워드 교체 2.4초 (전환 0.6초) 솔루션 → 쇼핑몰 디자인 → PG 결제 → 관리자 교육 · 키워드 앞 아이콘 타일 · 설명 1~2줄</td></tr>
+<tr><td>탭 전환</td><td>창업 · 맞춤은 한 페이지 안 전환 · 탭을 누르면 흰 알약이 미끄러진 뒤 주소 끝 <code>#start</code> · <code>#custom</code> 으로 히어로 문장과 내용만 바뀜 (주소로 바로 열어도 그 탭)</td></tr>
+<tr><td>창업 패키지 카드</td><td>요금 카드 공통 부품 <code>plan.css .pc</code> (<a href="plan.html">요금 카드</a>) · 이름 → 설명 → 가격 → 정가 취소선 <code>.pc-was</code> → 할인 메모 <code>.pc-note</code> → 버튼 → 구성 체크 목록 · 실속 = 추천(<code>.is-rec</code> · 위 검정 라벨 · 버튼 검정) · 모바일은 가로 스와이프 대신 세로 나열</td></tr>
+<tr><td>맞춤 패키지</td><td>구성 · 가격은 기존 그대로 · 솔루션 = 라디오(1개) · 나머지 = 체크박스 (<a href="form.html">입력 요소</a>) · 오른쪽 선택 내역 카드(선택 금액 · 할인 금액 · 총 결제 금액) PC 는 따라 내려옴 · 태블릿 · 모바일은 목록 아래 · 그룹 제목 이모지 삭제</td></tr>
+</tbody></table></div>
+
+    <h2 id="fix-footer">2. 푸터 도메인 메뉴 아이콘</h2>
+    <p>도메인 등록 · 연장 · 관리는 누르면 로그인 → 계정 선택 → 스토어로 이동합니다. 다른 메뉴와 구분되도록 <b>이름 옆에 바깥 이동 아이콘</b>만 붙입니다 (배치 · 글자 · 링크는 그대로).</p>
+    <div class="live" data-src="../geo.html" data-sel=".ft-col:nth-child(2) .ft-group:last-child" data-m="16" data-ws="1440"></div>
+    <div class="code"><button type="button" data-copy="c-ft-ext">복사</button><pre id="c-ft-ext">&lt;a href="..."&gt;&lt;span&gt;도메인 등록&lt;/span&gt;&lt;i class="ft-ext" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;
+
+/* 아이콘 14 · 선 1.6 · Gray 400 · 이름과 4 간격 · 호버 시 글자와 함께 검정 */
+.ft-ext { flex: none; display: inline-block; width: 14px; height: 14px; margin-left: 4px; vertical-align: -2px; background: var(--gray-400); transition: background .2s;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 2.5H3.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-2'/%3E%3Cpath d='M8 2.5h3.5V6M11.5 2.5 6.5 7.5'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 2.5H3.5a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-2'/%3E%3Cpath d='M8 2.5h3.5V6M11.5 2.5 6.5 7.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+.ft-group li:hover .ft-ext { background: var(--black); }</pre></div>
+    <p class="note">시안 코드 위치: <code>assets/common/wisa.css</code> <code>ft-ext</code> (patch-794).</p>
+
+    <h2 id="fix-malltype">3. 메인 쇼핑몰 타입 이미지</h2>
+    <p>메인 “어떤 쇼핑몰이든, 부스터 하나로” 카드 이미지(<code>/assets/img/main/malltype/main-malltype-*.png</code> 8장)는 원본이 <b>390 × 320 (1배)</b> 입니다. 화면에는 376 × 300 으로 보여, 화면 배율이 1보다 큰 모니터 · 노트북(125 · 150 · 200%) · 휴대폰에서는 늘려 그려져 흐리게 보입니다. 이미지 안 상품명 · 가격 · 버튼 글자가 작아 특히 뭉개집니다.</p>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>기존</th><th>신규</th></tr></thead><tbody>
+<tr><td>원본 크기</td><td>390 × 320 PNG</td><td><b>780 × 640 (2배)</b> · 같은 비율 · 같은 구도</td></tr>
+<tr><td>형식</td><td>PNG</td><td>WebP (품질 85 안팎) + PNG 2배 (WebP 를 못 읽는 브라우저용)</td></tr>
+<tr><td>표시 크기</td><td>376 × 300</td><td>그대로 (CSS 변경 없음)</td></tr>
+<tr><td>대상</td><td colspan="2">brand · shopinshop · contents · global · b2b · o2o · subscription · inapp (8장)</td></tr>
+</tbody></table></div>
+    <div class="code"><button type="button" data-copy="c-mt">복사</button><pre id="c-mt">&lt;picture&gt;
+  &lt;source type="image/webp" srcset="/assets/img/main/malltype/main-malltype-brand@2x.webp 2x, /assets/img/main/malltype/main-malltype-brand.webp 1x"&gt;
+  &lt;img class="rn-mt-pic" src="/assets/img/main/malltype/main-malltype-brand.png" srcset="/assets/img/main/malltype/main-malltype-brand@2x.png 2x" width="390" height="320" alt="브랜드형 쇼핑몰 화면" loading="lazy"&gt;
+&lt;/picture&gt;</pre></div>
+    <p class="note">이미지 안 목업을 다시 그리지 않고, 원본 디자인 파일에서 2배로 다시 내보내기만 하면 됩니다. 원본 파일이 없으면 1배 이미지를 늘리는 것으로는 선명해지지 않습니다.</p>
+</section>
+    <p class="foot">마지막 수정 2026-11-27 · 기존 값은 wisa.co.kr 화면에서 잰 값입니다. 신규 값이 바뀌면 이 페이지와 각 시안 HTML 맨 위 [개발 전달] 주석을 같이 고칩니다.</p>
   </div>
 </main>
 <script src="assets/docs.js"></script>
