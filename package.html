@@ -54,6 +54,7 @@
   /* @region pk-start : 창업 패키지 카드 3장 (plan.css .pc) */
   #pk-start .pc-list { max-width: 1240px; margin-inline: auto; }
   #pk-start .pc-checks b { font-weight: 700; }
+  #pk-start .pc.is-rec::before { font-family: "Tossface", "Pretendard Variable", Pretendard, system-ui, sans-serif; }   /* patch-796 추천 라벨 = 기존 홈페이지와 같은 👍 (토스 이모지 · 글자는 Pretendard) */
   .pk-foot { margin: 40px 0 0; color: var(--gray-500); font-size: 14px; line-height: 20px; text-align: center; word-break: keep-all; }
   .pk-foot a { color: var(--gray-900); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
   @media (min-width: 768px) and (max-width: 1023px) {
@@ -267,7 +268,7 @@
 <!-- @region pk-start : 창업 패키지 카드 3장 (요금 카드 공통 부품 plan.css .pc) -->
 <section class="sec" id="pk-start" data-pane="start">
   <div class="container">
-    <ul class="pc-list">   <!-- [개발 전달] patch-795 요금 카드 공통 부품 (assets/common/plan.css · docs/plan.html) · 추천 = 실속 (.is-rec · 버튼 검정) · 정가 취소선 .pc-was + 할인 메모 .pc-note -->
+    <ul class="pc-list">   <!-- [개발 전달] patch-795 요금 카드 공통 부품 (assets/common/plan.css · docs/plan.html) · 추천 = 실속 (.is-rec · 라벨 "👍 추천 상품" 기존과 같은 이모지 patch-796 · 버튼 검정) · 정가 취소선 .pc-was + 할인 메모 .pc-note -->
       <li class="pc rv">
         <h3>기본 패키지</h3>
         <p class="pc-sub">가장 기본 구성으로 선택한다면</p>
@@ -277,7 +278,7 @@
         <a class="btn pc-btn" href="https://www.wisa.co.kr/build/package/494">자세히 보기</a>
         <ul class="pc-checks"><li>솔루션</li><li>디자인 커스텀 / 유지보수</li><li>PG 가입 및 세팅</li><li>1:1 맞춤교육</li><li>운영 서비스 <b>일부</b></li></ul>
       </li>
-      <li class="pc is-rec rv" data-rec="추천 상품" style="--d:100ms">
+      <li class="pc is-rec rv" data-rec="👍 추천 상품" style="--d:100ms">
         <h3>실속 패키지</h3>
         <p class="pc-sub">부담을 확 낮추는 실속 구성을 원한다면</p>
         <p class="pc-price"><strong>1,320,000</strong><span>원</span></p>
