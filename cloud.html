@@ -30,6 +30,18 @@
        - 휴대폰 화면 = 판매 순위 카드 (patch-750 · 실제 모바일 앱 레이아웃: 제목 + 어제 · 오늘(선택) · 한달 · 4줄 = 썸네일 28 · 상품명 12 · 판매 수 12.5/700 · 증감 없음 · 줄 높이 40 · 구분선 없음)
        - patch-751: 휴대폰 머리줄 44 (메뉴 18 · 부스터 14.5 · 내 사이트 12 · W 22) · 판매 순위 제목 13 · 탭 30×20 / 10 · 카드 안 여백 18/16/12 · 제목 ~ 목록 6 · 줄 36 (patch-753) · 썸네일 30 · 썸네일 ~ 상품명 14 (실제 모바일 앱 간격) · 판매 순위 아래 가입 현황 카드(사이 10 · 12일 막대 · 아래는 잘림) · 선택 테두리 안쪽 1 · PC 세 번째 카드 = 판매 순위 (기존 영상과 같음)
        - patch-757: 모바일(≤767) 휴대폰 화면은 방문 · 가입 · 주문 카드 (주문은 아래 끝에서 잘림 · patch-762 · 기존 모바일 디자인 그대로 · 파란 박스 네 모서리 라운드 50 · patch-761)(기존 모바일 영상과 같음) · PC · 태블릿은 판매 순위 + 가입 현황
+       - patch-779: 시안 히스토리 패널 스크립트 추가 (이 페이지는 공통 wisa.js 를 안 써서 목록이 비어 있었음 · 공통 version-history 코드 그대로) · 히스토리 = 솔루션 묶음(솔루션 비교 · Cloud)만
+       - patch-778: 모바일 단계 왼쪽 카드 엇갈림 정리 (알림톡 왼쪽 150 → 200 · 모바일 구매율 위 280 → 240) · 태블릿 판매 알림 = 상품 사진 36 → 64 · 문장 두 줄(Logo sweat shirt / 4개 판매되었습니다 · 356,000원) · 위치 왼쪽 96 → 68 · 위 128 → 132 · PC 로 연 뒤 창을 모바일 폭으로 줄여도 휴대폰 숫자가 0 으로 남지 않게 · 결제 수단 연동 카드 글자 강약 (제목 13/500 Gray 500 · 2개 Gray 400 · 항목 13 → 14.5/600) · PC · 태블릿 머무는 시간 2.4초로 같게 (PC 3 → 2.4 · 태블릿 1.8 → 2.4)
+       - patch-777: 자동 재생 단계 이동 정리 (앞 단계 주변 요소 숨김 → 기기 바뀜 → 0.2초 뒤 새 주변 요소) · 멈춤 확인(gen) · 기기 탭은 검토 후 넣지 않음
+       - patch-776: 커서 화살표 검정 · 끄는 동안 회색 고리 · 단계마다 사라지지 않고 계속 보임 / 모바일 단계 스크롤 때 터치 원(.cl-tap · 44 · 반투명 검정 + 흰 테두리)이 화면을 누르고 위로 쓸어 올림
+         단계별 배경: PC 단계 = 날개 돈 이모지만 · 태블릿 = 상품 판매 알림(왼쪽 위 · Logo sweat shirt 4개 판매 · 356,000원 · 판매 순위 1위 상품) + 이번 달 매출 그래프 카드(오른쪽 아래 · 매체 광고 히어로 .ad-rs 형태 · 1.6억 ▲ 12% · 상승 레드) · 모바일 = 알림톡 알림 + 모바일 구매율 그래프 카드(CRM 히어로 .cr-rr 형태) + 결제 수단 연동 카드(버티컬커머스 히어로 .vc-en 형태 · 네이버페이 연결됨 · 토스페이 연결 중 → 연결됨 (카카오페이 줄 뺌) · 1.1배) — 마케팅 히어로 .sh-toast 규격(.cl-ts) · 블루 아이콘 단계마다 1곳 · 모바일 → PC 로 돌아갈 때 태블릿 알림은 건너뜀(.back)
+       - patch-775: 커서를 흰 원 손잡이(36 · 그림자) + 파란 좌우 화살표로 바꿈 · 끄는 동안 살짝 눌리고 연한 파란 고리
+       - patch-774: 잔상(patch-771~773) 없앰 → 폭이 줄면 창이 기기 모양으로 바뀜 (태블릿 = 흰 베젤 10 · 모서리 30 / 휴대폰 = 베젤 8 · 모서리 40 · 연회색 테두리 + 그림자)
+         동시에 카메라가 다가가듯 확대 (태블릿 1.1배 · 휴대폰 1.3배) · 기기는 늘 박스 가운데 · 목업 이미지 없이 CSS 로 그림
+       - patch-770 (고객 피드백 "반응형 느낌이 부족 · 2년 전 영상처럼 PC 화면이 태블릿 · 모바일로 변형"): PC · 태블릿 해상도 비주얼 = 창 하나 반응형 연출
+         커서가 창 오른쪽 끝을 끌면 창이 왼쪽 끝 고정(patch-773)으로 1209 → 640 → 330(1400 기준) 으로 줄며 배치가 바뀜 (PC 6열 → 태블릿 = 모바일과 같은 머리줄 · 왼쪽 메뉴 없음 (patch-772) · 숫자 카드 2개씩 (patch-771) · 그래프 2개씩 → 모바일 = 머리줄 · 카드 한 줄)
+         지나온 화면(PC · 태블릿 배치)은 잔상으로 남고 (PC 20% · 태블릿 30% · 흰 테두리 2 · patch-772 / 처음 10% · patch-771 · 점선 대신 · 태블릿 잔상 뒤는 바탕색으로 가려 두 겹 안 보이게) (창 위 기기 · 폭 표시는 patch-773 에서 뺌) · 모바일에서 카드 2번 스크롤 후 다시 PC 로 펼침 (한 바퀴 약 17초)
+         휴대폰 겹치기(.cl-ph)는 PC · 태블릿 해상도에서 숨김 (patch-763~769 휴대폰 카드 삭제) · 모바일 해상도(≤767)는 기존 휴대폰 화면 그대로
        - patch-769: 휴대폰 그래프 왼쪽 축 숫자 글자 줄임 (8 → 6.8 · 화면 약 9.5 → 8px) · 날짜 ~ 범례 간격 4px 더 (범례 위 여백이 판매 순위 목록 규칙(ul margin 0)에 덮여 0 이던 것 바로잡고 4px · 그래프 세로를 줄여 카드 세로 유지)
        - patch-768: 가입 현황 그래프 7일 데이터로 (하루 가입 PC · 모바일 · 앱 쌓음 · 7일째 = 오늘 98 · 선 = 지난 7일 평균 약 109)
        - patch-768: 휴대폰 그래프 막대 굵기 · 날짜 · 축 글자 크기 = PC 대시보드 그래프와 같게 (화면에서 같은 px · 막대 7.26 · 글자 8.07 = PC 9 · 10px 와 같은 크기) · 날짜 ~ 범례 간격 8 → 14
@@ -63,6 +75,62 @@
     position: relative; aspect-ratio: 1400 / 460; overflow: hidden; border-radius: calc(var(--u) * 34); background: #d2e9ff; text-align: left; letter-spacing: -.01em; color: #222; }
   #cl-hero .cl-art .em { font-family: "Tossface", sans-serif; font-style: normal; line-height: 1; }
   #cl-hero .cl-money { position: absolute; left: calc(var(--u) * 40); top: calc(var(--u) * 12); z-index: 3; width: calc(var(--u) * 112); height: auto; }   /* patch-747: 노토 애니메이션 이모지 GIF (날개 돈 · 512×512) */
+  /* patch-776: 단계별 배경 — PC = 날개 돈 이모지 · 태블릿(.st-tb) · 모바일(.st-mo) = 마케팅 히어로 알림(.cl-fx.cl-ts.tb · .mo)이 다른 자리에 톡 나타남 */
+  #cl-hero .cl-money { transition: opacity .5s ease, transform .5s ease; }
+  #cl-hero .cl-art.nm .cl-money { opacity: 0; transform: scale(.8); }
+  #cl-hero .cl-fx { position: absolute; z-index: 0; opacity: 0; transform: scale(.7); transition: opacity .5s ease, transform .5s cubic-bezier(.3, 1.4, .5, 1); pointer-events: none; }
+  #cl-hero .cl-art.st-tb .cl-fx.tb, #cl-hero .cl-art.st-mo .cl-fx.mo { opacity: 1; transform: none; }
+  #cl-hero .cl-art.back .cl-fx.tb { opacity: 0; transform: scale(.7); }   /* 모바일 → PC 로 돌아갈 때 태블릿 이모지가 잠깐 튀어나왔다 사라지지 않게 */
+  #cl-hero .cl-art.back .cl-fx.mo { transition: opacity .35s ease, transform .35s ease; }
+  /* 알림 = 공통 .sh-toast 와 같은 값 (wisa.css · 아이콘 32 · 모서리 10 · 14/18/14/14 · 모서리 16 · 14.5/12 · 블루 그림자 · 둥둥 heroBob) — 그림 칸(--u) 비율로 줄어들도록 단위만 --u */
+  #cl-hero .cl-ts { display: flex; align-items: center; gap: calc(var(--u) * 12); padding: calc(var(--u) * 14) calc(var(--u) * 18) calc(var(--u) * 14) calc(var(--u) * 14); border-radius: calc(var(--u) * 16); background: var(--white); box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 32) rgba(21, 112, 239, .16); text-align: left; animation: heroBob 6s ease-in-out infinite alternate; }
+  #cl-hero .cl-ts:nth-of-type(even) { animation-delay: -3s; }
+  #cl-hero .cl-ts-ic { flex: none; display: grid; place-items: center; width: calc(var(--u) * 32); height: calc(var(--u) * 32); border-radius: calc(var(--u) * 10); background: var(--gray-100); color: var(--gray-500); }
+  #cl-hero .cl-ts-ic.on { background: var(--primary-600); color: var(--white); }   /* 단계마다 블루 1곳 */
+  #cl-hero .cl-ts-ic svg { width: calc(var(--u) * 18); height: calc(var(--u) * 18); }
+  #cl-hero .cl-ts-lg { flex: none; width: calc(var(--u) * 32); height: calc(var(--u) * 32); border-radius: calc(var(--u) * 10); }
+  #cl-hero .cl-ts p { margin: 0; font-size: calc(var(--u) * 14.5); line-height: calc(var(--u) * 20); font-weight: 500; color: var(--gray-700); white-space: nowrap; }
+  #cl-hero .cl-ts p b { font-weight: 700; color: var(--black); }
+  #cl-hero .cl-ts small { display: flex; align-items: center; gap: calc(var(--u) * 6); margin-top: calc(var(--u) * 2); font-size: calc(var(--u) * 12); line-height: calc(var(--u) * 16); color: var(--gray-400); white-space: nowrap; }
+  #cl-hero .cl-ts small > i { width: calc(var(--u) * 6); height: calc(var(--u) * 6); border-radius: 50%; background: #12b76a; animation: rpLive 1.6s ease-in-out infinite; }   /* Success 500 · 실시간 점 */
+  #cl-hero .cl-ts small em { font-style: normal; color: #d92d20; }   /* Error 600 · 증가 ▲ */
+  /* 그래프 카드 = CRM 히어로 90일 재구매율(.cr-rr) 값 그대로 · 단위만 --u */
+  #cl-hero .cl-rr { display: flex; flex-direction: column; border-radius: calc(var(--u) * 16); background: var(--white); box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 32) rgba(21, 112, 239, .16); text-align: left; animation: heroBob 6s ease-in-out infinite alternate; }
+  #cl-hero .cl-rr { width: calc(var(--u) * 180); gap: calc(var(--u) * 4); padding: calc(var(--u) * 16) calc(var(--u) * 16) calc(var(--u) * 12); animation-delay: -3s; }
+  #cl-hero .cl-rr b { font-size: calc(var(--u) * 13); line-height: calc(var(--u) * 18); font-weight: 500; color: var(--gray-500); }
+  #cl-hero .cl-rr strong { display: flex; align-items: baseline; gap: calc(var(--u) * 2); font-size: calc(var(--u) * 28); line-height: 1.1; font-weight: 700; color: var(--black); }
+  #cl-hero .cl-rr strong small { margin-left: calc(var(--u) * 2); font-size: calc(var(--u) * 16); font-weight: 500; color: var(--gray-400); }
+  #cl-hero .cl-rr strong span { margin-left: calc(var(--u) * 6); font-size: calc(var(--u) * 13); font-weight: 700; color: #d92d20; }   /* 증가 ▲ = Error 600 */
+  #cl-hero .cl-rr svg { display: block; width: 100%; height: calc(var(--u) * 46); margin-top: calc(var(--u) * -4); }
+  /* 이번 달 매출 카드 = 매체 광고 히어로 .sh-float.ad-rs 값 그대로 · 단위만 --u */
+  /* 결제 수단 연동 카드 (모바일 단계 오른쪽) = 버티컬커머스 히어로 채널 입점 현황(.sh-float.vc-en) 값 그대로 · 단위만 --u · 카드 전체 1.1배 */
+  #cl-hero .cl-pl { display: flex; flex-direction: column; gap: calc(var(--u) * 12); width: calc(var(--u) * 228); padding: calc(var(--u) * 16); border-radius: calc(var(--u) * 16); background: var(--white); box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 32) rgba(21, 112, 239, .16); text-align: left; scale: 1.1; transform-origin: left top; animation: heroBob 6s ease-in-out -3s infinite alternate; }
+  #cl-hero .cl-pl > b { display: flex; align-items: center; gap: calc(var(--u) * 6); font-size: calc(var(--u) * 13); line-height: calc(var(--u) * 18); font-weight: 500; color: var(--gray-500); }   /* patch-778: 제목 = 다른 카드 라벨(13/500 Gray 500)처럼 약하게 · 항목 이름 14.5/600 진하게 */
+  #cl-hero .cl-pl > b small { margin-left: auto; font-size: calc(var(--u) * 12); font-weight: 500; color: var(--gray-400); }
+  #cl-hero .cl-pl ul { display: flex; flex-direction: column; gap: calc(var(--u) * 10); margin: 0; padding: calc(var(--u) * 12) 0 0; border-top: 1px solid var(--gray-100); list-style: none; }
+  #cl-hero .cl-pl li { display: flex; align-items: center; gap: calc(var(--u) * 8); font-size: calc(var(--u) * 14.5); line-height: calc(var(--u) * 24); font-weight: 600; color: var(--gray-900); }
+  #cl-hero .cl-pl li > img { flex: none; width: calc(var(--u) * 24); height: calc(var(--u) * 24); border-radius: calc(var(--u) * 7); }
+  #cl-hero .cl-pl li > img[src$="toss-pay.svg"] { box-shadow: 0 0 0 1px var(--gray-200); }   /* 흰 바탕 로고 테두리 */
+  #cl-hero .cl-pl em { margin-left: auto; padding: calc(var(--u) * 2) calc(var(--u) * 8); border-radius: 99px; background: var(--gray-100); font-style: normal; font-size: calc(var(--u) * 11); line-height: calc(var(--u) * 16); font-weight: 600; color: var(--gray-700); }
+  #cl-hero .cl-pl em.st { display: grid; padding: 0; background: none; }
+  #cl-hero .cl-pl em.st span { grid-area: 1 / 1; padding: calc(var(--u) * 2) calc(var(--u) * 8); border-radius: 99px; background: var(--gray-100); text-align: center; transition: opacity .4s ease; }
+  #cl-hero .cl-pl em.st span:first-child { background: var(--white); box-shadow: inset 0 0 0 1px var(--gray-200); color: var(--gray-500); }
+  #cl-hero .cl-pl em.st span + span { opacity: 0; }
+  #cl-hero .cl-art.st-mo .cl-pl em.st span:first-child { opacity: 0; transition-delay: 1.4s; }   /* 카드가 나타나고 1.4초 뒤 연결 중 → 연결됨 (겹친 칩 페이드) */
+  #cl-hero .cl-art.st-mo .cl-pl em.st span + span { opacity: 1; transition-delay: 1.4s; }
+  #cl-hero .cl-ms { display: flex; flex-direction: column; gap: calc(var(--u) * 4); width: calc(var(--u) * 200); padding: calc(var(--u) * 18) calc(var(--u) * 20); border-radius: calc(var(--u) * 16); background: var(--white); box-shadow: 0 calc(var(--u) * 12) calc(var(--u) * 32) rgba(21, 112, 239, .16); text-align: left; animation: heroBob 6s ease-in-out -3s infinite alternate; }
+  #cl-hero .cl-ms b { font-size: calc(var(--u) * 13); line-height: calc(var(--u) * 18); font-weight: 500; color: var(--gray-500); }
+  #cl-hero .cl-ms strong { font-size: calc(var(--u) * 28); line-height: 1.1; font-weight: 700; color: var(--black); }
+  #cl-hero .cl-ms strong small { margin-left: calc(var(--u) * 2); font-size: calc(var(--u) * 16); font-weight: 500; color: var(--gray-400); }
+  #cl-hero .cl-ms > span { font-size: calc(var(--u) * 13); line-height: calc(var(--u) * 18); font-weight: 600; color: #d92d20; }
+  #cl-hero .cl-ms svg { display: block; flex: none; width: 100%; height: calc(var(--u) * 40); margin-top: 0; overflow: visible; }   /* 그래프 선 = 카드 안쪽 폭에 꽉 차게 (세로 눌림 막음) */
+  #cl-hero .cl-ms svg path, #cl-hero .cl-ms svg circle { vector-effect: non-scaling-stroke; }   /* 글자 ↔ 그래프 간격 줄임 (gap 4 만) */
+  #cl-hero .cl-ts img.cl-ts-pd { object-fit: cover; background: var(--gray-50); box-shadow: inset 0 0 0 1px var(--gray-100); }   /* 상품 사진 알림 */
+  #cl-hero .cl-ts img.cl-ts-lg { width: calc(var(--u) * 36); height: calc(var(--u) * 36); }   /* 로고 알림 = 매체 광고 .ad-tl 36 */
+  #cl-hero .cl-ts-sale { gap: calc(var(--u) * 14); padding: calc(var(--u) * 14) calc(var(--u) * 20) calc(var(--u) * 14) calc(var(--u) * 14); }   /* patch-778: 판매 알림 = 상품 사진 64 + 알림 문장 두 줄 (오른쪽 매출 카드와 무게 맞춤) */
+  #cl-hero .cl-ts-sale img.cl-ts-lg { width: calc(var(--u) * 64); height: calc(var(--u) * 64); border-radius: calc(var(--u) * 12); }
+  #cl-hero .cl-ts-sale small { margin-top: calc(var(--u) * 6); }
+  @media (prefers-reduced-motion: reduce) { #cl-hero .cl-ts, #cl-hero .cl-ts small > i, #cl-hero .cl-rr, #cl-hero .cl-ms, #cl-hero .cl-pl { animation: none !important; } }
 
   /* PC 대시보드 */
   #cl-hero .cl-pc { position: absolute; left: calc(var(--u) * 95); top: calc(var(--u) * 64); width: calc(var(--u) * 1209); height: calc(var(--u) * 430); display: flex; overflow: hidden; border-radius: calc(var(--u) * 4) calc(var(--u) * 24) 0 0; background: #eef0f4; }
@@ -108,6 +176,46 @@
   #cl-hero .cl-rk img { width: calc(var(--u) * 33); height: calc(var(--u) * 33); border-radius: calc(var(--u) * 4); object-fit: cover; background: #f2f3f5; }
   #cl-hero .cl-rk b { margin-left: auto; font-weight: 700; }
   #cl-hero .cl-cd svg .ln { fill: none; stroke: #d9d9d9; stroke-width: 1.6; stroke-linejoin: round; stroke-dasharray: 1; }
+
+  /* patch-770: 창 하나 반응형 연출 (PC · 태블릿 해상도) — 창(.cl-pc) 가로가 1209 → 640 → 330 으로 줄며 배치가 바뀜 (.tb · .mo · 스크립트 cl-art) */
+  #cl-hero .cl-pc { z-index: 1; border: 0 solid #fff; transform-origin: 0 0; transition: border-radius .5s ease, border-width .5s ease, box-shadow .5s ease; }
+  /* patch-774: 폭이 줄면 창이 기기 모양으로 바뀜 (흰 베젤 · 둥근 모서리 · 그림자) + 스크립트가 확대하며 가운데로 옮김 (태블릿 1.1배 · 휴대폰 1.3배) */
+  #cl-hero .cl-pc.tb { border-width: calc(var(--u) * 10) calc(var(--u) * 10) 0; border-radius: calc(var(--u) * 30) calc(var(--u) * 30) 0 0; box-shadow: 0 0 0 1px #dcdee3, 0 calc(var(--u) * 20) calc(var(--u) * 50) rgba(16, 24, 40, .14); }
+  #cl-hero .cl-pc.mo { border-width: calc(var(--u) * 8) calc(var(--u) * 8) 0; border-radius: calc(var(--u) * 40) calc(var(--u) * 40) 0 0; box-shadow: 0 0 0 1px #dcdee3, 0 calc(var(--u) * 20) calc(var(--u) * 50) rgba(16, 24, 40, .14); }
+  #cl-hero .cl-sd { overflow: hidden; transition: width .45s cubic-bezier(.2, .8, .2, 1); }
+  #cl-hero .cl-mn { min-width: 0; }
+  #cl-hero .cl-kp, #cl-hero .cl-cd { min-width: 0; overflow: hidden; }
+  #cl-hero .cl-mh { display: none; position: relative; z-index: 1; flex: none; align-items: center; gap: calc(var(--u) * 8); height: calc(var(--u) * 44); padding: 0 calc(var(--u) * 14); background: #fff; }   /* 모바일 머리줄 */
+  #cl-hero .cl-mh svg { flex: none; width: calc(var(--u) * 18); height: calc(var(--u) * 18); color: #222; }
+  #cl-hero .cl-mh b { flex: 1; font-size: calc(var(--u) * 14.5); font-weight: 700; }
+  #cl-hero .cl-mh span { font-size: calc(var(--u) * 12); color: #888; }
+  #cl-hero .cl-mh i { display: grid; place-items: center; width: calc(var(--u) * 22); height: calc(var(--u) * 22); border-radius: 50%; background: #111; color: #fff; font-style: normal; font-size: calc(var(--u) * 10); font-weight: 800; }
+  /* 태블릿 배치: 모바일과 같은 머리줄 (왼쪽 메뉴 없음) · 숫자 카드 2개씩 · 그래프 2개씩 */
+  #cl-hero .cl-pc.tb { flex-direction: column; }   /* patch-772: 태블릿도 모바일과 같은 머리줄 · 왼쪽 메뉴 없음 */
+  #cl-hero .cl-pc.tb .cl-sd { display: none; }
+  #cl-hero .cl-pc.tb .cl-mh { display: flex; }
+  #cl-hero .cl-pc.tb .cl-mn { flex: none; padding: calc(var(--u) * 16); }
+  #cl-hero .cl-pc.tb .cl-kp { grid-column: span 3; }   /* patch-771: 태블릿 숫자 카드 2개씩 (실제 태블릿 화면) */
+  #cl-hero .cl-pc.tb .cl-cd { grid-column: span 3; }
+  /* 모바일 배치: 머리줄 · 카드 한 줄 */
+  #cl-hero .cl-pc.mo { flex-direction: column; }
+  #cl-hero .cl-pc.mo .cl-sd { display: none; }
+  #cl-hero .cl-pc.mo .cl-mh { display: flex; }
+  #cl-hero .cl-pc.mo .cl-mn { flex: none; padding: calc(var(--u) * 16); transition: transform .8s cubic-bezier(.4, 0, .2, 1); }
+  #cl-hero .cl-pc.mo .cl-kp, #cl-hero .cl-pc.mo .cl-cd { grid-column: span 6; }
+  #cl-hero .cl-pc.mo .cl-cd { height: calc(var(--u) * 250); }
+  @keyframes cl-settle { from { opacity: .35; transform: translateY(calc(var(--u) * 10)); } to { opacity: 1; transform: none; } }
+  /* 지나온 폭 점선 · 폭 표시 · 커서 */
+  #cl-hero .cl-cur { position: absolute; top: calc(var(--u) * 232); z-index: 4; display: grid; place-items: center; width: calc(var(--u) * 36); height: calc(var(--u) * 36); margin-left: calc(var(--u) * -18); border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(16, 24, 40, .06), 0 calc(var(--u) * 4) calc(var(--u) * 14) rgba(16, 24, 40, .18); color: #222; opacity: 0; transition: opacity .3s ease, transform .2s ease; pointer-events: none; }   /* patch-775: 커서 = 흰 원 손잡이 + 좌우 화살표 (검정 테두리 화살표 대신) */
+  #cl-hero .cl-cur svg { width: calc(var(--u) * 20); height: calc(var(--u) * 20); }
+  #cl-hero .cl-cur.on { opacity: 1; }
+  #cl-hero .cl-cur.down { transform: scale(.9); box-shadow: 0 0 0 calc(var(--u) * 5) rgba(16, 24, 40, .08), 0 calc(var(--u) * 4) calc(var(--u) * 14) rgba(16, 24, 40, .18); }   /* 끄는 동안 연한 회색 고리 · patch-776: 화살표 검정 */
+  @media (min-width: 768px) { #cl-hero .cl-ph { display: none; } }   /* PC · 태블릿은 창 하나로만 (휴대폰 겹치기 없음) */
+  /* patch-776: 모바일 단계 스크롤 = 터치 원(.cl-tap)이 화면을 누르고 위로 쓸어 올림 (스크롤과 같은 .8s) */
+  #cl-hero .cl-tap { position: absolute; left: calc(var(--u) * 700); top: calc(var(--u) * 360); z-index: 4; width: calc(var(--u) * 44); height: calc(var(--u) * 44); margin: calc(var(--u) * -22) 0 0 calc(var(--u) * -22); border-radius: 50%; background: rgba(34, 34, 34, .22); box-shadow: 0 0 0 calc(var(--u) * 2) rgba(255, 255, 255, .9), 0 calc(var(--u) * 4) calc(var(--u) * 12) rgba(16, 24, 40, .16); opacity: 0; transform: scale(1.3); transition: opacity .25s ease, transform .25s ease; pointer-events: none; }
+  #cl-hero .cl-tap.on { opacity: 1; transform: none; }
+  #cl-hero .cl-tap.mv { top: calc(var(--u) * 180); transition: top .8s cubic-bezier(.4, 0, .2, 1), opacity .25s ease .55s, transform .25s ease; opacity: 0; }
+  @media (max-width: 767px) { #cl-hero .cl-cur, #cl-hero .cl-fx, #cl-hero .cl-tap { display: none; } }
 
   /* 모바일 관리자 화면 (PC 에서는 오른쪽 아래 겹침) — --p = PC 1324 기준 1px */
   #cl-hero .cl-ph { position: absolute; right: calc(var(--u) * 56); bottom: 0; z-index: 2; width: calc(var(--u) * 294); height: calc(100cqw * 308 / 1324);   /* patch-766: 가로 20 줄임 · 안 내용 전체 0.94배 (--p 1324 → 1414) · 세로는 그대로 */  overflow: hidden;
@@ -254,9 +362,18 @@
   </div>
   <div class="cl-vis">
     <!-- [개발 전달] patch-746 히어로 비주얼 = HTML (기존 영상 2개 대신) · PC 대시보드 + 모바일 화면 · 모바일(≤767)은 모바일 화면만 -->
-    <div class="cl-art" role="img" aria-label="WISA 관리자 대시보드 화면 (PC · 모바일)">
+    <div class="cl-art" role="img" aria-label="WISA 관리자 대시보드 화면이 PC · 태블릿 · 모바일 폭으로 바뀌는 모습">
       <picture><source srcset="assets/geo/cloud/money-wings.webp" type="image/webp"><img class="cl-money" src="assets/geo/cloud/money-wings.gif" alt="" width="512" height="512"></picture>   <!-- 노토 애니메이션 이모지 1f4b8 (fonts.gstatic.com/s/e/notoemoji/latest/1f4b8/512.webp · .gif) -->
+      <!-- patch-776: 태블릿 · 모바일 단계 = 마케팅 히어로 알림(.sh-toast 규격 · 아이콘 + 두 줄) · 위치는 각 style -->
+      <div class="cl-fx cl-ts cl-ts-sale tb" style="left: calc(var(--u) * 68); top: calc(var(--u) * 132);" aria-hidden="true"><img class="cl-ts-lg cl-ts-pd" src="assets/geo/fashion/p-sweat.webp" alt=""><div><p><b>Logo sweat shirt</b><br>4개 판매되었습니다</p><small><i></i>356,000원 · 방금</small></div></div>   <!-- 매체 광고 히어로 신청 완료 알림(.ad-ht) 형태 · 상품 = 판매 순위 1위 -->
+      <div class="cl-fx cl-ms tb" style="left: calc(var(--u) * 1104); top: calc(var(--u) * 240);" aria-hidden="true"><b>이번 달 매출</b><strong>1.6<small>억</small></strong><span>▲ 12% 전월 대비</span><svg viewBox="0 0 160 40" preserveAspectRatio="none"><defs><linearGradient id="clMsG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d92d20" stop-opacity=".16"/><stop offset="1" stop-color="#d92d20" stop-opacity="0"/></linearGradient></defs><path d="M2 31 L24 30 L46 27 L68 29 L90 22 L112 20 L134 14 L156 7 V40 H2 Z" fill="url(#clMsG)"/><path d="M2 31 L24 30 L46 27 L68 29 L90 22 L112 20 L134 14 L156 7" fill="none" stroke="#d92d20" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="156" cy="7" r="3" fill="#d92d20"/></svg></div>   <!-- 매체 광고 히어로 이번 달 광고 수익률 카드(.ad-rs) 형태 · 증가 = Error 600 · 오른쪽 (판매 알림과 좌우 맞바꿈) -->
+      <div class="cl-fx cl-ts mo" style="left: calc(var(--u) * 200); top: calc(var(--u) * 70);" aria-hidden="true"><img class="cl-ts-lg" src="assets/common/brand/kakao.svg" alt=""><div><p><b>알림톡</b> 발송 완료</p><small><i></i>주문 고객 540명 · 방금</small></div></div>
+      <div class="cl-fx cl-rr mo" style="left: calc(var(--u) * 110); top: calc(var(--u) * 240);" aria-hidden="true"><b>모바일 구매율</b><strong>3.8<small>%</small><span>▲ 0.6%p</span></strong><svg viewBox="0 0 150 46"><defs><linearGradient id="clSpG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d92d20" stop-opacity=".16"/><stop offset="1" stop-color="#d92d20" stop-opacity="0"/></linearGradient></defs><path d="M2 40 L22 37 L42 38 L62 30 L82 27 L102 21 L122 15 L146 6 V46 H2 Z" fill="url(#clSpG)"/><path d="M2 40 L22 37 L42 38 L62 30 L82 27 L102 21 L122 15 L146 6" fill="none" stroke="#d92d20" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="146" cy="6" r="3.5" fill="#fff" stroke="#d92d20" stroke-width="2"/></svg></div>   <!-- CRM 히어로 90일 재구매율 카드(.cr-rr) 형태 -->
+      <div class="cl-fx cl-pl mo" style="left: calc(var(--u) * 1000); top: calc(var(--u) * 150);" aria-hidden="true"><b>결제 수단 연동<small>2개</small></b><ul><li><img src="assets/common/brand/naver.svg" alt="">네이버페이<em>연결됨</em></li><li><img src="assets/common/brand/toss-pay.svg" alt="">토스페이<em class="st"><span>연결 중</span><span>연결됨</span></em></li></ul></div>   <!-- 버티컬커머스 히어로 채널 입점 현황 카드(.vc-en) 형태 · 토스페이 연결 중 → 연결됨 · 카드 1.1배 -->
+      <div class="cl-cur" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 6 3.5 10l4 4M12.5 6l4 4-4 4"/></svg></div>   <!-- patch-775: 끌기 손잡이 -->
+      <div class="cl-tap" aria-hidden="true"></div>   <!-- patch-776: 모바일 스크롤 터치 원 -->
       <div class="cl-pc" aria-hidden="true">
+        <div class="cl-mh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg><b>부스터</b><span>내 사이트</span><i>W.</i></div>   <!-- 모바일 배치 머리줄 -->
         <aside class="cl-sd">
           <div class="cl-sd-hd"><span>부스터</span><i>«</i></div>
           <div class="cl-sd-bd">
@@ -283,53 +400,99 @@
           <div class="cl-ph-cd cl-mo-only"><p><i class="em">👀</i>방문<small>오늘</small></p><strong data-n="2096">2,096</strong><span>지난 7일 평균 대비<em class="up">▲ 22%</em></span></div>
           <div class="cl-ph-cd cl-mo-only"><p><i class="em">👤</i>가입<small>오늘</small></p><strong data-n="98">98</strong><span>지난 7일 평균 대비<em class="dn">▼ 10%</em></span></div>
           <div class="cl-ph-cd cl-mo-only"><p><i class="em">📦</i>주문<small>오늘</small></p><strong data-n="540">540</strong><span>지난 7일 평균 대비<em class="up">▲ 10%</em></span></div>   <!-- patch-762: 세 번째 카드 (아래 끝에서 잘림) -->
-          <div class="cl-ph-cd cl-pc-only"><p><i class="em">👀</i>방문<small>오늘</small></p><strong data-n="2096">2,096</strong><span>지난 7일 평균 대비<em class="up">▲ 22%</em></span></div>   <!-- patch-765: PC · 태블릿 휴대폰 = 실제 앱 화면 순서 전체 (KPI 6 → 방문 · 주문 현황 → 판매 순위 → 가입 · 매출 현황 → 장바구니 순위) -->
-          <div class="cl-ph-cd cl-pc-only"><p><i class="em">👤</i>가입<small>오늘</small></p><strong data-n="98">98</strong><span>지난 7일 평균 대비<em class="dn">▼ 10%</em></span></div>
-          <div class="cl-ph-cd cl-pc-only"><p><i class="em">📦</i>주문<small>오늘</small></p><strong data-n="540">540</strong><span>지난 7일 평균 대비<em class="up">▲ 10%</em></span></div>
-          <div class="cl-ph-cd cl-pc-only"><p><i class="em">💵</i>매출<small>오늘</small></p><strong data-n="5318200">5,318,200</strong><span>지난 7일 평균 대비<em class="up">▲ 10%</em></span></div>
-          <div class="cl-ph-cd cl-pc-only"><p><i class="em">⚠️</i>미처리 클레임<small>현재</small></p><strong data-n="2">2</strong><span>지난 7일 접수 클레임<b>11</b></span></div>
-          <div class="cl-ph-cd cl-pc-only"><p><i class="em">💬</i>답변대기<small>현재</small></p><strong data-n="3">3</strong><span>지난 7일 평균 답변시간<b>5분</b></span></div>
-          <div class="cl-ph-rk cl-ph-ch cl-pc-only"><p>방문 현황<span class="cl-tg"><i class="on">7일</i><i>30일</i></span></p><svg viewBox="0 0 186 99" aria-hidden="true"><line x1="24" x2="186" y1="8" y2="8"/><text x="0" y="11">200</text><line x1="24" x2="186" y1="43.5" y2="43.5"/><text x="0" y="46.5">100</text><line x1="24" x2="186" y1="79" y2="79"/><text x="0" y="82">0</text><rect x="28.37" y="59.1" width="7.26" height="19.9" fill="#8c74e0"/><rect x="28.37" y="37.8" width="7.26" height="21.3" fill="#769ddf"/><rect x="28.37" y="18.7" width="7.26" height="19.1" rx="2" fill="#76bedf"/><rect x="53.07" y="69.1" width="7.26" height="9.9" fill="#8c74e0"/><rect x="53.07" y="48.4" width="7.26" height="20.7" fill="#769ddf"/><rect x="53.07" y="29.3" width="7.26" height="19.1" rx="2" fill="#76bedf"/><rect x="77.67" y="59.1" width="7.26" height="19.9" fill="#8c74e0"/><rect x="77.67" y="48.4" width="7.26" height="10.6" fill="#769ddf"/><rect x="77.67" y="28.5" width="7.26" height="19.9" rx="2" fill="#76bedf"/><rect x="102.37" y="59.1" width="7.26" height="19.9" fill="#8c74e0"/><rect x="102.37" y="37.8" width="7.26" height="21.3" fill="#769ddf"/><rect x="102.37" y="18.7" width="7.26" height="19.1" rx="2" fill="#76bedf"/><rect x="127.07" y="63.4" width="7.26" height="15.6" fill="#8c74e0"/><rect x="127.07" y="43.5" width="7.26" height="19.9" fill="#769ddf"/><rect x="127.07" y="29.3" width="7.26" height="14.2" rx="2" fill="#76bedf"/><rect x="151.67" y="59.1" width="7.26" height="19.9" fill="#8c74e0"/><rect x="151.67" y="37.8" width="7.26" height="21.3" fill="#769ddf"/><rect x="151.67" y="18.7" width="7.26" height="19.1" rx="2" fill="#76bedf"/><rect x="176.37" y="59.1" width="7.26" height="19.9" fill="#8c74e0"/><rect x="176.37" y="39.9" width="7.26" height="19.1" fill="#769ddf"/><rect x="176.37" y="23.3" width="7.26" height="16.7" rx="2" fill="#76bedf"/><text x="32" y="96" text-anchor="middle">1일</text><text x="56.7" y="96" text-anchor="middle">2일</text><text x="81.3" y="96" text-anchor="middle">3일</text><text x="106" y="96" text-anchor="middle">4일</text><text x="130.7" y="96" text-anchor="middle">5일</text><text x="155.3" y="96" text-anchor="middle">6일</text><text x="180" y="96" text-anchor="middle">7일</text><path d="M32,33.2 L56.7,38.6 L81.3,34.7 L106,39.9 L130.7,38.1 L155.3,41 L180,39.2"/></svg><ul class="cl-ph-lg"><li><i style="background:#76bedf"></i>앱</li><li><i style="background:#769ddf"></i>모바일</li><li><i style="background:#8c74e0"></i>PC</li><li><i></i>지난 7일 평균</li></ul></div>
-          <div class="cl-ph-rk cl-ph-ch cl-pc-only"><p>주문 현황<span class="cl-tg"><i class="on">7일</i><i>30일</i></span></p><svg viewBox="0 0 186 99" aria-hidden="true"><line x1="24" x2="186" y1="8" y2="8"/><text x="0" y="11">200</text><line x1="24" x2="186" y1="43.5" y2="43.5"/><text x="0" y="46.5">100</text><line x1="24" x2="186" y1="79" y2="79"/><text x="0" y="82">0</text><rect x="28.37" y="48.4" width="7.26" height="30.6" fill="#769ddf"/><rect x="28.37" y="18.7" width="7.26" height="29.8" rx="2" fill="#76bedf"/><rect x="53.07" y="58.8" width="7.26" height="20.2" fill="#769ddf"/><rect x="53.07" y="38.9" width="7.26" height="19.9" rx="2" fill="#76bedf"/><rect x="77.67" y="68" width="7.26" height="11" fill="#769ddf"/><rect x="77.67" y="48.9" width="7.26" height="19.1" rx="2" fill="#76bedf"/><rect x="102.37" y="48.4" width="7.26" height="30.6" fill="#769ddf"/><rect x="102.37" y="18.7" width="7.26" height="29.8" rx="2" fill="#76bedf"/><rect x="127.07" y="58.8" width="7.26" height="20.2" fill="#769ddf"/><rect x="127.07" y="44.3" width="7.26" height="14.6" rx="2" fill="#76bedf"/><rect x="151.67" y="48.4" width="7.26" height="30.6" fill="#769ddf"/><rect x="151.67" y="18.7" width="7.26" height="29.8" rx="2" fill="#76bedf"/><rect x="176.37" y="58.8" width="7.26" height="20.2" fill="#769ddf"/><rect x="176.37" y="43.5" width="7.26" height="15.3" rx="2" fill="#76bedf"/><text x="32" y="96" text-anchor="middle">1일</text><text x="56.7" y="96" text-anchor="middle">2일</text><text x="81.3" y="96" text-anchor="middle">3일</text><text x="106" y="96" text-anchor="middle">4일</text><text x="130.7" y="96" text-anchor="middle">5일</text><text x="155.3" y="96" text-anchor="middle">6일</text><text x="180" y="96" text-anchor="middle">7일</text><path d="M32,48.4 L56.7,54.5 L81.3,50.6 L106,56.3 L130.7,54.2 L155.3,57.3 L180,56.3"/></svg><ul class="cl-ph-lg"><li><i style="background:#76bedf"></i>앱</li><li><i style="background:#769ddf"></i>모바일</li><li><i></i>지난 7일 평균</li></ul></div>
-          <div class="cl-ph-rk cl-pc-only"><p>판매 순위<span class="cl-tg"><i class="off">어제</i><i class="on">오늘</i><i>한달</i></span></p><ul><li><img src="assets/geo/fashion/sweat-grey-w.webp" alt=""><span>top grey</span><b data-n="126">126</b></li><li><img src="assets/geo/fashion/knit-navy-w.webp" alt=""><span>Mock neck knit</span><b data-n="43">43</b></li><li><img src="assets/geo/fashion/p-tote.webp" alt=""><span>Leo bag latte</span><b data-n="36">36</b></li><li><img src="assets/geo/fashion/p-cap.webp" alt=""><span>Ball cap ivory</span><b data-n="27">27</b></li></ul></div>
-          <div class="cl-ph-rk cl-ph-ch cl-pc-only"><p>가입 현황<span class="cl-tg"><i class="on">7일</i><i>30일</i></span></p><svg viewBox="0 0 186 99" aria-hidden="true"><line x1="24" x2="186" y1="8" y2="8"/><text x="0" y="11">200</text><line x1="24" x2="186" y1="43.5" y2="43.5"/><text x="0" y="46.5">100</text><line x1="24" x2="186" y1="79" y2="79"/><text x="0" y="82">0</text><rect x="28.37" y="69" width="7.26" height="10" fill="#8c74e0"/><rect x="28.37" y="50.6" width="7.26" height="18.4" fill="#769ddf"/><rect x="28.37" y="39.3" width="7.26" height="11.3" rx="2" fill="#76bedf"/><rect x="53.07" y="70.2" width="7.26" height="8.9" fill="#8c74e0"/><rect x="53.07" y="53.5" width="7.26" height="16.7" fill="#769ddf"/><rect x="53.07" y="42.8" width="7.26" height="10.6" rx="2" fill="#76bedf"/><rect x="77.67" y="68" width="7.26" height="11" fill="#8c74e0"/><rect x="77.67" y="48.1" width="7.26" height="19.9" fill="#769ddf"/><rect x="77.67" y="35.3" width="7.26" height="12.8" rx="2" fill="#76bedf"/><rect x="102.37" y="71.2" width="7.26" height="7.8" fill="#8c74e0"/><rect x="102.37" y="55.6" width="7.26" height="15.6" fill="#769ddf"/><rect x="102.37" y="45.6" width="7.26" height="10" rx="2" fill="#76bedf"/><rect x="127.07" y="68.7" width="7.26" height="10.3" fill="#8c74e0"/><rect x="127.07" y="49.5" width="7.26" height="19.2" fill="#769ddf"/><rect x="127.07" y="37.8" width="7.26" height="11.7" rx="2" fill="#76bedf"/><rect x="151.67" y="69.8" width="7.26" height="9.2" fill="#8c74e0"/><rect x="151.67" y="52" width="7.26" height="17.8" fill="#769ddf"/><rect x="151.67" y="41" width="7.26" height="11" rx="2" fill="#76bedf"/><rect x="176.37" y="70.8" width="7.26" height="8.2" fill="#8c74e0"/><rect x="176.37" y="54.8" width="7.26" height="15.9" fill="#769ddf"/><rect x="176.37" y="44.2" width="7.26" height="10.6" rx="2" fill="#76bedf"/><text x="32" y="96" text-anchor="middle">1일</text><text x="56.7" y="96" text-anchor="middle">2일</text><text x="81.3" y="96" text-anchor="middle">3일</text><text x="106" y="96" text-anchor="middle">4일</text><text x="130.7" y="96" text-anchor="middle">5일</text><text x="155.3" y="96" text-anchor="middle">6일</text><text x="180" y="96" text-anchor="middle">7일</text><path d="M32,40.3 L56.7,40.6 L81.3,39.6 L106,41 L130.7,39.9 L155.3,40.3 L180,40.6"/></svg><ul class="cl-ph-lg"><li><i style="background:#76bedf"></i>앱</li><li><i style="background:#769ddf"></i>모바일</li><li><i style="background:#8c74e0"></i>PC</li><li><i></i>지난 7일 평균</li></ul></div>
-          <div class="cl-ph-rk cl-ph-ch cl-pc-only"><p>매출 현황<span class="cl-tg"><i class="on">7일</i><i>30일</i></span></p><svg viewBox="0 0 186 99" aria-hidden="true"><line x1="24" x2="186" y1="8" y2="8"/><text x="0" y="11">200</text><line x1="24" x2="186" y1="43.5" y2="43.5"/><text x="0" y="46.5">100</text><line x1="24" x2="186" y1="79" y2="79"/><text x="0" y="82">0</text><rect x="28.37" y="44.9" width="7.26" height="34.1" fill="#8c74e0"/><rect x="28.37" y="29.3" width="7.26" height="15.6" rx="2" fill="#76bedf"/><rect x="53.07" y="54.2" width="7.26" height="24.8" fill="#8c74e0"/><rect x="53.07" y="37.2" width="7.26" height="17" rx="2" fill="#76bedf"/><rect x="77.67" y="42.1" width="7.26" height="36.9" fill="#8c74e0"/><rect x="77.67" y="25.8" width="7.26" height="16.4" rx="2" fill="#76bedf"/><rect x="102.37" y="47.8" width="7.26" height="31.2" fill="#8c74e0"/><rect x="102.37" y="32.1" width="7.26" height="15.6" rx="2" fill="#76bedf"/><rect x="127.07" y="36.4" width="7.26" height="42.6" fill="#8c74e0"/><rect x="127.07" y="20" width="7.26" height="16.4" rx="2" fill="#76bedf"/><rect x="151.67" y="32.1" width="7.26" height="46.9" fill="#8c74e0"/><rect x="151.67" y="15.1" width="7.26" height="17" rx="2" fill="#76bedf"/><rect x="176.37" y="39.9" width="7.26" height="39.1" fill="#8c74e0"/><rect x="176.37" y="23" width="7.26" height="17" rx="2" fill="#76bedf"/><text x="32" y="96" text-anchor="middle">1일</text><text x="56.7" y="96" text-anchor="middle">2일</text><text x="81.3" y="96" text-anchor="middle">3일</text><text x="106" y="96" text-anchor="middle">4일</text><text x="130.7" y="96" text-anchor="middle">5일</text><text x="155.3" y="96" text-anchor="middle">6일</text><text x="180" y="96" text-anchor="middle">7일</text><path d="M32,33.6 L56.7,39.2 L81.3,31.5 L106,36.4 L130.7,28.5 L155.3,25.8 L180,30.1"/></svg><ul class="cl-ph-lg"><li><i style="background:#76bedf"></i>앱</li><li><i style="background:#8c74e0"></i>PC</li><li><i></i>지난 7일 평균</li></ul></div>
-          <div class="cl-ph-rk cl-ph-cart cl-pc-only"><p>장바구니 순위<span class="cl-tg"><i class="off">어제</i><i class="on">오늘</i><i>한달</i></span></p><ul><li><img src="assets/geo/fashion/p-sweat.webp" alt=""><span>Logo sweat shirt</span><b data-n="88">88</b></li><li><img src="assets/geo/fashion/polo-wine-sl.webp" alt=""><span>Polo shirt wine</span><b data-n="64">64</b></li><li><img src="assets/geo/fashion/p-cap-green.webp" alt=""><span>Ball cap green</span><b data-n="51">51</b></li><li><img src="assets/geo/fashion/rw-tote2.webp" alt=""><span>Canvas tote bag</span><b data-n="39">39</b></li></ul></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 <script>
-/* @region cl-art (patch-746 · 763) : 화면에 들어오면 .go
-   PC · 태블릿: PC 숫자 · 막대 (1.5초) → 휴대폰 올라옴 (1.9초 뒤) → 휴대폰 숫자 → 휴대폰 안 단계 스크롤 (카드 하나씩 0.8초 이동 · 2초 멈춤 · 끝나면 맨 위로)
-   모바일: 숫자 카운트 업 → 방문 수 3초마다 오름 (기존) */
+/* @region cl-art (patch-746 · 770) : 화면에 들어오면 .go
+   PC · 태블릿 해상도: PC 숫자 · 막대 → 창 하나 반응형 연출 반복
+     PC 2.5초 → 커서가 창 오른쪽 끝을 끌어 태블릿 폭(1.4초 · 1440 → 768) → 2초 → 모바일 폭(1.2초 · 768 → 390) → 카드 스크롤 2번 → 다시 PC 폭(1.6초) → 3초
+     배치는 표시 폭이 1024px · 768px(1400 기준 1000 · 636)  아래로 내려갈 때 바뀌고, 그 순간 카드가 차례로 살짝 내려앉으며 나타남 (cl-settle)
+   모바일 해상도: 휴대폰 화면 숫자 카운트 업 → 방문 수 3초마다 오름 (기존) */
 (() => {
   const art = document.querySelector('#cl-hero .cl-art'); if (!art) return;
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches, pc = () => matchMedia('(min-width: 768px)').matches;
   const nums = [...art.querySelectorAll('[data-n]')], fmt = n => Math.round(n).toLocaleString('en-US');
   const phNums = nums.filter(el => el.closest('.cl-ph')), pcNums = nums.filter(el => !el.closest('.cl-ph'));
   const count = (list, dur) => { const t0 = performance.now(); const step = t => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); list.forEach(el => el.textContent = fmt(el.dataset.n * e)); if (k < 1) requestAnimationFrame(step); }; requestAnimationFrame(step); };
-  const visits = nums.filter(el => el.dataset.n === '2096' && el.closest('.cl-ph'));
-  const live = () => setInterval(() => { if (document.hidden || pc()) return; const n = +visits[0].dataset.n + 1 + Math.floor(Math.random() * 3); visits.forEach(el => { el.dataset.n = n; el.textContent = fmt(n); el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }); }, 3000);
-  // 휴대폰 안 단계 스크롤 (PC · 태블릿만)
-  const ph = art.querySelector('.cl-ph'), hd = art.querySelector('.cl-ph-hd'), bd = art.querySelector('.cl-ph-bd');
-  let at = 0;
-  const stops = () => { const cards = [...bd.children].filter(c => c.offsetParent), top0 = cards[0].offsetTop, max = Math.max(0, bd.offsetHeight - (ph.clientHeight - hd.offsetHeight));
-    return [...new Set(cards.map(c => Math.round(Math.min(c.offsetTop - top0, max))))]; };
-  const scroll = () => {
-    if (!pc()) { bd.style.transform = ''; at = 0; return setTimeout(scroll, 3000); }
-    if (document.hidden) return setTimeout(scroll, 1000);
-    const st = stops(); at = (at + 1) % st.length;
-    bd.style.transition = 'transform ' + (at ? '.8s' : '1.2s') + ' cubic-bezier(.4, 0, .2, 1)';
-    bd.style.transform = 'translateY(' + -st[at] + 'px)';
-    setTimeout(scroll, at ? 2800 : 3400);
+  const visits = phNums.filter(el => el.dataset.n === '2096');
+  const live = () => setInterval(() => { if (document.hidden || pc() || !visits[0]) return; const n = +visits[0].dataset.n + 1 + Math.floor(Math.random() * 3); visits.forEach(el => { el.dataset.n = n; el.textContent = fmt(n); el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }); }, 3000);
+
+  // 창 하나 반응형 연출
+  const win = art.querySelector('.cl-art > .cl-pc'), mn = win.querySelector('.cl-mn'), cur = art.querySelector('.cl-cur'), tap = art.querySelector('.cl-tap');
+  const cards = [...win.querySelectorAll('.cl-kp, .cl-cd')];
+  const W = { pc: 1209, tb: 640, mo: 330 };
+  let mode = 'pc', w = W.pc;
+  const flip = next => {   // 배치가 바뀌는 순간 카드가 차례로 살짝 내려앉으며 나타남 (크기가 툭 바뀌는 것을 가림)
+    win.classList.toggle('tb', next === 'tb'); win.classList.toggle('mo', next === 'mo'); mode = next;
+    art.classList.toggle('nm', next !== 'pc'); art.classList.remove('st-tb', 'st-mo');   // patch-776: 폭이 바뀌면 날개 돈 · 앞 단계 주변 요소를 숨기고, 새 단계 주변 요소는 기기가 다 바뀐 뒤(끌기 끝) 나타남
+    cards.forEach((c, i) => { c.style.animation = 'none'; void c.offsetWidth; c.style.animation = 'cl-settle .45s cubic-bezier(.2, .8, .2, 1) ' + i * 30 + 'ms both'; });
+  };
+  const setW = v => {
+    w = v;
+    // patch-774: 작아질수록 확대 (PC 1 → 태블릿 1.1 → 휴대폰 1.3) · 늘 박스 가운데 (700)
+    const k = v >= W.pc ? 1 : v >= W.tb ? 1 + (W.pc - v) / (W.pc - W.tb) * .1 : 1.1 + (W.tb - v) / (W.tb - W.mo) * .2;
+    win.style.width = 'calc(var(--u) * ' + v + ')';
+    win.style.transform = 'translateX(calc(var(--u) * ' + (605 - v * k / 2) + ')) scale(' + k + ')';
+    cur.style.left = 'calc(var(--u) * ' + (700 + v * k / 2) + ')';
+    const next = v < 636 ? 'mo' : v < 1000 ? 'tb' : 'pc';   // 실제 기준과 같게: 1024px 아래 태블릿 · 768px 아래 모바일
+    if (next !== mode) flip(next);
+  };
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  let gen = 0;   // patch-777: gen 이 바뀌면 진행 중인 자동 재생 · 끌기를 멈춤
+  const alive = g => g === gen;
+  const drag = (to, dur, g = gen) => new Promise(done => {
+    const from = w, t0 = performance.now();
+    win.classList.add('drag'); cur.classList.add('down');
+    const end = () => { win.classList.remove('drag'); cur.classList.remove('down'); done(); };
+    const step = t => { if (!alive(g)) return end(); const k = Math.min(1, (t - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; setW(from + (to - from) * e);
+      if (k < 1) requestAnimationFrame(step); else end(); };
+    requestAnimationFrame(step);
+  });
+  const scrollMn = n => { mn.style.transform = n ? 'translateY(calc(var(--u) * ' + -n + '))' : ''; };
+  const swipe = async (n, g) => {   // patch-776: 터치 원이 누름 → 위로 쓸며 스크롤 → 손 뗌
+    tap.classList.remove('mv'); tap.classList.add('on'); await wait(300);
+    if (!alive(g)) { tap.classList.remove('on', 'mv'); return; }
+    tap.classList.add('mv'); scrollMn(n); await wait(800); tap.classList.remove('on', 'mv');
+  };
+  // patch-777: 단계 이동 = 앞 단계 주변 요소 숨김 → 기기 바뀜 → 0.2초 뒤 새 주변 요소
+  const go = async (st, dur, g) => {
+    art.classList.remove('st-tb', 'st-mo'); if (st === 'pc') art.classList.add('back');
+    await drag(W[st], dur, g); art.classList.remove('back');
+    if (!alive(g)) return false;
+    if (st !== 'pc') { await wait(200); if (!alive(g)) return false; art.classList.add('st-' + st); }
+    return true;
+  };
+  const reset = () => { art.classList.remove('back', 'st-tb', 'st-mo'); scrollMn(0); setW(W.pc); cur.classList.remove('on'); tap.classList.remove('on', 'mv'); };
+  const show = async () => {   // 커서 나타남 → 끌기 → 사라짐
+    cur.classList.add('on'); await wait(350);
+  };
+  const loop = async (g = gen) => {
+    for (;;) {
+      if (!alive(g)) return;
+      if (!pc()) { reset(); await wait(1000); continue; }
+      if (document.hidden) { await wait(1000); continue; }
+      // patch-776: 커서는 단계마다 사라지지 않고 계속 기기 오른쪽 끝에 붙어 있음 · patch-777: 단계마다 멈춤 확인(alive)
+      await show();
+      if (mode !== 'pc') { scrollMn(0); if (!await go('pc', 1600, g)) return; await wait(2400); if (!alive(g)) return; }
+      if (!await go('tb', 1400, g)) return;
+      await wait(2400); if (!alive(g)) return;   // patch-778: 태블릿 머무는 시간 1.8 → 2.4초 (PC 와 같게)
+      if (!await go('mo', 1200, g)) return;
+      await wait(700); if (!alive(g)) return;
+      await swipe(393, g); await wait(900); if (!alive(g)) return;
+      await swipe(786, g); await wait(1000); if (!alive(g)) return;
+      scrollMn(0); await wait(1000); if (!alive(g)) return;
+      if (!await go('pc', 1600, g)) return;   // 돌아갈 때는 태블릿 주변 요소를 건너뜀
+      await wait(2050);   // patch-778: PC 머무는 시간 3 → 2.4초 (+ 다음 바퀴 커서 0.35초)
+    }
   };
   if (still) { art.classList.add('go'); return; }
   nums.forEach(el => el.textContent = '0');
   const io = new IntersectionObserver(es => { if (!es[0].isIntersecting) return; io.disconnect(); art.classList.add('go');
-    if (pc()) { count(pcNums, 1500); setTimeout(() => count(phNums, 900), 2500); setTimeout(scroll, 4800); setTimeout(live, 4800); }
-    else { count(nums, 1100); setTimeout(live, 1800); setTimeout(scroll, 4800); }
+    if (pc()) { count(pcNums, 1500); phNums.forEach(el => el.textContent = fmt(el.dataset.n)); setW(W.pc); setTimeout(live, 1800); setTimeout(loop, 2500); }   // patch-778: PC 로 연 뒤 창을 줄여도 휴대폰 숫자가 0 으로 남지 않게
+    else { count(nums, 1100); setTimeout(live, 1800); setTimeout(loop, 2500); }
   }, { threshold: .35 });
   io.observe(art);
 })();
@@ -402,23 +565,11 @@
 
 <!-- 시안 히스토리 (검토용): 버전을 추가하려면 아래 data-items 배열에 한 줄 추가 -->
 <div class="vh" id="vh" data-items='[
-  {"date":"2026.11.05","name":"GEO · 1차 시안 · A타입 · PC","url":"https://claude.ai/artifact/4LZUmy9ApoWSMSFLUcUsDy"},
-  {"date":"2026.11.05","name":"GEO · 1차 시안 · B타입 · PC","url":"https://claude.ai/artifact/3sfjKYuEzi7qtqyaKGBFQr"},
-  {"date":"2026.11.05","name":"GEO · 수정시안 · PC","url":"https://claude.ai/artifact/6TNu6nhnpLqjw4D3UHjFCb"},
-  {"date":"2026.11.06","name":"GEO · 반응형 시안(PC/TB/MO)","url":"geo.html"},
-  {"date":"2026.11.07","name":"온사이트마케팅 · 1차 시안 · PC","url":"onsite.html"},
-  {"date":"2026.11.08","name":"CRM마케팅 · 1차 시안 · PC","url":"crm.html"},
-  {"date":"2026.11.09","name":"리포트 · 1차 시안 · PC","url":"report.html"},
-  {"date":"2026.11.10","name":"공식채널운영 · 1차 시안 · PC","url":"sns-ops.html"},
-  {"date":"2026.11.11","name":"상품DB 연동 · 1차 시안 · PC","url":"shopping-feed-v1.html"},
-  {"date":"2026.11.11","name":"상품DB 연동 · 수정시안 · PC","url":"shopping-feed.html"},
-  {"date":"2026.11.12","name":"버티컬커머스 · 1차 시안 · PC","url":"vertical-commerce.html"},
   {"date":"2026.11.13","name":"솔루션 비교 · 수정시안 · PC","url":"comparison.html"},
-  {"date":"2026.11.13","name":"매체 광고 · 1차 시안 · PC","url":"media-ads.html"},
-  {"date":"2026.11.16","name":"GEO · 요금제 추가 시안(PC/TB/MO)","url":"geo-price.html"},
-  {"date":"2026.11.26","name":"Cloud 비주얼 · 1차 시안(PC/TB/MO)","url":"cloud.html","current":true}
+  {"date":"2026.11.26","name":"Cloud 비주얼 · 1차 시안(PC/TB/MO)","url":"cloud-v1.html"},
+  {"date":"2026.11.27","name":"Cloud 비주얼 · 수정시안(PC/TB/MO)","url":"cloud.html","current":true}
 ]'>
-  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>GEO · 온사이트 · CRM 최신 시안은 이 창에서 바로 전환되고, 지난 시안(아티팩트)은 새 탭에서 열립니다.</p><ol class="vh-list"></ol></div>
+  <div class="vh-pn" role="dialog" aria-label="시안 히스토리"><b>시안 히스토리</b><p>솔루션 비교 · 부스터 Cloud 시안은 이 창에서 바로 전환됩니다.</p><ol class="vh-list"></ol></div>
   <button type="button" class="vh-btn" aria-expanded="false"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/></svg>시안 히스토리<em></em></button>
 </div>
 <script>
@@ -780,5 +931,25 @@
   /* @endregion host-tabs */
 </script>
 /* vw-enter → assets/common/wisa.js (patch-172) */
+<script>
+/* @region version-history (patch-779): 시안 히스토리 패널 — 이 페이지는 공통 wisa.js 를 안 쓰므로 공통 wisa.js version-history 와 같은 코드를 그대로 넣음 */
+(() => {
+  const root = document.getElementById('vh'); if (!root) return;
+  let items = []; try { items = JSON.parse(root.dataset.items); } catch (e) { return; }
+  const list = root.querySelector('.vh-list'), btn = root.querySelector('.vh-btn');
+  let li = null, last = null;   /* patch-700: 같은 날짜(연달아 있는 항목)는 날짜 1번 + 그 아래 시안 카드 여러 개 */
+  items.forEach(it => { if (!li || it.date !== last) { li = document.createElement('li'); last = it.date;
+    const t = document.createElement('time'); const dm = /^(\d{4})\.(\d{1,2})\.(\d{1,2})$/.exec(it.date || ''); t.textContent = dm ? it.date + ' (' + '일월화수목금토'[new Date(+dm[1], dm[2] - 1, +dm[3]).getDay()] + ')' : it.date; if (dm) t.dateTime = dm[1] + '-' + dm[2].padStart(2, '0') + '-' + dm[3].padStart(2, '0'); li.appendChild(t); list.appendChild(li); }   /* patch-212: 날짜 옆에 항상 요일 (data-items 에는 날짜만 · 요일은 자동 계산) */
+    if (it.current) { li.classList.add('cur'); const sp = document.createElement('span'); sp.className = 'vh-now'; sp.textContent = it.name; const i = document.createElement('i'); i.textContent = '현재 시안'; sp.appendChild(i); li.appendChild(sp); }
+    else { const a = document.createElement('a'); a.href = it.url; if (/^https?:/.test(it.url)) { a.target = '_blank'; a.rel = 'noopener'; } a.textContent = it.name; li.appendChild(a); } /* patch-163 저장소 안 시안(웹 주소)은 같은 창에서 전환, 아티팩트는 새 탭 */
+  });
+  btn.querySelector('em').textContent = items.length;
+  const set = o => { root.classList.toggle('open', o); btn.setAttribute('aria-expanded', o); };
+  btn.addEventListener('click', e => { e.stopPropagation(); set(!root.classList.contains('open')); });
+  document.addEventListener('click', e => { if (!root.contains(e.target)) set(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
+})();
+/* @endregion */
+</script>
 </body>
 </html>
