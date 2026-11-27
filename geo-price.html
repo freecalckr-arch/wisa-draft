@@ -16,7 +16,7 @@
 <link rel="icon" href="assets/common/favicon.ico">
 <link rel="stylesheet" href="assets/common/wisa.css?v=794">
 <link rel="stylesheet" href="assets/common/badge.css?v=472">   <!-- patch-472: 공통 뱃지 -->
-<link rel="stylesheet" href="assets/common/plan.css?v=795">   <!-- patch-506: 요금 카드 공통 부품 -->
+<link rel="stylesheet" href="assets/common/plan.css?v=797">   <!-- patch-506: 요금 카드 공통 부품 -->
 <link rel="stylesheet" href="assets/common/chart.css?v=730">
 <style>
   /* =====================================================================
@@ -200,8 +200,7 @@
   .gp-ai img + img { margin-left: -6px; }
   /* patch-508 모바일: 라인 탭 + 가로 스와이프 (PC 에서는 탭 숨김) · patch-518 태블릿(768~1023)도 같은 방식 (4장 한 줄이 좁음) */
   .gp-tabs, .gp-clone { display: none; }
-  /* patch-512 · 513 추천 표시: 카드 위 테두리 가운데 검정 알약(plan.css is-rec) 앞에 엄지 이모지(Noto Animated Emoji 1f44d · assets/geo/emoji) · PC · 태블릿 · 모바일 같은 자리 */
-  .gp-list .pc.is-rec::before { padding: 0 12px 0 28px; background: url("assets/geo/emoji/thumbs-up.webp") 8px center / 16px no-repeat, var(--gray-900); }   /* 복사본 카드(.gp-clone)는 모바일 무한 반복용 */
+  /* patch-512 · 513 추천 표시 엄지 이모지 → patch-797 공통 plan.css is-rec 로 옮김 */
   @media (max-width: 1023px) {
     .gp-tabs { display: flex; justify-content: center; gap: 18px; margin-bottom: 20px; }   /* 피그마 WISA 리뉴얼-2026 tab-line 작은 크기: 가운데 정렬 · 사이 18 · 바닥선 없음 (patch-509) */
     .gp-tabs .tabline { padding: 10px 0 16px; font-size: 14px; line-height: 20px; }   /* 기본 Gray 400 500 · 선택 Black 600 + 글자 폭 밑줄 3 Black (공통 .tabline) */
