@@ -231,7 +231,7 @@ if (pnav) {
     <div class="tbl"><table><thead><tr><th></th><th>항목</th><th>바뀌는 것</th><th>대상</th></tr></thead><tbody>
 <tr><td><span class="num">1</span></td><td><b>창업 · 맞춤 패키지</b></td><td>히어로 = 마케팅 · 호스팅 공통 히어로 (페이지 전환 탭 · 키워드 교체 카피) · 창업 패키지 카드 = 요금 카드 공통 부품 · 맞춤 패키지 선택 요소 = 공통 체크박스 · 라디오</td><td><a href="https://www.wisa.co.kr/build/package">build/package</a></td></tr>
 <tr><td><span class="num">2</span></td><td><b>푸터 도메인 메뉴 아이콘</b></td><td>도메인 등록 · 연장 · 관리 이름 옆에 바깥 이동 아이콘(↗)</td><td>모든 페이지 푸터</td></tr>
-<tr><td><span class="num">3</span></td><td><b>메인 쇼핑몰 타입 이미지</b></td><td>“어떤 쇼핑몰이든, 부스터 하나로” 카드 이미지 8장 2배(780 × 640) 파일 추가 + srcset</td><td>메인 <code>.rn-mt-pic</code></td></tr>
+<tr><td><span class="num">3</span></td><td><b>메인 쇼핑몰 타입 이미지</b></td><td>“어떤 쇼핑몰이든, 부스터 하나로” 카드 이미지 8장 2배(780 × 640) 파일로 교체</td><td>메인 <code>.rn-mt-pic</code></td></tr>
 </tbody></table></div>
 
     <h2 id="fix-package">1. 창업 · 맞춤 패키지</h2>
@@ -281,7 +281,7 @@ if (pnav) {
     <p class="note">시안 코드 위치: <code>assets/common/wisa.css</code> <code>ft-ext</code> (patch-794).</p>
 
     <h2 id="fix-malltype">3. 메인 쇼핑몰 타입 이미지</h2>
-    <p>메인 “어떤 쇼핑몰이든, 부스터 하나로” 카드 이미지(<code>/assets/img/main/malltype/main-malltype-*.png</code> 8장)는 원본이 <b>390 × 320 (1배)</b> 입니다. 화면에는 376 × 300 으로 보여, 화면 배율이 1보다 큰 모니터 · 노트북(125 · 150 · 200%) · 휴대폰에서는 늘려 그려져 흐리게 보입니다. 이미지 안 상품명 · 가격 · 버튼 글자가 작아 특히 뭉개집니다.</p>
+    <p>메인 “어떤 쇼핑몰이든, 부스터 하나로” 카드 이미지(<code>/assets/img/main/malltype/main-malltype-*.png</code> 8장)는 원본이 <b>390 × 320 (1배)</b> 입니다. 화면에는 376 × 300 칸에 줄여 그려져 배율 100% 모니터에서도 글자가 번지고, 화면 배율이 1보다 큰 모니터 · 노트북(125 · 150 · 200%) · 휴대폰에서는 늘려 그려져 더 흐리게 보입니다. 이미지 안 상품명 · 가격 · 버튼 글자가 작아 특히 뭉개집니다.</p>
     <h3>1배 · 2배 비교 (2배 크기로 확대)</h3>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1100px">
       <figure style="margin:0"><img src="../assets/main/malltype/main-malltype-brand.png" alt="기존 1배" style="display:block;width:100%;border-radius:12px;border:1px solid var(--gray-200)"><figcaption class="note">기존 1배 (390 × 320) — 늘려 그려져 글자 · 선이 번짐</figcaption></figure>
@@ -289,7 +289,7 @@ if (pnav) {
     </div>
     <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>기존</th><th>신규</th></tr></thead><tbody>
 <tr><td>파일 크기</td><td>390 × 320 PNG</td><td><b>780 × 640 PNG (2배)</b> · 같은 구도 · 같은 바탕색(#f2f4f7)</td></tr>
-<tr><td>파일 이름</td><td><code>main-malltype-이름.png</code></td><td>기존 파일은 그대로 두고 <b><code>main-malltype-이름@2x.png</code></b> 추가</td></tr>
+<tr><td>파일 이름</td><td><code>main-malltype-이름.png</code></td><td><b><code>main-malltype-이름@2x.png</code></b> (기존 1배 파일은 더 쓰지 않음)</td></tr>
 <tr><td>표시 크기</td><td>376 × 300</td><td>그대로 (CSS 변경 없음)</td></tr>
 </tbody></table></div>
     <h3>파일 (8장 · 받아서 기존 폴더 <code>/assets/img/main/malltype/</code> 에 넣음)</h3>
@@ -304,11 +304,10 @@ if (pnav) {
 <tr><td>모바일인앱</td><td><a href="../assets/main/malltype/main-malltype-inapp@2x.png" download>main-malltype-inapp@2x.png</a></td><td>main-malltype-inapp.png</td></tr>
 </tbody></table></div>
     <h3>바꿀 코드</h3>
-    <p>이미지 태그에 <code>srcset</code> 한 줄만 더합니다. 화면 배율이 1.5 이상이면 브라우저가 2배 파일을 고릅니다.</p>
-    <div class="code"><button type="button" data-copy="c-mt">복사</button><pre id="c-mt">&lt;img class="rn-mt-pic" src="/assets/img/main/malltype/main-malltype-brand.png"
-     srcset="/assets/img/main/malltype/main-malltype-brand@2x.png 2x"
+    <p>이미지 주소만 2배 파일로 바꿉니다. 모든 화면(배율 100% 포함)에서 2배 파일을 줄여 그려 글자가 또렷합니다. 표시 크기 · CSS 는 그대로입니다.</p>
+    <div class="code"><button type="button" data-copy="c-mt">복사</button><pre id="c-mt">&lt;img class="rn-mt-pic" src="/assets/img/main/malltype/main-malltype-brand@2x.png"
      width="390" height="320" alt="브랜드형 쇼핑몰 화면" loading="lazy"&gt;</pre></div>
-    <p class="note">8장 모두 같은 방식 (이름만 바꿈). 용량을 더 줄이려면 같은 2배 파일을 WebP 로 바꿔 <code>&lt;picture&gt;</code> 로 넣어도 됩니다 (선택).</p>
+    <p class="note">8장 모두 같은 방식 (이름만 바꿈). 파일 용량은 장당 80~380KB 입니다. 더 줄이려면 같은 2배 파일을 WebP 로 바꿔 넣어도 됩니다 (선택).</p>
 </section>
     <p class="foot">마지막 수정 2026-11-27 · 기존 값은 wisa.co.kr 화면에서 잰 값입니다. 신규 값이 바뀌면 이 페이지와 각 시안 HTML 맨 위 [개발 전달] 주석을 같이 고칩니다.</p>
   </div>
