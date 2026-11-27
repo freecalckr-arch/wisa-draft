@@ -40,6 +40,8 @@
   @media (min-width: 768px) and (max-width: 1023px) { #pk-start, #pk-custom { padding-top: 60px; } }
   @media (max-width: 767px) { #pk-start, #pk-custom { padding-top: 40px; } }
   [data-pane][hidden] { display: none !important; }
+  /* 규칙 사이트 "페이지에서 보기"(package.html#site-footer)로 열면 푸터만 보임 (검토용 · 개발 구현 대상 아님) */
+  body:has(> #site-footer:target) > :not(#site-footer) { display: none !important; }
 
   /* 히어로 키워드 아이콘 타일 (호스팅 .pv-ki 와 같은 규격 · 키워드마다 팔레트 색 1개) */
   #geo-hero .pv-ki { flex: none; display: inline-grid; place-items: center; width: .82em; height: .82em; border-radius: .24em; color: var(--white); }
@@ -388,7 +390,7 @@
   </div>
 </div>
 <!-- @region footer : PC 4단 / 태블릿·모바일 아코디언 -->
-<footer class="footer">
+<footer class="footer" id="site-footer">
   <div class="container ft-top">
     <div class="ft-brand rv-mo">
       <img src="assets/common/logo.svg" alt="WISA" width="75" height="20">
