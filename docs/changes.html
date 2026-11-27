@@ -235,6 +235,30 @@ if (pnav) {
 </tbody></table></div>
 
     <h2 id="fix-package">1. 창업 · 맞춤 패키지</h2>
+    <p><b>히어로 · 페이지 전환 탭</b> (키워드 2.4초마다 교체 · 탭을 누르면 흰 알약이 미끄러짐)</p>
+    <div class="live" data-src="../package.html" data-sel="#geo-hero .sh-copy" data-m="24" data-ws="1440,820,390" data-href="../package.html"></div>
+    <div class="tbl"><table class="spec"><thead><tr><th>항목</th><th>기존</th><th>신규</th></tr></thead><tbody>
+<tr><td>바탕 · 배치</td><td>하늘색 바탕 · 타이틀 → 설명 → 탭 순서</td><td><b>흰 바탕</b> · <b>탭 → 타이틀 → 설명</b> 순서 (마케팅 · 호스팅 히어로와 같은 배치 · 가운데 정렬)</td></tr>
+<tr><td>페이지 전환 탭</td><td>창업 패키지 · 맞춤 패키지 회색 알약 탭 <code>.tab_package</code></td><td>마케팅 · 호스팅과 같은 탭 — 크기 · 색은 기존 탭 그대로, 선택 표시만 바뀜: 흰 알약이 옆 탭으로 미끄러지고(0.28초) 글자는 제자리 · 선택 탭 왼쪽 점 8 Primary 600 · 처음 열릴 때 점에서 연한 블루 링 3번 퍼짐 (<a href="#tab=페이지 전환 탭">페이지 전환 탭</a> 코드 그대로)</td></tr>
+<tr><td>탭 동작</td><td>같은 페이지 안 내용 전환</td><td>같음 (페이지 이동 없음) · 알약이 다 움직인 뒤(0.3초) 히어로 문장과 아래 내용을 함께 바꿈 · 주소 끝 <code>#start</code> · <code>#custom</code> 으로 바로 열 수 있게</td></tr>
+<tr><td>타이틀</td><td>“창업·맞춤 패키지” 한 줄</td><td><b>창업</b>: “[키워드]부터 운영까지 / 한 번에 준비하는 <em>창업 패키지</em>” · 키워드 교체 2.4초 (전환 0.6초 · 아래에서 위로) 솔루션 → 쇼핑몰 디자인 → PG 결제 → 관리자 교육 · 키워드 앞 아이콘 타일(글자의 0.82배 · 모서리 0.24em) · 마지막 단어 그라데이션 글자 <code>.gt</code><br><b>맞춤</b>: “필요한 구성만 골라 / 할인가로 시작하는 <em>맞춤 패키지</em>” (교체 없음)</td></tr>
+<tr><td>글자 크기</td><td>-</td><td>마케팅 히어로 h1 과 같음 (PC 50 · 줄 1.3 / 모바일 30) · 설명 마케팅 히어로 설명과 같음</td></tr>
+<tr><td>줄바꿈</td><td>-</td><td>PC · 태블릿 2줄 · 모바일 3줄 (창업 “[키워드]부터 / 운영까지 한 번에 / 준비하는 창업 패키지” · 가장 긴 키워드 기준 360 에서도 3줄)</td></tr>
+</tbody></table></div>
+    <div class="code"><button type="button" data-copy="c-pk-hero">복사</button><pre id="c-pk-hero">&lt;nav class="tab-page" aria-label="패키지"&gt;
+  &lt;a href="#start" class="on" aria-current="page"&gt;&lt;i aria-hidden="true"&gt;&lt;/i&gt;창업 패키지&lt;/a&gt;
+  &lt;a href="#custom"&gt;맞춤 패키지&lt;/a&gt;
+&lt;/nav&gt;
+&lt;h1&gt;&lt;span class="ai-roll"&gt;&lt;span class="ai-roll-in"&gt;
+    &lt;span&gt;&lt;i class="pv-ki k0"&gt;(아이콘)&lt;/i&gt;솔루션부터&lt;/span&gt;
+    &lt;span&gt;&lt;i class="pv-ki k1"&gt;(아이콘)&lt;/i&gt;쇼핑몰 디자인부터&lt;/span&gt;
+    &lt;span&gt;&lt;i class="pv-ki k2"&gt;(아이콘)&lt;/i&gt;PG 결제부터&lt;/span&gt;
+    &lt;span&gt;&lt;i class="pv-ki k3"&gt;(아이콘)&lt;/i&gt;관리자 교육부터&lt;/span&gt;
+  &lt;/span&gt;&lt;/span&gt; 운영까지&lt;br&gt; 한 번에 준비하는 &lt;em class="gt"&gt;창업 패키지&lt;/em&gt;&lt;/h1&gt;
+
+/* 키워드 아이콘 타일 색: k0 Primary 600 · k1 Indigo 500 #6172f3 · k2 Purple 500 #7a5af8 · k3 Success 500 #12b76a */</pre></div>
+    <p class="note">탭 · 키워드 교체 스크립트와 스타일은 마케팅 · 호스팅에 이미 구현한 것과 같습니다 (시안 공통 <code>wisa.css</code> · <code>wisa.js</code> <code>tab-ind</code> · 각 페이지 <code>geo-hero-ai</code>). 탭을 누른 뒤 내용 교체는 <code>package.html</code> <code>pk-pane</code> (patch-795).</p>
+    <p><b>창업 패키지 카드</b></p>
     <div class="live" data-src="../package.html" data-sel="#pk-start .pc-list" data-m="24" data-ws="1440,820,390"></div>
     <p>시안: <a href="../package.html">창업 패키지</a> · <a href="../package.html#custom">맞춤 패키지</a> (각 HTML 맨 위 [개발 전달] 주석에 전체 규격)</p>
     <div class="tbl"><table class="spec"><thead><tr><th>영역</th><th>신규</th></tr></thead><tbody>
