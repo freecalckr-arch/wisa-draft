@@ -95,24 +95,78 @@
     <div class="tbl"><table><thead><tr><th>차수</th><th>전달일</th><th>포함 페이지</th><th>바뀐 내용</th><th>상태</th></tr></thead><tbody>
 <tr><td>1차 전달</td><td>2026.11.16 (월)</td><td>라이선스 비교</td><td>최초 전달 (마케팅 1차와 같은 zip)</td><td><span class="tag ok">전달</span></td></tr>
 <tr><td>2차 전달</td><td>2026.11.26 (목)</td><td>라이선스 비교</td><td>마케팅 공통 수정 반영 (마케팅 3차와 같은 zip) · <a href="https://drive.google.com/drive/folders/1ReA_GxzkMtCzg7osTRweEDEd56irwfLb" target="_blank" rel="noopener">드라이브 폴더</a> (03_호스팅1차전달)</td><td><span class="tag ok">전달</span></td></tr>
-<tr><td>다음 전달</td><td>-</td><td>Cloud 비주얼 반응형</td><td>-</td><td><span class="tag">전달 전</span></td></tr>
+<tr><td>3차 전달</td><td>2026.11.27 (금)</td><td>Cloud 비주얼 반응형</td><td>최초 전달 · 부스터 Cloud 히어로 비주얼 (영상 → HTML 화면) · <a href="#cloud-visual">해상도별 구현</a></td><td><span class="tag ok">전달</span></td></tr>
 </tbody></table></div>
 
     <h2 id="pages-solution">페이지</h2>
     <div class="tbl"><table><thead><tr><th>구분</th><th>페이지</th><th>파일</th><th>최신 시안</th><th>마지막 수정 번호</th></tr></thead><tbody>
 <tr><td rowspan="2">기존 페이지 개선</td><td>라이선스 비교 (솔루션 비교)</td><td><a href="../comparison.html" target="_blank" rel="noopener">comparison.html</a></td><td>2026.11.13 (금) · 수정시안</td><td><span class="num">patch-612</span></td></tr>
-<tr><td>Cloud 비주얼 반응형 표현 (부스터 Cloud 히어로)</td><td><a href="../cloud.html" target="_blank" rel="noopener">cloud.html</a></td><td>2026.11.27 (금) · 수정시안</td><td><span class="num">patch-744 · 793</span></td></tr>
+<tr><td>Cloud 비주얼 반응형 표현 (부스터 Cloud 히어로)</td><td><a href="../cloud.html" target="_blank" rel="noopener">cloud.html</a></td><td>2026.11.27 (금) · 수정시안 (컨펌)</td><td><span class="num">patch-744 · 793</span></td></tr>
 </tbody></table></div>
 
     <h2 id="files-solution">파일 구조</h2>
     <div class="tbl"><table><thead><tr><th>경로</th><th>내용</th></tr></thead><tbody>
 <tr><td><code>comparison.html</code></td><td>라이선스 비교 시안 · 페이지 전용 CSS(<code>&lt;style&gt;</code>) · 스크립트 포함 (맨 위 <code>[개발 전달]</code> 주석에 수정 기록)</td></tr>
-<tr><td><code>cloud.html</code></td><td>부스터 Cloud 히어로 비주얼 시안 · 기존 PC 영상 위에 기존 모바일 영상을 휴대폰 화면으로 겹침 (맨 위 <code>[개발 전달]</code> 주석 · <code>@region cl-ph</code>) · 히어로 위 부분은 기존 홈페이지 재현</td></tr>
+<tr><td><code>cloud.html</code></td><td>부스터 Cloud 히어로 비주얼 시안 · 기존 영상 2개(PC · 모바일)를 대신하는 HTML 관리자 화면 (<code>@region cl-art</code> · 맨 위 <code>[개발 전달]</code> 주석 · <a href="#cloud-visual">해상도별 구현</a>) · 히어로 위 부분은 기존 홈페이지 재현</td></tr>
+<tr><td><code>assets/geo/cloud/</code></td><td>Cloud 비주얼 이모지 (날개 돈 <code>money-wings</code> · 눈 <code>eyes</code>)</td></tr>
 <tr><td><code>assets/common/wisa.css</code> · <code>wisa.js</code></td><td>마케팅 페이지와 같은 공통 스타일 · 스크립트</td></tr>
 <tr><td><code>assets/common/plan.css</code></td><td>요금 카드 공통 부품 (<a href="plan.html">요금 카드</a>)</td></tr>
 <tr><td><code>assets/common/badge.css</code></td><td>공통 뱃지 (<a href="tag.html#badge">태그 · 뱃지</a>)</td></tr>
 <tr><td><code>assets/geo/beauty/</code> · <code>assets/geo/crm-pf/</code></td><td>성장 경로 화면 이미지 · 프로필</td></tr>
 </tbody></table></div>
+    <h2 id="cloud-visual">Cloud 비주얼 · 해상도별 구현</h2>
+    <p>기존 <a href="https://www.wisa.co.kr/solution/cloud" target="_blank" rel="noopener">solution/cloud</a> 히어로의 영상 2개(PC · 모바일)를 HTML 화면(<code>.cl-art</code>)으로 바꿉니다. 히어로 탭 · 문구 · 버튼은 기존 그대로 두고, 버튼 아래 비주얼 칸만 교체합니다. 소스는 <code>cloud.html</code> 의 <code>@region cl-art</code>(스타일 · 스크립트)와 <code>.cl-vis</code> 마크업입니다.</p>
+    <div class="live" data-src="../cloud.html" data-sel="#cl-hero .cl-vis" data-m="24"></div>
+
+    <h3>해상도별 크기 · 보이는 것</h3>
+    <div class="tbl"><table class="spec"><thead><tr><th>해상도</th><th>비주얼 칸</th><th>그리는 기준 · 축소</th><th>보이는 것</th></tr></thead><tbody>
+<tr><td>PC <span class="num">≥1440</span></td><td>가로 = 화면 − 100 (최대 1400) · 비율 1400:460 · 모서리 34 · 버튼 아래 69<br><span class="num">1440 → 1340×440</span></td><td rowspan="3">1400×460 으로 그린 그림 전체를 칸 폭에 맞춰 같은 비율로 축소<br><code>--u</code> = 칸 폭 ÷ 1400 (모든 크기 · 글자 · 간격에 곱함)</td><td rowspan="3">PC 관리자 창(<code>.cl-pc</code>) 하나 + 커서 · 왼쪽 위 날개 돈 이모지 · 단계별 주변 카드 (태블릿 단계 = 판매 알림 · 이번 달 매출 / 모바일 단계 = 알림톡 · 모바일 구매율 · 결제 수단 연동)<br>창이 PC → 태블릿 → 모바일 배치로 바뀌는 반응형 연출이 반복됩니다</td></tr>
+<tr><td>PC 최소 <span class="num">1024~1439</span></td><td>위와 같음 · 버튼 아래 69<br><span class="num">1100 → 1000×329</span></td></tr>
+<tr><td>태블릿 <span class="num">768~1023</span></td><td>위와 같음 · 버튼 아래 50<br><span class="num">820 → 720×237</span></td></tr>
+<tr><td>모바일 <span class="num">≤767</span></td><td>가로 = 화면 꽉 · 비율 900:720 (기존 모바일 영상과 같은 세로) · 버튼 아래 50<br>파란 박스 = 좌우 60 안쪽(900 기준) · 모서리 50<br><span class="num">390 → 390×312</span></td><td>900×720 기준 위치 · 휴대폰 화면 안 글자 · 카드는 <code>--p</code> = 칸 폭 ÷ 480</td><td>휴대폰 관리자 화면(<code>.cl-ph</code> · 폭 560 · 아래 끝 잘림) 하나 + 날개 돈 이모지 · 터치 원<br>PC 창 · 커서 · 주변 카드는 숨김</td></tr>
+</tbody></table></div>
+    <p class="note">크기 단위는 컨테이너 쿼리 단위(<code>cqw</code>)입니다. <code>.cl-vis</code> 에 <code>container-type: inline-size</code> 가 있어야 <code>--u</code> · <code>--p</code> 가 칸 폭 기준으로 계산됩니다. 가로를 % · vw 로 바꾸거나 해상도별로 다시 배치하지 않습니다 (안쪽 글자 · 간격이 틀어짐).</p>
+
+    <h3>움직임 · PC · PC 최소 · 태블릿 (≥768)</h3>
+    <div class="tbl"><table class="spec"><thead><tr><th>순서</th><th>움직임</th><th>시간</th></tr></thead><tbody>
+<tr><td>등장</td><td>화면에 35% 들어오면 시작 · 숫자 카운트 업 · 막대가 아래에서 차오르고 꺾은선이 그려짐</td><td>1.5초</td></tr>
+<tr><td>① PC</td><td>커서(흰 원 + 파란 좌우 화살표)가 창 오른쪽 끝에 나타남</td><td>0.35초</td></tr>
+<tr><td>② 태블릿</td><td>커서가 끌며 창 가로 1209 → 640 (1400 기준) · 가로 1000 아래에서 태블릿 배치로 바뀜(머리줄 · 숫자 카드 2개씩 · 흰 베젤 10 · 모서리 30 · 1.1배 확대 · 박스 가운데) · 카드가 차례로 살짝 내려앉음 · 0.2초 뒤 태블릿 주변 카드</td><td>끌기 1.4초 · 머묾 2.4초</td></tr>
+<tr><td>③ 모바일</td><td>창 가로 640 → 330 · 636 아래에서 모바일 배치(카드 한 줄 · 베젤 8 · 모서리 40 · 1.3배) · 0.2초 뒤 모바일 주변 카드 · 결제 수단 연동 카드는 나타나고 1.4초 뒤 "연결 중 → 연결됨"</td><td>끌기 1.2초</td></tr>
+<tr><td>④ 모바일 스크롤</td><td>터치 원이 화면을 누르고 위로 쓸어 올림 2번 (393 · 786 · 1400 기준) → 맨 위로</td><td>누름 0.3초 · 이동 0.8초 · 사이 0.9 · 1초</td></tr>
+<tr><td>⑤ PC 로 돌아감</td><td>창 330 → 1209 (태블릿 주변 카드는 건너뜀) → ① 부터 반복</td><td>끌기 1.6초 · 머묾 2.4초 · 한 바퀴 약 17초</td></tr>
+</tbody></table></div>
+
+    <h3>움직임 · 모바일 (≤767)</h3>
+    <div class="tbl"><table class="spec"><thead><tr><th>순서</th><th>움직임</th><th>시간</th></tr></thead><tbody>
+<tr><td>등장</td><td>휴대폰 화면이 아래에서 올라옴 · KPI 숫자 카운트 업 · 방문 수는 3초마다 1~3 오름</td><td>0.9초 · 숫자 1.1초</td></tr>
+<tr><td>① 대시보드</td><td>맨 위(KPI 방문 · 가입 · 주문) 머묾</td><td>2.4초</td></tr>
+<tr><td>② 스크롤 5번</td><td>터치 원이 쓸어 올림 → 주문 KPI → 미처리 클레임 → 방문 현황 → 주문 현황 → 판매 순위 (멈출 때 카드 윗면이 머리줄 아래 간격 10 에 맞음 · 마지막은 판매 순위 아래 가입 현황 카드 윗면 28 만 보임)</td><td>누름 0.3초 · 이동 0.8초 · 멈춤 1.1초</td></tr>
+<tr><td>③ 상품 누름</td><td>터치 원이 판매 순위 1위(top grey) 줄을 누름 · 누른 줄 회색 바탕</td><td>0.55초</td></tr>
+<tr><td>④ 개별판매분석</td><td>개별판매분석 화면(<code>.cl-st</code>)이 휴대폰 위에 제자리 페이드 · 매출 · 주문 막대가 아래에서 차오름 · 뒤 대시보드는 맨 위로 돌려 둠</td><td>페이드 0.6초</td></tr>
+<tr><td>⑤ 실시간 줄</td><td>상품 카드 구분선 아래 "👀 지금 232명이 이 상품을 보고 있어요" 줄이 펼쳐짐 (높이 0 → 40) · 눈 이모지 한 번 깜빡이고 멈춤 · 숫자는 고정</td><td>펼침 0.45초 · 눈 1.355초 · 머묾 4.8초</td></tr>
+<tr><td>⑥ 처음으로</td><td>개별판매분석 화면 페이드 아웃 → 대시보드 맨 위 → ① 부터 반복</td><td>0.7초 · 한 바퀴 약 21초</td></tr>
+</tbody></table></div>
+
+    <h3>공통 동작 규칙</h3>
+    <ul class="list">
+      <li>창 크기를 바꾸면 해상도 기준(768)에 맞는 연출로 바로 넘어갑니다. PC 로 연 뒤 모바일 폭으로 줄여도 휴대폰 숫자가 0 으로 남지 않습니다.</li>
+      <li>브라우저 탭이 숨겨지면 자동 재생을 멈췄다가 돌아오면 이어서 돕니다.</li>
+      <li>동작 줄이기(<code>prefers-reduced-motion</code>)에서는 움직임 없이 PC = 처음 PC 화면, 모바일 = 대시보드 맨 위 화면만 보입니다 (커서 · 터치 원 · 실시간 줄 숨김).</li>
+      <li>스크립트가 붙이는 클래스로 모양이 바뀝니다. 이름을 바꾸면 CSS 도 같이 바꿉니다: <code>.cl-art.go</code>(시작) · <code>.st-tb</code> · <code>.st-mo</code>(단계 주변 카드) · <code>.nm</code> · <code>.back</code> · <code>.cl-pc.tb</code> · <code>.cl-pc.mo</code> · <code>.drag</code> · <code>.cl-cur.on</code> · <code>.down</code> · <code>.cl-tap</code> / <code>.cl-ph-tap</code> <code>.on</code> · <code>.mv</code> · <code>.cl-st.on</code> · <code>.grow</code> · <code>.cl-st-pd.live</code> · <code>li.pr</code>.</li>
+      <li>눈 이모지는 애니메이션 파일(<code>eyes.webp</code>)을 한 번 불러 두고, 줄이 나올 때마다 새 blob 주소로 넣어 첫 프레임부터 재생한 뒤 1.355초 뒤 멈춘 그림(<code>eyes.svg</code>)으로 바꿉니다.</li>
+    </ul>
+
+    <h3>쓰는 파일</h3>
+    <div class="tbl"><table><thead><tr><th>파일</th><th>내용</th></tr></thead><tbody>
+<tr><td><code>cloud.html</code> <code>@region cl-art</code></td><td>비주얼 스타일 · 스크립트 · 마크업 (<code>.cl-vis</code> 안 전체)</td></tr>
+<tr><td><code>assets/common/wisa.css</code></td><td>색 변수(<code>--primary-600</code> · <code>--gray-*</code> 등) · Pretendard · 토스 이모지 폰트(Tossface · jsdelivr) · 둥둥 애니메이션 <code>heroBob</code> · 실시간 점 <code>rpLive</code></td></tr>
+<tr><td><code>assets/geo/cloud/money-wings.webp</code> · <code>.gif</code></td><td>날개 돈 (노토 애니메이션 이모지 1f4b8 · gif 는 webp 미지원 브라우저용)</td></tr>
+<tr><td><code>assets/geo/cloud/eyes.webp</code> · <code>eyes.svg</code></td><td>실시간 줄 눈 (노토 애니메이션 이모지 1f440 · svg = 멈춘 그림)</td></tr>
+<tr><td><code>assets/geo/fashion/</code> 상품 사진 8개</td><td>판매 순위 · 장바구니 순위 · 판매 알림 · 개별판매분석 상품 (sweat-grey-w · knit-navy-w · p-tote · p-cap · p-sweat · polo-wine-sl · p-cap-green · rw-tote2)</td></tr>
+<tr><td><code>assets/common/brand/</code></td><td>결제 수단 연동 카드 로고 (naver · kakao · toss-pay)</td></tr>
+</tbody></table></div>
+    <p class="note">관리자 화면 안 색(바탕 #d2e9ff · 대시보드 바탕 #eef0f4 · 막대 #8c74e0 · #769ddf · #76bedf · 증감 #e75055 · #749edd)은 실제 부스터 관리자 화면 고유색이라 팔레트 예외입니다. 화면 안 숫자 · 상품명 · 날짜 · 개별판매분석 판매가(39,800) · 그래프 수치는 예시 데이터입니다. 히어로 위 탭 · 문구 · 버튼 · 헤더 · 푸터 · 시안 히스토리는 확인용 재현이라 구현하지 않습니다.</p>
     </section>
 
     <section class="panel" data-tab="소스 쓰는 법">
@@ -133,9 +187,10 @@
     <p>시안 히스토리 버튼(<code>#vh</code>)과 그 스크립트(히어로 위 탭의 최신 시안 연결 <code>tab-latest</code> 포함) · 시안 점검 스크립트 · 규칙 사이트 디자인 메뉴는 시안 확인용입니다 (<a href="index.html#draft-only">구현하지 않는 시안 전용 코드</a>).</p>
     </section>
 
-    <p class="foot">마지막 수정 2026-11-25 · 마케팅 3차 · 호스팅 1차 전달 기준입니다. 다음 전달 때 전달 이력 · 페이지 표를 고칩니다.</p>
+    <p class="foot">마지막 수정 2026-11-27 · 마케팅 3차 · 호스팅 1차 · 솔루션 3차(Cloud 비주얼) 전달 기준입니다. 다음 전달 때 전달 이력 · 페이지 표를 고칩니다.</p>
   </div>
 </main>
+<script src="assets/live.js"></script>
 <script src="assets/docs.js"></script>
 </body>
 </html>
